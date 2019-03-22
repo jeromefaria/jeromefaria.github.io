@@ -30,3 +30,11 @@ github:
 plugins:
   - jekyll-paginate
   - jekyll-gist
+
+# Navigation
+navigation:
+  - name: Blog
+    url: /
+  - name: About
+    url: /about
+
