@@ -38,3 +38,11 @@ navigation:
   - name: About
     url: /about
 
+# Social
+social:
+  - name: twitter
+    handle: jeromefaria
+  - name: github
+    handle: jeromefaria
+  - name: instagram
+    handle: jeromefaria
