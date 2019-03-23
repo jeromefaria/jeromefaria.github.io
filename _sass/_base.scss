@@ -35,11 +35,12 @@ body {
 a {
   color: $link-color;
   text-decoration: none;
+  transition: .2s ease-in-out opacity;
 
   // `:focus` is linked to `:hover` for basic accessibility
   &:hover,
   &:focus {
-    text-decoration: underline;
+    opacity: .6;
   }
 
   strong {

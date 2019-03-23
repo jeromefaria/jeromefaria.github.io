@@ -23,6 +23,13 @@
         <small>
           &copy; <time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time> Jerome Faria
         </small>
+        <div class="social">
+          {% for social in site.social %}
+          <a href="https://{{ social.name }}.com/{{ social.handle }}" target="_blank">
+            <i class="fab fa-{{ social.name }}"></i>
+          </a>
+          {% endfor %}
+        </div>
       </footer>
     </div>
 
