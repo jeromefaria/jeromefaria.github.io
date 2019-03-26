@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Hello, world!
-comments: true
 ---
 
 It is not uncommon to start a new year with the misconception that it is a clean slate, but is a new calendar really all that it takes to engage in major changes?
