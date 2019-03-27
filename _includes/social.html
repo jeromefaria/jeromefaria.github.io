@@ -1,0 +1,9 @@
+{% if site.social %}
+<div class="social">
+  {% for social in site.social %}
+  <a href="https://{{ social.name }}.com/{{ social.handle }}" target="_blank">
+    <i class="fab fa-{{ social.name }}"></i>
+  </a>
+  {% endfor %}
+</div>
+{% endif %}
