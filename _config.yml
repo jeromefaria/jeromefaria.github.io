@@ -31,6 +31,8 @@ github:
 plugins:
   - jekyll-paginate
   - jekyll-gist
+  - jekyll-feed
+  - jekyll-sitemap
 
 # Navigation
 navigation:
@@ -44,6 +46,4 @@ social:
   - name: twitter
     handle: jeromefaria
   - name: github
-    handle: jeromefaria
-  - name: instagram
     handle: jeromefaria
