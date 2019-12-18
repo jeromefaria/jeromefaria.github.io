@@ -1,5 +1,5 @@
 # Permalinks
-permalink: pretty
+permalink: /blog/:year/:month/:day/:title/
 
 # Setup
 title: Jerome Faria
@@ -36,10 +36,12 @@ plugins:
 
 # Navigation
 navigation:
+  - name: Home
+    url: /
   - name: About
     url: /about
   - name: Blog
-    url: /
+    url: /blog
 
 # Social
 social:
