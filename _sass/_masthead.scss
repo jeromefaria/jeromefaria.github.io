@@ -7,7 +7,7 @@
   padding-bottom: 1rem;
   margin-bottom: 3rem;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .masthead-title {
@@ -15,6 +15,12 @@
   margin-bottom: 0;
   color: $gray-4;
   flex: 1;
+
+  h3 {
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+  }
 
   a {
     color: inherit;
