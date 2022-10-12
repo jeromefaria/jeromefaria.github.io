@@ -3,7 +3,7 @@ permalink: /blog/:year/:month/:day/:title/
 
 # Setup
 title: Jerome Faria
-tagline: Front End Engineer
+tagline:
 url: http://jeromefaria.com
 paginate: 1
 baseurl: ""
