@@ -1,67 +1,29 @@
-// Code
+// Code — minimal styling
 
 code,
 pre {
   font-family: $font-mono;
 }
 
-// Inline code
 code {
-  padding: 0.2em 0.4em;
-  font-size: 0.875em;
+  padding: 0.125rem 0.25rem;
+  font-size: $font-size-sm;
   color: var(--color-code-text);
   background-color: var(--color-code-bg);
-  border-radius: $radius-sm;
 }
 
-// Code blocks
 pre {
-  margin: $spacing-6 0;
+  margin-top: 0;
+  margin-bottom: $spacing-4;
   padding: $spacing-4;
   overflow-x: auto;
   font-size: $font-size-sm;
-  line-height: 1.5;
+  line-height: $line-height-base;
   background-color: var(--color-code-bg);
-  border-radius: $radius-md;
 
   code {
     padding: 0;
-    font-size: inherit;
     color: inherit;
     background-color: transparent;
-    border-radius: 0;
   }
-}
-
-// Syntax highlighting container
-.highlight {
-  margin: $spacing-6 0;
-  border-radius: $radius-md;
-  overflow: hidden;
-
-  pre {
-    margin: 0;
-    border-radius: 0;
-  }
-
-  .lineno {
-    display: inline-block;
-    padding-right: $spacing-4;
-    padding-left: $spacing-2;
-    color: var(--color-text-muted);
-    user-select: none;
-  }
-}
-
-// Language label (optional)
-.highlight[data-lang]::before {
-  content: attr(data-lang);
-  display: block;
-  padding: $spacing-2 $spacing-4;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-medium;
-  color: var(--color-text-muted);
-  background-color: var(--color-border);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
