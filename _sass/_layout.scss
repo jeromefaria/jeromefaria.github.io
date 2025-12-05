@@ -82,3 +82,92 @@ footer {
     }
   }
 }
+
+// Release item — two column layout (details left, image right)
+.release {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-4;
+  margin-bottom: $spacing-10;
+
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: 1fr 200px;
+    gap: $spacing-6;
+  }
+
+  img,
+  iframe {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    display: block;
+    order: -1;
+
+    @media (min-width: $breakpoint-md) {
+      order: 1;
+    }
+  }
+
+  iframe {
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+
+
+  .release-details {
+    order: 1;
+
+    @media (min-width: $breakpoint-md) {
+      order: -1;
+    }
+
+    p {
+      margin-bottom: $spacing-2;
+    }
+
+    // Release title
+    p:first-child {
+      strong {
+        font-size: $font-size-lg;
+        color: var(--color-text);
+      }
+    }
+
+    // Format/label/year line
+    .release-meta {
+      font-size: $font-size-sm;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: $letter-spacing-wide;
+      margin-bottom: $spacing-3;
+    }
+
+    // Description
+    .release-description {
+      font-size: $font-size-base;
+      line-height: $line-height-relaxed;
+      color: var(--color-text-secondary);
+    }
+
+    // Tracklist
+    ol {
+      margin-top: $spacing-4;
+      margin-bottom: 0;
+      padding-left: $spacing-5;
+      font-size: $font-size-sm;
+      color: var(--color-text-muted);
+
+      li {
+        margin-bottom: $spacing-1;
+        line-height: $line-height-base;
+      }
+    }
+
+    // Credits
+    .release-credits {
+      margin-top: $spacing-3;
+      font-size: $font-size-xs;
+      color: var(--color-text-muted);
+    }
+  }
+}
