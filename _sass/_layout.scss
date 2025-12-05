@@ -197,3 +197,31 @@ footer {
     line-height: $line-height-base;
   }
 }
+
+// Live page styling — chronological, archival
+.page[data-page="live"] {
+  // Year headings with visual separation
+  h2 {
+    margin-top: $spacing-12;
+    padding-top: $spacing-6;
+    border-top: 1px solid var(--color-border-subtle);
+
+    &:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+  }
+
+  // Event titles — uniform size
+  .release-details p:first-child strong {
+    font-size: $font-size-base;
+  }
+
+  // Venue — softer styling
+  .release-meta {
+    text-transform: none;
+    letter-spacing: normal;
+    font-style: italic;
+  }
+}
