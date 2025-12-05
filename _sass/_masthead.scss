@@ -1,24 +1,31 @@
-// Header / Masthead
+// Masthead — institutional, utilitarian
 
 .masthead {
+  padding: $spacing-6 $spacing-5;
+  border-bottom: 1px solid var(--color-border);
+
+  @media (min-width: $breakpoint-md) {
+    padding: $spacing-6 $spacing-8;
+  }
+}
+
+.masthead-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: $spacing-6 0;
-  border-bottom: 1px solid var(--color-border);
+  gap: $spacing-4;
+  width: 100%;
 }
 
 .masthead-title {
   margin: 0;
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-normal;
+  letter-spacing: $letter-spacing-wider;
+  text-transform: uppercase;
 
   a {
     color: var(--color-text);
-
-    &:hover {
-      color: var(--color-link);
-    }
   }
 }
 
@@ -26,21 +33,23 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: $spacing-2;
+  gap: $spacing-4;
+
+  @media (min-width: $breakpoint-md) {
+    gap: $spacing-5;
+  }
 }
 
 .nav-link {
-  padding: $spacing-2 $spacing-3;
   font-size: $font-size-sm;
-  font-weight: $font-weight-medium;
-  color: var(--color-text-secondary);
-  border-radius: $radius-md;
-  transition: color $transition-fast, background-color $transition-fast;
+  letter-spacing: $letter-spacing-wide;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  transition: color $transition-fast;
 
   &:hover,
   &.active {
     color: var(--color-text);
-    background-color: var(--color-bg-secondary);
   }
 }
 
@@ -49,25 +58,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  padding: 0;
+  width: 1rem;
+  height: 1rem;
   margin-left: $spacing-2;
-  background: transparent;
-  border: none;
-  border-radius: $radius-md;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: color $transition-fast, background-color $transition-fast;
+  color: var(--color-text-muted);
+  transition: color $transition-fast;
 
   &:hover {
     color: var(--color-text);
-    background-color: var(--color-bg-secondary);
   }
 
   svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 0.75rem;
+    height: 0.75rem;
   }
 
   .icon-sun {
@@ -89,17 +92,16 @@
   }
 }
 
-// Mobile nav
+// Mobile
 @media (max-width: $breakpoint-sm) {
-  .masthead {
+  .masthead-inner {
     flex-wrap: wrap;
   }
 
   .nav {
     width: 100%;
-    justify-content: center;
-    margin-top: $spacing-4;
-    padding-top: $spacing-4;
-    border-top: 1px solid var(--color-border);
+    margin-top: $spacing-3;
+    padding-top: $spacing-3;
+    border-top: 1px solid var(--color-border-subtle);
   }
 }
