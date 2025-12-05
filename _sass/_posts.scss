@@ -1,39 +1,148 @@
-// Posts and pages
+// Posts and pages — archival, systematic
 
 .page,
 .post {
-  margin-bottom: $spacing-12;
+  margin-bottom: $spacing-10;
 }
 
-// Title
 .page-title,
 .post-title {
   margin-top: 0;
-  margin-bottom: $spacing-2;
+  margin-bottom: $spacing-3;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-normal;
+}
+
+// Page hero image - full width
+.page-hero {
+  margin: 0 0 $spacing-8;
+  // Break out of container for full-width
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  width: 100vw;
+
+  @media (min-width: $breakpoint-md) {
+    margin-bottom: $spacing-12;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+
+    @media (min-width: $breakpoint-md) {
+      max-height: 70vh;
+      object-fit: cover;
+    }
+  }
+
+  figcaption {
+    padding: $spacing-3 $spacing-5;
+    font-size: $font-size-xs;
+    color: var(--color-text-muted);
+    text-align: center;
+
+    @media (min-width: $breakpoint-md) {
+      padding: $spacing-3 $spacing-6;
+    }
+  }
 }
 
 .post-title a {
   color: var(--color-text);
 
   &:hover {
-    color: var(--color-link);
+    color: var(--color-text-muted);
   }
 }
 
-// Meta
 .post-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: $spacing-4;
   margin-bottom: $spacing-6;
-  font-size: $font-size-sm;
+  font-size: $font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wider;
   color: var(--color-text-muted);
 }
 
-.post-date {
-  display: flex;
-  align-items: center;
-  gap: $spacing-2;
+// Homepage
+.home {
+  .hero {
+    margin-bottom: 0;
+  }
+
+  .hero-image {
+    margin: 0;
+    // Break out of container for full-width
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    width: 100vw;
+
+    @media (min-width: $breakpoint-md) {
+      // Fill viewport minus header (~70px) and footer (~100px) and main padding (~48px)
+      height: calc(100vh - 220px);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+
+      @media (min-width: $breakpoint-md) {
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .lead {
+    max-width: none;
+    margin-bottom: 0;
+
+    @media (min-width: $breakpoint-lg) {
+      font-size: $font-size-xl;
+    }
+  }
+}
+
+// Releases / discography style
+.releases {
+  margin-bottom: $spacing-12;
+}
+
+.release {
+  margin-bottom: $spacing-6;
+
+  h3 {
+    margin: 0 0 $spacing-1;
+    font-size: $font-size-base;
+    font-weight: $font-weight-normal;
+  }
+
+  p {
+    margin: 0;
+    font-size: $font-size-sm;
+    color: var(--color-text-secondary);
+  }
+}
+
+.release-meta {
+  display: block;
+  margin-bottom: $spacing-1;
+  font-size: $font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wider;
+  color: var(--color-text-muted);
+}
+
+// Quote
+.quote-feature {
+  margin-top: $spacing-12;
+  padding-top: $spacing-8;
+  border-top: 1px solid var(--color-border);
+
+  blockquote {
+    max-width: none;
+  }
 }
 
 // Post list
@@ -44,140 +153,62 @@
 }
 
 .post-list-item {
-  padding: $spacing-6 0;
-  border-bottom: 1px solid var(--color-border);
-
-  &:first-child {
-    padding-top: 0;
-  }
-
-  &:last-child {
-    border-bottom: none;
-  }
+  margin-bottom: $spacing-5;
 }
 
 .post-list-title {
-  margin: 0 0 $spacing-2;
-  font-size: $font-size-xl;
+  margin: 0 0 $spacing-1;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+
+  a {
+    color: var(--color-text);
+
+    &:hover {
+      color: var(--color-text-muted);
+    }
+  }
 }
 
 .post-list-excerpt {
   margin: 0;
+  font-size: $font-size-sm;
   color: var(--color-text-secondary);
 }
 
-// Related posts
+// Related
 .related {
+  margin-top: $spacing-12;
   padding-top: $spacing-8;
-  margin-top: $spacing-8;
   border-top: 1px solid var(--color-border);
 }
 
 .related-title {
   margin-top: 0;
-  margin-bottom: $spacing-6;
-  font-size: $font-size-lg;
+  margin-bottom: $spacing-4;
 }
 
 .related-posts {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: grid;
-  gap: $spacing-4;
 
-  @media (min-width: $breakpoint-sm) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.related-post {
-  padding: $spacing-4;
-  background-color: var(--color-bg-secondary);
-  border-radius: $radius-md;
-  transition: box-shadow $transition-fast;
-
-  &:hover {
-    box-shadow: var(--shadow-md);
+  li {
+    margin-bottom: $spacing-2;
   }
 
   a {
+    font-size: $font-size-sm;
     color: var(--color-text);
-    font-weight: $font-weight-medium;
 
     &:hover {
-      color: var(--color-link);
+      color: var(--color-text-muted);
     }
   }
 
   small {
-    display: block;
-    margin-top: $spacing-1;
+    margin-left: $spacing-2;
+    font-size: $font-size-xs;
     color: var(--color-text-muted);
-    font-size: $font-size-sm;
-  }
-}
-
-// Homepage styles
-.home {
-  .hero {
-    margin-bottom: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .intro {
-    color: var(--color-text-secondary);
-    font-size: 1.1rem;
-    line-height: 1.6;
-  }
-
-  .latest {
-    margin-bottom: 3rem;
-
-    h2 {
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--color-text-muted);
-      margin-bottom: 1.5rem;
-    }
-  }
-
-  .release {
-    margin-bottom: 2rem;
-
-    h3 {
-      margin-top: 0;
-      margin-bottom: .5rem;
-      font-size: 1.1rem;
-    }
-
-    p {
-      color: var(--color-text-secondary);
-      font-size: .95rem;
-      line-height: 1.6;
-    }
-  }
-
-  .quote-feature {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--color-border);
-
-    blockquote {
-      border-left: none;
-      padding: 0;
-      margin: 0;
-      font-size: 1.1rem;
-
-      p {
-        color: var(--color-text-secondary);
-      }
-
-      cite {
-        color: var(--color-text-muted);
-      }
-    }
   }
 }

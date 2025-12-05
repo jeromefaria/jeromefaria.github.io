@@ -1,7 +1,7 @@
 # Site settings
 title: Jerome Faria
 tagline: Composer & Sound Artist
-description: Composer and sound artist working at the edges of experimental electronics, film scoring, and live performance
+description: Twenty-two years creating at the edges of experimental electronics, film scoring, and live performance
 url: https://jeromefaria.com
 baseurl: ""
 lang: en
@@ -58,10 +58,6 @@ navigation:
 social:
   - name: bandcamp
     url: https://jeromefaria.bandcamp.com
-  - name: soundcloud
-    url: https://soundcloud.com/jeromefaria
-  - name: instagram
-    url: https://instagram.com/jeromefaria
 
 # Exclude from build
 exclude:

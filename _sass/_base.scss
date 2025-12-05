@@ -1,4 +1,4 @@
-// Base styles and reset
+// Base — clean reset
 
 *,
 *::before,
@@ -8,11 +8,7 @@
 
 html {
   font-size: 16px;
-  scroll-behavior: smooth;
-
-  @media (min-width: $breakpoint-md) {
-    font-size: 18px;
-  }
+  overflow-x: hidden;
 }
 
 body {
@@ -25,48 +21,35 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color $transition-base, color $transition-base;
+  overflow-x: hidden;
 }
 
-// Links
 a {
   color: var(--color-link);
   text-decoration: none;
   transition: color $transition-fast;
 
-  &:hover,
-  &:focus {
+  &:hover {
     color: var(--color-link-hover);
   }
 }
 
-// Images
 img {
   max-width: 100%;
   height: auto;
   display: block;
-  border-radius: $radius-md;
 }
 
-// Horizontal rule
-hr {
-  border: 0;
-  border-top: 1px solid var(--color-border);
-  margin: $spacing-8 0;
-}
-
-// Selection
 ::selection {
-  background-color: var(--color-accent);
-  color: white;
+  background-color: var(--color-text);
+  color: var(--color-bg);
 }
 
-// Focus styles
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 1px solid var(--color-text);
   outline-offset: 2px;
 }
 
-// Tables
 table {
   width: 100%;
   border-collapse: collapse;
@@ -76,16 +59,35 @@ table {
 
 th,
 td {
-  padding: $spacing-3 $spacing-4;
+  padding: $spacing-2 $spacing-3;
   text-align: left;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 th {
-  font-weight: $font-weight-semibold;
-  color: var(--color-text);
+  font-weight: $font-weight-normal;
+  font-size: $font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wider;
+  color: var(--color-text-muted);
 }
 
-tbody tr:hover {
-  background-color: var(--color-bg-secondary);
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

@@ -3,6 +3,15 @@ layout: default
 ---
 
 <article class="page">
+  {% if page.image %}
+  <figure class="page-hero">
+    <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title }}">
+    {% if page.image_caption %}
+    <figcaption>{{ page.image_caption }}</figcaption>
+    {% endif %}
+  </figure>
+  {% endif %}
+
   {% if page.title %}
   <h1 class="page-title">{{ page.title }}</h1>
   {% endif %}

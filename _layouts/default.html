@@ -4,13 +4,13 @@
 
   <body>
     <div class="site">
-      <div class="container">
-        {% include header.html %}
+      {% include header.html %}
 
-        <main>
+      <main>
+        <div class="container-wide">
           {{ content }}
-        </main>
-      </div>
+        </div>
+      </main>
 
       {% include footer.html %}
     </div>

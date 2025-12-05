@@ -1,11 +1,32 @@
-// Layout
+// Layout — institutional, restrained
 
 .container {
   max-width: $max-width;
-  padding-left: $spacing-6;
-  padding-right: $spacing-6;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 0 $spacing-5;
+  margin: 0 auto;
+
+  @media (min-width: $breakpoint-md) {
+    padding: 0 $spacing-6;
+  }
+}
+
+.container-wide {
+  max-width: $max-width-wide;
+  padding: 0 $spacing-5;
+  margin: 0 auto;
+
+  @media (min-width: $breakpoint-md) {
+    padding: 0 $spacing-6;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    padding: 0 $spacing-8;
+  }
+}
+
+.container-full {
+  width: 100%;
+  padding: 0;
 }
 
 .site {
@@ -16,16 +37,31 @@
 
 main {
   flex: 1;
-  padding: $spacing-8 0;
+  padding: $spacing-8 0 $spacing-16;
+
+  @media (min-width: $breakpoint-md) {
+    padding: $spacing-12 0 $spacing-20;
+  }
 }
 
-// Footer
+// Minimal padding for homepage
+main:has(.home) {
+  padding: $spacing-4 0;
+
+  @media (min-width: $breakpoint-md) {
+    padding: $spacing-6 0;
+  }
+}
+
+// Footer — minimal contact info
 footer {
-  padding: $spacing-8 0;
+  padding: $spacing-6 0 $spacing-8;
   border-top: 1px solid var(--color-border);
-  text-align: center;
+  font-size: $font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wider;
   color: var(--color-text-muted);
-  font-size: $font-size-sm;
+  text-align: center;
 
   p {
     margin: 0;
@@ -36,26 +72,13 @@ footer {
   display: flex;
   justify-content: center;
   gap: $spacing-4;
-  margin-bottom: $spacing-4;
 
   a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    color: var(--color-text-secondary);
-    border-radius: $radius-full;
-    transition: color $transition-fast, background-color $transition-fast;
+    color: var(--color-text-muted);
+    transition: color $transition-fast;
 
     &:hover {
-      color: var(--color-link);
-      background-color: var(--color-bg-secondary);
-    }
-
-    svg {
-      width: 1.25rem;
-      height: 1.25rem;
+      color: var(--color-text);
     }
   }
 }
