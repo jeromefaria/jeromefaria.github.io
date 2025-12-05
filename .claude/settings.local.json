@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bundle exec jekyll:*)",
+      "Bash(jekyll --version:*)",
+      "Bash(ruby:*)",
+      "Bash(rbenv version:*)",
+      "Bash(/usr/bin/env ruby:*)",
+      "Bash(/opt/homebrew/bin/ruby:*)",
+      "Bash(/usr/local/bin/ruby --version)",
+      "Bash(unalias:*)",
+      "Bash(export PATH=\"$HOME/.rbenv/shims:$HOME/.rbenv/bin:/opt/homebrew/bin:$PATH\")",
+      "Bash(SHELL=/bin/zsh /opt/homebrew/bin/rbenv init:*)",
+      "Bash(export PATH=\"/Users/jeromefaria/.rbenv/shims:/opt/homebrew/bin:$PATH\")",
+      "Bash(/opt/homebrew/bin/rbenv versions:*)",
+      "Bash(bundle install:*)",
+      "Bash(rm:*)",
+      "Bash(/Users/jeromefaria/.rbenv/versions/3.2.2/bin/bundle install:*)",
+      "Bash(xcode-select:*)",
+      "Bash(gem install:*)",
+      "Bash(export PATH=\"/Users/jeromefaria/.rbenv/shims:/opt/homebrew/bin:/usr/bin:$PATH\")",
+      "Bash(/Users/jeromefaria/.rbenv/versions/3.2.2/bin/gem install:*)",
+      "Bash(/Users/jeromefaria/.rbenv/versions/3.2.2/bin/bundle exec jekyll:*)",
+      "Bash(JEKYLL_GITHUB_TOKEN=\"\" /Users/jeromefaria/.rbenv/versions/3.2.2/bin/bundle exec jekyll build:*)",
+      "Bash(PAGES_REPO_NWO=jeromefaria/blog /Users/jeromefaria/.rbenv/versions/3.2.2/bin/bundle exec jekyll build:*)",
+      "Bash(kill:*)",
+      "Bash(git -C /Users/jeromefaria/Work/blog branch:*)",
+      "Bash(git -C /Users/jeromefaria/Work/blog remote:*)",
+      "Bash(git -C /Users/jeromefaria/Work/blog log master..origin/claude/composer-portfolio-site-01MnUQEzNtBu9vfgLfJqUsPZ --oneline)",
+      "Bash(git -C /Users/jeromefaria/Work/blog diff --stat origin/claude/composer-portfolio-site-01MnUQEzNtBu9vfgLfJqUsPZ)",
+      "Bash(git -C /Users/jeromefaria/Work/blog stash push -m \"Uncommitted changes to integrate\")",
+      "Bash(git -C /Users/jeromefaria/Work/blog checkout -b claude/composer-portfolio-site-01MnUQEzNtBu9vfgLfJqUsPZ origin/claude/composer-portfolio-site-01MnUQEzNtBu9vfgLfJqUsPZ)",
+      "Bash(git -C /Users/jeromefaria/Work/blog stash pop)",
+      "Bash(git -C /Users/jeromefaria/Work/blog add _config.yml _sass/_base.scss _sass/_layout.scss _sass/_masthead.scss _sass/_posts.scss _sass/_type.scss _sass/_variables.scss blog/index.md index.html)",
+      "Bash(git -C /Users/jeromefaria/Work/blog status)",
+      "Bash(git -C /Users/jeromefaria/Work/blog add .claude/ _includes/scripts.html _layouts/categories.html assets/ categories/ projects/)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

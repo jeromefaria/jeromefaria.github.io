@@ -1,78 +1,67 @@
 // Code
-//
-// Inline and block-level code snippets. Includes tweaks to syntax highlighted
-// snippets from Pygments/Rouge and Gist embeds.
 
 code,
 pre {
-  font-family: $code-font-family;
+  font-family: $font-mono;
 }
 
+// Inline code
 code {
-  padding: .25em .5em;
-  font-size: 85%;
-  color: $code-color;
-  background-color: #f9f9f9;
-  border-radius: 3px;
+  padding: 0.2em 0.4em;
+  font-size: 0.875em;
+  color: var(--color-code-text);
+  background-color: var(--color-code-bg);
+  border-radius: $radius-sm;
 }
 
+// Code blocks
 pre {
-  margin-top: 0;
-  margin-bottom: 1rem;
+  margin: $spacing-6 0;
+  padding: $spacing-4;
+  overflow-x: auto;
+  font-size: $font-size-sm;
+  line-height: 1.5;
+  background-color: var(--color-code-bg);
+  border-radius: $radius-md;
+
+  code {
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    background-color: transparent;
+    border-radius: 0;
+  }
 }
 
-pre code {
-  padding: 0;
-  font-size: 100%;
-  color: inherit;
-  background-color: transparent;
-}
-
-// Pygments via Jekyll
+// Syntax highlighting container
 .highlight {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  font-size: .8rem;
-  line-height: 1.4;
-  background-color: #f9f9f9;
-  border-radius: .25rem;
+  margin: $spacing-6 0;
+  border-radius: $radius-md;
+  overflow: hidden;
 
   pre {
-    margin-bottom: 0;
-    overflow-x: auto;
+    margin: 0;
+    border-radius: 0;
   }
 
   .lineno {
-    display: inline-block; // Ensures the null space also isn't selectable
-    padding-right: .75rem;
-    padding-left: .25rem;
-    color: #999;
-    // Make sure numbers aren't selectable
-    -webkit-user-select: none;
-       -moz-user-select: none;
-            user-select: none;
+    display: inline-block;
+    padding-right: $spacing-4;
+    padding-left: $spacing-2;
+    color: var(--color-text-muted);
+    user-select: none;
   }
 }
 
-
-// Gist via GitHub Pages
-// .gist .gist-file {
-//   font-family: Menlo, Monaco, "Courier New", monospace !important;
-// }
-// .gist .markdown-body {
-//   padding: 15px;
-// }
-// .gist pre {
-//   padding: 0;
-//   background-color: transparent;
-// }
-// .gist .gist-file .gist-data {
-//   font-size: .8rem !important;
-//   line-height: 1.4;
-// }
-// .gist code {
-//   padding: 0;
-//   color: inherit;
-//   background-color: transparent;
-//   border-radius: 0;
-// }
+// Language label (optional)
+.highlight[data-lang]::before {
+  content: attr(data-lang);
+  display: block;
+  padding: $spacing-2 $spacing-4;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: var(--color-text-muted);
+  background-color: var(--color-border);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

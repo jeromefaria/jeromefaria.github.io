@@ -1,42 +1,105 @@
-// Masthead
-//
-// Super small header above the content for site name and short description.
+// Header / Masthead
 
 .masthead {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  margin-bottom: 3rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: $spacing-6 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .masthead-title {
-  margin-top: 0;
-  margin-bottom: 0;
-  color: $gray-4;
-  flex: 1;
-
-  h3 {
-    line-height: 1.1rem;
-    margin: 0;
-    padding: 0;
-  }
+  margin: 0;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
 
   a {
-    color: inherit;
+    color: var(--color-text);
+
+    &:hover {
+      color: var(--color-link);
+    }
+  }
+}
+
+// Navigation
+.nav {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.nav-link {
+  padding: $spacing-2 $spacing-3;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: var(--color-text-secondary);
+  border-radius: $radius-md;
+  transition: color $transition-fast, background-color $transition-fast;
+
+  &:hover,
+  &.active {
+    color: var(--color-text);
+    background-color: var(--color-bg-secondary);
+  }
+}
+
+// Theme toggle
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  margin-left: $spacing-2;
+  background: transparent;
+  border: none;
+  border-radius: $radius-md;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    color: var(--color-text);
+    background-color: var(--color-bg-secondary);
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .icon-sun {
+    display: none;
+  }
+
+  .icon-moon {
+    display: block;
+  }
+}
+
+[data-theme="dark"] .theme-toggle {
+  .icon-sun {
     display: block;
   }
 
-  small {
-    font-size: 1rem;
-    font-weight: 400;
-    opacity: .5;
+  .icon-moon {
+    display: none;
   }
-
 }
 
-nav {
-  a {
-    margin-left: .5rem;
+// Mobile nav
+@media (max-width: $breakpoint-sm) {
+  .masthead {
+    flex-wrap: wrap;
+  }
+
+  .nav {
+    width: 100%;
+    justify-content: center;
+    margin-top: $spacing-4;
+    padding-top: $spacing-4;
+    border-top: 1px solid var(--color-border);
   }
 }
