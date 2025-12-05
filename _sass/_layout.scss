@@ -3,7 +3,7 @@
 // Styles for managing the structural hierarchy of the site.
 
 .container {
-  max-width: 38rem;
+  max-width: 42rem;
   padding-left:  1.5rem;
   padding-right: 1.5rem;
   margin-left:  auto;
@@ -11,20 +11,29 @@
 }
 
 footer {
+  margin-top: 4rem;
   margin-bottom: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid $border-color;
   text-align: center;
+  color: $gray-3;
+  font-size: .85rem;
 
   .social {
-    padding: .5rem;
+    padding: .75rem 0;
 
-    .fab {
-      font-size: 1.5rem;
+    .fab, .fa {
+      font-size: 1.25rem;
     }
 
     a {
-      margin: 0 .25rem;
+      margin: 0 .5rem;
       text-decoration: none;
-      color: $gray-4;
+      color: $gray-3;
+
+      &:hover {
+        color: #fff;
+      }
     }
   }
 }

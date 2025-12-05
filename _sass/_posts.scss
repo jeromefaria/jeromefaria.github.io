@@ -16,11 +16,13 @@
 .page-title,
 .post-title,
 .post-title a {
-  color: #303030;
+  color: #fff;
 }
 .page-title,
 .post-title {
   margin-top: 0;
+  font-size: 1.75rem;
+  letter-spacing: 0.02em;
 }
 
 // Meta data line below post title
@@ -28,7 +30,7 @@
   display: block;
   margin-top: -.5rem;
   margin-bottom: 1rem;
-  color: #9a9a9a;
+  color: $gray-3;
 }
 
 
@@ -37,8 +39,8 @@
   padding-top: 2rem;
   padding-bottom: 2rem;
   margin-bottom: 2rem;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
 }
 
 .related-posts {
@@ -52,15 +54,79 @@
   li {
     small {
       font-size: 75%;
-      color: #999;
+      color: $gray-3;
     }
 
     a:hover {
-      color: #268bd2;
+      color: #fff;
       text-decoration: none;
 
       small {
         color: inherit;
+      }
+    }
+  }
+}
+
+// Homepage styles
+.home {
+  .hero {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .intro {
+    color: $gray-2;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .latest {
+    margin-bottom: 3rem;
+
+    h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: $gray-3;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .release {
+    margin-bottom: 2rem;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: .5rem;
+      font-size: 1.1rem;
+    }
+
+    p {
+      color: $gray-2;
+      font-size: .95rem;
+      line-height: 1.6;
+    }
+  }
+
+  .quote-feature {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid $border-color;
+
+    blockquote {
+      border-left: none;
+      padding: 0;
+      margin: 0;
+      font-size: 1.1rem;
+
+      p {
+        color: $gray-2;
+      }
+
+      cite {
+        color: $gray-3;
       }
     }
   }

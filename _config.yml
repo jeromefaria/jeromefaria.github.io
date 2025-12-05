@@ -1,17 +1,11 @@
-# Permalinks
-permalink: /blog/:year/:month/:day/:title/
-
 # Setup
 title: Jerome Faria
-tagline:
+tagline: Composer & Sound Artist
 url: http://jeromefaria.com
-paginate: 1
 baseurl: ""
 analytics_id: UA-33619068-1
 
 # Assets
-#
-# We specify the directory for Jekyll so we can use @imports.
 sass:
   sass_dir: _sass
   style: :compressed
@@ -19,33 +13,36 @@ sass:
 # About/contact
 author:
   name: Jerome Faria
-  url: https://twitter.com/jeromefaria
+  url: https://jeromefaria.bandcamp.com
   email: jerome.faria@gmail.com
 
 # Custom vars
 version: 2.0.0
-github:
-  repo: https://github.com/poole/poole
 
 # Gems
 plugins:
-  - jekyll-paginate
   - jekyll-gist
   - jekyll-feed
   - jekyll-sitemap
 
 # Navigation
 navigation:
-  - name: Home
-    url: /
   - name: About
     url: /about
-  - name: Blog
-    url: /blog
+  - name: Works
+    url: /works
+  - name: Film & Theatre
+    url: /film
+  - name: Live
+    url: /live
+  - name: Press
+    url: /press
 
 # Social
 social:
-  - name: twitter
-    handle: jeromefaria
-  - name: github
-    handle: jeromefaria
+  - name: bandcamp
+    url: https://jeromefaria.bandcamp.com
+  - name: soundcloud
+    url: https://soundcloud.com/jeromefaria
+  - name: instagram
+    url: https://instagram.com/jeromefaria

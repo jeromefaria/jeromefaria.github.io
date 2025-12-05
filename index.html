@@ -1,33 +1,41 @@
 ---
 layout: default
-title: Home
+title: Jerome Faria - Composer & Sound Artist
 ---
 
-<div class="posts">
-  {% for post in paginator.posts %}
-  <article class="post">
-    <h1 class="post-title">
-      <a href="{{ site.baseurl }}{{ post.url }}">
-        {{ post.title }}
-      </a>
-    </h1>
+<div class="home">
+  <div class="hero">
+    <p class="lead">
+      Lisbon-based composer and sound artist working at the edges of experimental electronics, film scoring, and live performance.
+    </p>
+    <p class="intro">
+      Over two decades of work spanning ten albums across twelve labels, compositions for silent film and theatre, and performances alongside artists including Fennesz, Tim Hecker, Alva Noto, and Oneohtrix Point Never.
+    </p>
+  </div>
 
-    <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date_to_string }}</time>
+  <div class="latest">
+    <h2>Latest</h2>
 
-    {{ post.content }}
-  </article>
-  {% endfor %}
-</div>
+    <div class="release">
+      <h3>Overlapse XIII (2025)</h3>
+      <p>Eight artists reimagine the 2012 album <em>Overlapse</em> for its thirteenth anniversary. Curator and mastering engineer. Contributors include Tren Go! Sound System, CAVERNANCIA, and Jo&atilde;o Vairinhos of L&Ouml;BO.</p>
+    </div>
 
-<div class="pagination">
-  {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ paginator.next_page_path | prepend: site.baseurl }}">Older</a>
-  {% else %}
-    <span class="pagination-item older">Older</span>
-  {% endif %}
-  {% if paginator.previous_page %}
-    <a class="pagination-item newer" href="{{ paginator.previous_page_path | prepend: site.baseurl }}">Newer</a>
-  {% else %}
-    <span class="pagination-item newer">Newer</span>
-  {% endif %}
+    <div class="release">
+      <h3>ALTAR (2024)</h3>
+      <p>Debut release with NOx (duo with Pedro Roque of CAVERNANCIA). A 33-minute improvisation recorded near a nitric acid factory on Lisbon's Rua do &Aacute;cido Sulf&uacute;rico. Released on Colectivo Casa Amarela.</p>
+    </div>
+
+    <div class="release">
+      <h3>2504 (2024)</h3>
+      <p>Released on the 50th anniversary of Portugal's Carnation Revolution. Duration: 25 minutes and 4 seconds&mdash;the revolutionary date written into its form. Drawing on Schaeffer, Radigue, and Reich to transform archival recordings into a meditation on inherited democracy.</p>
+    </div>
+  </div>
+
+  <div class="quote-feature">
+    <blockquote>
+      <p>&ldquo;An almost romantic sound that recalls Eno's <em>Discreet Music</em>, with the additional creak of wind-up toys and waves of static that seem broadcast from the beach.&rdquo;</p>
+      <cite>&mdash; The Quietus</cite>
+    </blockquote>
+  </div>
 </div>
