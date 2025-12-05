@@ -75,7 +75,7 @@ permalink: /works/
   <img src="/assets/images/hyphema.jpeg" alt="Hyphema">
   <div class="release-details">
     <p><strong>"Hyphema"</strong></p>
-    <p class="release-meta">DVD — Pixelnerve, PXN001, 2008</p>
+    <p class="release-meta">DVD — Pixelnerve, PXN001, 2007</p>
     <p class="release-credits">Sounds: Jerome Faria. Visuals: Victor Martins. Artwork: Frederico Cunha.</p>
   </div>
 </div>
