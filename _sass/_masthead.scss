@@ -1,7 +1,11 @@
 // Masthead — institutional, utilitarian
 
 .masthead {
-  padding: $spacing-6 $spacing-5;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-bg);
+  padding: $spacing-4 $spacing-5;
   border-bottom: 1px solid var(--color-border);
 
   @media (min-width: $breakpoint-md) {
@@ -13,6 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: $spacing-4;
   width: 100%;
 }
@@ -29,14 +34,37 @@
   }
 }
 
-// Navigation
-.nav {
+// Controls container (theme toggle + hamburger)
+.masthead-controls {
   display: flex;
   align-items: center;
   gap: $spacing-4;
 
   @media (min-width: $breakpoint-md) {
+    display: none;
+  }
+}
+
+// Navigation
+.nav {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  gap: $spacing-3;
+  padding-top: $spacing-4;
+  border-top: 1px solid var(--color-border-subtle);
+
+  @media (min-width: $breakpoint-md) {
+    display: flex;
+    width: auto;
+    flex-direction: row;
     gap: $spacing-5;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  &.is-open {
+    display: flex;
   }
 }
 
@@ -46,10 +74,56 @@
   text-transform: uppercase;
   color: var(--color-text-muted);
   transition: color $transition-fast;
+  padding: $spacing-2 0;
 
-  &:hover,
+  @media (min-width: $breakpoint-md) {
+    padding: 0;
+  }
+
+  &:hover {
+    color: var(--color-text);
+  }
+
   &.active {
     color: var(--color-text);
+    font-weight: $font-weight-medium;
+  }
+}
+
+// Hamburger toggle
+.nav-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-text-muted);
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--color-text);
+  }
+
+  svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  .icon-close {
+    display: none;
+  }
+
+  .icon-menu {
+    display: block;
+  }
+
+  &[aria-expanded="true"] {
+    .icon-close {
+      display: block;
+    }
+    .icon-menu {
+      display: none;
+    }
   }
 }
 
@@ -60,7 +134,6 @@
   justify-content: center;
   width: 1rem;
   height: 1rem;
-  margin-left: $spacing-2;
   color: var(--color-text-muted);
   transition: color $transition-fast;
 
@@ -69,8 +142,8 @@
   }
 
   svg {
-    width: 0.75rem;
-    height: 0.75rem;
+    width: 0.875rem;
+    height: 0.875rem;
   }
 
   .icon-sun {
@@ -92,16 +165,23 @@
   }
 }
 
-// Mobile
-@media (max-width: $breakpoint-sm) {
+// Desktop theme toggle (hidden on mobile, shown on desktop)
+.theme-toggle-desktop {
+  display: none;
+
+  @media (min-width: $breakpoint-md) {
+    display: flex;
+    margin-left: $spacing-3;
+  }
+}
+
+// Desktop: show theme toggle inline with nav
+@media (min-width: $breakpoint-md) {
   .masthead-inner {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   .nav {
-    width: 100%;
-    margin-top: $spacing-3;
-    padding-top: $spacing-3;
-    border-top: 1px solid var(--color-border-subtle);
+    align-items: center;
   }
 }

@@ -72,25 +72,22 @@
 
   .hero-image {
     margin: 0;
-    // Break out of container for full-width
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    width: 100vw;
+    width: 100%;
+    // Use dvh for proper mobile viewport, fallback to vh
+    height: calc(100vh - 130px);
+    height: calc(100dvh - 130px);
 
     @media (min-width: $breakpoint-md) {
-      // Fill viewport minus header (~70px) and footer (~100px) and main padding (~48px)
-      height: calc(100vh - 220px);
+      height: calc(100vh - 150px);
+      height: calc(100dvh - 150px);
     }
 
     img {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
-
-      @media (min-width: $breakpoint-md) {
-        height: 100%;
-        object-fit: cover;
-      }
+      object-fit: cover;
+      object-position: center center;
     }
   }
 

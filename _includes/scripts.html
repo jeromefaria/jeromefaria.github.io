@@ -12,15 +12,15 @@
 <!-- Theme Toggle -->
 <script>
   (function() {
-    const toggle = document.querySelector('.theme-toggle');
-    if (!toggle) return;
+    // Theme toggle - handle both mobile and desktop
+    document.querySelectorAll('.theme-toggle').forEach(function(toggle) {
+      toggle.addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-    toggle.addEventListener('click', function() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+      });
     });
 
     // Listen for system theme changes
@@ -29,5 +29,15 @@
         document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
       }
     });
+
+    // Mobile nav toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('.nav');
+    if (navToggle && nav) {
+      navToggle.addEventListener('click', function() {
+        const isOpen = nav.classList.toggle('is-open');
+        navToggle.setAttribute('aria-expanded', isOpen);
+      });
+    }
   })();
 </script>
