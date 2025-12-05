@@ -1,30 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  {% include head.html %}
+---
+layout: default
+---
 
-  <body>
-    <div class="container content">
-      {% include header.html %}
+<div class="blog-list">
+  {% if page.title %}
+  <h1 class="page-title">{{ page.title }}</h1>
+  {% endif %}
 
-      <main>
-        {% for post in site.posts %}
-
-        <h1 class="post-title">
-          <a href="{{ post.url }}">{{ post.title }}</a>
-        </h1>
-
-        <time class="post-date">{{ post.date | date_to_long_string }}</time>
-
-        <p>{{ post.excerpt }}</p>
-
-        <hr />
-
-        {% endfor %}
-      </main>
-
-      {% include footer.html %}
-    </div>
-
-    {% include analytics.html %}
-  </body>
-</html>
+  {% if site.posts.size > 0 %}
+  <ul class="post-list">
+    {% for post in site.posts %}
+    <li class="post-list-item">
+      <h2 class="post-list-title">
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </h2>
+      <time class="post-date">{{ post.date | date: "%B %-d, %Y" }}</time>
+      {% if post.excerpt %}
+      <p class="post-list-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="message">No posts yet. Check back soon!</p>
+  {% endif %}
+</div>

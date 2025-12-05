@@ -1,51 +1,79 @@
+# Site settings
+title: Jerome Faria
+description: Personal blog and portfolio
+url: https://jeromefaria.com
+baseurl: ""
+lang: en
+
 # Permalinks
 permalink: /blog/:year/:month/:day/:title/
 
-# Setup
-title: Jerome Faria
-tagline:
-url: http://jeromefaria.com
-paginate: 1
-baseurl: ""
-analytics_id: UA-33619068-1
-
-# Assets
-#
-# We specify the directory for Jekyll so we can use @imports.
-sass:
-  sass_dir: _sass
-  style: :compressed
-
-# About/contact
+# Author
 author:
   name: Jerome Faria
-  url: https://twitter.com/jeromefaria
   email: jerome.faria@gmail.com
+  bio: Developer and writer
 
-# Custom vars
-version: 2.0.0
-github:
-  repo: https://github.com/poole/poole
+# Social links
+social:
+  twitter: jeromefaria
+  github: jeromefaria
+  linkedin: jeromefaria
 
-# Gems
+# Analytics (GA4)
+google_analytics: G-XXXXXXXXXX
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+# Sass
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Plugins
 plugins:
-  - jekyll-paginate
-  - jekyll-gist
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-seo-tag
 
 # Navigation
 navigation:
-  - name: Home
+  - title: Home
     url: /
-  - name: About
-    url: /about
-  - name: Blog
+  - title: Blog
     url: /blog
+  - title: About
+    url: /about
+  - title: Projects
+    url: /projects
 
-# Social
-social:
-  - name: twitter
-    handle: jeromefaria
-  - name: github
-    handle: jeromefaria
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+  - LICENSE.md
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"

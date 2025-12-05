@@ -1,20 +1,15 @@
-{% if site.related_posts != empty %}
-
+{% if site.related_posts.size > 0 %}
 <aside class="related">
-  <h3>Related posts</h3>
+  <h3 class="related-title">Related Posts</h3>
 
   <ul class="related-posts">
-    {% for post in site.related_posts limit:3 %}
-
-    <li>
-      <a href="{{ site.baseurl }}{{ post.url }}">
+    {% for post in site.related_posts limit:4 %}
+    <li class="related-post">
+      <a href="{{ post.url | relative_url }}">
         {{ post.title }}
-        <small>
-          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>
-        </small>
       </a>
+      <small>{{ post.date | date: "%B %-d, %Y" }}</small>
     </li>
-
     {% endfor %}
   </ul>
 </aside>
