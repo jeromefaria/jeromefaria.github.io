@@ -41,6 +41,22 @@ permalink: /live/
   </div>
 </div>
 
+<div class="release">
+  <div class="release-details">
+    <p><strong>Aragão</strong></p>
+    <p class="release-meta">Centro Cultural do Cartaxo</p>
+    <p class="release-description">Theatre production. Live music & interpretation.</p>
+  </div>
+</div>
+
+<div class="release">
+  <div class="release-details">
+    <p><strong>Aragão</strong></p>
+    <p class="release-meta">Teatro Municipal Baltazar Dias, Funchal</p>
+    <p class="release-description">Theatre production. Live music & interpretation.</p>
+  </div>
+</div>
+
 ## 2015
 
 <div class="release">
@@ -48,6 +64,24 @@ permalink: /live/
     <p><strong>Heineken Series</strong></p>
     <p class="release-meta">Musicbox, Lisbon</p>
     <p class="release-description">With William Basinski, Mr. Herbert Quain, Cruz.</p>
+  </div>
+</div>
+
+<div class="release">
+  <div class="release-details">
+    <p><strong>Fica na Cidade</strong></p>
+    <p class="release-meta">Funchal</p>
+    <p class="release-description">With Tren Go! Sound System.</p>
+  </div>
+</div>
+
+## 2012
+
+<div class="release">
+  <div class="release-details">
+    <p><strong>Cine Qua Non</strong></p>
+    <p class="release-meta">Estalagem da Ponta do Sol</p>
+    <p class="release-description">With Jorge Maggiore, Nuno Filipe, Filipe Ferraz.</p>
   </div>
 </div>
 
@@ -75,7 +109,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong>Olhares de Outono</strong></p>
     <p class="release-meta">Passos Manuel, Porto</p>
-    <p class="release-description">Artist talk and performance. With Oval, Simon Fisher Turner, Paul Farrington, André Gonçalves.</p>
+    <p class="release-description">Solo. Artist talk and performance. With Oval, Simon Fisher Turner, Paul Farrington, André Gonçalves.</p>
   </div>
 </div>
 
@@ -84,7 +118,7 @@ permalink: /live/
 <div class="release">
   <div class="release-details">
     <p><strong>MADEIRADIG</strong></p>
-    <p class="release-meta">Centro das Artes - Casa das Mudas, Calheta</p>
+    <p class="release-meta">Casa das Mudas, Calheta</p>
     <p class="release-description">Duo with Hugo Olim. With Alva Noto, Murcof, Felix Kubin, Christ., Zavoloka & Laetitia Morais, Gigantiq, Jade.</p>
   </div>
 </div>
@@ -97,20 +131,13 @@ permalink: /live/
   </div>
 </div>
 
-<div class="release">
-  <div class="release-details">
-    <p><strong>Störung</strong></p>
-    <p class="release-meta">La Farinera del Clot, Barcelona</p>
-    <p class="release-description">With Kim Cascone, Francisco López, Philippe Petit, Ritornell, Sébastien Roux, Tonne.</p>
-  </div>
-</div>
-
 ## 2008
 
 <div class="release">
   <div class="release-details">
-    <p><strong>Centro das Artes - Casa das Mudas</strong></p>
-    <p class="release-meta">Calheta</p>
+    <p><strong>EME — Extensão Madeira</strong></p>
+    <p class="release-meta">Casa das Mudas, Calheta</p>
+    <p class="release-description">With Hauschka, The Sight Below.</p>
   </div>
 </div>
 
@@ -122,12 +149,20 @@ permalink: /live/
   </div>
 </div>
 
+<div class="release">
+  <div class="release-details">
+    <p><strong>Störung</strong></p>
+    <p class="release-meta">La Farinera del Clot, Barcelona</p>
+    <p class="release-description">With Kim Cascone, Francisco López, Philippe Petit, Ritornell, Sébastien Roux, Tonne.</p>
+  </div>
+</div>
+
 ## 2007
 
 <div class="release">
   <div class="release-details">
     <p><strong>MADEIRADIG</strong></p>
-    <p class="release-meta">Centro das Artes - Casa das Mudas, Calheta</p>
+    <p class="release-meta">Casa das Mudas, Calheta</p>
     <p class="release-description">With Alog, Vladislav Delay, Ran Slavin.</p>
   </div>
 </div>
@@ -137,7 +172,7 @@ permalink: /live/
 <div class="release">
   <div class="release-details">
     <p><strong>MADEIRADIG</strong></p>
-    <p class="release-meta">Funchal</p>
+    <p class="release-meta">RDP Auditorium, Funchal</p>
     <p class="release-description">With Phonophani & Marius Watz, Frank Bretschneider.</p>
   </div>
 </div>
