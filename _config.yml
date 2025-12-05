@@ -1,6 +1,7 @@
 # Site settings
 title: Jerome Faria
-description: Personal blog and portfolio
+tagline: Composer & Sound Artist
+description: Composer and sound artist working at the edges of experimental electronics, film scoring, and live performance
 url: https://jeromefaria.com
 baseurl: ""
 lang: en
@@ -11,14 +12,9 @@ permalink: /blog/:year/:month/:day/:title/
 # Author
 author:
   name: Jerome Faria
+  url: https://jeromefaria.bandcamp.com
   email: jerome.faria@gmail.com
-  bio: Developer and writer
-
-# Social links
-social:
-  twitter: jeromefaria
-  github: jeromefaria
-  linkedin: jeromefaria
+  bio: Composer & Sound Artist
 
 # Analytics (GA4)
 google_analytics: G-XXXXXXXXXX
@@ -47,14 +43,25 @@ plugins:
 
 # Navigation
 navigation:
-  - title: Home
-    url: /
-  - title: Blog
-    url: /blog
   - title: About
     url: /about
-  - title: Projects
-    url: /projects
+  - title: Works
+    url: /works
+  - title: Film & Theatre
+    url: /film
+  - title: Live
+    url: /live
+  - title: Press
+    url: /press
+
+# Social links
+social:
+  - name: bandcamp
+    url: https://jeromefaria.bandcamp.com
+  - name: soundcloud
+    url: https://soundcloud.com/jeromefaria
+  - name: instagram
+    url: https://instagram.com/jeromefaria
 
 # Exclude from build
 exclude:
