@@ -98,6 +98,12 @@ footer {
     gap: $spacing-6;
   }
 
+  // Text-only releases (no images) - single column, tighter spacing
+  &:not(:has(img)):not(:has(iframe)) {
+    display: block;
+    margin-bottom: $spacing-6;
+  }
+
   img,
   iframe {
     width: 100%;
@@ -173,5 +179,21 @@ footer {
       font-size: $font-size-xs;
       color: var(--color-text-muted);
     }
+  }
+}
+
+// Text-only release details - tighter spacing
+.release:not(:has(img)):not(:has(iframe)) .release-details {
+  p {
+    margin-bottom: $spacing-1;
+  }
+
+  .release-meta {
+    margin-bottom: $spacing-2;
+  }
+
+  .release-description {
+    font-size: $font-size-sm;
+    line-height: $line-height-base;
   }
 }

@@ -4,54 +4,150 @@ title: Live
 permalink: /live/
 ---
 
-## MADEIRADIG Festival
+## 2025
 
-Six editions between 2005 and 2011, programmed as a peer alongside international artists.
+<div class="release">
+  <div class="release-details">
+    <p><strong>Showcase Casa Amarela</strong></p>
+    <p class="release-meta">Cooperativa Mula, Barreiro</p>
+    <p class="release-description">NOx (with Pedro Roque). With copo d'água, TiaAvô, Rebolation All-Stars.</p>
+  </div>
+</div>
 
-**2011** — Duo with Taylor Deupree
-Alongside Tim Hecker, Oneohtrix Point Never, KTL (Stephen O'Malley & Peter Rehberg), Deaf Center, Lee Ranaldo of Sonic Youth, Nadja, Aki Onda
+<div class="release">
+  <div class="release-details">
+    <p><strong>Fim de Emissão #45</strong></p>
+    <p class="release-meta">Desterro, Lisbon</p>
+    <p class="release-description">With Ai Feith, W.T.V.R.</p>
+  </div>
+</div>
 
-**2009** — Duo with Hugo Olim
-Alongside Alva Noto, Murcof, Felix Kubin
+## 2022
 
-**2007** — Solo (as NNY)
-Alongside Alog, Vladislav Delay, Ran Slavin
+<div class="release">
+  <div class="release-details">
+    <p><strong>Jejum #11</strong></p>
+    <p class="release-meta">Rua das Gaivotas 6, Lisbon</p>
+  </div>
+</div>
 
-**2006** — Solo (as NNY)
-Alongside Phonophani & Marius Watz, Frank Bretschneider
+## 2021
 
-**2005** — Solo (as NNY)
-Alongside Fennesz, Florian Hecker, @c & Lia
+<div class="release">
+  <div class="release-details">
+    <p><strong>Nariz Entupido</strong></p>
+    <p class="release-meta">SMUP, Parede</p>
+    <p class="release-description">Duo with Cavernancia. THISCO / SPH anniversary celebration.</p>
+  </div>
+</div>
 
----
+## 2015
 
-## Other Festival Appearances
+<div class="release">
+  <div class="release-details">
+    <p><strong>Heineken Series</strong></p>
+    <p class="release-meta">Musicbox, Lisbon</p>
+    <p class="release-description">With William Basinski, Mr. Herbert Quain, Cruz.</p>
+  </div>
+</div>
 
-**Festival Migractions** — Paris, 2011
+## 2011
 
-**Olhares de Outono** — Porto, 2010
-Artist talk and performance alongside Markus Popp (Oval), Simon Fisher Turner
+<div class="release">
+  <div class="release-details">
+    <p><strong>MADEIRADIG</strong></p>
+    <p class="release-meta">Centro das Artes - Casa das Mudas, Calheta</p>
+    <p class="release-description">Duo with Taylor Deupree. With Tim Hecker, Oneohtrix Point Never, KTL, Deaf Center, Lee Ranaldo & Manuel Mota, Nadja, Aki Onda.</p>
+  </div>
+</div>
 
-**EME Festival** — Lisbon, 2008, 2009
-The 2009 edition at Mosteiro de São Bento da Vitória brought together essentially the entire Portuguese experimental music community: @c, Alba G. Corral, André Sier, Carlos Santos, Hugo Olim, Ivan Franco, Laetitia Morais, Nuno Moita, Vitor Joaquim
+<div class="release">
+  <div class="release-details">
+    <p><strong>Festival Migractions</strong></p>
+    <p class="release-meta">Théâtre de L'Opprimé, Paris</p>
+    <p class="release-description">Duo with Hugo Olim.</p>
+  </div>
+</div>
 
-**Störung** — Barcelona, 2008
-Alongside The Sight Below, Greg Haines, Hauschka, Frank Bretschneider
+## 2010
 
----
+<div class="release">
+  <div class="release-details">
+    <p><strong>Olhares de Outono</strong></p>
+    <p class="release-meta">Passos Manuel, Porto</p>
+    <p class="release-description">Artist talk and performance. With Oval, Simon Fisher Turner, Paul Farrington, André Gonçalves.</p>
+  </div>
+</div>
 
-## Notable Support Slots
+## 2009
 
-**William Basinski** — Musicbox Lisboa, 2015
+<div class="release">
+  <div class="release-details">
+    <p><strong>MADEIRADIG</strong></p>
+    <p class="release-meta">Centro das Artes - Casa das Mudas, Calheta</p>
+    <p class="release-description">Duo with Hugo Olim. With Alva Noto, Murcof, Felix Kubin, Christ., Zavoloka & Laetitia Morais, Gigantiq, Jade.</p>
+  </div>
+</div>
 
----
+<div class="release">
+  <div class="release-details">
+    <p><strong>EME.LL / Olhares de Outono</strong></p>
+    <p class="release-meta">Mosteiro São Bento da Vitória, Porto</p>
+    <p class="release-description">With Scanner, @c, Vitor Joaquim, Carlos Santos, André Sier, Alba Corral, Laetitia Morais, Hugo Olim, Ivan Franco, Nuno Moita.</p>
+  </div>
+</div>
 
-## NOx Live
+<div class="release">
+  <div class="release-details">
+    <p><strong>Störung</strong></p>
+    <p class="release-meta">La Farinera del Clot, Barcelona</p>
+    <p class="release-description">With Kim Cascone, Francisco López, Philippe Petit, Ritornell, Sébastien Roux, Tonne.</p>
+  </div>
+</div>
 
-**Desterro** — Lisbon, May 2025 (Live debut)
+## 2008
 
----
+<div class="release">
+  <div class="release-details">
+    <p><strong>Centro das Artes - Casa das Mudas</strong></p>
+    <p class="release-meta">Calheta</p>
+  </div>
+</div>
 
-## Artists Shared Stages With
+<div class="release">
+  <div class="release-details">
+    <p><strong>EME</strong></p>
+    <p class="release-meta">Teatro Ibérico, Lisbon</p>
+    <p class="release-description">With The Sight Below, Greg Haines, Hauschka, Frank Bretschneider, Sanso-Xtro, Anna Troisi, Tina Frank, Carsten Goertz, André Sier, André Gonçalves, Garcia, Machas, Maranha e Mota, Safe & Sound, The Beautiful Schizophonic.</p>
+  </div>
+</div>
 
-Fennesz, Florian Hecker, Frank Bretschneider, Vladislav Delay, Alva Noto, Murcof, Tim Hecker, Oneohtrix Point Never, KTL, Deaf Center, Lee Ranaldo, Nadja, Aki Onda, Markus Popp, Simon Fisher Turner, Hauschka, Taylor Deupree, William Basinski, Felix Kubin, The Sight Below, Greg Haines
+## 2007
+
+<div class="release">
+  <div class="release-details">
+    <p><strong>MADEIRADIG</strong></p>
+    <p class="release-meta">Centro das Artes - Casa das Mudas, Calheta</p>
+    <p class="release-description">With Alog, Vladislav Delay, Ran Slavin.</p>
+  </div>
+</div>
+
+## 2006
+
+<div class="release">
+  <div class="release-details">
+    <p><strong>MADEIRADIG</strong></p>
+    <p class="release-meta">Funchal</p>
+    <p class="release-description">With Phonophani & Marius Watz, Frank Bretschneider.</p>
+  </div>
+</div>
+
+## 2005
+
+<div class="release">
+  <div class="release-details">
+    <p><strong>MADEIRADIG</strong></p>
+    <p class="release-meta">RDP Auditorium, Funchal</p>
+    <p class="release-description">With Fennesz, Florian Hecker, @c & Lia.</p>
+  </div>
+</div>
