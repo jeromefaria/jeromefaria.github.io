@@ -1,29 +1,8 @@
-// Messages / Alerts
+// Message — callout boxes
 
 .message {
-  padding: $spacing-4 $spacing-6;
-  margin-bottom: $spacing-6;
-  background-color: var(--color-bg-secondary);
-  border-left: 4px solid var(--color-accent);
-  border-radius: 0 $radius-md $radius-md 0;
-
-  p:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.message--info {
-  border-left-color: #3b82f6;
-}
-
-.message--success {
-  border-left-color: #10b981;
-}
-
-.message--warning {
-  border-left-color: #f59e0b;
-}
-
-.message--error {
-  border-left-color: #e11d48;
+  margin-bottom: $spacing-4;
+  padding: $spacing-4;
+  color: var(--color-text-secondary);
+  background-color: var(--color-code-bg);
 }

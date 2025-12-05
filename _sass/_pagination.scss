@@ -1,86 +1,25 @@
-// Pagination
+// Pagination — minimal
 
 .pagination {
   display: flex;
   justify-content: center;
-  gap: $spacing-2;
+  gap: $spacing-4;
   margin: $spacing-8 0;
+  font-size: $font-size-sm;
 }
 
 .pagination-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2.5rem;
-  height: 2.5rem;
-  padding: 0 $spacing-3;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-medium;
-  color: var(--color-text-secondary);
-  background-color: var(--color-bg-secondary);
-  border-radius: $radius-md;
-  transition: all $transition-fast;
+  padding: $spacing-2 $spacing-4;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
 
   &:hover {
     color: var(--color-text);
-    background-color: var(--color-border);
-  }
-
-  &.active {
-    color: white;
-    background-color: var(--color-accent);
-  }
-
-  &.disabled {
-    opacity: 0.5;
-    pointer-events: none;
+    border-color: var(--color-text);
   }
 }
 
-// Simple prev/next navigation
-.post-nav {
-  display: grid;
-  gap: $spacing-4;
-  margin-top: $spacing-8;
-  padding-top: $spacing-8;
-  border-top: 1px solid var(--color-border);
-
-  @media (min-width: $breakpoint-sm) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.post-nav-item {
-  padding: $spacing-4;
-  background-color: var(--color-bg-secondary);
-  border-radius: $radius-md;
-  transition: box-shadow $transition-fast;
-
-  &:hover {
-    box-shadow: var(--shadow-md);
-  }
-
-  &--prev {
-    text-align: left;
-  }
-
-  &--next {
-    text-align: right;
-
-    @media (min-width: $breakpoint-sm) {
-      grid-column: 2;
-    }
-  }
-}
-
-.post-nav-label {
-  display: block;
-  margin-bottom: $spacing-1;
-  font-size: $font-size-sm;
-  color: var(--color-text-muted);
-}
-
-.post-nav-title {
-  font-weight: $font-weight-medium;
-  color: var(--color-text);
+.pagination-item--disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
