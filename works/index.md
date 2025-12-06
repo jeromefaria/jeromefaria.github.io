@@ -351,7 +351,7 @@ description: Discography and works by Jerome Faria, including solo releases, col
 <div class="release" id="glitch">
   <img src="/assets/images/glitch.jpg" alt="Glitch: Designing Imperfection" loading="lazy">
   <div class="release-details">
-    <p><strong><a href="https://www.goodreads.com/book/show/6601613-glitch">Glitch: Designing Imperfection</a></strong></p>
+    <p><strong><a href="https://www.amazon.com/Glitch-Designing-Imperfection-Iman-Moradi/dp/0979966663">Glitch: Designing Imperfection</a></strong></p>
     <p class="release-meta">Book — Mark Batty Publisher, 2009</p>
     <p class="release-description">Over 200 glitch images grabbed, composed and, in some cases, provoked by artists who urge viewers to consider these complex fragments of colour and lines as thought-provoking mistakes. This collection of bits and bytes demonstrates how these "perfect imperfections" merit being considered in an aesthetic sense.</p>
     <p class="release-credits">Edited by <a href="https://organised.info/">Iman Moradi</a>, <a href="http://www.beflix.com/">Ant Scott</a>, <a href="https://qubik.com/">Joe Gilmore</a>, <a href="https://en.wikipedia.org/wiki/Christopher_Murphy_(designer)">Christopher Murphy</a>. ISBN 978-0-9799666-6-8.</p>
