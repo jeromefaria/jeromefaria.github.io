@@ -1,7 +1,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="dark light">
 
   {% seo %}
   {% include structured-data.html %}
@@ -16,12 +16,13 @@
   <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
 
   <script>
-    // Check for saved theme preference or default to system preference
+    // Check for saved theme preference or default to dark
     (function() {
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme) {
         document.documentElement.setAttribute('data-theme', savedTheme);
-      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      } else {
+        // Default to dark mode
         document.documentElement.setAttribute('data-theme', 'dark');
       }
     })();
