@@ -1,4 +1,8 @@
-// Posts and pages — archival, systematic
+// Posts — articles and content pages
+
+// =============================================================================
+// Page & Post Base
+// =============================================================================
 
 .page,
 .post {
@@ -13,7 +17,23 @@
   font-weight: $font-weight-normal;
 }
 
-// Page hero image - full width
+.post-title a {
+  color: var(--color-text);
+
+  &:hover {
+    color: var(--color-text-muted);
+  }
+}
+
+.post-meta {
+  margin-bottom: $spacing-6;
+  @include label-style;
+}
+
+// =============================================================================
+// Page Hero Image
+// =============================================================================
+
 .page-hero {
   margin: 0 0 $spacing-8;
   // Break out of container for full-width
@@ -21,7 +41,7 @@
   margin-right: calc(-50vw + 50%);
   width: 100vw;
 
-  @media (min-width: $breakpoint-md) {
+  @include respond-to(md) {
     margin-bottom: $spacing-12;
   }
 
@@ -30,7 +50,7 @@
     height: auto;
     display: block;
 
-    @media (min-width: $breakpoint-md) {
+    @include respond-to(md) {
       max-height: 70vh;
       object-fit: cover;
     }
@@ -42,100 +62,30 @@
     color: var(--color-text-muted);
     text-align: center;
 
-    @media (min-width: $breakpoint-md) {
+    @include respond-to(md) {
       padding: $spacing-3 $spacing-6;
     }
   }
 }
 
-.post-title a {
-  color: var(--color-text);
+// =============================================================================
+// Releases (simple list style)
+// =============================================================================
 
-  &:hover {
-    color: var(--color-text-muted);
-  }
-}
-
-.post-meta {
-  margin-bottom: $spacing-6;
-  font-size: $font-size-xs;
-  text-transform: uppercase;
-  letter-spacing: $letter-spacing-wider;
-  color: var(--color-text-muted);
-}
-
-// Homepage
-.home {
-  .hero {
-    margin: 0;
-    padding: 0;
-  }
-
-  .hero-image {
-    margin: 0;
-    padding: 0;
-    display: block;
-    width: 100%;
-    // Use dvh for proper mobile viewport, fallback to vh
-    // Subtract header + footer height so image aligns with footer border
-    height: calc(100vh - #{$header-height-mobile} - #{$footer-height});
-    height: calc(100dvh - #{$header-height-mobile} - #{$footer-height});
-
-    @media (min-width: $breakpoint-md) {
-      height: calc(100vh - #{$header-height-desktop} - #{$footer-height});
-      height: calc(100dvh - #{$header-height-desktop} - #{$footer-height});
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      object-position: center center;
-    }
-  }
-
-  .lead {
-    max-width: none;
-    margin-bottom: 0;
-
-    @media (min-width: $breakpoint-lg) {
-      font-size: $font-size-xl;
-    }
-  }
-}
-
-// Releases / discography style
 .releases {
   margin-bottom: $spacing-12;
-}
-
-.release {
-  margin-bottom: $spacing-6;
-
-  h3 {
-    margin: 0 0 $spacing-1;
-    font-size: $font-size-base;
-    font-weight: $font-weight-normal;
-  }
-
-  p {
-    margin: 0;
-    font-size: $font-size-sm;
-    color: var(--color-text-secondary);
-  }
 }
 
 .release-meta {
   display: block;
   margin-bottom: $spacing-1;
-  font-size: $font-size-xs;
-  text-transform: uppercase;
-  letter-spacing: $letter-spacing-wider;
-  color: var(--color-text-muted);
+  @include label-style;
 }
 
-// Quote
+// =============================================================================
+// Quote Feature
+// =============================================================================
+
 .quote-feature {
   margin-top: $spacing-12;
   padding-top: $spacing-8;
@@ -146,7 +96,10 @@
   }
 }
 
-// Post list
+// =============================================================================
+// Post List
+// =============================================================================
+
 .post-list {
   list-style: none;
   padding: 0;
@@ -177,7 +130,10 @@
   color: var(--color-text-secondary);
 }
 
-// Related
+// =============================================================================
+// Related Posts
+// =============================================================================
+
 .related {
   margin-top: $spacing-12;
   padding-top: $spacing-8;

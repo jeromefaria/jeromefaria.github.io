@@ -1,4 +1,8 @@
-// Masthead — institutional, utilitarian
+// Masthead — header and navigation
+
+// =============================================================================
+// Header
+// =============================================================================
 
 .masthead {
   position: sticky;
@@ -6,10 +10,12 @@
   z-index: 100;
   background: var(--color-bg);
   padding: $spacing-4 $spacing-5;
+  @include safe-area-padding($top: $spacing-4, $left: $spacing-5, $right: $spacing-5);
   border-bottom: 1px solid var(--color-border);
 
-  @media (min-width: $breakpoint-md) {
+  @include respond-to(md) {
     padding: $spacing-6 $spacing-8;
+    @include safe-area-padding($top: $spacing-6, $left: $spacing-8, $right: $spacing-8);
   }
 }
 
@@ -20,6 +26,10 @@
   flex-wrap: wrap;
   gap: $spacing-4;
   width: 100%;
+
+  @include respond-to(md) {
+    flex-wrap: nowrap;
+  }
 }
 
 .masthead-title {
@@ -40,30 +50,37 @@
   margin-left: $spacing-3;
 }
 
-// Controls container (theme toggle + hamburger)
+// =============================================================================
+// Mobile Controls
+// =============================================================================
+
 .masthead-controls {
   display: flex;
   align-items: center;
   gap: $spacing-4;
 
-  @media (min-width: $breakpoint-md) {
+  @include respond-to(md) {
     display: none;
   }
 }
 
+// =============================================================================
 // Navigation
+// =============================================================================
+
 .nav {
   display: none;
   width: 100%;
   flex-direction: column;
-  gap: $spacing-3;
+  gap: $spacing-1;
   padding-top: $spacing-4;
   border-top: 1px solid var(--color-border-subtle);
 
-  @media (min-width: $breakpoint-md) {
+  @include respond-to(md) {
     display: flex;
     width: auto;
     flex-direction: row;
+    align-items: center;
     gap: $spacing-5;
     padding-top: 0;
     border-top: none;
@@ -80,10 +97,16 @@
   text-transform: uppercase;
   color: var(--color-text-muted);
   transition: color $transition-fast;
-  padding: $spacing-2 0;
+  // Touch-friendly on mobile
+  padding: $spacing-3 0;
+  min-height: $touch-target-min;
+  display: flex;
+  align-items: center;
 
-  @media (min-width: $breakpoint-md) {
+  @include respond-to(md) {
     padding: 0;
+    min-height: auto;
+    display: inline;
   }
 
   &:hover {
@@ -96,13 +119,17 @@
   }
 }
 
-// Hamburger toggle
+// =============================================================================
+// Hamburger Toggle
+// =============================================================================
+
 .nav-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1rem;
-  height: 1rem;
+  width: $touch-target-min;
+  height: $touch-target-min;
+  margin: -0.875rem;
   color: var(--color-text-muted);
   transition: color $transition-fast;
 
@@ -111,8 +138,8 @@
   }
 
   svg {
-    width: 0.875rem;
-    height: 0.875rem;
+    width: 1rem;
+    height: 1rem;
   }
 
   .icon-close {
@@ -133,18 +160,10 @@
   }
 }
 
-// Theme toggle (hidden — keeping code for future re-enablement)
+// =============================================================================
+// Theme Toggle (hidden)
+// =============================================================================
+
 .theme-toggle {
   display: none;
-}
-
-// Desktop layout
-@media (min-width: $breakpoint-md) {
-  .masthead-inner {
-    flex-wrap: nowrap;
-  }
-
-  .nav {
-    align-items: center;
-  }
 }

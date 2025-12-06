@@ -1,16 +1,32 @@
 ---
 ---
 
-// Modern Jekyll Theme
-// Clean, minimal design with dark mode support
+// Jerome Faria — Design System
+// =============================================================================
+// Organized following ITCSS methodology:
+// Settings → Tools → Generic → Elements → Objects → Components → Utilities
 
+// Settings & Tools (variables, mixins, functions)
 @import "variables";
+
+// Generic (reset, base elements)
 @import "base";
+
+// Elements (typography, code)
 @import "type";
-@import "layout";
-@import "masthead";
-@import "posts";
 @import "code";
 @import "syntax";
-@import "pagination";
-@import "message";
+
+// Objects (layout patterns)
+@import "layout";
+
+// Components (UI patterns)
+@import "masthead";
+@import "posts";
+@import "components";
+
+// Pages (page-specific overrides)
+@import "pages";
+
+// Utilities (helper classes)
+@import "utilities";
