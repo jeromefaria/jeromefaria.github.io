@@ -30,7 +30,7 @@ permalink: /works/
     <button class="play-button" aria-label="Play on Bandcamp"></button>
   </div>
   <div class="release-details">
-    <p><strong><a href="https://jeromefaria.bandcamp.com/album/music-written-performed-for-the-cabinet-of-dr-caligari">Music Written & Performed for The Cabinet of Dr. Caligari (Recording)</a></strong></p>
+    <p><strong><a href="https://jeromefaria.bandcamp.com/album/music-written-performed-for-the-cabinet-of-dr-caligari">Music Written & Performed for The Cabinet of Dr. Caligari</a></strong></p>
     <p class="release-meta">Digital — BRØQN, 2023</p>
     <ol>
       <li>Spirits Surround Us On Every Side</li>

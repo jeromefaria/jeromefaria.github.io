@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<article class="page" data-page="{{ page.title | slugify }}">
+<article class="page{% if page.prose %} prose{% endif %}" data-page="{{ page.title | slugify }}">
   {% if page.image %}
   <figure class="page-hero">
     <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title }}">

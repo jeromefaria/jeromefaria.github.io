@@ -2,6 +2,7 @@
 layout: page
 title: About
 permalink: /about/
+prose: true
 ---
 
 There's a particular kind of artist who emerges from the netlabel era—someone who came of age when distributing experimental music meant uploading MP3s to servers in distant countries, when community meant forum threads and Creative Commons licenses. Jerome Faria is one of these artists, though to say he emerged from that moment would be to understate what he's done since.

@@ -48,6 +48,7 @@ $line-height-tight: 1.25;
 $line-height-snug: 1.4;
 $line-height-base: 1.6;
 $line-height-relaxed: 1.75;
+$line-height-prose: 1.8;
 
 // Letter spacing
 $letter-spacing-tight: -0.01em;
@@ -58,6 +59,7 @@ $letter-spacing-wider: 0.12em;
 // Font weights
 $font-weight-normal: 400;
 $font-weight-medium: 500;
+$font-weight-semibold: 600;
 
 // Spacing
 $spacing-1: 0.25rem;
@@ -74,7 +76,7 @@ $spacing-20: 5rem;
 $spacing-24: 6rem;
 
 // Layout
-$max-width: 36rem;
+$max-width: 33rem;
 $max-width-wide: 72rem;
 $max-width-full: 100%;
 $breakpoint-sm: 480px;
