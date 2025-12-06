@@ -11,55 +11,52 @@
 
 <!-- Theme Toggle -->
 <script>
-  (function() {
-    // Theme toggle - handle both mobile and desktop
-    document.querySelectorAll('.theme-toggle').forEach(function(toggle) {
-      toggle.addEventListener('click', function() {
+  (() => {
+    // Theme toggle
+    document.querySelectorAll('.theme-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
       });
     });
 
-    // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    // System theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches }) => {
       if (!localStorage.getItem('theme')) {
-        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', matches ? 'dark' : 'light');
       }
     });
 
     // Mobile nav toggle
     const navToggle = document.querySelector('.nav-toggle');
     const nav = document.querySelector('.nav');
-    if (navToggle && nav) {
-      navToggle.addEventListener('click', function() {
-        const isOpen = nav.classList.toggle('is-open');
-        navToggle.setAttribute('aria-expanded', isOpen);
-      });
-    }
+    navToggle?.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
   })();
 </script>
 
 <!-- Bandcamp Lazy Load -->
 <script>
-  (function() {
-    document.querySelectorAll('.bandcamp-player').forEach(function(player) {
-      player.addEventListener('click', function() {
+  (() => {
+    document.querySelectorAll('.bandcamp-player').forEach(player => {
+      player.addEventListener('click', () => {
         if (player.classList.contains('loading') || player.querySelector('iframe')) return;
 
-        var albumId = player.getAttribute('data-album');
+        const albumId = player.dataset.album;
         if (!albumId) return;
 
         player.classList.add('loading');
 
-        var iframe = document.createElement('iframe');
-        iframe.src = 'https://bandcamp.com/EmbeddedPlayer/album=' + albumId + '/size=large/bgcol=ffffff/linkcol=333333/minimal=true/transparent=true/';
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://bandcamp.com/EmbeddedPlayer/album=${albumId}/size=large/bgcol=ffffff/linkcol=333333/minimal=true/transparent=true/`;
         iframe.setAttribute('seamless', '');
         iframe.setAttribute('loading', 'lazy');
 
-        iframe.onload = function() {
+        iframe.onload = () => {
           player.querySelector('img').style.display = 'none';
           player.querySelector('.play-button').style.display = 'none';
           player.classList.remove('loading');
