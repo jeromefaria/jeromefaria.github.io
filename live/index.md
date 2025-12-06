@@ -31,6 +31,23 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 </section>
 
 <section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-2024">2024</button>
+<div class="accordion-content" id="section-2024" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
+
+<div class="release" id="cca-no-desterro">
+  <div class="release-details">
+    <p><strong>CCA no Desterro</strong></p>
+    <p class="release-meta"><a href="https://darc.pt">Desterro</a>, Lisbon</p>
+    <p class="release-description">NOx (with <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a>). With Copo d'Água, DJ Privilégio, Galho84.</p>
+  </div>
+</div>
+
+</div>
+</div>
+</section>
+
+<section class="accordion-section">
 <button class="accordion-trigger" aria-expanded="false" aria-controls="section-2022">2022</button>
 <div class="accordion-content" id="section-2022" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
