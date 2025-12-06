@@ -9,26 +9,9 @@
 </script>
 {% endif %}
 
-<!-- Theme Toggle -->
+<!-- Mobile Nav Toggle -->
 <script>
   (() => {
-    // Theme toggle
-    document.querySelectorAll('.theme-toggle').forEach(toggle => {
-      toggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-      });
-    });
-
-    // System theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches }) => {
-      if (!localStorage.getItem('theme')) {
-        document.documentElement.setAttribute('data-theme', matches ? 'dark' : 'light');
-      }
-    });
-
     // Mobile nav toggle
     const navToggle = document.querySelector('.nav-toggle');
     const nav = document.querySelector('.nav');
@@ -60,7 +43,7 @@
         player.classList.add('loading');
 
         const iframe = document.createElement('iframe');
-        iframe.src = `https://bandcamp.com/EmbeddedPlayer/album=${albumId}/size=large/bgcol=ffffff/linkcol=333333/minimal=true/transparent=true/`;
+        iframe.src = `https://bandcamp.com/EmbeddedPlayer/album=${albumId}/size=large/bgcol=000000/linkcol=ffffff/minimal=true/transparent=true/`;
         iframe.setAttribute('seamless', '');
         iframe.setAttribute('loading', 'lazy');
 
@@ -82,15 +65,10 @@
     const accordions = document.querySelectorAll('.accordion-section');
     if (!accordions.length) return;
 
-    accordions.forEach((section, index) => {
+    accordions.forEach(section => {
       const trigger = section.querySelector('.accordion-trigger');
       const content = section.querySelector('.accordion-content');
       if (!trigger || !content) return;
-
-      // First section open by default
-      const isOpen = index === 0;
-      trigger.setAttribute('aria-expanded', isOpen);
-      content.setAttribute('aria-hidden', !isOpen);
 
       trigger.addEventListener('click', () => {
         const wasOpen = trigger.getAttribute('aria-expanded') === 'true';

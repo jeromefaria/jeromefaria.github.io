@@ -6,10 +6,6 @@
     </h1>
 
     <div class="masthead-controls">
-      <button class="theme-toggle" type="button" aria-label="Toggle theme">
-        {% include theme-icons.html %}
-      </button>
-
       <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
         <svg class="nav-toggle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <line class="nav-toggle-line nav-toggle-line-1" x1="4" y1="12" x2="20" y2="12"></line>
@@ -25,10 +21,6 @@
           {{ nav.title }}
         </a>
         {% endfor %}
-
-        <button class="theme-toggle theme-toggle-desktop" type="button" aria-label="Toggle theme">
-          {% include theme-icons.html %}
-        </button>
       </div>
     </nav>
   </div>
