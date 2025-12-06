@@ -80,7 +80,7 @@ permalink: /live/
 <div class="release" id="cine-qua-non">
   <div class="release-details">
     <p><strong>Cine Qua Non</strong></p>
-    <p class="release-meta">Estalagem da Ponta do Sol</p>
+    <p class="release-meta"><a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a></p>
     <p class="release-description">With Jorge Maggiore, Nuno Filipe, Filipe Ferraz.</p>
   </div>
 </div>
@@ -90,7 +90,7 @@ permalink: /live/
 <div class="release" id="madeiradig-2011">
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
-    <p class="release-meta">Casa das Mudas, Calheta</p>
+    <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
     <p class="release-description">Duo with <a href="https://12k.com/">Taylor Deupree</a>. With <a href="https://sunblind.net/">Tim Hecker</a>, <a href="https://pointnever.com/">Oneohtrix Point Never</a>, <a href="https://ktl10.bandcamp.com/">KTL</a>, <a href="https://deafcenter.bandcamp.com/">Deaf Center</a>, <a href="https://www.leeranaldo.com/">Lee Ranaldo</a> & Manuel Mota, Nadja, Aki Onda.</p>
   </div>
 </div>
@@ -98,7 +98,7 @@ permalink: /live/
 <div class="release" id="migractions-2011">
   <div class="release-details">
     <p><strong>Festival Migractions</strong></p>
-    <p class="release-meta">Théâtre de L'Opprimé, Paris</p>
+    <p class="release-meta"><a href="https://www.theatredelopprime.com/">Théâtre de L'Opprimé</a>, Paris</p>
     <p class="release-description">Duo with <a href="https://www.hugoolim.com/">Hugo Olim</a>.</p>
   </div>
 </div>
@@ -108,7 +108,7 @@ permalink: /live/
 <div class="release" id="olhares-de-outono-2010">
   <div class="release-details">
     <p><strong>Olhares de Outono</strong></p>
-    <p class="release-meta">Passos Manuel, Porto</p>
+    <p class="release-meta"><a href="https://passosmanuel.net/">Passos Manuel</a>, Porto</p>
     <p class="release-description">Artist talk and performance. With <a href="https://oval.bandcamp.com/">Oval</a>, Simon Fisher Turner, Paul Farrington, André Gonçalves.</p>
   </div>
 </div>
@@ -118,7 +118,7 @@ permalink: /live/
 <div class="release" id="madeiradig-2009">
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
-    <p class="release-meta">Casa das Mudas, Calheta</p>
+    <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
     <p class="release-description">Duo with <a href="https://www.hugoolim.com/">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, Christ., Zavoloka & Laetitia Morais, Gigantiq, Jade.</p>
   </div>
 </div>
@@ -126,7 +126,7 @@ permalink: /live/
 <div class="release" id="eme-olhares-2009">
   <div class="release-details">
     <p><strong>EME.LL / Olhares de Outono</strong></p>
-    <p class="release-meta">Mosteiro São Bento da Vitória, Porto</p>
+    <p class="release-meta"><a href="https://www.tnsj.pt/en/edificios/mosteiro-de-sao-bento-da-vitoria/">Mosteiro São Bento da Vitória</a>, Porto</p>
     <p class="release-description">With <a href="https://scannerdot.bandcamp.com/">Scanner</a>, <a href="https://at-c.org/">@c</a>, <a href="https://www.vitorjoaquim.pt/">Vitor Joaquim</a>, Carlos Santos, André Sier, Alba Corral, Laetitia Morais, <a href="https://www.hugoolim.com/">Hugo Olim</a>, Ivan Franco, Nuno Moita.</p>
   </div>
 </div>
@@ -136,7 +136,7 @@ permalink: /live/
 <div class="release" id="eme-madeira-2008">
   <div class="release-details">
     <p><strong>EME — Extensão Madeira</strong></p>
-    <p class="release-meta">Casa das Mudas, Calheta</p>
+    <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
     <p class="release-description">With <a href="https://hauschka.bandcamp.com/">Hauschka</a>, <a href="https://thesightbelow.bandcamp.com/">The Sight Below</a>.</p>
   </div>
 </div>
@@ -144,7 +144,7 @@ permalink: /live/
 <div class="release" id="eme-2008">
   <div class="release-details">
     <p><strong>EME</strong></p>
-    <p class="release-meta">Teatro Ibérico, Lisbon</p>
+    <p class="release-meta"><a href="https://teatroiberico.org/">Teatro Ibérico</a>, Lisbon</p>
     <p class="release-description">With <a href="https://thesightbelow.bandcamp.com/">The Sight Below</a>, <a href="https://greghaines.bandcamp.com/">Greg Haines</a>, <a href="https://hauschka.bandcamp.com/">Hauschka</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>, Sanso-Xtro, Anna Troisi, Tina Frank, Carsten Goertz, André Sier, André Gonçalves, Garcia, Machas, Maranha e Mota, Safe & Sound, The Beautiful Schizophonic.</p>
   </div>
 </div>
@@ -152,7 +152,7 @@ permalink: /live/
 <div class="release" id="storung-2008">
   <div class="release-details">
     <p><strong><a href="https://ra.co/promoters/4519">Störung</a></strong></p>
-    <p class="release-meta">La Farinera del Clot, Barcelona</p>
+    <p class="release-meta"><a href="https://farinera.org/">La Farinera del Clot</a>, Barcelona</p>
     <p class="release-description">With <a href="https://kimcascone.bandcamp.com/">Kim Cascone</a>, <a href="http://www.franciscolopez.net/">Francisco López</a>, <a href="https://philippepetit.bandcamp.com/">Philippe Petit</a>, <a href="https://ritornell.bandcamp.com/">Ritornell</a>, Sébastien Roux, Tonne.</p>
   </div>
 </div>
@@ -162,7 +162,7 @@ permalink: /live/
 <div class="release" id="madeiradig-2007">
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
-    <p class="release-meta">Casa das Mudas, Calheta</p>
+    <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
     <p class="release-description">With Alog, <a href="https://vladislavdelay.bandcamp.com/">Vladislav Delay</a>, Ran Slavin.</p>
   </div>
 </div>
