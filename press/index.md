@@ -18,7 +18,7 @@ description: Press coverage and reviews of Jerome Faria's work from The Quietus,
 > **[Indie Rock Mag](https://www.indierockmag.com/article19210.html)**
 
 > "It's almost as if we were contemplating the machine, forced to escape its synthesised perfection, about to stumble upon itself at any moment."
-> **Edição Limitada**
+> **[Edição Limitada](https://edicaolimitada.blogs.sapo.pt/)**
 
 > "There is not a second to spare here, nor a moment to throw away."
-> **Ponto Alternativo**
+> **[Ponto Alternativo](https://amplificasom.com/ponto-alternativo/)**
