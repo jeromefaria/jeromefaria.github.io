@@ -14,7 +14,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   <div class="release-details">
     <p><strong>Showcase Casa Amarela</strong></p>
     <p class="release-meta"><a href="https://www.instagram.com/cooperativamula/">Cooperativa Mula</a>, Barreiro</p>
-    <p class="release-description">NOx (with <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a>). With copo d'água, TiaAvô, Rebolation All-Stars.</p>
+    <p class="release-description">NOx (with <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a>). With <a href="https://copodagua.bandcamp.com/">Copo d'Água</a>, TiaAvô, Rebolation All-Stars.</p>
   </div>
 </div>
 
@@ -22,7 +22,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   <div class="release-details">
     <p><strong>Fim de Emissão #45</strong></p>
     <p class="release-meta"><a href="https://darc.pt">Desterro</a>, Lisbon</p>
-    <p class="release-description">With Ai Feith, W.T.V.R.</p>
+    <p class="release-description">Solo performance. With Ai Feith, W.T.V.R.</p>
   </div>
 </div>
 
@@ -112,7 +112,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="release" id="fica-na-cidade">
   <div class="release-details">
     <p><strong><a href="https://www.visitfunchal.pt/pt/todos-os-eventos/280-fica-na-cidade.html">Fica na Cidade</a></strong></p>
-    <p class="release-meta">Funchal</p>
+    <p class="release-meta">Praça do Município, Funchal</p>
     <p class="release-description">With <a href="https://trengosoundsystem.bandcamp.com/">Tren Go! Sound System</a>.</p>
   </div>
 </div>
@@ -130,7 +130,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   <div class="release-details">
     <p><strong>Cognitivopolis</strong></p>
     <p class="release-meta"><a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol</p>
-    <p class="release-description">Festival about creativity, technology and science. With <a href="https://massimobanzi.com/">Massimo Banzi</a> (Arduino), <a href="https://davidrowan.com/">David Rowan</a> (Wired UK), Gian Giudice (CERN).</p>
+    <p class="release-description">Solo performance. Festival about creativity, technology and science. With <a href="https://massimobanzi.com/">Massimo Banzi</a> (Arduino), <a href="https://davidrowan.com/">David Rowan</a> (Wired UK), Gian Giudice (CERN).</p>
   </div>
 </div>
 
@@ -154,7 +154,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   <div class="release-details">
     <p><strong>Cidades Eletrónicas: The Cabinet of Dr. Caligari</strong></p>
     <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
-    <p class="release-description">Live score for Robert Wiene's 1920 expressionist silent film. With <a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>.</p>
+    <p class="release-description">Premiere of live score for Robert Wiene's 1920 expressionist silent film. With <a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>.</p>
   </div>
 </div>
 
@@ -171,7 +171,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   <div class="release-details">
     <p><strong>Cine Qua Non</strong></p>
     <p class="release-meta"><a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol</p>
-    <p class="release-description">With Jorge Maggiore, Nuno Filipe, Filipe Ferraz.</p>
+    <p class="release-description">Improvisation collective. Electronics, piano (<a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>), percussion (<a href="https://madeirajazzcollective.bandcamp.com/">Jorge Maggiore</a>) and visuals (Filipe Ferraz).</p>
   </div>
 </div>
 
@@ -230,7 +230,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
     <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
-    <p class="release-description">Duo with <a href="https://www.hugoolim.com/">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, Christ., <a href="https://zavoloka.com/">Zavoloka</a> & Laetitia Morais, Gigantiq, Jade.</p>
+    <p class="release-description">Duo with <a href="https://www.hugoolim.com/">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, <a href="https://www.discogs.com/artist/31633-Christ">Christ.</a>, <a href="https://zavoloka.com/">Zavoloka</a> & <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://gigantiq.bandcamp.com/">Gigantiq</a>, <a href="http://www.jade-enterprises.at/">Jade</a>.</p>
   </div>
 </div>
 
@@ -238,7 +238,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   <div class="release-details">
     <p><strong>EME.LL / Olhares de Outono</strong></p>
     <p class="release-meta"><a href="https://www.tnsj.pt/en/edificios/mosteiro-de-sao-bento-da-vitoria/">Mosteiro São Bento da Vitória</a>, Porto</p>
-    <p class="release-description">With <a href="https://scannerdot.bandcamp.com/">Scanner</a>, <a href="https://at-c.org/">@c</a>, <a href="https://www.vitorjoaquim.pt/">Vitor Joaquim</a>, <a href="https://carlossantos.bandcamp.com/">Carlos Santos</a>, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://blog.albagcorral.com/">Alba Corral</a>, Laetitia Morais, <a href="https://www.hugoolim.com/">Hugo Olim</a>, <a href="https://ivanfranco.wordpress.com/">Ivan Franco</a>, Nuno Moita.</p>
+    <p class="release-description">With <a href="https://scannerdot.bandcamp.com/">Scanner</a>, <a href="https://at-c.org/">@c</a>, <a href="https://www.vitorjoaquim.pt/">Vitor Joaquim</a>, <a href="https://carlossantos.bandcamp.com/">Carlos Santos</a>, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://blog.albagcorral.com/">Alba Corral</a>, <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://www.hugoolim.com/">Hugo Olim</a>, <a href="https://ivanfranco.wordpress.com/">Ivan Franco</a>, <a href="https://nunomoita.bandcamp.com/">Nuno Moita</a>.</p>
   </div>
 </div>
 
@@ -263,7 +263,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   <div class="release-details">
     <p><strong>EME</strong></p>
     <p class="release-meta"><a href="https://teatroiberico.org/">Teatro Ibérico</a>, Lisbon</p>
-    <p class="release-description">With <a href="https://thesightbelow.bandcamp.com/">The Sight Below</a>, <a href="https://greghaines.bandcamp.com/">Greg Haines</a>, <a href="https://hauschka.bandcamp.com/">Hauschka</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>, <a href="https://soundcloud.com/sanso-xtro">Sanso-Xtro</a>, <a href="https://annatroisi.org/">Anna Troisi</a>, <a href="https://www.tinafrank.net/">Tina Frank</a>, Carsten Goertz, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://www.andregoncalves.info/">André Gonçalves</a>, <a href="https://margaridagarcia.bandcamp.com/">Garcia</a>, Machas, <a href="https://davidmaranha.bandcamp.com/">Maranha</a> e <a href="https://manuelmota.bandcamp.com/">Mota</a>, Safe & Sound, The Beautiful Schizophonic.</p>
+    <p class="release-description">With <a href="https://thesightbelow.bandcamp.com/">The Sight Below</a>, <a href="https://greghaines.bandcamp.com/">Greg Haines</a>, <a href="https://hauschka.bandcamp.com/">Hauschka</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>, <a href="https://soundcloud.com/sanso-xtro">Sanso-Xtro</a>, <a href="https://annatroisi.org/">Anna Troisi</a>, <a href="https://www.tinafrank.net/">Tina Frank</a>, <a href="https://carstengoertz.cc/">Carsten Goertz</a>, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://www.andregoncalves.info/">André Gonçalves</a>, <a href="https://margaridagarcia.bandcamp.com/">Garcia</a>, Machas, <a href="https://davidmaranha.bandcamp.com/">Maranha</a> e <a href="https://manuelmota.bandcamp.com/">Mota</a>, Safe & Sound, <a href="https://cronica.bandcamp.com/album/musicamorosa">The Beautiful Schizophonic</a>.</p>
   </div>
 </div>
 
