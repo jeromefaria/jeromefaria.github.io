@@ -17,7 +17,7 @@ permalink: /live/
 <div class="release" id="fim-de-emissao-45">
   <div class="release-details">
     <p><strong>Fim de Emissão #45</strong></p>
-    <p class="release-meta"><a href="https://www.desterro.org/">Desterro</a>, Lisbon</p>
+    <p class="release-meta"><a href="https://darc.pt">Desterro</a>, Lisbon</p>
     <p class="release-description">With Ai Feith, W.T.V.R.</p>
   </div>
 </div>
