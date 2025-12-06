@@ -87,7 +87,7 @@ permalink: /works/
   <img src="/assets/images/nny.jpg" alt="NNY++">
   <div class="release-details">
     <p><strong>NNY++</strong></p>
-    <p class="release-meta">CDr — Almasud Records, CDRASUD015, 2007</p>
+    <p class="release-meta">CDr — <a href="https://www.discogs.com/label/84424-Almasud-Records">Almasud Records</a>, CDRASUD015, 2007</p>
     <ol>
       <li>001</li>
       <li>002</li>
@@ -169,7 +169,7 @@ permalink: /works/
       <li>Exmatik</li>
       <li>BL_P+</li>
     </ol>
-    <p class="release-credits">All music written and captured by Jerome Faria. Artwork by Spiraljoe.</p>
+    <p class="release-credits">All music written and captured by Jerome Faria. Artwork by <a href="https://www.deviantart.com/spiraljoe">Spiraljoe</a>.</p>
   </div>
 </div>
 
@@ -218,7 +218,7 @@ permalink: /works/
       <li>sol — Costa Norte</li>
       <li>W. R. Pyo — Release (Conclusion)</li>
     </ol>
-    <p class="release-credits">Artwork by Pedro Jafuno. Additional photography by Sue Andrade, Joana Marote.</p>
+    <p class="release-credits">Artwork by <a href="https://www.flickr.com/photos/pedrojafuno/">Pedro Jafuno</a>. Additional photography by Sue Andrade, Joana Marote.</p>
   </div>
 </div>
 
@@ -259,7 +259,7 @@ permalink: /works/
 
 ## Compilations and Collaborations {#compilations}
 
-**100421** in *Transmissions From The Heart Of Darkness, Part V: Elsewhere* — MP3, Des Cendres À La Cave, 2013
+**100421** in *Transmissions From The Heart Of Darkness, Part V: Elsewhere* — MP3, <a href="https://descendresalacave.bandcamp.com/">Des Cendres À La Cave</a>, 2013
 
 **Depolarized** with Nelson P. Ferreira in *Depolarized* — MP3, BRØQN, BRQ002, 2012
 
@@ -269,7 +269,7 @@ permalink: /works/
 
 **Sand Dune** in *Baconism* — CD/MP3, NIkO, NIKO005, 2008
 
-**Crystal Space** in *Thisagree & Shadow* — CD, Thisco, THISK.43, 2008
+**Crystal Space** in *Thisagree & Shadow* — CD, <a href="https://thisco.bandcamp.com/">Thisco</a>, THISK.43, 2008
 
 **090407001** and **090407003** in *<a href="https://archive.org/details/enrcmp07">Datacross.1</a>* — MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP07, 2007
 
@@ -277,7 +277,7 @@ permalink: /works/
 
 **13** in *<a href="https://archive.org/details/enrcmp06">Falésia</a>* — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP06, 2007
 
-**Perpetual** and **Crowded Desert** in *One On Twoism* — MP3, Twoism, OOT001, 2007
+**Perpetual** and **Crowded Desert** in *<a href="https://twoismrecords.bandcamp.com/album/one-on-twoism-volume-1">One On Twoism</a>* — MP3, <a href="https://twoismrecords.bandcamp.com/">Twoism Records</a>, OOT001, 2007
 
 **332 Variation (NNY mix)** in *<a href="https://archive.org/details/mimi065">Friends Reinterpretations Of Unreleased 332 Variations Volume 4</a>* — MP3, <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI065, 2006
 
