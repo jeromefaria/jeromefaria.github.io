@@ -17,7 +17,8 @@
   }
 
   // Text-only releases (no images) - single column, tighter spacing
-  &:not(:has(img)):not(:has(iframe)) {
+  // Use .release--text-only class since :has() isn't supported on GitHub Pages
+  &--text-only {
     display: block;
     margin-bottom: $spacing-6;
   }
@@ -236,7 +237,8 @@
 }
 
 // Text-only release details - tighter spacing
-.release:not(:has(img)):not(:has(iframe)) .release-details {
+// Use .release--text-only class since :has() isn't supported on GitHub Pages
+.release--text-only .release-details {
   p {
     margin-bottom: $spacing-1;
   }

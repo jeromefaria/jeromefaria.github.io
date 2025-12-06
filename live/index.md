@@ -10,7 +10,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2025" aria-hidden="false">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="showcase-casa-amarela">
+<div class="release release--text-only" id="showcase-casa-amarela">
   <div class="release-details">
     <p><strong>Showcase Casa Amarela</strong></p>
     <p class="release-meta"><a href="https://www.instagram.com/cooperativamula/">Cooperativa Mula</a>, Barreiro</p>
@@ -18,7 +18,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   </div>
 </div>
 
-<div class="release" id="fim-de-emissao-45">
+<div class="release release--text-only" id="fim-de-emissao-45">
   <div class="release-details">
     <p><strong>Fim de Emissão #45</strong></p>
     <p class="release-meta"><a href="https://darc.pt">Desterro</a>, Lisbon</p>
@@ -35,7 +35,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2024" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="cca-no-desterro">
+<div class="release release--text-only" id="cca-no-desterro">
   <div class="release-details">
     <p><strong>CCA no Desterro</strong></p>
     <p class="release-meta"><a href="https://darc.pt">Desterro</a>, Lisbon</p>
@@ -52,7 +52,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2022" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="jejum-11">
+<div class="release release--text-only" id="jejum-11">
   <div class="release-details">
     <p><strong>Jejum #11</strong></p>
     <p class="release-meta"><a href="https://ruadasgaivotas6.pt/">Rua das Gaivotas 6</a>, Lisbon</p>
@@ -68,7 +68,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2021" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="nariz-entupido">
+<div class="release release--text-only" id="nariz-entupido">
   <div class="release-details">
     <p><strong>Nariz Entupido</strong></p>
     <p class="release-meta"><a href="https://www.smup.pt/">SMUP</a>, Parede</p>
@@ -76,7 +76,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   </div>
 </div>
 
-<div class="release" id="aragao-cartaxo">
+<div class="release release--text-only" id="aragao-cartaxo">
   <div class="release-details">
     <p><strong><a href="/works/#aragao">Aragão</a></strong></p>
     <p class="release-meta"><a href="https://www.cm-cartaxo.pt/servicos-municipais/cultura/equipamentos-culturais/item/49-centro-cultural-municipio-do-cartaxo">Centro Cultural do Cartaxo</a>, Cartaxo</p>
@@ -84,7 +84,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   </div>
 </div>
 
-<div class="release" id="aragao-funchal">
+<div class="release release--text-only" id="aragao-funchal">
   <div class="release-details">
     <p><strong><a href="/works/#aragao">Aragão</a></strong></p>
     <p class="release-meta"><a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, Funchal</p>
@@ -101,7 +101,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2015" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="heineken-series">
+<div class="release release--text-only" id="heineken-series">
   <div class="release-details">
     <p><strong>Heineken Series</strong></p>
     <p class="release-meta"><a href="https://www.musicboxlisboa.com/">Musicbox</a>, Lisbon</p>
@@ -109,7 +109,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   </div>
 </div>
 
-<div class="release" id="fica-na-cidade">
+<div class="release release--text-only" id="fica-na-cidade">
   <div class="release-details">
     <p><strong><a href="https://www.visitfunchal.pt/pt/todos-os-eventos/280-fica-na-cidade.html">Fica na Cidade</a></strong></p>
     <p class="release-meta">Praça do Município, Funchal</p>
@@ -126,7 +126,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2013" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="cognitivopolis">
+<div class="release release--text-only" id="cognitivopolis">
   <div class="release-details">
     <p><strong>Cognitivopolis</strong></p>
     <p class="release-meta"><a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol</p>
@@ -134,7 +134,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   </div>
 </div>
 
-<div class="release" id="caligari-live-3">
+<div class="release release--text-only" id="caligari-live-3">
   <div class="release-details">
     <p><strong><a href="https://www.pontadosol.com/l-concerts">Concertos L</a>: The Cabinet of Dr. Caligari</strong></p>
     <p class="release-meta"><a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol</p>
@@ -142,7 +142,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   </div>
 </div>
 
-<div class="release" id="caligari-live-2">
+<div class="release release--text-only" id="caligari-live-2">
   <div class="release-details">
     <p><strong>The Cabinet of Dr. Caligari</strong></p>
     <p class="release-meta">Scat Music Club, Funchal</p>
@@ -150,7 +150,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   </div>
 </div>
 
-<div class="release" id="caligari-live">
+<div class="release release--text-only" id="caligari-live">
   <div class="release-details">
     <p><strong>Cidades Eletrónicas: The Cabinet of Dr. Caligari</strong></p>
     <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
@@ -167,7 +167,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2012" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="cine-qua-non">
+<div class="release release--text-only" id="cine-qua-non">
   <div class="release-details">
     <p><strong>Cine Qua Non</strong></p>
     <p class="release-meta"><a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol</p>
@@ -184,7 +184,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2011" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="madeiradig-2011">
+<div class="release release--text-only" id="madeiradig-2011">
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
     <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
@@ -192,7 +192,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   </div>
 </div>
 
-<div class="release" id="migractions-2011">
+<div class="release release--text-only" id="migractions-2011">
   <div class="release-details">
     <p><strong>Festival Migractions</strong></p>
     <p class="release-meta"><a href="https://www.theatredelopprime.com/">Théâtre de L'Opprimé</a>, Paris</p>
@@ -209,7 +209,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2010" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="olhares-de-outono-2010">
+<div class="release release--text-only" id="olhares-de-outono-2010">
   <div class="release-details">
     <p><strong>Olhares de Outono</strong></p>
     <p class="release-meta"><a href="https://passosmanuel.net/">Passos Manuel</a>, Porto</p>
@@ -226,7 +226,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2009" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="madeiradig-2009">
+<div class="release release--text-only" id="madeiradig-2009">
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
     <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
@@ -234,7 +234,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   </div>
 </div>
 
-<div class="release" id="eme-olhares-2009">
+<div class="release release--text-only" id="eme-olhares-2009">
   <div class="release-details">
     <p><strong>EME.LL / Olhares de Outono</strong></p>
     <p class="release-meta"><a href="https://www.tnsj.pt/en/edificios/mosteiro-de-sao-bento-da-vitoria/">Mosteiro São Bento da Vitória</a>, Porto</p>
@@ -251,7 +251,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2008" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="eme-madeira-2008">
+<div class="release release--text-only" id="eme-madeira-2008">
   <div class="release-details">
     <p><strong>EME — Extensão Madeira</strong></p>
     <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
@@ -259,7 +259,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   </div>
 </div>
 
-<div class="release" id="eme-2008">
+<div class="release release--text-only" id="eme-2008">
   <div class="release-details">
     <p><strong>EME</strong></p>
     <p class="release-meta"><a href="https://teatroiberico.org/">Teatro Ibérico</a>, Lisbon</p>
@@ -267,7 +267,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   </div>
 </div>
 
-<div class="release" id="storung-2008">
+<div class="release release--text-only" id="storung-2008">
   <div class="release-details">
     <p><strong><a href="https://ra.co/promoters/4519">Störung</a></strong></p>
     <p class="release-meta"><a href="https://farinera.org/">La Farinera del Clot</a>, Barcelona</p>
@@ -284,7 +284,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2007" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="madeiradig-2007">
+<div class="release release--text-only" id="madeiradig-2007">
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
     <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
@@ -301,7 +301,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2006" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="madeiradig-2006">
+<div class="release release--text-only" id="madeiradig-2006">
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
     <p class="release-meta"><a href="https://madeira.rtp.pt/">RDP Auditorium</a>, Funchal</p>
@@ -318,7 +318,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 <div class="accordion-content" id="section-2005" aria-hidden="true">
 <div class="accordion-content-inner" markdown="1">
 
-<div class="release" id="madeiradig-2005">
+<div class="release release--text-only" id="madeiradig-2005">
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
     <p class="release-meta"><a href="https://madeira.rtp.pt/">RDP Auditorium</a>, Funchal</p>
