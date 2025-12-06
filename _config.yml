@@ -69,6 +69,8 @@ exclude:
   - README.md
   - LICENSE.md
   - projects/
+  - blog/
+  - categories/
 
 # Defaults
 defaults:
