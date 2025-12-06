@@ -44,7 +44,7 @@ permalink: /live/
 <div class="release" id="aragao-cartaxo">
   <div class="release-details">
     <p><strong><a href="/works/#aragao">Aragão</a></strong></p>
-    <p class="release-meta"><a href="https://www.cm-cartaxo.pt/servicos-municipais/cultura/equipamentos-culturais/item/49-centro-cultural-municipio-do-cartaxo">Centro Cultural do Cartaxo</a></p>
+    <p class="release-meta"><a href="https://www.cm-cartaxo.pt/servicos-municipais/cultura/equipamentos-culturais/item/49-centro-cultural-municipio-do-cartaxo">Centro Cultural do Cartaxo</a>, Cartaxo</p>
     <p class="release-description">Theatre production. Live music & interpretation.</p>
   </div>
 </div>
@@ -63,13 +63,13 @@ permalink: /live/
   <div class="release-details">
     <p><strong>Heineken Series</strong></p>
     <p class="release-meta"><a href="https://www.musicboxlisboa.com/">Musicbox</a>, Lisbon</p>
-    <p class="release-description">With <a href="https://www.mmlxii.com/">William Basinski</a>, Mr. Herbert Quain, Cruz.</p>
+    <p class="release-description">With <a href="https://www.mmlxii.com/">William Basinski</a>, <a href="https://zigurartists.bandcamp.com/album/forgetting-is-a-liability">Mr. Herbert Quain</a>, <a href="https://www.viberate.com/artist/cruz-767/">Cruz</a>.</p>
   </div>
 </div>
 
 <div class="release" id="fica-na-cidade">
   <div class="release-details">
-    <p><strong>Fica na Cidade</strong></p>
+    <p><strong><a href="https://www.visitfunchal.pt/pt/todos-os-eventos/280-fica-na-cidade.html">Fica na Cidade</a></strong></p>
     <p class="release-meta">Funchal</p>
     <p class="release-description">With <a href="https://trengosoundsystem.bandcamp.com/">Tren Go! Sound System</a>.</p>
   </div>
@@ -80,8 +80,8 @@ permalink: /live/
 <div class="release" id="cognitivopolis">
   <div class="release-details">
     <p><strong>Cognitivopolis</strong></p>
-    <p class="release-meta"><a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a></p>
-    <p class="release-description">Festival about creativity, technology and science. With Massimo Banzi (Arduino), David Rowan (Wired UK), Gian Giudice (CERN).</p>
+    <p class="release-meta"><a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol</p>
+    <p class="release-description">Festival about creativity, technology and science. With <a href="https://massimobanzi.com/">Massimo Banzi</a> (Arduino), <a href="https://davidrowan.com/">David Rowan</a> (Wired UK), Gian Giudice (CERN).</p>
   </div>
 </div>
 
@@ -90,7 +90,7 @@ permalink: /live/
 <div class="release" id="cine-qua-non">
   <div class="release-details">
     <p><strong>Cine Qua Non</strong></p>
-    <p class="release-meta"><a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a></p>
+    <p class="release-meta"><a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol</p>
     <p class="release-description">With Jorge Maggiore, Nuno Filipe, Filipe Ferraz.</p>
   </div>
 </div>
@@ -137,7 +137,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong>EME.LL / Olhares de Outono</strong></p>
     <p class="release-meta"><a href="https://www.tnsj.pt/en/edificios/mosteiro-de-sao-bento-da-vitoria/">Mosteiro São Bento da Vitória</a>, Porto</p>
-    <p class="release-description">With <a href="https://scannerdot.bandcamp.com/">Scanner</a>, <a href="https://at-c.org/">@c</a>, <a href="https://www.vitorjoaquim.pt/">Vitor Joaquim</a>, Carlos Santos, André Sier, Alba Corral, Laetitia Morais, <a href="https://www.hugoolim.com/">Hugo Olim</a>, Ivan Franco, Nuno Moita.</p>
+    <p class="release-description">With <a href="https://scannerdot.bandcamp.com/">Scanner</a>, <a href="https://at-c.org/">@c</a>, <a href="https://www.vitorjoaquim.pt/">Vitor Joaquim</a>, <a href="https://carlossantos.bandcamp.com/">Carlos Santos</a>, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://blog.albagcorral.com/">Alba Corral</a>, Laetitia Morais, <a href="https://www.hugoolim.com/">Hugo Olim</a>, <a href="https://ivanfranco.wordpress.com/">Ivan Franco</a>, Nuno Moita.</p>
   </div>
 </div>
 
@@ -155,7 +155,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong>EME</strong></p>
     <p class="release-meta"><a href="https://teatroiberico.org/">Teatro Ibérico</a>, Lisbon</p>
-    <p class="release-description">With <a href="https://thesightbelow.bandcamp.com/">The Sight Below</a>, <a href="https://greghaines.bandcamp.com/">Greg Haines</a>, <a href="https://hauschka.bandcamp.com/">Hauschka</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>, Sanso-Xtro, Anna Troisi, <a href="https://www.tinafrank.net/">Tina Frank</a>, Carsten Goertz, André Sier, André Gonçalves, Garcia, Machas, Maranha e Mota, Safe & Sound, The Beautiful Schizophonic.</p>
+    <p class="release-description">With <a href="https://thesightbelow.bandcamp.com/">The Sight Below</a>, <a href="https://greghaines.bandcamp.com/">Greg Haines</a>, <a href="https://hauschka.bandcamp.com/">Hauschka</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>, <a href="https://soundcloud.com/sanso-xtro">Sanso-Xtro</a>, <a href="https://annatroisi.org/">Anna Troisi</a>, <a href="https://www.tinafrank.net/">Tina Frank</a>, Carsten Goertz, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://www.andregoncalves.info/">André Gonçalves</a>, <a href="https://margaridagarcia.bandcamp.com/">Garcia</a>, Machas, <a href="https://davidmaranha.bandcamp.com/">Maranha</a> e <a href="https://manuelmota.bandcamp.com/">Mota</a>, Safe & Sound, The Beautiful Schizophonic.</p>
   </div>
 </div>
 
@@ -182,8 +182,8 @@ permalink: /live/
 <div class="release" id="madeiradig-2006">
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
-    <p class="release-meta">RDP Auditorium, Funchal</p>
-    <p class="release-description">With Phonophani & <a href="https://mariuswatz.com/">Marius Watz</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>.</p>
+    <p class="release-meta"><a href="https://madeira.rtp.pt/">RDP Auditorium</a>, Funchal</p>
+    <p class="release-description">With <a href="https://phonophani.bandcamp.com/">Phonophani</a> & <a href="https://mariuswatz.com/">Marius Watz</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>.</p>
   </div>
 </div>
 
@@ -192,7 +192,7 @@ permalink: /live/
 <div class="release" id="madeiradig-2005">
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
-    <p class="release-meta">RDP Auditorium, Funchal</p>
-    <p class="release-description">With <a href="https://www.fennesz.com/">Fennesz</a>, <a href="https://florianhecker.blogspot.com/">Florian Hecker</a>, <a href="https://at-c.org/">@c</a> & Lia.</p>
+    <p class="release-meta"><a href="https://madeira.rtp.pt/">RDP Auditorium</a>, Funchal</p>
+    <p class="release-description">With <a href="https://www.fennesz.com/">Fennesz</a>, <a href="https://florianhecker.blogspot.com/">Florian Hecker</a>, <a href="https://at-c.org/">@c</a> & <a href="https://liaworks.com/">Lia</a>.</p>
   </div>
 </div>
