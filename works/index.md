@@ -116,7 +116,9 @@ description: Discography and works by Jerome Faria, including solo releases, col
 </div>
 
 <div class="release" id="coil">
-  <img src="/assets/images/coil.jpg" alt="COIL" loading="lazy">
+  <a href="https://archive.org/details/mi056_nny_COIL" class="release-cover" aria-label="Listen to COIL">
+    <img src="/assets/images/coil.jpg" alt="COIL" loading="lazy">
+  </a>
   <div class="release-details">
     <p><strong><a href="https://archive.org/details/mi056_nny_COIL">COIL</a></strong></p>
     <p class="release-meta">Digital — <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI056, 2006</p>
@@ -128,7 +130,9 @@ description: Discography and works by Jerome Faria, including solo releases, col
 </div>
 
 <div class="release" id="readerror">
-  <img src="/assets/images/readerror.jpg" alt="(READ.ERROR)" loading="lazy">
+  <a href="https://archive.org/details/mimi031" class="release-cover" aria-label="Listen to (READ.ERROR)">
+    <img src="/assets/images/readerror.jpg" alt="(READ.ERROR)" loading="lazy">
+  </a>
   <div class="release-details">
     <p><strong><a href="https://archive.org/details/mimi031">(READ.ERROR)</a></strong></p>
     <p class="release-meta">Digital — <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI031, 2005</p>
@@ -146,7 +150,9 @@ description: Discography and works by Jerome Faria, including solo releases, col
 </div>
 
 <div class="release" id="ect">
-  <img src="/assets/images/ect.jpg" alt="ECT" loading="lazy">
+  <a href="https://www.monocromatica.com/netlabel/releases/tube026.htm" class="release-cover" aria-label="Listen to ECT">
+    <img src="/assets/images/ect.jpg" alt="ECT" loading="lazy">
+  </a>
   <div class="release-details">
     <p><strong><a href="https://www.monocromatica.com/netlabel/releases/tube026.htm">ECT</a></strong></p>
     <p class="release-meta">Digital — <a href="https://www.monocromatica.com/netlabel/">Test Tube</a>, TUBE026, 2005</p>
@@ -167,7 +173,9 @@ description: Discography and works by Jerome Faria, including solo releases, col
 </div>
 
 <div class="release" id="offear">
-  <img src="/assets/images/offear.jpg" alt="OFFEAR.EP" loading="lazy">
+  <a href="https://archive.org/details/enrmp040_nny_-_offear_ep" class="release-cover" aria-label="Listen to OFFEAR.EP">
+    <img src="/assets/images/offear.jpg" alt="OFFEAR.EP" loading="lazy">
+  </a>
   <div class="release-details">
     <p><strong><a href="https://archive.org/details/enrmp040_nny_-_offear_ep">OFFEAR.EP</a></strong></p>
     <p class="release-meta">Digital — <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRMP040, 2004</p>
