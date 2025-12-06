@@ -284,6 +284,7 @@ description: Discography and works by Jerome Faria, including solo releases, col
     <p><strong>The Cabinet of Dr. Caligari</strong></p>
     <p class="release-meta">Live Score — 2013</p>
     <p class="release-description">Live score for <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a>'s 1920 expressionist silent film. Working against Wiene's angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honoring the film's unease while exploring territories the original could never have envisioned.</p>
+    <p class="release-credits">Photography by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>.</p>
   </div>
 </div>
 
