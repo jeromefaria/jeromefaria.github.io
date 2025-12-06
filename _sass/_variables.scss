@@ -30,9 +30,9 @@
   --color-code-text: #ccc;
 }
 
-// Typography - utilitarian sans-serif
-$font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-mono: "SF Mono", Monaco, Consolas, monospace;
+// Typography - Inter webfont for consistent cross-platform rendering
+$font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+$font-mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
 
 // Type scale - restrained, small
 $font-size-xs: 0.625rem;    // 10px - labels, meta
