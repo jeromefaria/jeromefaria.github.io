@@ -7,9 +7,12 @@ permalink: /works/
 ## Solo
 
 <div class="release">
-  <img src="/assets/images/2504.jpg" alt="2504">
+  <div class="bandcamp-player" data-album="1275977827">
+    <img src="/assets/images/2504.jpg" alt="2504">
+    <button class="play-button" aria-label="Play on Bandcamp"></button>
+  </div>
   <div class="release-details">
-    <p><strong>2504</strong></p>
+    <p><strong><a href="https://jeromefaria.bandcamp.com/album/2504">2504</a></strong></p>
     <p class="release-meta">Digital — BRØQN, 2024</p>
     <ol>
       <li>Prólogo: Estado Novo</li>
@@ -22,9 +25,12 @@ permalink: /works/
 </div>
 
 <div class="release">
-  <img src="/assets/images/caligari.jpg" alt="The Cabinet of Dr. Caligari">
+  <div class="bandcamp-player" data-album="2395712384">
+    <img src="/assets/images/caligari.jpg" alt="The Cabinet of Dr. Caligari">
+    <button class="play-button" aria-label="Play on Bandcamp"></button>
+  </div>
   <div class="release-details">
-    <p><strong>Music Written & Performed for The Cabinet of Dr. Caligari (Recording)</strong></p>
+    <p><strong><a href="https://jeromefaria.bandcamp.com/album/music-written-performed-for-the-cabinet-of-dr-caligari">Music Written & Performed for The Cabinet of Dr. Caligari (Recording)</a></strong></p>
     <p class="release-meta">Digital — BRØQN, 2023</p>
     <ol>
       <li>Spirits Surround Us On Every Side</li>
@@ -37,9 +43,12 @@ permalink: /works/
 </div>
 
 <div class="release">
-  <img src="/assets/images/overlapse.jpg" alt="Overlapse">
+  <div class="bandcamp-player" data-album="1643026936">
+    <img src="/assets/images/overlapse.jpg" alt="Overlapse">
+    <button class="play-button" aria-label="Play on Bandcamp"></button>
+  </div>
   <div class="release-details">
-    <p><strong>Overlapse</strong></p>
+    <p><strong><a href="https://jeromefaria.bandcamp.com/album/overlapse">Overlapse</a></strong></p>
     <p class="release-meta">Digital — Enough Records, ENRMP296, 2012</p>
     <ol>
       <li>Attack (Prelude)</li>
@@ -55,9 +64,12 @@ permalink: /works/
 </div>
 
 <div class="release">
-  <img src="/assets/images/1714.jpg" alt="17:14">
+  <div class="bandcamp-player" data-album="2845412685">
+    <img src="/assets/images/1714.jpg" alt="17:14">
+    <button class="play-button" aria-label="Play on Bandcamp"></button>
+  </div>
   <div class="release-details">
-    <p><strong>17:14</strong></p>
+    <p><strong><a href="https://jeromefaria.bandcamp.com/album/17-14">17:14</a></strong></p>
     <p class="release-meta">Digital — BRØQN, 2010</p>
     <ol>
       <li>2:58</li>
@@ -97,7 +109,7 @@ permalink: /works/
 <div class="release">
   <img src="/assets/images/coil.jpg" alt="COIL">
   <div class="release-details">
-    <p><strong>COIL</strong></p>
+    <p><strong><a href="https://archive.org/details/mi056_nny_COIL">COIL</a></strong></p>
     <p class="release-meta">Digital — MiMi Records, MI056, 2006</p>
     <ol>
       <li>Dream Cycles In Perpetual Motion</li>
@@ -109,7 +121,7 @@ permalink: /works/
 <div class="release">
   <img src="/assets/images/readerror.jpg" alt="(READ.ERROR)">
   <div class="release-details">
-    <p><strong>(READ.ERROR)</strong></p>
+    <p><strong><a href="https://archive.org/details/mimi031">(READ.ERROR)</a></strong></p>
     <p class="release-meta">Digital — MiMi Records, MI031, 2005</p>
     <ol>
       <li>God Grnlzer</li>
@@ -127,7 +139,7 @@ permalink: /works/
 <div class="release">
   <img src="/assets/images/ect.jpg" alt="ECT">
   <div class="release-details">
-    <p><strong>ECT</strong></p>
+    <p><strong><a href="https://www.monocromatica.com/netlabel/releases/tube026.htm">ECT</a></strong></p>
     <p class="release-meta">Digital — Test Tube, TUBE026, 2005</p>
     <ol>
       <li>Play</li>
@@ -148,7 +160,7 @@ permalink: /works/
 <div class="release">
   <img src="/assets/images/offear.jpg" alt="OFFEAR.EP">
   <div class="release-details">
-    <p><strong>OFFEAR.EP</strong></p>
+    <p><strong><a href="https://archive.org/details/enrmp040_nny_-_offear_ep">OFFEAR.EP</a></strong></p>
     <p class="release-meta">Digital — Enough Records, ENRMP040, 2004</p>
     <ol>
       <li>Ve.Fe.Re</li>
@@ -166,9 +178,12 @@ permalink: /works/
 ## NOx
 
 <div class="release">
-  <img src="/assets/images/altar.jpg" alt="ALTAR">
+  <div class="bandcamp-player" data-album="2165800616">
+    <img src="/assets/images/altar.jpg" alt="ALTAR">
+    <button class="play-button" aria-label="Play on Bandcamp"></button>
+  </div>
   <div class="release-details">
-    <p><strong>ALTAR</strong></p>
+    <p><strong><a href="https://casaamarela.bandcamp.com/album/altar">ALTAR</a></strong></p>
     <p class="release-meta">Digital/Cassette — Colectivo Casa Amarela, CCA#035, 2024</p>
     <ol>
       <li>A</li>
@@ -186,9 +201,12 @@ permalink: /works/
 ## Curatorial
 
 <div class="release">
-  <img src="/assets/images/overlapse-xiii.jpg" alt="Overlapse XIII">
+  <div class="bandcamp-player" data-album="2661997682">
+    <img src="/assets/images/overlapse-xiii.jpg" alt="Overlapse XIII">
+    <button class="play-button" aria-label="Play on Bandcamp"></button>
+  </div>
   <div class="release-details">
-    <p><strong>Overlapse XIII</strong></p>
+    <p><strong><a href="https://jeromefaria.bandcamp.com/album/overlapse-xiii">Overlapse XIII</a></strong></p>
     <p class="release-meta">Digital/Cassette — BRØQN, 2025</p>
     <ol>
       <li>CAVERNANCIA — Attack (Prelude)</li>
@@ -219,6 +237,7 @@ permalink: /works/
 </div>
 
 <div class="release">
+  <img src="/assets/images/invisible-other.jpg" alt="Invisible Other">
   <div class="release-details">
     <p><strong>Invisible Other</strong></p>
     <p class="release-meta">Film — dir. Margarida Paiva, 2016</p>

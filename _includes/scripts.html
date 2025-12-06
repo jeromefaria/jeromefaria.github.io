@@ -41,3 +41,32 @@
     }
   })();
 </script>
+
+<!-- Bandcamp Lazy Load -->
+<script>
+  (function() {
+    document.querySelectorAll('.bandcamp-player').forEach(function(player) {
+      player.addEventListener('click', function() {
+        if (player.classList.contains('loading') || player.querySelector('iframe')) return;
+
+        var albumId = player.getAttribute('data-album');
+        if (!albumId) return;
+
+        player.classList.add('loading');
+
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://bandcamp.com/EmbeddedPlayer/album=' + albumId + '/size=large/bgcol=ffffff/linkcol=333333/minimal=true/transparent=true/';
+        iframe.setAttribute('seamless', '');
+        iframe.setAttribute('loading', 'lazy');
+
+        iframe.onload = function() {
+          player.querySelector('img').style.display = 'none';
+          player.querySelector('.play-button').style.display = 'none';
+          player.classList.remove('loading');
+        };
+
+        player.appendChild(iframe);
+      });
+    });
+  })();
+</script>
