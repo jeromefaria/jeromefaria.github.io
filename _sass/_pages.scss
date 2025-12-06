@@ -66,17 +66,6 @@
 // =============================================================================
 
 .page[data-page="live"] {
-  // Year sections with visual separation
-  .accordion-section {
-    padding-top: $spacing-6;
-    border-top: 1px solid var(--color-border-subtle);
-
-    &:first-of-type {
-      padding-top: 0;
-      border-top: none;
-    }
-  }
-
   // Event titles — uniform size
   .release-details p:first-child strong {
     font-size: $font-size-base;
