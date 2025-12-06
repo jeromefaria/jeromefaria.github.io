@@ -78,12 +78,12 @@
     width: 100%;
     // Use dvh for proper mobile viewport, fallback to vh
     // Subtract header + footer height so image aligns with footer border
-    height: calc(100vh - 57px - 64px);
-    height: calc(100dvh - 57px - 64px);
+    height: calc(100vh - #{$header-height-mobile} - #{$footer-height});
+    height: calc(100dvh - #{$header-height-mobile} - #{$footer-height});
 
     @media (min-width: $breakpoint-md) {
-      height: calc(100vh - 77px - 64px);
-      height: calc(100dvh - 77px - 64px);
+      height: calc(100vh - #{$header-height-desktop} - #{$footer-height});
+      height: calc(100dvh - #{$header-height-desktop} - #{$footer-height});
     }
 
     img {

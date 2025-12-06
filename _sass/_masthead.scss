@@ -133,32 +133,12 @@
   }
 }
 
-// Theme toggle (hidden for now)
+// Theme toggle (hidden — keeping code for future re-enablement)
 .theme-toggle {
   display: none;
 }
 
-[data-theme="dark"] .theme-toggle {
-  .icon-sun {
-    display: block;
-  }
-
-  .icon-moon {
-    display: none;
-  }
-}
-
-// Desktop theme toggle (hidden on mobile, shown on desktop)
-.theme-toggle-desktop {
-  display: none;
-
-  @media (min-width: $breakpoint-md) {
-    display: flex;
-    margin-left: $spacing-3;
-  }
-}
-
-// Desktop: show theme toggle inline with nav
+// Desktop layout
 @media (min-width: $breakpoint-md) {
   .masthead-inner {
     flex-wrap: nowrap;
