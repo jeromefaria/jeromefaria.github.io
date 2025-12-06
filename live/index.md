@@ -4,7 +4,7 @@ title: Live
 permalink: /live/
 ---
 
-## 2025 {#2025}
+## 2025
 
 <div class="release" id="showcase-casa-amarela">
   <div class="release-details">
@@ -22,7 +22,7 @@ permalink: /live/
   </div>
 </div>
 
-## 2022 {#2022}
+## 2022
 
 <div class="release" id="jejum-11">
   <div class="release-details">
@@ -31,7 +31,7 @@ permalink: /live/
   </div>
 </div>
 
-## 2021 {#2021}
+## 2021
 
 <div class="release" id="nariz-entupido">
   <div class="release-details">
@@ -57,7 +57,7 @@ permalink: /live/
   </div>
 </div>
 
-## 2015 {#2015}
+## 2015
 
 <div class="release" id="heineken-series">
   <div class="release-details">
@@ -75,7 +75,7 @@ permalink: /live/
   </div>
 </div>
 
-## 2013 {#2013}
+## 2013
 
 <div class="release" id="cognitivopolis">
   <div class="release-details">
@@ -85,7 +85,7 @@ permalink: /live/
   </div>
 </div>
 
-## 2012 {#2012}
+## 2012
 
 <div class="release" id="cine-qua-non">
   <div class="release-details">
@@ -95,7 +95,7 @@ permalink: /live/
   </div>
 </div>
 
-## 2011 {#2011}
+## 2011
 
 <div class="release" id="madeiradig-2011">
   <div class="release-details">
@@ -113,7 +113,7 @@ permalink: /live/
   </div>
 </div>
 
-## 2010 {#2010}
+## 2010
 
 <div class="release" id="olhares-de-outono-2010">
   <div class="release-details">
@@ -123,7 +123,7 @@ permalink: /live/
   </div>
 </div>
 
-## 2009 {#2009}
+## 2009
 
 <div class="release" id="madeiradig-2009">
   <div class="release-details">
@@ -141,7 +141,7 @@ permalink: /live/
   </div>
 </div>
 
-## 2008 {#2008}
+## 2008
 
 <div class="release" id="eme-madeira-2008">
   <div class="release-details">
@@ -167,7 +167,7 @@ permalink: /live/
   </div>
 </div>
 
-## 2007 {#2007}
+## 2007
 
 <div class="release" id="madeiradig-2007">
   <div class="release-details">
@@ -177,7 +177,7 @@ permalink: /live/
   </div>
 </div>
 
-## 2006 {#2006}
+## 2006
 
 <div class="release" id="madeiradig-2006">
   <div class="release-details">
@@ -187,7 +187,7 @@ permalink: /live/
   </div>
 </div>
 
-## 2005 {#2005}
+## 2005
 
 <div class="release" id="madeiradig-2005">
   <div class="release-details">

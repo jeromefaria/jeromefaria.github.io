@@ -4,7 +4,7 @@ title: Works
 permalink: /works/
 ---
 
-## Solo {#solo}
+## Solo
 
 <div class="release" id="2504">
   <div class="bandcamp-player" data-album="1275977827">
@@ -81,7 +81,7 @@ permalink: /works/
 
 ---
 
-## NNY (2004–2009) {#nny}
+## NNY (2004–2009)
 
 <div class="release" id="nny-plus">
   <img src="/assets/images/nny.jpg" alt="NNY++" loading="lazy">
@@ -175,7 +175,7 @@ permalink: /works/
 
 ---
 
-## NOx {#nox}
+## NOx
 
 <div class="release" id="altar">
   <div class="bandcamp-player" data-album="2165800616">
@@ -198,7 +198,7 @@ permalink: /works/
 
 ---
 
-## Curatorial {#curatorial}
+## Curatorial
 
 <div class="release" id="overlapse-xiii">
   <div class="bandcamp-player" data-album="2661997682">
@@ -224,7 +224,7 @@ permalink: /works/
 
 ---
 
-## Film & Theatre {#film}
+## Film & Theatre
 
 <div class="release" id="aragao">
   <img src="/assets/images/aragao.jpg" alt="Aragão" loading="lazy">
@@ -257,7 +257,7 @@ permalink: /works/
 
 ---
 
-## Compilations and Collaborations {#compilations}
+## Compilations and Collaborations
 
 **Marrow** in *<a href="https://citiesandmemory.bandcamp.com/album/migration-sounds">Migration Sounds</a>* — MP3, <a href="https://citiesandmemory.com/">Cities and Memory</a>, 2024
 
@@ -289,7 +289,7 @@ permalink: /works/
 
 ---
 
-## Mastering {#mastering}
+## Mastering
 
 **<a href="https://jeromefaria.bandcamp.com/album/overlapse-xiii">Overlapse XIII</a>** — various artists, 2025
 
@@ -299,7 +299,7 @@ permalink: /works/
 
 ---
 
-## Publications {#publications}
+## Publications
 
 <div class="release" id="glitch">
   <img src="/assets/images/glitch.jpg" alt="Glitch: Designing Imperfection" loading="lazy">
