@@ -36,7 +36,7 @@ body {
 a {
   color: var(--color-link);
   text-decoration: none;
-  transition: color $transition-fast;
+  transition: color $transition-base;
 
   &:hover {
     color: var(--color-link-hover);

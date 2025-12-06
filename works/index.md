@@ -106,7 +106,7 @@ permalink: /works/
 </div>
 
 <div class="release" id="hyphema">
-  <img src="/assets/images/hyphema.jpeg" alt="Hyphema" loading="lazy">
+  <img src="/assets/images/hyphema.jpg" alt="Hyphema" loading="lazy">
   <div class="release-details">
     <p><strong>Hyphema</strong></p>
     <p class="release-meta">DVD — Pixelnerve, PXN001, 2007</p>
@@ -303,7 +303,7 @@ permalink: /works/
 
 **090407001** and **090407003** in *<a href="https://archive.org/details/enrcmp07">Datacross.1</a>* — MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP07, 2007
 
-**Cybernetics** with Structura in *<a href="https://archive.org/details/enrcmp05">SOUNDResearch</a>* — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP05, 2007
+**Cybernetics** with <a href="http://structuramusic.com/">Structura</a> in *<a href="https://archive.org/details/enrcmp05">SOUNDResearch</a>* — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP05, 2007
 
 **13** in *<a href="https://archive.org/details/enrcmp06">Falésia</a>* — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP06, 2007
 
@@ -345,7 +345,7 @@ permalink: /works/
     <p><strong><a href="https://www.goodreads.com/book/show/6601613-glitch">Glitch: Designing Imperfection</a></strong></p>
     <p class="release-meta">Book — Mark Batty Publisher, 2009</p>
     <p class="release-description">Over 200 glitch images grabbed, composed and, in some cases, provoked by artists who urge viewers to consider these complex fragments of colour and lines as thought-provoking mistakes. This collection of bits and bytes demonstrates how these "perfect imperfections" merit being considered in an aesthetic sense.</p>
-    <p class="release-credits">Edited by <a href="https://organised.info/">Iman Moradi</a>, Ant Scott, Joe Gilmore, Christopher Murphy. ISBN 978-0-9799666-6-8.</p>
+    <p class="release-credits">Edited by <a href="https://organised.info/">Iman Moradi</a>, <a href="http://www.beflix.com/">Ant Scott</a>, <a href="https://qubik.com/">Joe Gilmore</a>, <a href="https://en.wikipedia.org/wiki/Christopher_Murphy_(designer)">Christopher Murphy</a>. ISBN 978-0-9799666-6-8.</p>
   </div>
 </div>
 
