@@ -43,7 +43,7 @@ permalink: /live/
 
 <div class="release" id="aragao-cartaxo">
   <div class="release-details">
-    <p><strong>Aragão</strong></p>
+    <p><strong><a href="/works/#aragao">Aragão</a></strong></p>
     <p class="release-meta">Centro Cultural do Cartaxo</p>
     <p class="release-description">Theatre production. Live music & interpretation.</p>
   </div>
@@ -51,7 +51,7 @@ permalink: /live/
 
 <div class="release" id="aragao-funchal">
   <div class="release-details">
-    <p><strong>Aragão</strong></p>
+    <p><strong><a href="/works/#aragao">Aragão</a></strong></p>
     <p class="release-meta"><a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, Funchal</p>
     <p class="release-description">Theatre production. Live music & interpretation.</p>
   </div>
@@ -90,7 +90,7 @@ permalink: /live/
 <div class="release" id="madeiradig-2011">
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
-    <p class="release-meta">Centro das Artes - Casa das Mudas, Calheta</p>
+    <p class="release-meta">Casa das Mudas, Calheta</p>
     <p class="release-description">Duo with <a href="https://12k.com/">Taylor Deupree</a>. With <a href="https://sunblind.net/">Tim Hecker</a>, <a href="https://pointnever.com/">Oneohtrix Point Never</a>, <a href="https://ktl10.bandcamp.com/">KTL</a>, <a href="https://deafcenter.bandcamp.com/">Deaf Center</a>, <a href="https://www.leeranaldo.com/">Lee Ranaldo</a> & Manuel Mota, Nadja, Aki Onda.</p>
   </div>
 </div>
@@ -99,7 +99,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong>Festival Migractions</strong></p>
     <p class="release-meta">Théâtre de L'Opprimé, Paris</p>
-    <p class="release-description">Duo with <a href="http://www.hugoolim.com/">Hugo Olim</a>.</p>
+    <p class="release-description">Duo with <a href="https://www.hugoolim.com/">Hugo Olim</a>.</p>
   </div>
 </div>
 
@@ -119,7 +119,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
     <p class="release-meta">Casa das Mudas, Calheta</p>
-    <p class="release-description">Duo with <a href="http://www.hugoolim.com/">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, Christ., Zavoloka & Laetitia Morais, Gigantiq, Jade.</p>
+    <p class="release-description">Duo with <a href="https://www.hugoolim.com/">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, Christ., Zavoloka & Laetitia Morais, Gigantiq, Jade.</p>
   </div>
 </div>
 
@@ -127,7 +127,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong>EME.LL / Olhares de Outono</strong></p>
     <p class="release-meta">Mosteiro São Bento da Vitória, Porto</p>
-    <p class="release-description">With <a href="https://scannerdot.bandcamp.com/">Scanner</a>, <a href="https://at-c.org/">@c</a>, <a href="https://www.vitorjoaquim.pt/">Vitor Joaquim</a>, Carlos Santos, André Sier, Alba Corral, Laetitia Morais, <a href="http://www.hugoolim.com/">Hugo Olim</a>, Ivan Franco, Nuno Moita.</p>
+    <p class="release-description">With <a href="https://scannerdot.bandcamp.com/">Scanner</a>, <a href="https://at-c.org/">@c</a>, <a href="https://www.vitorjoaquim.pt/">Vitor Joaquim</a>, Carlos Santos, André Sier, Alba Corral, Laetitia Morais, <a href="https://www.hugoolim.com/">Hugo Olim</a>, Ivan Franco, Nuno Moita.</p>
   </div>
 </div>
 
