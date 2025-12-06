@@ -39,7 +39,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   <div class="release-details">
     <p><strong>CCA no Desterro</strong></p>
     <p class="release-meta"><a href="https://darc.pt">Desterro</a>, Lisbon</p>
-    <p class="release-description">NOx (with <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a>). With Copo d'Água, DJ Privilégio, Galho84.</p>
+    <p class="release-description">NOx (with <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a>). With Copo d'Água, DJ Privilégio, Gallo'84.</p>
   </div>
 </div>
 
