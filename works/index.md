@@ -6,7 +6,7 @@ permalink: /works/
 
 ## Solo {#solo}
 
-<div class="release">
+<div class="release" id="2504">
   <div class="bandcamp-player" data-album="1275977827">
     <img src="/assets/images/2504.jpg" alt="2504">
     <button class="play-button" aria-label="Play on Bandcamp"></button>
@@ -24,7 +24,7 @@ permalink: /works/
   </div>
 </div>
 
-<div class="release">
+<div class="release" id="caligari-album">
   <div class="bandcamp-player" data-album="2395712384">
     <img src="/assets/images/caligari.jpg" alt="The Cabinet of Dr. Caligari">
     <button class="play-button" aria-label="Play on Bandcamp"></button>
@@ -42,7 +42,7 @@ permalink: /works/
   </div>
 </div>
 
-<div class="release">
+<div class="release" id="overlapse">
   <div class="bandcamp-player" data-album="1643026936">
     <img src="/assets/images/overlapse.jpg" alt="Overlapse">
     <button class="play-button" aria-label="Play on Bandcamp"></button>
@@ -63,7 +63,7 @@ permalink: /works/
   </div>
 </div>
 
-<div class="release">
+<div class="release" id="1714">
   <div class="bandcamp-player" data-album="2845412685">
     <img src="/assets/images/1714.jpg" alt="17:14">
     <button class="play-button" aria-label="Play on Bandcamp"></button>
@@ -83,7 +83,7 @@ permalink: /works/
 
 ## NNY (2004–2009) {#nny}
 
-<div class="release">
+<div class="release" id="nny-plus">
   <img src="/assets/images/nny.jpg" alt="NNY++">
   <div class="release-details">
     <p><strong>NNY++</strong></p>
@@ -97,7 +97,7 @@ permalink: /works/
   </div>
 </div>
 
-<div class="release">
+<div class="release" id="hyphema">
   <img src="/assets/images/hyphema.jpeg" alt="Hyphema">
   <div class="release-details">
     <p><strong>Hyphema</strong></p>
@@ -106,7 +106,7 @@ permalink: /works/
   </div>
 </div>
 
-<div class="release">
+<div class="release" id="coil">
   <img src="/assets/images/coil.jpg" alt="COIL">
   <div class="release-details">
     <p><strong><a href="https://archive.org/details/mi056_nny_COIL">COIL</a></strong></p>
@@ -118,7 +118,7 @@ permalink: /works/
   </div>
 </div>
 
-<div class="release">
+<div class="release" id="readerror">
   <img src="/assets/images/readerror.jpg" alt="(READ.ERROR)">
   <div class="release-details">
     <p><strong><a href="https://archive.org/details/mimi031">(READ.ERROR)</a></strong></p>
@@ -136,7 +136,7 @@ permalink: /works/
   </div>
 </div>
 
-<div class="release">
+<div class="release" id="ect">
   <img src="/assets/images/ect.jpg" alt="ECT">
   <div class="release-details">
     <p><strong><a href="https://www.monocromatica.com/netlabel/releases/tube026.htm">ECT</a></strong></p>
@@ -157,7 +157,7 @@ permalink: /works/
   </div>
 </div>
 
-<div class="release">
+<div class="release" id="offear">
   <img src="/assets/images/offear.jpg" alt="OFFEAR.EP">
   <div class="release-details">
     <p><strong><a href="https://archive.org/details/enrmp040_nny_-_offear_ep">OFFEAR.EP</a></strong></p>
@@ -177,7 +177,7 @@ permalink: /works/
 
 ## NOx {#nox}
 
-<div class="release">
+<div class="release" id="altar">
   <div class="bandcamp-player" data-album="2165800616">
     <img src="/assets/images/altar.jpg" alt="ALTAR">
     <button class="play-button" aria-label="Play on Bandcamp"></button>
@@ -200,7 +200,7 @@ permalink: /works/
 
 ## Curatorial {#curatorial}
 
-<div class="release">
+<div class="release" id="overlapse-xiii">
   <div class="bandcamp-player" data-album="2661997682">
     <img src="/assets/images/overlapse-xiii.jpg" alt="Overlapse XIII">
     <button class="play-button" aria-label="Play on Bandcamp"></button>
@@ -226,7 +226,7 @@ permalink: /works/
 
 ## Film & Theatre {#film}
 
-<div class="release">
+<div class="release" id="aragao">
   <img src="/assets/images/aragao.jpg" alt="Aragão">
   <div class="release-details">
     <p><strong>Aragão</strong></p>
@@ -236,7 +236,7 @@ permalink: /works/
   </div>
 </div>
 
-<div class="release">
+<div class="release" id="invisible-other">
   <img src="/assets/images/invisible-other.jpg" alt="Invisible Other">
   <div class="release-details">
     <p><strong>Invisible Other</strong></p>
@@ -246,7 +246,7 @@ permalink: /works/
   </div>
 </div>
 
-<div class="release">
+<div class="release" id="caligari">
   <img src="/assets/images/caligari-live.jpg" alt="The Cabinet of Dr. Caligari">
   <div class="release-details">
     <p><strong>The Cabinet of Dr. Caligari</strong></p>
@@ -299,7 +299,7 @@ permalink: /works/
 
 ## Publications {#publications}
 
-<div class="release">
+<div class="release" id="glitch">
   <img src="/assets/images/glitch.jpg" alt="Glitch: Designing Imperfection">
   <div class="release-details">
     <p><strong><a href="https://www.goodreads.com/book/show/6601613-glitch">Glitch: Designing Imperfection</a></strong></p>
