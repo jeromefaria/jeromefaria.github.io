@@ -196,7 +196,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   <div class="release-details">
     <p><strong>Festival Migractions</strong></p>
     <p class="release-meta"><a href="https://www.theatredelopprime.com/">Théâtre de L'Opprimé</a>, Paris</p>
-    <p class="release-description">Duo with <a href="https://www.hugoolim.com/">Hugo Olim</a>.</p>
+    <p class="release-description">Duo with <a href="https://vimeo.com/hugoolim">Hugo Olim</a>.</p>
   </div>
 </div>
 
@@ -230,7 +230,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
     <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
-    <p class="release-description">Duo with <a href="https://www.hugoolim.com/">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, <a href="https://www.discogs.com/artist/31633-Christ">Christ.</a>, <a href="https://zavoloka.com/">Zavoloka</a> & <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://gigantiq.bandcamp.com/">Gigantiq</a>, <a href="http://www.jade-enterprises.at/">Jade</a>.</p>
+    <p class="release-description">Duo with <a href="https://vimeo.com/hugoolim">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, <a href="https://www.discogs.com/artist/31633-Christ">Christ.</a>, <a href="https://zavoloka.com/">Zavoloka</a> & <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://gigantiq.bandcamp.com/">Gigantiq</a>, <a href="http://www.jade-enterprises.at/">Jade</a>.</p>
   </div>
 </div>
 
@@ -238,7 +238,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
   <div class="release-details">
     <p><strong>EME.LL / Olhares de Outono</strong></p>
     <p class="release-meta"><a href="https://www.tnsj.pt/en/edificios/mosteiro-de-sao-bento-da-vitoria/">Mosteiro São Bento da Vitória</a>, Porto</p>
-    <p class="release-description">With <a href="https://scannerdot.bandcamp.com/">Scanner</a>, <a href="https://at-c.org/">@c</a>, <a href="https://www.vitorjoaquim.pt/">Vitor Joaquim</a>, <a href="https://carlossantos.bandcamp.com/">Carlos Santos</a>, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://blog.albagcorral.com/">Alba Corral</a>, <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://www.hugoolim.com/">Hugo Olim</a>, <a href="https://ivanfranco.wordpress.com/">Ivan Franco</a>, <a href="https://nunomoita.bandcamp.com/">Nuno Moita</a>.</p>
+    <p class="release-description">With <a href="https://scannerdot.bandcamp.com/">Scanner</a>, <a href="https://at-c.org/">@c</a>, <a href="https://www.vitorjoaquim.pt/">Vitor Joaquim</a>, <a href="https://carlossantos.bandcamp.com/">Carlos Santos</a>, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://blog.albagcorral.com/">Alba Corral</a>, <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://vimeo.com/hugoolim">Hugo Olim</a>, <a href="https://ivanfranco.wordpress.com/">Ivan Franco</a>, <a href="https://nunomoita.bandcamp.com/">Nuno Moita</a>.</p>
   </div>
 </div>
 
