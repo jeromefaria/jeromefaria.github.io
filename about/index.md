@@ -2,6 +2,7 @@
 layout: page
 title: About
 permalink: /about/
+description: Biography of Jerome Faria, Portuguese sound artist and composer working at the edges of experimental electronics, film scoring, and live performance since 2004.
 prose: true
 ---
 

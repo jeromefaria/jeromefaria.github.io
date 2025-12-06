@@ -2,6 +2,7 @@
 layout: page
 title: Live
 permalink: /live/
+description: Live performances by Jerome Faria from 2005 to present, including festival appearances and collaborations.
 ---
 
 <section class="accordion-section">

@@ -8,7 +8,7 @@
       </nav>
       <div class="social-links">
         {% for social in site.social %}
-        <a href="{{ social.url }}" target="_blank" rel="noopener noreferrer">{{ social.name }}</a>
+        <a href="{{ social.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ site.author.name }} on {{ social.name | capitalize }}">{{ social.name }}</a>
         {% endfor %}
       </div>
       <p class="copyright">&copy; {{ 'now' | date: '%Y' }} {{ site.author.name }}</p>
