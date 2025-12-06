@@ -152,7 +152,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 
 <div class="release" id="caligari-live">
   <div class="release-details">
-    <p><strong>The Cabinet of Dr. Caligari</strong></p>
+    <p><strong>Cidades Eletrónicas: The Cabinet of Dr. Caligari</strong></p>
     <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
     <p class="release-description">Live score for Robert Wiene's 1920 expressionist silent film. With <a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>.</p>
   </div>
