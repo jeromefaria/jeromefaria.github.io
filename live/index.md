@@ -183,7 +183,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
     <p class="release-meta">RDP Auditorium, Funchal</p>
-    <p class="release-description">With Phonophani & <a href="http://mariuswatz.com/">Marius Watz</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>.</p>
+    <p class="release-description">With Phonophani & <a href="https://mariuswatz.com/">Marius Watz</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>.</p>
   </div>
 </div>
 

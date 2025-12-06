@@ -17,8 +17,8 @@ author:
   email: jerome.faria@gmail.com
   bio: Composer & Sound Artist
 
-# Analytics (GA4)
-google_analytics: G-XXXXXXXXXX
+# Analytics (GA4) — set your tracking ID to enable
+# google_analytics: G-XXXXXXXXXX
 
 # Build settings
 markdown: kramdown
@@ -68,6 +68,7 @@ exclude:
   - vendor
   - README.md
   - LICENSE.md
+  - projects/
 
 # Defaults
 defaults:
