@@ -218,7 +218,7 @@ permalink: /works/
       <li>sol — Costa Norte</li>
       <li>W. R. Pyo — Release (Conclusion)</li>
     </ol>
-    <p class="release-credits">Artwork by <a href="https://www.flickr.com/photos/pedrojafuno/">Pedro Jafuno</a>. Additional photography by Sue Andrade, Joana Marote.</p>
+    <p class="release-credits">Artwork by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>. Additional photography by Sue Andrade, Joana Marote.</p>
   </div>
 </div>
 
