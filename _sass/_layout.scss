@@ -198,6 +198,31 @@ footer {
   }
 }
 
+// Press page styling — quotes gallery
+.page[data-page="press"] {
+  blockquote {
+    margin: $spacing-8 0;
+    padding-bottom: $spacing-8;
+    border-bottom: 1px solid var(--color-border-subtle);
+
+    &:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    p {
+      font-size: $font-size-lg;
+      line-height: $line-height-relaxed;
+    }
+  }
+
+  // Radio section
+  h2 + p {
+    font-size: $font-size-sm;
+    color: var(--color-text-muted);
+  }
+}
+
 // Live page styling — chronological, archival
 .page[data-page="live"] {
   // Year headings with visual separation
