@@ -75,6 +75,16 @@ permalink: /live/
   </div>
 </div>
 
+## 2013 {#2013}
+
+<div class="release" id="cognitivopolis">
+  <div class="release-details">
+    <p><strong>Cognitivopolis</strong></p>
+    <p class="release-meta"><a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a></p>
+    <p class="release-description">Festival about creativity, technology and science. With Massimo Banzi (Arduino), David Rowan (Wired UK), Gian Giudice (CERN).</p>
+  </div>
+</div>
+
 ## 2012 {#2012}
 
 <div class="release" id="cine-qua-non">
