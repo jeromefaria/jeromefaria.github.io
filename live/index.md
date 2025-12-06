@@ -136,7 +136,7 @@ description: Live performances by Jerome Faria from 2005 to present, including f
 
 <div class="release" id="caligari-live-3">
   <div class="release-details">
-    <p><strong>Concertos L: The Cabinet of Dr. Caligari</strong></p>
+    <p><strong><a href="https://www.pontadosol.com/l-concerts">Concertos L</a>: The Cabinet of Dr. Caligari</strong></p>
     <p class="release-meta"><a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol</p>
     <p class="release-description">Live score for Robert Wiene's 1920 expressionist silent film. With <a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>.</p>
   </div>
