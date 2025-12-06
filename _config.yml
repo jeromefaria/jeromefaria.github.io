@@ -57,6 +57,8 @@ navigation:
 social:
   - name: bandcamp
     url: https://jeromefaria.bandcamp.com
+  - name: patreon
+    url: https://www.patreon.com/jeromefaria
 
 # Exclude from build
 exclude:
