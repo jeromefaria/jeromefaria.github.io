@@ -36,7 +36,7 @@ permalink: /live/
 <div class="release" id="nariz-entupido">
   <div class="release-details">
     <p><strong>Nariz Entupido</strong></p>
-    <p class="release-meta">SMUP, Parede</p>
+    <p class="release-meta"><a href="https://www.smup.pt/">SMUP</a>, Parede</p>
     <p class="release-description">Duo with <a href="https://cavernancia.bandcamp.com/">Cavernancia</a>. <a href="https://thisco.bandcamp.com/">THISCO</a> / SPH anniversary celebration.</p>
   </div>
 </div>
@@ -44,7 +44,7 @@ permalink: /live/
 <div class="release" id="aragao-cartaxo">
   <div class="release-details">
     <p><strong><a href="/works/#aragao">Aragão</a></strong></p>
-    <p class="release-meta">Centro Cultural do Cartaxo</p>
+    <p class="release-meta"><a href="https://www.cm-cartaxo.pt/servicos-municipais/cultura/equipamentos-culturais/item/49-centro-cultural-municipio-do-cartaxo">Centro Cultural do Cartaxo</a></p>
     <p class="release-description">Theatre production. Live music & interpretation.</p>
   </div>
 </div>
@@ -101,7 +101,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
     <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
-    <p class="release-description">Duo with <a href="https://12k.com/">Taylor Deupree</a>. With <a href="https://sunblind.net/">Tim Hecker</a>, <a href="https://pointnever.com/">Oneohtrix Point Never</a>, <a href="https://ktl10.bandcamp.com/">KTL</a>, <a href="https://deafcenter.bandcamp.com/">Deaf Center</a>, <a href="https://www.leeranaldo.com/">Lee Ranaldo</a> & Manuel Mota, Nadja, Aki Onda.</p>
+    <p class="release-description">Duo with <a href="https://12k.com/">Taylor Deupree</a>. With <a href="https://sunblind.net/">Tim Hecker</a>, <a href="https://pointnever.com/">Oneohtrix Point Never</a>, <a href="https://ktl10.bandcamp.com/">KTL</a>, <a href="https://deafcenter.bandcamp.com/">Deaf Center</a>, <a href="https://www.leeranaldo.com/">Lee Ranaldo</a> & Manuel Mota, <a href="https://nadja.bandcamp.com/">Nadja</a>, <a href="https://akionda.net/">Aki Onda</a>.</p>
   </div>
 </div>
 
@@ -119,7 +119,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong>Olhares de Outono</strong></p>
     <p class="release-meta"><a href="https://passosmanuel.net/">Passos Manuel</a>, Porto</p>
-    <p class="release-description">Artist talk and performance. With <a href="https://oval.bandcamp.com/">Oval</a>, Simon Fisher Turner, Paul Farrington, André Gonçalves.</p>
+    <p class="release-description">Artist talk and performance. With <a href="https://oval.bandcamp.com/">Oval</a>, <a href="https://simonfisherturner.bandcamp.com/">Simon Fisher Turner</a>, Paul Farrington, André Gonçalves.</p>
   </div>
 </div>
 
@@ -129,7 +129,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
     <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
-    <p class="release-description">Duo with <a href="https://www.hugoolim.com/">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, Christ., Zavoloka & Laetitia Morais, Gigantiq, Jade.</p>
+    <p class="release-description">Duo with <a href="https://www.hugoolim.com/">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, Christ., <a href="https://zavoloka.com/">Zavoloka</a> & Laetitia Morais, Gigantiq, Jade.</p>
   </div>
 </div>
 
@@ -155,7 +155,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong>EME</strong></p>
     <p class="release-meta"><a href="https://teatroiberico.org/">Teatro Ibérico</a>, Lisbon</p>
-    <p class="release-description">With <a href="https://thesightbelow.bandcamp.com/">The Sight Below</a>, <a href="https://greghaines.bandcamp.com/">Greg Haines</a>, <a href="https://hauschka.bandcamp.com/">Hauschka</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>, Sanso-Xtro, Anna Troisi, Tina Frank, Carsten Goertz, André Sier, André Gonçalves, Garcia, Machas, Maranha e Mota, Safe & Sound, The Beautiful Schizophonic.</p>
+    <p class="release-description">With <a href="https://thesightbelow.bandcamp.com/">The Sight Below</a>, <a href="https://greghaines.bandcamp.com/">Greg Haines</a>, <a href="https://hauschka.bandcamp.com/">Hauschka</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>, Sanso-Xtro, Anna Troisi, <a href="https://www.tinafrank.net/">Tina Frank</a>, Carsten Goertz, André Sier, André Gonçalves, Garcia, Machas, Maranha e Mota, Safe & Sound, The Beautiful Schizophonic.</p>
   </div>
 </div>
 
@@ -163,7 +163,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong><a href="https://ra.co/promoters/4519">Störung</a></strong></p>
     <p class="release-meta"><a href="https://farinera.org/">La Farinera del Clot</a>, Barcelona</p>
-    <p class="release-description">With <a href="https://kimcascone.bandcamp.com/">Kim Cascone</a>, <a href="http://www.franciscolopez.net/">Francisco López</a>, <a href="https://philippepetit.bandcamp.com/">Philippe Petit</a>, <a href="https://ritornell.bandcamp.com/">Ritornell</a>, Sébastien Roux, Tonne.</p>
+    <p class="release-description">With <a href="https://kimcascone.bandcamp.com/">Kim Cascone</a>, <a href="https://www.franciscolopez.net/">Francisco López</a>, <a href="https://philippepetit.bandcamp.com/">Philippe Petit</a>, <a href="https://ritornell.bandcamp.com/">Ritornell</a>, Sébastien Roux, Tonne.</p>
   </div>
 </div>
 
@@ -173,7 +173,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
     <p class="release-meta"><a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta</p>
-    <p class="release-description">With Alog, <a href="https://vladislavdelay.bandcamp.com/">Vladislav Delay</a>, Ran Slavin.</p>
+    <p class="release-description">With <a href="https://alogmusic.bandcamp.com/">Alog</a>, <a href="https://vladislavdelay.bandcamp.com/">Vladislav Delay</a>, <a href="https://ranslavin.com/">Ran Slavin</a>.</p>
   </div>
 </div>
 
@@ -183,7 +183,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong><a href="https://digitalinberlin.eu/">MADEIRADIG</a></strong></p>
     <p class="release-meta">RDP Auditorium, Funchal</p>
-    <p class="release-description">With Phonophani & Marius Watz, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>.</p>
+    <p class="release-description">With Phonophani & <a href="http://mariuswatz.com/">Marius Watz</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>.</p>
   </div>
 </div>
 
