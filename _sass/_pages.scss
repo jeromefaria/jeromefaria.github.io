@@ -18,8 +18,8 @@
     background-repeat: no-repeat;
 
     @include respond-to(md) {
-      height: calc(100vh - #{$header-height-desktop} - 138px);
-      height: calc(100dvh - #{$header-height-desktop} - 138px);
+      height: calc(100vh - #{$header-height-desktop} - 133px);
+      height: calc(100dvh - #{$header-height-desktop} - 133px);
     }
   }
 
