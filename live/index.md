@@ -109,7 +109,7 @@ permalink: /live/
   <div class="release-details">
     <p><strong>Olhares de Outono</strong></p>
     <p class="release-meta">Passos Manuel, Porto</p>
-    <p class="release-description">Solo. Artist talk and performance. With Oval, Simon Fisher Turner, Paul Farrington, André Gonçalves.</p>
+    <p class="release-description">Artist talk and performance. With Oval, Simon Fisher Turner, Paul Farrington, André Gonçalves.</p>
   </div>
 </div>
 

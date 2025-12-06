@@ -1,10 +1,11 @@
 # Site settings
 title: Jerome Faria
 tagline: Composer & Sound Artist
-description: Twenty-two years creating at the edges of experimental electronics, film scoring, and live performance
+description: Creating at the edges of experimental electronics, film scoring, and live performance since 2004
 url: https://jeromefaria.com
 baseurl: ""
 lang: en
+image: /assets/images/performance.jpg
 
 # Permalinks
 permalink: /blog/:year/:month/:day/:title/
