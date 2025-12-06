@@ -4,7 +4,7 @@ title: Works
 permalink: /works/
 ---
 
-## Solo
+## Solo {#solo}
 
 <div class="release">
   <div class="bandcamp-player" data-album="1275977827">
@@ -49,7 +49,7 @@ permalink: /works/
   </div>
   <div class="release-details">
     <p><strong><a href="https://jeromefaria.bandcamp.com/album/overlapse">Overlapse</a></strong></p>
-    <p class="release-meta">Digital — Enough Records, ENRMP296, 2012</p>
+    <p class="release-meta">Digital — <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRMP296, 2012</p>
     <ol>
       <li>Attack (Prelude)</li>
       <li>Sustain I</li>
@@ -81,7 +81,7 @@ permalink: /works/
 
 ---
 
-## NNY (2004–2009)
+## NNY (2004–2009) {#nny}
 
 <div class="release">
   <img src="/assets/images/nny.jpg" alt="NNY++">
@@ -110,7 +110,7 @@ permalink: /works/
   <img src="/assets/images/coil.jpg" alt="COIL">
   <div class="release-details">
     <p><strong><a href="https://archive.org/details/mi056_nny_COIL">COIL</a></strong></p>
-    <p class="release-meta">Digital — MiMi Records, MI056, 2006</p>
+    <p class="release-meta">Digital — <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI056, 2006</p>
     <ol>
       <li>Dream Cycles In Perpetual Motion</li>
     </ol>
@@ -122,7 +122,7 @@ permalink: /works/
   <img src="/assets/images/readerror.jpg" alt="(READ.ERROR)">
   <div class="release-details">
     <p><strong><a href="https://archive.org/details/mimi031">(READ.ERROR)</a></strong></p>
-    <p class="release-meta">Digital — MiMi Records, MI031, 2005</p>
+    <p class="release-meta">Digital — <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI031, 2005</p>
     <ol>
       <li>God Grnlzer</li>
       <li>Vber</li>
@@ -140,7 +140,7 @@ permalink: /works/
   <img src="/assets/images/ect.jpg" alt="ECT">
   <div class="release-details">
     <p><strong><a href="https://www.monocromatica.com/netlabel/releases/tube026.htm">ECT</a></strong></p>
-    <p class="release-meta">Digital — Test Tube, TUBE026, 2005</p>
+    <p class="release-meta">Digital — <a href="https://www.monocromatica.com/netlabel/">Test Tube</a>, TUBE026, 2005</p>
     <ol>
       <li>Play</li>
       <li>1noise</li>
@@ -161,7 +161,7 @@ permalink: /works/
   <img src="/assets/images/offear.jpg" alt="OFFEAR.EP">
   <div class="release-details">
     <p><strong><a href="https://archive.org/details/enrmp040_nny_-_offear_ep">OFFEAR.EP</a></strong></p>
-    <p class="release-meta">Digital — Enough Records, ENRMP040, 2004</p>
+    <p class="release-meta">Digital — <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRMP040, 2004</p>
     <ol>
       <li>Ve.Fe.Re</li>
       <li>Zro:ne</li>
@@ -175,7 +175,7 @@ permalink: /works/
 
 ---
 
-## NOx
+## NOx {#nox}
 
 <div class="release">
   <div class="bandcamp-player" data-album="2165800616">
@@ -184,7 +184,7 @@ permalink: /works/
   </div>
   <div class="release-details">
     <p><strong><a href="https://casaamarela.bandcamp.com/album/altar">ALTAR</a></strong></p>
-    <p class="release-meta">Digital/Cassette — Colectivo Casa Amarela, CCA#035, 2024</p>
+    <p class="release-meta">Digital/Cassette — <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#035, 2024</p>
     <ol>
       <li>A</li>
       <li>L</li>
@@ -192,13 +192,13 @@ permalink: /works/
       <li>A</li>
       <li>R</li>
     </ol>
-    <p class="release-credits">Music: Pedro Roque & Jerome Faria. Artwork: Mafalda Melim.</p>
+    <p class="release-credits">Music: <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a> & Jerome Faria. Artwork: Mafalda Melim.</p>
   </div>
 </div>
 
 ---
 
-## Curatorial
+## Curatorial {#curatorial}
 
 <div class="release">
   <div class="bandcamp-player" data-album="2661997682">
@@ -209,12 +209,12 @@ permalink: /works/
     <p><strong><a href="https://jeromefaria.bandcamp.com/album/overlapse-xiii">Overlapse XIII</a></strong></p>
     <p class="release-meta">Digital/Cassette — BRØQN, 2025</p>
     <ol>
-      <li>CAVERNANCIA — Attack (Prelude)</li>
-      <li>Tren Go! Sound System — Sustain II (D00MRemix)</li>
+      <li><a href="https://cavernancia.bandcamp.com/">CAVERNANCIA</a> — Attack (Prelude)</li>
+      <li><a href="https://trengosoundsystem.bandcamp.com/">Tren Go! Sound System</a> — Sustain II (D00MRemix)</li>
       <li>Aires — Overlapse Supercut</li>
       <li>Fábio Fernandes — Release</li>
       <li>João de Nóbrega Pupo — Decay III (Sound Kintsugi)</li>
-      <li>João Vairinhos — Declínio</li>
+      <li><a href="https://joaovairinhos.bandcamp.com/">João Vairinhos</a> — Declínio</li>
       <li>sol — Costa Norte</li>
       <li>W. R. Pyo — Release (Conclusion)</li>
     </ol>
@@ -224,15 +224,15 @@ permalink: /works/
 
 ---
 
-## Film & Theatre
+## Film & Theatre {#film}
 
 <div class="release">
   <img src="/assets/images/aragao.jpg" alt="Aragão">
   <div class="release-details">
     <p><strong>Aragão</strong></p>
-    <p class="release-meta">Theatre — Teatro Municipal Baltazar Dias, 2021</p>
-    <p class="release-description">Theatre production celebrating the centenary of António Aragão, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event. Faria provided both original music and live interpretation—embedding himself in a multidisciplinary creative team rather than delivering a score from a distance.</p>
-    <p class="release-credits">Direction: Sara Gonçalves. Text: Rui Zink. Set design: José Manuel Castanheira. Video: Filipe Ferraz. Music & live interpretation: Jerome Faria.</p>
+    <p class="release-meta">Theatre — <a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, 2021</p>
+    <p class="release-description">Theatre production celebrating the centenary of <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event. Faria provided both original music and live interpretation—embedding himself in a multidisciplinary creative team rather than delivering a score from a distance.</p>
+    <p class="release-credits">Direction: Sara Gonçalves. Text: <a href="https://pt.wikipedia.org/wiki/Rui_Zink">Rui Zink</a>. Set design: <a href="https://pt.wikipedia.org/wiki/Jos%C3%A9_Manuel_Castanheira">José Manuel Castanheira</a>. Video: Filipe Ferraz. Music & live interpretation: Jerome Faria.</p>
   </div>
 </div>
 
@@ -240,9 +240,9 @@ permalink: /works/
   <img src="/assets/images/invisible-other.jpg" alt="Invisible Other">
   <div class="release-details">
     <p><strong>Invisible Other</strong></p>
-    <p class="release-meta">Film — dir. Margarida Paiva, 2016</p>
+    <p class="release-meta">Film — dir. <a href="https://www.margaridapaiva.com/">Margarida Paiva</a>, 2016</p>
     <p class="release-description">Original score for film by Portuguese-Norwegian visual artist Margarida Paiva. The film depicts a park as a closed world where anonymous characters drift past one another, bound only by gestures and glances.</p>
-    <p class="release-credits">Producer: Rune Sandnes. Cinematography: Diogo Castro. Music: Jerome Faria. Sound design: Duarte Ferreira. Sound editor: Pedro Anacleto. Editing: Margarida Paiva. Cast: Susana Chiocca, Alexandre Osório, Helena Carneiro, João Pamplona, Susana Madeira, Mariana L. Ferreira. Shot at Jardim Botânico do Porto.</p>
+    <p class="release-credits">Producer: Rune Sandnes. Cinematography: Diogo Castro. Music: Jerome Faria. Sound design: Duarte Ferreira. Sound editor: Pedro Anacleto. Editing: Margarida Paiva. Cast: Susana Chiocca, Alexandre Osório, Helena Carneiro, João Pamplona, Susana Madeira, Mariana L. Ferreira. Shot at <a href="https://jardimbotanico.up.pt/">Jardim Botânico do Porto</a>.</p>
   </div>
 </div>
 
@@ -251,19 +251,19 @@ permalink: /works/
   <div class="release-details">
     <p><strong>The Cabinet of Dr. Caligari</strong></p>
     <p class="release-meta">Live Score — 2010</p>
-    <p class="release-description">Live score for Robert Wiene's 1920 expressionist silent film. Working against Wiene's angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honoring the film's unease while exploring territories the original could never have envisioned.</p>
+    <p class="release-description">Live score for <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a>'s 1920 expressionist silent film. Working against Wiene's angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honoring the film's unease while exploring territories the original could never have envisioned.</p>
   </div>
 </div>
 
 ---
 
-## Compilations and Collaborations
+## Compilations and Collaborations {#compilations}
 
 **100421** in *Transmissions From The Heart Of Darkness, Part V: Elsewhere* — MP3, Des Cendres À La Cave, 2013
 
 **Depolarized** with Nelson P. Ferreira in *Depolarized* — MP3, BRØQN, BRQ002, 2012
 
-**Absence of Light** in *IRM Presents: Clashes* — MP3, Indie Rock Mag, 2012
+**Absence of Light** in *IRM Presents: Clashes* — MP3, <a href="https://www.indierockmag.com/">Indie Rock Mag</a>, 2012
 
 **Sustain I** in *SEQUENCE4* — MP3, Future Sequence, SEQ004, 2011
 
@@ -271,40 +271,40 @@ permalink: /works/
 
 **Crystal Space** in *Thisagree & Shadow* — CD, Thisco, THISK.43, 2008
 
-**090407001** and **090407003** in *Datacross.1* — MP3, Enough, ENRCMP07, 2007
+**090407001** and **090407003** in *<a href="https://archive.org/details/enrcmp07">Datacross.1</a>* — MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP07, 2007
 
-**Cybernetics** with Structura in *SOUNDResearch* — CD/MP3, Enough, ENRCMP05, 2007
+**Cybernetics** with Structura in *<a href="https://archive.org/details/enrcmp05">SOUNDResearch</a>* — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP05, 2007
 
-**13** in *Falésia* — CD/MP3, Enough, ENRCMP06, 2007
+**13** in *<a href="https://archive.org/details/enrcmp06">Falésia</a>* — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP06, 2007
 
 **Perpetual** and **Crowded Desert** in *One On Twoism* — MP3, Twoism, OOT001, 2007
 
-**332 Variation (NNY mix)** in *Friends Reinterpretations Of Unreleased 332 Variations Volume 4* — MP3, MiMi, MI065, 2006
+**332 Variation (NNY mix)** in *<a href="https://archive.org/details/mimi065">Friends Reinterpretations Of Unreleased 332 Variations Volume 4</a>* — MP3, <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI065, 2006
 
-**Crystal Space** in *Saudade: V/A from the Atlantic Coast* — MP3, MiMi, MI050, 2006
+**Crystal Space** in *<a href="https://archive.org/details/mimi050">Saudade: V/A from the Atlantic Coast</a>* — MP3, <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI050, 2006
 
-**Valid Specimen** in *Dark Vault* — MP3, Enough, ENRCMP03, 2004
+**Valid Specimen** in *<a href="https://archive.org/details/enrcmp03">Dark Vault</a>* — MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP03, 2004
 
 ---
 
-## Mastering
+## Mastering {#mastering}
 
-**Overlapse XIII** — various artists, 2025
+**<a href="https://jeromefaria.bandcamp.com/album/overlapse-xiii">Overlapse XIII</a>** — various artists, 2025
 
-**Open** — Hugo Calcio, Colectivo Casa Amarela, CCA#016, 2021
+**<a href="https://casaamarela.bandcamp.com/album/open">Open</a>** — Hugo Calcio, <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#016, 2021
 
 **Vessels** — Rui P. Andrade, BRØQN, BRQN004, 2012
 
 ---
 
-## Publications
+## Publications {#publications}
 
 <div class="release">
   <img src="/assets/images/glitch.jpg" alt="Glitch: Designing Imperfection">
   <div class="release-details">
-    <p><strong>Glitch: Designing Imperfection</strong></p>
+    <p><strong><a href="https://www.goodreads.com/book/show/6601613-glitch">Glitch: Designing Imperfection</a></strong></p>
     <p class="release-meta">Book — Mark Batty Publisher, 2009</p>
     <p class="release-description">Over 200 glitch images grabbed, composed and, in some cases, provoked by artists who urge viewers to consider these complex fragments of colour and lines as thought-provoking mistakes. This collection of bits and bytes demonstrates how these "perfect imperfections" merit being considered in an aesthetic sense.</p>
-    <p class="release-credits">Edited by Iman Moradi, Ant Scott, Joe Gilmore, Christopher Murphy. ISBN 978-0-9799666-6-8.</p>
+    <p class="release-credits">Edited by <a href="https://organised.info/">Iman Moradi</a>, Ant Scott, Joe Gilmore, Christopher Murphy. ISBN 978-0-9799666-6-8.</p>
   </div>
 </div>
