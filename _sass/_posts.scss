@@ -67,19 +67,23 @@
 // Homepage
 .home {
   .hero {
-    margin-bottom: 0;
+    margin: 0;
+    padding: 0;
   }
 
   .hero-image {
     margin: 0;
+    padding: 0;
+    display: block;
     width: 100%;
     // Use dvh for proper mobile viewport, fallback to vh
-    height: calc(100vh - 130px);
-    height: calc(100dvh - 130px);
+    // Subtract header + footer height so image aligns with footer border
+    height: calc(100vh - 57px - 64px);
+    height: calc(100dvh - 57px - 64px);
 
     @media (min-width: $breakpoint-md) {
-      height: calc(100vh - 150px);
-      height: calc(100dvh - 150px);
+      height: calc(100vh - 77px - 64px);
+      height: calc(100dvh - 77px - 64px);
     }
 
     img {
