@@ -8,7 +8,7 @@ permalink: /works/
 
 <div class="release" id="2504">
   <div class="bandcamp-player" data-album="1275977827">
-    <img src="/assets/images/2504.jpg" alt="2504">
+    <img src="/assets/images/2504.jpg" alt="2504" loading="lazy">
     <button class="play-button" aria-label="Play on Bandcamp"></button>
   </div>
   <div class="release-details">
@@ -26,7 +26,7 @@ permalink: /works/
 
 <div class="release" id="caligari-album">
   <div class="bandcamp-player" data-album="2395712384">
-    <img src="/assets/images/caligari.jpg" alt="The Cabinet of Dr. Caligari">
+    <img src="/assets/images/caligari.jpg" alt="The Cabinet of Dr. Caligari" loading="lazy">
     <button class="play-button" aria-label="Play on Bandcamp"></button>
   </div>
   <div class="release-details">
@@ -44,7 +44,7 @@ permalink: /works/
 
 <div class="release" id="overlapse">
   <div class="bandcamp-player" data-album="1643026936">
-    <img src="/assets/images/overlapse.jpg" alt="Overlapse">
+    <img src="/assets/images/overlapse.jpg" alt="Overlapse" loading="lazy">
     <button class="play-button" aria-label="Play on Bandcamp"></button>
   </div>
   <div class="release-details">
@@ -65,7 +65,7 @@ permalink: /works/
 
 <div class="release" id="1714">
   <div class="bandcamp-player" data-album="2845412685">
-    <img src="/assets/images/1714.jpg" alt="17:14">
+    <img src="/assets/images/1714.jpg" alt="17:14" loading="lazy">
     <button class="play-button" aria-label="Play on Bandcamp"></button>
   </div>
   <div class="release-details">
@@ -84,7 +84,7 @@ permalink: /works/
 ## NNY (2004–2009) {#nny}
 
 <div class="release" id="nny-plus">
-  <img src="/assets/images/nny.jpg" alt="NNY++">
+  <img src="/assets/images/nny.jpg" alt="NNY++" loading="lazy">
   <div class="release-details">
     <p><strong>NNY++</strong></p>
     <p class="release-meta">CDr — <a href="https://www.discogs.com/label/84424-Almasud-Records">Almasud Records</a>, CDRASUD015, 2007</p>
@@ -98,7 +98,7 @@ permalink: /works/
 </div>
 
 <div class="release" id="hyphema">
-  <img src="/assets/images/hyphema.jpeg" alt="Hyphema">
+  <img src="/assets/images/hyphema.jpeg" alt="Hyphema" loading="lazy">
   <div class="release-details">
     <p><strong>Hyphema</strong></p>
     <p class="release-meta">DVD — Pixelnerve, PXN001, 2007</p>
@@ -107,7 +107,7 @@ permalink: /works/
 </div>
 
 <div class="release" id="coil">
-  <img src="/assets/images/coil.jpg" alt="COIL">
+  <img src="/assets/images/coil.jpg" alt="COIL" loading="lazy">
   <div class="release-details">
     <p><strong><a href="https://archive.org/details/mi056_nny_COIL">COIL</a></strong></p>
     <p class="release-meta">Digital — <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI056, 2006</p>
@@ -119,7 +119,7 @@ permalink: /works/
 </div>
 
 <div class="release" id="readerror">
-  <img src="/assets/images/readerror.jpg" alt="(READ.ERROR)">
+  <img src="/assets/images/readerror.jpg" alt="(READ.ERROR)" loading="lazy">
   <div class="release-details">
     <p><strong><a href="https://archive.org/details/mimi031">(READ.ERROR)</a></strong></p>
     <p class="release-meta">Digital — <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI031, 2005</p>
@@ -137,7 +137,7 @@ permalink: /works/
 </div>
 
 <div class="release" id="ect">
-  <img src="/assets/images/ect.jpg" alt="ECT">
+  <img src="/assets/images/ect.jpg" alt="ECT" loading="lazy">
   <div class="release-details">
     <p><strong><a href="https://www.monocromatica.com/netlabel/releases/tube026.htm">ECT</a></strong></p>
     <p class="release-meta">Digital — <a href="https://www.monocromatica.com/netlabel/">Test Tube</a>, TUBE026, 2005</p>
@@ -158,7 +158,7 @@ permalink: /works/
 </div>
 
 <div class="release" id="offear">
-  <img src="/assets/images/offear.jpg" alt="OFFEAR.EP">
+  <img src="/assets/images/offear.jpg" alt="OFFEAR.EP" loading="lazy">
   <div class="release-details">
     <p><strong><a href="https://archive.org/details/enrmp040_nny_-_offear_ep">OFFEAR.EP</a></strong></p>
     <p class="release-meta">Digital — <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRMP040, 2004</p>
@@ -179,7 +179,7 @@ permalink: /works/
 
 <div class="release" id="altar">
   <div class="bandcamp-player" data-album="2165800616">
-    <img src="/assets/images/altar.jpg" alt="ALTAR">
+    <img src="/assets/images/altar.jpg" alt="ALTAR" loading="lazy">
     <button class="play-button" aria-label="Play on Bandcamp"></button>
   </div>
   <div class="release-details">
@@ -202,7 +202,7 @@ permalink: /works/
 
 <div class="release" id="overlapse-xiii">
   <div class="bandcamp-player" data-album="2661997682">
-    <img src="/assets/images/overlapse-xiii.jpg" alt="Overlapse XIII">
+    <img src="/assets/images/overlapse-xiii.jpg" alt="Overlapse XIII" loading="lazy">
     <button class="play-button" aria-label="Play on Bandcamp"></button>
   </div>
   <div class="release-details">
@@ -227,7 +227,7 @@ permalink: /works/
 ## Film & Theatre {#film}
 
 <div class="release" id="aragao">
-  <img src="/assets/images/aragao.jpg" alt="Aragão">
+  <img src="/assets/images/aragao.jpg" alt="Aragão" loading="lazy">
   <div class="release-details">
     <p><strong>Aragão</strong></p>
     <p class="release-meta">Theatre — <a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, 2021</p>
@@ -237,7 +237,7 @@ permalink: /works/
 </div>
 
 <div class="release" id="invisible-other">
-  <img src="/assets/images/invisible-other.jpg" alt="Invisible Other">
+  <img src="/assets/images/invisible-other.jpg" alt="Invisible Other" loading="lazy">
   <div class="release-details">
     <p><strong>Invisible Other</strong></p>
     <p class="release-meta">Film — dir. <a href="https://www.margaridapaiva.com/">Margarida Paiva</a>, 2016</p>
@@ -247,7 +247,7 @@ permalink: /works/
 </div>
 
 <div class="release" id="caligari">
-  <img src="/assets/images/caligari-live.jpg" alt="The Cabinet of Dr. Caligari">
+  <img src="/assets/images/caligari-live.jpg" alt="The Cabinet of Dr. Caligari" loading="lazy">
   <div class="release-details">
     <p><strong>The Cabinet of Dr. Caligari</strong></p>
     <p class="release-meta">Live Score — 2010</p>
@@ -302,7 +302,7 @@ permalink: /works/
 ## Publications {#publications}
 
 <div class="release" id="glitch">
-  <img src="/assets/images/glitch.jpg" alt="Glitch: Designing Imperfection">
+  <img src="/assets/images/glitch.jpg" alt="Glitch: Designing Imperfection" loading="lazy">
   <div class="release-details">
     <p><strong><a href="https://www.goodreads.com/book/show/6601613-glitch">Glitch: Designing Imperfection</a></strong></p>
     <p class="release-meta">Book — Mark Batty Publisher, 2009</p>

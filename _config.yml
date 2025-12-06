@@ -68,9 +68,6 @@ exclude:
   - vendor
   - README.md
   - LICENSE.md
-  - projects/
-  - blog/
-  - categories/
 
 # Defaults
 defaults:
