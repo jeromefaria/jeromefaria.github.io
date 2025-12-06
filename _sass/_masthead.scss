@@ -45,9 +45,14 @@
 }
 
 .masthead-tagline {
+  display: none;
   color: var(--color-text-muted);
   font-weight: $font-weight-normal;
   margin-left: $spacing-3;
+
+  @include respond-to(sm) {
+    display: inline;
+  }
 }
 
 // =============================================================================
