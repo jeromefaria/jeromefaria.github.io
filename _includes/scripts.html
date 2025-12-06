@@ -86,6 +86,14 @@
         // Toggle current section
         trigger.setAttribute('aria-expanded', !wasOpen);
         content.setAttribute('aria-hidden', wasOpen);
+
+        // Scroll to top of section when opening
+        // Delay scroll to wait for other sections to collapse (300ms transition)
+        if (!wasOpen) {
+          setTimeout(() => {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 320);
+        }
       });
     });
   })();

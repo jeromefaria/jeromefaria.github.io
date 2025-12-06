@@ -85,6 +85,11 @@
 
 .accordion-section {
   margin-top: $spacing-2;
+  scroll-margin-top: calc(#{$header-height-mobile} + #{$spacing-4});
+
+  @include respond-to(md) {
+    scroll-margin-top: calc(#{$header-height-desktop} + #{$spacing-4});
+  }
 
   &:first-of-type {
     margin-top: 0;
