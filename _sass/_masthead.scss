@@ -34,6 +34,12 @@
   }
 }
 
+.masthead-tagline {
+  color: var(--color-text-muted);
+  font-weight: $font-weight-normal;
+  margin-left: $spacing-3;
+}
+
 // Controls container (theme toggle + hamburger)
 .masthead-controls {
   display: flex;
@@ -127,32 +133,9 @@
   }
 }
 
-// Theme toggle
+// Theme toggle (hidden for now)
 .theme-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1rem;
-  height: 1rem;
-  color: var(--color-text-muted);
-  transition: color $transition-fast;
-
-  &:hover {
-    color: var(--color-text);
-  }
-
-  svg {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
-
-  .icon-sun {
-    display: none;
-  }
-
-  .icon-moon {
-    display: block;
-  }
+  display: none;
 }
 
 [data-theme="dark"] .theme-toggle {
