@@ -30,10 +30,12 @@
     height: auto;
     display: block;
     order: -1;
+    margin-bottom: $spacing-2;
 
     @include respond-to(md) {
       max-width: 200px;
       order: 1;
+      margin-bottom: 0;
     }
   }
 
