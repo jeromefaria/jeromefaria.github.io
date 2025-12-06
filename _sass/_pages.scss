@@ -66,14 +66,12 @@
 // =============================================================================
 
 .page[data-page="live"] {
-  // Year headings with visual separation
-  h2 {
-    margin-top: $spacing-12;
+  // Year sections with visual separation
+  .accordion-section {
     padding-top: $spacing-6;
     border-top: 1px solid var(--color-border-subtle);
 
     &:first-of-type {
-      margin-top: 0;
       padding-top: 0;
       border-top: none;
     }
@@ -90,4 +88,89 @@
     letter-spacing: normal;
     font-style: italic;
   }
+}
+
+// =============================================================================
+// Accordion Sections (Works & Live pages)
+// =============================================================================
+
+.accordion-section {
+  margin-top: $spacing-2;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+
+.accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 $spacing-3;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  // Match h2 styling from _type.scss
+  font-size: $font-size-xs;
+  font-weight: $font-weight-normal;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+  color: var(--color-text-muted);
+  line-height: $line-height-snug;
+
+  @include respond-to(md) {
+    letter-spacing: $letter-spacing-wider;
+    margin-bottom: $spacing-4;
+  }
+
+  &:hover {
+    color: var(--color-text);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 2px;
+  }
+
+  // Chevron icon
+  &::after {
+    content: '';
+    flex-shrink: 0;
+    width: 0.375rem;
+    height: 0.375rem;
+    margin-left: $spacing-2;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform $transition-base;
+  }
+
+  &[aria-expanded="true"]::after {
+    transform: rotate(-135deg);
+  }
+}
+
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows $transition-base;
+
+  &[aria-hidden="false"] {
+    grid-template-rows: 1fr;
+
+    .accordion-content-inner {
+      opacity: 1;
+      transition-delay: 150ms;
+    }
+  }
+}
+
+.accordion-content-inner {
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity $transition-base;
 }

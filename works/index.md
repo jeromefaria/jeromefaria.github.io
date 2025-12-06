@@ -4,7 +4,10 @@ title: Works
 permalink: /works/
 ---
 
-## Solo
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="true" aria-controls="section-solo">Solo</button>
+<div class="accordion-content" id="section-solo" aria-hidden="false">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="2504">
   <div class="bandcamp-player" data-album="1275977827">
@@ -79,9 +82,14 @@ permalink: /works/
   </div>
 </div>
 
----
+</div>
+</div>
+</section>
 
-## NNY (2004–2009)
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-nny">NNY (2004–2009)</button>
+<div class="accordion-content" id="section-nny" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="nny-plus">
   <img src="/assets/images/nny.jpg" alt="NNY++" loading="lazy">
@@ -173,9 +181,14 @@ permalink: /works/
   </div>
 </div>
 
----
+</div>
+</div>
+</section>
 
-## NOx
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-nox">NOx</button>
+<div class="accordion-content" id="section-nox" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="altar">
   <div class="bandcamp-player" data-album="2165800616">
@@ -196,9 +209,14 @@ permalink: /works/
   </div>
 </div>
 
----
+</div>
+</div>
+</section>
 
-## Curatorial
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-curatorial">Curatorial</button>
+<div class="accordion-content" id="section-curatorial" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="overlapse-xiii">
   <div class="bandcamp-player" data-album="2661997682">
@@ -222,9 +240,14 @@ permalink: /works/
   </div>
 </div>
 
----
+</div>
+</div>
+</section>
 
-## Film & Theatre
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-film">Film & Theatre</button>
+<div class="accordion-content" id="section-film" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="aragao">
   <img src="/assets/images/aragao.jpg" alt="Aragão" loading="lazy">
@@ -255,9 +278,14 @@ permalink: /works/
   </div>
 </div>
 
----
+</div>
+</div>
+</section>
 
-## Compilations and Collaborations
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-compilations">Compilations and Collaborations</button>
+<div class="accordion-content" id="section-compilations" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 **Marrow** in *<a href="https://citiesandmemory.bandcamp.com/album/migration-sounds">Migration Sounds</a>* — MP3, <a href="https://citiesandmemory.com/">Cities and Memory</a>, 2024
 
@@ -287,9 +315,14 @@ permalink: /works/
 
 **Valid Specimen** in *<a href="https://archive.org/details/enrcmp03">Dark Vault</a>* — MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP03, 2004
 
----
+</div>
+</div>
+</section>
 
-## Mastering
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-mastering">Mastering</button>
+<div class="accordion-content" id="section-mastering" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 **<a href="https://jeromefaria.bandcamp.com/album/overlapse-xiii">Overlapse XIII</a>** — various artists, 2025
 
@@ -297,9 +330,14 @@ permalink: /works/
 
 **Vessels** — Rui P. Andrade, BRØQN, BRQN004, 2012
 
----
+</div>
+</div>
+</section>
 
-## Publications
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-publications">Publications</button>
+<div class="accordion-content" id="section-publications" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="glitch">
   <img src="/assets/images/glitch.jpg" alt="Glitch: Designing Imperfection" loading="lazy">
@@ -310,3 +348,7 @@ permalink: /works/
     <p class="release-credits">Edited by <a href="https://organised.info/">Iman Moradi</a>, Ant Scott, Joe Gilmore, Christopher Murphy. ISBN 978-0-9799666-6-8.</p>
   </div>
 </div>
+
+</div>
+</div>
+</section>

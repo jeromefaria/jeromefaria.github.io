@@ -67,3 +67,40 @@
     });
   })();
 </script>
+
+<!-- Accordion -->
+<script>
+  (() => {
+    const accordions = document.querySelectorAll('.accordion-section');
+    if (!accordions.length) return;
+
+    accordions.forEach((section, index) => {
+      const trigger = section.querySelector('.accordion-trigger');
+      const content = section.querySelector('.accordion-content');
+      if (!trigger || !content) return;
+
+      // First section open by default
+      const isOpen = index === 0;
+      trigger.setAttribute('aria-expanded', isOpen);
+      content.setAttribute('aria-hidden', !isOpen);
+
+      trigger.addEventListener('click', () => {
+        const wasOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+        // Close all other sections (one at a time behavior)
+        accordions.forEach(other => {
+          const otherTrigger = other.querySelector('.accordion-trigger');
+          const otherContent = other.querySelector('.accordion-content');
+          if (otherTrigger && otherContent && other !== section) {
+            otherTrigger.setAttribute('aria-expanded', 'false');
+            otherContent.setAttribute('aria-hidden', 'true');
+          }
+        });
+
+        // Toggle current section
+        trigger.setAttribute('aria-expanded', !wasOpen);
+        content.setAttribute('aria-hidden', wasOpen);
+      });
+    });
+  })();
+</script>

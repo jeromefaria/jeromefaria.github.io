@@ -4,7 +4,10 @@ title: Live
 permalink: /live/
 ---
 
-## 2025
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="true" aria-controls="section-2025">2025</button>
+<div class="accordion-content" id="section-2025" aria-hidden="false">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="showcase-casa-amarela">
   <div class="release-details">
@@ -22,7 +25,14 @@ permalink: /live/
   </div>
 </div>
 
-## 2022
+</div>
+</div>
+</section>
+
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-2022">2022</button>
+<div class="accordion-content" id="section-2022" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="jejum-11">
   <div class="release-details">
@@ -31,7 +41,14 @@ permalink: /live/
   </div>
 </div>
 
-## 2021
+</div>
+</div>
+</section>
+
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-2021">2021</button>
+<div class="accordion-content" id="section-2021" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="nariz-entupido">
   <div class="release-details">
@@ -57,7 +74,14 @@ permalink: /live/
   </div>
 </div>
 
-## 2015
+</div>
+</div>
+</section>
+
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-2015">2015</button>
+<div class="accordion-content" id="section-2015" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="heineken-series">
   <div class="release-details">
@@ -75,7 +99,14 @@ permalink: /live/
   </div>
 </div>
 
-## 2013
+</div>
+</div>
+</section>
+
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-2013">2013</button>
+<div class="accordion-content" id="section-2013" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="cognitivopolis">
   <div class="release-details">
@@ -85,7 +116,14 @@ permalink: /live/
   </div>
 </div>
 
-## 2012
+</div>
+</div>
+</section>
+
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-2012">2012</button>
+<div class="accordion-content" id="section-2012" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="cine-qua-non">
   <div class="release-details">
@@ -95,7 +133,14 @@ permalink: /live/
   </div>
 </div>
 
-## 2011
+</div>
+</div>
+</section>
+
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-2011">2011</button>
+<div class="accordion-content" id="section-2011" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="madeiradig-2011">
   <div class="release-details">
@@ -113,7 +158,14 @@ permalink: /live/
   </div>
 </div>
 
-## 2010
+</div>
+</div>
+</section>
+
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-2010">2010</button>
+<div class="accordion-content" id="section-2010" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="olhares-de-outono-2010">
   <div class="release-details">
@@ -123,7 +175,14 @@ permalink: /live/
   </div>
 </div>
 
-## 2009
+</div>
+</div>
+</section>
+
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-2009">2009</button>
+<div class="accordion-content" id="section-2009" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="madeiradig-2009">
   <div class="release-details">
@@ -141,7 +200,14 @@ permalink: /live/
   </div>
 </div>
 
-## 2008
+</div>
+</div>
+</section>
+
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-2008">2008</button>
+<div class="accordion-content" id="section-2008" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="eme-madeira-2008">
   <div class="release-details">
@@ -167,7 +233,14 @@ permalink: /live/
   </div>
 </div>
 
-## 2007
+</div>
+</div>
+</section>
+
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-2007">2007</button>
+<div class="accordion-content" id="section-2007" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="madeiradig-2007">
   <div class="release-details">
@@ -177,7 +250,14 @@ permalink: /live/
   </div>
 </div>
 
-## 2006
+</div>
+</div>
+</section>
+
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-2006">2006</button>
+<div class="accordion-content" id="section-2006" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="madeiradig-2006">
   <div class="release-details">
@@ -187,7 +267,14 @@ permalink: /live/
   </div>
 </div>
 
-## 2005
+</div>
+</div>
+</section>
+
+<section class="accordion-section">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="section-2005">2005</button>
+<div class="accordion-content" id="section-2005" aria-hidden="true">
+<div class="accordion-content-inner" markdown="1">
 
 <div class="release" id="madeiradig-2005">
   <div class="release-details">
@@ -196,3 +283,7 @@ permalink: /live/
     <p class="release-description">With <a href="https://www.fennesz.com/">Fennesz</a>, <a href="https://florianhecker.blogspot.com/">Florian Hecker</a>, <a href="https://at-c.org/">@c</a> & <a href="https://liaworks.com/">Lia</a>.</p>
   </div>
 </div>
+
+</div>
+</div>
+</section>
