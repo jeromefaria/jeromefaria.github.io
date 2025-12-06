@@ -11,27 +11,25 @@
       </button>
 
       <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
-        <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <line x1="3" y1="8" x2="21" y2="8"></line>
-          <line x1="3" y1="16" x2="21" y2="16"></line>
-        </svg>
-        <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-          <line x1="6" y1="18" x2="18" y2="6"></line>
+        <svg class="nav-toggle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <line class="nav-toggle-line nav-toggle-line-1" x1="4" y1="12" x2="20" y2="12"></line>
+          <line class="nav-toggle-line nav-toggle-line-2" x1="4" y1="12" x2="20" y2="12"></line>
         </svg>
       </button>
     </div>
 
     <nav class="nav" aria-label="Main navigation">
-      {% for nav in site.navigation %}
-      <a href="{{ nav.url | relative_url }}" class="nav-link{% if page.url == nav.url or page.url contains nav.url and nav.url != '/' %} active{% endif %}">
-        {{ nav.title }}
-      </a>
-      {% endfor %}
+      <div class="nav-inner">
+        {% for nav in site.navigation %}
+        <a href="{{ nav.url | relative_url }}" class="nav-link{% if page.url == nav.url or page.url contains nav.url and nav.url != '/' %} active{% endif %}">
+          {{ nav.title }}
+        </a>
+        {% endfor %}
 
-      <button class="theme-toggle theme-toggle-desktop" type="button" aria-label="Toggle theme">
-        {% include theme-icons.html %}
-      </button>
+        <button class="theme-toggle theme-toggle-desktop" type="button" aria-label="Toggle theme">
+          {% include theme-icons.html %}
+        </button>
+      </div>
     </nav>
   </div>
 </header>

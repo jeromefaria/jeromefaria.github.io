@@ -147,6 +147,7 @@
     border-bottom: 1px solid currentColor;
     transform: rotate(45deg);
     transition: transform $transition-base;
+    will-change: transform;
   }
 
   &[aria-expanded="true"]::after {
@@ -173,4 +174,5 @@
   overflow: hidden;
   opacity: 0;
   transition: opacity $transition-base;
+  will-change: opacity;
 }

@@ -33,8 +33,16 @@
     const navToggle = document.querySelector('.nav-toggle');
     const nav = document.querySelector('.nav');
     navToggle?.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('is-open');
-      navToggle.setAttribute('aria-expanded', isOpen);
+      const isOpen = nav.classList.contains('is-open');
+      if (isOpen) {
+        nav.classList.add('is-closing');
+        nav.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        setTimeout(() => nav.classList.remove('is-closing'), 300);
+      } else {
+        nav.classList.add('is-open');
+        navToggle.setAttribute('aria-expanded', 'true');
+      }
     });
   })();
 </script>
