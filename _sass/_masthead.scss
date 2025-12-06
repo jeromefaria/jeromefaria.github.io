@@ -226,11 +226,11 @@
 
 .nav-toggle[aria-expanded="true"] {
   .nav-toggle-line-1 {
-    transform: rotate(45deg);
+    transform: translateY(0) rotate(45deg);
   }
 
   .nav-toggle-line-2 {
-    transform: rotate(-45deg);
+    transform: translateY(0) rotate(-45deg);
   }
 }
 
