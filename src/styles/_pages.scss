@@ -12,15 +12,15 @@
     width: 100%;
     // Fill remaining viewport height
     min-height: 50vh;
-    height: calc(100vh - #{$header-height-mobile} - 118px);
-    height: calc(100dvh - #{$header-height-mobile} - 118px);
+    height: calc(100vh - #{$header-height-mobile} - 150px);
+    height: calc(100dvh - #{$header-height-mobile} - 150px);
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
 
     @include respond-to(md) {
-      height: calc(100vh - #{$header-height-desktop} - 117px);
-      height: calc(100dvh - #{$header-height-desktop} - 117px);
+      height: calc(100vh - #{$header-height-desktop} - 149px);
+      height: calc(100dvh - #{$header-height-desktop} - 149px);
     }
   }
 

@@ -36,13 +36,18 @@ main:has(.home) {
   }
 }
 
+// No scroll on homepage
+body:has(.home) {
+  overflow: hidden;
+}
+
 // =============================================================================
 // Footer
 // =============================================================================
 
 footer {
-  padding: $spacing-6 $spacing-5 $spacing-8;
-  @include safe-area-padding($bottom: $spacing-8, $left: $spacing-5, $right: $spacing-5);
+  padding: $spacing-6 $spacing-5;
+  @include safe-area-padding($bottom: $spacing-6, $left: $spacing-5, $right: $spacing-5);
   border-top: 1px solid var(--color-border);
   font-size: $font-size-xs;
   text-transform: uppercase;
