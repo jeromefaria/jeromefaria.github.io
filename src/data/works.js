@@ -73,6 +73,7 @@ export const worksData = {
         id: 'nny-plus',
         title: 'NNY++',
         coverImage: '/images/nny.jpg',
+        externalUrl: 'https://www.discogs.com/release/932955-NNY-NNY',
         meta: 'CDr — <a href="https://www.discogs.com/label/84424-Almasud-Records">Almasud Records</a>, CDRASUD015, 2007',
         tracklist: ['001', '002', '003'],
         credits: 'Written & produced by Jerome Faria, Kazuya Mise, Filipe Cruz.'
@@ -226,12 +227,12 @@ export const worksData = {
       {
         id: 'comp-madeiradig11',
         title: 'Untitled #2',
-        meta: 'in <em>What Does It Sound Like When Volcanoes Start To Whisper: Edition 2011 Madeira Island</em> — CD, Madeira Dig, MADEIRADIG2011, 2011'
+        meta: 'in <em><a href="https://www.discogs.com/release/3345819-Michael-Rosen-What-Does-It-Sound-Like-When-Volcanoes-Start-To-Whisper-Edition-2011-Madeira-Island">What Does It Sound Like When Volcanoes Start To Whisper</a></em> — CD, Madeira Dig, MADEIRADIG2011, 2011'
       },
       {
         id: 'comp-madeiradig09',
         title: 'Ethereal / Dew',
-        meta: 'in <em>What It Sounds Like When Flowers Start To Think: Edition 09 Madeira Island</em> — CD, Madeira Dig, MadeiraDig09, 2009'
+        meta: 'in <em><a href="https://www.discogs.com/release/11528327-Various-What-It-Sounds-Like-When-Flowers-Start-To-Think-edition-09-madeira-island">What It Sounds Like When Flowers Start To Think</a></em> — CD, Madeira Dig, MadeiraDig09, 2009'
       },
       {
         id: 'comp-sand-dune',
