@@ -1,7 +1,6 @@
 <script setup>
-import { ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
 import { usePageHead } from '@/composables/usePageHead'
+import { useAccordion } from '@/composables/useAccordion'
 import { siteConfig } from '@/data/navigation'
 import { worksData, worksSections } from '@/data/works'
 import AccordionSection from '@/components/AccordionSection.vue'
@@ -45,29 +44,7 @@ usePageHead({
   schema: musicSchema
 })
 
-const route = useRoute()
-
-// Track which section is open (only one at a time)
-const openSection = ref('solo')
-
-function handleSectionToggle(sectionId, isOpen) {
-  if (isOpen) {
-    openSection.value = sectionId
-  } else if (openSection.value === sectionId) {
-    openSection.value = null
-  }
-}
-
-// Handle hash navigation
-watch(() => route.hash, (hash) => {
-  if (hash) {
-    const sectionId = hash.replace('#section-', '').replace('#', '')
-    // Check if it's a section
-    if (worksSections.includes(sectionId)) {
-      openSection.value = sectionId
-    }
-  }
-}, { immediate: true })
+const { openSection, handleToggle } = useAccordion('solo', worksSections)
 </script>
 
 <template>
@@ -79,7 +56,7 @@ watch(() => route.hash, (hash) => {
         :id="sectionKey"
         :title="worksData[sectionKey].title"
         :model-value="openSection === sectionKey"
-        @update:model-value="handleSectionToggle(sectionKey, $event)"
+        @update:model-value="handleToggle(sectionKey, $event)"
       >
         <ReleaseItem
           v-for="release in worksData[sectionKey].releases"
