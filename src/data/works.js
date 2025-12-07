@@ -224,6 +224,16 @@ export const worksData = {
         meta: 'in <em>SEQUENCE4</em> — MP3, Future Sequence, SEQ004, 2011'
       },
       {
+        id: 'comp-madeiradig11',
+        title: 'Untitled #2',
+        meta: 'in <em>What Does It Sound Like When Volcanoes Start To Whisper: Edition 2011 Madeira Island</em> — CD, Madeira Dig, MADEIRADIG2011, 2011'
+      },
+      {
+        id: 'comp-madeiradig09',
+        title: 'Ethereal / Dew',
+        meta: 'in <em>What It Sounds Like When Flowers Start To Think: edition 09 madeira island</em> — CD, Madeira Dig, MadeiraDig09, 2009'
+      },
+      {
         id: 'comp-sand-dune',
         title: 'Sand Dune',
         meta: 'in <em>Baconism</em> — CD/MP3, NIkO, NIKO005, 2008'
