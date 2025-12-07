@@ -1,9 +1,19 @@
 <script setup>
-import { onMounted } from 'vue'
+import { useHead } from '@unhead/vue'
 import { siteConfig } from '@/data/navigation'
 
-onMounted(() => {
-  document.title = `${siteConfig.title} - ${siteConfig.tagline}`
+useHead({
+  title: `${siteConfig.title} - ${siteConfig.tagline}`,
+  meta: [
+    { name: 'description', content: siteConfig.description },
+    { property: 'og:title', content: `${siteConfig.title} - ${siteConfig.tagline}` },
+    { property: 'og:description', content: siteConfig.description },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: siteConfig.url },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: `${siteConfig.title} - ${siteConfig.tagline}` },
+    { name: 'twitter:description', content: siteConfig.description }
+  ]
 })
 </script>
 

@@ -1,10 +1,15 @@
 <script setup>
-import { onMounted } from 'vue'
+import { useHead } from '@unhead/vue'
 import { siteConfig } from '@/data/navigation'
 import { pressQuotes } from '@/data/press'
 
-onMounted(() => {
-  document.title = `Press - ${siteConfig.title}`
+useHead({
+  title: `Press - ${siteConfig.title}`,
+  meta: [
+    { name: 'description', content: 'Press coverage and reviews of Jerome Faria\'s work from The Quietus, Bodyspace, Indie Rock Mag, and more.' },
+    { property: 'og:title', content: `Press - ${siteConfig.title}` },
+    { property: 'og:description', content: 'Press coverage and reviews of Jerome Faria\'s work from The Quietus, Bodyspace, Indie Rock Mag, and more.' }
+  ]
 })
 </script>
 

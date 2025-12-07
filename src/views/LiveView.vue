@@ -1,12 +1,18 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { useHead } from '@unhead/vue'
 import { siteConfig } from '@/data/navigation'
 import { liveData, liveYears } from '@/data/live'
 import AccordionSection from '@/components/AccordionSection.vue'
 
-onMounted(() => {
-  document.title = `Live - ${siteConfig.title}`
+useHead({
+  title: `Live - ${siteConfig.title}`,
+  meta: [
+    { name: 'description', content: 'Live performance history of Jerome Faria from 2005 to present, including festivals, concerts, and collaborations.' },
+    { property: 'og:title', content: `Live - ${siteConfig.title}` },
+    { property: 'og:description', content: 'Live performance history of Jerome Faria from 2005 to present, including festivals, concerts, and collaborations.' }
+  ]
 })
 
 const route = useRoute()

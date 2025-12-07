@@ -1,9 +1,12 @@
 <script setup>
-import { onMounted } from 'vue'
+import { useHead } from '@unhead/vue'
 import { siteConfig } from '@/data/navigation'
 
-onMounted(() => {
-  document.title = `Page Not Found - ${siteConfig.title}`
+useHead({
+  title: `Page Not Found - ${siteConfig.title}`,
+  meta: [
+    { name: 'robots', content: 'noindex' }
+  ]
 })
 </script>
 

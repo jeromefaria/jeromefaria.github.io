@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const props = defineProps({
+defineProps({
   albumId: {
     type: String,
     required: true
@@ -18,6 +18,7 @@ const props = defineProps({
 
 const isLoaded = ref(false)
 const isLoading = ref(false)
+const imageError = ref(false)
 
 function loadPlayer() {
   if (isLoaded.value || isLoading.value) return
@@ -28,20 +29,26 @@ function loadPlayer() {
     isLoading.value = false
   }, 100)
 }
+
+function handleImageError() {
+  imageError.value = true
+}
 </script>
 
 <template>
   <div
     class="bandcamp-player"
-    :class="{ loading: isLoading }"
+    :class="{ loading: isLoading, 'image-error': imageError }"
     @click="loadPlayer"
   >
     <img
-      v-if="!isLoaded"
+      v-if="!isLoaded && !imageError"
       :src="coverImage"
       :alt="`${albumTitle} album cover`"
       loading="lazy"
+      @error="handleImageError"
     />
+    <div v-if="!isLoaded && imageError" class="image-fallback" />
     <button
       v-if="!isLoaded"
       class="play-button"

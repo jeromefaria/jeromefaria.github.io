@@ -195,27 +195,101 @@ export const worksData = {
   compilations: {
     title: 'Compilations and Collaborations',
     id: 'compilations',
-    textContent: `<p><strong>Marrow</strong> in <em><a href="https://citiesandmemory.bandcamp.com/album/migration-sounds">Migration Sounds</a></em> — MP3, <a href="https://citiesandmemory.com/">Cities and Memory</a>, 2024</p>
-<p><strong>100421</strong> in <em>Transmissions From The Heart Of Darkness, Part V: Elsewhere</em> — MP3, <a href="https://descendresalacave.bandcamp.com/">Des Cendres À La Cave</a>, 2013</p>
-<p><strong>Depolarized</strong> with Nelson P. Ferreira in <em>Depolarized</em> — MP3, BRØQN, BRQ002, 2012</p>
-<p><strong>Absence of Light</strong> in <em>IRM Presents: Clashes</em> — MP3, <a href="https://www.indierockmag.com/">Indie Rock Mag</a>, 2012</p>
-<p><strong>Sustain I</strong> in <em>SEQUENCE4</em> — MP3, Future Sequence, SEQ004, 2011</p>
-<p><strong>Sand Dune</strong> in <em>Baconism</em> — CD/MP3, NIkO, NIKO005, 2008</p>
-<p><strong>Crystal Space</strong> in <em>Thisagree & Shadow</em> — CD, <a href="https://thisco.bandcamp.com/">Thisco</a>, THISK.43, 2008</p>
-<p><strong>090407001</strong> and <strong>090407003</strong> in <em><a href="https://archive.org/details/enrcmp07">Datacross.1</a></em> — MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP07, 2007</p>
-<p><strong>Cybernetics</strong> with <a href="http://structuramusic.com/">Structura</a> in <em><a href="https://archive.org/details/enrcmp05">SOUNDResearch</a></em> — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP05, 2007</p>
-<p><strong>13</strong> in <em><a href="https://archive.org/details/enrcmp06">Falésia</a></em> — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP06, 2007</p>
-<p><strong>Perpetual</strong> and <strong>Crowded Desert</strong> in <em><a href="https://twoismrecords.bandcamp.com/album/one-on-twoism-volume-1">One On Twoism</a></em> — MP3, <a href="https://twoismrecords.bandcamp.com/">Twoism Records</a>, OOT001, 2007</p>
-<p><strong>332 Variation (NNY mix)</strong> in <em><a href="https://archive.org/details/mimi065">Friends Reinterpretations Of Unreleased 332 Variations Volume 4</a></em> — MP3, <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI065, 2006</p>
-<p><strong>Crystal Space</strong> in <em><a href="https://archive.org/details/mimi050">Saudade: V/A from the Atlantic Coast</a></em> — MP3, <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI050, 2006</p>
-<p><strong>Valid Specimen</strong> in <em><a href="https://archive.org/details/enrcmp03">Dark Vault</a></em> — MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP03, 2004</p>`
+    releases: [
+      {
+        id: 'comp-marrow',
+        title: 'Marrow',
+        meta: 'in <em><a href="https://citiesandmemory.bandcamp.com/album/migration-sounds">Migration Sounds</a></em> — MP3, <a href="https://citiesandmemory.com/">Cities and Memory</a>, 2024'
+      },
+      {
+        id: 'comp-100421',
+        title: '100421',
+        meta: 'in <em>Transmissions From The Heart Of Darkness, Part V: Elsewhere</em> — MP3, <a href="https://descendresalacave.bandcamp.com/">Des Cendres À La Cave</a>, 2013'
+      },
+      {
+        id: 'comp-depolarized',
+        title: 'Depolarized',
+        meta: 'with Nelson P. Ferreira in <em>Depolarized</em> — MP3, BRØQN, BRQ002, 2012'
+      },
+      {
+        id: 'comp-absence',
+        title: 'Absence of Light',
+        meta: 'in <em>IRM Presents: Clashes</em> — MP3, <a href="https://www.indierockmag.com/">Indie Rock Mag</a>, 2012'
+      },
+      {
+        id: 'comp-sustain',
+        title: 'Sustain I',
+        meta: 'in <em>SEQUENCE4</em> — MP3, Future Sequence, SEQ004, 2011'
+      },
+      {
+        id: 'comp-sand-dune',
+        title: 'Sand Dune',
+        meta: 'in <em>Baconism</em> — CD/MP3, NIkO, NIKO005, 2008'
+      },
+      {
+        id: 'comp-crystal-space-thisco',
+        title: 'Crystal Space',
+        meta: 'in <em>Thisagree & Shadow</em> — CD, <a href="https://thisco.bandcamp.com/">Thisco</a>, THISK.43, 2008'
+      },
+      {
+        id: 'comp-datacross',
+        title: '090407001 / 090407003',
+        meta: 'in <em><a href="https://archive.org/details/enrcmp07">Datacross.1</a></em> — MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP07, 2007'
+      },
+      {
+        id: 'comp-cybernetics',
+        title: 'Cybernetics',
+        meta: 'with <a href="http://structuramusic.com/">Structura</a> in <em><a href="https://archive.org/details/enrcmp05">SOUNDResearch</a></em> — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP05, 2007'
+      },
+      {
+        id: 'comp-13',
+        title: '13',
+        meta: 'in <em><a href="https://archive.org/details/enrcmp06">Falésia</a></em> — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP06, 2007'
+      },
+      {
+        id: 'comp-twoism',
+        title: 'Perpetual / Crowded Desert',
+        meta: 'in <em><a href="https://twoismrecords.bandcamp.com/album/one-on-twoism-volume-1">One On Twoism</a></em> — MP3, <a href="https://twoismrecords.bandcamp.com/">Twoism Records</a>, OOT001, 2007'
+      },
+      {
+        id: 'comp-332',
+        title: '332 Variation (NNY mix)',
+        meta: 'in <em><a href="https://archive.org/details/mimi065">Friends Reinterpretations Of Unreleased 332 Variations Volume 4</a></em> — MP3, <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI065, 2006'
+      },
+      {
+        id: 'comp-crystal-space-mimi',
+        title: 'Crystal Space',
+        meta: 'in <em><a href="https://archive.org/details/mimi050">Saudade: V/A from the Atlantic Coast</a></em> — MP3, <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI050, 2006'
+      },
+      {
+        id: 'comp-valid-specimen',
+        title: 'Valid Specimen',
+        meta: 'in <em><a href="https://archive.org/details/enrcmp03">Dark Vault</a></em> — MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP03, 2004'
+      }
+    ]
   },
   mastering: {
     title: 'Mastering',
     id: 'mastering',
-    textContent: `<p><strong><a href="https://jeromefaria.bandcamp.com/album/overlapse-xiii">Overlapse XIII</a></strong> — various artists, 2025</p>
-<p><strong><a href="https://casaamarela.bandcamp.com/album/open">Open</a></strong> — Hugo Calcio, <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#016, 2021</p>
-<p><strong>Vessels</strong> — Rui P. Andrade, BRØQN, BRQN004, 2012</p>`
+    releases: [
+      {
+        id: 'master-overlapse-xiii',
+        title: 'Overlapse XIII',
+        externalUrl: 'https://jeromefaria.bandcamp.com/album/overlapse-xiii',
+        meta: 'various artists, 2025'
+      },
+      {
+        id: 'master-open',
+        title: 'Open',
+        externalUrl: 'https://casaamarela.bandcamp.com/album/open',
+        meta: 'Hugo Calcio — <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#016, 2021'
+      },
+      {
+        id: 'master-vessels',
+        title: 'Vessels',
+        meta: 'Rui P. Andrade — BRØQN, BRQN004, 2012'
+      }
+    ]
   },
   publications: {
     title: 'Publications',
