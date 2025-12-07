@@ -1,15 +1,10 @@
 <script setup>
-import { useHead } from '@unhead/vue'
-import { siteConfig } from '@/data/navigation'
+import { usePageHead } from '@/composables/usePageHead'
 import { pressQuotes } from '@/data/press'
 
-useHead({
-  title: `Press - ${siteConfig.title}`,
-  meta: [
-    { name: 'description', content: 'Press coverage and reviews of Jerome Faria\'s work from The Quietus, Bodyspace, Indie Rock Mag, and more.' },
-    { property: 'og:title', content: `Press - ${siteConfig.title}` },
-    { property: 'og:description', content: 'Press coverage and reviews of Jerome Faria\'s work from The Quietus, Bodyspace, Indie Rock Mag, and more.' }
-  ]
+usePageHead({
+  title: 'Press',
+  description: 'Press coverage and reviews of Jerome Faria\'s work from The Quietus, Bodyspace, Indie Rock Mag, and more.'
 })
 </script>
 

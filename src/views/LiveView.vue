@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useHead } from '@unhead/vue'
+import { usePageHead } from '@/composables/usePageHead'
 import { siteConfig } from '@/data/navigation'
 import { liveData, liveYears } from '@/data/live'
 import AccordionSection from '@/components/AccordionSection.vue'
@@ -62,19 +62,10 @@ const eventsSchema = {
   }))
 }
 
-useHead({
-  title: `Live - ${siteConfig.title}`,
-  meta: [
-    { name: 'description', content: 'Live performance history of Jerome Faria from 2005 to present, including festivals, concerts, and collaborations.' },
-    { property: 'og:title', content: `Live - ${siteConfig.title}` },
-    { property: 'og:description', content: 'Live performance history of Jerome Faria from 2005 to present, including festivals, concerts, and collaborations.' }
-  ],
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(eventsSchema)
-    }
-  ]
+usePageHead({
+  title: 'Live',
+  description: 'Live performance history of Jerome Faria from 2005 to present, including festivals, concerts, and collaborations.',
+  schema: eventsSchema
 })
 
 const route = useRoute()

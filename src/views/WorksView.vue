@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useHead } from '@unhead/vue'
+import { usePageHead } from '@/composables/usePageHead'
 import { siteConfig } from '@/data/navigation'
 import { worksData, worksSections } from '@/data/works'
 import AccordionSection from '@/components/AccordionSection.vue'
@@ -39,19 +39,10 @@ const musicSchema = {
   album: albumSchemas
 }
 
-useHead({
-  title: `Works - ${siteConfig.title}`,
-  meta: [
-    { name: 'description', content: 'Discography, film scores, and works by Jerome Faria including solo releases, collaborations, and curatorial projects.' },
-    { property: 'og:title', content: `Works - ${siteConfig.title}` },
-    { property: 'og:description', content: 'Discography, film scores, and works by Jerome Faria including solo releases, collaborations, and curatorial projects.' }
-  ],
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(musicSchema)
-    }
-  ]
+usePageHead({
+  title: 'Works',
+  description: 'Discography, film scores, and works by Jerome Faria including solo releases, collaborations, and curatorial projects.',
+  schema: musicSchema
 })
 
 const route = useRoute()
