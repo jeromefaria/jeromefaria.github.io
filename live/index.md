@@ -113,7 +113,7 @@ image: /assets/images/caligari-live.jpg
 <div class="release release--text-only" id="fica-na-cidade">
   <div class="release-details">
     <p><strong><a href="https://www.visitfunchal.pt/pt/todos-os-eventos/280-fica-na-cidade.html">Fica na Cidade</a></strong></p>
-    <p class="release-meta">Praça do Município, Funchal</p>
+    <p class="release-meta">Praça de Colombo, Funchal</p>
     <p class="release-description">With <a href="https://trengosoundsystem.bandcamp.com/">Tren Go! Sound System</a>.</p>
   </div>
 </div>
