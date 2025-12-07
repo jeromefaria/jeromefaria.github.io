@@ -154,12 +154,12 @@ export const worksData = {
         tracklist: [
           '<a href="https://cavernancia.bandcamp.com/">CAVERNANCIA</a> — Attack (Prelude)',
           '<a href="https://trengosoundsystem.bandcamp.com/">Tren Go! Sound System</a> — Sustain II (D00MRemix)',
-          'Aires — Overlapse Supercut',
+          '<a href="https://aires.bandcamp.com/">Aires</a> — Overlapse Supercut',
           'Fábio Fernandes — Release',
           'João de Nóbrega Pupo — Decay III (Sound Kintsugi)',
           '<a href="https://joaovairinhos.bandcamp.com/">João Vairinhos</a> — Declínio',
           'sol — Costa Norte',
-          'W. R. Pyo — Release (Conclusion)'
+          '<a href="https://wrpyo.bandcamp.com/">W. R. Pyo</a> — Release (Conclusion)'
         ],
         credits: 'Artwork by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>. Additional photography by Sue Andrade, Joana Marote.'
       }
