@@ -61,6 +61,7 @@ function handleImageError() {
       v-if="showPlayer"
       :src="`https://bandcamp.com/EmbeddedPlayer/album=${albumId}/size=large/bgcol=000000/linkcol=ffffff/minimal=true/transparent=true/`"
       seamless
+      sandbox="allow-scripts allow-same-origin allow-popups"
       :title="`${albumTitle} - Bandcamp player`"
       @load="handleIframeLoad"
     />
