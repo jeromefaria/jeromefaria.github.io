@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jeromefaria/blog.git"
+    "url": "git+https://github.com/jeromefaria/jeromefaria.github.io.git"
   },
   "keywords": [],
   "author": "Jerome Faria",
@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/jeromefaria/jeromefaria.github.io/issues"
   },
-  "homepage": "https://github.com/jeromefaria/jeromefaria.github.io#readme",
+  "homepage": "https://jeromefaria.com",
   "dependencies": {
     "@unhead/vue": "^2.0.19",
     "vue": "^3.5.25",
