@@ -114,12 +114,6 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   }
 }
 
-// Touch-friendly target size
-@mixin touch-target {
-  min-height: $touch-target-min;
-  min-width: $touch-target-min;
-}
-
 // Uppercase label styling (used for meta, categories, etc.)
 @mixin label-style {
   font-size: $font-size-xs;
