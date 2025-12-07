@@ -14,7 +14,8 @@ usePageHead({
       <blockquote v-for="(item, index) in pressQuotes" :key="index">
         <p v-html="item.quote" />
         <strong>
-          <a :href="item.url" target="_blank" rel="noopener noreferrer">{{ item.source }}</a>
+          <a v-if="item.url" :href="item.url" target="_blank" rel="noopener noreferrer">{{ item.source }}</a>
+          <template v-else>{{ item.source }}</template>
         </strong>
       </blockquote>
     </article>
