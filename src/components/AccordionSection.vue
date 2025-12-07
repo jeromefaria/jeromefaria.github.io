@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 
 const props = defineProps({
   title: {
@@ -19,6 +19,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const isExpanded = ref(props.modelValue)
+const contentRef = ref(null)
 
 watch(() => props.modelValue, (val) => {
   isExpanded.value = val
@@ -28,14 +29,20 @@ function toggle() {
   isExpanded.value = !isExpanded.value
   emit('update:modelValue', isExpanded.value)
 
-  // Scroll into view when opening
+  // Scroll into view and manage focus when opening
   if (isExpanded.value) {
-    setTimeout(() => {
-      const section = document.getElementById(`section-${props.id}`)
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }
-    }, 320)
+    nextTick(() => {
+      setTimeout(() => {
+        const section = document.getElementById(`section-${props.id}`)
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+        // Move focus to content region for keyboard users
+        if (contentRef.value) {
+          contentRef.value.focus()
+        }
+      }, 320)
+    })
   }
 }
 </script>
@@ -53,10 +60,13 @@ function toggle() {
       {{ title }}
     </button>
     <div
+      ref="contentRef"
       :id="`content-${id}`"
       class="accordion-content"
       :aria-hidden="!isExpanded"
       :aria-labelledby="`trigger-${id}`"
+      role="region"
+      :tabindex="isExpanded ? 0 : -1"
     >
       <div class="accordion-content-inner">
         <slot />

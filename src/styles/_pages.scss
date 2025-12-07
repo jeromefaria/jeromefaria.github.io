@@ -165,6 +165,17 @@
   }
 }
 
+.accordion-content {
+  &:focus {
+    outline: none; // Remove default, content is visually distinct
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 4px;
+  }
+}
+
 .accordion-content-inner {
   overflow: hidden;
   opacity: 0;
