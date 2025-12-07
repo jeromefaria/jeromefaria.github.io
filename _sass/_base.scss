@@ -101,3 +101,23 @@ button {
   font: inherit;
   color: inherit;
 }
+
+// =============================================================================
+// Page Transitions
+// =============================================================================
+
+main {
+  opacity: 0;
+  animation: page-enter 300ms ease-out forwards;
+  transition: opacity 300ms ease-out;
+
+  &.is-leaving {
+    opacity: 0;
+    animation: none;
+  }
+}
+
+@keyframes page-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

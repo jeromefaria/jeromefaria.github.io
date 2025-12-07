@@ -9,6 +9,35 @@
 </script>
 {% endif %}
 
+<!-- Page Transitions -->
+<script>
+  (() => {
+    const main = document.querySelector('main');
+    if (!main) return;
+
+    document.addEventListener('click', e => {
+      const link = e.target.closest('a');
+      if (!link) return;
+
+      const href = link.getAttribute('href');
+      // Only intercept internal links (same origin, not anchors, not new tabs)
+      if (!href ||
+          href.startsWith('#') ||
+          href.startsWith('mailto:') ||
+          href.startsWith('http') ||
+          link.target === '_blank' ||
+          e.ctrlKey || e.metaKey || e.shiftKey) return;
+
+      e.preventDefault();
+      main.classList.add('is-leaving');
+
+      setTimeout(() => {
+        window.location.href = href;
+      }, 300);
+    });
+  })();
+</script>
+
 <!-- Mobile Nav Toggle -->
 <script>
   (() => {
