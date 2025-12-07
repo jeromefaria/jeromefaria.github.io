@@ -3,6 +3,7 @@ layout: page
 title: Live
 permalink: /live/
 description: Live performances by Jerome Faria from 2005 to present, including festival appearances and collaborations.
+image: /assets/images/caligari-live.jpg
 ---
 
 <section class="accordion-section">

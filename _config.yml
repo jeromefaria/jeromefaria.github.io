@@ -17,6 +17,10 @@ author:
   email: jerome.faria@gmail.com
   bio: Composer & Sound Artist
 
+# Twitter card
+twitter:
+  card: summary_large_image
+
 # Analytics (GA4) — set your tracking ID to enable
 # google_analytics: G-XXXXXXXXXX
 
@@ -57,6 +61,8 @@ navigation:
 social:
   - name: bandcamp
     url: https://jeromefaria.bandcamp.com
+  - name: soundcloud
+    url: https://soundcloud.com/jeromefaria
   - name: patreon
     url: https://www.patreon.com/jeromefaria
 
