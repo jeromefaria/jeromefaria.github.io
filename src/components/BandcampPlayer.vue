@@ -16,18 +16,17 @@ defineProps({
   }
 })
 
+const showPlayer = ref(false)
 const isLoaded = ref(false)
-const isLoading = ref(false)
 const imageError = ref(false)
 
 function loadPlayer() {
-  if (isLoaded.value || isLoading.value) return
-  isLoading.value = true
-  // Small delay to show loading state
-  setTimeout(() => {
-    isLoaded.value = true
-    isLoading.value = false
-  }, 100)
+  if (showPlayer.value) return
+  showPlayer.value = true
+}
+
+function handleIframeLoad() {
+  isLoaded.value = true
 }
 
 function handleImageError() {
@@ -38,11 +37,11 @@ function handleImageError() {
 <template>
   <div
     class="bandcamp-player"
-    :class="{ loading: isLoading, 'image-error': imageError }"
+    :class="{ loading: showPlayer && !isLoaded, 'image-error': imageError }"
     @click="loadPlayer"
   >
     <img
-      v-if="!isLoaded && !imageError"
+      v-if="!showPlayer && !imageError"
       :src="coverImage"
       :alt="`${albumTitle} album cover`"
       loading="lazy"
@@ -51,18 +50,19 @@ function handleImageError() {
       height="200"
       @error="handleImageError"
     />
-    <div v-if="!isLoaded && imageError" class="image-fallback" />
+    <div v-if="!showPlayer && imageError" class="image-fallback" />
     <button
-      v-if="!isLoaded"
+      v-if="!showPlayer"
       class="play-button"
       type="button"
       :aria-label="`Play ${albumTitle}`"
     />
     <iframe
-      v-if="isLoaded"
+      v-if="showPlayer"
       :src="`https://bandcamp.com/EmbeddedPlayer/album=${albumId}/size=large/bgcol=000000/linkcol=ffffff/minimal=true/transparent=true/`"
       seamless
       :title="`${albumTitle} - Bandcamp player`"
+      @load="handleIframeLoad"
     />
   </div>
 </template>
