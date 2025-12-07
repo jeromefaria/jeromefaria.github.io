@@ -7,12 +7,50 @@ import { worksData, worksSections } from '@/data/works'
 import AccordionSection from '@/components/AccordionSection.vue'
 import ReleaseItem from '@/components/ReleaseItem.vue'
 
+// Extract year from meta string (e.g., "Digital — BRØQN, 2024" -> "2024")
+function extractYear(meta) {
+  const match = meta?.match(/\b(19|20)\d{2}\b/)
+  return match ? match[0] : null
+}
+
+// Build MusicAlbum schema items from solo releases
+const albumSchemas = worksData.solo.releases
+  .filter(r => r.bandcampId || r.bandcampUrl)
+  .map(release => ({
+    '@type': 'MusicAlbum',
+    name: release.title,
+    url: release.bandcampUrl,
+    image: release.coverImage ? `${siteConfig.url}${release.coverImage}` : undefined,
+    datePublished: extractYear(release.meta),
+    numTracks: release.tracklist?.length,
+    byArtist: {
+      '@type': 'Person',
+      name: siteConfig.author.name
+    }
+  }))
+
+// MusicGroup schema with discography
+const musicSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicGroup',
+  name: siteConfig.author.name,
+  url: siteConfig.url,
+  genre: ['Electronic', 'Experimental', 'Ambient'],
+  album: albumSchemas
+}
+
 useHead({
   title: `Works - ${siteConfig.title}`,
   meta: [
     { name: 'description', content: 'Discography, film scores, and works by Jerome Faria including solo releases, collaborations, and curatorial projects.' },
     { property: 'og:title', content: `Works - ${siteConfig.title}` },
     { property: 'og:description', content: 'Discography, film scores, and works by Jerome Faria including solo releases, collaborations, and curatorial projects.' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(musicSchema)
+    }
   ]
 })
 

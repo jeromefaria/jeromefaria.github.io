@@ -6,12 +6,74 @@ import { siteConfig } from '@/data/navigation'
 import { liveData, liveYears } from '@/data/live'
 import AccordionSection from '@/components/AccordionSection.vue'
 
+// Strip HTML tags from string
+function stripHtml(html) {
+  return html?.replace(/<[^>]*>/g, '') || ''
+}
+
+// Extract location from venue string (e.g., "Venue, City, Country" -> { name, city, country })
+function parseVenue(venue) {
+  const text = stripHtml(venue)
+  const parts = text.split(',').map(s => s.trim())
+  return {
+    name: parts[0] || '',
+    addressLocality: parts[1] || '',
+    addressCountry: parts[2] || 'Portugal'
+  }
+}
+
+// Build Event schema items from recent performances (last 3 years with events)
+const recentYears = liveYears.slice(0, 5)
+const eventSchemas = recentYears.flatMap(year =>
+  (liveData[year]?.events || []).map(event => {
+    const venue = parseVenue(event.venue)
+    return {
+      '@type': 'MusicEvent',
+      name: stripHtml(event.title),
+      startDate: year,
+      location: {
+        '@type': 'Place',
+        name: venue.name,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: venue.addressLocality,
+          addressCountry: venue.addressCountry
+        }
+      },
+      performer: {
+        '@type': 'Person',
+        name: siteConfig.author.name
+      }
+    }
+  })
+)
+
+// ItemList schema for event history
+const eventsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `${siteConfig.author.name} Live Performances`,
+  description: 'Live performance history from 2005 to present',
+  numberOfItems: eventSchemas.length,
+  itemListElement: eventSchemas.map((event, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: event
+  }))
+}
+
 useHead({
   title: `Live - ${siteConfig.title}`,
   meta: [
     { name: 'description', content: 'Live performance history of Jerome Faria from 2005 to present, including festivals, concerts, and collaborations.' },
     { property: 'og:title', content: `Live - ${siteConfig.title}` },
     { property: 'og:description', content: 'Live performance history of Jerome Faria from 2005 to present, including festivals, concerts, and collaborations.' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(eventsSchema)
+    }
   ]
 })
 
