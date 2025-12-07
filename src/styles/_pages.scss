@@ -116,6 +116,12 @@
   letter-spacing: $letter-spacing-wide;
   color: var(--color-text-muted);
   line-height: $line-height-snug;
+  // Scroll margin for sticky header offset
+  scroll-margin-top: calc(#{$header-height-mobile} + #{$spacing-4});
+
+  @include respond-to(md) {
+    scroll-margin-top: calc(#{$header-height-desktop} + #{$spacing-4});
+  }
 
   @include respond-to(md) {
     letter-spacing: $letter-spacing-wider;

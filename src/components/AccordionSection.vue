@@ -33,9 +33,9 @@ function toggle() {
   if (isExpanded.value) {
     nextTick(() => {
       setTimeout(() => {
-        const section = document.getElementById(`section-${props.id}`)
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        const trigger = document.getElementById(`trigger-${props.id}`)
+        if (trigger) {
+          trigger.scrollIntoView({ behavior: 'smooth', block: 'start' })
         }
         // Move focus to content region for keyboard users
         if (contentRef.value) {

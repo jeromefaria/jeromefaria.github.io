@@ -44,6 +44,12 @@
 
 html {
   font-size: 18px;
+  // Account for sticky header when scrolling to anchors
+  scroll-padding-top: calc(#{$header-height-mobile} + #{$spacing-12});
+
+  @include respond-to(md) {
+    scroll-padding-top: calc(#{$header-height-desktop} + #{$spacing-12});
+  }
 }
 
 body {
@@ -95,7 +101,7 @@ img {
 }
 
 :focus-visible {
-  outline: 1px solid var(--color-text);
+  outline: 1px solid var(--color-text);  // Thinner default for all elements
   outline-offset: 2px;
 }
 
