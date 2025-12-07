@@ -171,3 +171,51 @@
   transition: opacity $transition-base;
   will-change: opacity;
 }
+
+// =============================================================================
+// 404 Page
+// =============================================================================
+
+.not-found {
+  text-align: center;
+  padding: $spacing-12 0;
+
+  h1 {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-4;
+  }
+
+  > p {
+    color: var(--color-text-secondary);
+    margin-bottom: $spacing-8;
+  }
+}
+
+.not-found-nav {
+  p {
+    font-size: $font-size-sm;
+    color: var(--color-text-muted);
+    margin-bottom: $spacing-4;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $spacing-4;
+  }
+
+  a {
+    display: inline-block;
+    padding: $spacing-2 $spacing-4;
+    border: 1px solid var(--color-border);
+    transition: border-color $transition-fast, color $transition-fast;
+
+    &:hover {
+      border-color: var(--color-text);
+    }
+  }
+}
