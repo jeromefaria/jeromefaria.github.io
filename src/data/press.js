@@ -12,7 +12,7 @@ export const pressQuotes = [
     url: 'https://thedevilsmouth.substack.com/p/video-premiere-nox-altar'
   },
   {
-    quote: 'Oscillated skillfully between electronic doom and subtle ambient. As if embodying two faces of the same coin—at times liberating, at times punishing, at times meditative, at times abrupt.',
+    quote: 'Faria oscillated skillfully between electronic doom and subtle ambient. As if embodying two faces of the same coin—at times liberating, at times punishing, at times meditative, at times abrupt.',
     source: 'Bodyspace',
     url: 'https://bodyspace.net/ao-vivo/1675-william-basinski-mr-herbert-quain-jerome-faria/'
   },
@@ -23,12 +23,10 @@ export const pressQuotes = [
   },
   {
     quote: "It's almost as if we were contemplating the machine, forced to escape its synthesised perfection, about to stumble upon itself at any moment.",
-    source: 'Edição Limitada',
-    url: 'https://edicaolimitada.blogs.sapo.pt/'
+    source: 'Edição Limitada'
   },
   {
     quote: 'There is not a second to spare here, nor a moment to throw away.',
-    source: 'Ponto Alternativo',
-    url: 'https://amplificasom.com/ponto-alternativo/'
+    source: 'Ponto Alternativo'
   }
 ]

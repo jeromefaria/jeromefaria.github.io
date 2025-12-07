@@ -43,14 +43,14 @@ export const liveData = {
       },
       {
         id: 'amess-teatro-baltazar-dias',
-        title: 'Teatro Municipal Baltazar Dias',
-        venue: 'Funchal, Portugal',
+        title: 'Performance with Amess',
+        venue: '<a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, Funchal, Portugal',
         description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.'
       },
       {
         id: 'amess-museu-franco',
-        title: 'Museu Henrique e Francisco Franco',
-        venue: 'Funchal, Portugal',
+        title: 'Performance with Amess',
+        venue: '<a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=3">Museu Henrique e Francisco Franco</a>, Funchal, Portugal',
         description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.'
       }
     ]

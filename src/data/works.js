@@ -81,7 +81,9 @@ export const worksData = {
         id: 'hyphema',
         title: 'Hyphema',
         coverImage: '/images/hyphema.jpg',
-        meta: 'DVD — Pixelnerve, PXN001, 2007',
+        meta: 'DVD — Pixelnerve, PXN001, 2008',
+        description: 'A collaborative effort between sound artist Jerome Faria and programmer Victor Martins, documenting experiments in audiovisual composition. The project was presented both as a live performance and as this DVD release.',
+        tracklist: ['0x00', '0x01', '0x02', '0x03', '0x04', '0xFF'],
         credits: 'Sounds: Jerome Faria. Visuals: Victor Martins. Artwork: Frederico Cunha.'
       },
       {
