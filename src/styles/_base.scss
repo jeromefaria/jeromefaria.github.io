@@ -1,0 +1,135 @@
+// Base — clean reset and element defaults
+@use "variables" as *;
+
+// =============================================================================
+// CSS Custom Properties (Theme Colors)
+// =============================================================================
+
+:root {
+  // Light theme (default)
+  --color-bg: #fff;
+  --color-text: #000;
+  --color-text-secondary: #444;
+  --color-text-muted: #888;
+  --color-border: #ddd;
+  --color-border-subtle: #eee;
+  --color-link: #000;
+  --color-link-hover: #666;
+  --color-code-bg: #f4f4f4;
+  --color-code-text: #333;
+}
+
+[data-theme="dark"] {
+  --color-bg: #000;
+  --color-text: #fff;
+  --color-text-secondary: #bbb;
+  --color-text-muted: #999;
+  --color-border: #333;
+  --color-border-subtle: #222;
+  --color-link: #fff;
+  --color-link-hover: #999;
+  --color-code-bg: #111;
+  --color-code-text: #ccc;
+}
+
+// =============================================================================
+// Reset
+// =============================================================================
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 18px;
+}
+
+body {
+  margin: 0;
+  font-family: $font-sans;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+  transition: background-color $transition-base, color $transition-base;
+  overflow-x: hidden;
+}
+
+// =============================================================================
+// Links
+// =============================================================================
+
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color $transition-base;
+
+  &:hover {
+    color: var(--color-link-hover);
+  }
+}
+
+// =============================================================================
+// Images
+// =============================================================================
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// =============================================================================
+// Selection & Focus
+// =============================================================================
+
+::selection {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+// =============================================================================
+// Tables
+// =============================================================================
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: $spacing-6 0;
+  font-size: $font-size-sm;
+}
+
+th,
+td {
+  padding: $spacing-2 $spacing-3;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+th {
+  @include label-style;
+}
+
+// =============================================================================
+// Buttons
+// =============================================================================
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}

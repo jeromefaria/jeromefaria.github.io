@@ -1,10 +1,30 @@
-# Personal Blog
+# Jerome Faria - Personal Website
 
-The Jekyll build for [www.jeromefaria.com][website].
+Vue 3 + Vite build for [www.jeromefaria.com](https://www.jeromefaria.com).
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Deployment
+
+The site automatically deploys to GitHub Pages via GitHub Actions when changes are pushed to `master`.
 
 ## License
 
-Copyright (c) Jerome Faria 
+Copyright (c) Jerome Faria
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -23,5 +43,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-[website]: http://www.jeromefaria.com

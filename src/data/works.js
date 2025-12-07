@@ -1,0 +1,247 @@
+// Discography and works data
+
+export const worksData = {
+  solo: {
+    title: 'Solo',
+    id: 'solo',
+    defaultOpen: true,
+    releases: [
+      {
+        id: '2504',
+        title: '2504',
+        bandcampId: '1275977827',
+        coverImage: '/images/2504.jpg',
+        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/2504',
+        meta: 'Digital — BRØQN, 2024',
+        tracklist: [
+          'Prólogo: Estado Novo',
+          'Fado: Estados Socialistas',
+          'Fátima: Estados Ditos Comunistas',
+          'Futebol: Estados Capitalistas',
+          'Epílogo: Estado a Que Chegamos'
+        ]
+      },
+      {
+        id: 'caligari-album',
+        title: 'Music Written & Performed for The Cabinet of Dr. Caligari',
+        bandcampId: '2395712384',
+        coverImage: '/images/caligari.jpg',
+        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/music-written-performed-for-the-cabinet-of-dr-caligari',
+        meta: 'Digital — BRØQN, 2023',
+        tracklist: [
+          'Spirits Surround Us On Every Side',
+          'Awaken For A Moment From Your Dark Night',
+          'How Long Will I Live?',
+          "It Couldn't Have Been Cesare...",
+          'We Who Are Of Noble Blood May Not Follow The Wishes Of Our Hearts'
+        ]
+      },
+      {
+        id: 'overlapse',
+        title: 'Overlapse',
+        bandcampId: '1643026936',
+        coverImage: '/images/overlapse.jpg',
+        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/overlapse',
+        meta: 'Digital — <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRMP296, 2012',
+        tracklist: [
+          'Attack (Prelude)',
+          'Sustain I',
+          'Sustain II',
+          'Decay I',
+          'Decay II',
+          'Decay III',
+          'Release (Conclusion)'
+        ],
+        credits: 'Photography by Joana Marote.'
+      },
+      {
+        id: '1714',
+        title: '17:14',
+        bandcampId: '2845412685',
+        coverImage: '/images/1714.jpg',
+        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/17-14',
+        meta: 'Digital — BRØQN, 2010',
+        tracklist: ['2:58', '5:18', '8:58']
+      }
+    ]
+  },
+  nny: {
+    title: 'NNY (2004–2009)',
+    id: 'nny',
+    releases: [
+      {
+        id: 'nny-plus',
+        title: 'NNY++',
+        coverImage: '/images/nny.jpg',
+        meta: 'CDr — <a href="https://www.discogs.com/label/84424-Almasud-Records">Almasud Records</a>, CDRASUD015, 2007',
+        tracklist: ['001', '002', '003'],
+        credits: 'Written & produced by Jerome Faria, Kazuya Mise, Filipe Cruz.'
+      },
+      {
+        id: 'hyphema',
+        title: 'Hyphema',
+        coverImage: '/images/hyphema.jpg',
+        meta: 'DVD — Pixelnerve, PXN001, 2007',
+        credits: 'Sounds: Jerome Faria. Visuals: Victor Martins. Artwork: Frederico Cunha.'
+      },
+      {
+        id: 'coil',
+        title: 'COIL',
+        coverImage: '/images/coil.jpg',
+        externalUrl: 'https://archive.org/details/mi056_nny_COIL',
+        meta: 'Digital — <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI056, 2006',
+        tracklist: ['Dream Cycles In Perpetual Motion'],
+        credits: 'All music written, performed and produced by Jerome Faria. Recorded, mixed and mastered at Human Error Labs. Cover art by Louis de Bettencourt.'
+      },
+      {
+        id: 'readerror',
+        title: '(READ.ERROR)',
+        coverImage: '/images/readerror.jpg',
+        externalUrl: 'https://archive.org/details/mimi031',
+        meta: 'Digital — <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI031, 2005',
+        tracklist: ['God Grnlzer', 'Vber', 'Maladie', 'Ob jeqt', 'Gleetch', '_ex1', 'Hell Rendered', 'Mutnt']
+      },
+      {
+        id: 'ect',
+        title: 'ECT',
+        coverImage: '/images/ect.jpg',
+        externalUrl: 'https://www.monocromatica.com/netlabel/releases/tube026.htm',
+        meta: 'Digital — <a href="https://www.monocromatica.com/netlabel/">Test Tube</a>, TUBE026, 2005',
+        tracklist: ['Play', '1noise', 'Spctiv', 'Mem.', 'Mcruscul', 'Ngen', 'Tekrish', 'Sy.kic/Pa.trn', 'Artria', '1noise (ps mix)'],
+        credits: 'Cover art by Louis de Bettencourt.'
+      },
+      {
+        id: 'offear',
+        title: 'OFFEAR.EP',
+        coverImage: '/images/offear.jpg',
+        externalUrl: 'https://archive.org/details/enrmp040_nny_-_offear_ep',
+        meta: 'Digital — <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRMP040, 2004',
+        tracklist: ['Ve.Fe.Re', 'Zro:ne', 'Slid Stp', 'Exmatik', 'BL_P+'],
+        credits: 'All music written and captured by Jerome Faria. Artwork by <a href="https://www.deviantart.com/spiraljoe">Spiraljoe</a>.'
+      }
+    ]
+  },
+  nox: {
+    title: 'NOx',
+    id: 'nox',
+    releases: [
+      {
+        id: 'altar',
+        title: 'ALTAR',
+        bandcampId: '2165800616',
+        coverImage: '/images/altar.jpg',
+        bandcampUrl: 'https://casaamarela.bandcamp.com/album/altar',
+        meta: 'Digital/Cassette — <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#035, 2024',
+        tracklist: ['A', 'L', 'T', 'A', 'R'],
+        credits: 'Music: <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a> & Jerome Faria. Artwork: Mafalda Melim.'
+      }
+    ]
+  },
+  curatorial: {
+    title: 'Curatorial',
+    id: 'curatorial',
+    releases: [
+      {
+        id: 'overlapse-xiii',
+        title: 'Overlapse XIII',
+        bandcampId: '2661997682',
+        coverImage: '/images/overlapse-xiii.jpg',
+        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/overlapse-xiii',
+        meta: 'Digital/Cassette — BRØQN, 2025',
+        tracklist: [
+          '<a href="https://cavernancia.bandcamp.com/">CAVERNANCIA</a> — Attack (Prelude)',
+          '<a href="https://trengosoundsystem.bandcamp.com/">Tren Go! Sound System</a> — Sustain II (D00MRemix)',
+          'Aires — Overlapse Supercut',
+          'Fábio Fernandes — Release',
+          'João de Nóbrega Pupo — Decay III (Sound Kintsugi)',
+          '<a href="https://joaovairinhos.bandcamp.com/">João Vairinhos</a> — Declínio',
+          'sol — Costa Norte',
+          'W. R. Pyo — Release (Conclusion)'
+        ],
+        credits: 'Artwork by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>. Additional photography by Sue Andrade, Joana Marote.'
+      }
+    ]
+  },
+  film: {
+    title: 'Film & Theatre',
+    id: 'film',
+    releases: [
+      {
+        id: 'aragao',
+        title: 'Aragão',
+        coverImage: '/images/aragao.jpg',
+        meta: 'Theatre — <a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, 2021',
+        description: 'Theatre production celebrating the centenary of <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event. Faria provided both original music and live interpretation—embedding himself in a multidisciplinary creative team rather than delivering a score from a distance.',
+        credits: 'Direction: Sara Gonçalves. Text: <a href="https://pt.wikipedia.org/wiki/Rui_Zink">Rui Zink</a>. Set design: <a href="https://pt.wikipedia.org/wiki/Jos%C3%A9_Manuel_Castanheira">José Manuel Castanheira</a>. Video: Filipe Ferraz. Music & live interpretation: Jerome Faria.'
+      },
+      {
+        id: 'invisible-other',
+        title: 'Invisible Other',
+        coverImage: '/images/invisible-other.jpg',
+        meta: 'Film — dir. <a href="https://www.margaridapaiva.com/">Margarida Paiva</a>, 2016',
+        description: 'Original score for film by Portuguese-Norwegian visual artist Margarida Paiva. The film depicts a park as a closed world where anonymous characters drift past one another, bound only by gestures and glances.',
+        credits: 'Producer: Rune Sandnes. Cinematography: Diogo Castro. Music: Jerome Faria. Sound design: Duarte Ferreira. Sound editor: Pedro Anacleto. Editing: Margarida Paiva. Cast: Susana Chiocca, Alexandre Osório, Helena Carneiro, João Pamplona, Susana Madeira, Mariana L. Ferreira. Shot at <a href="https://jardimbotanico.up.pt/">Jardim Botânico do Porto</a>.'
+      },
+      {
+        id: 'caligari',
+        title: 'The Cabinet of Dr. Caligari',
+        coverImage: '/images/caligari-live.jpg',
+        meta: 'Live Score — 2013',
+        description: 'Live score for <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a>\'s 1920 expressionist silent film. Working against Wiene\'s angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honoring the film\'s unease while exploring territories the original could never have envisioned.',
+        credits: 'Photography by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>.'
+      }
+    ]
+  },
+  compilations: {
+    title: 'Compilations and Collaborations',
+    id: 'compilations',
+    textContent: `<p><strong>Marrow</strong> in <em><a href="https://citiesandmemory.bandcamp.com/album/migration-sounds">Migration Sounds</a></em> — MP3, <a href="https://citiesandmemory.com/">Cities and Memory</a>, 2024</p>
+<p><strong>100421</strong> in <em>Transmissions From The Heart Of Darkness, Part V: Elsewhere</em> — MP3, <a href="https://descendresalacave.bandcamp.com/">Des Cendres À La Cave</a>, 2013</p>
+<p><strong>Depolarized</strong> with Nelson P. Ferreira in <em>Depolarized</em> — MP3, BRØQN, BRQ002, 2012</p>
+<p><strong>Absence of Light</strong> in <em>IRM Presents: Clashes</em> — MP3, <a href="https://www.indierockmag.com/">Indie Rock Mag</a>, 2012</p>
+<p><strong>Sustain I</strong> in <em>SEQUENCE4</em> — MP3, Future Sequence, SEQ004, 2011</p>
+<p><strong>Sand Dune</strong> in <em>Baconism</em> — CD/MP3, NIkO, NIKO005, 2008</p>
+<p><strong>Crystal Space</strong> in <em>Thisagree & Shadow</em> — CD, <a href="https://thisco.bandcamp.com/">Thisco</a>, THISK.43, 2008</p>
+<p><strong>090407001</strong> and <strong>090407003</strong> in <em><a href="https://archive.org/details/enrcmp07">Datacross.1</a></em> — MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP07, 2007</p>
+<p><strong>Cybernetics</strong> with <a href="http://structuramusic.com/">Structura</a> in <em><a href="https://archive.org/details/enrcmp05">SOUNDResearch</a></em> — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP05, 2007</p>
+<p><strong>13</strong> in <em><a href="https://archive.org/details/enrcmp06">Falésia</a></em> — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP06, 2007</p>
+<p><strong>Perpetual</strong> and <strong>Crowded Desert</strong> in <em><a href="https://twoismrecords.bandcamp.com/album/one-on-twoism-volume-1">One On Twoism</a></em> — MP3, <a href="https://twoismrecords.bandcamp.com/">Twoism Records</a>, OOT001, 2007</p>
+<p><strong>332 Variation (NNY mix)</strong> in <em><a href="https://archive.org/details/mimi065">Friends Reinterpretations Of Unreleased 332 Variations Volume 4</a></em> — MP3, <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI065, 2006</p>
+<p><strong>Crystal Space</strong> in <em><a href="https://archive.org/details/mimi050">Saudade: V/A from the Atlantic Coast</a></em> — MP3, <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI050, 2006</p>
+<p><strong>Valid Specimen</strong> in <em><a href="https://archive.org/details/enrcmp03">Dark Vault</a></em> — MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP03, 2004</p>`
+  },
+  mastering: {
+    title: 'Mastering',
+    id: 'mastering',
+    textContent: `<p><strong><a href="https://jeromefaria.bandcamp.com/album/overlapse-xiii">Overlapse XIII</a></strong> — various artists, 2025</p>
+<p><strong><a href="https://casaamarela.bandcamp.com/album/open">Open</a></strong> — Hugo Calcio, <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#016, 2021</p>
+<p><strong>Vessels</strong> — Rui P. Andrade, BRØQN, BRQN004, 2012</p>`
+  },
+  publications: {
+    title: 'Publications',
+    id: 'publications',
+    releases: [
+      {
+        id: 'glitch',
+        title: 'Glitch: Designing Imperfection',
+        coverImage: '/images/glitch.jpg',
+        externalUrl: 'https://www.amazon.com/Glitch-Designing-Imperfection-Iman-Moradi/dp/0979966663',
+        meta: 'Book — Mark Batty Publisher, 2009',
+        description: 'Over 200 glitch images grabbed, composed and, in some cases, provoked by artists who urge viewers to consider these complex fragments of colour and lines as thought-provoking mistakes. This collection of bits and bytes demonstrates how these "perfect imperfections" merit being considered in an aesthetic sense.',
+        credits: 'Edited by <a href="https://organised.info/">Iman Moradi</a>, <a href="http://www.beflix.com/">Ant Scott</a>, <a href="https://qubik.com/">Joe Gilmore</a>, <a href="https://en.wikipedia.org/wiki/Christopher_Murphy_(designer)">Christopher Murphy</a>. ISBN 978-0-9799666-6-8.'
+      }
+    ]
+  }
+}
+
+// Export sections in display order
+export const worksSections = [
+  'solo',
+  'nny',
+  'nox',
+  'curatorial',
+  'film',
+  'compilations',
+  'mastering',
+  'publications'
+]

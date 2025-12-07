@@ -1,0 +1,207 @@
+// Typography — headings, body text, and prose
+@use "variables" as *;
+
+// =============================================================================
+// Headings
+// =============================================================================
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: $spacing-10;
+  margin-bottom: $spacing-3;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-snug;
+  color: var(--color-text);
+}
+
+h1 {
+  font-size: $font-size-2xl;
+  margin-top: 0;
+  margin-bottom: $spacing-4;
+}
+
+// Section headers — uppercase labels
+h2 {
+  font-size: $font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+  color: var(--color-text-muted);
+  margin-top: $spacing-8;
+  margin-bottom: $spacing-3;
+
+  @include respond-to(md) {
+    letter-spacing: $letter-spacing-wider;
+    margin-top: $spacing-12;
+    margin-bottom: $spacing-4;
+  }
+}
+
+h3 {
+  font-size: $font-size-base;
+  margin-top: $spacing-8;
+  margin-bottom: $spacing-2;
+}
+
+h4, h5, h6 {
+  font-size: $font-size-sm;
+}
+
+// =============================================================================
+// Body Text
+// =============================================================================
+
+p {
+  margin-top: 0;
+  margin-bottom: $spacing-4;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: var(--color-text-secondary);
+}
+
+strong {
+  font-weight: $font-weight-semibold;
+  color: var(--color-text);
+}
+
+small {
+  font-size: $font-size-sm;
+  color: var(--color-text-muted);
+}
+
+// =============================================================================
+// Lists
+// =============================================================================
+
+ul, ol {
+  margin: 0 0 $spacing-4;
+  padding-left: $spacing-4;
+  font-size: $font-size-base;
+  color: var(--color-text-secondary);
+}
+
+li {
+  margin-bottom: $spacing-1;
+  line-height: $line-height-base;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+// =============================================================================
+// Blockquotes
+// =============================================================================
+
+blockquote {
+  margin: $spacing-6 0;
+  padding: 0;
+  border: none;
+  font-size: $font-size-base;
+  line-height: $line-height-relaxed;
+  color: var(--color-text);
+
+  p {
+    color: inherit;
+    margin-bottom: $spacing-2;
+  }
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  cite,
+  strong {
+    display: block;
+    margin-top: $spacing-3;
+    @include label-style;
+  }
+}
+
+// =============================================================================
+// Lead & Intro
+// =============================================================================
+
+.lead {
+  font-size: $font-size-lg;
+  line-height: $line-height-relaxed;
+  color: var(--color-text);
+  margin-bottom: $spacing-4;
+}
+
+.intro {
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: var(--color-text-secondary);
+}
+
+// =============================================================================
+// Horizontal Rule
+// =============================================================================
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin: $spacing-8 0;
+
+  @include respond-to(md) {
+    margin: $spacing-12 0;
+  }
+}
+
+// =============================================================================
+// Prose — Long-form Editorial Content
+// =============================================================================
+
+.prose {
+  p {
+    margin-bottom: 1.25em;
+    line-height: $line-height-relaxed;
+    color: var(--color-text-secondary);
+
+    @include respond-to(md) {
+      line-height: $line-height-prose;
+    }
+  }
+
+  a {
+    text-decoration: underline;
+    text-decoration-color: var(--color-border);
+    text-underline-offset: 0.15em;
+    transition: text-decoration-color $transition-fast, color $transition-fast;
+
+    &:hover {
+      text-decoration-color: var(--color-text-muted);
+    }
+  }
+
+  strong {
+    font-weight: $font-weight-semibold;
+  }
+
+  hr {
+    margin: $spacing-8 0;
+
+    @include respond-to(md) {
+      margin: $spacing-12 0;
+    }
+  }
+
+  blockquote {
+    margin: $spacing-8 0;
+
+    p {
+      margin-bottom: $spacing-2;
+      line-height: $line-height-relaxed;
+    }
+  }
+
+  ul, ol {
+    margin-bottom: 1.25em;
+    line-height: $line-height-prose;
+  }
+
+  li {
+    margin-bottom: 0.5em;
+  }
+}

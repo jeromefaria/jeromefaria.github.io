@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found - Jerome Faria</title>
+  <script>
+    // SPA fallback for GitHub Pages
+    // Redirects 404s to the index page with the path preserved in the URL
+    const path = window.location.pathname;
+    const search = window.location.search;
+    const hash = window.location.hash;
+
+    // Store the intended path and redirect to home
+    sessionStorage.setItem('spa-redirect', path + search + hash);
+    window.location.replace('/');
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>

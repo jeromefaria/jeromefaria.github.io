@@ -1,0 +1,68 @@
+// Utilities — reusable helper classes
+@use "variables" as *;
+
+// Accessibility
+// -----------------------------------------------------------------------------
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: $spacing-4;
+  z-index: 1000;
+  padding: $spacing-2 $spacing-4;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  text-decoration: none;
+  font-size: $font-size-sm;
+
+  &:focus {
+    top: $spacing-4;
+  }
+}
+
+// Text utilities
+// -----------------------------------------------------------------------------
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wider;
+}
+
+// Layout utilities
+// -----------------------------------------------------------------------------
+.container-wide {
+  max-width: $max-width-wide;
+  padding: 0 $spacing-5;
+  margin: 0 auto;
+
+  @include respond-to(md) {
+    padding: 0 $spacing-6;
+  }
+
+  @include respond-to(lg) {
+    padding: 0 $spacing-8;
+  }
+}
+
+.container-full {
+  width: 100%;
+  padding: 0;
+}
