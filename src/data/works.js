@@ -206,7 +206,7 @@ export const worksData = {
       {
         id: 'comp-100421',
         title: '100421',
-        meta: 'in <em>Transmissions From The Heart Of Darkness, Part V: Elsewhere</em> — MP3, <a href="https://descendresalacave.bandcamp.com/">Des Cendres À La Cave</a>, 2013'
+        meta: 'in <em><a href="https://descendresalacave.bandcamp.com/album/transmissions-from-the-heart-of-darkness-part-v-elsewhere">Transmissions From The Heart Of Darkness, Part V: Elsewhere</a></em> — MP3, Des Cendres À La Cave, 2013'
       },
       {
         id: 'comp-depolarized',
@@ -216,12 +216,12 @@ export const worksData = {
       {
         id: 'comp-absence',
         title: 'Absence of Light',
-        meta: 'in <em>IRM Presents: Clashes</em> — MP3, <a href="https://www.indierockmag.com/">Indie Rock Mag</a>, 2012'
+        meta: 'in <em><a href="https://indierockmag.bandcamp.com/album/irm-presents-clashes">IRM Presents: Clashes</a></em> — MP3, Indie Rock Mag, 2012'
       },
       {
         id: 'comp-sustain',
         title: 'Sustain I',
-        meta: 'in <em>SEQUENCE4</em> — MP3, Future Sequence, SEQ004, 2011'
+        meta: 'in <em><a href="https://futuresequence.bandcamp.com/album/sequence4">SEQUENCE4</a></em> — MP3, Future Sequence, SEQ004, 2011'
       },
       {
         id: 'comp-madeiradig11',
@@ -231,7 +231,7 @@ export const worksData = {
       {
         id: 'comp-madeiradig09',
         title: 'Ethereal / Dew',
-        meta: 'in <em>What It Sounds Like When Flowers Start To Think: edition 09 madeira island</em> — CD, Madeira Dig, MadeiraDig09, 2009'
+        meta: 'in <em>What It Sounds Like When Flowers Start To Think: Edition 09 Madeira Island</em> — CD, Madeira Dig, MadeiraDig09, 2009'
       },
       {
         id: 'comp-sand-dune',
@@ -241,7 +241,7 @@ export const worksData = {
       {
         id: 'comp-crystal-space-thisco',
         title: 'Crystal Space',
-        meta: 'in <em>Thisagree & Shadow</em> — CD, <a href="https://thisco.bandcamp.com/">Thisco</a>, THISK.43, 2008'
+        meta: 'in <em><a href="https://thisco.bandcamp.com/album/thisagree-shadow">Thisagree & Shadow</a></em> — CD, Thisco, THISK.43, 2008'
       },
       {
         id: 'comp-datacross',
