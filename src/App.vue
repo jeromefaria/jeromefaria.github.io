@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, watch } from 'vue'
+import { onMounted, watch, nextTick } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import SiteHeader from '@/components/SiteHeader.vue'
 import SiteFooter from '@/components/SiteFooter.vue'
@@ -18,9 +18,9 @@ function processExternalLinks() {
 }
 
 onMounted(processExternalLinks)
-watch(() => route.path, () => {
-  // Process after DOM updates
-  setTimeout(processExternalLinks, 100)
+watch(() => route.path, async () => {
+  await nextTick()
+  processExternalLinks()
 })
 </script>
 
