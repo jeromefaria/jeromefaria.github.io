@@ -1,16 +1,11 @@
 <script setup>
 import { usePageHead } from '@/composables/usePageHead'
 import { useAccordion } from '@/composables/useAccordion'
+import { extractYear } from '@/utils/formatters'
 import { siteConfig } from '@/data/navigation'
 import { worksData, worksSections } from '@/data/works'
 import AccordionSection from '@/components/AccordionSection.vue'
 import ReleaseItem from '@/components/ReleaseItem.vue'
-
-// Extract year from meta string (e.g., "Digital — BRØQN, 2024" -> "2024")
-function extractYear(meta) {
-  const match = meta?.match(/\b(19|20)\d{2}\b/)
-  return match ? match[0] : null
-}
 
 // Build MusicAlbum schema items from solo releases
 const albumSchemas = worksData.solo.releases

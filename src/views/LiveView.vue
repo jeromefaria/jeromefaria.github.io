@@ -1,25 +1,10 @@
 <script setup>
 import { usePageHead } from '@/composables/usePageHead'
 import { useAccordion } from '@/composables/useAccordion'
+import { stripHtml, parseVenue } from '@/utils/formatters'
 import { siteConfig } from '@/data/navigation'
 import { liveData, liveYears } from '@/data/live'
 import AccordionSection from '@/components/AccordionSection.vue'
-
-// Strip HTML tags from string
-function stripHtml(html) {
-  return html?.replace(/<[^>]*>/g, '') || ''
-}
-
-// Extract location from venue string (e.g., "Venue, City, Country" -> { name, city, country })
-function parseVenue(venue) {
-  const text = stripHtml(venue)
-  const parts = text.split(',').map(s => s.trim())
-  return {
-    name: parts[0] || '',
-    addressLocality: parts[1] || '',
-    addressCountry: parts[2] || 'Portugal'
-  }
-}
 
 // Build Event schema items from recent performances (last 3 years with events)
 const recentYears = liveYears.slice(0, 5)
