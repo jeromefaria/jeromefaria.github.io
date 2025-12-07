@@ -124,3 +124,10 @@ $transition-base: 300ms ease;
   letter-spacing: $letter-spacing-wider;
   color: var(--color-text-muted);
 }
+
+// Play triangle icon (CSS border triangle technique)
+@mixin play-triangle($color: #fff) {
+  border-style: solid;
+  border-width: 10px 0 10px 16px;
+  border-color: transparent transparent transparent $color;
+}
