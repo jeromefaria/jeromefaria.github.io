@@ -163,8 +163,7 @@
   font-size: $font-size-sm;
   letter-spacing: $letter-spacing-wide;
   text-transform: uppercase;
-  color: var(--color-text-muted);
-  transition: color $transition-fast;
+  @include hover-text;
   // Touch-friendly on mobile
   padding: $spacing-3 0;
   min-height: $touch-target-min;
@@ -175,10 +174,6 @@
     padding: 0;
     min-height: auto;
     display: inline;
-  }
-
-  &:hover {
-    color: var(--color-text);
   }
 
   &.router-link-active {
@@ -198,12 +193,7 @@
   width: $touch-target-min;
   height: $touch-target-min;
   margin: -0.875rem;
-  color: var(--color-text-muted);
-  transition: color $transition-fast;
-
-  &:hover {
-    color: var(--color-text);
-  }
+  @include hover-text;
 }
 
 .nav-toggle-icon {

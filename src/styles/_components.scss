@@ -263,12 +263,7 @@
   gap: $spacing-4;
 
   a {
-    color: var(--color-text-muted);
-    transition: color $transition-fast;
-
-    &:hover {
-      color: var(--color-text);
-    }
+    @include hover-text;
   }
 }
 

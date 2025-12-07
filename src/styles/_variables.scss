@@ -137,3 +137,13 @@ $transition-base: 300ms ease;
   outline: 2px solid var(--color-text);
   outline-offset: $offset;
 }
+
+// Muted to text color hover transition
+@mixin hover-text {
+  color: var(--color-text-muted);
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--color-text);
+  }
+}
