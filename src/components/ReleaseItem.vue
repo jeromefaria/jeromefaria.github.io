@@ -42,6 +42,9 @@ function handleImageError() {
         :src="release.coverImage"
         :alt="`${release.title} cover`"
         loading="lazy"
+        decoding="async"
+        width="200"
+        height="200"
         @error="handleImageError"
       />
     </a>
@@ -52,6 +55,9 @@ function handleImageError() {
       :src="release.coverImage"
       :alt="`${release.title} cover`"
       loading="lazy"
+      decoding="async"
+      width="200"
+      height="200"
       @error="handleImageError"
     />
 

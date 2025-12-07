@@ -46,6 +46,9 @@ function handleImageError() {
       :src="coverImage"
       :alt="`${albumTitle} album cover`"
       loading="lazy"
+      decoding="async"
+      width="200"
+      height="200"
       @error="handleImageError"
     />
     <div v-if="!isLoaded && imageError" class="image-fallback" />
