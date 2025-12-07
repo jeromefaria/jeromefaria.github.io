@@ -89,8 +89,7 @@
 
       &:focus-visible {
         opacity: 1;
-        outline: 2px solid var(--color-text);
-        outline-offset: -2px;
+        @include focus-ring(-2px);
       }
     }
 
@@ -175,8 +174,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--color-text);
-      outline-offset: 2px;
+      @include focus-ring;
     }
   }
 

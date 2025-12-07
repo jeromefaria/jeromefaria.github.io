@@ -131,3 +131,9 @@ $transition-base: 300ms ease;
   border-width: 10px 0 10px 16px;
   border-color: transparent transparent transparent $color;
 }
+
+// Focus ring for keyboard navigation
+@mixin focus-ring($offset: 2px) {
+  outline: 2px solid var(--color-text);
+  outline-offset: $offset;
+}
