@@ -121,9 +121,6 @@
 
   @include respond-to(md) {
     scroll-margin-top: calc(#{$header-height-desktop} + #{$spacing-4});
-  }
-
-  @include respond-to(md) {
     letter-spacing: $letter-spacing-wider;
     margin-bottom: $spacing-4;
   }
@@ -168,9 +165,7 @@
       transition-delay: 150ms;
     }
   }
-}
 
-.accordion-content {
   &:focus {
     outline: none; // Remove default, content is visually distinct
   }
