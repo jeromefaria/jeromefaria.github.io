@@ -3,7 +3,6 @@ layout: page
 title: Press
 permalink: /press/
 description: Press coverage and reviews of Jerome Faria's work from The Quietus, Bodyspace, Indie Rock Mag, and others.
-image: /assets/images/performance.jpg
 ---
 
 > "An almost romantic sound that recalls Eno's *Discreet Music*, with the additional creak of wind-up toys and waves of static that seem broadcast from the beach."

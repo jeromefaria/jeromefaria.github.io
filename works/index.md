@@ -3,7 +3,6 @@ layout: page
 title: Works
 permalink: /works/
 description: Discography and works by Jerome Faria, including solo releases, collaborations, film scores, and curatorial projects.
-image: /assets/images/2504.jpg
 ---
 
 <section class="accordion-section">
