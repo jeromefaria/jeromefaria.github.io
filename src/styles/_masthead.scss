@@ -128,14 +128,14 @@
     padding-top: 0;
   }
   to {
-    max-height: 20rem;
+    max-height: 20rem;  // Arbitrary large value to allow full content expansion
     padding-top: $spacing-4;
   }
 }
 
 @keyframes nav-collapse {
   from {
-    max-height: 20rem;
+    max-height: 20rem;  // Match nav-expand value
     padding-top: $spacing-4;
   }
   to {
@@ -192,7 +192,7 @@
   justify-content: center;
   width: $touch-target-min;
   height: $touch-target-min;
-  margin: -0.875rem;
+  margin: -0.875rem;  // Negative margin centers 44px touch target within header padding
   @include hover-text;
 }
 

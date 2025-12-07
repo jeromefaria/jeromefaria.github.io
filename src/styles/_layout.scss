@@ -96,9 +96,11 @@ footer {
   padding: $spacing-12;
 }
 
+$loading-dot-size: 6px;
+
 .loading-dot {
-  width: 6px;
-  height: 6px;
+  width: $loading-dot-size;
+  height: $loading-dot-size;
   background: var(--color-text-muted);
   border-radius: 50%;
   animation: loading-pulse 1.2s ease-in-out infinite;
