@@ -40,6 +40,18 @@ export const liveData = {
         id: 'jejum-11',
         title: 'Jejum #11',
         venue: '<a href="https://ruadasgaivotas6.pt/">Rua das Gaivotas 6</a>, Lisbon, Portugal'
+      },
+      {
+        id: 'amess-teatro-baltazar-dias',
+        title: 'Teatro Municipal Baltazar Dias',
+        venue: 'Funchal, Portugal',
+        description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.'
+      },
+      {
+        id: 'amess-museu-franco',
+        title: 'Museu Henrique e Francisco Franco',
+        venue: 'Funchal, Portugal',
+        description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.'
       }
     ]
   },
@@ -47,6 +59,12 @@ export const liveData = {
     title: '2021',
     id: '2021',
     events: [
+      {
+        id: 'reviralho',
+        title: 'Reviralho',
+        venue: 'Cais do Carvão, Funchal, Portugal',
+        description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.'
+      },
       {
         id: 'nariz-entupido',
         title: 'Nariz Entupido',
