@@ -165,13 +165,15 @@ hr {
   }
 
   a {
-    text-decoration: underline;
-    text-decoration-color: var(--color-border);
-    text-underline-offset: 0.15em;
-    transition: text-decoration-color $transition-fast, color $transition-fast;
+    text-decoration: none;
+    background-image: linear-gradient(var(--color-text-muted), var(--color-text-muted));
+    background-size: 0% 1px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    transition: background-size $transition-base;
 
     &:hover {
-      text-decoration-color: var(--color-text-muted);
+      background-size: 100% 1px;
     }
   }
 
