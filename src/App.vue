@@ -6,7 +6,7 @@ import SiteFooter from '@/components/SiteFooter.vue'
 
 const route = useRoute()
 
-function processExternalLinks() {
+const processExternalLinks = () => {
   const links = document.querySelectorAll('a[href^="http"]:not([target])')
   links.forEach(link => {
     if (!link.hostname.includes(window.location.hostname)) {

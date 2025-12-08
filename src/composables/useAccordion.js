@@ -2,12 +2,12 @@ import { ref, watch, nextTick, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { TIMING, ID_PREFIX } from '@/utils/constants'
 
-export function useAccordion(initialSection, validSections, findSectionForId = null) {
+export const useAccordion = (initialSection, validSections, findSectionForId = null) => {
   const route = useRoute()
   const openSection = ref(initialSection)
   let isInitialLoad = true
 
-  function handleToggle(sectionId, isOpen) {
+  const handleToggle = (sectionId, isOpen) => {
     if (isOpen) {
       openSection.value = sectionId
     } else if (openSection.value === sectionId) {
@@ -15,7 +15,7 @@ export function useAccordion(initialSection, validSections, findSectionForId = n
     }
   }
 
-  function scrollToElement(id) {
+  const scrollToElement = (id) => {
     nextTick(() => {
       setTimeout(() => {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -23,7 +23,7 @@ export function useAccordion(initialSection, validSections, findSectionForId = n
     })
   }
 
-  function processHash(hash, shouldScroll) {
+  const processHash = (hash, shouldScroll) => {
     if (!hash) return
 
     const id = hash.replace(`#${ID_PREFIX.SECTION}`, '').replace('#', '')

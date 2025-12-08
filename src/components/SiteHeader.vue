@@ -8,7 +8,7 @@ const route = useRoute()
 const navOpen = ref(false)
 const navClosing = ref(false)
 
-function closeNav() {
+const closeNav = () => {
   navClosing.value = true
   navOpen.value = false
   setTimeout(() => {
@@ -16,7 +16,7 @@ function closeNav() {
   }, TIMING.NAV_ANIMATION)
 }
 
-function toggleNav() {
+const toggleNav = () => {
   if (navOpen.value) {
     closeNav()
   } else {

@@ -12,7 +12,7 @@ usePageHead({
 const route = useRoute()
 let isInitialLoad = true
 
-function scrollToHash(hash) {
+const scrollToHash = (hash) => {
   if (!hash) return
   const id = hash.replace('#', '')
   const element = document.getElementById(id)

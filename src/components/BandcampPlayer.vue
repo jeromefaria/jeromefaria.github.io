@@ -29,20 +29,20 @@ onMounted(async () => {
   }
 })
 
-function loadPlayer() {
+const loadPlayer = () => {
   if (showPlayer.value) return
   showPlayer.value = true
 }
 
-function handleIframeLoad() {
+const handleIframeLoad = () => {
   isLoaded.value = true
 }
 
-function handleImageLoad() {
+const handleImageLoad = () => {
   imageLoaded.value = true
 }
 
-function handleImageError() {
+const handleImageError = () => {
   imageError.value = true
 }
 </script>

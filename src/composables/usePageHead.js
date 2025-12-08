@@ -11,13 +11,13 @@ import { siteConfig } from '@/data/navigation'
  * @param {Object} [options.schema] - JSON-LD structured data schema
  * @param {boolean} [options.includeImage=false] - Include og:image and twitter:image meta tags
  */
-export function usePageHead({
+export const usePageHead = ({
   title,
   description,
   ogType = 'website',
   schema = null,
   includeImage = false
-}) {
+}) => {
   const route = useRoute()
   const fullTitle = title.includes(siteConfig.title)
     ? title

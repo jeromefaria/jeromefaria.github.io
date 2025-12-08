@@ -3,16 +3,14 @@
  * @param {string} html - HTML string to strip
  * @returns {string} Plain text without HTML tags
  */
-export function stripHtml(html) {
-  return html?.replace(/<[^>]*>/g, '') || ''
-}
+export const stripHtml = (html) => html?.replace(/<[^>]*>/g, '') || ''
 
 /**
  * Parse a venue string into structured address components
  * @param {string} venue - Venue string (e.g., "Venue Name, City, Country")
  * @returns {Object} Parsed venue with name, addressLocality, addressCountry
  */
-export function parseVenue(venue) {
+export const parseVenue = (venue) => {
   const text = stripHtml(venue)
   const parts = text.split(',').map(s => s.trim())
   return {
@@ -27,7 +25,7 @@ export function parseVenue(venue) {
  * @param {string} text - Text containing a year (e.g., "Digital — BRØQN, 2024")
  * @returns {string|null} The extracted year or null
  */
-export function extractYear(text) {
+export const extractYear = (text) => {
   const match = text?.match(/\b(19|20)\d{2}\b/)
   return match ? match[0] : null
 }

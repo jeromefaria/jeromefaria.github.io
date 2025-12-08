@@ -28,11 +28,11 @@ onMounted(async () => {
   }
 })
 
-function handleImageLoad() {
+const handleImageLoad = () => {
   imageLoaded.value = true
 }
 
-function handleImageError() {
+const handleImageError = () => {
   imageError.value = true
 }
 </script>

@@ -25,7 +25,7 @@ const isExpanded = computed({
 })
 const contentRef = ref(null)
 
-function toggle() {
+const toggle = () => {
   isExpanded.value = !isExpanded.value
 
   if (isExpanded.value) {
