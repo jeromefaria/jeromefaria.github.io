@@ -131,6 +131,16 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   border-color: transparent transparent transparent $color;
 }
 
+// Centered play triangle (for pseudo-elements)
+@mixin play-triangle-centered($color: #fff) {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -50%);
+  @include play-triangle($color);
+}
+
 // Focus ring for keyboard navigation
 @mixin focus-ring($offset: 2px) {
   outline: 2px solid var(--color-text);
