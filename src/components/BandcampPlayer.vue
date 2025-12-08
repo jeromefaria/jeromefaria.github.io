@@ -57,6 +57,9 @@ function handleImageError() {
       type="button"
       :aria-label="`Play ${albumTitle}`"
     />
+    <div v-if="showPlayer && !isLoaded" class="loading-indicator" aria-label="Loading player">
+      Loading...
+    </div>
     <iframe
       v-if="showPlayer"
       :src="`https://bandcamp.com/EmbeddedPlayer/album=${albumId}/size=large/bgcol=000000/linkcol=ffffff/minimal=true/transparent=true/`"
