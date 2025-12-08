@@ -1,5 +1,6 @@
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref } from 'vue'
+import { useImageLoader } from '@/composables/useImageLoader'
 
 const props = defineProps({
   albumId: {
@@ -16,20 +17,17 @@ const props = defineProps({
   }
 })
 
-const imageRef = ref(null)
+const {
+  imageRef,
+  imageError,
+  imageLoaded,
+  webpSrc,
+  handleImageLoad,
+  handleImageError
+} = useImageLoader(props.coverImage)
+
 const showPlayer = ref(false)
 const isLoaded = ref(false)
-const imageError = ref(false)
-const imageLoaded = ref(false)
-
-const webpSrc = computed(() => props.coverImage.replace(/\.jpg$/, '.webp'))
-
-onMounted(async () => {
-  await nextTick()
-  if (imageRef.value?.complete && imageRef.value?.naturalHeight > 0) {
-    imageLoaded.value = true
-  }
-})
 
 const loadPlayer = () => {
   if (showPlayer.value) return
@@ -38,14 +36,6 @@ const loadPlayer = () => {
 
 const handleIframeLoad = () => {
   isLoaded.value = true
-}
-
-const handleImageLoad = () => {
-  imageLoaded.value = true
-}
-
-const handleImageError = () => {
-  imageError.value = true
 }
 </script>
 

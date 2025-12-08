@@ -1,6 +1,7 @@
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { computed } from 'vue'
 import BandcampPlayer from './BandcampPlayer.vue'
+import { useImageLoader } from '@/composables/useImageLoader'
 
 const props = defineProps({
   release: {
@@ -13,27 +14,16 @@ const props = defineProps({
   }
 })
 
-const imageRef = ref(null)
-const imageError = ref(false)
-const imageLoaded = ref(false)
+const {
+  imageRef,
+  imageError,
+  imageLoaded,
+  webpSrc,
+  handleImageLoad,
+  handleImageError
+} = useImageLoader(props.release.coverImage)
 
 const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandcamp.com'))
-const webpSrc = computed(() => props.release.coverImage?.replace(/\.jpg$/, '.webp'))
-
-onMounted(async () => {
-  await nextTick()
-  if (imageRef.value?.complete && imageRef.value?.naturalHeight > 0) {
-    imageLoaded.value = true
-  }
-})
-
-const handleImageLoad = () => {
-  imageLoaded.value = true
-}
-
-const handleImageError = () => {
-  imageError.value = true
-}
 </script>
 
 <template>
