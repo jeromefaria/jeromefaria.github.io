@@ -147,6 +147,15 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   }
 }
 
+// Absolute fill (cover parent container)
+@mixin absolute-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 // Image reveal animation (fade + slide up)
 @mixin image-reveal {
   opacity: 0;
