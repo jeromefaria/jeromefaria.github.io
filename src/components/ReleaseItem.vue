@@ -1,7 +1,7 @@
 <script setup>
-import { computed } from 'vue'
-import BandcampPlayer from './BandcampPlayer.vue'
-import { useImageLoader } from '@/composables/useImageLoader'
+import { computed } from 'vue';
+import BandcampPlayer from './BandcampPlayer.vue';
+import { useImageLoader } from '@/composables/useImageLoader';
 
 const props = defineProps({
   release: {
@@ -12,7 +12,7 @@ const props = defineProps({
     type: Boolean,
     default: false
   }
-})
+});
 
 const {
   imageRef,
@@ -21,13 +21,17 @@ const {
   webpSrc,
   handleImageLoad,
   handleImageError
-} = useImageLoader(props.release.coverImage)
+} = useImageLoader(props.release.coverImage);
 
-const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandcamp.com'))
+const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandcamp.com'));
 </script>
 
 <template>
-  <article :id="release.id" class="release" :class="{ 'release--text-only': textOnly || imageError }">
+  <article
+    :id="release.id"
+    class="release"
+    :class="{ 'release--text-only': textOnly || imageError }"
+  >
     <!-- Bandcamp Player -->
     <BandcampPlayer
       v-if="release.bandcampId && release.coverImage"
@@ -46,7 +50,10 @@ const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandc
       :class="{ 'release-cover--bandcamp': isBandcampLink }"
     >
       <picture>
-        <source :srcset="webpSrc" type="image/webp" />
+        <source
+          :srcset="webpSrc"
+          type="image/webp"
+        >
         <img
           ref="imageRef"
           :src="release.coverImage"
@@ -56,7 +63,7 @@ const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandc
           :class="{ 'is-loaded': imageLoaded }"
           @load="handleImageLoad"
           @error="handleImageError"
-        />
+        >
       </picture>
     </a>
 
@@ -66,7 +73,10 @@ const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandc
       class="release-cover release-cover--static"
     >
       <picture>
-        <source :srcset="webpSrc" type="image/webp" />
+        <source
+          :srcset="webpSrc"
+          type="image/webp"
+        >
         <img
           ref="imageRef"
           :src="release.coverImage"
@@ -76,7 +86,7 @@ const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandc
           :class="{ 'is-loaded': imageLoaded }"
           @load="handleImageLoad"
           @error="handleImageError"
-        />
+        >
       </picture>
     </div>
 
@@ -84,14 +94,34 @@ const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandc
     <div class="release-details">
       <p>
         <strong v-if="!release.externalUrl">{{ release.title }}</strong>
-        <strong v-else><a :href="release.externalUrl" target="_blank" rel="noopener noreferrer">{{ release.title }}</a></strong>
+        <strong v-else><a
+          :href="release.externalUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >{{ release.title }}</a></strong>
       </p>
-      <p v-if="release.meta" class="release-meta" v-html="release.meta" />
-      <p v-if="release.description" class="release-description" v-html="release.description" />
+      <p
+        v-if="release.meta"
+        class="release-meta"
+        v-html="release.meta"
+      />
+      <p
+        v-if="release.description"
+        class="release-description"
+        v-html="release.description"
+      />
       <ol v-if="release.tracklist && release.tracklist.length">
-        <li v-for="(track, index) in release.tracklist" :key="index" v-html="track" />
+        <li
+          v-for="(track, index) in release.tracklist"
+          :key="index"
+          v-html="track"
+        />
       </ol>
-      <p v-if="release.credits" class="release-credits" v-html="release.credits" />
+      <p
+        v-if="release.credits"
+        class="release-credits"
+        v-html="release.credits"
+      />
     </div>
   </article>
 </template>

@@ -1,15 +1,18 @@
 <script setup>
-import { RouterLink } from 'vue-router'
-import { siteConfig, navigation, social } from '@/data/navigation'
+import { RouterLink } from 'vue-router';
+import { siteConfig, navigation, social } from '@/data/navigation';
 
-const currentYear = new Date().getFullYear()
+const currentYear = new Date().getFullYear();
 </script>
 
 <template>
   <footer>
     <div class="container">
       <div class="footer-content">
-        <nav class="footer-nav" aria-label="Footer navigation">
+        <nav
+          class="footer-nav"
+          aria-label="Footer navigation"
+        >
           <RouterLink
             v-for="nav in navigation"
             :key="nav.url"
@@ -30,7 +33,9 @@ const currentYear = new Date().getFullYear()
             {{ item.name }}
           </a>
         </div>
-        <p class="copyright">&copy; {{ currentYear }} {{ siteConfig.author.name }}</p>
+        <p class="copyright">
+          &copy; {{ currentYear }} {{ siteConfig.author.name }}
+        </p>
       </div>
     </div>
   </footer>

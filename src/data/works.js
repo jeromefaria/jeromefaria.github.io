@@ -319,7 +319,7 @@ export const worksData = {
       }
     ]
   }
-}
+};
 
 // Export sections in display order
 export const worksSections = [
@@ -331,4 +331,4 @@ export const worksSections = [
   'compilations',
   'mastering',
   'publications'
-]
+];

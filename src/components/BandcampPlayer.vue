@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue'
-import { useImageLoader } from '@/composables/useImageLoader'
+import { ref } from 'vue';
+import { useImageLoader } from '@/composables/useImageLoader';
 
 const props = defineProps({
   albumId: {
@@ -15,7 +15,7 @@ const props = defineProps({
     type: String,
     required: true
   }
-})
+});
 
 const {
   imageRef,
@@ -24,19 +24,19 @@ const {
   webpSrc,
   handleImageLoad,
   handleImageError
-} = useImageLoader(props.coverImage)
+} = useImageLoader(props.coverImage);
 
-const showPlayer = ref(false)
-const isLoaded = ref(false)
+const showPlayer = ref(false);
+const isLoaded = ref(false);
 
 const loadPlayer = () => {
-  if (showPlayer.value) return
-  showPlayer.value = true
-}
+  if (showPlayer.value) return;
+  showPlayer.value = true;
+};
 
 const handleIframeLoad = () => {
-  isLoaded.value = true
-}
+  isLoaded.value = true;
+};
 </script>
 
 <template>
@@ -46,7 +46,10 @@ const handleIframeLoad = () => {
     @click="loadPlayer"
   >
     <picture v-if="!showPlayer && !imageError">
-      <source :srcset="webpSrc" type="image/webp" />
+      <source
+        :srcset="webpSrc"
+        type="image/webp"
+      >
       <img
         ref="imageRef"
         :src="coverImage"
@@ -58,16 +61,23 @@ const handleIframeLoad = () => {
         :class="{ 'is-loaded': imageLoaded }"
         @load="handleImageLoad"
         @error="handleImageError"
-      />
+      >
     </picture>
-    <div v-if="!showPlayer && imageError" class="image-fallback" />
+    <div
+      v-if="!showPlayer && imageError"
+      class="image-fallback"
+    />
     <button
       v-if="!showPlayer"
       class="play-button"
       type="button"
       :aria-label="`Play ${albumTitle}`"
     />
-    <div v-if="showPlayer && !isLoaded" class="loading-indicator" aria-label="Loading player">
+    <div
+      v-if="showPlayer && !isLoaded"
+      class="loading-indicator"
+      aria-label="Loading player"
+    >
       Loading...
     </div>
     <iframe

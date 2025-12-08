@@ -1,6 +1,6 @@
 <script setup>
-import { computed, ref, nextTick } from 'vue'
-import { TIMING, ID_PREFIX } from '@/utils/constants'
+import { computed, ref, nextTick } from 'vue';
+import { TIMING, ID_PREFIX } from '@/utils/constants';
 
 const props = defineProps({
   title: {
@@ -15,33 +15,36 @@ const props = defineProps({
     type: Boolean,
     default: false
   }
-})
+});
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue']);
 
 const isExpanded = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value)
-})
-const contentRef = ref(null)
+});
+const contentRef = ref(null);
 
 const toggle = () => {
-  isExpanded.value = !isExpanded.value
+  isExpanded.value = !isExpanded.value;
 
   if (isExpanded.value) {
     nextTick(() => {
       setTimeout(() => {
-        const trigger = document.getElementById(`${ID_PREFIX.TRIGGER}${props.id}`)
-        trigger?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        contentRef.value?.focus({ preventScroll: true })
-      }, TIMING.ACCORDION_ANIMATION)
-    })
+        const trigger = document.getElementById(`${ID_PREFIX.TRIGGER}${props.id}`);
+        trigger?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        contentRef.value?.focus({ preventScroll: true });
+      }, TIMING.ACCORDION_ANIMATION);
+    });
   }
-}
+};
 </script>
 
 <template>
-  <section :id="`${ID_PREFIX.SECTION}${id}`" class="accordion-section">
+  <section
+    :id="`${ID_PREFIX.SECTION}${id}`"
+    class="accordion-section"
+  >
     <button
       :id="`${ID_PREFIX.TRIGGER}${id}`"
       class="accordion-trigger"
@@ -53,8 +56,8 @@ const toggle = () => {
       {{ title }}
     </button>
     <div
-      ref="contentRef"
       :id="`${ID_PREFIX.CONTENT}${id}`"
+      ref="contentRef"
       class="accordion-content"
       :aria-hidden="!isExpanded"
       :aria-labelledby="`${ID_PREFIX.TRIGGER}${id}`"

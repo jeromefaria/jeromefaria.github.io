@@ -253,9 +253,9 @@ export const liveData = {
       }
     ]
   }
-}
+};
 
 // Export years in display order (newest first)
 export const liveYears = [
   '2025', '2024', '2022', '2021', '2015', '2013', '2012', '2011', '2010', '2009', '2008', '2007', '2006', '2005'
-]
+];

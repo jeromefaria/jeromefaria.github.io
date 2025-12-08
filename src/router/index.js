@@ -29,4 +29,4 @@ export const routes = [
     name: 'not-found',
     component: () => import('@/views/NotFoundView.vue')
   }
-]
+];

@@ -1,4 +1,4 @@
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue';
 
 /**
  * Composable for handling image loading state with WebP support
@@ -6,26 +6,26 @@ import { ref, computed, onMounted, nextTick } from 'vue'
  * @returns {Object} Image loading state and handlers
  */
 export const useImageLoader = (src) => {
-  const imageRef = ref(null)
-  const imageError = ref(false)
-  const imageLoaded = ref(false)
+  const imageRef = ref(null);
+  const imageError = ref(false);
+  const imageLoaded = ref(false);
 
-  const webpSrc = computed(() => src?.replace(/\.jpg$/, '.webp'))
+  const webpSrc = computed(() => src?.replace(/\.jpg$/, '.webp'));
 
   onMounted(async () => {
-    await nextTick()
+    await nextTick();
     if (imageRef.value?.complete && imageRef.value?.naturalHeight > 0) {
-      imageLoaded.value = true
+      imageLoaded.value = true;
     }
-  })
+  });
 
   const handleImageLoad = () => {
-    imageLoaded.value = true
-  }
+    imageLoaded.value = true;
+  };
 
   const handleImageError = () => {
-    imageError.value = true
-  }
+    imageError.value = true;
+  };
 
   return {
     imageRef,
@@ -34,5 +34,5 @@ export const useImageLoader = (src) => {
     webpSrc,
     handleImageLoad,
     handleImageError
-  }
-}
+  };
+};

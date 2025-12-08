@@ -1,35 +1,37 @@
 <script setup>
-import { ref, watch } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
-import { siteConfig, navigation } from '@/data/navigation'
-import { TIMING } from '@/utils/constants'
+import { ref, watch } from 'vue';
+import { RouterLink, useRoute } from 'vue-router';
+import { siteConfig, navigation } from '@/data/navigation';
+import { TIMING } from '@/utils/constants';
 
-const route = useRoute()
-const navOpen = ref(false)
-const navClosing = ref(false)
+const route = useRoute();
+const navOpen = ref(false);
+const navClosing = ref(false);
 
 const closeNav = () => {
-  navClosing.value = true
-  navOpen.value = false
+  navClosing.value = true;
+  navOpen.value = false;
   setTimeout(() => {
-    navClosing.value = false
-  }, TIMING.NAV_ANIMATION)
-}
+    navClosing.value = false;
+  }, TIMING.NAV_ANIMATION);
+};
 
 const toggleNav = () => {
-  navOpen.value ? closeNav() : navOpen.value = true
-}
+  navOpen.value ? closeNav() : navOpen.value = true;
+};
 
 watch(() => route.path, () => {
-  if (navOpen.value) closeNav()
-})
+  if (navOpen.value) closeNav();
+});
 </script>
 
 <template>
   <header class="masthead">
     <div class="masthead-inner">
       <h1 class="masthead-title">
-        <RouterLink to="/">{{ siteConfig.title }}</RouterLink>
+        <RouterLink to="/">
+          {{ siteConfig.title }}
+        </RouterLink>
         <span class="masthead-tagline">{{ siteConfig.tagline }}</span>
       </h1>
 
@@ -41,9 +43,28 @@ watch(() => route.path, () => {
           :aria-expanded="navOpen"
           @click="toggleNav"
         >
-          <svg class="nav-toggle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <line class="nav-toggle-line nav-toggle-line-1" x1="4" y1="12" x2="20" y2="12"></line>
-            <line class="nav-toggle-line nav-toggle-line-2" x1="4" y1="12" x2="20" y2="12"></line>
+          <svg
+            class="nav-toggle-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <line
+              class="nav-toggle-line nav-toggle-line-1"
+              x1="4"
+              y1="12"
+              x2="20"
+              y2="12"
+            />
+            <line
+              class="nav-toggle-line nav-toggle-line-2"
+              x1="4"
+              y1="12"
+              x2="20"
+              y2="12"
+            />
           </svg>
         </button>
       </div>

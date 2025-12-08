@@ -1,6 +1,6 @@
 <script setup>
-import { usePageHead } from '@/composables/usePageHead'
-import { siteConfig, social } from '@/data/navigation'
+import { usePageHead } from '@/composables/usePageHead';
+import { siteConfig, social } from '@/data/navigation';
 
 const personSchema = {
   '@context': 'https://schema.org',
@@ -11,14 +11,14 @@ const personSchema = {
   description: siteConfig.description,
   image: `${siteConfig.url}${siteConfig.image}`,
   sameAs: social.map(s => s.url)
-}
+};
 
 usePageHead({
   title: `${siteConfig.title} - ${siteConfig.tagline}`,
   description: siteConfig.description,
   schema: personSchema,
   includeImage: true
-})
+});
 </script>
 
 <template>

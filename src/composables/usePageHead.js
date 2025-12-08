@@ -1,6 +1,6 @@
-import { useHead } from '@unhead/vue' // Provided by vite-ssg
-import { useRoute } from 'vue-router'
-import { siteConfig } from '@/data/navigation'
+import { useHead } from '@unhead/vue'; // Provided by vite-ssg
+import { useRoute } from 'vue-router';
+import { siteConfig } from '@/data/navigation';
 
 /**
  * Composable for setting page head meta tags with consistent patterns
@@ -20,12 +20,12 @@ export const usePageHead = ({
   includeImage = false,
   noIndex = false
 }) => {
-  const route = useRoute()
+  const route = useRoute();
   const fullTitle = title.includes(siteConfig.title)
     ? title
-    : `${title} - ${siteConfig.title}`
+    : `${title} - ${siteConfig.title}`;
 
-  const canonicalUrl = `${siteConfig.url}${route.path}`
+  const canonicalUrl = `${siteConfig.url}${route.path}`;
 
   const meta = [
     { name: 'description', content: description },
@@ -37,25 +37,25 @@ export const usePageHead = ({
     { name: 'twitter:card', content: includeImage ? 'summary_large_image' : 'summary' },
     { name: 'twitter:title', content: fullTitle },
     { name: 'twitter:description', content: description }
-  ]
+  ];
 
   if (includeImage) {
-    const imageUrl = `${siteConfig.url}${siteConfig.image}`
+    const imageUrl = `${siteConfig.url}${siteConfig.image}`;
     meta.push(
       { property: 'og:image', content: imageUrl },
       { name: 'twitter:image', content: imageUrl }
-    )
+    );
   }
 
   if (noIndex) {
-    meta.push({ name: 'robots', content: 'noindex' })
+    meta.push({ name: 'robots', content: 'noindex' });
   }
 
   const link = [
     { rel: 'canonical', href: canonicalUrl }
-  ]
+  ];
 
-  const headConfig = { title: fullTitle, meta, link }
+  const headConfig = { title: fullTitle, meta, link };
 
   if (schema) {
     headConfig.script = [
@@ -63,8 +63,8 @@ export const usePageHead = ({
         type: 'application/ld+json',
         innerHTML: JSON.stringify(schema)
       }
-    ]
+    ];
   }
 
-  useHead(headConfig)
-}
+  useHead(headConfig);
+};

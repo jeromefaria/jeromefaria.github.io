@@ -35,4 +35,4 @@ export const pressQuotes = [
     quote: 'There is not a second to spare here, nor a moment to throw away.',
     source: 'Ponto Alternativo'
   }
-]
+];
