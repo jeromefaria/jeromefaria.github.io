@@ -25,7 +25,6 @@ export const routes = [
     component: () => import('@/views/PressView.vue')
   },
   {
-    // Catch-all route for 404
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import('@/views/NotFoundView.vue')

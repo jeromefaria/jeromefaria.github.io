@@ -22,11 +22,9 @@ function scrollToHash(hash) {
 }
 
 onMounted(() => {
-  // Let browser handle initial scroll via scroll-margin-top
   isInitialLoad = false
 })
 
-// Handle hash changes after initial load
 watch(() => route.hash, (hash) => {
   if (!isInitialLoad && hash) {
     scrollToHash(hash)

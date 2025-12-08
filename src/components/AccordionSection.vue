@@ -29,7 +29,6 @@ function toggle() {
   isExpanded.value = !isExpanded.value
   emit('update:modelValue', isExpanded.value)
 
-  // Scroll into view and manage focus when opening
   if (isExpanded.value) {
     nextTick(() => {
       setTimeout(() => {
@@ -37,7 +36,7 @@ function toggle() {
         if (trigger) {
           trigger.scrollIntoView({ behavior: 'smooth', block: 'start' })
         }
-        // Move focus to content region for keyboard users (preventScroll avoids fighting with scrollIntoView)
+        // preventScroll avoids fighting with scrollIntoView
         if (contentRef.value) {
           contentRef.value.focus({ preventScroll: true })
         }

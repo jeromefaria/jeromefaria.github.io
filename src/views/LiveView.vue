@@ -6,7 +6,6 @@ import { siteConfig } from '@/data/navigation'
 import { liveData, liveYears } from '@/data/live'
 import AccordionSection from '@/components/AccordionSection.vue'
 
-// Build Event schema items from recent performances (last 3 years with events)
 const recentYears = liveYears.slice(0, 5)
 const eventSchemas = recentYears.flatMap(year =>
   (liveData[year]?.events || []).map(event => {
@@ -32,7 +31,6 @@ const eventSchemas = recentYears.flatMap(year =>
   })
 )
 
-// ItemList schema for event history
 const eventsSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
@@ -52,7 +50,6 @@ usePageHead({
   schema: eventsSchema
 })
 
-// Find which year contains a given event ID
 function findYearForEvent(eventId) {
   for (const year of liveYears) {
     const events = liveData[year]?.events || []

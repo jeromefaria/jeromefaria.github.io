@@ -6,7 +6,6 @@ import SiteFooter from '@/components/SiteFooter.vue'
 
 const route = useRoute()
 
-// Add target="_blank" and rel="noopener noreferrer" to external links
 function processExternalLinks() {
   const links = document.querySelectorAll('a[href^="http"]:not([target])')
   links.forEach(link => {

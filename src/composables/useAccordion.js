@@ -21,7 +21,6 @@ export function useAccordion(initialSection, validSections, findSectionForId = n
     }
   }
 
-  // Scroll to element after accordion animation completes
   function scrollToElement(id) {
     nextTick(() => {
       setTimeout(() => {
@@ -33,20 +32,18 @@ export function useAccordion(initialSection, validSections, findSectionForId = n
     })
   }
 
-  // Process hash and optionally scroll
   function processHash(hash, shouldScroll) {
     if (!hash) return
 
     const id = hash.replace('#section-', '').replace('#', '')
 
-    // Check if it's a direct section match
     if (validSections.includes(id)) {
       openSection.value = id
       if (shouldScroll) {
         scrollToElement(`trigger-${id}`)
       }
     } else if (findSectionForId) {
-      // Try to find parent section for nested IDs (e.g., event ID -> year)
+      // Find parent section for nested IDs (e.g., release ID -> section)
       const parentSection = findSectionForId(id)
       if (parentSection) {
         openSection.value = parentSection
@@ -57,16 +54,14 @@ export function useAccordion(initialSection, validSections, findSectionForId = n
     }
   }
 
-  // Handle initial hash on mount (open section but don't scroll - let browser handle it)
+  // Open section on mount but let browser handle initial scroll
   onMounted(() => {
     processHash(route.hash, false)
-    // Allow scrolling for subsequent hash changes
     nextTick(() => {
       isInitialLoad = false
     })
   })
 
-  // Handle hash navigation changes (scroll smoothly)
   watch(() => route.hash, (hash) => {
     if (!isInitialLoad) {
       processHash(hash, true)

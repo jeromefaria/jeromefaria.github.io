@@ -7,7 +7,6 @@ import { worksData, worksSections } from '@/data/works'
 import AccordionSection from '@/components/AccordionSection.vue'
 import ReleaseItem from '@/components/ReleaseItem.vue'
 
-// Build MusicAlbum schema items from solo releases
 const albumSchemas = worksData.solo.releases
   .filter(r => r.bandcampId || r.bandcampUrl)
   .map(release => ({
@@ -23,7 +22,6 @@ const albumSchemas = worksData.solo.releases
     }
   }))
 
-// MusicGroup schema with discography
 const musicSchema = {
   '@context': 'https://schema.org',
   '@type': 'MusicGroup',
@@ -39,7 +37,6 @@ usePageHead({
   schema: musicSchema
 })
 
-// Find which section contains a given release ID
 function findSectionForRelease(releaseId) {
   for (const section of worksSections) {
     const releases = worksData[section]?.releases || []

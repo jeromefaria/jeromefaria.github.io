@@ -9,10 +9,8 @@ const navClosing = ref(false)
 
 function toggleNav() {
   if (navOpen.value) {
-    // Start closing animation
     navClosing.value = true
     navOpen.value = false
-    // Remove closing class after animation completes
     setTimeout(() => {
       navClosing.value = false
     }, 300)
@@ -21,7 +19,6 @@ function toggleNav() {
   }
 }
 
-// Close nav when route changes
 watch(() => route.path, () => {
   if (navOpen.value) {
     navClosing.value = true

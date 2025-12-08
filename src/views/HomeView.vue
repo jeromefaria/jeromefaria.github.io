@@ -2,7 +2,6 @@
 import { usePageHead } from '@/composables/usePageHead'
 import { siteConfig, social } from '@/data/navigation'
 
-// Person schema for structured data
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
