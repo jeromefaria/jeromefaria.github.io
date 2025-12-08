@@ -66,10 +66,12 @@
       object-fit: cover;
       display: block;
       opacity: 0;
-      transition: opacity $transition-base;
+      transform: translateY($spacing-2);
+      transition: opacity $transition-base, transform $transition-base;
 
       &.is-loaded {
         opacity: 1;
+        transform: translateY(0);
       }
     }
 
@@ -178,10 +180,12 @@
       display: block;
       margin: 0;
       opacity: 0;
-      transition: opacity $transition-base;
+      transform: translateY($spacing-2);
+      transition: opacity $transition-base, transform $transition-base;
 
       &.is-loaded {
         opacity: 1;
+        transform: translateY(0);
       }
     }
 
