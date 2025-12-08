@@ -53,7 +53,6 @@
     aspect-ratio: 1 / 1;
     order: -1;
     cursor: pointer;
-    background: var(--color-border-subtle);
 
     @include respond-to(md) {
       max-width: 200px;

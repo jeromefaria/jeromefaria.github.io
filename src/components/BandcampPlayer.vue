@@ -55,11 +55,6 @@ const handleImageError = () => {
     :class="{ loading: showPlayer && !isLoaded, 'image-error': imageError }"
     @click="loadPlayer"
   >
-    <div v-if="!showPlayer && !imageError && !imageLoaded" class="image-spinner">
-      <span class="loading-dot" />
-      <span class="loading-dot" />
-      <span class="loading-dot" />
-    </div>
     <picture v-if="!showPlayer && !imageError">
       <source :srcset="webpSrc" type="image/webp" />
       <img
