@@ -35,8 +35,39 @@
       // Set dark theme before page renders to prevent flash
       document.documentElement.setAttribute('data-theme', 'dark');
     </script>
+    <style>
+      /* Hide app content until ready, but keep loader visible */
+      #app { opacity: 0; }
+      body { background-color: #000; }
+      body.ready #app { opacity: 1; transition: opacity 600ms ease; }
+      body.ready .initial-loader { display: none; }
+      /* Initial loader spinner */
+      .initial-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #000;
+        z-index: 9999;
+      }
+      .spinner {
+        width: 24px;
+        height: 24px;
+        border: 2px solid #333;
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 800ms linear infinite;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
   </head>
   <body>
+    <div class="initial-loader" aria-label="Loading">
+      <div class="spinner"></div>
+    </div>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>

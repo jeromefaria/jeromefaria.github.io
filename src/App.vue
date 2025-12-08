@@ -16,7 +16,10 @@ function processExternalLinks() {
   })
 }
 
-onMounted(processExternalLinks)
+onMounted(() => {
+  processExternalLinks()
+  document.body.classList.add('ready')
+})
 watch(() => route.path, async () => {
   await nextTick()
   processExternalLinks()
