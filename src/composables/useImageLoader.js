@@ -2,9 +2,7 @@ import { ref, computed, onMounted, nextTick } from 'vue'
 
 /**
  * Composable for handling image loading state with WebP support
- * @param {Object} options - Configuration options
- * @param {import('vue').Ref<HTMLImageElement|null>} options.imageRef - Ref to the image element
- * @param {string} options.src - Original image source (jpg)
+ * @param {string} src - Original image source path (jpg)
  * @returns {Object} Image loading state and handlers
  */
 export const useImageLoader = (src) => {

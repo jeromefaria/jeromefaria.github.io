@@ -2,6 +2,13 @@ import { ref, watch, nextTick, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { TIMING, ID_PREFIX } from '@/utils/constants'
 
+/**
+ * Composable for managing accordion state with URL hash navigation
+ * @param {string} initialSection - The section to open by default
+ * @param {string[]} validSections - Array of valid section IDs
+ * @param {Function|null} [findSectionForId=null] - Optional function to find parent section for a given ID
+ * @returns {Object} Accordion state and handlers
+ */
 export const useAccordion = (initialSection, validSections, findSectionForId = null) => {
   const route = useRoute()
   const openSection = ref(initialSection)
