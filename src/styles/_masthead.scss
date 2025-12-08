@@ -179,6 +179,20 @@
   &.router-link-active {
     color: var(--color-text);
     font-weight: $font-weight-medium;
+
+    @include respond-to(md) {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -$spacing-1;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--color-text);
+      }
+    }
   }
 }
 
