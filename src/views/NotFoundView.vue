@@ -1,13 +1,12 @@
 <script setup>
 import { RouterLink } from 'vue-router'
-import { useHead } from '@unhead/vue'
-import { siteConfig, navigation } from '@/data/navigation'
+import { usePageHead } from '@/composables/usePageHead'
+import { navigation } from '@/data/navigation'
 
-useHead({
-  title: `Page Not Found - ${siteConfig.title}`,
-  meta: [
-    { name: 'robots', content: 'noindex' }
-  ]
+usePageHead({
+  title: 'Page Not Found',
+  description: 'The page you are looking for does not exist.',
+  noIndex: true
 })
 </script>
 

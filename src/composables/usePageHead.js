@@ -10,13 +10,15 @@ import { siteConfig } from '@/data/navigation'
  * @param {string} [options.ogType='website'] - Open Graph type
  * @param {Object} [options.schema] - JSON-LD structured data schema
  * @param {boolean} [options.includeImage=false] - Include og:image and twitter:image meta tags
+ * @param {boolean} [options.noIndex=false] - Add robots noindex meta tag
  */
 export const usePageHead = ({
   title,
   description,
   ogType = 'website',
   schema = null,
-  includeImage = false
+  includeImage = false,
+  noIndex = false
 }) => {
   const route = useRoute()
   const fullTitle = title.includes(siteConfig.title)
@@ -43,6 +45,10 @@ export const usePageHead = ({
       { property: 'og:image', content: imageUrl },
       { name: 'twitter:image', content: imageUrl }
     )
+  }
+
+  if (noIndex) {
+    meta.push({ name: 'robots', content: 'noindex' })
   }
 
   const link = [
