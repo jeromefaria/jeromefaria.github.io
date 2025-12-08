@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite-ssg build",
     "preview": "vite preview"
   },
   "repository": {
@@ -27,6 +27,9 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.2",
     "sass": "^1.94.2",
-    "vite": "^7.2.6"
+    "sharp": "^0.34.5",
+    "vite": "^7.2.6",
+    "vite-plugin-image-optimizer": "^2.0.3",
+    "vite-ssg": "^28.2.2"
   }
 }

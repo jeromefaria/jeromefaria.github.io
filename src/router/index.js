@@ -1,6 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
-
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'home',
@@ -33,16 +31,3 @@ const routes = [
     component: () => import('@/views/NotFoundView.vue')
   }
 ]
-
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    }
-    return { top: 0 }
-  }
-})
-
-export default router
