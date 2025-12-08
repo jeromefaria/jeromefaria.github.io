@@ -37,9 +37,9 @@ function toggle() {
         if (trigger) {
           trigger.scrollIntoView({ behavior: 'smooth', block: 'start' })
         }
-        // Move focus to content region for keyboard users
+        // Move focus to content region for keyboard users (preventScroll avoids fighting with scrollIntoView)
         if (contentRef.value) {
-          contentRef.value.focus()
+          contentRef.value.focus({ preventScroll: true })
         }
       }, 320)
     })

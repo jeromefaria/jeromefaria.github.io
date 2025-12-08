@@ -39,7 +39,18 @@ usePageHead({
   schema: musicSchema
 })
 
-const { openSection, handleToggle } = useAccordion('solo', worksSections)
+// Find which section contains a given release ID
+function findSectionForRelease(releaseId) {
+  for (const section of worksSections) {
+    const releases = worksData[section]?.releases || []
+    if (releases.some(r => r.id === releaseId)) {
+      return section
+    }
+  }
+  return null
+}
+
+const { openSection, handleToggle } = useAccordion('solo', worksSections, findSectionForRelease)
 </script>
 
 <template>

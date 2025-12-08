@@ -21,7 +21,7 @@ function handleImageError() {
 </script>
 
 <template>
-  <article class="release" :class="{ 'release--text-only': textOnly || imageError }">
+  <article :id="release.id" class="release" :class="{ 'release--text-only': textOnly || imageError }">
     <!-- Bandcamp Player -->
     <BandcampPlayer
       v-if="release.bandcampId && release.coverImage"
