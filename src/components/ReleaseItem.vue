@@ -6,12 +6,12 @@ import { useImageLoader } from '@/composables/useImageLoader';
 const props = defineProps({
   release: {
     type: Object,
-    required: true
+    required: true,
   },
   textOnly: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 const {
@@ -20,7 +20,7 @@ const {
   imageLoaded,
   webpSrc,
   handleImageLoad,
-  handleImageError
+  handleImageError,
 } = useImageLoader(props.release.coverImage);
 
 const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandcamp.com'));

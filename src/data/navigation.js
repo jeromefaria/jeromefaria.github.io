@@ -9,18 +9,18 @@ export const siteConfig = {
   author: {
     name: 'Jerome Faria',
     email: 'jerome.faria@gmail.com',
-    bio: 'Composer & Sound Artist'
-  }
+    bio: 'Composer & Sound Artist',
+  },
 };
 
 export const navigation = [
   { title: 'About', url: '/about' },
   { title: 'Works', url: '/works' },
   { title: 'Live', url: '/live' },
-  { title: 'Press', url: '/press' }
+  { title: 'Press', url: '/press' },
 ];
 
 export const social = [
   { name: 'bandcamp', url: 'https://jeromefaria.bandcamp.com' },
-  { name: 'patreon', url: 'https://www.patreon.com/jeromefaria' }
+  { name: 'patreon', url: 'https://www.patreon.com/jeromefaria' },
 ];

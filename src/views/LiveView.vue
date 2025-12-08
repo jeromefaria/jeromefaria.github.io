@@ -20,15 +20,15 @@ const eventSchemas = recentYears.flatMap(year =>
         address: {
           '@type': 'PostalAddress',
           addressLocality: venue.addressLocality,
-          addressCountry: venue.addressCountry
-        }
+          addressCountry: venue.addressCountry,
+        },
       },
       performer: {
         '@type': 'Person',
-        name: siteConfig.author.name
-      }
+        name: siteConfig.author.name,
+      },
     };
-  })
+  }),
 );
 
 const eventsSchema = {
@@ -40,19 +40,19 @@ const eventsSchema = {
   itemListElement: eventSchemas.map((event, index) => ({
     '@type': 'ListItem',
     position: index + 1,
-    item: event
-  }))
+    item: event,
+  })),
 };
 
 usePageHead({
   title: 'Live',
   description: 'Live performance history of Jerome Faria from 2005 to present, including festivals, concerts, and collaborations.',
-  schema: eventsSchema
+  schema: eventsSchema,
 });
 
-const findYearForEvent = (eventId) =>
+const findYearForEvent = eventId =>
   liveYears.find(year =>
-    liveData[year]?.events?.some(e => e.id === eventId)
+    liveData[year]?.events?.some(e => e.id === eventId),
   ) ?? null;
 
 const { openSection, handleToggle } = useAccordion(liveYears[0], liveYears, findYearForEvent);

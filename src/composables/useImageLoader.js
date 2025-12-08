@@ -5,7 +5,7 @@ import { ref, computed, onMounted, nextTick } from 'vue';
  * @param {string} src - Original image source path (jpg)
  * @returns {Object} Image loading state and handlers
  */
-export const useImageLoader = (src) => {
+export const useImageLoader = src => {
   const imageRef = ref(null);
   const imageError = ref(false);
   const imageLoaded = ref(false);
@@ -33,6 +33,6 @@ export const useImageLoader = (src) => {
     imageLoaded,
     webpSrc,
     handleImageLoad,
-    handleImageError
+    handleImageError,
   };
 };

@@ -10,14 +10,14 @@ const personSchema = {
   jobTitle: siteConfig.tagline,
   description: siteConfig.description,
   image: `${siteConfig.url}${siteConfig.image}`,
-  sameAs: social.map(s => s.url)
+  sameAs: social.map(s => s.url),
 };
 
 usePageHead({
   title: `${siteConfig.title} - ${siteConfig.tagline}`,
   description: siteConfig.description,
   schema: personSchema,
-  includeImage: true
+  includeImage: true,
 });
 </script>
 

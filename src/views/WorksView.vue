@@ -18,8 +18,8 @@ const albumSchemas = worksData.solo.releases
     numTracks: release.tracklist?.length,
     byArtist: {
       '@type': 'Person',
-      name: siteConfig.author.name
-    }
+      name: siteConfig.author.name,
+    },
   }));
 
 const musicSchema = {
@@ -28,18 +28,18 @@ const musicSchema = {
   name: siteConfig.author.name,
   url: siteConfig.url,
   genre: ['Electronic', 'Experimental', 'Ambient'],
-  album: albumSchemas
+  album: albumSchemas,
 };
 
 usePageHead({
   title: 'Works',
   description: 'Discography, film scores, and works by Jerome Faria including solo releases, collaborations, and curatorial projects.',
-  schema: musicSchema
+  schema: musicSchema,
 });
 
-const findSectionForRelease = (releaseId) =>
+const findSectionForRelease = releaseId =>
   worksSections.find(section =>
-    worksData[section]?.releases?.some(r => r.id === releaseId)
+    worksData[section]?.releases?.some(r => r.id === releaseId),
   ) ?? null;
 
 const { openSection, handleToggle } = useAccordion('solo', worksSections, findSectionForRelease);

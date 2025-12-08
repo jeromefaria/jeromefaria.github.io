@@ -12,7 +12,7 @@ export const createApp = ViteSSG(
         return savedPosition;
       }
       return { top: 0 };
-    }
+    },
   },
   ({ router, isClient }) => {
     // Handle SPA redirect from 404.html (client-side only)
@@ -23,5 +23,5 @@ export const createApp = ViteSSG(
         router.replace(redirect);
       }
     }
-  }
+  },
 );

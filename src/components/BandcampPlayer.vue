@@ -5,16 +5,16 @@ import { useImageLoader } from '@/composables/useImageLoader';
 const props = defineProps({
   albumId: {
     type: String,
-    required: true
+    required: true,
   },
   coverImage: {
     type: String,
-    required: true
+    required: true,
   },
   albumTitle: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const {
@@ -23,7 +23,7 @@ const {
   imageLoaded,
   webpSrc,
   handleImageLoad,
-  handleImageError
+  handleImageError,
 } = useImageLoader(props.coverImage);
 
 const showPlayer = ref(false);

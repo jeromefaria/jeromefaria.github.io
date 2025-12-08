@@ -6,13 +6,13 @@ import { pressQuotes } from '@/data/press';
 
 usePageHead({
   title: 'Press',
-  description: 'Press coverage and reviews of Jerome Faria\'s work from The Quietus, Bodyspace, Indie Rock Mag, and more.'
+  description: 'Press coverage and reviews of Jerome Faria\'s work from The Quietus, Bodyspace, Indie Rock Mag, and more.',
 });
 
 const route = useRoute();
 let isInitialLoad = true;
 
-const scrollToHash = (hash) => {
+const scrollToHash = hash => {
   if (!hash) return;
   const element = document.getElementById(hash.replace('#', ''));
   element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -22,7 +22,7 @@ onMounted(() => {
   isInitialLoad = false;
 });
 
-watch(() => route.hash, (hash) => {
+watch(() => route.hash, hash => {
   if (!isInitialLoad && hash) {
     scrollToHash(hash);
   }

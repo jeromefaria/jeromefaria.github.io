@@ -5,7 +5,19 @@
       "Bash(git restore:*)",
       "Bash(git commit:*)",
       "Bash(git push)",
-      "Bash(xargs cat:*)"
+      "Bash(xargs cat:*)",
+      "Bash(du:*)",
+      "Bash(wc:*)",
+      "Bash(cat:*)",
+      "Bash(node scripts/optimize-images.js:*)",
+      "Bash(grep:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(ls:*)",
+      "Bash(curl:*)",
+      "Bash(tree:*)",
+      "Bash(npm run lint:fix:*)",
+      "Bash(npm run lint:*)"
     ],
     "deny": [],
     "ask": []

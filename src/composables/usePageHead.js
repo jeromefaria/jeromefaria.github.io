@@ -18,7 +18,7 @@ export const usePageHead = ({
   ogType = 'website',
   schema = null,
   includeImage = false,
-  noIndex = false
+  noIndex = false,
 }) => {
   const route = useRoute();
   const fullTitle = title.includes(siteConfig.title)
@@ -36,14 +36,14 @@ export const usePageHead = ({
     { property: 'og:site_name', content: siteConfig.title },
     { name: 'twitter:card', content: includeImage ? 'summary_large_image' : 'summary' },
     { name: 'twitter:title', content: fullTitle },
-    { name: 'twitter:description', content: description }
+    { name: 'twitter:description', content: description },
   ];
 
   if (includeImage) {
     const imageUrl = `${siteConfig.url}${siteConfig.image}`;
     meta.push(
       { property: 'og:image', content: imageUrl },
-      { name: 'twitter:image', content: imageUrl }
+      { name: 'twitter:image', content: imageUrl },
     );
   }
 
@@ -52,7 +52,7 @@ export const usePageHead = ({
   }
 
   const link = [
-    { rel: 'canonical', href: canonicalUrl }
+    { rel: 'canonical', href: canonicalUrl },
   ];
 
   const headConfig = { title: fullTitle, meta, link };
@@ -61,8 +61,8 @@ export const usePageHead = ({
     headConfig.script = [
       {
         type: 'application/ld+json',
-        innerHTML: JSON.stringify(schema)
-      }
+        innerHTML: JSON.stringify(schema),
+      },
     ];
   }
 

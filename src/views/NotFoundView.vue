@@ -6,7 +6,7 @@ import { navigation } from '@/data/navigation';
 usePageHead({
   title: 'Page Not Found',
   description: 'The page you are looking for does not exist.',
-  noIndex: true
+  noIndex: true,
 });
 </script>
 

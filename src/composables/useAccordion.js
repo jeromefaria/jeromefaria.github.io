@@ -24,7 +24,7 @@ export const useAccordion = (initialSection, validSections, findSectionForId = n
     }
   };
 
-  const scrollToElement = (id) => {
+  const scrollToElement = id => {
     nextTick(() => {
       setTimeout(() => {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -59,12 +59,12 @@ export const useAccordion = (initialSection, validSections, findSectionForId = n
     });
   });
 
-  watch(() => route.hash, (hash) => {
+  watch(() => route.hash, hash => {
     if (!isInitialLoad) processHash(hash, true);
   });
 
   return {
     openSection,
-    handleToggle
+    handleToggle,
   };
 };
