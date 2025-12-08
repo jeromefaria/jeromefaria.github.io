@@ -7,15 +7,21 @@
 
 .page-enter-active,
 .page-leave-active {
-  transition: opacity $transition-base;
+  transition: opacity $transition-base, transform $transition-base;
 }
 
-.page-enter-from,
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
 .page-leave-to {
   opacity: 0;
+  transform: translateY(-8px);
 }
 
 .page-enter-to,
 .page-leave-from {
   opacity: 1;
+  transform: translateY(0);
 }
