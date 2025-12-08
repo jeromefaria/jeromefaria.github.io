@@ -18,6 +18,7 @@ const imageError = ref(false)
 const imageLoaded = ref(false)
 
 const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandcamp.com'))
+const webpSrc = computed(() => props.release.coverImage?.replace(/\.jpg$/, '.webp'))
 
 onMounted(async () => {
   await nextTick()
@@ -59,18 +60,19 @@ const handleImageError = () => {
         <span class="loading-dot" />
         <span class="loading-dot" />
       </div>
-      <img
-        ref="imageRef"
-        :src="release.coverImage"
-        :alt="`${release.title} cover`"
-        loading="lazy"
-        decoding="async"
-        width="200"
-        height="200"
-        :class="{ 'is-loaded': imageLoaded }"
-        @load="handleImageLoad"
-        @error="handleImageError"
-      />
+      <picture>
+        <source :srcset="webpSrc" type="image/webp" />
+        <img
+          ref="imageRef"
+          :src="release.coverImage"
+          :alt="`${release.title} cover`"
+          loading="lazy"
+          decoding="async"
+          :class="{ 'is-loaded': imageLoaded }"
+          @load="handleImageLoad"
+          @error="handleImageError"
+        />
+      </picture>
     </a>
 
     <!-- Static Cover (no link) -->
@@ -83,18 +85,19 @@ const handleImageError = () => {
         <span class="loading-dot" />
         <span class="loading-dot" />
       </div>
-      <img
-        ref="imageRef"
-        :src="release.coverImage"
-        :alt="`${release.title} cover`"
-        loading="lazy"
-        decoding="async"
-        width="200"
-        height="200"
-        :class="{ 'is-loaded': imageLoaded }"
-        @load="handleImageLoad"
-        @error="handleImageError"
-      />
+      <picture>
+        <source :srcset="webpSrc" type="image/webp" />
+        <img
+          ref="imageRef"
+          :src="release.coverImage"
+          :alt="`${release.title} cover`"
+          loading="lazy"
+          decoding="async"
+          :class="{ 'is-loaded': imageLoaded }"
+          @load="handleImageLoad"
+          @error="handleImageError"
+        />
+      </picture>
     </div>
 
     <!-- Release Details -->

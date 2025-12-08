@@ -28,7 +28,7 @@ usePageHead({
         class="hero"
         role="img"
         aria-label="Jerome Faria performing live"
-        :style="{ backgroundImage: 'url(/images/performance.jpg)' }"
+        :style="{ backgroundImage: 'url(/images/performance.webp)' }"
       />
     </div>
   </div>

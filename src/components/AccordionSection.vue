@@ -33,7 +33,6 @@ const toggle = () => {
       setTimeout(() => {
         const trigger = document.getElementById(`${ID_PREFIX.TRIGGER}${props.id}`)
         trigger?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        // preventScroll avoids fighting with scrollIntoView
         contentRef.value?.focus({ preventScroll: true })
       }, TIMING.ACCORDION_ANIMATION)
     })

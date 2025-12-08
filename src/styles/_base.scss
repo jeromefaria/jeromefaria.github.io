@@ -15,8 +15,6 @@
   --color-border-subtle: #eee;
   --color-link: #000;
   --color-link-hover: #595959; // WCAG AA compliant (7:1 on white)
-  --color-code-bg: #f4f4f4;
-  --color-code-text: #333;
 }
 
 [data-theme="dark"] {
@@ -28,8 +26,6 @@
   --color-border-subtle: #222;
   --color-link: #fff;
   --color-link-hover: #a3a3a3; // WCAG AA compliant (4.58:1 on black)
-  --color-code-bg: #111;
-  --color-code-text: #ccc;
 }
 
 // =============================================================================
@@ -103,28 +99,6 @@ img {
 :focus-visible {
   outline: 1px solid var(--color-text);  // Thinner default for all elements
   outline-offset: 2px;
-}
-
-// =============================================================================
-// Tables
-// =============================================================================
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: $spacing-6 0;
-  font-size: $font-size-sm;
-}
-
-th,
-td {
-  padding: $spacing-2 $spacing-3;
-  text-align: left;
-  border-bottom: 1px solid var(--color-border-subtle);
-}
-
-th {
-  @include label-style;
 }
 
 // =============================================================================

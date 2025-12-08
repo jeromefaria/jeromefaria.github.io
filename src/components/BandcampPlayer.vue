@@ -1,7 +1,7 @@
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 
-defineProps({
+const props = defineProps({
   albumId: {
     type: String,
     required: true
@@ -21,6 +21,8 @@ const showPlayer = ref(false)
 const isLoaded = ref(false)
 const imageError = ref(false)
 const imageLoaded = ref(false)
+
+const webpSrc = computed(() => props.coverImage.replace(/\.jpg$/, '.webp'))
 
 onMounted(async () => {
   await nextTick()
@@ -58,19 +60,21 @@ const handleImageError = () => {
       <span class="loading-dot" />
       <span class="loading-dot" />
     </div>
-    <img
-      v-if="!showPlayer && !imageError"
-      ref="imageRef"
-      :src="coverImage"
-      :alt="`${albumTitle} album cover`"
-      loading="lazy"
-      decoding="async"
-      width="200"
-      height="200"
-      :class="{ 'is-loaded': imageLoaded }"
-      @load="handleImageLoad"
-      @error="handleImageError"
-    />
+    <picture v-if="!showPlayer && !imageError">
+      <source :srcset="webpSrc" type="image/webp" />
+      <img
+        ref="imageRef"
+        :src="coverImage"
+        :alt="`${albumTitle} album cover`"
+        loading="lazy"
+        decoding="async"
+        width="200"
+        height="200"
+        :class="{ 'is-loaded': imageLoaded }"
+        @load="handleImageLoad"
+        @error="handleImageError"
+      />
+    </picture>
     <div v-if="!showPlayer && imageError" class="image-fallback" />
     <button
       v-if="!showPlayer"
