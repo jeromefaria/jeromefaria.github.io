@@ -128,14 +128,14 @@
     padding-top: 0;
   }
   to {
-    max-height: 20rem;  // Arbitrary large value to allow full content expansion
+    max-height: $nav-max-height;
     padding-top: $spacing-4;
   }
 }
 
 @keyframes nav-collapse {
   from {
-    max-height: 20rem;  // Match nav-expand value
+    max-height: $nav-max-height;
     padding-top: $spacing-4;
   }
   to {
