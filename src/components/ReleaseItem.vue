@@ -55,11 +55,6 @@ const handleImageError = () => {
       class="release-cover"
       :class="{ 'release-cover--bandcamp': isBandcampLink }"
     >
-      <div v-if="!imageLoaded" class="image-spinner">
-        <span class="loading-dot" />
-        <span class="loading-dot" />
-        <span class="loading-dot" />
-      </div>
       <picture>
         <source :srcset="webpSrc" type="image/webp" />
         <img
@@ -80,11 +75,6 @@ const handleImageError = () => {
       v-else-if="release.coverImage && !imageError"
       class="release-cover release-cover--static"
     >
-      <div v-if="!imageLoaded" class="image-spinner">
-        <span class="loading-dot" />
-        <span class="loading-dot" />
-        <span class="loading-dot" />
-      </div>
       <picture>
         <source :srcset="webpSrc" type="image/webp" />
         <img

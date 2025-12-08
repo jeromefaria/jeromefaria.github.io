@@ -165,7 +165,6 @@
     display: block;
     width: 100%;
     order: -1;
-    background: var(--color-border-subtle);
 
     @include respond-to(md) {
       max-width: 200px;
