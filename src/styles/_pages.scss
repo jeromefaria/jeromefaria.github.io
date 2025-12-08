@@ -43,6 +43,12 @@
     margin: $spacing-8 0;
     padding-bottom: $spacing-8;
     border-bottom: 1px solid var(--color-border-subtle);
+    // Scroll margin for hash navigation with sticky header
+    scroll-margin-top: calc(#{$header-height-mobile} + #{$spacing-4});
+
+    @include respond-to(md) {
+      scroll-margin-top: calc(#{$header-height-desktop} + #{$spacing-4});
+    }
 
     &:last-of-type {
       border-bottom: none;

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { usePageHead } from '@/composables/usePageHead'
 import { pressQuotes } from '@/data/press'
@@ -10,14 +10,26 @@ usePageHead({
 })
 
 const route = useRoute()
+let isInitialLoad = true
+
+function scrollToHash(hash) {
+  if (!hash) return
+  const id = hash.replace('#', '')
+  const element = document.getElementById(id)
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+}
 
 onMounted(() => {
-  if (route.hash) {
-    const id = route.hash.replace('#', '')
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
+  // Let browser handle initial scroll via scroll-margin-top
+  isInitialLoad = false
+})
+
+// Handle hash changes after initial load
+watch(() => route.hash, (hash) => {
+  if (!isInitialLoad && hash) {
+    scrollToHash(hash)
   }
 })
 </script>
