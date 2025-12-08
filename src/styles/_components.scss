@@ -64,14 +64,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      opacity: 0;
-      transform: translateY($spacing-2);
-      transition: opacity $transition-base, transform $transition-base;
-
-      &.is-loaded {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      @include image-reveal;
     }
 
     .play-button {
@@ -175,14 +168,7 @@
       height: auto;
       display: block;
       margin: 0;
-      opacity: 0;
-      transform: translateY($spacing-2);
-      transition: opacity $transition-base, transform $transition-base;
-
-      &.is-loaded {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      @include image-reveal;
     }
 
     &:focus-visible {

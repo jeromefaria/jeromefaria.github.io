@@ -147,6 +147,18 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   }
 }
 
+// Image reveal animation (fade + slide up)
+@mixin image-reveal {
+  opacity: 0;
+  transform: translateY($spacing-2);
+  transition: opacity $transition-base, transform $transition-base;
+
+  &.is-loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 // Scroll margin for hash navigation with sticky header
 @mixin scroll-margin-header {
   scroll-margin-top: calc(#{$header-height-mobile} + #{$spacing-4});
