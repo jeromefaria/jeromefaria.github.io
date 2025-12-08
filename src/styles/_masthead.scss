@@ -206,7 +206,7 @@
   justify-content: center;
   width: $touch-target-min;
   height: $touch-target-min;
-  margin: -0.875rem;  // Negative margin centers 44px touch target within header padding
+  margin: -0.875rem;  // -14px: centers 44px touch target within $spacing-4 (16px) header padding
   @include hover-text;
 }
 
