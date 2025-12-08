@@ -17,11 +17,7 @@ const closeNav = () => {
 }
 
 const toggleNav = () => {
-  if (navOpen.value) {
-    closeNav()
-  } else {
-    navOpen.value = true
-  }
+  navOpen.value ? closeNav() : navOpen.value = true
 }
 
 watch(() => route.path, () => {

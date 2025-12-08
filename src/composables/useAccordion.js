@@ -10,7 +10,9 @@ export const useAccordion = (initialSection, validSections, findSectionForId = n
   const handleToggle = (sectionId, isOpen) => {
     if (isOpen) {
       openSection.value = sectionId
-    } else if (openSection.value === sectionId) {
+      return
+    }
+    if (openSection.value === sectionId) {
       openSection.value = null
     }
   }
@@ -30,18 +32,17 @@ export const useAccordion = (initialSection, validSections, findSectionForId = n
 
     if (validSections.includes(id)) {
       openSection.value = id
-      if (shouldScroll) {
-        scrollToElement(`${ID_PREFIX.TRIGGER}${id}`)
-      }
-    } else if (findSectionForId) {
-      const parentSection = findSectionForId(id)
-      if (parentSection) {
-        openSection.value = parentSection
-        if (shouldScroll) {
-          scrollToElement(id)
-        }
-      }
+      if (shouldScroll) scrollToElement(`${ID_PREFIX.TRIGGER}${id}`)
+      return
     }
+
+    if (!findSectionForId) return
+
+    const parentSection = findSectionForId(id)
+    if (!parentSection) return
+
+    openSection.value = parentSection
+    if (shouldScroll) scrollToElement(id)
   }
 
   onMounted(() => {
