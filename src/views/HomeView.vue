@@ -18,8 +18,7 @@ usePageHead({
   title: `${siteConfig.title} - ${siteConfig.tagline}`,
   description: siteConfig.description,
   schema: personSchema,
-  includeImage: true,
-  includeUrl: true
+  includeImage: true
 })
 </script>
 
