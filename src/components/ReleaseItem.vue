@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import BandcampPlayer from './BandcampPlayer.vue'
 
 const props = defineProps({
@@ -13,11 +13,18 @@ const props = defineProps({
   }
 })
 
+const imageRef = ref(null)
 const imageError = ref(false)
 const imageLoaded = ref(false)
 
 const isBandcampLink = computed(() => {
   return props.release.externalUrl?.includes('bandcamp.com')
+})
+
+onMounted(() => {
+  if (imageRef.value?.complete) {
+    imageLoaded.value = true
+  }
 })
 
 function handleImageLoad() {
@@ -54,6 +61,7 @@ function handleImageError() {
         <span class="loading-dot" />
       </div>
       <img
+        ref="imageRef"
         :src="release.coverImage"
         :alt="`${release.title} cover`"
         loading="lazy"
@@ -77,6 +85,7 @@ function handleImageError() {
         <span class="loading-dot" />
       </div>
       <img
+        ref="imageRef"
         :src="release.coverImage"
         :alt="`${release.title} cover`"
         loading="lazy"

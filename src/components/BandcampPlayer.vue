@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 defineProps({
   albumId: {
@@ -16,10 +16,17 @@ defineProps({
   }
 })
 
+const imageRef = ref(null)
 const showPlayer = ref(false)
 const isLoaded = ref(false)
 const imageError = ref(false)
 const imageLoaded = ref(false)
+
+onMounted(() => {
+  if (imageRef.value?.complete) {
+    imageLoaded.value = true
+  }
+})
 
 function loadPlayer() {
   if (showPlayer.value) return
@@ -52,6 +59,7 @@ function handleImageError() {
     </div>
     <img
       v-if="!showPlayer && !imageError"
+      ref="imageRef"
       :src="coverImage"
       :alt="`${albumTitle} album cover`"
       loading="lazy"
