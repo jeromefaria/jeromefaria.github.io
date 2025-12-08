@@ -24,26 +24,38 @@ const isExpanded = computed({
   get: () => props.modelValue,
   set: value => emit('update:modelValue', value),
 });
+const sectionRef = ref(null);
 const contentRef = ref(null);
 
-const toggle = () => {
-  isExpanded.value = !isExpanded.value;
+const HEADER_OFFSET = 57 + 16; // header height + spacing
 
-  if (isExpanded.value) {
-    nextTick(() => {
-      setTimeout(() => {
-        const trigger = document.getElementById(`${ID_PREFIX.TRIGGER}${props.id}`);
-        trigger?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        contentRef.value?.focus({ preventScroll: true });
-      }, TIMING.ACCORDION_ANIMATION);
-    });
-  }
+const scrollToSection = () => {
+  if (!sectionRef.value) return;
+
+  const rect = sectionRef.value.getBoundingClientRect();
+  const targetY = rect.top + window.scrollY - HEADER_OFFSET;
+  window.scrollTo({ top: targetY, behavior: 'instant' });
+};
+
+const toggle = () => {
+  const willExpand = !isExpanded.value;
+  isExpanded.value = willExpand;
+
+  if (!willExpand) return;
+
+  nextTick(() => {
+    setTimeout(() => {
+      scrollToSection();
+      contentRef.value?.focus({ preventScroll: true });
+    }, TIMING.ACCORDION_ANIMATION);
+  });
 };
 </script>
 
 <template>
   <section
     :id="`${ID_PREFIX.SECTION}${id}`"
+    ref="sectionRef"
     class="accordion-section"
   >
     <button

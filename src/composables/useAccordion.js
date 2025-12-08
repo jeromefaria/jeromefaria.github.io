@@ -28,7 +28,12 @@ export const useAccordion = (initialSection, validSections, findSectionForId = n
   const scrollToElement = id => {
     nextTick(() => {
       setTimeout(() => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const element = document.getElementById(id);
+        if (element) {
+          const scrollMargin = parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
+          const targetY = element.getBoundingClientRect().top + window.scrollY - scrollMargin;
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
       }, TIMING.ACCORDION_ANIMATION);
     });
   };
