@@ -145,3 +145,12 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
     color: var(--color-text);
   }
 }
+
+// Scroll margin for hash navigation with sticky header
+@mixin scroll-margin-header {
+  scroll-margin-top: calc(#{$header-height-mobile} + #{$spacing-4});
+
+  @include respond-to(md) {
+    scroll-margin-top: calc(#{$header-height-desktop} + #{$spacing-4});
+  }
+}

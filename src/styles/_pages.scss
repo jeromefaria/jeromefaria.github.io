@@ -43,12 +43,7 @@
     margin: $spacing-8 0;
     padding-bottom: $spacing-8;
     border-bottom: 1px solid var(--color-border-subtle);
-    // Scroll margin for hash navigation with sticky header
-    scroll-margin-top: calc(#{$header-height-mobile} + #{$spacing-4});
-
-    @include respond-to(md) {
-      scroll-margin-top: calc(#{$header-height-desktop} + #{$spacing-4});
-    }
+    @include scroll-margin-header;
 
     &:last-of-type {
       border-bottom: none;
@@ -92,11 +87,7 @@
 
 .accordion-section {
   margin-top: $spacing-2;
-  scroll-margin-top: calc(#{$header-height-mobile} + #{$spacing-4});
-
-  @include respond-to(md) {
-    scroll-margin-top: calc(#{$header-height-desktop} + #{$spacing-4});
-  }
+  @include scroll-margin-header;
 
   &:first-of-type {
     margin-top: 0;
@@ -115,18 +106,15 @@
   cursor: pointer;
   text-align: left;
   font-family: inherit;
-  // Match h2 styling from _type.scss
   font-size: $font-size-xs;
   font-weight: $font-weight-normal;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-wide;
   color: var(--color-text-muted);
   line-height: $line-height-snug;
-  // Scroll margin for sticky header offset
-  scroll-margin-top: calc(#{$header-height-mobile} + #{$spacing-4});
+  @include scroll-margin-header;
 
   @include respond-to(md) {
-    scroll-margin-top: calc(#{$header-height-desktop} + #{$spacing-4});
     letter-spacing: $letter-spacing-wider;
     margin-bottom: $spacing-4;
   }
