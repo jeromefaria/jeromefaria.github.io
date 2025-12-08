@@ -52,6 +52,10 @@ export default [
       // Object shorthand
       'object-shorthand': ['error', 'always'],
 
+      // Early returns
+      'no-else-return': ['error', { allowElseIf: false }],
+      'no-lonely-if': 'error',
+
       // General formatting
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
       'eol-last': ['error', 'always'],
