@@ -14,7 +14,7 @@
   @include scroll-margin-header;
 
   @include respond-to(md) {
-    grid-template-columns: 1fr 200px;
+    grid-template-columns: 1fr $release-media-width;
     gap: $spacing-6;
   }
 
@@ -35,7 +35,7 @@
     margin-bottom: $spacing-2;
 
     @include respond-to(md) {
-      max-width: 200px;
+      max-width: $release-media-width;
       order: 1;
       margin-bottom: 0;
     }
@@ -55,7 +55,7 @@
     cursor: pointer;
 
     @include respond-to(md) {
-      max-width: 200px;
+      max-width: $release-media-width;
       order: 1;
     }
 
@@ -136,7 +136,7 @@
     order: -1;
 
     @include respond-to(md) {
-      max-width: 200px;
+      max-width: $release-media-width;
       order: 1;
     }
 
