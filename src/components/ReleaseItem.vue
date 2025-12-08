@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import BandcampPlayer from './BandcampPlayer.vue'
 
-defineProps({
+const props = defineProps({
   release: {
     type: Object,
     required: true
@@ -14,6 +14,10 @@ defineProps({
 })
 
 const imageError = ref(false)
+
+const isBandcampLink = computed(() => {
+  return props.release.externalUrl?.includes('bandcamp.com')
+})
 
 function handleImageError() {
   imageError.value = true
@@ -37,6 +41,7 @@ function handleImageError() {
       target="_blank"
       rel="noopener noreferrer"
       class="release-cover"
+      :class="{ 'release-cover--bandcamp': isBandcampLink }"
     >
       <img
         :src="release.coverImage"

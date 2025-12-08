@@ -136,7 +136,7 @@
     }
   }
 
-  // Linked cover (external URL, not Bandcamp embed)
+  // Linked cover (external URL)
   .release-cover {
     position: relative;
     display: block;
@@ -157,41 +157,44 @@
       margin: 0;
     }
 
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: $overlay-dark;
-      opacity: 0;
-      transition: opacity $transition-fast;
-      pointer-events: none;
-    }
-
-    // Play triangle
-    &::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-40%, -50%);
-      @include play-triangle;
-      z-index: 1;
-      opacity: 0;
-      transition: opacity $transition-fast;
-    }
-
-    &:hover::after,
-    &:hover::before,
-    &:focus-visible::after,
-    &:focus-visible::before {
-      opacity: 1;
-    }
-
     &:focus-visible {
       @include focus-ring;
+    }
+
+    // Bandcamp links: show play button overlay on hover
+    &--bandcamp {
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: $overlay-dark;
+        opacity: 0;
+        transition: opacity $transition-fast;
+        pointer-events: none;
+      }
+
+      // Play triangle
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-40%, -50%);
+        @include play-triangle;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity $transition-fast;
+      }
+
+      &:hover::after,
+      &:hover::before,
+      &:focus-visible::after,
+      &:focus-visible::before {
+        opacity: 1;
+      }
     }
   }
 
