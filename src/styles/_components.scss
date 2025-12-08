@@ -11,10 +11,13 @@
   grid-template-columns: 1fr;
   gap: $spacing-4;
   margin-bottom: $spacing-10;
+  // Scroll margin for hash navigation with sticky header
+  scroll-margin-top: calc(#{$header-height-mobile} + #{$spacing-4});
 
   @include respond-to(md) {
     grid-template-columns: 1fr 200px;
     gap: $spacing-6;
+    scroll-margin-top: calc(#{$header-height-desktop} + #{$spacing-4});
   }
 
   // Text-only releases (no images) - single column, tighter spacing
