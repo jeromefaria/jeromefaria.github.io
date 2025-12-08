@@ -1,7 +1,9 @@
 <script setup>
 import { computed } from 'vue';
-import BandcampPlayer from './BandcampPlayer.vue';
+
 import { useImageLoader } from '@/composables/useImageLoader';
+
+import BandcampPlayer from './BandcampPlayer.vue';
 
 const props = defineProps({
   release: {

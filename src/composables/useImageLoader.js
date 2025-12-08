@@ -1,4 +1,4 @@
-import { ref, computed, onMounted, nextTick } from 'vue';
+import { computed, nextTick, onMounted, ref } from 'vue';
 
 /**
  * Composable for handling image loading state with WebP support

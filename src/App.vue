@@ -1,8 +1,9 @@
 <script setup>
-import { onMounted, watch, nextTick } from 'vue';
+import { nextTick, onMounted, watch } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
-import SiteHeader from '@/components/SiteHeader.vue';
+
 import SiteFooter from '@/components/SiteFooter.vue';
+import SiteHeader from '@/components/SiteHeader.vue';
 
 const route = useRoute();
 

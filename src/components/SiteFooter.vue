@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import { siteConfig, navigation, social } from '@/data/navigation';
+
+import { navigation, siteConfig, social } from '@/data/navigation';
 
 const currentYear = new Date().getFullYear();
 </script>

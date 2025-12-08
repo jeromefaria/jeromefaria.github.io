@@ -1,10 +1,10 @@
 <script setup>
-import { usePageHead } from '@/composables/usePageHead';
-import { useAccordion } from '@/composables/useAccordion';
-import { stripHtml, parseVenue } from '@/utils/formatters';
-import { siteConfig } from '@/data/navigation';
-import { liveData, liveYears } from '@/data/live';
 import AccordionSection from '@/components/AccordionSection.vue';
+import { useAccordion } from '@/composables/useAccordion';
+import { usePageHead } from '@/composables/usePageHead';
+import { liveData, liveYears } from '@/data/live';
+import { siteConfig } from '@/data/navigation';
+import { parseVenue, stripHtml } from '@/utils/formatters';
 
 const recentYears = liveYears.slice(0, 5);
 const eventSchemas = recentYears.flatMap(year =>

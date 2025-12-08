@@ -1,8 +1,12 @@
 import pluginVue from 'eslint-plugin-vue';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default [
   ...pluginVue.configs['flat/recommended'],
   {
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
     rules: {
       // Semicolons
       'semi': ['error', 'always'],
@@ -52,6 +56,10 @@ export default [
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
       'eol-last': ['error', 'always'],
       'no-trailing-spaces': 'error',
+
+      // Import sorting
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
 
       // Vue-specific rules
       'vue/multi-word-component-names': 'off',

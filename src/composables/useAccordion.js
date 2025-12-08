@@ -1,6 +1,7 @@
-import { ref, watch, nextTick, onMounted } from 'vue';
+import { nextTick, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { TIMING, ID_PREFIX } from '@/utils/constants';
+
+import { ID_PREFIX, TIMING } from '@/utils/constants';
 
 /**
  * Composable for managing accordion state with URL hash navigation

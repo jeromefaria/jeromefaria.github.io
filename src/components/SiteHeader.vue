@@ -1,7 +1,8 @@
 <script setup>
 import { ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
-import { siteConfig, navigation } from '@/data/navigation';
+
+import { navigation, siteConfig } from '@/data/navigation';
 import { TIMING } from '@/utils/constants';
 
 const route = useRoute();

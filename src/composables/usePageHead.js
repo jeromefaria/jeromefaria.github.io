@@ -1,5 +1,6 @@
 import { useHead } from '@unhead/vue'; // Provided by vite-ssg
 import { useRoute } from 'vue-router';
+
 import { siteConfig } from '@/data/navigation';
 
 /**

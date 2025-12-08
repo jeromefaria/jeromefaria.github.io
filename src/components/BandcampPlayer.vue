@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+
 import { useImageLoader } from '@/composables/useImageLoader';
 
 const props = defineProps({

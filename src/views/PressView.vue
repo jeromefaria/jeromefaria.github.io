@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
+
 import { usePageHead } from '@/composables/usePageHead';
 import { pressQuotes } from '@/data/press';
 

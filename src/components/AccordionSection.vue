@@ -1,6 +1,7 @@
 <script setup>
-import { computed, ref, nextTick } from 'vue';
-import { TIMING, ID_PREFIX } from '@/utils/constants';
+import { computed, nextTick, ref } from 'vue';
+
+import { ID_PREFIX, TIMING } from '@/utils/constants';
 
 const props = defineProps({
   title: {

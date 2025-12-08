@@ -1,11 +1,11 @@
 <script setup>
-import { usePageHead } from '@/composables/usePageHead';
-import { useAccordion } from '@/composables/useAccordion';
-import { extractYear } from '@/utils/formatters';
-import { siteConfig } from '@/data/navigation';
-import { worksData, worksSections } from '@/data/works';
 import AccordionSection from '@/components/AccordionSection.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
+import { useAccordion } from '@/composables/useAccordion';
+import { usePageHead } from '@/composables/usePageHead';
+import { siteConfig } from '@/data/navigation';
+import { worksData, worksSections } from '@/data/works';
+import { extractYear } from '@/utils/formatters';
 
 const albumSchemas = worksData.solo.releases
   .filter(r => r.bandcampId || r.bandcampUrl)

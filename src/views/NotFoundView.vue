@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router';
+
 import { usePageHead } from '@/composables/usePageHead';
 import { navigation } from '@/data/navigation';
 

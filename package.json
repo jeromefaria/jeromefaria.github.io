@@ -28,6 +28,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.2",
     "eslint": "^9.39.1",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-vue": "^10.6.2",
     "sass": "^1.94.2",
     "sharp": "^0.34.5",
