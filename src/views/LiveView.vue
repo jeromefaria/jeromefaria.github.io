@@ -50,15 +50,10 @@ usePageHead({
   schema: eventsSchema
 })
 
-function findYearForEvent(eventId) {
-  for (const year of liveYears) {
-    const events = liveData[year]?.events || []
-    if (events.some(e => e.id === eventId)) {
-      return year
-    }
-  }
-  return null
-}
+const findYearForEvent = (eventId) =>
+  liveYears.find(year =>
+    liveData[year]?.events?.some(e => e.id === eventId)
+  ) ?? null
 
 const { openSection, handleToggle } = useAccordion('2025', liveYears, findYearForEvent)
 </script>
