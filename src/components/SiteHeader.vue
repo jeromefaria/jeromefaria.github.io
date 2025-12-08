@@ -2,18 +2,23 @@
 import { ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { siteConfig, navigation } from '@/data/navigation'
+import { TIMING } from '@/utils/constants'
 
 const route = useRoute()
 const navOpen = ref(false)
 const navClosing = ref(false)
 
+function closeNav() {
+  navClosing.value = true
+  navOpen.value = false
+  setTimeout(() => {
+    navClosing.value = false
+  }, TIMING.NAV_ANIMATION)
+}
+
 function toggleNav() {
   if (navOpen.value) {
-    navClosing.value = true
-    navOpen.value = false
-    setTimeout(() => {
-      navClosing.value = false
-    }, 300)
+    closeNav()
   } else {
     navOpen.value = true
   }
@@ -21,11 +26,7 @@ function toggleNav() {
 
 watch(() => route.path, () => {
   if (navOpen.value) {
-    navClosing.value = true
-    navOpen.value = false
-    setTimeout(() => {
-      navClosing.value = false
-    }, 300)
+    closeNav()
   }
 })
 </script>

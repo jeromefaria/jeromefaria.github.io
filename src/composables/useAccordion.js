@@ -1,13 +1,7 @@
 import { ref, watch, nextTick, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { TIMING, ID_PREFIX } from '@/utils/constants'
 
-/**
- * Composable for managing accordion section state with hash navigation
- * @param {string} initialSection - The section ID to open initially
- * @param {string[]} validSections - Array of valid section IDs
- * @param {Function} [findSectionForId] - Optional function to find parent section for a nested ID
- * @returns {Object} Accordion state and handlers
- */
 export function useAccordion(initialSection, validSections, findSectionForId = null) {
   const route = useRoute()
   const openSection = ref(initialSection)
@@ -24,26 +18,22 @@ export function useAccordion(initialSection, validSections, findSectionForId = n
   function scrollToElement(id) {
     nextTick(() => {
       setTimeout(() => {
-        const element = document.getElementById(id)
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        }
-      }, 320) // Match accordion animation duration
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, TIMING.ACCORDION_ANIMATION)
     })
   }
 
   function processHash(hash, shouldScroll) {
     if (!hash) return
 
-    const id = hash.replace('#section-', '').replace('#', '')
+    const id = hash.replace(`#${ID_PREFIX.SECTION}`, '').replace('#', '')
 
     if (validSections.includes(id)) {
       openSection.value = id
       if (shouldScroll) {
-        scrollToElement(`trigger-${id}`)
+        scrollToElement(`${ID_PREFIX.TRIGGER}${id}`)
       }
     } else if (findSectionForId) {
-      // Find parent section for nested IDs (e.g., release ID -> section)
       const parentSection = findSectionForId(id)
       if (parentSection) {
         openSection.value = parentSection
@@ -54,7 +44,6 @@ export function useAccordion(initialSection, validSections, findSectionForId = n
     }
   }
 
-  // Open section on mount but let browser handle initial scroll
   onMounted(() => {
     processHash(route.hash, false)
     nextTick(() => {
