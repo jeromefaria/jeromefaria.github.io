@@ -46,9 +46,9 @@ watch(() => route.path, async () => {
                 class="page-loading"
                 aria-label="Loading page"
               >
-                <span class="loading-dot" />
-                <span class="loading-dot" />
-                <span class="loading-dot" />
+                <span class="page-loading__dot" />
+                <span class="page-loading__dot" />
+                <span class="page-loading__dot" />
               </div>
             </template>
           </Suspense>

@@ -67,59 +67,58 @@
       @include image-reveal;
     }
 
-    .play-button {
-      @include absolute-fill;
-      background: $overlay-dark;
-      border: none;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity $transition-fast;
-
-      &::after {
-        @include play-triangle-centered;
-      }
-
-      &:focus-visible {
-        opacity: 1;
-        @include focus-ring(-2px);
-      }
-    }
-
-    &:hover .play-button {
-      opacity: 1;
-    }
-
-    &.loading .play-button {
-      opacity: 0.5;
-      pointer-events: none;
-    }
-
-    // Fallback for broken images
-    .image-fallback {
-      @include absolute-fill;
-      background: var(--color-border-subtle);
-    }
-
     iframe {
       @include absolute-fill;
       border: 0;
     }
 
-    .loading-indicator {
-      @include absolute-fill;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--color-border-subtle);
-      color: var(--color-text-muted);
-      font-size: $font-size-xs;
-      text-transform: uppercase;
-      letter-spacing: $letter-spacing-wide;
+    &:hover .bandcamp-player__button {
+      opacity: 1;
+    }
+
+    &--loading .bandcamp-player__button {
+      opacity: 0.5;
+      pointer-events: none;
     }
   }
 
+  .bandcamp-player__button {
+    @include absolute-fill;
+    background: $overlay-dark;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity $transition-fast;
+
+    &::after {
+      @include play-triangle-centered;
+    }
+
+    &:focus-visible {
+      opacity: 1;
+      @include focus-ring(-2px);
+    }
+  }
+
+  .bandcamp-player__fallback {
+    @include absolute-fill;
+    background: var(--color-border-subtle);
+  }
+
+  .bandcamp-player__loading {
+    @include absolute-fill;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-border-subtle);
+    color: var(--color-text-muted);
+    font-size: $font-size-xs;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+  }
+
   // Image loading spinner
-  .image-spinner {
+  .release__spinner {
     @include absolute-fill;
     display: flex;
     align-items: center;

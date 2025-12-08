@@ -88,24 +88,24 @@
     border-top: none;
   }
 
-  &.is-open {
+  &--open {
     display: block;
 
-    .nav-inner {
+    .nav__inner {
       animation: nav-expand 200ms ease forwards, nav-fade-in 200ms ease 150ms forwards;
     }
   }
 
-  &.is-closing {
+  &--closing {
     display: block;
 
-    .nav-inner {
+    .nav__inner {
       animation: nav-fade-out 150ms ease forwards, nav-collapse 200ms ease 100ms forwards;
     }
   }
 }
 
-.nav-inner {
+.nav__inner {
   display: flex;
   flex-direction: column;
   gap: $spacing-1;
@@ -159,7 +159,7 @@
   }
 }
 
-.nav-link {
+.nav__link {
   font-size: $font-size-sm;
   letter-spacing: $letter-spacing-wide;
   text-transform: uppercase;
@@ -210,31 +210,31 @@
   @include hover-text;
 }
 
-.nav-toggle-icon {
+.nav-toggle__icon {
   width: 1rem;
   height: 1rem;
 }
 
-.nav-toggle-line {
+.nav-toggle__line {
   transform-origin: center;
   transition: transform $transition-base;
   will-change: transform;
-}
 
-.nav-toggle-line-1 {
-  transform: translateY(-4px);
-}
+  &--top {
+    transform: translateY(-4px);
+  }
 
-.nav-toggle-line-2 {
-  transform: translateY(4px);
+  &--bottom {
+    transform: translateY(4px);
+  }
 }
 
 .nav-toggle[aria-expanded="true"] {
-  .nav-toggle-line-1 {
+  .nav-toggle__line--top {
     transform: translateY(0) rotate(45deg);
   }
 
-  .nav-toggle-line-2 {
+  .nav-toggle__line--bottom {
     transform: translateY(0) rotate(-45deg);
   }
 }

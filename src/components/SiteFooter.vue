@@ -33,7 +33,7 @@ const currentYear = new Date().getFullYear();
             {{ item.name }}
           </a>
         </div>
-        <p class="copyright">
+        <p class="footer__copyright">
           &copy; {{ currentYear }} {{ siteConfig.author.name }}
         </p>
       </div>

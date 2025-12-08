@@ -44,7 +44,7 @@ watch(() => route.path, () => {
           @click="toggleNav"
         >
           <svg
-            class="nav-toggle-icon"
+            class="nav-toggle__icon"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="none"
@@ -52,14 +52,14 @@ watch(() => route.path, () => {
             stroke-width="1.5"
           >
             <line
-              class="nav-toggle-line nav-toggle-line-1"
+              class="nav-toggle__line nav-toggle__line--top"
               x1="4"
               y1="12"
               x2="20"
               y2="12"
             />
             <line
-              class="nav-toggle-line nav-toggle-line-2"
+              class="nav-toggle__line nav-toggle__line--bottom"
               x1="4"
               y1="12"
               x2="20"
@@ -71,15 +71,15 @@ watch(() => route.path, () => {
 
       <nav
         class="nav"
-        :class="{ 'is-open': navOpen, 'is-closing': navClosing }"
+        :class="{ 'nav--open': navOpen, 'nav--closing': navClosing }"
         aria-label="Main navigation"
       >
-        <div class="nav-inner">
+        <div class="nav__inner">
           <RouterLink
             v-for="nav in navigation"
             :key="nav.url"
             :to="nav.url"
-            class="nav-link"
+            class="nav__link"
           >
             {{ nav.title }}
           </RouterLink>

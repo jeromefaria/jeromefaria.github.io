@@ -42,7 +42,7 @@ const handleIframeLoad = () => {
 <template>
   <div
     class="bandcamp-player"
-    :class="{ loading: showPlayer && !isLoaded, 'image-error': imageError }"
+    :class="{ 'bandcamp-player--loading': showPlayer && !isLoaded, 'bandcamp-player--error': imageError }"
     @click="loadPlayer"
   >
     <picture v-if="!showPlayer && !imageError">
@@ -65,17 +65,17 @@ const handleIframeLoad = () => {
     </picture>
     <div
       v-if="!showPlayer && imageError"
-      class="image-fallback"
+      class="bandcamp-player__fallback"
     />
     <button
       v-if="!showPlayer"
-      class="play-button"
+      class="bandcamp-player__button"
       type="button"
       :aria-label="`Play ${albumTitle}`"
     />
     <div
       v-if="showPlayer && !isLoaded"
-      class="loading-indicator"
+      class="bandcamp-player__loading"
       aria-label="Loading player"
     >
       Loading...

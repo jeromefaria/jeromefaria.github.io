@@ -82,7 +82,7 @@ footer {
   }
 }
 
-.copyright {
+.footer__copyright {
   font-size: $font-size-xs;
   color: var(--color-text-muted);
 }
@@ -100,7 +100,7 @@ footer {
   padding: $spacing-12;
 }
 
-.loading-dot {
+.page-loading__dot {
   width: $loading-dot-size;
   height: $loading-dot-size;
   background: var(--color-text-muted);
