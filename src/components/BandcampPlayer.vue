@@ -19,6 +19,7 @@ defineProps({
 const showPlayer = ref(false)
 const isLoaded = ref(false)
 const imageError = ref(false)
+const imageLoaded = ref(false)
 
 function loadPlayer() {
   if (showPlayer.value) return
@@ -27,6 +28,10 @@ function loadPlayer() {
 
 function handleIframeLoad() {
   isLoaded.value = true
+}
+
+function handleImageLoad() {
+  imageLoaded.value = true
 }
 
 function handleImageError() {
@@ -40,6 +45,11 @@ function handleImageError() {
     :class="{ loading: showPlayer && !isLoaded, 'image-error': imageError }"
     @click="loadPlayer"
   >
+    <div v-if="!showPlayer && !imageError && !imageLoaded" class="image-spinner">
+      <span class="loading-dot" />
+      <span class="loading-dot" />
+      <span class="loading-dot" />
+    </div>
     <img
       v-if="!showPlayer && !imageError"
       :src="coverImage"
@@ -48,6 +58,8 @@ function handleImageError() {
       decoding="async"
       width="200"
       height="200"
+      :class="{ 'is-loaded': imageLoaded }"
+      @load="handleImageLoad"
       @error="handleImageError"
     />
     <div v-if="!showPlayer && imageError" class="image-fallback" />

@@ -14,10 +14,15 @@ const props = defineProps({
 })
 
 const imageError = ref(false)
+const imageLoaded = ref(false)
 
 const isBandcampLink = computed(() => {
   return props.release.externalUrl?.includes('bandcamp.com')
 })
+
+function handleImageLoad() {
+  imageLoaded.value = true
+}
 
 function handleImageError() {
   imageError.value = true
@@ -43,6 +48,11 @@ function handleImageError() {
       class="release-cover"
       :class="{ 'release-cover--bandcamp': isBandcampLink }"
     >
+      <div v-if="!imageLoaded" class="image-spinner">
+        <span class="loading-dot" />
+        <span class="loading-dot" />
+        <span class="loading-dot" />
+      </div>
       <img
         :src="release.coverImage"
         :alt="`${release.title} cover`"
@@ -50,21 +60,34 @@ function handleImageError() {
         decoding="async"
         width="200"
         height="200"
+        :class="{ 'is-loaded': imageLoaded }"
+        @load="handleImageLoad"
         @error="handleImageError"
       />
     </a>
 
     <!-- Static Cover (no link) -->
-    <img
+    <div
       v-else-if="release.coverImage && !imageError"
-      :src="release.coverImage"
-      :alt="`${release.title} cover`"
-      loading="lazy"
-      decoding="async"
-      width="200"
-      height="200"
-      @error="handleImageError"
-    />
+      class="release-cover release-cover--static"
+    >
+      <div v-if="!imageLoaded" class="image-spinner">
+        <span class="loading-dot" />
+        <span class="loading-dot" />
+        <span class="loading-dot" />
+      </div>
+      <img
+        :src="release.coverImage"
+        :alt="`${release.title} cover`"
+        loading="lazy"
+        decoding="async"
+        width="200"
+        height="200"
+        :class="{ 'is-loaded': imageLoaded }"
+        @load="handleImageLoad"
+        @error="handleImageError"
+      />
+    </div>
 
     <!-- Release Details -->
     <div class="release-details">
