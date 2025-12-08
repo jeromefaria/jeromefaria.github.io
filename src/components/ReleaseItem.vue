@@ -17,9 +17,7 @@ const imageRef = ref(null)
 const imageError = ref(false)
 const imageLoaded = ref(false)
 
-const isBandcampLink = computed(() => {
-  return props.release.externalUrl?.includes('bandcamp.com')
-})
+const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandcamp.com'))
 
 onMounted(async () => {
   await nextTick()

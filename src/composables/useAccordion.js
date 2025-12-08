@@ -53,9 +53,7 @@ export const useAccordion = (initialSection, validSections, findSectionForId = n
   })
 
   watch(() => route.hash, (hash) => {
-    if (!isInitialLoad) {
-      processHash(hash, true)
-    }
+    if (!isInitialLoad) processHash(hash, true)
   })
 
   return {

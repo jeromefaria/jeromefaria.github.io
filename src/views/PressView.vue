@@ -14,11 +14,8 @@ let isInitialLoad = true
 
 const scrollToHash = (hash) => {
   if (!hash) return
-  const id = hash.replace('#', '')
-  const element = document.getElementById(id)
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
+  const element = document.getElementById(hash.replace('#', ''))
+  element?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 onMounted(() => {
