@@ -42,23 +42,23 @@ function toggle() {
 </script>
 
 <template>
-  <section :id="`section-${id}`" class="accordion-section">
+  <section :id="`${ID_PREFIX.SECTION}${id}`" class="accordion-section">
     <button
-      :id="`trigger-${id}`"
+      :id="`${ID_PREFIX.TRIGGER}${id}`"
       class="accordion-trigger"
       type="button"
       :aria-expanded="isExpanded"
-      :aria-controls="`content-${id}`"
+      :aria-controls="`${ID_PREFIX.CONTENT}${id}`"
       @click="toggle"
     >
       {{ title }}
     </button>
     <div
       ref="contentRef"
-      :id="`content-${id}`"
+      :id="`${ID_PREFIX.CONTENT}${id}`"
       class="accordion-content"
       :aria-hidden="!isExpanded"
-      :aria-labelledby="`trigger-${id}`"
+      :aria-labelledby="`${ID_PREFIX.TRIGGER}${id}`"
       role="region"
       :tabindex="isExpanded ? 0 : -1"
     >

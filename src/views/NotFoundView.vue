@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import { useHead } from '@unhead/vue'
 import { siteConfig, navigation } from '@/data/navigation'
 
