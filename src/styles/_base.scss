@@ -138,6 +138,10 @@ button {
   cursor: pointer;
   font: inherit;
   color: inherit;
+
+  &:active {
+    opacity: 0.7;
+  }
 }
 
 // =============================================================================
