@@ -55,7 +55,7 @@ const findYearForEvent = (eventId) =>
     liveData[year]?.events?.some(e => e.id === eventId)
   ) ?? null
 
-const { openSection, handleToggle } = useAccordion('2025', liveYears, findYearForEvent)
+const { openSection, handleToggle } = useAccordion(liveYears[0], liveYears, findYearForEvent)
 </script>
 
 <template>
