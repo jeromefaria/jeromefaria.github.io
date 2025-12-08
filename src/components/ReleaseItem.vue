@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import BandcampPlayer from './BandcampPlayer.vue'
 
 const props = defineProps({
@@ -21,8 +21,9 @@ const isBandcampLink = computed(() => {
   return props.release.externalUrl?.includes('bandcamp.com')
 })
 
-onMounted(() => {
-  if (imageRef.value?.complete) {
+onMounted(async () => {
+  await nextTick()
+  if (imageRef.value?.complete && imageRef.value?.naturalHeight > 0) {
     imageLoaded.value = true
   }
 })

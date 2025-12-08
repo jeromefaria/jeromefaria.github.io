@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 
 defineProps({
   albumId: {
@@ -22,8 +22,9 @@ const isLoaded = ref(false)
 const imageError = ref(false)
 const imageLoaded = ref(false)
 
-onMounted(() => {
-  if (imageRef.value?.complete) {
+onMounted(async () => {
+  await nextTick()
+  if (imageRef.value?.complete && imageRef.value?.naturalHeight > 0) {
     imageLoaded.value = true
   }
 })
