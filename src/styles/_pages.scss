@@ -10,17 +10,23 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    // Fill remaining viewport height
+    // Fill viewport minus header and footer (image extends to footer border)
     min-height: 50vh;
-    height: calc(100vh - #{$header-height-mobile} - #{$hero-bottom-spacing});
-    height: calc(100dvh - #{$header-height-mobile} - #{$hero-bottom-spacing});
+    height: calc(100vh - #{$header-height-mobile} - #{$footer-height});
+    height: calc(100dvh - #{$header-height-mobile} - #{$footer-height});
+    // Image is 2560x1703 (1.5:1 ratio) - use cover on narrow viewports, 100% width on wide
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
 
+    // Switch to full-width sizing when viewport is wide enough for image to fill height
+    @media (min-aspect-ratio: 3/2) {
+      background-size: 100% auto;
+    }
+
     @include respond-to(md) {
-      height: calc(100vh - #{$header-height-desktop} - #{$hero-bottom-spacing});
-      height: calc(100dvh - #{$header-height-desktop} - #{$hero-bottom-spacing});
+      height: calc(100vh - #{$header-height-desktop} - #{$footer-height});
+      height: calc(100dvh - #{$header-height-desktop} - #{$footer-height});
     }
   }
 

@@ -68,9 +68,13 @@ $breakpoint-xl: 1280px;
 // Component dimensions
 $header-height-mobile: 57px;
 $header-height-desktop: 77px;
-$footer-height: 64px;
 $touch-target-min: 2.75rem;  // 44px
-$hero-bottom-spacing: 255px;
+
+// Footer dimensions (used by homepage hero calc)
+// Derived from: padding (24px × 2) + nav row (44px) + social row (44px) + copyright (~18px) + gaps (16px × 2) + border (1px)
+$footer-padding-y: $spacing-6;           // 24px
+$footer-content-gap: $spacing-4;         // 16px
+$footer-height: 180px;                   // Measured total height - update if footer structure changes
 $nav-max-height: 20rem;
 $release-media-width: 200px;
 $loading-dot-size: 6px;
