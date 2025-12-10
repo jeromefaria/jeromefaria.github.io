@@ -29,15 +29,6 @@
       height: calc(100dvh - #{$header-height-desktop} - #{$footer-height});
     }
   }
-
-  .lead {
-    max-width: none;
-    margin-bottom: 0;
-
-    @include respond-to(lg) {
-      font-size: $font-size-xl;
-    }
-  }
 }
 
 // =============================================================================

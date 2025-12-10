@@ -25,3 +25,9 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+// Disable vertical translation for homepage to prevent gap between hero and footer
+.page-enter-from:has(.home),
+.page-leave-to:has(.home) {
+  transform: translateY(0);
+}
