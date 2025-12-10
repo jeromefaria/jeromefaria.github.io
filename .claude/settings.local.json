@@ -17,7 +17,12 @@
       "Bash(curl:*)",
       "Bash(tree:*)",
       "Bash(npm run lint:fix:*)",
-      "Bash(npm run lint:*)"
+      "Bash(npm run lint:*)",
+      "Bash(bash -c 'for hash in $(git log --all --format=\"\"%H\"\" | head -50); do if git show --format=\"\"%B\"\" --no-patch \"\"$hash\"\" 2>/dev/null | grep -qi \"\"claude\"\"; then echo \"\"FOUND: $hash\"\"; fi; done')",
+      "Bash(git remote add:*)",
+      "Bash(git show:*)",
+      "Bash(git push:*)",
+      "WebFetch(domain:mimirecords.bandcamp.com)"
     ],
     "deny": [],
     "ask": []
