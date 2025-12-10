@@ -27,13 +27,18 @@ const isExpanded = computed({
 const sectionRef = ref(null);
 const contentRef = ref(null);
 
-const HEADER_OFFSET = 57 + 16; // header height + spacing
+const getHeaderOffset = () => {
+  const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+  const headerHeight = isDesktop ? 77 : 57;
+  const spacing = 16;
+  return headerHeight + spacing;
+};
 
 const scrollToSection = () => {
   if (!sectionRef.value) return;
 
   const rect = sectionRef.value.getBoundingClientRect();
-  const targetY = rect.top + window.scrollY - HEADER_OFFSET;
+  const targetY = rect.top + window.scrollY - getHeaderOffset();
   window.scrollTo({ top: targetY, behavior: 'instant' });
 };
 
