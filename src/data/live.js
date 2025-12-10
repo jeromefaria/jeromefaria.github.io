@@ -249,7 +249,7 @@ export const liveData = {
         id: 'madeiradig-2005',
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
         venue: '<a href="https://madeira.rtp.pt/">RDP Auditorium</a>, Funchal, Portugal',
-        description: 'With <a href="https://www.fennesz.com/">Fennesz</a>, <a href="https://florianhecker.blogspot.com/">Florian Hecker</a>, <a href="https://at-c.org/">@c</a> & <a href="https://liaworks.com/">Lia</a>.',
+        description: 'Duo with <a href="https://vimeo.com/hugoolim">Hugo Olim</a>. With <a href="https://www.fennesz.com/">Fennesz</a>, <a href="https://florianhecker.blogspot.com/">Florian Hecker</a>, <a href="https://at-c.org/">@c</a> & <a href="https://liaworks.com/">Lia</a>.',
       },
     ],
   },
