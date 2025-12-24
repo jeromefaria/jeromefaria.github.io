@@ -71,14 +71,24 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: $spacing-2;
+  gap: $spacing-1;
+
+  @include respond-to(sm) {
+    gap: $spacing-2;
+  }
 
   a {
     @include hover-text;
-    padding: $spacing-2 $spacing-3;
+    padding: $spacing-2 $spacing-1;
     min-height: $touch-target-min;
+    min-width: $touch-target-min;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+
+    @include respond-to(sm) {
+      padding: $spacing-2 $spacing-3;
+    }
   }
 }
 

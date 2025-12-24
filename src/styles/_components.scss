@@ -260,7 +260,11 @@
 .social-links {
   display: flex;
   justify-content: center;
-  gap: $spacing-4;
+  gap: $spacing-2;
+
+  @include respond-to(sm) {
+    gap: $spacing-4;
+  }
 
   a {
     @include hover-text;
@@ -293,5 +297,216 @@
 .pagination-item--disabled {
   opacity: 0.5;
   pointer-events: none;
+}
+
+// =============================================================================
+// Contact Form
+// =============================================================================
+
+.contact-intro {
+  max-width: $max-width;
+  margin: 0 auto $spacing-8;
+
+  @include respond-to(md) {
+    margin-bottom: $spacing-12;
+  }
+
+  p {
+    font-size: $font-size-base;
+    line-height: $line-height-relaxed;
+    color: var(--color-text-secondary);
+    margin-bottom: $spacing-4;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    color: var(--color-text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+    transition: border-color $transition-fast;
+
+    &:hover {
+      border-color: var(--color-text);
+    }
+  }
+}
+
+.contact-success {
+  max-width: $max-width;
+  margin: 0 auto $spacing-8;
+  text-align: center;
+
+  @include respond-to(md) {
+    margin-bottom: $spacing-12;
+  }
+
+  h2 {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wider;
+    color: var(--color-text-muted);
+    margin-top: 0;
+    margin-bottom: $spacing-4;
+  }
+
+  p {
+    font-size: $font-size-base;
+    line-height: $line-height-relaxed;
+    color: var(--color-text-secondary);
+    margin-bottom: 0;
+  }
+}
+
+.contact-form {
+  max-width: $max-width;
+  margin: 0 auto;
+
+  // Honeypot field - completely hidden from humans
+  &__honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__field {
+    margin-bottom: $spacing-6;
+
+    &:last-of-type {
+      margin-bottom: $spacing-8;
+    }
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: $spacing-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wider;
+    color: var(--color-text-muted);
+
+    abbr {
+      margin-left: $spacing-1;
+      text-decoration: none;
+      color: var(--color-text);
+    }
+  }
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    padding: $spacing-3;
+    border: 1px solid var(--color-border);
+    font-family: $font-sans;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    transition: border-color $transition-base, background-color $transition-base;
+
+    &::placeholder {
+      color: var(--color-text-muted);
+      opacity: 0.6;
+      transition: opacity $transition-base;
+    }
+
+    &:hover {
+      border-color: var(--color-text-muted);
+
+      &::placeholder {
+        opacity: 0.8;
+      }
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-text);
+
+      &::placeholder {
+        opacity: 0.4;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition-duration: 0.01ms;
+
+      &::placeholder {
+        transition-duration: 0.01ms;
+      }
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 8rem;
+    max-height: 24rem;
+  }
+
+  &__submit {
+    display: block;
+    width: 100%;
+    min-height: $touch-target-min;
+    padding: $spacing-3 $spacing-6;
+    border: 1px solid var(--color-text);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+    color: var(--color-text);
+    background-color: transparent;
+    cursor: pointer;
+    transition: color $transition-base, background-color $transition-base, opacity $transition-base, transform $transition-base;
+
+    @include respond-to(md) {
+      display: inline-block;
+      width: auto;
+    }
+
+    // Valid state - filled button
+    &--valid {
+      color: var(--color-bg);
+      background-color: var(--color-text);
+
+      &:hover:not(:disabled) {
+        opacity: 0.9;
+      }
+
+      &:active:not(:disabled) {
+        opacity: 0.8;
+        transform: translateY(1px);
+      }
+    }
+
+    // Invalid state - outline only (default)
+    &:not(&--valid) {
+      &:hover:not(:disabled) {
+        background-color: var(--color-border-subtle);
+      }
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition-duration: 0.01ms;
+
+      &:active:not(:disabled) {
+        transform: none;
+      }
+    }
+  }
 }
 

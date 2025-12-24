@@ -18,6 +18,7 @@ export const navigation = [
   { title: 'Works', url: '/works' },
   { title: 'Live', url: '/live' },
   { title: 'Press', url: '/press' },
+  { title: 'Contact', url: '/contact' },
 ];
 
 export const social = [
