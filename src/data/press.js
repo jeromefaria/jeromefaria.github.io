@@ -8,6 +8,11 @@ export const pressQuotes = [
     url: 'https://thequietus.com/articles/07568-madeiradig-festival-review-ktl',
   },
   {
+    id: 'paralelo33-alvanoto',
+    quote: 'Jerome Faria is developing his language from his references with coherence. The performance was praised by Alva Noto, which says a great deal.',
+    source: 'Paralelo33',
+  },
+  {
     id: 'devils-mouth-altar',
     quote: 'Beautifully twisted chaos unfolding with no respite.',
     source: "The Devil's Mouth",
