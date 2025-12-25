@@ -138,6 +138,11 @@ export const liveData = {
     id: '2012',
     events: [
       {
+        id: 'zonart-iii',
+        title: 'ZonArt III',
+        venue: 'Funchal, Portugal',
+      },
+      {
         id: 'cine-qua-non',
         title: 'Cine Qua Non',
         venue: '<a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol, Portugal',
@@ -186,10 +191,15 @@ export const liveData = {
         description: 'Duo with <a href="https://vimeo.com/hugoolim">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, <a href="https://www.discogs.com/artist/31633-Christ">Christ.</a>, <a href="https://zavoloka.com/">Zavoloka</a> & <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://gigantiq.bandcamp.com/">Gigantiq</a>, <a href="http://www.jade-enterprises.at/">Jade</a>.',
       },
       {
+        id: 'fnac-oct10',
+        title: 'FNAC',
+        venue: '<a href="https://www.fnac.pt/">FNAC</a>, Funchal, Portugal',
+      },
+      {
         id: 'eme-olhares-2009',
         title: 'EME.LL / Olhares de Outono',
         venue: '<a href="https://www.tnsj.pt/en/edificios/mosteiro-de-sao-bento-da-vitoria/">Mosteiro São Bento da Vitória</a>, Porto, Portugal',
-        description: 'With <a href="https://scannerdot.bandcamp.com/">Scanner</a>, <a href="https://at-c.org/">@c</a>, <a href="https://www.vitorjoaquim.pt/">Vitor Joaquim</a>, <a href="https://carlossantos.bandcamp.com/">Carlos Santos</a>, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://blog.albagcorral.com/">Alba Corral</a>, <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://vimeo.com/hugoolim">Hugo Olim</a>, <a href="https://ivanfranco.wordpress.com/">Ivan Franco</a>, <a href="https://nunomoita.bandcamp.com/">Nuno Moita</a>.',
+        description: 'Resampling White Noise — 16-performer laptop meeting. With <a href="https://scannerdot.bandcamp.com/">Scanner</a>, <a href="https://at-c.org/">@c</a>, <a href="https://www.vitorjoaquim.pt/">Vitor Joaquim</a>, <a href="https://carlossantos.bandcamp.com/">Carlos Santos</a>, <a href="https://www.carvalhais.org/">Miguel Carvalhais</a>, <a href="http://pedrotudela.org/">Pedro Tudela</a>, Pedro Almeida, <a href="https://opcabpol.bandcamp.com/">João Ricardo</a>, <a href="https://ivanfranco.wordpress.com/">Ivan Franco</a>, <a href="https://nunomoita.bandcamp.com/">Nuno Moita</a>, <a href="https://www.andregoncalves.info/">André Gonçalves</a>, <a href="https://cronica.bandcamp.com/album/musicamorosa">The Beautiful Schizophonic</a>, Rui Costa, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://blog.albagcorral.com/">Alba Corral</a>, <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://vimeo.com/hugoolim">Hugo Olim</a>.',
       },
     ],
   },
@@ -221,6 +231,22 @@ export const liveData = {
     title: '2007',
     id: '2007',
     events: [
+      {
+        id: 'fnac-mar18',
+        title: 'FNAC',
+        venue: '<a href="https://www.fnac.pt/">FNAC</a>, Funchal, Portugal',
+      },
+      {
+        id: 'crew-hassan',
+        title: 'Crew Hassan',
+        venue: '<a href="https://www.instagram.com/crewhassan/">Crew Hassan</a>, Lisbon, Portugal',
+      },
+      {
+        id: 'stfu-porto',
+        title: 'STFU Porto',
+        venue: '<a href="http://fabricadesom.org/">Fábrica do Som</a>, Porto, Portugal',
+        description: 'With <a href="https://svartegreiner.bandcamp.com/">Svarte Greiner</a>, Pygar (<a href="https://vimeo.com/hugoolim">Hugo Olim</a> & <a href="https://opcabpol.bandcamp.com/">João Ricardo</a>), e:4c, CKZ, DeciBeats, Aenedra, Unknown Forces Of Everyday Life.',
+      },
       {
         id: 'madeiradig-2007',
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',

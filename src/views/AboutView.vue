@@ -1,6 +1,7 @@
 <script setup>
 import { usePageHead } from '@/composables/usePageHead';
-import { aboutContent } from '@/data/about';
+import { useImageLoader } from '@/composables/useImageLoader';
+import { aboutSections } from '@/data/about';
 
 usePageHead({
   title: 'About',
@@ -15,10 +16,36 @@ usePageHead({
       class="page"
       data-page="about"
     >
-      <div
-        class="prose"
-        v-html="aboutContent"
-      />
+      <template
+        v-for="section in aboutSections"
+        :key="section.id"
+      >
+        <!-- Text section -->
+        <div
+          v-if="!section.type"
+          class="prose"
+          v-html="section.content"
+        />
+
+        <!-- Image divider -->
+        <figure
+          v-else-if="section.type === 'image'"
+          class="about-image"
+        >
+          <picture>
+            <source
+              :srcset="section.src.replace('.jpg', '.webp')"
+              type="image/webp"
+            >
+            <img
+              :src="section.src"
+              :alt="section.alt"
+              loading="lazy"
+              decoding="async"
+            >
+          </picture>
+        </figure>
+      </template>
     </article>
   </div>
 </template>
