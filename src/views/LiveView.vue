@@ -6,8 +6,7 @@ import { liveData, liveYears } from '@/data/live';
 import { siteConfig } from '@/data/navigation';
 import { parseVenue, stripHtml } from '@/utils/formatters';
 
-const recentYears = liveYears.slice(0, 5);
-const eventSchemas = recentYears.flatMap(year =>
+const eventSchemas = liveYears.flatMap(year =>
   (liveData[year]?.events || []).map(event => {
     const venue = parseVenue(event.venue);
     return {

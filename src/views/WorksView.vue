@@ -22,19 +22,47 @@ const albumSchemas = worksData.solo.releases
     },
   }));
 
-const musicSchema = {
+const bookSchema = {
+  '@type': 'Book',
+  name: 'Glitch: Designing Imperfection',
+  image: `${siteConfig.url}/images/glitch.jpg`,
+  url: 'https://www.amazon.com/Glitch-Designing-Imperfection-Iman-Moradi/dp/0979966663',
+  datePublished: '2009',
+  isbn: '978-0-9799666-6-8',
+  publisher: {
+    '@type': 'Organization',
+    name: 'Mark Batty Publisher',
+  },
+  editor: [
+    { '@type': 'Person', name: 'Iman Moradi' },
+    { '@type': 'Person', name: 'Ant Scott' },
+    { '@type': 'Person', name: 'Joe Gilmore' },
+    { '@type': 'Person', name: 'Christopher Murphy' },
+  ],
+  contributor: {
+    '@type': 'Person',
+    name: siteConfig.author.name,
+  },
+};
+
+const creativeWorkSchema = {
   '@context': 'https://schema.org',
-  '@type': 'MusicGroup',
-  name: siteConfig.author.name,
-  url: siteConfig.url,
-  genre: ['Electronic', 'Experimental', 'Ambient'],
-  album: albumSchemas,
+  '@graph': [
+    {
+      '@type': 'MusicGroup',
+      name: siteConfig.author.name,
+      url: siteConfig.url,
+      genre: ['Electronic', 'Experimental', 'Ambient'],
+      album: albumSchemas,
+    },
+    bookSchema,
+  ],
 };
 
 usePageHead({
   title: 'Works',
   description: 'Discography, film scores, and works by Jerome Faria including solo releases, collaborations, and curatorial projects.',
-  schema: musicSchema,
+  schema: creativeWorkSchema,
 });
 
 const findSectionForRelease = releaseId =>
