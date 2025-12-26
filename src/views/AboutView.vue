@@ -161,6 +161,15 @@ const getImageStyles = (image) => {
           @click.stop="goToNext"
           aria-label="Next image"
         />
+
+        <!-- Keyboard hints -->
+        <div class="lightbox__hints">
+          <span class="lightbox__hint">ESC to close</span>
+          <span
+            v-if="images.length > 1"
+            class="lightbox__hint"
+          >← → to navigate</span>
+        </div>
       </div>
     </Transition>
   </div>
