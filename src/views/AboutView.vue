@@ -157,7 +157,6 @@ const getImageStyles = (image) => {
             :src="currentImage.src"
             :alt="currentImage.alt"
             class="lightbox__image"
-            @click.stop
           >
         </picture>
 
