@@ -8,13 +8,13 @@ export default defineConfig({
     vue(),
     ViteImageOptimizer({
       jpg: {
-        quality: 80
+        quality: 75
       },
       png: {
         quality: 80
       },
       webp: {
-        quality: 80
+        quality: 75
       }
     })
   ],
