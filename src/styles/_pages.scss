@@ -10,17 +10,16 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    // Fill viewport minus header and footer, accounting for iPhone safe areas
     min-height: 50vh;
-    // Use 100vh (not 100dvh) to prevent resize when Safari UI appears/disappears
-    // Only subtract EXTRA safe area beyond footer's base padding, plus 3px adjustment
+    // Fill viewport between header and footer, accounting for iPhone safe areas
+    // Use 100vh (not 100dvh) to prevent resize when Safari UI changes
+    // Subtract header, footer, and extra safe-area padding beyond footer base (24px), plus 3px for border alignment
     height: calc(100vh - #{$header-height-mobile} - #{$footer-height} - max(0px, env(safe-area-inset-bottom, 0px) - #{$footer-padding-y}) + 3px);
-    // Image is 2560x1703 (3:2 aspect ratio)
+    // Image dimensions: 2560×1703 (3:2 aspect ratio)
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
 
-    // Switch to full-width sizing when viewport is wide enough for image to fill height
     @media (min-aspect-ratio: 3/2) {
       background-size: 100% auto;
     }
