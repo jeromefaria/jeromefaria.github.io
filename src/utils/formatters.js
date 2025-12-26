@@ -16,7 +16,7 @@ export const parseVenue = venue => {
   return {
     name: parts[0] || '',
     addressLocality: parts[1] || '',
-    addressCountry: parts[2] || 'Portugal',
+    addressCountry: parts[2] || '',
   };
 };
 
