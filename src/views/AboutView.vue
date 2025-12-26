@@ -136,6 +136,12 @@ const getImageStyles = (image) => {
         @click="closeLightbox"
       >
         <button
+          class="lightbox__close"
+          @click.stop="closeLightbox"
+          aria-label="Close lightbox"
+        />
+
+        <button
           v-if="currentIndex > 0"
           class="lightbox__nav lightbox__nav--prev"
           @click.stop="goToPrev"
