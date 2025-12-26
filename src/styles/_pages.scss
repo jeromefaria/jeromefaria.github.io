@@ -388,15 +388,21 @@
   &__hints {
     display: none;
 
-    @include respond-to(md) {
+    // Only show on devices with hover capability (non-touch devices)
+    @media (hover: hover) and (pointer: fine) {
       display: flex;
       position: absolute;
-      bottom: $spacing-8;
+      bottom: $spacing-4;
       left: 50%;
       transform: translateX(-50%);
-      gap: $spacing-6;
+      gap: $spacing-4;
       z-index: 10000;
       pointer-events: none;
+
+      @include respond-to(md) {
+        bottom: $spacing-8;
+        gap: $spacing-6;
+      }
     }
   }
 
