@@ -69,7 +69,7 @@ export const liveData = {
         id: 'nariz-entupido',
         title: 'Nariz Entupido',
         venue: '<a href="https://www.smup.pt/">SMUP</a>, Parede, Portugal',
-        description: 'Duo with <a href="https://cavernancia.bandcamp.com/">Cavernancia</a>. <a href="https://thisco.bandcamp.com/">THISCO</a> / SPH anniversary celebration.',
+        description: 'Duo with <a href="https://cavernancia.bandcamp.com/">CAVERNANCIA</a>. <a href="https://thisco.bandcamp.com/">THISCO</a> / SPH anniversary celebration.',
       },
       {
         id: 'aragao-cartaxo',
