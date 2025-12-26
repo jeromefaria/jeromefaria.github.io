@@ -108,16 +108,16 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
 // Safe area insets for notched devices
 @mixin safe-area-padding($top: null, $right: null, $bottom: null, $left: null) {
   @if $top {
-    padding-top: max(#{$top}, env(safe-area-inset-top));
+    padding-top: max(#{$top}, env(safe-area-inset-top, 0px));
   }
   @if $right {
-    padding-right: max(#{$right}, env(safe-area-inset-right));
+    padding-right: max(#{$right}, env(safe-area-inset-right, 0px));
   }
   @if $bottom {
-    padding-bottom: max(#{$bottom}, env(safe-area-inset-bottom));
+    padding-bottom: max(#{$bottom}, env(safe-area-inset-bottom, 0px));
   }
   @if $left {
-    padding-left: max(#{$left}, env(safe-area-inset-left));
+    padding-left: max(#{$left}, env(safe-area-inset-left, 0px));
   }
 }
 
