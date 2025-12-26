@@ -8,7 +8,11 @@ import SiteHeader from '@/components/SiteHeader.vue';
 const route = useRoute();
 
 const processExternalLinks = () => {
-  const links = document.querySelectorAll('a[href^="http"]:not([target])');
+  // Only process links in main content area, not entire document
+  const main = document.querySelector('main');
+  if (!main) return;
+
+  const links = main.querySelectorAll('a[href^="http"]:not([target])');
   links.forEach(link => {
     if (!link.hostname.includes(window.location.hostname)) {
       link.setAttribute('target', '_blank');
