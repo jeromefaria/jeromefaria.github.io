@@ -329,18 +329,17 @@
   }
 
   &__hints {
-    position: absolute;
-    bottom: $spacing-4;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: $spacing-4;
-    z-index: 10000;
-    pointer-events: none;
+    display: none;
 
     @include respond-to(md) {
+      display: flex;
+      position: absolute;
       bottom: $spacing-8;
+      left: 50%;
+      transform: translateX(-50%);
       gap: $spacing-6;
+      z-index: 10000;
+      pointer-events: none;
     }
   }
 
