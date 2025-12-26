@@ -36,6 +36,137 @@
 // =============================================================================
 
 .page[data-page="about"] {
+  // Magazine-style image group layout
+  .about-image-group {
+    margin: $spacing-12 0;
+    display: grid;
+    gap: $spacing-4;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(150px, 200px);
+
+    @include respond-to(md) {
+      margin: $spacing-16 0;
+      gap: $spacing-6;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: minmax(200px, auto);
+    }
+
+    // Reduce gap between consecutive image groups
+    &:has(+ .about-image-group) {
+      margin-bottom: 0;
+    }
+
+    + .about-image-group {
+      margin-top: $spacing-4;
+
+      @include respond-to(md) {
+        margin-top: $spacing-6;
+      }
+    }
+
+    // Reduce height for 2-image and 4-image portrait layouts
+    &:has(.about-image-group__image:first-child:nth-last-child(2)),
+    &:has(.about-image-group__image:first-child:nth-last-child(4)) {
+      @include respond-to(md) {
+        grid-auto-rows: minmax(200px, 550px);
+      }
+    }
+
+    &__image {
+      margin: 0;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        opacity: 0;
+        transition: opacity $transition-base;
+
+        &[src] {
+          opacity: 1;
+        }
+      }
+
+      &:hover {
+        img {
+          opacity: 0.9;
+        }
+      }
+
+      // Mobile: all images flow naturally in 2-column grid
+      // No special spanning needed
+
+      // 3-image layout: large + 2 stacked
+      &:first-child:nth-last-child(3) {
+        @include respond-to(md) {
+          grid-column: 1 / 3;
+          grid-row: 1 / 3;
+        }
+      }
+
+      &:nth-child(2):nth-last-child(2) {
+        @include respond-to(md) {
+          grid-column: 3 / 5;
+          grid-row: 1 / 2;
+        }
+      }
+
+      &:nth-child(3):nth-last-child(1) {
+        @include respond-to(md) {
+          grid-column: 3 / 5;
+          grid-row: 2 / 3;
+        }
+      }
+
+      // 4-image layout: 2x2 grid
+      &:first-child:nth-last-child(4) {
+        @include respond-to(md) {
+          grid-column: 1 / 3;
+          grid-row: 1 / 2;
+        }
+      }
+
+      &:nth-child(2):nth-last-child(3) {
+        @include respond-to(md) {
+          grid-column: 3 / 5;
+          grid-row: 1 / 2;
+        }
+      }
+
+      &:nth-child(3):nth-last-child(2) {
+        @include respond-to(md) {
+          grid-column: 1 / 3;
+          grid-row: 2 / 3;
+        }
+      }
+
+      &:nth-child(4):nth-last-child(1) {
+        @include respond-to(md) {
+          grid-column: 3 / 5;
+          grid-row: 2 / 3;
+        }
+      }
+
+      // 2-image layout: side by side
+      &:first-child:nth-last-child(2) {
+        @include respond-to(md) {
+          grid-column: 1 / 3;
+        }
+      }
+
+      &:nth-child(2):nth-last-child(1) {
+        @include respond-to(md) {
+          grid-column: 3 / 5;
+        }
+      }
+    }
+  }
+
+  // Single image divider (legacy)
   .about-image {
     margin: $spacing-12 0;
 
@@ -55,6 +186,160 @@
       }
     }
   }
+
+  // Short bio section
+  .short-bio {
+    margin-bottom: $spacing-12;
+    padding-bottom: $spacing-8;
+    border-bottom: 1px solid var(--color-border);
+
+    @include respond-to(md) {
+      margin-bottom: $spacing-16;
+      padding-bottom: $spacing-12;
+    }
+
+    p {
+      font-size: $font-size-lg;
+      line-height: $line-height-relaxed;
+      color: var(--color-text-primary);
+      margin-bottom: 0;
+
+      @include respond-to(md) {
+        font-size: $font-size-xl;
+        line-height: $line-height-prose;
+      }
+    }
+  }
+
+  // Increase spacing between prose sections
+  .prose {
+    margin-bottom: $spacing-8;
+
+    @include respond-to(md) {
+      margin-bottom: $spacing-12;
+    }
+
+    // Add extra spacing before prose sections that follow image groups
+    .about-image-group + & {
+      margin-top: $spacing-12;
+
+      @include respond-to(md) {
+        margin-top: $spacing-16;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// Lightbox
+// =============================================================================
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: pointer;
+  padding: $spacing-4;
+  contain: layout style paint;
+
+  @include respond-to(md) {
+    padding: $spacing-8;
+  }
+
+  &__image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    cursor: default;
+  }
+
+  &__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    transition: opacity $transition-base;
+    opacity: 0.6;
+    z-index: 10000;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include respond-to(md) {
+      width: 56px;
+      height: 56px;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      width: 14px;
+      height: 14px;
+      border-top: 1px solid var(--color-background);
+      border-left: 1px solid var(--color-background);
+      transform: rotate(-45deg);
+
+      @include respond-to(md) {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      &:active {
+        transform: translateY(-50%) scale(0.95);
+      }
+    }
+
+    &--prev {
+      left: $spacing-4;
+
+      @include respond-to(md) {
+        left: $spacing-8;
+      }
+    }
+
+    &--next {
+      right: $spacing-4;
+
+      @include respond-to(md) {
+        right: $spacing-8;
+      }
+
+      &::before {
+        transform: rotate(135deg);
+      }
+    }
+  }
+}
+
+// Lightbox transitions
+.lightbox-enter-active,
+.lightbox-leave-active {
+  transition: opacity $transition-base;
+}
+
+.lightbox-enter-from,
+.lightbox-leave-to {
+  opacity: 0;
 }
 
 // =============================================================================
