@@ -329,6 +329,31 @@
       }
     }
   }
+
+  &__hints {
+    position: absolute;
+    bottom: $spacing-4;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: $spacing-4;
+    z-index: 10000;
+    pointer-events: none;
+
+    @include respond-to(md) {
+      bottom: $spacing-8;
+      gap: $spacing-6;
+    }
+  }
+
+  &__hint {
+    font-size: $font-size-xs;
+    color: var(--color-background);
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+    white-space: nowrap;
+  }
 }
 
 // Lightbox transitions
