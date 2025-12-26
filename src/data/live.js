@@ -191,11 +191,6 @@ export const liveData = {
         description: 'Duo with <a href="https://vimeo.com/hugoolim">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, <a href="https://www.discogs.com/artist/31633-Christ">Christ.</a>, <a href="https://zavoloka.com/">Zavoloka</a> & <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://gigantiq.bandcamp.com/">Gigantiq</a>, <a href="http://www.jade-enterprises.at/">Jade</a>.',
       },
       {
-        id: 'fnac-oct10',
-        title: 'FNAC',
-        venue: '<a href="https://www.fnac.pt/">FNAC</a>, Funchal, Portugal',
-      },
-      {
         id: 'eme-olhares-2009',
         title: 'EME.LL / Olhares de Outono',
         venue: '<a href="https://www.tnsj.pt/en/edificios/mosteiro-de-sao-bento-da-vitoria/">Mosteiro São Bento da Vitória</a>, Porto, Portugal',
@@ -231,11 +226,6 @@ export const liveData = {
     title: '2007',
     id: '2007',
     events: [
-      {
-        id: 'fnac-mar18',
-        title: 'FNAC',
-        venue: '<a href="https://www.fnac.pt/">FNAC</a>, Funchal, Portugal',
-      },
       {
         id: 'crew-hassan',
         title: 'Crew Hassan',
