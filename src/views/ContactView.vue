@@ -29,6 +29,12 @@ const formData = ref({
   message: '',
 });
 
+const touched = ref({
+  name: false,
+  email: false,
+  message: false,
+});
+
 const isSubmitting = ref(false);
 const showSuccess = ref(false);
 
@@ -40,6 +46,18 @@ const isFormValid = computed(() => {
     formData.value.message.trim() !== ''
   );
 });
+
+// Check if individual fields are invalid
+const fieldInvalid = computed(() => ({
+  name: touched.value.name && formData.value.name.trim() === '',
+  email: touched.value.email && formData.value.email.trim() === '',
+  message: touched.value.message && formData.value.message.trim() === '',
+}));
+
+// Mark field as touched and clear success message
+const handleBlur = field => {
+  touched.value[field] = true;
+};
 
 // Clear success message when user starts typing again
 const handleInput = () => {
@@ -69,6 +87,11 @@ const handleSubmit = async event => {
         email: '',
         subject: '',
         message: '',
+      };
+      touched.value = {
+        name: false,
+        email: false,
+        message: false,
       };
       isSubmitting.value = false;
     } else {
@@ -153,10 +176,11 @@ const handleSubmit = async event => {
             v-model="formData.name"
             type="text"
             name="name"
-            class="contact-form__input"
+            :class="['contact-form__input', { 'contact-form__input--invalid': fieldInvalid.name }]"
             :autocomplete="contactContent.form.fields.name.autocomplete"
             :required="contactContent.form.fields.name.required"
             @input="handleInput"
+            @blur="handleBlur('name')"
           >
         </div>
 
@@ -177,10 +201,11 @@ const handleSubmit = async event => {
             v-model="formData.email"
             type="email"
             name="email"
-            class="contact-form__input"
+            :class="['contact-form__input', { 'contact-form__input--invalid': fieldInvalid.email }]"
             :autocomplete="contactContent.form.fields.email.autocomplete"
             :required="contactContent.form.fields.email.required"
             @input="handleInput"
+            @blur="handleBlur('email')"
           >
           <!-- FormSubmit: use email as reply-to -->
           <input
@@ -225,10 +250,11 @@ const handleSubmit = async event => {
             id="message"
             v-model="formData.message"
             name="message"
-            class="contact-form__textarea"
+            :class="['contact-form__textarea', { 'contact-form__textarea--invalid': fieldInvalid.message }]"
             :rows="contactContent.form.fields.message.rows"
             :required="contactContent.form.fields.message.required"
             @input="handleInput"
+            @blur="handleBlur('message')"
           />
         </div>
 
