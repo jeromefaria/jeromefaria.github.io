@@ -260,6 +260,63 @@
     cursor: default;
   }
 
+  &__close {
+    position: absolute;
+    top: $spacing-4;
+    right: $spacing-4;
+    background: none;
+    border: none;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    transition: opacity $transition-base;
+    opacity: 0.6;
+    z-index: 10000;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include respond-to(md) {
+      top: $spacing-8;
+      right: $spacing-8;
+      width: 56px;
+      height: 56px;
+    }
+
+    // X icon using CSS
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 1px;
+      background-color: var(--color-background);
+
+      @include respond-to(md) {
+        width: 24px;
+      }
+    }
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+
   &__nav {
     position: absolute;
     top: 50%;
