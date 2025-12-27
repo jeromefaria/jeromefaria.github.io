@@ -16,6 +16,8 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(['update-hash']);
+
 const {
   imageRef,
   imageError,
@@ -95,12 +97,21 @@ const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandc
     <!-- Release Details -->
     <div class="release-details">
       <p>
-        <strong v-if="!release.externalUrl">{{ release.title }}</strong>
-        <strong v-else><a
-          :href="release.externalUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-        >{{ release.title }}</a></strong>
+        <strong>
+          <button
+            class="release-title-link"
+            @click="emit('update-hash', release.id)"
+          >
+            <span v-if="!release.externalUrl">{{ release.title }}</span>
+            <a
+              v-else
+              :href="release.externalUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click.stop
+            >{{ release.title }}</a>
+          </button>
+        </strong>
       </p>
       <p
         v-if="release.meta"

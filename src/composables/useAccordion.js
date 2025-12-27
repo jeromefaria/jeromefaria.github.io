@@ -18,10 +18,18 @@ export const useAccordion = (initialSection, validSections, findSectionForId = n
   const handleToggle = (sectionId, isOpen) => {
     if (isOpen) {
       openSection.value = sectionId;
+      // Update URL hash when opening a section
+      if (!isInitialLoad) {
+        window.history.replaceState(null, '', `#${ID_PREFIX.SECTION}${sectionId}`);
+      }
       return;
     }
     if (openSection.value === sectionId) {
       openSection.value = null;
+      // Clear hash when closing
+      if (!isInitialLoad) {
+        window.history.replaceState(null, '', window.location.pathname);
+      }
     }
   };
 
@@ -59,7 +67,8 @@ export const useAccordion = (initialSection, validSections, findSectionForId = n
   };
 
   onMounted(() => {
-    processHash(route.hash, false);
+    // Scroll to hash on initial load if present
+    processHash(route.hash, !!route.hash);
     nextTick(() => {
       isInitialLoad = false;
     });

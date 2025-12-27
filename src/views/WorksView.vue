@@ -71,6 +71,11 @@ const findSectionForRelease = releaseId =>
   ) ?? null;
 
 const { openSection, handleToggle } = useAccordion('solo', worksSections, findSectionForRelease);
+
+// Update URL hash when release is clicked
+const updateHash = (id) => {
+  window.history.replaceState(null, '', `#${id}`);
+};
 </script>
 
 <template>
@@ -92,6 +97,7 @@ const { openSection, handleToggle } = useAccordion('solo', worksSections, findSe
           :key="release.id"
           :release="release"
           :text-only="!release.coverImage"
+          @update-hash="updateHash"
         />
       </AccordionSection>
     </article>

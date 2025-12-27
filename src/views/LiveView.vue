@@ -55,6 +55,11 @@ const findYearForEvent = eventId =>
   ) ?? null;
 
 const { openSection, handleToggle } = useAccordion(liveYears[0], liveYears, findYearForEvent);
+
+// Update URL hash when event is clicked
+const updateHash = (id) => {
+  window.history.replaceState(null, '', `#${id}`);
+};
 </script>
 
 <template>
@@ -78,7 +83,15 @@ const { openSection, handleToggle } = useAccordion(liveYears[0], liveYears, find
           class="release release--text-only"
         >
           <div class="release-details">
-            <p><strong v-html="event.title" /></p>
+            <p>
+              <strong>
+                <button
+                  class="event-title-link"
+                  @click="updateHash(event.id)"
+                  v-html="event.title"
+                />
+              </strong>
+            </p>
             <p
               class="release-meta"
               v-html="event.venue"
