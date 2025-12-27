@@ -13,6 +13,10 @@ export const createApp = ViteSSG(
       if (savedPosition) {
         return savedPosition;
       }
+      // If there's a hash, don't scroll - let the component handle it
+      if (to.hash) {
+        return false;
+      }
       return { top: 0 };
     },
   },
