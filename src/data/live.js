@@ -715,42 +715,42 @@ export const liveData = {
           {
             src: '/images/live/eme-2008-001.jpg',
             alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
-            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+            photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
           },
           {
             src: '/images/live/eme-2008-002.jpg',
             alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
-            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+            photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
           },
           {
             src: '/images/live/eme-2008-003.jpg',
             alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
-            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+            photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
           },
           {
             src: '/images/live/eme-2008-004.jpg',
             alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
-            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+            photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
           },
           {
             src: '/images/live/eme-2008-005.jpg',
             alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
-            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+            photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
           },
           {
             src: '/images/live/eme-2008-006.jpg',
             alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
-            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+            photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
           },
           {
             src: '/images/live/eme-2008-007.jpg',
             alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
-            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+            photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
           },
           {
             src: '/images/live/eme-2008-008.jpg',
             alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
-            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+            photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
           },
         ],
       },
@@ -786,7 +786,7 @@ export const liveData = {
       {
         id: 'stfu-porto',
         title: 'STFU Porto',
-        venue: '<a href="http://fabricadesom.org/">Fábrica do Som</a>, Porto, Portugal',
+        venue: '<a href="https://fabricadesom.org/">Fábrica do Som</a>, Porto, Portugal',
         description: 'With <a href="https://svartegreiner.bandcamp.com/">Svarte Greiner</a>, Pygar (<a href="https://vimeo.com/hugoolim">Hugo Olim</a> & <a href="https://opcabpol.bandcamp.com/">João Ricardo</a>), e:4c, CKZ, DeciBeats, Aenedra, Unknown Forces Of Everyday Life.',
         images: [
           {
@@ -815,52 +815,52 @@ export const liveData = {
           {
             src: '/images/live/madeiradig-2007-001.jpg',
             alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
-            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+            photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
           },
           {
             src: '/images/live/madeiradig-2007-002.jpg',
             alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
-            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+            photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
           },
           {
             src: '/images/live/madeiradig-2007-003.jpg',
             alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
-            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+            photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
           },
           {
             src: '/images/live/madeiradig-2007-004.jpg',
             alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
-            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+            photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
           },
           {
             src: '/images/live/madeiradig-2007-005.jpg',
             alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
-            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+            photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
           },
           {
             src: '/images/live/madeiradig-2007-006.jpg',
             alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
-            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+            photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
           },
           {
             src: '/images/live/madeiradig-2007-007.jpg',
             alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
-            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+            photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
           },
           {
             src: '/images/live/madeiradig-2007-008.jpg',
             alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
-            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+            photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
           },
           {
             src: '/images/live/madeiradig-2007-009.jpg',
             alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
-            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+            photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
           },
           {
             src: '/images/live/madeiradig-2007-010.jpg',
             alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
-            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+            photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
           },
         ],
       },

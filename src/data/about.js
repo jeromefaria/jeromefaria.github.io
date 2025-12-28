@@ -34,13 +34,13 @@ export const aboutSections = [
         alt: "Jerome Faria performing at MADEIRADIG 2007",
         position: "center 50%",
         scale: 1.4,
-        photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+        photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
       },
       {
         src: "/images/about-2008-eme.jpg",
         alt: "Jerome Faria performing at EME, Teatro Ibérico, Lisbon, 2008",
         position: "center center",
-        photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+        photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
       },
       {
         src: "/images/about-2009-madeiradig.jpg",
