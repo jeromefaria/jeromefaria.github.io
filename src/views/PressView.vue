@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { usePageHead } from '@/composables/usePageHead';
@@ -11,7 +11,7 @@ usePageHead({
 });
 
 const route = useRoute();
-let isInitialLoad = true;
+const isInitialLoad = ref(true);
 
 const scrollToHash = hash => {
   if (!hash) return;
@@ -20,11 +20,11 @@ const scrollToHash = hash => {
 };
 
 onMounted(() => {
-  isInitialLoad = false;
+  isInitialLoad.value = false;
 });
 
 watch(() => route.hash, hash => {
-  if (!isInitialLoad && hash) {
+  if (!isInitialLoad.value && hash) {
     scrollToHash(hash);
   }
 });

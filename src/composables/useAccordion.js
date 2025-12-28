@@ -13,13 +13,13 @@ import { ID_PREFIX, TIMING } from '@/utils/constants';
 export const useAccordion = (initialSection, validSections, findSectionForId = null) => {
   const route = useRoute();
   const openSection = ref(initialSection);
-  let isInitialLoad = true;
+  const isInitialLoad = ref(true);
 
   const handleToggle = (sectionId, isOpen) => {
     if (isOpen) {
       openSection.value = sectionId;
       // Update URL hash when opening a section
-      if (!isInitialLoad) {
+      if (!isInitialLoad.value) {
         window.history.replaceState(null, '', `#${ID_PREFIX.SECTION}${sectionId}`);
       }
       return;
@@ -27,7 +27,7 @@ export const useAccordion = (initialSection, validSections, findSectionForId = n
     if (openSection.value === sectionId) {
       openSection.value = null;
       // Clear hash when closing
-      if (!isInitialLoad) {
+      if (!isInitialLoad.value) {
         window.history.replaceState(null, '', window.location.pathname);
       }
     }
@@ -70,12 +70,12 @@ export const useAccordion = (initialSection, validSections, findSectionForId = n
     // Scroll to hash on initial load if present
     processHash(route.hash, !!route.hash);
     nextTick(() => {
-      isInitialLoad = false;
+      isInitialLoad.value = false;
     });
   });
 
   watch(() => route.hash, hash => {
-    if (!isInitialLoad) processHash(hash, true);
+    if (!isInitialLoad.value) processHash(hash, true);
   });
 
   return {
