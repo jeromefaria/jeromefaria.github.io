@@ -255,7 +255,7 @@ export const worksData = {
       {
         id: 'comp-cybernetics',
         title: 'Cybernetics',
-        meta: 'with <a href="http://structuramusic.com/">Structura</a> in <em><a href="https://archive.org/details/enrcmp05">SOUNDResearch</a></em> — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP05, 2007',
+        meta: 'with Structura in <em><a href="https://archive.org/details/enrcmp05">SOUNDResearch</a></em> — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP05, 2007',
       },
       {
         id: 'comp-13',
