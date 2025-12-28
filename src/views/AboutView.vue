@@ -1,8 +1,11 @@
 <script setup>
 import { computed } from 'vue';
+import LightboxOverlay from '@/components/LightboxOverlay.vue';
 import { usePageHead } from '@/composables/usePageHead';
 import { useLightbox } from '@/composables/useLightbox';
+import { useSwipeNavigation } from '@/composables/useSwipeNavigation';
 import { aboutSections } from '@/data/about';
+import { getImageStyles } from '@/utils/imageStyles';
 
 usePageHead({
   title: 'About',
@@ -11,6 +14,7 @@ usePageHead({
 });
 
 const { isOpen, currentImage, currentIndex, images, openLightbox, closeLightbox, goToNext, goToPrev } = useLightbox();
+const { handleTouchStart, handleTouchEnd } = useSwipeNavigation(goToNext, goToPrev);
 
 // Collect all images from all image groups
 const allImages = computed(() => {
@@ -34,31 +38,6 @@ const sectionStartIndices = computed(() => {
 // Helper to get global index of an image - O(1) instead of O(n)
 const getGlobalIndex = (sectionIndex, imageIndex) => {
   return sectionStartIndices.value[sectionIndex] + imageIndex;
-};
-
-// Pre-compute all image styles once (static data, never changes)
-const imageStylesCache = new Map();
-
-const getImageStyles = (image) => {
-  if (imageStylesCache.has(image)) {
-    return imageStylesCache.get(image);
-  }
-
-  const styles = {};
-
-  if (image.position) {
-    styles.objectPosition = image.position;
-  }
-
-  if (image.scale || image.rotate) {
-    const transforms = [];
-    if (image.scale) transforms.push(`scale(${image.scale})`);
-    if (image.rotate) transforms.push(`rotate(${image.rotate}deg)`);
-    styles.transform = transforms.join(' ');
-  }
-
-  imageStylesCache.set(image, styles);
-  return styles;
 };
 </script>
 
@@ -129,53 +108,17 @@ const getImageStyles = (image) => {
     </article>
 
     <!-- Lightbox overlay -->
-    <Transition name="lightbox">
-      <div
-        v-if="isOpen"
-        class="lightbox"
-        @click="closeLightbox"
-      >
-        <button
-          class="lightbox__close"
-          @click.stop="closeLightbox"
-          aria-label="Close lightbox"
-        />
-
-        <button
-          v-if="currentIndex > 0"
-          class="lightbox__nav lightbox__nav--prev"
-          @click.stop="goToPrev"
-          aria-label="Previous image"
-        />
-
-        <picture v-if="currentImage">
-          <source
-            :srcset="currentImage.src.replace('.jpg', '.webp')"
-            type="image/webp"
-          >
-          <img
-            :src="currentImage.src"
-            :alt="currentImage.alt"
-            class="lightbox__image"
-          >
-        </picture>
-
-        <button
-          v-if="currentIndex < images.length - 1"
-          class="lightbox__nav lightbox__nav--next"
-          @click.stop="goToNext"
-          aria-label="Next image"
-        />
-
-        <!-- Keyboard hints -->
-        <div class="lightbox__hints">
-          <span class="lightbox__hint">ESC to close</span>
-          <span
-            v-if="images.length > 1"
-            class="lightbox__hint"
-          >← → to navigate</span>
-        </div>
-      </div>
-    </Transition>
+    <LightboxOverlay
+      :is-open="isOpen"
+      :current-image="currentImage"
+      :current-index="currentIndex"
+      :total-images="images.length"
+      variant="compact"
+      @close="closeLightbox"
+      @prev="goToPrev"
+      @next="goToNext"
+      @touchstart="handleTouchStart"
+      @touchend="handleTouchEnd"
+    />
   </div>
 </template>

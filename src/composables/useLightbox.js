@@ -1,6 +1,6 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
-export function useLightbox() {
+export const useLightbox = () => {
   const isOpen = ref(false);
   const currentImage = ref(null);
   const currentIndex = ref(0);
@@ -78,4 +78,4 @@ export function useLightbox() {
     goToNext,
     goToPrev,
   };
-}
+};
