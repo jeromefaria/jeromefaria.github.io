@@ -321,15 +321,21 @@
 
   &__credit {
     position: absolute;
-    bottom: 1vh;
-    right: $spacing-3;
+    bottom: 4vh;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: $font-size-sm;
     color: rgba(255, 255, 255, 0.5);
     z-index: 10000;
     pointer-events: auto;
+    text-align: center;
 
     @include respond-to(md) {
+      bottom: 1vh;
+      left: auto;
       right: $spacing-8;
+      transform: none;
+      text-align: right;
       font-size: $font-size-xs;
     }
 
