@@ -85,7 +85,7 @@ export const worksData = {
         meta: 'DVD — Pixelnerve, PXN001, 2008',
         description: 'A collaborative effort between sound artist Jerome Faria and programmer Victor Martins, documenting experiments in audiovisual composition. The project was presented both as a live performance and as this DVD release.',
         tracklist: ['0x00', '0x01', '0x02', '0x03', '0x04', '0xFF'],
-        credits: 'Sounds: Jerome Faria. Visuals: Victor Martins. Artwork: Frederico Cunha.',
+        credits: 'Music by Jerome Faria. Visuals by Victor Martins. Artwork by Frederico Cunha.',
       },
       {
         id: 'coil',
@@ -164,7 +164,7 @@ export const worksData = {
           'sol — Costa Norte',
           '<a href="https://wrpyo.bandcamp.com/">W. R. Pyo</a> — Release (Conclusion)',
         ],
-        credits: 'Artwork by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>. Additional photography by Sue-Elie Andrade-Dé, Joana Marote.',
+        credits: 'Artwork by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>. Additional Photography by Sue-Elie Andrade-Dé, Joana Marote.',
       },
     ],
   },
