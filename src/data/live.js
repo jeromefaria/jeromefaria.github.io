@@ -5,7 +5,7 @@ export const liveData = {
     title: '2025',
     id: '2025',
     defaultOpen: true,
-    events: [
+    items: [
       {
         id: 'showcase-casa-amarela',
         title: 'Showcase Casa Amarela',
@@ -127,7 +127,7 @@ export const liveData = {
   '2024': {
     title: '2024',
     id: '2024',
-    events: [
+    items: [
       {
         id: 'cca-no-desterro',
         title: 'CCA no Desterro',
@@ -216,7 +216,7 @@ export const liveData = {
   '2022': {
     title: '2022',
     id: '2022',
-    events: [
+    items: [
       {
         id: 'jejum-11',
         title: 'Jejum #11',
@@ -360,7 +360,7 @@ export const liveData = {
   '2021': {
     title: '2021',
     id: '2021',
-    events: [
+    items: [
       {
         id: 'reviralho',
         title: 'Reviralho',
@@ -412,7 +412,7 @@ export const liveData = {
   '2015': {
     title: '2015',
     id: '2015',
-    events: [
+    items: [
       {
         id: 'heineken-series',
         title: 'Heineken Series',
@@ -489,7 +489,7 @@ export const liveData = {
   '2013': {
     title: '2013',
     id: '2013',
-    events: [
+    items: [
       {
         id: 'cognitivopolis',
         title: 'Cognitivopolis',
@@ -519,7 +519,7 @@ export const liveData = {
   '2012': {
     title: '2012',
     id: '2012',
-    events: [
+    items: [
       {
         id: 'cine-qua-non',
         title: 'Cine Qua Non',
@@ -531,7 +531,7 @@ export const liveData = {
   '2011': {
     title: '2011',
     id: '2011',
-    events: [
+    items: [
       {
         id: 'madeiradig-2011',
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
@@ -593,7 +593,7 @@ export const liveData = {
   '2010': {
     title: '2010',
     id: '2010',
-    events: [
+    items: [
       {
         id: 'olhares-de-outono-2010',
         title: 'Olhares de Outono',
@@ -642,7 +642,7 @@ export const liveData = {
   '2009': {
     title: '2009',
     id: '2009',
-    events: [
+    items: [
       {
         id: 'madeiradig-2009',
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
@@ -706,7 +706,7 @@ export const liveData = {
   '2008': {
     title: '2008',
     id: '2008',
-    events: [
+    items: [
       {
         id: 'eme-madeira-2008',
         title: 'EME — Extensão Madeira',
@@ -789,7 +789,7 @@ export const liveData = {
   '2007': {
     title: '2007',
     id: '2007',
-    events: [
+    items: [
       {
         id: 'stfu-porto',
         title: 'STFU Porto',
@@ -873,7 +873,7 @@ export const liveData = {
   '2006': {
     title: '2006',
     id: '2006',
-    events: [
+    items: [
       {
         id: 'madeiradig-2006',
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
@@ -885,7 +885,7 @@ export const liveData = {
   '2005': {
     title: '2005',
     id: '2005',
-    events: [
+    items: [
       {
         id: 'madeiradig-2005',
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',

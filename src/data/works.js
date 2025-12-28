@@ -5,7 +5,7 @@ export const worksData = {
     title: 'Solo',
     id: 'solo',
     defaultOpen: true,
-    releases: [
+    items: [
       {
         id: '2504',
         title: '2504',
@@ -68,7 +68,7 @@ export const worksData = {
   nny: {
     title: 'NNY (2004–2009)',
     id: 'nny',
-    releases: [
+    items: [
       {
         id: 'nny-plus',
         title: 'NNY++',
@@ -76,7 +76,7 @@ export const worksData = {
         externalUrl: 'https://www.discogs.com/release/932955-NNY-NNY',
         meta: 'CDr — <a href="https://www.discogs.com/label/84424-Almasud-Records">Almasud Records</a>, CDRASUD015, 2007',
         tracklist: ['001', '002', '003'],
-        credits: 'Written & produced by Jerome Faria, Kazuya Mise, Filipe Cruz. Artwork by <a href="https://webuser.scene.org/~ps/">Filipe Cruz</a>.',
+        credits: 'Written and produced by Jerome Faria, Kazuya Mise, and Filipe Cruz. Artwork by <a href="https://webuser.scene.org/~ps/">Filipe Cruz</a>.',
       },
       {
         id: 'hyphema',
@@ -95,7 +95,7 @@ export const worksData = {
         bandcampUrl: 'https://mimirecords.bandcamp.com/album/coil',
         meta: 'Digital — <a href="https://mimirecords.bandcamp.com/">MiMi Records</a>, MI056, 2006',
         tracklist: ['Dream Cycles In Perpetual Motion'],
-        credits: 'All music written, performed and produced by Jerome Faria. Recorded, mixed and mastered at Human Error Labs. Cover art by Louis de Bettencourt.',
+        credits: 'All music written, performed, and produced by Jerome Faria. Recorded, mixed, and mastered at Human Error Labs. Artwork by Louis de Bettencourt.',
       },
       {
         id: 'readerror',
@@ -114,7 +114,7 @@ export const worksData = {
         externalUrl: 'https://www.monocromatica.com/netlabel/releases/tube026.htm',
         meta: 'Digital — <a href="https://www.monocromatica.com/netlabel/">Test Tube</a>, TUBE026, 2005',
         tracklist: ['Play', '1noise', 'Spctiv', 'Mem.', 'Mcruscul', 'Ngen', 'Tekrish', 'Sy.kic/Pa.trn', 'Artria', '1noise (ps mix)'],
-        credits: 'Cover art by Louis de Bettencourt.',
+        credits: 'Artwork by Louis de Bettencourt.',
       },
       {
         id: 'offear',
@@ -130,7 +130,7 @@ export const worksData = {
   nox: {
     title: 'NOx',
     id: 'nox',
-    releases: [
+    items: [
       {
         id: 'altar',
         title: 'ALTAR',
@@ -139,14 +139,14 @@ export const worksData = {
         bandcampUrl: 'https://casaamarela.bandcamp.com/album/altar',
         meta: 'Digital/Cassette — <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#035, 2024',
         tracklist: ['A', 'L', 'T', 'A', 'R'],
-        credits: 'Music: <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a> & Jerome Faria. Artwork: Mafalda Melim.',
+        credits: 'Music by Pedro Roque and Jerome Faria. Artwork by Mafalda Melim.',
       },
     ],
   },
   curatorial: {
     title: 'Curatorial',
     id: 'curatorial',
-    releases: [
+    items: [
       {
         id: 'overlapse-xiii',
         title: 'Overlapse XIII',
@@ -164,21 +164,21 @@ export const worksData = {
           'sol — Costa Norte',
           '<a href="https://wrpyo.bandcamp.com/">W. R. Pyo</a> — Release (Conclusion)',
         ],
-        credits: 'Artwork by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>. Additional photography by Sue Andrade, Joana Marote.',
+        credits: 'Artwork by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>. Additional photography by Sue-Elie Andrade-Dé, Joana Marote.',
       },
     ],
   },
   film: {
     title: 'Film & Theatre',
     id: 'film',
-    releases: [
+    items: [
       {
         id: 'aragao',
         title: 'Aragão',
         coverImage: '/images/aragao.jpg',
         meta: 'Theatre — <a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, 2021',
         description: 'Theatre production celebrating the centenary of <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event. Faria provided both original music and live interpretation—embedding himself in a multidisciplinary creative team rather than delivering a score from a distance.',
-        credits: 'Direction: Sara Gonçalves. Text: <a href="https://pt.wikipedia.org/wiki/Rui_Zink">Rui Zink</a>. Set design: <a href="https://pt.wikipedia.org/wiki/Jos%C3%A9_Manuel_Castanheira">José Manuel Castanheira</a>. Video: Filipe Ferraz. Music & live interpretation: Jerome Faria.',
+        credits: 'Direction: Sara Gonçalves. Text: <a href="https://pt.wikipedia.org/wiki/Rui_Zink">Rui Zink</a>. Set design: <a href="https://pt.wikipedia.org/wiki/Jos%C3%A9_Manuel_Castanheira">José Manuel Castanheira</a>. Video: Filipe Ferraz. Music and live interpretation: Jerome Faria.',
       },
       {
         id: 'invisible-other',
@@ -201,7 +201,7 @@ export const worksData = {
   compilations: {
     title: 'Compilations and Collaborations',
     id: 'compilations',
-    releases: [
+    items: [
       {
         id: 'comp-marrow',
         title: 'Marrow',
@@ -287,7 +287,7 @@ export const worksData = {
   mastering: {
     title: 'Mastering',
     id: 'mastering',
-    releases: [
+    items: [
       {
         id: 'master-overlapse-xiii',
         title: 'Overlapse XIII',
@@ -310,7 +310,7 @@ export const worksData = {
   publications: {
     title: 'Publications',
     id: 'publications',
-    releases: [
+    items: [
       {
         id: 'glitch',
         title: 'Glitch: Designing Imperfection',
@@ -318,7 +318,7 @@ export const worksData = {
         externalUrl: 'https://www.amazon.com/Glitch-Designing-Imperfection-Iman-Moradi/dp/0979966663',
         meta: 'Book — Mark Batty Publisher, 2009',
         description: 'Over 200 glitch images grabbed, composed and, in some cases, provoked by artists who urge viewers to consider these complex fragments of colour and lines as thought-provoking mistakes. This collection of bits and bytes demonstrates how these "perfect imperfections" merit being considered in an aesthetic sense.',
-        credits: 'Edited by <a href="https://organised.info/">Iman Moradi</a>, <a href="http://www.beflix.com/">Ant Scott</a>, <a href="https://qubik.com/">Joe Gilmore</a>, <a href="https://en.wikipedia.org/wiki/Christopher_Murphy_(designer)">Christopher Murphy</a>. ISBN 978-0-9799666-6-8.',
+        credits: 'Edited by <a href="https://organised.info/">Iman Moradi</a>, <a href="http://www.beflix.com/">Ant Scott</a>, <a href="https://qubik.com/">Joe Gilmore</a>, and <a href="https://en.wikipedia.org/wiki/Christopher_Murphy_(designer)">Christopher Murphy</a>. ISBN 978-0-9799666-6-8.',
       },
     ],
   },
