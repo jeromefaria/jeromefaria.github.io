@@ -98,19 +98,11 @@ const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandc
     <div class="release-details">
       <p>
         <strong>
-          <button
+          <a
             class="release-title-link"
-            @click="emit('update-hash', release.id)"
-          >
-            <span v-if="!release.externalUrl">{{ release.title }}</span>
-            <a
-              v-else
-              :href="release.externalUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              @click.stop
-            >{{ release.title }}</a>
-          </button>
+            :href="`#${release.id}`"
+            @click.prevent="emit('update-hash', release.id)"
+          >{{ release.title }}</a>
         </strong>
       </p>
       <p

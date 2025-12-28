@@ -125,9 +125,10 @@ const handleTouchEnd = (e) => {
           <div class="event-details">
             <p>
               <strong>
-                <button
+                <a
                   class="event-title-link"
-                  @click="updateHash(event.id)"
+                  :href="`#${event.id}`"
+                  @click.prevent="updateHash(event.id)"
                   v-html="event.title"
                 />
               </strong>
