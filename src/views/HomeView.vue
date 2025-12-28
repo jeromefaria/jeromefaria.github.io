@@ -26,8 +26,6 @@ usePageHead({
     <div class="home">
       <section
         class="hero"
-        role="img"
-        aria-label="Jerome Faria performing live"
         :style="{ backgroundImage: 'url(/images/performance.webp)' }"
       />
     </div>
