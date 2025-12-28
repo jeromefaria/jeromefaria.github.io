@@ -95,6 +95,10 @@ footer {
 .footer__copyright {
   font-size: $font-size-xs;
   color: var(--color-text-muted);
+
+  a {
+    @include hover-text;
+  }
 }
 
 // =============================================================================

@@ -35,7 +35,7 @@ const currentYear = new Date().getFullYear();
           </a>
         </div>
         <p class="footer__copyright">
-          &copy; {{ currentYear }} {{ siteConfig.author.name }}
+          &copy; {{ currentYear }} <RouterLink to="/contact">{{ siteConfig.author.name }}</RouterLink>
         </p>
       </div>
     </div>
