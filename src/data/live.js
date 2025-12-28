@@ -53,11 +53,6 @@ export const liveData = {
             photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
           },
           {
-            src: '/images/live/showcase-casa-amarela-009.jpg',
-            alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
-            photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
-          },
-          {
             src: '/images/live/showcase-casa-amarela-010.jpg',
             alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
             photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
@@ -274,11 +269,6 @@ export const liveData = {
           },
           {
             src: '/images/live/jejum-11-011.jpg',
-            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
-            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
-          },
-          {
-            src: '/images/live/jejum-11-012.jpg',
             alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
             photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
           },
@@ -690,14 +680,17 @@ export const liveData = {
           {
             src: '/images/live/eme-olhares-2009-001.jpg',
             alt: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009',
+            photographer: { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
           },
           {
             src: '/images/live/eme-olhares-2009-002.jpg',
             alt: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009',
+            photographer: { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
           },
           {
             src: '/images/live/eme-olhares-2009-003.jpg',
             alt: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009',
+            photographer: { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
           },
         ],
       },
@@ -799,14 +792,17 @@ export const liveData = {
           {
             src: '/images/live/stfu-porto-001.jpg',
             alt: 'Jerome Faria performing at STFU Porto, Fábrica do Som, Porto, 2007',
+            photographer: { name: 'STFU Porto' },
           },
           {
             src: '/images/live/stfu-porto-002.jpg',
             alt: 'Jerome Faria performing at STFU Porto, Fábrica do Som, Porto, 2007',
+            photographer: { name: 'STFU Porto' },
           },
           {
             src: '/images/live/stfu-porto-003.jpg',
             alt: 'Jerome Faria performing at STFU Porto, Fábrica do Som, Porto, 2007',
+            photographer: { name: 'STFU Porto' },
           },
         ],
       },
