@@ -7,7 +7,7 @@ import { siteConfig } from '@/data/navigation';
 import { worksData, worksSections } from '@/data/works';
 import { extractYear } from '@/utils/formatters';
 
-const albumSchemas = worksData.solo.releases
+const albumSchemas = worksData.solo.items
   .filter(r => r.bandcampId || r.bandcampUrl)
   .map(release => ({
     '@type': 'MusicAlbum',
@@ -67,7 +67,7 @@ usePageHead({
 
 const findSectionForRelease = releaseId =>
   worksSections.find(section =>
-    worksData[section]?.releases?.some(r => r.id === releaseId),
+    worksData[section]?.items?.some(r => r.id === releaseId),
   ) ?? null;
 
 const { openSection, handleToggle } = useAccordion('solo', worksSections, findSectionForRelease);
@@ -93,7 +93,7 @@ const updateHash = (id) => {
         @update:model-value="handleToggle(sectionKey, $event)"
       >
         <ReleaseItem
-          v-for="release in worksData[sectionKey].releases"
+          v-for="release in worksData[sectionKey].items"
           :key="release.id"
           :release="release"
           :text-only="!release.coverImage"
