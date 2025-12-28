@@ -88,7 +88,7 @@
     border: none;
     cursor: pointer;
     opacity: 0;
-    transition: opacity $transition-fast;
+    transition: opacity $transition-base;
 
     &::after {
       @include play-triangle-centered;
@@ -158,7 +158,7 @@
         @include absolute-fill;
         background: $overlay-dark;
         opacity: 0;
-        transition: opacity $transition-fast;
+        transition: opacity $transition-base;
         pointer-events: none;
       }
 
@@ -166,7 +166,7 @@
         @include play-triangle-centered;
         z-index: 1;
         opacity: 0;
-        transition: opacity $transition-fast;
+        transition: opacity $transition-base;
       }
 
       &:hover::after,
@@ -209,7 +209,7 @@
       color: inherit;
       text-align: left;
       cursor: pointer;
-      transition: opacity $transition-fast;
+      transition: opacity $transition-base;
 
       &:hover {
         opacity: 0.7;
@@ -349,7 +349,7 @@
     color: var(--color-text);
     text-decoration: none;
     border-bottom: 1px solid var(--color-border);
-    transition: border-color $transition-fast;
+    transition: border-color $transition-base;
 
     &:hover {
       border-color: var(--color-text);

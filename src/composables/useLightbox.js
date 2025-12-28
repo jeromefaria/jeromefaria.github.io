@@ -26,8 +26,8 @@ export function useLightbox() {
     const image = images.value[index];
     if (!image) return;
 
-    const { src, alt } = image;
-    currentImage.value = { src, alt };
+    const { src, alt, photographer } = image;
+    currentImage.value = { src, alt, photographer };
   };
 
   const goToNext = () => {

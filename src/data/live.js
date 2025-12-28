@@ -11,12 +11,116 @@ export const liveData = {
         title: 'Showcase Casa Amarela',
         venue: '<a href="https://www.instagram.com/cooperativamula/">Cooperativa Mula</a>, Barreiro, Portugal',
         description: 'NOx (with <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a>). With <a href="https://copodagua.bandcamp.com/">Copo d\'Água</a>, TiaAvô, Rebolation All-Stars.',
+        images: [
+          {
+            src: '/images/live/showcase-casa-amarela-001.jpg',
+            alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
+            photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+          },
+          {
+            src: '/images/live/showcase-casa-amarela-002.jpg',
+            alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
+            photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+          },
+          {
+            src: '/images/live/showcase-casa-amarela-003.jpg',
+            alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
+            photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+          },
+          {
+            src: '/images/live/showcase-casa-amarela-004.jpg',
+            alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
+            photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+          },
+          {
+            src: '/images/live/showcase-casa-amarela-005.jpg',
+            alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
+            photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+          },
+          {
+            src: '/images/live/showcase-casa-amarela-006.jpg',
+            alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
+            photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+          },
+          {
+            src: '/images/live/showcase-casa-amarela-007.jpg',
+            alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
+            photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+          },
+          {
+            src: '/images/live/showcase-casa-amarela-008.jpg',
+            alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
+            photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+          },
+          {
+            src: '/images/live/showcase-casa-amarela-009.jpg',
+            alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
+            photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+          },
+          {
+            src: '/images/live/showcase-casa-amarela-010.jpg',
+            alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
+            photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+          },
+          {
+            src: '/images/live/showcase-casa-amarela-011.jpg',
+            alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
+            photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+          },
+          {
+            src: '/images/live/showcase-casa-amarela-012.jpg',
+            alt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
+            photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+          },
+        ],
       },
       {
         id: 'fim-de-emissao-45',
         title: 'Fim de Emissão #45',
         venue: '<a href="https://darc.pt">Desterro</a>, Lisbon, Portugal',
         description: 'Solo performance. With Ai Feith, W.T.V.R.',
+        images: [
+          {
+            src: '/images/live/fim-de-emissao-45-001.jpg',
+            alt: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025',
+            photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+          },
+          {
+            src: '/images/live/fim-de-emissao-45-002.jpg',
+            alt: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025',
+            photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+          },
+          {
+            src: '/images/live/fim-de-emissao-45-003.jpg',
+            alt: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025',
+            photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+          },
+          {
+            src: '/images/live/fim-de-emissao-45-004.jpg',
+            alt: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025',
+            photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+          },
+          {
+            src: '/images/live/fim-de-emissao-45-005.jpg',
+            alt: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025',
+            photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+          },
+          {
+            src: '/images/live/fim-de-emissao-45-006.jpg',
+            alt: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025',
+            photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+          },
+          {
+            src: '/images/live/fim-de-emissao-45-007.jpg',
+            alt: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025',
+            photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+          },
+          {
+            src: '/images/live/fim-de-emissao-45-008.jpg',
+            alt: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025',
+            photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+          },
+        ],
       },
     ],
   },
@@ -29,6 +133,83 @@ export const liveData = {
         title: 'CCA no Desterro',
         venue: '<a href="https://darc.pt">Desterro</a>, Lisbon, Portugal',
         description: 'NOx (with <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a>). With <a href="https://copodagua.bandcamp.com/">Copo d\'Água</a>, <a href="https://soundcloud.com/djprivilegio">DJ Privilégio</a>, <a href="https://casaamarela.bandcamp.com/album/shimano">Gallo\'84</a>.',
+        images: [
+          {
+            src: '/images/live/cca-no-desterro-001.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Daniela Jácome', url: 'https://www.instagram.com/danielajacomeph/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-002.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Daniela Jácome', url: 'https://www.instagram.com/danielajacomeph/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-003.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Daniela Jácome', url: 'https://www.instagram.com/danielajacomeph/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-004.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Daniela Jácome', url: 'https://www.instagram.com/danielajacomeph/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-005.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Daniela Jácome', url: 'https://www.instagram.com/danielajacomeph/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-006.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-007.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-008.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-009.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-010.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-011.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-012.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-013.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-014.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/cca-no-desterro-015.jpg',
+            alt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+        ],
       },
     ],
   },
@@ -40,18 +221,139 @@ export const liveData = {
         id: 'jejum-11',
         title: 'Jejum #11',
         venue: '<a href="https://ruadasgaivotas6.pt/">Rua das Gaivotas 6</a>, Lisbon, Portugal',
+        images: [
+          {
+            src: '/images/live/jejum-11-001.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-002.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-003.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-004.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-005.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-006.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-007.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-008.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-009.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-010.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-011.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-012.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-013.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-014.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/jejum-11-015.jpg',
+            alt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+        ],
       },
       {
         id: 'amess-teatro-baltazar-dias',
         title: 'Performance with Amess',
         venue: '<a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, Funchal, Portugal',
         description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.',
+        images: [
+          {
+            src: '/images/live/amess-teatro-baltazar-dias-001.jpg',
+            alt: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022',
+            photographer: { name: 'Óscar Silva', url: 'https://www.instagram.com/oscar_silva95/' },
+          },
+          {
+            src: '/images/live/amess-teatro-baltazar-dias-002.jpg',
+            alt: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022',
+            photographer: { name: 'Óscar Silva', url: 'https://www.instagram.com/oscar_silva95/' },
+          },
+          {
+            src: '/images/live/amess-teatro-baltazar-dias-003.jpg',
+            alt: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022',
+            photographer: { name: 'Óscar Silva', url: 'https://www.instagram.com/oscar_silva95/' },
+          },
+        ],
       },
       {
         id: 'amess-museu-franco',
         title: 'Performance with Amess',
         venue: '<a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=3">Museu Henrique e Francisco Franco</a>, Funchal, Portugal',
         description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.',
+        images: [
+          {
+            src: '/images/live/amess-museu-franco-001.jpg',
+            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
+            photographer: { name: 'Miguel Apolinário' },
+          },
+          {
+            src: '/images/live/amess-museu-franco-002.jpg',
+            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
+            photographer: { name: 'Miguel Apolinário' },
+          },
+          {
+            src: '/images/live/amess-museu-franco-003.jpg',
+            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
+            photographer: { name: 'Miguel Apolinário' },
+          },
+          {
+            src: '/images/live/amess-museu-franco-004.jpg',
+            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
+            photographer: { name: 'Miguel Apolinário' },
+          },
+          {
+            src: '/images/live/amess-museu-franco-005.jpg',
+            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
+            photographer: { name: 'Miguel Apolinário' },
+          },
+        ],
       },
     ],
   },
@@ -70,6 +372,28 @@ export const liveData = {
         title: 'Nariz Entupido',
         venue: '<a href="https://www.smup.pt/">SMUP</a>, Parede, Portugal',
         description: 'Duo with <a href="https://cavernancia.bandcamp.com/">CAVERNANCIA</a>. <a href="https://thisco.bandcamp.com/">THISCO</a> / SPH anniversary celebration.',
+        images: [
+          {
+            src: '/images/live/nariz-entupido-001.jpg',
+            alt: 'Jerome Faria and CAVERNANCIA performing at Nariz Entupido, SMUP, Parede, 2021',
+            photographer: { name: 'Ricardo Nogueira', url: 'https://www.instagram.com/nogueirafoto/' },
+          },
+          {
+            src: '/images/live/nariz-entupido-002.jpg',
+            alt: 'Jerome Faria and CAVERNANCIA performing at Nariz Entupido, SMUP, Parede, 2021',
+            photographer: { name: 'Ricardo Nogueira', url: 'https://www.instagram.com/nogueirafoto/' },
+          },
+          {
+            src: '/images/live/nariz-entupido-003.jpg',
+            alt: 'Jerome Faria and CAVERNANCIA performing at Nariz Entupido, SMUP, Parede, 2021',
+            photographer: { name: 'Ricardo Nogueira', url: 'https://www.instagram.com/nogueirafoto/' },
+          },
+          {
+            src: '/images/live/nariz-entupido-004.jpg',
+            alt: 'Jerome Faria and CAVERNANCIA performing at Nariz Entupido, SMUP, Parede, 2021',
+            photographer: { name: 'Ricardo Nogueira', url: 'https://www.instagram.com/nogueirafoto/' },
+          },
+        ],
       },
       {
         id: 'aragao-cartaxo',
@@ -94,12 +418,71 @@ export const liveData = {
         title: 'Heineken Series',
         venue: '<a href="https://www.musicboxlisboa.com/">Musicbox</a>, Lisbon, Portugal',
         description: 'With <a href="https://www.mmlxii.com/">William Basinski</a>, <a href="https://zigurartists.bandcamp.com/album/forgetting-is-a-liability">Mr. Herbert Quain</a>, <a href="https://www.viberate.com/artist/cruz-767/">Cruz</a>.',
+        images: [
+          {
+            src: '/images/live/heineken-series-001.jpg',
+            alt: 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/heineken-series-002.jpg',
+            alt: 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/heineken-series-003.jpg',
+            alt: 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/heineken-series-004.jpg',
+            alt: 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/heineken-series-005.jpg',
+            alt: 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/heineken-series-006.jpg',
+            alt: 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/heineken-series-007.jpg',
+            alt: 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/heineken-series-008.jpg',
+            alt: 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/heineken-series-009.jpg',
+            alt: 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+          {
+            src: '/images/live/heineken-series-010.jpg',
+            alt: 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+        ],
       },
       {
         id: 'fica-na-cidade',
         title: '<a href="https://www.visitfunchal.pt/pt/todos-os-eventos/280-fica-na-cidade.html">Fica na Cidade</a>',
         venue: 'Praça de Colombo, Funchal, Portugal',
         description: 'With <a href="https://trengosoundsystem.bandcamp.com/">Tren Go! Sound System</a>.',
+        images: [
+          {
+            src: '/images/live/fica-na-cidade-001.jpg',
+            alt: 'Jerome Faria performing at Fica na Cidade, Praça de Colombo, Funchal, 2015',
+            photographer: { name: 'Fica na Cidade' },
+          },
+        ],
       },
     ],
   },
@@ -138,11 +521,6 @@ export const liveData = {
     id: '2012',
     events: [
       {
-        id: 'zonart-iii',
-        title: 'ZonArt III',
-        venue: 'Funchal, Portugal',
-      },
-      {
         id: 'cine-qua-non',
         title: 'Cine Qua Non',
         venue: '<a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol, Portugal',
@@ -159,12 +537,56 @@ export const liveData = {
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
         venue: '<a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta, Portugal',
         description: 'Duo with <a href="https://12k.com/">Taylor Deupree</a>. With <a href="https://sunblind.net/">Tim Hecker</a>, <a href="https://pointnever.com/">Oneohtrix Point Never</a>, <a href="https://ktl10.bandcamp.com/">KTL</a>, <a href="https://deafcenter.bandcamp.com/">Deaf Center</a>, <a href="https://www.leeranaldo.com/">Lee Ranaldo</a> & Manuel Mota, <a href="https://nadja.bandcamp.com/">Nadja</a>, <a href="https://akionda.net/">Aki Onda</a>.',
+        images: [
+          {
+            src: '/images/live/madeiradig-2011-001.jpg',
+            alt: 'Jerome Faria and Taylor Deupree performing at MADEIRADIG, Casa das Mudas, Calheta, 2011',
+            photographer: { name: 'Valentina Araújo' },
+          },
+          {
+            src: '/images/live/madeiradig-2011-002.jpg',
+            alt: 'Jerome Faria and Taylor Deupree performing at MADEIRADIG, Casa das Mudas, Calheta, 2011',
+            photographer: { name: 'Valentina Araújo' },
+          },
+          {
+            src: '/images/live/madeiradig-2011-003.jpg',
+            alt: 'Jerome Faria and Taylor Deupree performing at MADEIRADIG, Casa das Mudas, Calheta, 2011',
+            photographer: { name: 'Valentina Araújo' },
+          },
+          {
+            src: '/images/live/madeiradig-2011-004.jpg',
+            alt: 'Jerome Faria and Taylor Deupree performing at MADEIRADIG, Casa das Mudas, Calheta, 2011',
+            photographer: { name: 'Valentina Araújo' },
+          },
+          {
+            src: '/images/live/madeiradig-2011-005.jpg',
+            alt: 'Jerome Faria and Taylor Deupree performing at MADEIRADIG, Casa das Mudas, Calheta, 2011',
+            photographer: { name: 'Valentina Araújo' },
+          },
+          {
+            src: '/images/live/madeiradig-2011-006.jpg',
+            alt: 'Jerome Faria and Taylor Deupree performing at MADEIRADIG, Casa das Mudas, Calheta, 2011',
+            photographer: { name: 'Valentina Araújo' },
+          },
+        ],
       },
       {
         id: 'migractions-2011',
         title: 'Festival Migractions',
         venue: '<a href="https://www.theatredelopprime.com/">Théâtre de L\'Opprimé</a>, Paris, France',
         description: 'Duo with <a href="https://vimeo.com/hugoolim">Hugo Olim</a>.',
+        images: [
+          {
+            src: '/images/live/migractions-2011-001.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at Festival Migractions, Théâtre de L\'Opprimé, Paris, 2011',
+            photographer: { name: 'Sue-Elie Andrade-Dé', url: 'https://cargocollective.com/sueelieandradede' },
+          },
+          {
+            src: '/images/live/migractions-2011-002.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at Festival Migractions, Théâtre de L\'Opprimé, Paris, 2011',
+            photographer: { name: 'Sue-Elie Andrade-Dé', url: 'https://cargocollective.com/sueelieandradede' },
+          },
+        ],
       },
     ],
   },
@@ -177,6 +599,43 @@ export const liveData = {
         title: 'Olhares de Outono',
         venue: '<a href="https://passosmanuel.net/">Passos Manuel</a>, Porto, Portugal',
         description: 'Artist talk and performance. With <a href="https://oval.bandcamp.com/">Oval</a>, <a href="https://simonfisherturner.bandcamp.com/">Simon Fisher Turner</a>, Paul Farrington, André Gonçalves.',
+        images: [
+          {
+            src: '/images/live/olhares-de-outono-2010-001.jpg',
+            alt: 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010',
+            photographer: { name: 'Olhares de Outono' },
+          },
+          {
+            src: '/images/live/olhares-de-outono-2010-002.jpg',
+            alt: 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010',
+            photographer: { name: 'Olhares de Outono' },
+          },
+          {
+            src: '/images/live/olhares-de-outono-2010-003.jpg',
+            alt: 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010',
+            photographer: { name: 'Olhares de Outono' },
+          },
+          {
+            src: '/images/live/olhares-de-outono-2010-004.jpg',
+            alt: 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010',
+            photographer: { name: 'Olhares de Outono' },
+          },
+          {
+            src: '/images/live/olhares-de-outono-2010-005.jpg',
+            alt: 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010',
+            photographer: { name: 'Olhares de Outono' },
+          },
+          {
+            src: '/images/live/olhares-de-outono-2010-006.jpg',
+            alt: 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010',
+            photographer: { name: 'Olhares de Outono' },
+          },
+          {
+            src: '/images/live/olhares-de-outono-2010-007.jpg',
+            alt: 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010',
+            photographer: { name: 'Olhares de Outono' },
+          },
+        ],
       },
     ],
   },
@@ -189,12 +648,58 @@ export const liveData = {
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
         venue: '<a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta, Portugal',
         description: 'Duo with <a href="https://vimeo.com/hugoolim">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, <a href="https://www.discogs.com/artist/31633-Christ">Christ.</a>, <a href="https://zavoloka.com/">Zavoloka</a> & <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://gigantiq.bandcamp.com/">Gigantiq</a>, <a href="http://www.jade-enterprises.at/">Jade</a>.',
+        images: [
+          {
+            src: '/images/live/madeiradig-2009-001.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, Casa das Mudas, Calheta, 2009',
+            photographer: { name: 'Miguel Apolinário' },
+          },
+          {
+            src: '/images/live/madeiradig-2009-002.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, Casa das Mudas, Calheta, 2009',
+            photographer: { name: 'Miguel Apolinário' },
+          },
+          {
+            src: '/images/live/madeiradig-2009-003.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, Casa das Mudas, Calheta, 2009',
+            photographer: { name: 'Miguel Apolinário' },
+          },
+          {
+            src: '/images/live/madeiradig-2009-004.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, Casa das Mudas, Calheta, 2009',
+            photographer: { name: 'Miguel Apolinário' },
+          },
+          {
+            src: '/images/live/madeiradig-2009-005.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, Casa das Mudas, Calheta, 2009',
+            photographer: { name: 'Miguel Apolinário' },
+          },
+          {
+            src: '/images/live/madeiradig-2009-006.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, Casa das Mudas, Calheta, 2009',
+            photographer: { name: 'Miguel Apolinário' },
+          },
+        ],
       },
       {
         id: 'eme-olhares-2009',
         title: 'EME.LL / Olhares de Outono',
         venue: '<a href="https://www.tnsj.pt/en/edificios/mosteiro-de-sao-bento-da-vitoria/">Mosteiro São Bento da Vitória</a>, Porto, Portugal',
         description: 'Resampling White Noise — 16-performer laptop meeting. With <a href="https://scannerdot.bandcamp.com/">Scanner</a>, <a href="https://at-c.org/">@c</a>, <a href="https://www.vitorjoaquim.pt/">Vitor Joaquim</a>, <a href="https://carlossantos.bandcamp.com/">Carlos Santos</a>, <a href="https://www.carvalhais.org/">Miguel Carvalhais</a>, <a href="http://pedrotudela.org/">Pedro Tudela</a>, Pedro Almeida, <a href="https://opcabpol.bandcamp.com/">João Ricardo</a>, <a href="https://ivanfranco.wordpress.com/">Ivan Franco</a>, <a href="https://nunomoita.bandcamp.com/">Nuno Moita</a>, <a href="https://www.andregoncalves.info/">André Gonçalves</a>, <a href="https://cronica.bandcamp.com/album/musicamorosa">The Beautiful Schizophonic</a>, Rui Costa, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://blog.albagcorral.com/">Alba Corral</a>, <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://vimeo.com/hugoolim">Hugo Olim</a>.',
+        images: [
+          {
+            src: '/images/live/eme-olhares-2009-001.jpg',
+            alt: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009',
+          },
+          {
+            src: '/images/live/eme-olhares-2009-002.jpg',
+            alt: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009',
+          },
+          {
+            src: '/images/live/eme-olhares-2009-003.jpg',
+            alt: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009',
+          },
+        ],
       },
     ],
   },
@@ -213,12 +718,71 @@ export const liveData = {
         title: 'EME',
         venue: '<a href="https://teatroiberico.org/">Teatro Ibérico</a>, Lisbon, Portugal',
         description: 'With <a href="https://thesightbelow.bandcamp.com/">The Sight Below</a>, <a href="https://greghaines.bandcamp.com/">Greg Haines</a>, <a href="https://hauschka.bandcamp.com/">Hauschka</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>, <a href="https://soundcloud.com/sanso-xtro">Sanso-Xtro</a>, <a href="https://annatroisi.org/">Anna Troisi</a>, <a href="https://www.tinafrank.net/">Tina Frank</a>, <a href="https://carstengoertz.cc/">Carsten Goertz</a>, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://www.andregoncalves.info/">André Gonçalves</a>, <a href="https://margaridagarcia.bandcamp.com/">Garcia</a>, Machas, <a href="https://davidmaranha.bandcamp.com/">Maranha</a> e <a href="https://manuelmota.bandcamp.com/">Mota</a>, Safe & Sound, <a href="https://cronica.bandcamp.com/album/musicamorosa">The Beautiful Schizophonic</a>.',
+        images: [
+          {
+            src: '/images/live/eme-2008-001.jpg',
+            alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
+            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+          },
+          {
+            src: '/images/live/eme-2008-002.jpg',
+            alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
+            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+          },
+          {
+            src: '/images/live/eme-2008-003.jpg',
+            alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
+            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+          },
+          {
+            src: '/images/live/eme-2008-004.jpg',
+            alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
+            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+          },
+          {
+            src: '/images/live/eme-2008-005.jpg',
+            alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
+            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+          },
+          {
+            src: '/images/live/eme-2008-006.jpg',
+            alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
+            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+          },
+          {
+            src: '/images/live/eme-2008-007.jpg',
+            alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
+            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+          },
+          {
+            src: '/images/live/eme-2008-008.jpg',
+            alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
+            photographer: { name: 'EME Festival', url: 'http://www.emefestival.org/' },
+          },
+        ],
       },
       {
         id: 'storung-2008',
         title: '<a href="https://ra.co/promoters/4519">Störung</a>',
         venue: '<a href="https://farinera.org/">La Farinera del Clot</a>, Barcelona, Spain',
         description: 'With <a href="https://kimcascone.bandcamp.com/">Kim Cascone</a>, <a href="https://www.franciscolopez.net/">Francisco López</a>, <a href="https://philippepetit.bandcamp.com/">Philippe Petit</a>, <a href="https://ritornell.bandcamp.com/">Ritornell</a>, Sébastien Roux, Tonne.',
+        images: [
+          {
+            src: '/images/live/storung-2008-001.jpg',
+            alt: 'Jerome Faria performing at Störung Festival, La Farinera del Clot, Barcelona, 2008',
+            photographer: { name: 'Störung Festival', url: 'https://storung.com/' },
+          },
+          {
+            src: '/images/live/storung-2008-002.jpg',
+            alt: 'Jerome Faria performing at Störung Festival, La Farinera del Clot, Barcelona, 2008',
+            photographer: { name: 'Störung Festival', url: 'https://storung.com/' },
+          },
+          {
+            src: '/images/live/storung-2008-003.jpg',
+            alt: 'Jerome Faria performing at Störung Festival, La Farinera del Clot, Barcelona, 2008',
+            photographer: { name: 'Störung Festival', url: 'https://storung.com/' },
+          },
+        ],
       },
     ],
   },
@@ -227,21 +791,82 @@ export const liveData = {
     id: '2007',
     events: [
       {
-        id: 'crew-hassan',
-        title: 'Crew Hassan',
-        venue: '<a href="https://www.instagram.com/crewhassan/">Crew Hassan</a>, Lisbon, Portugal',
-      },
-      {
         id: 'stfu-porto',
         title: 'STFU Porto',
         venue: '<a href="http://fabricadesom.org/">Fábrica do Som</a>, Porto, Portugal',
         description: 'With <a href="https://svartegreiner.bandcamp.com/">Svarte Greiner</a>, Pygar (<a href="https://vimeo.com/hugoolim">Hugo Olim</a> & <a href="https://opcabpol.bandcamp.com/">João Ricardo</a>), e:4c, CKZ, DeciBeats, Aenedra, Unknown Forces Of Everyday Life.',
+        images: [
+          {
+            src: '/images/live/stfu-porto-001.jpg',
+            alt: 'Jerome Faria performing at STFU Porto, Fábrica do Som, Porto, 2007',
+          },
+          {
+            src: '/images/live/stfu-porto-002.jpg',
+            alt: 'Jerome Faria performing at STFU Porto, Fábrica do Som, Porto, 2007',
+          },
+          {
+            src: '/images/live/stfu-porto-003.jpg',
+            alt: 'Jerome Faria performing at STFU Porto, Fábrica do Som, Porto, 2007',
+          },
+        ],
       },
       {
         id: 'madeiradig-2007',
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
         venue: '<a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta, Portugal',
         description: 'With <a href="https://alogmusic.bandcamp.com/">Alog</a>, <a href="https://vladislavdelay.bandcamp.com/">Vladislav Delay</a>, <a href="https://ranslavin.com/">Ran Slavin</a>.',
+        images: [
+          {
+            src: '/images/live/madeiradig-2007-001.jpg',
+            alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
+            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+          },
+          {
+            src: '/images/live/madeiradig-2007-002.jpg',
+            alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
+            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+          },
+          {
+            src: '/images/live/madeiradig-2007-003.jpg',
+            alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
+            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+          },
+          {
+            src: '/images/live/madeiradig-2007-004.jpg',
+            alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
+            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+          },
+          {
+            src: '/images/live/madeiradig-2007-005.jpg',
+            alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
+            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+          },
+          {
+            src: '/images/live/madeiradig-2007-006.jpg',
+            alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
+            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+          },
+          {
+            src: '/images/live/madeiradig-2007-007.jpg',
+            alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
+            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+          },
+          {
+            src: '/images/live/madeiradig-2007-008.jpg',
+            alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
+            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+          },
+          {
+            src: '/images/live/madeiradig-2007-009.jpg',
+            alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
+            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+          },
+          {
+            src: '/images/live/madeiradig-2007-010.jpg',
+            alt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
+            photographer: { name: 'Marta León', url: 'http://leonmarta.wordpress.com/' },
+          },
+        ],
       },
     ],
   },
@@ -266,6 +891,58 @@ export const liveData = {
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
         venue: '<a href="https://madeira.rtp.pt/">RDP Auditorium</a>, Funchal, Portugal',
         description: 'Duo with <a href="https://vimeo.com/hugoolim">Hugo Olim</a>. With <a href="https://www.fennesz.com/">Fennesz</a>, <a href="https://florianhecker.blogspot.com/">Florian Hecker</a>, <a href="https://at-c.org/">@c</a> & <a href="https://liaworks.com/">Lia</a>.',
+        images: [
+          {
+            src: '/images/live/madeiradig-2005-001.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005',
+            photographer: { name: 'Louie de Bettencourt' },
+          },
+          {
+            src: '/images/live/madeiradig-2005-002.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005',
+            photographer: { name: 'Louie de Bettencourt' },
+          },
+          {
+            src: '/images/live/madeiradig-2005-003.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005',
+            photographer: { name: 'Louie de Bettencourt' },
+          },
+          {
+            src: '/images/live/madeiradig-2005-004.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005',
+            photographer: { name: 'Louie de Bettencourt' },
+          },
+          {
+            src: '/images/live/madeiradig-2005-005.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005',
+            photographer: { name: 'Louie de Bettencourt' },
+          },
+          {
+            src: '/images/live/madeiradig-2005-006.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005',
+            photographer: { name: 'Louie de Bettencourt' },
+          },
+          {
+            src: '/images/live/madeiradig-2005-007.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005',
+            photographer: { name: 'Louie de Bettencourt' },
+          },
+          {
+            src: '/images/live/madeiradig-2005-008.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005',
+            photographer: { name: 'Louie de Bettencourt' },
+          },
+          {
+            src: '/images/live/madeiradig-2005-009.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005',
+            photographer: { name: 'Louie de Bettencourt' },
+          },
+          {
+            src: '/images/live/madeiradig-2005-010.jpg',
+            alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005',
+            photographer: { name: 'Louie de Bettencourt' },
+          },
+        ],
       },
     ],
   },

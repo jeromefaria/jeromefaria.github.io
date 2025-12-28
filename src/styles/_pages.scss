@@ -259,159 +259,90 @@
     cursor: default;
   }
 
-  &__close {
-    position: absolute;
-    top: $spacing-4;
-    right: $spacing-4;
-    background: none;
-    border: none;
-    width: 48px;
-    height: 48px;
-    cursor: pointer;
-    transition: opacity $transition-base;
-    opacity: 0.6;
-    z-index: 10000;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    @include respond-to(md) {
-      top: $spacing-8;
-      right: $spacing-8;
-      width: 56px;
-      height: 56px;
-    }
-
-    // X icon using CSS
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 1px;
-      background-color: var(--color-background);
-
-      @include respond-to(md) {
-        width: 24px;
-      }
-    }
-
-    &::before {
-      transform: rotate(45deg);
-    }
-
-    &::after {
-      transform: rotate(-45deg);
-    }
-
-    &:hover {
-      opacity: 1;
-    }
-
-    @media (prefers-reduced-motion: no-preference) {
-      &:active {
-        transform: scale(0.95);
-      }
-    }
-  }
-
-  &__nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    width: 48px;
-    height: 48px;
-    cursor: pointer;
-    transition: opacity $transition-base;
-    opacity: 0.6;
-    z-index: 10000;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    @include respond-to(md) {
-      width: 56px;
-      height: 56px;
-    }
-
-    &::before {
-      content: '';
-      display: block;
-      width: 14px;
-      height: 14px;
-      border-top: 1px solid var(--color-background);
-      border-left: 1px solid var(--color-background);
-      transform: rotate(-45deg);
-
-      @include respond-to(md) {
-        width: 16px;
-        height: 16px;
-      }
-    }
-
-    &:hover {
-      opacity: 1;
-    }
-
-    @media (prefers-reduced-motion: no-preference) {
-      &:active {
-        transform: translateY(-50%) scale(0.95);
-      }
-    }
-
-    &--prev {
-      left: $spacing-4;
-
-      @include respond-to(md) {
-        left: $spacing-8;
-      }
-    }
-
-    &--next {
-      right: $spacing-4;
-
-      @include respond-to(md) {
-        right: $spacing-8;
-      }
-
-      &::before {
-        transform: rotate(135deg);
-      }
-    }
-  }
-
   &__hints {
-    display: none;
-
-    // Only show on devices with hover capability (non-touch devices)
-    @media (hover: hover) and (pointer: fine) {
-      display: flex;
-      position: absolute;
-      bottom: $spacing-4;
-      left: 50%;
-      transform: translateX(-50%);
-      gap: $spacing-4;
-      z-index: 10000;
-      pointer-events: none;
-
-      @include respond-to(md) {
-        bottom: $spacing-8;
-        gap: $spacing-6;
-      }
-    }
+    display: flex;
+    position: absolute;
+    bottom: 1vh;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 0;
+    z-index: 10000;
+    align-items: center;
   }
 
   &__hint {
-    font-size: $font-size-xs;
+    background: none;
+    border: none;
+    padding: $spacing-1;
+    font-size: $font-size-base;
     color: var(--color-background);
     opacity: 0.5;
-    text-transform: uppercase;
-    letter-spacing: $letter-spacing-wide;
-    white-space: nowrap;
+    cursor: pointer;
+    transition: opacity $transition-base, transform $transition-base;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include respond-to(md) {
+      font-size: $font-size-lg;
+      padding: $spacing-2;
+    }
+
+    &:hover:not(:disabled) {
+      opacity: 1;
+    }
+
+    &:disabled {
+      opacity: 0.2;
+      cursor: not-allowed;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      &:active:not(:disabled) {
+        transform: scale(0.9);
+      }
+    }
+
+    &--prev,
+    &--next {
+      transform: translateY(1px);
+    }
+
+    &--close {
+      font-size: $font-size-xl;
+      font-weight: 300;
+
+      @include respond-to(md) {
+        font-size: $font-size-2xl;
+      }
+    }
+  }
+
+  &__credit {
+    position: absolute;
+    bottom: 1vh;
+    right: $spacing-3;
+    font-size: $font-size-sm;
+    color: rgba(255, 255, 255, 0.5);
+    z-index: 10000;
+    pointer-events: auto;
+
+    @include respond-to(md) {
+      right: $spacing-8;
+      font-size: $font-size-xs;
+    }
+
+    a {
+      color: var(--color-link);
+      text-decoration: none;
+      transition: color $transition-base;
+
+      &:hover,
+      &:focus-visible {
+        color: var(--color-link-hover);
+      }
+    }
   }
 }
 
@@ -460,16 +391,100 @@
 // =============================================================================
 
 .page[data-page="live"] {
+  // Event container
+  .event {
+    margin-bottom: $spacing-10;
+    @include scroll-margin-header;
+  }
+
+  // Event details — text-only variant
+  .event--text-only .event-details {
+    p {
+      margin-bottom: $spacing-1;
+    }
+
+    .event-meta {
+      margin-bottom: $spacing-2;
+    }
+
+    .event-description {
+      font-size: $font-size-sm;
+      line-height: $line-height-base;
+      color: var(--color-text-secondary);
+    }
+  }
+
   // Event titles — uniform size
-  .release-details p:first-child strong {
+  .event-details p:first-child strong {
     font-size: $font-size-base;
   }
 
   // Venue — softer styling
-  .release-meta {
+  .event-meta {
     text-transform: none;
     letter-spacing: normal;
     font-style: italic;
+    font-size: $font-size-sm;
+    color: var(--color-text-muted);
+  }
+
+  // Event title link — invisible but updates URL hash
+  .event-title-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: opacity $transition-base;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &:focus-visible {
+      outline: 1px solid var(--color-border);
+      outline-offset: 2px;
+    }
+  }
+
+  // Photo gallery link — discrete and subtle
+  .event-photos-link {
+    margin-top: $spacing-2;
+    margin-bottom: 0;
+  }
+
+  .link-discrete {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    font-size: $font-size-xs;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+    cursor: pointer;
+    transition: color $transition-base;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--color-text);
+    }
+
+    &:focus-visible {
+      outline: 1px solid var(--color-border);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      &:active {
+        transform: scale(0.98);
+      }
+    }
   }
 
   // Event title link — invisible but updates URL hash
@@ -631,7 +646,7 @@
     display: inline-block;
     padding: $spacing-2 $spacing-4;
     border: 1px solid var(--color-border);
-    transition: border-color $transition-fast, color $transition-fast;
+    transition: border-color $transition-base, color $transition-base;
 
     &:hover {
       border-color: var(--color-text);

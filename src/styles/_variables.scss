@@ -156,7 +156,7 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
 // Muted to text color hover transition
 @mixin hover-text {
   color: var(--color-text-muted);
-  transition: color $transition-fast;
+  transition: color $transition-base;
 
   &:hover {
     color: var(--color-text);
