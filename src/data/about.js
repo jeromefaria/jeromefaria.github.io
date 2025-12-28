@@ -46,7 +46,7 @@ export const aboutSections = [
         src: "/images/about-2009-madeiradig.jpg",
         alt: "Jerome Faria and Hugo Olim performing at MADEIRADIG 2009",
         position: "center 40%",
-        photographer: { name: 'Miguel Apolinário' },
+        photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
       },
     ],
   },
@@ -164,7 +164,7 @@ export const aboutSections = [
         src: "/images/about-2022-amess-museu.jpg",
         alt: "Jerome Faria with Amess at Museu Henrique e Francisco Franco, 2022",
         position: "center 45%",
-        photographer: { name: 'Miguel Apolinário' },
+        photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
       },
       {
         src: "/images/about-2022-amess-teatro.jpg",
