@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { usePageHead } from '@/composables/usePageHead';
+import { FORM_SUBMIT } from '@/utils/constants';
 import { contactContent } from '@/data/contact';
 import { siteConfig } from '@/data/navigation';
 
@@ -142,17 +143,17 @@ const handleSubmit = async event => {
         <!-- FormSubmit Configuration Fields -->
         <input
           type="hidden"
-          name="_subject"
+          :name="FORM_SUBMIT.SUBJECT"
           value="Contact Form Submission"
         >
         <input
           type="hidden"
-          name="_captcha"
+          :name="FORM_SUBMIT.CAPTCHA"
           value="false"
         >
         <input
           type="text"
-          name="_honey"
+          :name="FORM_SUBMIT.HONEYPOT"
           class="contact-form__honeypot"
           tabindex="-1"
           autocomplete="off"
@@ -210,7 +211,7 @@ const handleSubmit = async event => {
           <!-- FormSubmit: use email as reply-to -->
           <input
             type="hidden"
-            name="_replyto"
+            :name="FORM_SUBMIT.REPLY_TO"
             :value="formData.email"
           >
         </div>
