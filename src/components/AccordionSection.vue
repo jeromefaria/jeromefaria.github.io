@@ -1,7 +1,7 @@
 <script setup>
 import { computed, nextTick, ref } from 'vue';
 
-import { ID_PREFIX, TIMING } from '@/utils/constants';
+import { ID_PREFIX, LAYOUT, TIMING } from '@/utils/constants';
 
 const props = defineProps({
   title: {
@@ -28,10 +28,9 @@ const sectionRef = ref(null);
 const contentRef = ref(null);
 
 const getHeaderOffset = () => {
-  const isDesktop = window.matchMedia('(min-width: 768px)').matches;
-  const headerHeight = isDesktop ? 77 : 57;
-  const spacing = 16;
-  return headerHeight + spacing;
+  const isDesktop = window.matchMedia(`(min-width: ${LAYOUT.BREAKPOINT_MD}px)`).matches;
+  const headerHeight = isDesktop ? LAYOUT.HEADER_HEIGHT_DESKTOP : LAYOUT.HEADER_HEIGHT_MOBILE;
+  return headerHeight + LAYOUT.SPACING_4;
 };
 
 const scrollToSection = () => {
