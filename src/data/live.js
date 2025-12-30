@@ -396,6 +396,13 @@ export const liveData = {
         title: '<a href="/works#aragao">Aragão</a>',
         venue: '<a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, Funchal, Portugal',
         description: 'Theatre production. Live music & interpretation.',
+        images: [
+          {
+            src: '/images/live/aragao-funchal-001.jpg',
+            alt: 'Aragão theatre production at Teatro Municipal Baltazar Dias, Funchal, 2021',
+            photographer: { name: 'Mário André Pereira' },
+          },
+        ],
       },
     ],
   },
