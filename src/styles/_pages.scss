@@ -450,42 +450,6 @@
     }
   }
 
-  // Photo gallery link — discrete and subtle
-  .event-photos-link {
-    margin-top: $spacing-2;
-    margin-bottom: 0;
-  }
-
-  .link-discrete {
-    background: none;
-    border: none;
-    padding: 0;
-    font-family: inherit;
-    font-size: $font-size-xs;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: $letter-spacing-wide;
-    cursor: pointer;
-    transition: color $transition-base;
-    text-decoration: none;
-
-    &:hover,
-    &:focus-visible {
-      color: var(--color-text);
-    }
-
-    &:focus-visible {
-      outline: 1px solid var(--color-border);
-      outline-offset: 2px;
-    }
-
-    @media (prefers-reduced-motion: no-preference) {
-      &:active {
-        transform: scale(0.98);
-      }
-    }
-  }
-
   // Event title link — invisible but updates URL hash
   .event-title-link {
     background: none;
@@ -506,6 +470,47 @@
     &:focus-visible {
       outline: 1px solid var(--color-border);
       outline-offset: 2px;
+    }
+  }
+}
+
+// =============================================================================
+// Photo Gallery Links (Works & Live pages)
+// =============================================================================
+
+// Photo gallery link — discrete and subtle
+.event-photos-link,
+.release-gallery-link {
+  margin-top: $spacing-2;
+  margin-bottom: 0;
+}
+
+.link-discrete {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: $font-size-xs;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+  cursor: pointer;
+  transition: color $transition-base;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-text);
+  }
+
+  &:focus-visible {
+    outline: 1px solid var(--color-border);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &:active {
+      transform: scale(0.98);
     }
   }
 }

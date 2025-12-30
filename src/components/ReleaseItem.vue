@@ -16,7 +16,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['update-hash']);
+const emit = defineEmits(['update-hash', 'open-lightbox']);
 
 const {
   imageRef,
@@ -127,6 +127,17 @@ const isBandcampLink = computed(() => props.release.externalUrl?.includes('bandc
         class="release-credits"
         v-html="release.credits"
       />
+      <p
+        v-if="release.images?.length"
+        class="release-gallery-link"
+      >
+        <button
+          class="link-discrete"
+          @click="emit('open-lightbox', release.images, 0)"
+        >
+          View gallery
+        </button>
+      </p>
     </div>
   </article>
 </template>

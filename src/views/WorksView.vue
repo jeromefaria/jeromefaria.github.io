@@ -1,8 +1,11 @@
 <script setup>
 import AccordionSection from '@/components/AccordionSection.vue';
+import LightboxOverlay from '@/components/LightboxOverlay.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
 import { useAccordion } from '@/composables/useAccordion';
+import { useLightbox } from '@/composables/useLightbox';
 import { usePageHead } from '@/composables/usePageHead';
+import { useSwipeNavigation } from '@/composables/useSwipeNavigation';
 import { siteConfig } from '@/data/navigation';
 import { worksData, worksSections } from '@/data/works';
 import { extractYear } from '@/utils/formatters';
@@ -71,9 +74,11 @@ const findSectionForRelease = releaseId =>
   ) ?? null;
 
 const { openSection, handleToggle } = useAccordion('solo', worksSections, findSectionForRelease);
+const { isOpen, currentImage, currentIndex, images, openLightbox, closeLightbox, goToNext, goToPrev } = useLightbox();
+const { handleTouchStart, handleTouchEnd } = useSwipeNavigation(goToNext, goToPrev);
 
 // Update URL hash when release is clicked
-const updateHash = (id) => {
+const updateHash = id => {
   window.history.replaceState(null, '', `#${id}`);
 };
 </script>
@@ -98,8 +103,23 @@ const updateHash = (id) => {
           :release="release"
           :text-only="!release.coverImage"
           @update-hash="updateHash"
+          @open-lightbox="openLightbox"
         />
       </AccordionSection>
     </article>
+
+    <!-- Lightbox overlay -->
+    <LightboxOverlay
+      :is-open="isOpen"
+      :current-image="currentImage"
+      :current-index="currentIndex"
+      :total-images="images.length"
+      variant="compact"
+      @close="closeLightbox"
+      @prev="goToPrev"
+      @next="goToNext"
+      @touchstart="handleTouchStart"
+      @touchend="handleTouchEnd"
+    />
   </div>
 </template>
