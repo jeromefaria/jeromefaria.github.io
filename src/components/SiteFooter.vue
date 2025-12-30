@@ -9,9 +9,9 @@ const currentYear = new Date().getFullYear();
 <template>
   <footer>
     <div class="container">
-      <div class="footer-content">
+      <div class="footer__content">
         <nav
-          class="footer-nav"
+          class="footer__nav"
           aria-label="Footer navigation"
         >
           <RouterLink
