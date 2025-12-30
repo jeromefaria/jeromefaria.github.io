@@ -36,7 +36,7 @@ export const worksData = {
           "It Couldn't Have Been Cesare...",
           'We Who Are Of Noble Blood May Not Follow The Wishes Of Our Hearts',
         ],
-        credits: 'Music and artwork by Jerome Faria.',
+        credits: 'Music by Jerome Faria. Cover image from the film.',
       },
       {
         id: 'overlapse',
@@ -54,7 +54,7 @@ export const worksData = {
           'Decay III',
           'Release (Conclusion)',
         ],
-        credits: 'Photography by Joana Marote.',
+        credits: 'Music and artwork by Jerome Faria. Photography by Joana Marote.',
       },
       {
         id: '1714',
@@ -99,7 +99,7 @@ export const worksData = {
         bandcampUrl: 'https://mimirecords.bandcamp.com/album/read-error',
         meta: 'Digital — <a href="https://mimirecords.bandcamp.com/">MiMi Records</a>, MI031, 2005',
         tracklist: ['God Grnlzer', 'Vber', 'Maladie', 'Ob jeqt', 'Gleetch', '_ex1', 'Hell Rendered', 'Mutnt'],
-        credits: 'Artwork by <a href="https://www.instagram.com/pbalpbal/">Philip Baljeu</a>.',
+        credits: 'Music by Jerome Faria. Artwork by <a href="https://www.instagram.com/pbalpbal/">Philip Baljeu</a>.',
       },
       {
         id: 'ect',
@@ -108,7 +108,7 @@ export const worksData = {
         externalUrl: 'https://www.monocromatica.com/netlabel/releases/tube026.htm',
         meta: 'Digital — <a href="https://www.monocromatica.com/netlabel/">Test Tube</a>, TUBE026, 2005',
         tracklist: ['Play', '1noise', 'Spctiv', 'Mem.', 'Mcruscul', 'Ngen', 'Tekrish', 'Sy.kic/Pa.trn', 'Artria', '1noise (ps mix)'],
-        credits: 'Artwork by Louis de Bettencourt.',
+        credits: 'Music by Jerome Faria. Artwork by Louis de Bettencourt.',
       },
       {
         id: 'offear',
@@ -142,7 +142,7 @@ export const worksData = {
           'sol — Costa Norte',
           '<a href="https://wrpyo.bandcamp.com/">W. R. Pyo</a> — Release (Conclusion)',
         ],
-        credits: 'Artwork by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>. Additional Photography by <a href="https://cargocollective.com/sueelieandradede">Sue-Elie Andrade-Dé</a>, Joana Marote.',
+        credits: 'Artwork by Jerome Faria. Photography by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>, <a href="https://cargocollective.com/sueelieandradede">Sue-Elie Andrade-Dé</a>, Joana Marote.',
       },
       {
         id: 'altar',
@@ -160,7 +160,7 @@ export const worksData = {
         coverImage: '/images/depolarized.jpg',
         meta: 'Digital — BRØQN, BRQ002, 2012',
         tracklist: ['Depolarized'],
-        credits: 'Music by Jerome Faria and Nelson P. Ferreira.',
+        credits: 'Music and artwork by Jerome Faria and Nelson P. Ferreira.',
       },
     ],
   },
@@ -172,7 +172,7 @@ export const worksData = {
         id: 'aragao',
         title: 'Aragão',
         coverImage: '/images/aragao.jpg',
-        meta: 'Theatre — <a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, 2021',
+        meta: 'Theatre — <a href="https://teatrobaltazardias.funchal.pt/">Teatro Municipal Baltazar Dias</a>, 2021',
         description: 'Theatre production celebrating the centenary of <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event. Faria provided both original music and live interpretation—embedding himself in a multidisciplinary creative team rather than delivering a score from a distance.',
         credits: 'Direction: Sara Gonçalves. Text: <a href="https://pt.wikipedia.org/wiki/Rui_Zink">Rui Zink</a>. Set design: <a href="https://pt.wikipedia.org/wiki/Jos%C3%A9_Manuel_Castanheira">José Manuel Castanheira</a>. Video: Filipe Ferraz. Music and live interpretation: Jerome Faria.',
       },
@@ -182,7 +182,7 @@ export const worksData = {
         coverImage: '/images/invisible-other.jpg',
         meta: 'Film — dir. <a href="https://margaridapaiva.net/">Margarida Paiva</a>, 2016',
         description: 'Original score for film by Portuguese-Norwegian visual artist Margarida Paiva. The film depicts a park as a closed world where anonymous characters drift past one another, bound only by gestures and glances.',
-        credits: 'Producer: Rune Sandnes. Cinematography: <a href="https://www.instagram.com/diogocastrofilm/">Diogo Castro</a>. Music: Jerome Faria. Sound design: <a href="https://www.linkedin.com/in/dvarte/">Duarte Ferreira</a>. Sound editor: <a href="https://www.instagram.com/ochocobogordo/">Pedro Anacleto</a>. Editing: Margarida Paiva. Cast: <a href="https://chiocca.wixsite.com/susanachiocca">Susana Chiocca</a>, Alexandre Osório, Helena Carneiro, <a href="https://agenteanorte.com/en/atores-exclusivos/joao-pamplona/">João Pamplona</a>, <a href="https://agenteanorte.com/en/atores-exclusivos/susana-madeira/">Susana Madeira</a>, Mariana L. Ferreira. Shot at <a href="https://jardimbotanico.up.pt/">Jardim Botânico do Porto</a>.',
+        credits: 'Producer: Rune Sandnes. Cinematography: <a href="https://www.instagram.com/diogocastrofilm/">Diogo Castro</a>. Music: Jerome Faria. Sound design: <a href="https://www.linkedin.com/in/dvarte/">Duarte Ferreira</a>. Sound editor: <a href="https://www.instagram.com/ochocobogordo/">Pedro Anacleto</a>. Editing: Margarida Paiva. Cast: <a href="https://chiocca.wixsite.com/susanachiocca">Susana Chiocca</a>, Alexandre Osório, Helena Carneiro, <a href="https://agenteanorte.com/en/atores-exclusivos/joao-pamplona/">João Pamplona</a>, <a href="https://agenteanorte.com/en/atores-exclusivos/susana-madeira/">Susana Madeira</a>, Mariana L. Ferreira. Shot at <a href="https://mhnc.up.pt/pt/jardim-botanico-da-universidade-do-porto/">Jardim Botânico do Porto</a>.',
       },
       {
         id: 'caligari',
@@ -190,7 +190,7 @@ export const worksData = {
         coverImage: '/images/caligari-live.jpg',
         meta: 'Live Score — 2013',
         description: 'Live score for <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a>\'s 1920 expressionist silent film. Working against Wiene\'s angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honoring the film\'s unease while exploring territories the original could never have envisioned.',
-        credits: 'Photography by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>.',
+        credits: 'Music by Jerome Faria. Performed by Jerome Faria and <a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>.',
       },
       {
         id: 'hyphema',
