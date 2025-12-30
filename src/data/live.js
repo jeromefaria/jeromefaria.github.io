@@ -497,6 +497,13 @@ export const liveData = {
         title: 'The Cabinet of Dr. Caligari',
         venue: 'Scat Music Club, Funchal, Portugal',
         description: 'Live score for Robert Wiene\'s 1920 expressionist silent film. With <a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>.',
+        images: [
+          {
+            src: '/images/live/caligari-live-2-001.jpg',
+            alt: 'Jerome Faria performing The Cabinet of Dr. Caligari at Scat Music Club, Funchal, 2013',
+            photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          },
+        ],
       },
       {
         id: 'caligari-live',
