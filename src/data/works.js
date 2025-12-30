@@ -20,6 +20,7 @@ export const worksData = {
           'Futebol: Estados Capitalistas',
           'Epílogo: Estado a Que Chegamos',
         ],
+        credits: 'Music and artwork by Jerome Faria.',
       },
       {
         id: 'caligari-album',
@@ -35,6 +36,7 @@ export const worksData = {
           "It Couldn't Have Been Cesare...",
           'We Who Are Of Noble Blood May Not Follow The Wishes Of Our Hearts',
         ],
+        credits: 'Music and artwork by Jerome Faria.',
       },
       {
         id: 'overlapse',
@@ -62,6 +64,7 @@ export const worksData = {
         bandcampUrl: 'https://jeromefaria.bandcamp.com/album/17-14',
         meta: 'Digital — BRØQN, 2010',
         tracklist: ['2:58', '5:18', '8:58'],
+        credits: 'Music and artwork by Jerome Faria.',
       },
     ],
   },
@@ -76,16 +79,7 @@ export const worksData = {
         externalUrl: 'https://www.discogs.com/release/932955-NNY-NNY',
         meta: 'CDr — <a href="https://www.discogs.com/label/84424-Almasud-Records">Almasud Records</a>, CDRASUD015, 2007',
         tracklist: ['001', '002', '003'],
-        credits: 'Written and produced by Jerome Faria, Kazuya Mise, and Filipe Cruz. Artwork by <a href="https://webuser.scene.org/~ps/">Filipe Cruz</a>.',
-      },
-      {
-        id: 'hyphema',
-        title: 'Hyphema',
-        coverImage: '/images/hyphema.jpg',
-        meta: 'DVD — Pixelnerve, PXN001, 2008',
-        description: 'A collaborative effort between sound artist Jerome Faria and programmer <a href="https://pixelnerve.com/">Victor Martins</a>, documenting experiments in audiovisual composition. The project was presented both as a live performance and as this DVD release.',
-        tracklist: ['0x00', '0x01', '0x02', '0x03', '0x04', '0xFF'],
-        credits: 'Music by Jerome Faria. Visuals by <a href="https://pixelnerve.com/">Victor Martins</a>. Artwork by Frederico Cunha.',
+        credits: 'Music by Jerome Faria, Kazuya Mise, and Filipe Cruz. Artwork by <a href="https://webuser.scene.org/~ps/">Filipe Cruz</a>.',
       },
       {
         id: 'coil',
@@ -95,7 +89,7 @@ export const worksData = {
         bandcampUrl: 'https://mimirecords.bandcamp.com/album/coil',
         meta: 'Digital — <a href="https://mimirecords.bandcamp.com/">MiMi Records</a>, MI056, 2006',
         tracklist: ['Dream Cycles In Perpetual Motion'],
-        credits: 'All music written, performed, and produced by Jerome Faria. Recorded, mixed, and mastered at Human Error Labs. Artwork by Louis de Bettencourt.',
+        credits: 'Music by Jerome Faria. Recorded, mixed, and mastered at Human Error Labs. Artwork by Louis de Bettencourt.',
       },
       {
         id: 'readerror',
@@ -123,29 +117,13 @@ export const worksData = {
         externalUrl: 'https://archive.org/details/enrmp040_nny_-_offear_ep',
         meta: 'Digital — <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRMP040, 2004',
         tracklist: ['Ve.Fe.Re', 'Zro:ne', 'Slid Stp', 'Exmatik', 'BL_P+'],
-        credits: 'All music written and captured by Jerome Faria. Artwork by <a href="https://www.deviantart.com/spiraljoe">Spiraljoe</a>.',
+        credits: 'Music by Jerome Faria. Artwork by <a href="https://www.deviantart.com/spiraljoe">Spiraljoe</a>.',
       },
     ],
   },
-  nox: {
-    title: 'NOx',
-    id: 'nox',
-    items: [
-      {
-        id: 'altar',
-        title: 'ALTAR',
-        bandcampId: '2165800616',
-        coverImage: '/images/altar.jpg',
-        bandcampUrl: 'https://casaamarela.bandcamp.com/album/altar',
-        meta: 'Digital/Cassette — <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#035, 2024',
-        tracklist: ['A', 'L', 'T', 'A', 'R'],
-        credits: 'Music by Pedro Roque and Jerome Faria. Artwork by <a href="https://www.instagram.com/mafaldappm/">Mafalda Melim</a>.',
-      },
-    ],
-  },
-  curatorial: {
-    title: 'Curatorial',
-    id: 'curatorial',
+  collaborations: {
+    title: 'Collaborations',
+    id: 'collaborations',
     items: [
       {
         id: 'overlapse-xiii',
@@ -166,10 +144,28 @@ export const worksData = {
         ],
         credits: 'Artwork by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>. Additional Photography by <a href="https://cargocollective.com/sueelieandradede">Sue-Elie Andrade-Dé</a>, Joana Marote.',
       },
+      {
+        id: 'altar',
+        title: 'ALTAR',
+        bandcampId: '2165800616',
+        coverImage: '/images/altar.jpg',
+        bandcampUrl: 'https://casaamarela.bandcamp.com/album/altar',
+        meta: 'Digital/Cassette — <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#035, 2024',
+        tracklist: ['A', 'L', 'T', 'A', 'R'],
+        credits: 'Music by Pedro Roque and Jerome Faria. Artwork by <a href="https://www.instagram.com/mafaldappm/">Mafalda Melim</a>.',
+      },
+      {
+        id: 'depolarized',
+        title: 'Depolarized',
+        coverImage: '/images/depolarized.jpg',
+        meta: 'Digital — BRØQN, BRQ002, 2012',
+        tracklist: ['Depolarized'],
+        credits: 'Music by Jerome Faria and Nelson P. Ferreira.',
+      },
     ],
   },
   film: {
-    title: 'Film & Theatre',
+    title: 'Scores',
     id: 'film',
     items: [
       {
@@ -184,7 +180,7 @@ export const worksData = {
         id: 'invisible-other',
         title: 'Invisible Other',
         coverImage: '/images/invisible-other.jpg',
-        meta: 'Film — dir. <a href="https://www.margaridapaiva.com/">Margarida Paiva</a>, 2016',
+        meta: 'Film — dir. <a href="https://margaridapaiva.net/">Margarida Paiva</a>, 2016',
         description: 'Original score for film by Portuguese-Norwegian visual artist Margarida Paiva. The film depicts a park as a closed world where anonymous characters drift past one another, bound only by gestures and glances.',
         credits: 'Producer: Rune Sandnes. Cinematography: <a href="https://www.instagram.com/diogocastrofilm/">Diogo Castro</a>. Music: Jerome Faria. Sound design: <a href="https://www.linkedin.com/in/dvarte/">Duarte Ferreira</a>. Sound editor: <a href="https://www.instagram.com/ochocobogordo/">Pedro Anacleto</a>. Editing: Margarida Paiva. Cast: <a href="https://chiocca.wixsite.com/susanachiocca">Susana Chiocca</a>, Alexandre Osório, Helena Carneiro, <a href="https://agenteanorte.com/en/atores-exclusivos/joao-pamplona/">João Pamplona</a>, <a href="https://agenteanorte.com/en/atores-exclusivos/susana-madeira/">Susana Madeira</a>, Mariana L. Ferreira. Shot at <a href="https://jardimbotanico.up.pt/">Jardim Botânico do Porto</a>.',
       },
@@ -196,10 +192,19 @@ export const worksData = {
         description: 'Live score for <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a>\'s 1920 expressionist silent film. Working against Wiene\'s angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honoring the film\'s unease while exploring territories the original could never have envisioned.',
         credits: 'Photography by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>.',
       },
+      {
+        id: 'hyphema',
+        title: 'Hyphema',
+        coverImage: '/images/hyphema.jpg',
+        meta: 'DVD — Pixelnerve, PXN001, 2008',
+        description: 'A collaborative effort between sound artist Jerome Faria and programmer <a href="https://pixelnerve.com/">Victor Martins</a>, documenting experiments in audiovisual composition. The project was presented both as a live performance and as this DVD release.',
+        tracklist: ['0x00', '0x01', '0x02', '0x03', '0x04', '0xFF'],
+        credits: 'Music by Jerome Faria. Visuals by <a href="https://pixelnerve.com/">Victor Martins</a>. Artwork by Frederico Cunha.',
+      },
     ],
   },
   compilations: {
-    title: 'Compilations and Collaborations',
+    title: 'Compilations',
     id: 'compilations',
     items: [
       {
@@ -211,11 +216,6 @@ export const worksData = {
         id: 'comp-100421',
         title: '100421',
         meta: 'in <em><a href="https://descendresalacave.bandcamp.com/album/transmissions-from-the-heart-of-darkness-part-v-elsewhere">Transmissions From The Heart Of Darkness, Part V: Elsewhere</a></em> — MP3, Des Cendres À La Cave, 2013',
-      },
-      {
-        id: 'comp-depolarized',
-        title: 'Depolarized',
-        meta: 'with Nelson P. Ferreira in <em>Depolarized</em> — MP3, BRØQN, BRQ002, 2012',
       },
       {
         id: 'comp-absence',
@@ -362,10 +362,9 @@ export const worksData = {
 export const worksSections = [
   'solo',
   'nny',
-  'nox',
-  'curatorial',
+  'collaborations',
   'film',
   'compilations',
-  'mastering',
   'publications',
+  'mastering',
 ];
