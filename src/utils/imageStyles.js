@@ -3,7 +3,7 @@
  * @param {Object} image - Image object with optional position, scale, rotate properties
  * @returns {Object} CSS style object
  */
-export const getImageStyles = (image) => {
+export const getImageStyles = image => {
   if (!image) return {};
 
   const styles = {};

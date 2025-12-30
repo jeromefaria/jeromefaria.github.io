@@ -63,7 +63,7 @@ const { isOpen, currentImage, currentIndex, images, openLightbox, closeLightbox,
 const { handleTouchStart, handleTouchEnd } = useSwipeNavigation(goToNext, goToPrev);
 
 // Update URL hash when event is clicked
-const updateHash = (id) => {
+const updateHash = id => {
   window.history.replaceState(null, '', `#${id}`);
 };
 </script>

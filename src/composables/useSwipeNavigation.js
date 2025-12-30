@@ -11,7 +11,7 @@ import { TOUCH } from '@/utils/constants';
 export const useSwipeNavigation = (onSwipeLeft, onSwipeRight) => {
   const touchStart = ref({ x: 0, y: 0, time: 0 });
 
-  const handleTouchStart = (e) => {
+  const handleTouchStart = e => {
     const touch = e.touches[0];
     touchStart.value = {
       x: touch.clientX,
@@ -20,7 +20,7 @@ export const useSwipeNavigation = (onSwipeLeft, onSwipeRight) => {
     };
   };
 
-  const handleTouchEnd = (e) => {
+  const handleTouchEnd = e => {
     const touch = e.changedTouches[0];
     const deltaX = touch.clientX - touchStart.value.x;
     const deltaY = touch.clientY - touchStart.value.y;

@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 export const useLightbox = () => {
   const isOpen = ref(false);
@@ -22,7 +22,7 @@ export const useLightbox = () => {
     document.body.style.overflow = '';
   };
 
-  const updateCurrentImage = (index) => {
+  const updateCurrentImage = index => {
     const image = images.value[index];
     if (!image) return;
 
@@ -50,7 +50,7 @@ export const useLightbox = () => {
     ArrowLeft: goToPrev,
   };
 
-  const handleKeydown = (event) => {
+  const handleKeydown = event => {
     if (!isOpen.value) return;
 
     const handler = keyHandlers[event.key];

@@ -1,9 +1,10 @@
 <script setup>
 import { computed, ref } from 'vue';
+
 import { usePageHead } from '@/composables/usePageHead';
-import { FORM_SUBMIT } from '@/utils/constants';
 import { contactContent } from '@/data/contact';
 import { siteConfig } from '@/data/navigation';
+import { FORM_SUBMIT } from '@/utils/constants';
 
 const contactSchema = {
   '@context': 'https://schema.org',

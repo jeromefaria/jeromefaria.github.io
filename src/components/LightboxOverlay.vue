@@ -33,8 +33,8 @@ const photographer = computed(() => props.currentImage?.photographer || null);
 const handleClose = () => emit('close');
 const handlePrev = () => emit('prev');
 const handleNext = () => emit('next');
-const handleTouchStart = (e) => emit('touchstart', e);
-const handleTouchEnd = (e) => emit('touchend', e);
+const handleTouchStart = e => emit('touchstart', e);
+const handleTouchEnd = e => emit('touchend', e);
 </script>
 
 <template>
@@ -50,15 +50,15 @@ const handleTouchEnd = (e) => emit('touchend', e);
       <template v-if="variant === 'default'">
         <button
           class="lightbox__close"
-          @click.stop="handleClose"
           aria-label="Close lightbox"
+          @click.stop="handleClose"
         />
 
         <button
           v-if="currentIndex > 0"
           class="lightbox__nav lightbox__nav--prev"
-          @click.stop="handlePrev"
           aria-label="Previous image"
+          @click.stop="handlePrev"
         />
 
         <picture v-if="currentImage">
@@ -76,8 +76,8 @@ const handleTouchEnd = (e) => emit('touchend', e);
         <button
           v-if="currentIndex < totalImages - 1"
           class="lightbox__nav lightbox__nav--next"
-          @click.stop="handleNext"
           aria-label="Next image"
+          @click.stop="handleNext"
         />
 
         <!-- Keyboard hints -->
@@ -109,23 +109,23 @@ const handleTouchEnd = (e) => emit('touchend', e);
           <button
             class="lightbox__hint lightbox__hint--prev"
             :disabled="currentIndex === 0"
-            @click.stop="handlePrev"
             aria-label="Previous image"
+            @click.stop="handlePrev"
           >
             ←
           </button>
           <button
             class="lightbox__hint lightbox__hint--close"
-            @click.stop="handleClose"
             aria-label="Close lightbox"
+            @click.stop="handleClose"
           >
             ×
           </button>
           <button
             class="lightbox__hint lightbox__hint--next"
             :disabled="currentIndex >= totalImages - 1"
-            @click.stop="handleNext"
             aria-label="Next image"
+            @click.stop="handleNext"
           >
             →
           </button>

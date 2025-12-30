@@ -1,8 +1,9 @@
 <script setup>
 import { computed } from 'vue';
+
 import LightboxOverlay from '@/components/LightboxOverlay.vue';
-import { usePageHead } from '@/composables/usePageHead';
 import { useLightbox } from '@/composables/useLightbox';
+import { usePageHead } from '@/composables/usePageHead';
 import { useSwipeNavigation } from '@/composables/useSwipeNavigation';
 import { aboutSections } from '@/data/about';
 import { getImageStyles } from '@/utils/imageStyles';
