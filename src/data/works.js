@@ -284,29 +284,6 @@ export const worksData = {
       },
     ],
   },
-  mastering: {
-    title: 'Mastering',
-    id: 'mastering',
-    items: [
-      {
-        id: 'master-overlapse-xiii',
-        title: 'Overlapse XIII',
-        externalUrl: 'https://jeromefaria.bandcamp.com/album/overlapse-xiii',
-        meta: 'various artists, 2025',
-      },
-      {
-        id: 'master-open',
-        title: 'Open',
-        externalUrl: 'https://casaamarela.bandcamp.com/album/open',
-        meta: 'Hugo Calcio — <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#016, 2021',
-      },
-      {
-        id: 'master-vessels',
-        title: 'Vessels',
-        meta: '<a href="https://canadian-rifles.bandcamp.com/">Rui P. Andrade</a> — BRØQN, BRQN004, 2012',
-      },
-    ],
-  },
   publications: {
     title: 'Publications',
     id: 'publications',
@@ -356,15 +333,30 @@ export const worksData = {
       },
     ],
   },
+  mastering: {
+    title: 'Mastering',
+    id: 'mastering',
+    items: [
+      {
+        id: 'master-overlapse-xiii',
+        title: 'Overlapse XIII',
+        externalUrl: 'https://jeromefaria.bandcamp.com/album/overlapse-xiii',
+        meta: 'various artists, 2025',
+      },
+      {
+        id: 'master-open',
+        title: 'Open',
+        externalUrl: 'https://casaamarela.bandcamp.com/album/open',
+        meta: 'Hugo Calcio — <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#016, 2021',
+      },
+      {
+        id: 'master-vessels',
+        title: 'Vessels',
+        meta: '<a href="https://canadian-rifles.bandcamp.com/">Rui P. Andrade</a> — BRØQN, BRQN004, 2012',
+      },
+    ],
+  },
 };
 
-// Export sections in display order
-export const worksSections = [
-  'solo',
-  'nny',
-  'collaborations',
-  'film',
-  'compilations',
-  'publications',
-  'mastering',
-];
+// Export sections dynamically from worksData keys (maintains insertion order)
+export const worksSections = Object.keys(worksData);
