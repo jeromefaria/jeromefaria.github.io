@@ -221,11 +221,11 @@
   will-change: transform;
 
   &--top {
-    transform: translateY(-4px);
+    transform: translateY(-$spacing-1);
   }
 
   &--bottom {
-    transform: translateY(4px);
+    transform: translateY($spacing-1);
   }
 }
 
