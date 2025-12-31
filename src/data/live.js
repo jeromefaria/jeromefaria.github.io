@@ -559,6 +559,13 @@ export const liveData = {
         title: 'Cine Qua Non',
         venue: '<a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol, Portugal',
         description: 'Improvisation collective. Electronics, piano (<a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>), percussion (<a href="https://madeirajazzcollective.bandcamp.com/">Jorge Maggiore</a>) and visuals (Filipe Ferraz).',
+        videos: [
+          {
+            url: 'https://www.youtube-nocookie.com/embed/41vx80KyONA',
+            platform: 'youtube',
+            title: 'Cine Qua Non performance at Estalagem da Ponta do Sol, 2012',
+          },
+        ],
       },
     ],
   },
@@ -718,6 +725,13 @@ export const liveData = {
             photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
           },
         ],
+        videos: [
+          {
+            url: 'https://www.youtube-nocookie.com/embed/csZramO6QDM',
+            platform: 'youtube',
+            title: 'Jerome Faria and Hugo Olim at MADEIRADIG 2009',
+          },
+        ],
       },
       {
         id: 'eme-olhares-2009',
@@ -802,6 +816,13 @@ export const liveData = {
             src: '/images/live/eme-2008-008.jpg',
             alt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
             photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
+          },
+        ],
+        videos: [
+          {
+            url: 'https://www.youtube-nocookie.com/embed/d_0IXOpiZTE',
+            platform: 'youtube',
+            title: 'Jerome Faria at EME Festival 2008, Lisbon',
           },
         ],
       },
