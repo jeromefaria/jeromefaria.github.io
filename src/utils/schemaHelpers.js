@@ -1,10 +1,31 @@
 import { parseVenue, stripHtml } from './formatters';
 
 /**
+ * @typedef {Object} Event
+ * @property {string} id - Unique event identifier
+ * @property {string} title - Event title (may contain HTML)
+ * @property {string} date - ISO date string (YYYY-MM-DD)
+ * @property {string} venue - Venue string (may contain HTML)
+ * @property {string} [description] - Optional event description
+ * @property {Array<Object>} [images] - Optional event images
+ * @property {Array<Object>} [videos] - Optional event videos
+ */
+
+/**
+ * @typedef {Object} Release
+ * @property {string} id - Unique release identifier
+ * @property {string} title - Release title
+ * @property {string} bandcampUrl - Bandcamp URL
+ * @property {string} [coverImage] - Optional cover image path
+ * @property {string} datePublished - Publication date
+ * @property {Array<Object>} [tracklist] - Optional tracklist
+ */
+
+/**
  * Create a MusicEvent schema for a live performance
- * @param {Object} event - Event object with title, date, venue, etc.
+ * @param {Event} event - Event object with title, date, venue, etc.
  * @param {string} performerName - Name of the performer
- * @param {string} fallbackDate - Fallback date if event.date is not available
+ * @param {string} [fallbackDate=''] - Fallback date if event.date is not available
  * @returns {Object} Schema.org MusicEvent
  */
 export const createMusicEventSchema = (event, performerName, fallbackDate = '') => {
@@ -31,7 +52,7 @@ export const createMusicEventSchema = (event, performerName, fallbackDate = '') 
 
 /**
  * Create an ItemList schema
- * @param {Array} items - Array of schema items
+ * @param {Array<Object>} items - Array of schema items
  * @param {string} name - List name
  * @param {string} description - List description
  * @returns {Object} Schema.org ItemList
@@ -51,7 +72,7 @@ export const createItemListSchema = (items, name, description) => ({
 
 /**
  * Create a MusicAlbum schema
- * @param {Object} release - Release object
+ * @param {Release} release - Release object
  * @param {string} artistName - Artist name
  * @param {string} siteUrl - Base site URL for images
  * @returns {Object} Schema.org MusicAlbum

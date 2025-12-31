@@ -1,9 +1,38 @@
 import { computed, ref } from 'vue';
 
 /**
+ * @typedef {Object} FormData
+ * @property {string} name - Contact name
+ * @property {string} email - Contact email
+ * @property {string} subject - Message subject
+ * @property {string} message - Message content
+ */
+
+/**
+ * @typedef {Object} FormState
+ * @property {boolean} name - Whether name field has been touched
+ * @property {boolean} email - Whether email field has been touched
+ * @property {boolean} message - Whether message field has been touched
+ */
+
+/**
+ * @typedef {Object} ContactForm
+ * @property {import('vue').Ref<FormData>} formData - Form field values
+ * @property {import('vue').Ref<FormState>} touched - Touched field state
+ * @property {import('vue').Ref<boolean>} isSubmitting - Whether form is submitting
+ * @property {import('vue').Ref<boolean>} showSuccess - Whether to show success message
+ * @property {import('vue').ComputedRef<boolean>} isFormValid - Whether form is valid
+ * @property {import('vue').ComputedRef<FormState>} fieldInvalid - Field validation state
+ * @property {Function} handleBlur - Mark field as touched
+ * @property {Function} handleInput - Clear success message
+ * @property {Function} handleSubmit - Submit form
+ * @property {Function} resetForm - Reset form to initial state
+ */
+
+/**
  * Contact form state and validation logic
  * @param {string} submitUrl - URL to submit the form to
- * @returns {Object} Form state, validation, and handlers
+ * @returns {ContactForm} Form state, validation, and handlers
  */
 export const useContactForm = submitUrl => {
   // Form state
