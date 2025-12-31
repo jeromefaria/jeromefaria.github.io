@@ -77,7 +77,7 @@
     }
 
     &--loading .bandcamp-player__button {
-      opacity: 0.5;
+      opacity: $opacity-50;
       pointer-events: none;
     }
   }
@@ -205,7 +205,7 @@
       transition: opacity $transition-base;
 
       &:hover {
-        opacity: 0.7;
+        opacity: $opacity-70;
       }
 
       &:focus-visible {
@@ -311,7 +311,7 @@
 }
 
 .pagination-item--disabled {
-  opacity: 0.5;
+  opacity: $opacity-50;
   pointer-events: none;
 }
 
@@ -429,7 +429,7 @@
 
     &::placeholder {
       color: var(--color-text-muted);
-      opacity: 0.6;
+      opacity: $opacity-60;
       transition: opacity $transition-base;
     }
 
@@ -437,7 +437,7 @@
       border-color: var(--color-text-muted);
 
       &::placeholder {
-        opacity: 0.8;
+        opacity: $opacity-80;
       }
     }
 
@@ -446,7 +446,7 @@
       border-color: var(--color-text);
 
       &::placeholder {
-        opacity: 0.4;
+        opacity: $opacity-40;
       }
     }
 
@@ -501,11 +501,11 @@
       background-color: var(--color-text);
 
       &:hover:not(:disabled) {
-        opacity: 0.9;
+        opacity: $opacity-90;
       }
 
       &:active:not(:disabled) {
-        opacity: 0.8;
+        opacity: $opacity-80;
         transform: translateY(1px);
       }
     }
@@ -518,7 +518,7 @@
     }
 
     &:disabled {
-      opacity: 0.5;
+      opacity: $opacity-50;
       cursor: not-allowed;
     }
 
@@ -592,7 +592,7 @@
     padding: $spacing-1;
     font-size: $font-size-base;
     color: var(--color-background);
-    opacity: 0.5;
+    opacity: $opacity-50;
     cursor: pointer;
     transition: opacity $transition-base, transform $transition-base;
     line-height: 1;
@@ -610,7 +610,7 @@
     }
 
     &:disabled {
-      opacity: 0.2;
+      opacity: $opacity-20;
       cursor: not-allowed;
     }
 

@@ -92,7 +92,7 @@
 
       &:hover {
         img {
-          opacity: 0.9;
+          opacity: $opacity-90;
         }
       }
 
@@ -302,7 +302,7 @@
 
   // Date — subtle, slightly lighter than venue
   .event-date {
-    opacity: 0.7;
+    opacity: $opacity-70;
   }
 
   // Event title link — hash link for deep linking
@@ -312,7 +312,7 @@
     transition: opacity $transition-base;
 
     &:hover {
-      opacity: 0.7;
+      opacity: $opacity-70;
     }
 
     &:focus-visible {
