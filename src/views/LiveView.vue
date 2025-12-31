@@ -5,12 +5,12 @@ import AccordionSection from '@/components/AccordionSection.vue';
 import EventItem from '@/components/EventItem.vue';
 import LightboxOverlay from '@/components/LightboxOverlay.vue';
 import { useAccordion } from '@/composables/useAccordion';
-import { useLightbox } from '@/composables/useLightbox';
+import { useLightboxWithSwipe } from '@/composables/useLightboxWithSwipe';
 import { usePageHead } from '@/composables/usePageHead';
-import { useSwipeNavigation } from '@/composables/useSwipeNavigation';
 import { liveData, liveYears } from '@/data/live';
 import { siteConfig } from '@/data/navigation';
 import { parseVenue, stripHtml } from '@/utils/formatters';
+import { updateHash } from '@/utils/navigation';
 
 // Sort events within each year by date (most recent first)
 // ISO dates can be compared as strings: '2022-07-02' > '2022-03-05'
@@ -80,13 +80,7 @@ const findYearForEvent = eventId =>
   ) ?? null;
 
 const { openSection, handleToggle } = useAccordion(liveYears[0], liveYears, findYearForEvent);
-const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev } = useLightbox();
-const { handleTouchStart, handleTouchEnd } = useSwipeNavigation(goToNext, goToPrev);
-
-// Update URL hash when event is clicked
-const updateHash = id => {
-  window.history.replaceState(null, '', `#${id}`);
-};
+const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev, handleTouchStart, handleTouchEnd } = useLightboxWithSwipe();
 </script>
 
 <template>

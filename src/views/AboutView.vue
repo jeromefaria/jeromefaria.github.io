@@ -2,9 +2,8 @@
 import { computed } from 'vue';
 
 import LightboxOverlay from '@/components/LightboxOverlay.vue';
-import { useLightbox } from '@/composables/useLightbox';
+import { useLightboxWithSwipe } from '@/composables/useLightboxWithSwipe';
 import { usePageHead } from '@/composables/usePageHead';
-import { useSwipeNavigation } from '@/composables/useSwipeNavigation';
 import { aboutSections } from '@/data/about';
 import { getImageStyles } from '@/utils/imageStyles';
 
@@ -14,8 +13,7 @@ usePageHead({
   ogType: 'profile',
 });
 
-const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev } = useLightbox();
-const { handleTouchStart, handleTouchEnd } = useSwipeNavigation(goToNext, goToPrev);
+const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev, handleTouchStart, handleTouchEnd } = useLightboxWithSwipe();
 
 // Collect all images from all image groups
 const allImages = computed(() => {

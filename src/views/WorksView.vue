@@ -3,12 +3,12 @@ import AccordionSection from '@/components/AccordionSection.vue';
 import LightboxOverlay from '@/components/LightboxOverlay.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
 import { useAccordion } from '@/composables/useAccordion';
-import { useLightbox } from '@/composables/useLightbox';
+import { useLightboxWithSwipe } from '@/composables/useLightboxWithSwipe';
 import { usePageHead } from '@/composables/usePageHead';
-import { useSwipeNavigation } from '@/composables/useSwipeNavigation';
 import { siteConfig } from '@/data/navigation';
 import { worksData, worksSections } from '@/data/works';
 import { extractYear } from '@/utils/formatters';
+import { updateHash } from '@/utils/navigation';
 
 const albumSchemas = worksData.solo.items
   .filter(r => r.bandcampId || r.bandcampUrl)
@@ -74,13 +74,7 @@ const findSectionForRelease = releaseId =>
   ) ?? null;
 
 const { openSection, handleToggle } = useAccordion('solo', worksSections, findSectionForRelease);
-const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev } = useLightbox();
-const { handleTouchStart, handleTouchEnd } = useSwipeNavigation(goToNext, goToPrev);
-
-// Update URL hash when release is clicked
-const updateHash = id => {
-  window.history.replaceState(null, '', `#${id}`);
-};
+const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev, handleTouchStart, handleTouchEnd } = useLightboxWithSwipe();
 </script>
 
 <template>
