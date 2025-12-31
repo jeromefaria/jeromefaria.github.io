@@ -223,6 +223,64 @@ export const liveData = {
     id: '2022',
     items: [
       {
+        id: 'amess-teatro-baltazar-dias',
+        title: 'Performance with Amess',
+        date: 'July 2, 2022',
+        venue: '<a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, Funchal, Portugal',
+        description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.',
+        images: [
+          {
+            src: '/images/live/amess-teatro-baltazar-dias-001.jpg',
+            alt: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022',
+            photographer: { name: 'Óscar Silva', url: 'https://www.instagram.com/oscar_silva95/' },
+          },
+          {
+            src: '/images/live/amess-teatro-baltazar-dias-002.jpg',
+            alt: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022',
+            photographer: { name: 'Óscar Silva', url: 'https://www.instagram.com/oscar_silva95/' },
+          },
+          {
+            src: '/images/live/amess-teatro-baltazar-dias-003.jpg',
+            alt: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022',
+            photographer: { name: 'Óscar Silva', url: 'https://www.instagram.com/oscar_silva95/' },
+          },
+        ],
+      },
+      {
+        id: 'amess-museu-franco',
+        title: 'Performance with Amess',
+        date: 'March 18, 2022',
+        venue: '<a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=3">Museu Henrique e Francisco Franco</a>, Funchal, Portugal',
+        description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.',
+        images: [
+          {
+            src: '/images/live/amess-museu-franco-001.jpg',
+            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
+            photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+          },
+          {
+            src: '/images/live/amess-museu-franco-002.jpg',
+            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
+            photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+          },
+          {
+            src: '/images/live/amess-museu-franco-003.jpg',
+            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
+            photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+          },
+          {
+            src: '/images/live/amess-museu-franco-004.jpg',
+            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
+            photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+          },
+          {
+            src: '/images/live/amess-museu-franco-005.jpg',
+            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
+            photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+          },
+        ],
+      },
+      {
         id: 'jejum-11',
         title: 'Jejum #11',
         date: 'March 5, 2022',
@@ -300,64 +358,6 @@ export const liveData = {
           },
         ],
       },
-      {
-        id: 'amess-teatro-baltazar-dias',
-        title: 'Performance with Amess',
-        date: 'July 2, 2022',
-        venue: '<a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, Funchal, Portugal',
-        description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.',
-        images: [
-          {
-            src: '/images/live/amess-teatro-baltazar-dias-001.jpg',
-            alt: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022',
-            photographer: { name: 'Óscar Silva', url: 'https://www.instagram.com/oscar_silva95/' },
-          },
-          {
-            src: '/images/live/amess-teatro-baltazar-dias-002.jpg',
-            alt: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022',
-            photographer: { name: 'Óscar Silva', url: 'https://www.instagram.com/oscar_silva95/' },
-          },
-          {
-            src: '/images/live/amess-teatro-baltazar-dias-003.jpg',
-            alt: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022',
-            photographer: { name: 'Óscar Silva', url: 'https://www.instagram.com/oscar_silva95/' },
-          },
-        ],
-      },
-      {
-        id: 'amess-museu-franco',
-        title: 'Performance with Amess',
-        date: 'March 18, 2022',
-        venue: '<a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=3">Museu Henrique e Francisco Franco</a>, Funchal, Portugal',
-        description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.',
-        images: [
-          {
-            src: '/images/live/amess-museu-franco-001.jpg',
-            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
-            photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
-          },
-          {
-            src: '/images/live/amess-museu-franco-002.jpg',
-            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
-            photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
-          },
-          {
-            src: '/images/live/amess-museu-franco-003.jpg',
-            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
-            photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
-          },
-          {
-            src: '/images/live/amess-museu-franco-004.jpg',
-            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
-            photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
-          },
-          {
-            src: '/images/live/amess-museu-franco-005.jpg',
-            alt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
-            photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
-          },
-        ],
-      },
     ],
   },
   '2021': {
@@ -365,11 +365,11 @@ export const liveData = {
     id: '2021',
     items: [
       {
-        id: 'reviralho',
-        title: 'Reviralho',
-        date: 'August 20, 2021',
-        venue: 'Cais do Carvão, Funchal, Portugal',
-        description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.',
+        id: 'aragao-cartaxo',
+        title: '<a href="/works#aragao">Aragão</a>',
+        date: 'October 23, 2021',
+        venue: '<a href="https://www.cm-cartaxo.pt/servicos-municipais/cultura/equipamentos-culturais/item/49-centro-cultural-municipio-do-cartaxo">Centro Cultural do Cartaxo</a>, Cartaxo, Portugal',
+        description: 'Theatre production. Live music & interpretation.',
       },
       {
         id: 'nariz-entupido',
@@ -401,13 +401,6 @@ export const liveData = {
         ],
       },
       {
-        id: 'aragao-cartaxo',
-        title: '<a href="/works#aragao">Aragão</a>',
-        date: 'October 23, 2021',
-        venue: '<a href="https://www.cm-cartaxo.pt/servicos-municipais/cultura/equipamentos-culturais/item/49-centro-cultural-municipio-do-cartaxo">Centro Cultural do Cartaxo</a>, Cartaxo, Portugal',
-        description: 'Theatre production. Live music & interpretation.',
-      },
-      {
         id: 'aragao-funchal',
         title: '<a href="/works#aragao">Aragão</a>',
         date: 'September 22, 2021',
@@ -421,7 +414,13 @@ export const liveData = {
           },
         ],
       },
-    ],
+      {
+        id: 'reviralho',
+        title: 'Reviralho',
+        date: 'August 20, 2021',
+        venue: 'Cais do Carvão, Funchal, Portugal',
+        description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.',
+      },
   },
   '2015': {
     title: '2015',
