@@ -14,7 +14,7 @@ usePageHead({
   ogType: 'profile',
 });
 
-const { isOpen, currentImage, currentIndex, images, openLightbox, closeLightbox, goToNext, goToPrev } = useLightbox();
+const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev } = useLightbox();
 const { handleTouchStart, handleTouchEnd } = useSwipeNavigation(goToNext, goToPrev);
 
 // Collect all images from all image groups
@@ -111,9 +111,9 @@ const getGlobalIndex = (sectionIndex, imageIndex) => {
     <!-- Lightbox overlay -->
     <LightboxOverlay
       :is-open="isOpen"
-      :current-image="currentImage"
+      :current-item="currentItem"
       :current-index="currentIndex"
-      :total-images="images.length"
+      :total-items="items.length"
       variant="compact"
       @close="closeLightbox"
       @prev="goToPrev"

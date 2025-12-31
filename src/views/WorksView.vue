@@ -74,7 +74,7 @@ const findSectionForRelease = releaseId =>
   ) ?? null;
 
 const { openSection, handleToggle } = useAccordion('solo', worksSections, findSectionForRelease);
-const { isOpen, currentImage, currentIndex, images, openLightbox, closeLightbox, goToNext, goToPrev } = useLightbox();
+const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev } = useLightbox();
 const { handleTouchStart, handleTouchEnd } = useSwipeNavigation(goToNext, goToPrev);
 
 // Update URL hash when release is clicked
@@ -111,9 +111,9 @@ const updateHash = id => {
     <!-- Lightbox overlay -->
     <LightboxOverlay
       :is-open="isOpen"
-      :current-image="currentImage"
+      :current-item="currentItem"
       :current-index="currentIndex"
-      :total-images="images.length"
+      :total-items="items.length"
       variant="compact"
       @close="closeLightbox"
       @prev="goToPrev"

@@ -6,7 +6,7 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
-  currentImage: {
+  currentItem: {
     type: Object,
     default: null,
   },
@@ -14,7 +14,7 @@ const props = defineProps({
     type: Number,
     required: true,
   },
-  totalImages: {
+  totalItems: {
     type: Number,
     required: true,
   },
@@ -27,8 +27,12 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'prev', 'next', 'touchstart', 'touchend']);
 
+// Determine if current item is a video or image
+const isVideo = computed(() => props.currentItem?.url && (props.currentItem?.platform === 'youtube' || props.currentItem?.platform === 'vimeo'));
+const isImage = computed(() => props.currentItem?.src);
+
 // Computed photographer credit (if exists on current image)
-const photographer = computed(() => props.currentImage?.photographer || null);
+const photographer = computed(() => props.currentItem?.photographer || null);
 
 const handleClose = () => emit('close');
 const handlePrev = () => emit('prev');
@@ -57,26 +61,39 @@ const handleTouchEnd = e => emit('touchend', e);
         <button
           v-if="currentIndex > 0"
           class="lightbox__nav lightbox__nav--prev"
-          aria-label="Previous image"
+          aria-label="Previous item"
           @click.stop="handlePrev"
         />
 
-        <picture v-if="currentImage">
+        <!-- Video -->
+        <iframe
+          v-if="isVideo"
+          :src="currentItem.url"
+          class="lightbox__video"
+          :title="currentItem.title || 'Video'"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          @click.stop
+        />
+
+        <!-- Image -->
+        <picture v-else-if="isImage">
           <source
-            :srcset="currentImage.src.replace('.jpg', '.webp')"
+            :srcset="currentItem.src.replace('.jpg', '.webp')"
             type="image/webp"
           >
           <img
-            :src="currentImage.src"
-            :alt="currentImage.alt"
+            :src="currentItem.src"
+            :alt="currentItem.alt"
             class="lightbox__image"
           >
         </picture>
 
         <button
-          v-if="currentIndex < totalImages - 1"
+          v-if="currentIndex < totalItems - 1"
           class="lightbox__nav lightbox__nav--next"
-          aria-label="Next image"
+          aria-label="Next item"
           @click.stop="handleNext"
         />
 
@@ -84,7 +101,7 @@ const handleTouchEnd = e => emit('touchend', e);
         <div class="lightbox__hints">
           <span class="lightbox__hint">ESC to close</span>
           <span
-            v-if="totalImages > 1"
+            v-if="totalItems > 1"
             class="lightbox__hint"
           >← → to navigate</span>
         </div>
@@ -92,14 +109,27 @@ const handleTouchEnd = e => emit('touchend', e);
 
       <!-- Compact variant: button hints + photographer credit -->
       <template v-else-if="variant === 'compact'">
-        <picture v-if="currentImage">
+        <!-- Video -->
+        <iframe
+          v-if="isVideo"
+          :src="currentItem.url"
+          class="lightbox__video"
+          :title="currentItem.title || 'Video'"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          @click.stop
+        />
+
+        <!-- Image -->
+        <picture v-else-if="isImage">
           <source
-            :srcset="currentImage.src.replace('.jpg', '.webp')"
+            :srcset="currentItem.src.replace('.jpg', '.webp')"
             type="image/webp"
           >
           <img
-            :src="currentImage.src"
-            :alt="currentImage.alt"
+            :src="currentItem.src"
+            :alt="currentItem.alt"
             class="lightbox__image"
           >
         </picture>
@@ -123,8 +153,8 @@ const handleTouchEnd = e => emit('touchend', e);
           </button>
           <button
             class="lightbox__hint lightbox__hint--next"
-            :disabled="currentIndex >= totalImages - 1"
-            aria-label="Next image"
+            :disabled="currentIndex >= totalItems - 1"
+            aria-label="Next item"
             @click.stop="handleNext"
           >
             →

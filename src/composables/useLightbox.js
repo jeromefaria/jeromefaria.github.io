@@ -2,46 +2,47 @@ import { onMounted, onUnmounted, ref } from 'vue';
 
 export const useLightbox = () => {
   const isOpen = ref(false);
-  const currentImage = ref(null);
+  const currentItem = ref(null);
   const currentIndex = ref(0);
-  const images = ref([]);
+  const items = ref([]);
 
-  const openLightbox = (allImages = [], index = 0) => {
-    images.value = allImages;
+  const openLightbox = (allItems = [], index = 0) => {
+    items.value = allItems;
     currentIndex.value = index;
-    updateCurrentImage(index);
+    updateCurrentItem(index);
     isOpen.value = true;
     document.body.style.overflow = 'hidden';
   };
 
   const closeLightbox = () => {
     isOpen.value = false;
-    currentImage.value = null;
-    images.value = [];
+    currentItem.value = null;
+    items.value = [];
     currentIndex.value = 0;
     document.body.style.overflow = '';
   };
 
-  const updateCurrentImage = index => {
-    const image = images.value[index];
-    if (!image) return;
+  const updateCurrentItem = index => {
+    const item = items.value[index];
+    if (!item) return;
 
-    const { src, alt, photographer } = image;
-    currentImage.value = { src, alt, photographer };
+    // Support both image and video items
+    // Images have 'src', videos have 'url'
+    currentItem.value = item;
   };
 
   const goToNext = () => {
-    if (currentIndex.value >= images.value.length - 1) return;
+    if (currentIndex.value >= items.value.length - 1) return;
 
     currentIndex.value++;
-    updateCurrentImage(currentIndex.value);
+    updateCurrentItem(currentIndex.value);
   };
 
   const goToPrev = () => {
     if (currentIndex.value <= 0) return;
 
     currentIndex.value--;
-    updateCurrentImage(currentIndex.value);
+    updateCurrentItem(currentIndex.value);
   };
 
   const keyHandlers = {
@@ -70,9 +71,9 @@ export const useLightbox = () => {
 
   return {
     isOpen,
-    currentImage,
+    currentItem,
     currentIndex,
-    images,
+    items,
     openLightbox,
     closeLightbox,
     goToNext,

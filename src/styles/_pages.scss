@@ -259,6 +259,15 @@
     cursor: default;
   }
 
+  &__video {
+    width: 90vw;
+    max-width: 160vh; // 16:9 aspect ratio
+    height: 50.625vw; // 9/16 of 90vw
+    max-height: 90vh;
+    cursor: default;
+    border: none;
+  }
+
   &__hints {
     display: flex;
     position: absolute;
@@ -432,6 +441,11 @@
     font-style: italic;
     font-size: $font-size-sm;
     color: var(--color-text-muted);
+  }
+
+  // Date — subtle, slightly lighter than venue
+  .event-date {
+    opacity: 0.7;
   }
 
   // Event title link — hash link for deep linking
