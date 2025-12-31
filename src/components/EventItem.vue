@@ -1,4 +1,8 @@
 <script setup>
+import { computed } from 'vue';
+
+import { formatEventDate } from '@/utils/dateFormatter';
+
 const props = defineProps({
   event: {
     type: Object,
@@ -7,6 +11,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update-hash', 'open-lightbox']);
+
+const formattedDate = computed(() => formatEventDate(props.event.date));
 </script>
 
 <template>
@@ -29,7 +35,7 @@ const emit = defineEmits(['update-hash', 'open-lightbox']);
         <span
           v-if="event.date"
           class="event-date"
-        >{{ event.date }} · </span>
+        >{{ formattedDate }} · </span>
         <span v-html="event.venue" />
       </p>
       <p

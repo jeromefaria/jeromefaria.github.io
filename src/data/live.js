@@ -9,7 +9,7 @@ export const liveData = {
       {
         id: 'showcase-casa-amarela',
         title: 'Showcase Casa Amarela',
-        date: 'June 14, 2025',
+        date: '2025-06-14',
         venue: '<a href="https://www.instagram.com/cooperativamula/">Cooperativa Mula</a>, Barreiro, Portugal',
         description: 'NOx (with <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a>). With <a href="https://copodagua.bandcamp.com/">Copo d\'Água</a>, TiaAvô, Rebolation All-Stars.',
         images: [
@@ -73,7 +73,7 @@ export const liveData = {
       {
         id: 'fim-de-emissao-45',
         title: 'Fim de Emissão #45',
-        date: 'January 17, 2025',
+        date: '2025-01-17',
         venue: '<a href="https://darc.pt">Desterro</a>, Lisbon, Portugal',
         description: 'Solo performance. With Ai Feith, W.T.V.R.',
         images: [
@@ -128,14 +128,14 @@ export const liveData = {
       {
         id: 'cca-no-desterro-august',
         title: 'CCA no Desterro',
-        date: 'August 10, 2024',
+        date: '2024-08-10',
         venue: '<a href="https://darc.pt">Desterro</a>, Lisbon, Portugal',
         description: 'Solo performance. With <a href="https://mosskissingmusic.bandcamp.com/">Moss Kissing</a>, Rui Wentacid (DJ set).',
       },
       {
         id: 'cca-no-desterro',
         title: 'CCA no Desterro',
-        date: 'May 2, 2024',
+        date: '2024-05-02',
         venue: '<a href="https://darc.pt">Desterro</a>, Lisbon, Portugal',
         description: 'NOx (with <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a>). With <a href="https://copodagua.bandcamp.com/">Copo d\'Água</a>, <a href="https://soundcloud.com/djprivilegio">DJ Privilégio</a>, <a href="https://casaamarela.bandcamp.com/album/shimano">Gallo\'84</a>.',
         images: [
@@ -225,7 +225,7 @@ export const liveData = {
       {
         id: 'amess-teatro-baltazar-dias',
         title: 'Performance with Amess',
-        date: 'July 2, 2022',
+        date: '2022-07-02',
         venue: '<a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, Funchal, Portugal',
         description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.',
         images: [
@@ -249,7 +249,7 @@ export const liveData = {
       {
         id: 'amess-museu-franco',
         title: 'Performance with Amess',
-        date: 'March 18, 2022',
+        date: '2022-03-18',
         venue: '<a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=3">Museu Henrique e Francisco Franco</a>, Funchal, Portugal',
         description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.',
         images: [
@@ -283,7 +283,7 @@ export const liveData = {
       {
         id: 'jejum-11',
         title: 'Jejum #11',
-        date: 'March 5, 2022',
+        date: '2022-03-05',
         venue: '<a href="https://ruadasgaivotas6.pt/">Rua das Gaivotas 6</a>, Lisbon, Portugal',
         images: [
           {
@@ -367,14 +367,14 @@ export const liveData = {
       {
         id: 'aragao-cartaxo',
         title: '<a href="/works#aragao">Aragão</a>',
-        date: 'October 23, 2021',
+        date: '2021-10-23',
         venue: '<a href="https://www.cm-cartaxo.pt/servicos-municipais/cultura/equipamentos-culturais/item/49-centro-cultural-municipio-do-cartaxo">Centro Cultural do Cartaxo</a>, Cartaxo, Portugal',
         description: 'Theatre production. Live music & interpretation.',
       },
       {
         id: 'nariz-entupido',
         title: 'Nariz Entupido',
-        date: 'October 22, 2021',
+        date: '2021-10-22',
         venue: '<a href="https://www.smup.pt/">SMUP</a>, Parede, Portugal',
         description: 'Duo with <a href="https://cavernancia.bandcamp.com/">CAVERNANCIA</a>. <a href="https://thisco.bandcamp.com/">THISCO</a> / SPH anniversary celebration.',
         images: [
@@ -403,7 +403,7 @@ export const liveData = {
       {
         id: 'aragao-funchal',
         title: '<a href="/works#aragao">Aragão</a>',
-        date: 'September 22, 2021',
+        date: '2021-09-22',
         venue: '<a href="https://www.teatromunicipal.pt/">Teatro Municipal Baltazar Dias</a>, Funchal, Portugal',
         description: 'Theatre production. Live music & interpretation.',
         images: [
@@ -417,7 +417,7 @@ export const liveData = {
       {
         id: 'reviralho',
         title: 'Reviralho',
-        date: 'August 20, 2021',
+        date: '2021-08-20',
         venue: 'Cais do Carvão, Funchal, Portugal',
         description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.',
       },
@@ -430,7 +430,7 @@ export const liveData = {
       {
         id: 'heineken-series',
         title: 'Heineken Series',
-        date: 'September 18, 2015',
+        date: '2015-09-18',
         venue: '<a href="https://www.musicboxlisboa.com/">Musicbox</a>, Lisbon, Portugal',
         description: 'With <a href="https://www.mmlxii.com/">William Basinski</a>, <a href="https://zigurartists.bandcamp.com/album/forgetting-is-a-liability">Mr. Herbert Quain</a>, <a href="https://www.viberate.com/artist/cruz-767/">Cruz</a>.',
         images: [
@@ -489,7 +489,7 @@ export const liveData = {
       {
         id: 'fica-na-cidade',
         title: '<a href="https://www.visitfunchal.pt/pt/todos-os-eventos/280-fica-na-cidade.html">Fica na Cidade</a>',
-        date: 'June 5, 2015',
+        date: '2015-06-05',
         venue: 'Praça de Colombo, Funchal, Portugal',
         description: 'With <a href="https://trengosoundsystem.bandcamp.com/">Tren Go! Sound System</a>.',
         images: [
@@ -509,21 +509,21 @@ export const liveData = {
       {
         id: 'cognitivopolis',
         title: 'Cognitivopolis',
-        date: 'November 15, 2013',
+        date: '2013-11-15',
         venue: '<a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol, Portugal',
         description: 'Solo performance. Festival about creativity, technology and science. With <a href="https://massimobanzi.com/">Massimo Banzi</a> (Arduino), <a href="https://davidrowan.com/">David Rowan</a> (Wired UK), Gian Giudice (CERN).',
       },
       {
         id: 'caligari-live-3',
         title: '<a href="https://www.pontadosol.com/l-concerts">Concertos L</a>: The Cabinet of Dr. Caligari',
-        date: 'October 26, 2013',
+        date: '2013-10-26',
         venue: '<a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol, Portugal',
         description: 'Live score for Robert Wiene\'s 1920 expressionist silent film. With <a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>.',
       },
       {
         id: 'caligari-live-2',
         title: 'The Cabinet of Dr. Caligari',
-        date: 'September 13, 2013',
+        date: '2013-09-13',
         venue: 'Scat Music Club, Funchal, Portugal',
         description: 'Live score for Robert Wiene\'s 1920 expressionist silent film. With <a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>.',
         images: [
@@ -537,7 +537,7 @@ export const liveData = {
       {
         id: 'caligari-live',
         title: 'Cidades Eletrónicas: The Cabinet of Dr. Caligari',
-        date: 'May 11, 2013',
+        date: '2013-05-11',
         venue: '<a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta, Portugal',
         description: 'Premiere of live score for Robert Wiene\'s 1920 expressionist silent film. With <a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>.',
         images: [
@@ -555,7 +555,7 @@ export const liveData = {
     items: [
       {
         id: 'cine-qua-non',
-        date: 'October 27, 2012',
+        date: '2012-10-27',
         title: 'Cine Qua Non',
         venue: '<a href="https://www.pontadosol.com/">Estalagem da Ponta do Sol</a>, Ponta do Sol, Portugal',
         description: 'Improvisation collective. Electronics, piano (<a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>), percussion (<a href="https://madeirajazzcollective.bandcamp.com/">Jorge Maggiore</a>) and visuals (Filipe Ferraz).',
@@ -576,7 +576,7 @@ export const liveData = {
       {
         id: 'madeiradig-2011',
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
-        date: 'December 2, 2011',
+        date: '2011-12-02',
         venue: '<a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta, Portugal',
         description: 'Duo with <a href="https://12k.com/">Taylor Deupree</a>. With <a href="https://sunblind.net/">Tim Hecker</a>, <a href="https://pointnever.com/">Oneohtrix Point Never</a>, <a href="https://ktl10.bandcamp.com/">KTL</a>, <a href="https://deafcenter.bandcamp.com/">Deaf Center</a>, <a href="https://www.leeranaldo.com/">Lee Ranaldo</a> & Manuel Mota, <a href="https://nadja.bandcamp.com/">Nadja</a>, <a href="https://akionda.net/">Aki Onda</a>.',
         images: [
@@ -615,7 +615,7 @@ export const liveData = {
       {
         id: 'migractions-2011',
         title: 'Festival Migractions',
-        date: 'May 23, 2011',
+        date: '2011-05-23',
         venue: '<a href="https://www.theatredelopprime.com/">Théâtre de L\'Opprimé</a>, Paris, France',
         description: 'Duo with <a href="https://vimeo.com/hugoolim">Hugo Olim</a>.',
         images: [
@@ -639,7 +639,7 @@ export const liveData = {
     items: [
       {
         id: 'olhares-de-outono-2010',
-        date: 'November 27, 2010',
+        date: '2010-11-27',
         title: 'Olhares de Outono',
         venue: '<a href="https://passosmanuel.net/">Passos Manuel</a>, Porto, Portugal',
         description: 'Artist talk and performance. With <a href="https://oval.bandcamp.com/">Oval</a>, <a href="https://simonfisherturner.bandcamp.com/">Simon Fisher Turner</a>, Paul Farrington, André Gonçalves.',
@@ -689,7 +689,7 @@ export const liveData = {
     items: [
       {
         id: 'madeiradig-2009',
-        date: 'December 4, 2009',
+        date: '2009-12-04',
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
         venue: '<a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta, Portugal',
         description: 'Duo with <a href="https://vimeo.com/hugoolim">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, <a href="https://www.discogs.com/artist/31633-Christ">Christ.</a>, <a href="https://zavoloka.com/">Zavoloka</a> & <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://gigantiq.bandcamp.com/">Gigantiq</a>, <a href="http://www.jade-enterprises.at/">Jade</a>.',
@@ -736,7 +736,7 @@ export const liveData = {
       {
         id: 'eme-olhares-2009',
         title: 'EME.LL / Olhares de Outono',
-        date: 'November 21, 2009',
+        date: '2009-11-21',
         venue: '<a href="https://www.tnsj.pt/en/edificios/mosteiro-de-sao-bento-da-vitoria/">Mosteiro São Bento da Vitória</a>, Porto, Portugal',
         description: 'Resampling White Noise — 16-performer laptop meeting. With <a href="https://scannerdot.bandcamp.com/">Scanner</a>, <a href="https://at-c.org/">@c</a>, <a href="https://www.vitorjoaquim.pt/">Vitor Joaquim</a>, <a href="https://carlossantos.bandcamp.com/">Carlos Santos</a>, <a href="https://www.carvalhais.org/">Miguel Carvalhais</a>, <a href="http://pedrotudela.org/">Pedro Tudela</a>, Pedro Almeida, <a href="https://opcabpol.bandcamp.com/">João Ricardo</a>, <a href="https://ivanfranco.wordpress.com/">Ivan Franco</a>, <a href="https://nunomoita.bandcamp.com/">Nuno Moita</a>, <a href="https://www.andregoncalves.info/">André Gonçalves</a>, <a href="https://cronica.bandcamp.com/album/musicamorosa">The Beautiful Schizophonic</a>, Rui Costa, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://blog.albagcorral.com/">Alba Corral</a>, <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://vimeo.com/hugoolim">Hugo Olim</a>.',
         images: [
@@ -765,7 +765,7 @@ export const liveData = {
     items: [
       {
         id: 'eme-madeira-2008',
-        date: 'October 4, 2008',
+        date: '2008-10-04',
         title: 'EME — Extensão Madeira',
         venue: '<a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta, Portugal',
         description: 'With <a href="https://hauschka.bandcamp.com/">Hauschka</a>, <a href="https://thesightbelow.bandcamp.com/">The Sight Below</a>.',
@@ -773,7 +773,7 @@ export const liveData = {
       {
         id: 'eme-2008',
         title: 'EME',
-        date: 'October 1, 2008',
+        date: '2008-10-01',
         venue: '<a href="https://teatroiberico.org/">Teatro Ibérico</a>, Lisbon, Portugal',
         description: 'With <a href="https://thesightbelow.bandcamp.com/">The Sight Below</a>, <a href="https://greghaines.bandcamp.com/">Greg Haines</a>, <a href="https://hauschka.bandcamp.com/">Hauschka</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>, <a href="https://soundcloud.com/sanso-xtro">Sanso-Xtro</a>, <a href="https://annatroisi.org/">Anna Troisi</a>, <a href="https://www.tinafrank.net/">Tina Frank</a>, <a href="https://carstengoertz.cc/">Carsten Goertz</a>, <a href="https://andre-sier.com/">André Sier</a>, <a href="https://www.andregoncalves.info/">André Gonçalves</a>, <a href="https://margaridagarcia.bandcamp.com/">Garcia</a>, Machas, <a href="https://davidmaranha.bandcamp.com/">Maranha</a> e <a href="https://manuelmota.bandcamp.com/">Mota</a>, Safe & Sound, <a href="https://cronica.bandcamp.com/album/musicamorosa">The Beautiful Schizophonic</a>.',
         images: [
@@ -828,7 +828,7 @@ export const liveData = {
       },
       {
         id: 'storung-2008',
-        date: 'September 25, 2008',
+        date: '2008-09-25',
         title: '<a href="https://ra.co/promoters/4519">Störung</a>',
         venue: '<a href="https://farinera.org/">La Farinera del Clot</a>, Barcelona, Spain',
         description: 'With <a href="https://kimcascone.bandcamp.com/">Kim Cascone</a>, <a href="https://www.franciscolopez.net/">Francisco López</a>, <a href="https://philippepetit.bandcamp.com/">Philippe Petit</a>, <a href="https://ritornell.bandcamp.com/">Ritornell</a>, Sébastien Roux, Tonne.',
@@ -858,7 +858,7 @@ export const liveData = {
     items: [
       {
         id: 'stfu-porto',
-        date: 'March 22, 2007',
+        date: '2007-03-22',
         title: 'STFU Porto',
         venue: '<a href="https://fabricadesom.org/">Fábrica do Som</a>, Porto, Portugal',
         description: 'With <a href="https://svartegreiner.bandcamp.com/">Svarte Greiner</a>, Pygar (<a href="https://vimeo.com/hugoolim">Hugo Olim</a> & <a href="https://opcabpol.bandcamp.com/">João Ricardo</a>), e:4c, CKZ, DeciBeats, Aenedra, Unknown Forces Of Everyday Life.',
@@ -882,7 +882,7 @@ export const liveData = {
       },
       {
         id: 'madeiradig-2007',
-        date: 'December 8, 2007',
+        date: '2007-12-08',
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
         venue: '<a href="https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1">Casa das Mudas</a>, Calheta, Portugal',
         description: 'With <a href="https://alogmusic.bandcamp.com/">Alog</a>, <a href="https://vladislavdelay.bandcamp.com/">Vladislav Delay</a>, <a href="https://ranslavin.com/">Ran Slavin</a>.',
@@ -948,7 +948,7 @@ export const liveData = {
       {
         id: 'madeiradig-2006',
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
-        date: 'December 7, 2006',
+        date: '2006-12-07',
         venue: '<a href="https://madeira.rtp.pt/">RDP Auditorium</a>, Funchal, Portugal',
         description: 'With <a href="https://phonophani.bandcamp.com/">Phonophani</a> & <a href="https://mariuswatz.com/">Marius Watz</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>.',
       },
@@ -960,7 +960,7 @@ export const liveData = {
     items: [
       {
         id: 'madeiradig-2005',
-        date: 'December 7, 2005',
+        date: '2005-12-07',
         title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
         venue: '<a href="https://madeira.rtp.pt/">RDP Auditorium</a>, Funchal, Portugal',
         description: 'Duo with <a href="https://vimeo.com/hugoolim">Hugo Olim</a>. With <a href="https://www.fennesz.com/">Fennesz</a>, <a href="https://florianhecker.blogspot.com/">Florian Hecker</a>, <a href="https://at-c.org/">@c</a> & <a href="https://liaworks.com/">Lia</a>.',
