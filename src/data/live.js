@@ -421,6 +421,7 @@ export const liveData = {
         venue: 'Cais do Carvão, Funchal, Portugal',
         description: 'With <a href="https://www.instagram.com/amess.music/">Amess</a>.',
       },
+    ],
   },
   '2015': {
     title: '2015',
