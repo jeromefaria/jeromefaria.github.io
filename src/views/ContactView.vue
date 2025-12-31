@@ -1,6 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue';
-
+import { useContactForm } from '@/composables/useContactForm';
 import { usePageHead } from '@/composables/usePageHead';
 import { contactContent } from '@/data/contact';
 import { siteConfig } from '@/data/navigation';
@@ -23,91 +22,8 @@ usePageHead({
   schema: contactSchema,
 });
 
-// Form state
-const formData = ref({
-  name: '',
-  email: '',
-  subject: '',
-  message: '',
-});
-
-const touched = ref({
-  name: false,
-  email: false,
-  message: false,
-});
-
-const isSubmitting = ref(false);
-const showSuccess = ref(false);
-
-// Check if all required fields are filled
-const isFormValid = computed(() => {
-  return (
-    formData.value.name.trim() !== '' &&
-    formData.value.email.trim() !== '' &&
-    formData.value.message.trim() !== ''
-  );
-});
-
-// Check if individual fields are invalid
-const fieldInvalid = computed(() => ({
-  name: touched.value.name && formData.value.name.trim() === '',
-  email: touched.value.email && formData.value.email.trim() === '',
-  message: touched.value.message && formData.value.message.trim() === '',
-}));
-
-// Mark field as touched and clear success message
-const handleBlur = field => {
-  touched.value[field] = true;
-};
-
-// Clear success message when user starts typing again
-const handleInput = () => {
-  showSuccess.value = false;
-};
-
-const handleSubmit = async event => {
-  event.preventDefault();
-  isSubmitting.value = true;
-
-  const form = event.target;
-  const formDataToSend = new FormData(form);
-
-  try {
-    const response = await fetch(contactContent.form.action, {
-      method: 'POST',
-      body: formDataToSend,
-      headers: {
-        'Accept': 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      showSuccess.value = true;
-      formData.value = {
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      };
-      touched.value = {
-        name: false,
-        email: false,
-        message: false,
-      };
-      isSubmitting.value = false;
-    } else {
-      // If response not ok, use regular form submission
-      isSubmitting.value = false;
-      form.submit();
-    }
-  } catch (error) {
-    // If fetch fails (CORS, network error), fall back to regular form submission
-    console.error('Form submission error:', error);
-    isSubmitting.value = false;
-    form.submit();
-  }
-};
+const { formData, touched, isSubmitting, showSuccess, isFormValid, fieldInvalid, handleBlur, handleInput, handleSubmit } =
+  useContactForm(contactContent.form.action);
 </script>
 
 <template>

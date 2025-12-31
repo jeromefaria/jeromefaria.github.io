@@ -9,21 +9,17 @@ import { siteConfig } from '@/data/navigation';
 import { worksData, worksSections } from '@/data/works';
 import { extractYear } from '@/utils/formatters';
 import { updateHash } from '@/utils/navigation';
+import { createMusicAlbumSchema } from '@/utils/schemaHelpers';
 
 const albumSchemas = worksData.solo.items
   .filter(r => r.bandcampId || r.bandcampUrl)
-  .map(release => ({
-    '@type': 'MusicAlbum',
-    name: release.title,
-    url: release.bandcampUrl,
-    image: release.coverImage ? `${siteConfig.url}${release.coverImage}` : undefined,
-    datePublished: extractYear(release.meta),
-    numTracks: release.tracklist?.length,
-    byArtist: {
-      '@type': 'Person',
-      name: siteConfig.author.name,
-    },
-  }));
+  .map(release =>
+    createMusicAlbumSchema(
+      { ...release, datePublished: extractYear(release.meta) },
+      siteConfig.author.name,
+      siteConfig.url,
+    ),
+  );
 
 const bookSchema = {
   '@type': 'Book',

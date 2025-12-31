@@ -9,8 +9,8 @@ import { useLightboxWithSwipe } from '@/composables/useLightboxWithSwipe';
 import { usePageHead } from '@/composables/usePageHead';
 import { liveData, liveYears } from '@/data/live';
 import { siteConfig } from '@/data/navigation';
-import { parseVenue, stripHtml } from '@/utils/formatters';
 import { updateHash } from '@/utils/navigation';
+import { createMusicEventSchema, createItemListSchema } from '@/utils/schemaHelpers';
 
 // Sort events within each year by date (most recent first)
 // ISO dates can be compared as strings: '2022-07-02' > '2022-03-05'
@@ -31,42 +31,19 @@ const sortedLiveData = computed(() => {
 
 const eventSchemas = computed(() =>
   liveYears.flatMap(year =>
-    (sortedLiveData.value[year]?.items || []).map(event => {
-      const venue = parseVenue(event.venue);
-      return {
-        '@type': 'MusicEvent',
-        name: stripHtml(event.title),
-        startDate: event.date || year,
-        location: {
-          '@type': 'Place',
-          name: venue.name,
-          address: {
-            '@type': 'PostalAddress',
-            addressLocality: venue.addressLocality,
-            addressCountry: venue.addressCountry,
-          },
-        },
-        performer: {
-          '@type': 'Person',
-          name: siteConfig.author.name,
-        },
-      };
-    }),
+    (sortedLiveData.value[year]?.items || []).map(event =>
+      createMusicEventSchema(event, siteConfig.author.name, year),
+    ),
   ),
 );
 
-const eventsSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  name: `${siteConfig.author.name} Live Performances`,
-  description: 'Live performance history from 2005 to present',
-  numberOfItems: eventSchemas.value.length,
-  itemListElement: eventSchemas.value.map((event, index) => ({
-    '@type': 'ListItem',
-    position: index + 1,
-    item: event,
-  })),
-}));
+const eventsSchema = computed(() =>
+  createItemListSchema(
+    eventSchemas.value,
+    `${siteConfig.author.name} Live Performances`,
+    'Live performance history from 2005 to present',
+  ),
+);
 
 usePageHead({
   title: 'Live',
