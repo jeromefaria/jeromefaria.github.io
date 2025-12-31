@@ -121,6 +121,7 @@ footer {
   border-radius: 50%;
   animation: loading-pulse 1.2s ease-in-out infinite;
 
+  // Staggered delays create wave effect: 0s, 0.2s, 0.4s
   &:nth-child(2) {
     animation-delay: 0.2s;
   }

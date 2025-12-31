@@ -560,17 +560,17 @@
   }
 
   &__image {
-    width: 90vw;
-    height: 90vh;
+    width: 90vw;  // 90% of viewport width
+    height: 90vh;  // 90% of viewport height
     object-fit: contain;
     cursor: default;
   }
 
   &__video {
-    width: 90vw;
-    max-width: 160vh; // 16:9 aspect ratio
-    height: 50.625vw; // 9/16 of 90vw
-    max-height: 90vh;
+    width: 90vw;  // 90% of viewport width
+    max-width: 160vh; // 16:9 aspect ratio limit
+    height: 50.625vw; // 9/16 of 90vw for 16:9 videos
+    max-height: 90vh;  // 90% of viewport height
     cursor: default;
     border: none;
   }
@@ -578,7 +578,7 @@
   &__hints {
     display: flex;
     position: absolute;
-    bottom: 1vh;
+    bottom: 1vh;  // Slight offset from bottom edge
     left: 50%;
     transform: translateX(-50%);
     gap: 0;
@@ -637,7 +637,7 @@
 
   &__credit {
     position: absolute;
-    bottom: 4vh;
+    bottom: 4vh;  // Above navigation hints on mobile
     left: 50%;
     transform: translateX(-50%);
     font-size: $font-size-sm;
@@ -647,7 +647,7 @@
     text-align: center;
 
     @include respond-to(md) {
-      bottom: 1vh;
+      bottom: 1vh;  // Bottom corner on desktop
       left: auto;
       right: $spacing-8;
       transform: none;

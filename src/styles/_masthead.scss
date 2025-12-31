@@ -92,6 +92,7 @@
     display: block;
 
     .nav__inner {
+      // Choreographed animation: expand height (200ms), then fade in (200ms, delayed 150ms)
       animation: nav-expand 200ms ease forwards, nav-fade-in 200ms ease 150ms forwards;
     }
   }
@@ -100,6 +101,7 @@
     display: block;
 
     .nav__inner {
+      // Choreographed animation: fade out (150ms), then collapse height (200ms, delayed 100ms)
       animation: nav-fade-out 150ms ease forwards, nav-collapse 200ms ease 100ms forwards;
     }
   }
