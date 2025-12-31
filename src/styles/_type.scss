@@ -152,10 +152,12 @@ hr {
 // =============================================================================
 // Prose — Long-form Editorial Content
 // =============================================================================
+// Note: Intentionally uses em units for spacing to scale with font-size
+// This ensures consistent vertical rhythm regardless of base font size
 
 .prose {
   p {
-    margin-bottom: 1.25em;
+    margin-bottom: 1.25em;  // Relative to parent font-size
     line-height: $line-height-relaxed;
     color: var(--color-text-secondary);
 
@@ -199,11 +201,11 @@ hr {
   }
 
   ul, ol {
-    margin-bottom: 1.25em;
+    margin-bottom: 1.25em;  // Relative to parent font-size
     line-height: $line-height-prose;
   }
 
   li {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.5em;  // Relative to parent font-size
   }
 }
