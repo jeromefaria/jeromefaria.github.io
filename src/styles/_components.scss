@@ -536,3 +536,146 @@
   }
 }
 
+// =============================================================================
+// Lightbox
+// =============================================================================
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: pointer;
+  padding: $spacing-4;
+  contain: layout style paint;
+
+  @include respond-to(md) {
+    padding: $spacing-8;
+  }
+
+  &__image {
+    width: 90vw;
+    height: 90vh;
+    object-fit: contain;
+    cursor: default;
+  }
+
+  &__video {
+    width: 90vw;
+    max-width: 160vh; // 16:9 aspect ratio
+    height: 50.625vw; // 9/16 of 90vw
+    max-height: 90vh;
+    cursor: default;
+    border: none;
+  }
+
+  &__hints {
+    display: flex;
+    position: absolute;
+    bottom: 1vh;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 0;
+    z-index: 10000;
+    align-items: center;
+  }
+
+  &__hint {
+    background: none;
+    border: none;
+    padding: $spacing-1;
+    font-size: $font-size-base;
+    color: var(--color-background);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity $transition-base, transform $transition-base;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include respond-to(md) {
+      font-size: $font-size-lg;
+      padding: $spacing-2;
+    }
+
+    &:hover:not(:disabled) {
+      opacity: 1;
+    }
+
+    &:disabled {
+      opacity: 0.2;
+      cursor: not-allowed;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      &:active:not(:disabled) {
+        transform: scale(0.9);
+      }
+    }
+
+    &--prev,
+    &--next {
+      transform: translateY(1px);
+    }
+
+    &--close {
+      font-size: $font-size-xl;
+      font-weight: 300;
+
+      @include respond-to(md) {
+        font-size: $font-size-2xl;
+      }
+    }
+  }
+
+  &__credit {
+    position: absolute;
+    bottom: 4vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: $font-size-sm;
+    color: rgba(255, 255, 255, 0.5);
+    z-index: 10000;
+    pointer-events: auto;
+    text-align: center;
+
+    @include respond-to(md) {
+      bottom: 1vh;
+      left: auto;
+      right: $spacing-8;
+      transform: none;
+      text-align: right;
+      font-size: $font-size-xs;
+    }
+
+    a {
+      color: var(--color-link);
+      text-decoration: none;
+      transition: color $transition-base;
+
+      &:hover,
+      &:focus-visible {
+        color: var(--color-link-hover);
+      }
+    }
+  }
+}
+
+// Lightbox transitions
+.lightbox-enter-active,
+.lightbox-leave-active {
+  transition: opacity $transition-base;
+}
+
+.lightbox-enter-from,
+.lightbox-leave-to {
+  opacity: 0;
+}
+
