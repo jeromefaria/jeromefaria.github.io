@@ -452,11 +452,11 @@
 
     // Invalid state - show red border for touched empty required fields
     &--invalid {
-      border-color: #c44;
+      border-color: var(--color-error);
 
       &:hover,
       &:focus {
-        border-color: #c44;
+        border-color: var(--color-error);
       }
     }
 

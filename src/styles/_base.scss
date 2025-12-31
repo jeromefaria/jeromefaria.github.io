@@ -15,6 +15,7 @@
   --color-border-subtle: #eee;
   --color-link: #000;
   --color-link-hover: #595959; // WCAG AA compliant (7:1 on white)
+  --color-error: #c44;
 }
 
 [data-theme="dark"] {
@@ -26,6 +27,7 @@
   --color-border-subtle: #222;
   --color-link: #fff;
   --color-link-hover: #a3a3a3; // WCAG AA compliant (4.58:1 on black)
+  --color-error: #e55;
 }
 
 // =============================================================================
