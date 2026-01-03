@@ -32,5 +32,12 @@ npm-debug.log*
 # Test coverage
 coverage/
 
+# Playwright
+playwright-report/
+test-results/
+
 # Claude Code
 CLAUDE.md
+
+# Lighthouse
+lighthouse-report*
