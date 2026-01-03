@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 
 import { useImageLoader } from '@/composables/useImageLoader';
@@ -19,7 +19,6 @@ const props = defineProps({
 });
 
 const {
-  imageRef,
   imageError,
   imageLoaded,
   webpSrc,
@@ -52,7 +51,6 @@ const handleIframeLoad = () => {
         type="image/webp"
       >
       <img
-        ref="imageRef"
         :src="coverImage"
         :alt="`${albumTitle} album cover`"
         loading="lazy"

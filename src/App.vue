@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { nextTick, onMounted, watch } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
 
@@ -12,7 +12,7 @@ const processExternalLinks = () => {
   const main = document.querySelector('main');
   if (!main) return;
 
-  const links = main.querySelectorAll('a[href^="http"]:not([target])');
+  const links = main.querySelectorAll<HTMLAnchorElement>('a[href^="http"]:not([target])');
   links.forEach(link => {
     if (!link.hostname.includes(window.location.hostname)) {
       link.setAttribute('target', '_blank');

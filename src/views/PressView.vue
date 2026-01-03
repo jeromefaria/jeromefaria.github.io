@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -13,7 +13,7 @@ usePageHead({
 const route = useRoute();
 const isInitialLoad = ref(true);
 
-const scrollToHash = hash => {
+const scrollToHash = (hash: string) => {
   if (!hash) return;
   const element = document.getElementById(hash.replace('#', ''));
   element?.scrollIntoView({ behavior: 'smooth', block: 'start' });

@@ -1,12 +1,23 @@
+export interface ImageWithTransforms {
+  position?: string;
+  scale?: number;
+  rotate?: number;
+}
+
+export interface ImageStyleObject {
+  objectPosition?: string;
+  transform?: string;
+}
+
 /**
  * Calculates CSS style object for image transformations
- * @param {Object} image - Image object with optional position, scale, rotate properties
- * @returns {Object} CSS style object
+ * @param image - Image object with optional position, scale, rotate properties
+ * @returns CSS style object
  */
-export const getImageStyles = image => {
+export const getImageStyles = (image?: ImageWithTransforms): ImageStyleObject => {
   if (!image) return {};
 
-  const styles = {};
+  const styles: ImageStyleObject = {};
 
   // Object position (e.g., "center top", "50% 25%")
   if (image.position) {
@@ -15,7 +26,7 @@ export const getImageStyles = image => {
 
   // CSS transforms (scale and/or rotate)
   if (image.scale || image.rotate) {
-    const transforms = [];
+    const transforms: string[] = [];
     if (image.scale) transforms.push(`scale(${image.scale})`);
     if (image.rotate) transforms.push(`rotate(${image.rotate}deg)`);
     styles.transform = transforms.join(' ');

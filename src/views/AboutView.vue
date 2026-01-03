@@ -1,10 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 
 import LightboxOverlay from '@/components/LightboxOverlay.vue';
 import { useLightboxWithSwipe } from '@/composables/useLightboxWithSwipe';
 import { usePageHead } from '@/composables/usePageHead';
 import { aboutSections } from '@/data/about';
+import type { AboutImage, LightboxImage } from '@/types';
 import { getImageStyles } from '@/utils/imageStyles';
 
 usePageHead({
@@ -15,11 +16,24 @@ usePageHead({
 
 const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev, handleTouchStart, handleTouchEnd } = useLightboxWithSwipe();
 
-// Collect all images from all image groups
+// Convert AboutImage to LightboxImage
+const convertToLightboxImage = (image: AboutImage): LightboxImage => {
+  const lightboxImage: LightboxImage = {
+    type: 'image' as const,
+    src: image.src,
+    alt: image.alt,
+  };
+  if (image.photographer) {
+    lightboxImage.photographer = image.photographer;
+  }
+  return lightboxImage;
+};
+
+// Collect all images from all image groups and convert to LightboxItems
 const allImages = computed(() => {
   return aboutSections
-    .filter(section => section.type === 'image-group')
-    .flatMap(section => section.images);
+    .filter(section => section.type === 'image-group' && 'images' in section)
+    .flatMap(section => section.images.map(convertToLightboxImage));
 });
 
 // Pre-compute section starting indices for O(1) lookup
@@ -27,7 +41,7 @@ const sectionStartIndices = computed(() => {
   let currentIndex = 0;
   return aboutSections.map(section => {
     const startIndex = currentIndex;
-    if (section.type === 'image-group') {
+    if (section.type === 'image-group' && 'images' in section) {
       currentIndex += section.images.length;
     }
     return startIndex;
@@ -35,8 +49,8 @@ const sectionStartIndices = computed(() => {
 });
 
 // Helper to get global index of an image - O(1) instead of O(n)
-const getGlobalIndex = (sectionIndex, imageIndex) => {
-  return sectionStartIndices.value[sectionIndex] + imageIndex;
+const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
+  return (sectionStartIndices.value[sectionIndex] ?? 0) + imageIndex;
 };
 </script>
 
@@ -83,7 +97,7 @@ const getGlobalIndex = (sectionIndex, imageIndex) => {
               <img
                 :src="image.src"
                 :alt="image.alt"
-                :style="getImageStyles(image)"
+                :style="getImageStyles(image) as any"
                 loading="lazy"
                 decoding="async"
               >
@@ -93,7 +107,7 @@ const getGlobalIndex = (sectionIndex, imageIndex) => {
 
         <!-- Single image divider (legacy support) -->
         <figure
-          v-else-if="section.type === 'image'"
+          v-else-if="section.type === 'image' && 'src' in section && 'alt' in section"
           class="about-image"
         >
           <img
@@ -108,6 +122,7 @@ const getGlobalIndex = (sectionIndex, imageIndex) => {
 
     <!-- Lightbox overlay -->
     <LightboxOverlay
+      v-if="currentItem"
       :is-open="isOpen"
       :current-item="currentItem"
       :current-index="currentIndex"

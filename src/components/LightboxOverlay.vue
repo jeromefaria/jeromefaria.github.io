@@ -1,44 +1,44 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 
-const props = defineProps({
-  isOpen: {
-    type: Boolean,
-    required: true,
-  },
-  currentItem: {
-    type: Object,
-    default: null,
-  },
-  currentIndex: {
-    type: Number,
-    required: true,
-  },
-  totalItems: {
-    type: Number,
-    required: true,
-  },
-  variant: {
-    type: String,
-    default: 'default', // 'default' or 'compact'
-    validator: value => ['default', 'compact'].includes(value),
-  },
+import type { LightboxItem } from '@/types';
+import { isLightboxImage, isLightboxVideo } from '@/types';
+
+const props = withDefaults(defineProps<{
+  isOpen: boolean;
+  currentItem: LightboxItem | null;
+  currentIndex: number;
+  totalItems: number;
+  variant?: 'default' | 'compact';
+}>(), {
+  variant: 'default',
 });
 
-const emit = defineEmits(['close', 'prev', 'next', 'touchstart', 'touchend']);
+const emit = defineEmits<{
+  close: [];
+  prev: [];
+  next: [];
+  touchstart: [e: TouchEvent];
+  touchend: [e: TouchEvent];
+}>();
 
 // Determine if current item is a video or image
-const isVideo = computed(() => props.currentItem?.url && (props.currentItem?.platform === 'youtube' || props.currentItem?.platform === 'vimeo'));
-const isImage = computed(() => props.currentItem?.src);
+const isVideo = computed(() => props.currentItem !== null && isLightboxVideo(props.currentItem));
+const isImage = computed(() => props.currentItem !== null && isLightboxImage(props.currentItem));
 
 // Computed photographer credit (if exists on current image)
-const photographer = computed(() => props.currentItem?.photographer || null);
+const photographer = computed(() => {
+  if (props.currentItem && isLightboxImage(props.currentItem)) {
+    return props.currentItem.photographer || null;
+  }
+  return null;
+});
 
 const handleClose = () => emit('close');
 const handlePrev = () => emit('prev');
 const handleNext = () => emit('next');
-const handleTouchStart = e => emit('touchstart', e);
-const handleTouchEnd = e => emit('touchend', e);
+const handleTouchStart = (e: TouchEvent) => emit('touchstart', e);
+const handleTouchEnd = (e: TouchEvent) => emit('touchend', e);
 </script>
 
 <template>
@@ -67,7 +67,7 @@ const handleTouchEnd = e => emit('touchend', e);
 
         <!-- Video -->
         <iframe
-          v-if="isVideo"
+          v-if="isVideo && currentItem && isLightboxVideo(currentItem)"
           :src="currentItem.url"
           class="lightbox__video"
           :title="currentItem.title || 'Video'"
@@ -78,7 +78,7 @@ const handleTouchEnd = e => emit('touchend', e);
         />
 
         <!-- Image -->
-        <picture v-else-if="isImage">
+        <picture v-else-if="isImage && currentItem && isLightboxImage(currentItem)">
           <source
             :srcset="currentItem.src.replace('.jpg', '.webp')"
             type="image/webp"
@@ -111,7 +111,7 @@ const handleTouchEnd = e => emit('touchend', e);
       <template v-else-if="variant === 'compact'">
         <!-- Video -->
         <iframe
-          v-if="isVideo"
+          v-if="isVideo && currentItem && isLightboxVideo(currentItem)"
           :src="currentItem.url"
           class="lightbox__video"
           :title="currentItem.title || 'Video'"
@@ -122,7 +122,7 @@ const handleTouchEnd = e => emit('touchend', e);
         />
 
         <!-- Image -->
-        <picture v-else-if="isImage">
+        <picture v-else-if="isImage && currentItem && isLightboxImage(currentItem)">
           <source
             :srcset="currentItem.src.replace('.jpg', '.webp')"
             type="image/webp"

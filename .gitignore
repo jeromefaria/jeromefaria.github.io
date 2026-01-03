@@ -29,5 +29,8 @@ npm-debug.log*
 # Cache
 .cache/
 
+# Test coverage
+coverage/
+
 # Claude Code
 CLAUDE.md

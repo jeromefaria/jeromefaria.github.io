@@ -1,6 +1,8 @@
 // Contact page content
 
-export const contactContent = {
+import type { ContactConfig } from '@/types/contact';
+
+export const contactContent: ContactConfig = {
   intro: `
     <p>I welcome inquiries regarding commissions, collaborations, and performance opportunities.</p>
     <p>For booking requests, film scoring projects, or general correspondence, please use the form below.</p>

@@ -1,6 +1,8 @@
 // Live performance data
 
-export const liveData = {
+import type { LiveData } from '@/types/live';
+
+export const liveData: LiveData = {
   '2025': {
     title: '2025',
     id: '2025',
@@ -1022,4 +1024,4 @@ export const liveData = {
 };
 
 // Export years dynamically from liveData keys (newest first)
-export const liveYears = Object.keys(liveData).sort((a, b) => b.localeCompare(a));
+export const liveYears: string[] = Object.keys(liveData).sort((a, b) => b.localeCompare(a));

@@ -1,7 +1,9 @@
 // About page content
 // Structured as sections with optional divider images
 
-export const aboutSections = [
+import type { AboutSection } from '@/types/about';
+
+export const aboutSections: AboutSection[] = [
   {
     id: 'short-bio',
     type: 'short-bio',
@@ -194,6 +196,6 @@ export const aboutSections = [
 
 // Legacy export for backward compatibility (if needed elsewhere)
 export const aboutContent = aboutSections
-  .filter(section => !section.type)
+  .filter((section): section is { id: string; content: string; type?: 'short-bio' } => 'content' in section)
   .map(section => section.content)
   .join('\n\n');

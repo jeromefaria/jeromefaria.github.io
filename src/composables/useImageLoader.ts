@@ -1,12 +1,22 @@
+import type { ComputedRef, Ref } from 'vue';
 import { computed, nextTick, onMounted, ref } from 'vue';
+
+interface UseImageLoaderReturn {
+  imageRef: Ref<HTMLImageElement | null>;
+  imageError: Ref<boolean>;
+  imageLoaded: Ref<boolean>;
+  webpSrc: ComputedRef<string | undefined>;
+  handleImageLoad: () => void;
+  handleImageError: () => void;
+}
 
 /**
  * Composable for handling image loading state with WebP support
- * @param {string} src - Original image source path (jpg)
- * @returns {Object} Image loading state and handlers
+ * @param src - Original image source path (jpg)
+ * @returns Image loading state and handlers
  */
-export const useImageLoader = src => {
-  const imageRef = ref(null);
+export const useImageLoader = (src: string): UseImageLoaderReturn => {
+  const imageRef = ref<HTMLImageElement | null>(null);
   const imageError = ref(false);
   const imageLoaded = ref(false);
 
@@ -19,11 +29,11 @@ export const useImageLoader = src => {
     }
   });
 
-  const handleImageLoad = () => {
+  const handleImageLoad = (): void => {
     imageLoaded.value = true;
   };
 
-  const handleImageError = () => {
+  const handleImageError = (): void => {
     imageError.value = true;
   };
 

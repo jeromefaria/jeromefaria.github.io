@@ -1,31 +1,26 @@
-<script setup>
+<script setup lang="ts">
 import { computed, nextTick, ref } from 'vue';
 
 import { ID_PREFIX, LAYOUT, TIMING } from '@/utils/constants';
 
-const props = defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  id: {
-    type: String,
-    required: true,
-  },
-  modelValue: {
-    type: Boolean,
-    default: false,
-  },
+const props = withDefaults(defineProps<{
+  title: string;
+  id: string;
+  modelValue?: boolean;
+}>(), {
+  modelValue: false,
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+  'update:modelValue': [value: boolean];
+}>();
 
 const isExpanded = computed({
   get: () => props.modelValue,
   set: value => emit('update:modelValue', value),
 });
-const sectionRef = ref(null);
-const contentRef = ref(null);
+const sectionRef = ref<HTMLElement | null>(null);
+const contentRef = ref<HTMLDivElement | null>(null);
 
 const getHeaderOffset = () => {
   const isDesktop = window.matchMedia(`(min-width: ${LAYOUT.BREAKPOINT_MD}px)`).matches;

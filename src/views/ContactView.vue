@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useContactForm } from '@/composables/useContactForm';
 import { usePageHead } from '@/composables/usePageHead';
 import { contactContent } from '@/data/contact';
@@ -22,7 +22,7 @@ usePageHead({
   schema: contactSchema,
 });
 
-const { formData, touched, isSubmitting, showSuccess, isFormValid, fieldInvalid, handleBlur, handleInput, handleSubmit } =
+const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, handleBlur, handleInput, handleSubmit } =
   useContactForm(contactContent.form.action);
 </script>
 

@@ -1,29 +1,31 @@
+import type { Ref } from 'vue';
 import { onMounted, onUnmounted, ref } from 'vue';
 
-/**
- * @typedef {Object} Lightbox
- * @property {import('vue').Ref<boolean>} isOpen - Whether lightbox is open
- * @property {import('vue').Ref<Object|null>} currentItem - Current item (image or video)
- * @property {import('vue').Ref<number>} currentIndex - Current item index
- * @property {import('vue').Ref<Array<Object>>} items - Array of all items
- * @property {Function} openLightbox - Open lightbox with items array and index
- * @property {Function} closeLightbox - Close lightbox and reset state
- * @property {Function} goToNext - Navigate to next item
- * @property {Function} goToPrev - Navigate to previous item
- */
+import type { LightboxItem } from '@/types/lightbox';
+
+interface UseLightboxReturn {
+  isOpen: Ref<boolean>;
+  currentItem: Ref<LightboxItem | null>;
+  currentIndex: Ref<number>;
+  items: Ref<LightboxItem[]>;
+  openLightbox: (allItems: LightboxItem[], index?: number) => void;
+  closeLightbox: () => void;
+  goToNext: () => void;
+  goToPrev: () => void;
+}
 
 /**
  * Lightbox state management for viewing images and videos in fullscreen
  * Handles keyboard navigation (Escape, Left/Right arrows) and state management
- * @returns {Lightbox} Lightbox state and controls
+ * @returns Lightbox state and controls
  */
-export const useLightbox = () => {
+export const useLightbox = (): UseLightboxReturn => {
   const isOpen = ref(false);
-  const currentItem = ref(null);
+  const currentItem = ref<LightboxItem | null>(null);
   const currentIndex = ref(0);
-  const items = ref([]);
+  const items = ref<LightboxItem[]>([]);
 
-  const openLightbox = (allItems = [], index = 0) => {
+  const openLightbox = (allItems: LightboxItem[] = [], index = 0): void => {
     items.value = allItems;
     currentIndex.value = index;
     updateCurrentItem(index);
@@ -31,7 +33,7 @@ export const useLightbox = () => {
     document.body.style.overflow = 'hidden';
   };
 
-  const closeLightbox = () => {
+  const closeLightbox = (): void => {
     isOpen.value = false;
     currentItem.value = null;
     items.value = [];
@@ -39,7 +41,7 @@ export const useLightbox = () => {
     document.body.style.overflow = '';
   };
 
-  const updateCurrentItem = index => {
+  const updateCurrentItem = (index: number): void => {
     const item = items.value[index];
     if (!item) return;
 
@@ -48,27 +50,27 @@ export const useLightbox = () => {
     currentItem.value = item;
   };
 
-  const goToNext = () => {
+  const goToNext = (): void => {
     if (currentIndex.value >= items.value.length - 1) return;
 
     currentIndex.value++;
     updateCurrentItem(currentIndex.value);
   };
 
-  const goToPrev = () => {
+  const goToPrev = (): void => {
     if (currentIndex.value <= 0) return;
 
     currentIndex.value--;
     updateCurrentItem(currentIndex.value);
   };
 
-  const keyHandlers = {
+  const keyHandlers: Record<string, () => void> = {
     Escape: closeLightbox,
     ArrowRight: goToNext,
     ArrowLeft: goToPrev,
   };
 
-  const handleKeydown = event => {
+  const handleKeydown = (event: KeyboardEvent): void => {
     if (!isOpen.value) return;
 
     const handler = keyHandlers[event.key];

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { RouterLink } from 'vue-router';
 
 import { navigation, siteConfig, social } from '@/data/navigation';

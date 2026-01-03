@@ -1,6 +1,8 @@
 // Site configuration and navigation data
 
-export const siteConfig = {
+import type { NavItem, SiteConfig, SocialLink } from '@/types/navigation';
+
+export const siteConfig: SiteConfig = {
   title: 'Jerome Faria',
   tagline: 'Sound Artist & Composer',
   description: 'Creating at the edges of experimental electronics, film scoring, and live performance since 2004',
@@ -13,7 +15,7 @@ export const siteConfig = {
   },
 };
 
-export const navigation = [
+export const navigation: NavItem[] = [
   { title: 'About', url: '/about' },
   { title: 'Works', url: '/works' },
   { title: 'Live', url: '/live' },
@@ -21,7 +23,7 @@ export const navigation = [
   { title: 'Contact', url: '/contact' },
 ];
 
-export const social = [
+export const social: SocialLink[] = [
   { name: 'bandcamp', url: 'https://jeromefaria.bandcamp.com' },
   { name: 'patreon', url: 'https://www.patreon.com/jeromefaria' },
 ];

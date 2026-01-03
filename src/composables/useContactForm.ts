@@ -1,49 +1,47 @@
+import type { ComputedRef, Ref } from 'vue';
 import { computed, ref } from 'vue';
 
-/**
- * @typedef {Object} FormData
- * @property {string} name - Contact name
- * @property {string} email - Contact email
- * @property {string} subject - Message subject
- * @property {string} message - Message content
- */
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
 
-/**
- * @typedef {Object} FormState
- * @property {boolean} name - Whether name field has been touched
- * @property {boolean} email - Whether email field has been touched
- * @property {boolean} message - Whether message field has been touched
- */
+interface FormState {
+  name: boolean;
+  email: boolean;
+  message: boolean;
+}
 
-/**
- * @typedef {Object} ContactForm
- * @property {import('vue').Ref<FormData>} formData - Form field values
- * @property {import('vue').Ref<FormState>} touched - Touched field state
- * @property {import('vue').Ref<boolean>} isSubmitting - Whether form is submitting
- * @property {import('vue').Ref<boolean>} showSuccess - Whether to show success message
- * @property {import('vue').ComputedRef<boolean>} isFormValid - Whether form is valid
- * @property {import('vue').ComputedRef<FormState>} fieldInvalid - Field validation state
- * @property {Function} handleBlur - Mark field as touched
- * @property {Function} handleInput - Clear success message
- * @property {Function} handleSubmit - Submit form
- * @property {Function} resetForm - Reset form to initial state
- */
+interface UseContactFormReturn {
+  formData: Ref<FormData>;
+  touched: Ref<FormState>;
+  isSubmitting: Ref<boolean>;
+  showSuccess: Ref<boolean>;
+  isFormValid: ComputedRef<boolean>;
+  fieldInvalid: ComputedRef<FormState>;
+  handleBlur: (field: keyof FormState) => void;
+  handleInput: () => void;
+  handleSubmit: (event: Event) => Promise<void>;
+  resetForm: () => void;
+}
 
 /**
  * Contact form state and validation logic
- * @param {string} submitUrl - URL to submit the form to
- * @returns {ContactForm} Form state, validation, and handlers
+ * @param submitUrl - URL to submit the form to
+ * @returns Form state, validation, and handlers
  */
-export const useContactForm = submitUrl => {
+export const useContactForm = (submitUrl: string): UseContactFormReturn => {
   // Form state
-  const formData = ref({
+  const formData = ref<FormData>({
     name: '',
     email: '',
     subject: '',
     message: '',
   });
 
-  const touched = ref({
+  const touched = ref<FormState>({
     name: false,
     email: false,
     message: false,
@@ -61,22 +59,22 @@ export const useContactForm = submitUrl => {
     );
   });
 
-  const fieldInvalid = computed(() => ({
+  const fieldInvalid = computed<FormState>(() => ({
     name: touched.value.name && formData.value.name.trim() === '',
     email: touched.value.email && formData.value.email.trim() === '',
     message: touched.value.message && formData.value.message.trim() === '',
   }));
 
   // Handlers
-  const handleBlur = field => {
+  const handleBlur = (field: keyof FormState): void => {
     touched.value[field] = true;
   };
 
-  const handleInput = () => {
+  const handleInput = (): void => {
     showSuccess.value = false;
   };
 
-  const resetForm = () => {
+  const resetForm = (): void => {
     formData.value = {
       name: '',
       email: '',
@@ -90,11 +88,11 @@ export const useContactForm = submitUrl => {
     };
   };
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event: Event): Promise<void> => {
     event.preventDefault();
     isSubmitting.value = true;
 
-    const form = event.target;
+    const form = event.target as HTMLFormElement;
     const formDataToSend = new FormData(form);
 
     try {

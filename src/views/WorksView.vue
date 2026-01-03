@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import AccordionSection from '@/components/AccordionSection.vue';
 import LightboxOverlay from '@/components/LightboxOverlay.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
@@ -7,19 +7,33 @@ import { useLightboxWithSwipe } from '@/composables/useLightboxWithSwipe';
 import { usePageHead } from '@/composables/usePageHead';
 import { siteConfig } from '@/data/navigation';
 import { worksData, worksSections } from '@/data/works';
+import type { BandcampRelease, ExternalRelease } from '@/types';
 import { extractYear } from '@/utils/formatters';
 import { updateHash } from '@/utils/navigation';
 import { createMusicAlbumSchema } from '@/utils/schemaHelpers';
 
-const albumSchemas = worksData.solo.items
-  .filter(r => r.bandcampId || r.bandcampUrl)
-  .map(release =>
-    createMusicAlbumSchema(
-      { ...release, datePublished: extractYear(release.meta) },
-      siteConfig.author.name,
-      siteConfig.url,
-    ),
-  );
+const soloSection = worksData['solo'];
+const albumSchemas = soloSection
+  ? soloSection.items
+    .filter((r): r is BandcampRelease | ExternalRelease => {
+      return (
+        ('bandcampId' in r && r.bandcampId !== undefined) ||
+          ('bandcampUrl' in r && r.bandcampUrl !== undefined)
+      );
+    })
+    .map(release => {
+      const datePublished = extractYear(release.meta ?? null);
+      const releaseWithDate = { ...release };
+      if (datePublished) {
+        Object.assign(releaseWithDate, { datePublished });
+      }
+      return createMusicAlbumSchema(
+        releaseWithDate,
+        siteConfig.author.name,
+        siteConfig.url,
+      );
+    })
+  : [];
 
 const bookSchema = {
   '@type': 'Book',
@@ -64,10 +78,11 @@ usePageHead({
   schema: creativeWorkSchema,
 });
 
-const findSectionForRelease = releaseId =>
-  worksSections.find(section =>
-    worksData[section]?.items?.some(r => r.id === releaseId),
-  ) ?? null;
+const findSectionForRelease = (releaseId: string): string | null =>
+  worksSections.find(section => {
+    const sectionData = worksData[section];
+    return sectionData?.items?.some(r => r.id === releaseId);
+  }) ?? null;
 
 const { openSection, handleToggle } = useAccordion('solo', worksSections, findSectionForRelease);
 const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev, handleTouchStart, handleTouchEnd } = useLightboxWithSwipe();
@@ -83,15 +98,15 @@ const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, g
         v-for="sectionKey in worksSections"
         :id="sectionKey"
         :key="sectionKey"
-        :title="worksData[sectionKey].title"
+        :title="worksData[sectionKey]?.title || sectionKey"
         :model-value="openSection === sectionKey"
         @update:model-value="handleToggle(sectionKey, $event)"
       >
         <ReleaseItem
-          v-for="release in worksData[sectionKey].items"
+          v-for="release in worksData[sectionKey]?.items || []"
           :key="release.id"
           :release="release"
-          :text-only="!release.coverImage"
+          :text-only="!('coverImage' in release && release.coverImage)"
           @update-hash="updateHash"
           @open-lightbox="openLightbox"
         />
@@ -100,6 +115,7 @@ const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, g
 
     <!-- Lightbox overlay -->
     <LightboxOverlay
+      v-if="currentItem"
       :is-open="isOpen"
       :current-item="currentItem"
       :current-index="currentIndex"

@@ -3,15 +3,24 @@ import { useRoute } from 'vue-router';
 
 import { siteConfig } from '@/data/navigation';
 
+interface UsePageHeadOptions {
+  title: string;
+  description: string;
+  ogType?: string;
+  schema?: Record<string, unknown> | null;
+  includeImage?: boolean;
+  noIndex?: boolean;
+}
+
 /**
  * Composable for setting page head meta tags with consistent patterns
- * @param {Object} options - Page head options
- * @param {string} options.title - Page title (will be appended with site title)
- * @param {string} options.description - Page meta description
- * @param {string} [options.ogType='website'] - Open Graph type
- * @param {Object} [options.schema] - JSON-LD structured data schema
- * @param {boolean} [options.includeImage=false] - Include og:image and twitter:image meta tags
- * @param {boolean} [options.noIndex=false] - Add robots noindex meta tag
+ * @param options - Page head options
+ * @param options.title - Page title (will be appended with site title)
+ * @param options.description - Page meta description
+ * @param options.ogType - Open Graph type (default: 'website')
+ * @param options.schema - JSON-LD structured data schema
+ * @param options.includeImage - Include og:image and twitter:image meta tags
+ * @param options.noIndex - Add robots noindex meta tag
  */
 export const usePageHead = ({
   title,
@@ -20,7 +29,7 @@ export const usePageHead = ({
   schema = null,
   includeImage = false,
   noIndex = false,
-}) => {
+}: UsePageHeadOptions): void => {
   const route = useRoute();
   const fullTitle = title.includes(siteConfig.title)
     ? title
@@ -56,10 +65,10 @@ export const usePageHead = ({
     { rel: 'canonical', href: canonicalUrl },
   ];
 
-  const headConfig = { title: fullTitle, meta, link };
+  const headConfig: Record<string, unknown> = { title: fullTitle, meta, link };
 
   if (schema) {
-    headConfig.script = [
+    headConfig['script'] = [
       {
         type: 'application/ld+json',
         innerHTML: JSON.stringify(schema),

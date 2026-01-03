@@ -1,18 +1,35 @@
+import type { Ref } from 'vue';
 import { ref } from 'vue';
 
 import { TOUCH } from '@/utils/constants';
 
+interface UseSwipeNavigationReturn {
+  handleTouchStart: (e: TouchEvent) => void;
+  handleTouchEnd: (e: TouchEvent) => void;
+}
+
+interface TouchPosition {
+  x: number;
+  y: number;
+  time: number;
+}
+
 /**
  * Composable for handling horizontal swipe gestures
- * @param {Function} onSwipeLeft - Callback when swiping left
- * @param {Function} onSwipeRight - Callback when swiping right
- * @returns {Object} Touch event handlers
+ * @param onSwipeLeft - Callback when swiping left
+ * @param onSwipeRight - Callback when swiping right
+ * @returns Touch event handlers
  */
-export const useSwipeNavigation = (onSwipeLeft, onSwipeRight) => {
-  const touchStart = ref({ x: 0, y: 0, time: 0 });
+export const useSwipeNavigation = (
+  onSwipeLeft: () => void,
+  onSwipeRight: () => void,
+): UseSwipeNavigationReturn => {
+  const touchStart: Ref<TouchPosition> = ref({ x: 0, y: 0, time: 0 });
 
-  const handleTouchStart = e => {
+  const handleTouchStart = (e: TouchEvent): void => {
     const touch = e.touches[0];
+    if (!touch) return;
+
     touchStart.value = {
       x: touch.clientX,
       y: touch.clientY,
@@ -20,8 +37,10 @@ export const useSwipeNavigation = (onSwipeLeft, onSwipeRight) => {
     };
   };
 
-  const handleTouchEnd = e => {
+  const handleTouchEnd = (e: TouchEvent): void => {
     const touch = e.changedTouches[0];
+    if (!touch) return;
+
     const deltaX = touch.clientX - touchStart.value.x;
     const deltaY = touch.clientY - touchStart.value.y;
     const deltaTime = Date.now() - touchStart.value.time;
@@ -34,10 +53,10 @@ export const useSwipeNavigation = (onSwipeLeft, onSwipeRight) => {
     if (isHorizontalSwipe && isValidDistance && isValidSpeed) {
       if (deltaX > 0) {
         // Swipe right
-        onSwipeRight?.();
+        onSwipeRight();
       } else {
         // Swipe left
-        onSwipeLeft?.();
+        onSwipeLeft();
       }
     }
   };

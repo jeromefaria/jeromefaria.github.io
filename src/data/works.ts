@@ -1,6 +1,8 @@
 // Discography and works data
 
-export const worksData = {
+import type { WorksData } from '@/types/works';
+
+export const worksData: WorksData = {
   solo: {
     title: 'Solo',
     id: 'solo',
@@ -359,4 +361,4 @@ export const worksData = {
 };
 
 // Export sections dynamically from worksData keys (maintains insertion order)
-export const worksSections = Object.keys(worksData);
+export const worksSections: string[] = Object.keys(worksData);

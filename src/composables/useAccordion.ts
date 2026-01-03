@@ -1,21 +1,31 @@
+import type { Ref } from 'vue';
 import { nextTick, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { ID_PREFIX, TIMING } from '@/utils/constants';
 
+interface UseAccordionReturn {
+  openSection: Ref<string | null>;
+  handleToggle: (sectionId: string, isOpen: boolean) => void;
+}
+
 /**
  * Composable for managing accordion state with URL hash navigation
- * @param {string} initialSection - The section to open by default
- * @param {string[]} validSections - Array of valid section IDs
- * @param {Function|null} [findSectionForId=null] - Optional function to find parent section for a given ID
- * @returns {Object} Accordion state and handlers
+ * @param initialSection - The section to open by default
+ * @param validSections - Array of valid section IDs
+ * @param findSectionForId - Optional function to find parent section for a given ID
+ * @returns Accordion state and handlers
  */
-export const useAccordion = (initialSection, validSections, findSectionForId = null) => {
+export const useAccordion = (
+  initialSection: string,
+  validSections: string[],
+  findSectionForId: ((id: string) => string | null) | null = null,
+): UseAccordionReturn => {
   const route = useRoute();
-  const openSection = ref(initialSection);
+  const openSection = ref<string | null>(initialSection);
   const isInitialLoad = ref(true);
 
-  const handleToggle = (sectionId, isOpen) => {
+  const handleToggle = (sectionId: string, isOpen: boolean): void => {
     if (isOpen) {
       openSection.value = sectionId;
       // Update URL hash when opening a section
@@ -33,7 +43,7 @@ export const useAccordion = (initialSection, validSections, findSectionForId = n
     }
   };
 
-  const scrollToElement = id => {
+  const scrollToElement = (id: string): void => {
     nextTick(() => {
       setTimeout(() => {
         const element = document.getElementById(id);
@@ -46,7 +56,7 @@ export const useAccordion = (initialSection, validSections, findSectionForId = n
     });
   };
 
-  const processHash = (hash, shouldScroll) => {
+  const processHash = (hash: string, shouldScroll: boolean): void => {
     if (!hash) return;
 
     const id = hash.replace(`#${ID_PREFIX.SECTION}`, '').replace('#', '');

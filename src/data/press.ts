@@ -1,6 +1,8 @@
 // Press quotes data
 
-export const pressQuotes = [
+import type { PressQuote } from '@/types/press';
+
+export const pressQuotes: PressQuote[] = [
   {
     id: 'quietus-madeiradig',
     quote: "An almost romantic sound that recalls Eno's <em>Discreet Music</em>, with the additional creak of wind-up toys and waves of static that seem broadcast from the beach.",

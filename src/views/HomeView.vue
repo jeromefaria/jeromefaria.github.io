@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { usePageHead } from '@/composables/usePageHead';
 import { siteConfig, social } from '@/data/navigation';
 
