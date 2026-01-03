@@ -221,6 +221,18 @@
       text-transform: uppercase;
       letter-spacing: $letter-spacing-wide;
       margin-bottom: $spacing-3;
+
+      // Ensure links are visually distinguishable (WCAG 2.1 Level A)
+      a {
+        text-decoration: underline !important;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.15em;
+
+        &:hover,
+        &:focus {
+          text-decoration-thickness: 2px;
+        }
+      }
     }
 
     // Description

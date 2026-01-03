@@ -75,6 +75,7 @@ const toggle = () => {
       :aria-labelledby="`${ID_PREFIX.TRIGGER}${id}`"
       role="region"
       :tabindex="isExpanded ? 0 : -1"
+      :inert="!isExpanded"
     >
       <div class="accordion-content-inner">
         <slot />

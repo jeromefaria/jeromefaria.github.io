@@ -298,11 +298,37 @@
     font-style: italic;
     font-size: $font-size-sm;
     color: var(--color-text-muted);
+
+    // Ensure links are visually distinguishable (WCAG 2.1 Level A)
+    a {
+      text-decoration: underline !important;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.15em;
+
+      &:hover,
+      &:focus {
+        text-decoration-thickness: 2px;
+      }
+    }
   }
 
-  // Date — subtle, slightly lighter than venue
+  //  Event description — ensure links are distinguishable
+  .event-description {
+    a {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.15em;
+
+      &:hover,
+      &:focus {
+        text-decoration-thickness: 2px;
+      }
+    }
+  }
+
+  // Date — subtle color (removed opacity for WCAG AA compliance)
   .event-date {
-    opacity: $opacity-70;
+    color: var(--color-text-muted);
   }
 
   // Event title link — hash link for deep linking
