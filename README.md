@@ -1,6 +1,19 @@
 # Jerome Faria - Personal Website
 
-Vue 3 + Vite build for [www.jeromefaria.com](https://www.jeromefaria.com).
+[![CI](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/jeromefaria/jeromefaria.github.io/branch/master/graph/badge.svg)](https://codecov.io/gh/jeromefaria/jeromefaria.github.io)
+[![Deploy](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml)
+
+Vue 3 + TypeScript portfolio website for [www.jeromefaria.com](https://www.jeromefaria.com).
+
+## Tech Stack
+
+- **Frontend**: Vue 3 (Composition API), TypeScript (strict mode)
+- **Build**: Vite with SSG (Static Site Generation)
+- **Styling**: SCSS with BEM methodology
+- **Testing**: Vitest (98%+ coverage), Playwright E2E, axe-core accessibility
+- **CI/CD**: GitHub Actions with quality gates
+- **Performance**: Lighthouse CI with performance budgets
 
 ## Development
 
@@ -16,11 +29,102 @@ npm run build
 
 # Preview production build
 npm run preview
+
+# Type checking
+npm run type-check
+
+# Linting
+npm run lint
+npm run lint:fix
 ```
+
+## Testing
+
+### Unit & Integration Tests
+
+```bash
+# Run tests
+npm test
+
+# Run tests with UI
+npm run test:ui
+
+# Generate coverage report
+npm run test:coverage
+```
+
+**Coverage Thresholds**: Lines 95%, Statements 95%, Functions 90%, Branches 85%
+
+### E2E Tests
+
+```bash
+# Run E2E tests
+npm run test:e2e
+
+# Run with UI
+npm run test:e2e:ui
+
+# Run in headed mode (see browser)
+npm run test:e2e:headed
+
+# Debug mode
+npm run test:e2e:debug
+```
+
+**E2E Test Coverage**:
+- Navigation and routing
+- Accordion functionality with hash navigation
+- Form validation and submission
+- Accessibility (WCAG 2.1 AA compliance)
+- Keyboard navigation
+- Mobile responsiveness
+
+### Performance Testing
+
+```bash
+# Run Lighthouse CI
+npm run lighthouse
+```
+
+**Performance Budgets**:
+- Performance Score: 90+
+- Accessibility Score: 95+
+- First Contentful Paint: <1.5s
+- Largest Contentful Paint: <2.5s
+- Cumulative Layout Shift: <0.1
+
+## CI/CD Pipeline
+
+Every push to `master` and pull request triggers a comprehensive CI pipeline with the following jobs:
+
+### Quality Checks
+- TypeScript type checking
+- ESLint code quality
+- Unit tests with coverage thresholds
+- Coverage reporting to Codecov
+
+### Build
+- Production bundle build
+- Bundle size checks (JS <200KB, CSS <50KB per file)
+- Build artifact generation
+
+### Lighthouse CI
+- Performance audits
+- Accessibility audits
+- SEO and best practices checks
+- Performance budget enforcement
+
+### E2E Tests
+- Cross-browser testing (Chromium, Firefox, WebKit)
+- Mobile device testing (Pixel 5, iPhone 12)
+- Accessibility testing with axe-core
+- Visual regression prevention
+
+**Quality Gates**: All checks must pass before deployment. Deployment workflow only runs after successful CI completion.
 
 ## Deployment
 
-The site automatically deploys to GitHub Pages via GitHub Actions when changes are pushed to `master`.
+The site automatically deploys to GitHub Pages via GitHub Actions when CI passes on `master`.
 
 ## License
 
