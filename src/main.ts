@@ -34,6 +34,16 @@ export const createApp = ViteSSG(
         sessionStorage.removeItem('spa-redirect');
         router.replace(redirect);
       }
+
+      // Add ready class to body when Vue is fully hydrated
+      // Use requestAnimationFrame to ensure event handlers are attached
+      router.isReady().then(() => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            document.body.classList.add('ready');
+          });
+        });
+      });
     }
   },
 );

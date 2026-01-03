@@ -37,31 +37,11 @@
       document.documentElement.setAttribute('data-theme', 'dark');
     </script>
     <style>
-      /* Hide app content until ready, but keep loader visible */
-      #app { opacity: 0; }
+      /* SSG content is immediately visible for optimal FCP */
       body { background-color: #000; }
-      body.ready #app { opacity: 1; transition: opacity 600ms ease; }
-      body.ready .initial-loader { display: none; }
-      /* Initial loader spinner */
+      /* Hide loader immediately - SSG content is already visible */
       .initial-loader {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #000;
-        z-index: 9999;
-      }
-      .spinner {
-        width: 24px;
-        height: 24px;
-        border: 2px solid #333;
-        border-top-color: #fff;
-        border-radius: 50%;
-        animation: spin 800ms linear infinite;
-      }
-      @keyframes spin {
-        to { transform: rotate(360deg); }
+        display: none;
       }
     </style>
   </head>
