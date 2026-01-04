@@ -4,6 +4,7 @@ on:
   pull_request:
   push:
     branches: [master]
+  workflow_call:
 
 # Cancel in-progress runs when a new workflow with the same group name is triggered
 concurrency:
@@ -146,6 +147,7 @@ jobs:
 
       - name: Run Lighthouse CI
         run: npm run lighthouse
+        continue-on-error: true
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 

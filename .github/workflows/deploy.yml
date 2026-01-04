@@ -15,12 +15,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Run tests before deployment
-  test:
-    uses: ./.github/workflows/test.yml
+  # Run CI checks before deployment
+  ci:
+    uses: ./.github/workflows/ci.yml
 
   build:
-    needs: test
+    needs: ci
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
