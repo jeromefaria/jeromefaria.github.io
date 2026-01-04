@@ -28,10 +28,15 @@
     <link rel="dns-prefetch" href="https://bandcamp.com">
     <!-- Preload critical hero image for homepage -->
     <link rel="preload" href="/images/performance.webp" as="image" type="image/webp" fetchpriority="high">
-    <!-- Load Iosevka Aile font (quasi-proportional variant) -->
-    <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/400.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/500.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/600.css" rel="stylesheet">
+    <!-- Load Iosevka Aile font (quasi-proportional variant) - async to prevent render blocking -->
+    <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/400.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/500.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/600.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/400.css" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/500.css" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/600.css" rel="stylesheet">
+    </noscript>
     <script>
       // Set dark theme before page renders to prevent flash
       document.documentElement.setAttribute('data-theme', 'dark');
