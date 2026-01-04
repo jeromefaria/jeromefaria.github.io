@@ -8,13 +8,13 @@ export default defineConfig({
     vue(),
     ViteImageOptimizer({
       jpg: {
-        quality: 75,
+        quality: 65,
       },
       png: {
-        quality: 80,
+        quality: 75,
       },
       webp: {
-        quality: 75,
+        quality: 65,
       },
     }),
   ],
@@ -33,6 +33,14 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
+    cssCodeSplit: true,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
   },
   ssgOptions: {
     script: 'async',
