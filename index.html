@@ -28,6 +28,8 @@
     <link rel="dns-prefetch" href="https://bandcamp.com">
     <!-- Preload critical hero image for homepage -->
     <link rel="preload" href="/images/performance.webp" as="image" type="image/webp" fetchpriority="high">
+    <!-- Preload critical font files to prevent FOUT -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/files/iosevka-aile-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Load Iosevka Aile font (quasi-proportional variant) - async to prevent render blocking -->
     <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/400.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/500.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -42,12 +44,54 @@
       document.documentElement.setAttribute('data-theme', 'dark');
     </script>
     <style>
-      /* SSG content is immediately visible for optimal FCP */
-      body { background-color: #000; }
-      /* Hide loader immediately - SSG content is already visible */
-      .initial-loader {
-        display: none;
-      }
+      /* Critical CSS - prevents FOUC by styling initial render */
+      @font-face{font-family:'Iosevka Aile';font-style:normal;font-weight:400;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/files/iosevka-aile-400-normal.woff2) format('woff2')}
+      :root{--color-bg:#fff;--color-text:#000;--color-text-secondary:#444;--color-text-muted:#767676;--color-border:#ddd;--color-border-subtle:#eee;--color-link:#000;--color-link-hover:#595959}
+      [data-theme=dark]{--color-bg:#000;--color-text:#fff;--color-text-secondary:#bbb;--color-text-muted:#a3a3a3;--color-border:#333;--color-border-subtle:#222;--color-link:#fff;--color-link-hover:#a3a3a3}
+      *,*:before,*:after{box-sizing:border-box}
+      html{font-size:18px}
+      body{margin:0;font-family:Iosevka Aile,-apple-system,BlinkMacSystemFont,sans-serif;font-size:.875rem;line-height:1.6;color:var(--color-text);background-color:var(--color-bg);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-feature-settings:"kern" 1,"liga" 1;overflow-x:hidden}
+      a{color:var(--color-link);text-decoration:none}
+      h1{font-size:1.375rem;margin:0 0 1rem;font-weight:400;line-height:1.4;color:var(--color-text)}
+      .site{display:flex;flex-direction:column;min-height:100vh}
+      main{flex:1;padding:1.5rem 0 3rem}
+      @media(min-width:768px){main{padding:3rem 0 5rem}}
+      main:has(.home){padding:0}
+      body:has(.home){overflow:hidden}
+      footer{padding:1.5rem 1.25rem;padding-right:max(1.25rem,env(safe-area-inset-right,0px));padding-bottom:max(1.5rem,env(safe-area-inset-bottom,0px));padding-left:max(1.25rem,env(safe-area-inset-left,0px));border-top:1px solid var(--color-border);font-size:.6875rem;text-transform:uppercase;letter-spacing:.12em;color:var(--color-text-muted);text-align:center}
+      footer p{margin:0}
+      .footer__content{display:flex;flex-direction:column;align-items:center;gap:1rem}
+      .footer__nav{display:flex;flex-wrap:wrap;justify-content:center;gap:.25rem}
+      @media(min-width:480px){.footer__nav{gap:.5rem}}
+      .footer__nav a{color:var(--color-text-muted);padding:.5rem .25rem;min-height:2.75rem;min-width:2.75rem;display:inline-flex;align-items:center;justify-content:center}
+      @media(min-width:480px){.footer__nav a{padding:.5rem .75rem}}
+      .social-links{display:flex;justify-content:center;gap:.5rem}
+      @media(min-width:480px){.social-links{gap:1rem}}
+      .social-links a{color:var(--color-text-muted)}
+      .masthead{position:sticky;top:0;z-index:100;background:var(--color-bg);padding:1rem 1.25rem;padding-top:max(1rem,env(safe-area-inset-top,0px));padding-right:max(1.25rem,env(safe-area-inset-right,0px));padding-left:max(1.25rem,env(safe-area-inset-left,0px));border-bottom:1px solid var(--color-border)}
+      @media(min-width:768px){.masthead{padding:1.5rem 2rem;padding-top:max(1.5rem,env(safe-area-inset-top,0px));padding-right:max(2rem,env(safe-area-inset-right,0px));padding-left:max(2rem,env(safe-area-inset-left,0px))}}
+      .masthead-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;width:100%}
+      @media(min-width:768px){.masthead-inner{flex-wrap:nowrap}}
+      .masthead-title{margin:0;font-size:.75rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase}
+      .masthead-title a{color:var(--color-text)}
+      .masthead-tagline{display:none;color:var(--color-text-muted);font-weight:400;margin-left:.75rem}
+      @media(min-width:480px){.masthead-tagline{display:inline}}
+      .masthead-controls{display:flex;align-items:center;gap:1rem}
+      @media(min-width:768px){.masthead-controls{display:none}}
+      .nav{display:none;width:100%;border-top:1px solid var(--color-border-subtle)}
+      @media(min-width:768px){.nav{display:flex;width:auto;flex-direction:row;align-items:center;gap:1.25rem;border-top:none}}
+      .nav__inner{display:flex;flex-direction:column;gap:.25rem;padding-top:1rem;opacity:0}
+      @media(min-width:768px){.nav__inner{display:contents;padding-top:0;opacity:1}}
+      .nav__link{font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;color:var(--color-text-muted);padding:.75rem 0;min-height:2.75rem;display:flex;align-items:center}
+      @media(min-width:768px){.nav__link{padding:0;min-height:auto;display:inline}}
+      .nav-toggle{display:flex;align-items:center;justify-content:center;width:2.75rem;height:2.75rem;margin:-.875rem;color:var(--color-text-muted);background:none;border:none;cursor:pointer}
+      .nav-toggle__icon{width:1rem;height:1rem}
+      .home .hero{margin:0;padding:0;width:100%;min-height:50vh;height:calc(100vh - 234px - max(0px,env(safe-area-inset-bottom,0px) - 1.5rem));background-size:cover;background-position:center bottom;background-repeat:no-repeat}
+      @media(min-aspect-ratio:3/2){.home .hero{background-size:100% auto}}
+      @media(min-width:768px){.home .hero{height:calc(100vh - 254px - max(0px,env(safe-area-inset-bottom,0px) - 1.5rem))}}
+      .skip-link{position:absolute;top:-100%;left:1rem;z-index:1000;padding:.5rem 1rem;background:var(--color-bg);color:var(--color-text);border:1px solid var(--color-border);text-decoration:none;font-size:.75rem}
+      .skip-link:focus{top:1rem}
+      .initial-loader{display:none}
     </style>
   </head>
   <body>

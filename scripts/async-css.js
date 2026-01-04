@@ -14,6 +14,7 @@ async function makeCSSAsync() {
       let content = await readFile(filePath, 'utf-8');
 
       // Transform CSS links to load asynchronously
+      // Critical CSS is already inlined in index.html template
       content = content.replace(
         /<link\s+rel="stylesheet"\s+crossorigin=""\s+href="([^"]+)">/g,
         (match, href) =>
