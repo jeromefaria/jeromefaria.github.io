@@ -15,7 +15,7 @@ async function makeCSSAsync() {
 
       // Transform CSS links to load asynchronously
       content = content.replace(
-        /<link\s+rel="stylesheet"\s+crossorigin=""\s+href="([^"]+)"/g,
+        /<link\s+rel="stylesheet"\s+crossorigin=""\s+href="([^"]+)">/g,
         (match, href) =>
           `<link rel="preload" as="style" href="${href}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="${href}"></noscript>`,
       );
