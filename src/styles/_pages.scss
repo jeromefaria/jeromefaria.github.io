@@ -11,6 +11,7 @@
     padding: 0;
     width: 100%;
     min-height: 50vh;
+    position: relative;
     // Fill viewport between header and footer, accounting for iPhone safe areas
     // Use 100vh (not 100dvh) to prevent resize when Safari UI changes
     // Subtract header, footer, and extra safe-area padding beyond footer base (24px), plus 3px for border alignment
@@ -19,6 +20,12 @@
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity $transition-base;
+
+    &--loaded {
+      opacity: 1;
+    }
 
     @media (min-aspect-ratio: 3/2) {
       background-size: 100% auto;
@@ -26,6 +33,31 @@
 
     @include respond-to(md) {
       height: calc(100vh - #{$header-height-desktop} - #{$footer-height} - max(0px, env(safe-area-inset-bottom, 0px) - #{$footer-padding-y}) + 3px);
+    }
+  }
+
+  .hero__loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: $spacing-2;
+  }
+
+  .hero__loading-dot {
+    width: $loading-dot-size;
+    height: $loading-dot-size;
+    background: var(--color-text-muted);
+    border-radius: 50%;
+    animation: loading-pulse 1.2s ease-in-out infinite;
+
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 0.4s;
     }
   }
 }

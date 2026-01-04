@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
+
 import { usePageHead } from '@/composables/usePageHead';
 import { siteConfig, social } from '@/data/navigation';
 
@@ -19,6 +21,17 @@ usePageHead({
   schema: personSchema,
   includeImage: true,
 });
+
+const heroImageLoaded = ref(false);
+const heroImageSrc = '/images/performance.webp';
+
+onMounted(() => {
+  const img = new Image();
+  img.src = heroImageSrc;
+  img.onload = () => {
+    heroImageLoaded.value = true;
+  };
+});
 </script>
 
 <template>
@@ -26,8 +39,18 @@ usePageHead({
     <div class="home">
       <section
         class="hero"
-        :style="{ backgroundImage: 'url(/images/performance.webp)' }"
-      />
+        :class="{ 'hero--loaded': heroImageLoaded }"
+        :style="{ backgroundImage: `url(${heroImageSrc})` }"
+      >
+        <div
+          v-if="!heroImageLoaded"
+          class="hero__loading"
+        >
+          <div class="hero__loading-dot" />
+          <div class="hero__loading-dot" />
+          <div class="hero__loading-dot" />
+        </div>
+      </section>
     </div>
   </div>
 </template>
