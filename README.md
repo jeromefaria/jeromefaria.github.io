@@ -93,6 +93,48 @@ npm run lighthouse
 - Largest Contentful Paint: <2.5s
 - Cumulative Layout Shift: <0.1
 
+## Running CI Locally
+
+Replicate GitHub Actions workflows on your local machine before pushing.
+
+### Complete Pipeline
+
+Run all checks in order (matches CI exactly):
+
+```bash
+# 1. Quality Checks
+npm run type-check
+npm run lint
+npm run test:coverage
+node scripts/check-coverage.js
+
+# 2. Build
+npm run build
+
+# 3. Performance Audit
+npm run lighthouse
+
+# 4. E2E Tests (requires Playwright browsers)
+npx playwright install  # First time only
+npm run test:e2e
+```
+
+### Quick Pre-Commit Check
+
+Fast validation before committing (~30 seconds):
+
+```bash
+npm run lint && npm run type-check && npm run test
+```
+
+### Pre-Push Check
+
+Ensure CI will pass before pushing:
+
+```bash
+npm run lint:fix && npm run type-check && npm run test:coverage && npm run build
+```
+
 ## CI/CD Pipeline
 
 Every push to `master` and pull request triggers a comprehensive CI pipeline with the following jobs:
