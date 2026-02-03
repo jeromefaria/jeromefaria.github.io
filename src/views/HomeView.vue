@@ -23,7 +23,7 @@ usePageHead({
 });
 
 const heroImageLoaded = ref(false);
-const heroImageSrc = '/images/performance.webp';
+const heroImageSrc = '/images/performance.jpg';
 
 onMounted(() => {
   const img = new Image();
