@@ -32,7 +32,7 @@ export const worksData: WorksData = {
           'Futebol: Estados Capitalistas',
           'Epílogo: Estado a Que Chegamos',
         ],
-        credits: 'Music and artwork by Jerome Faria.',
+        credits: 'Music by Jerome Faria.',
       },
       {
         id: 'caligari-album',
