@@ -757,6 +757,16 @@ export const liveData: LiveData = {
             alt: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009',
             photographer: { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
           },
+          {
+            src: '/images/live/eme-olhares-2009-004.jpg',
+            alt: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009',
+            photographer: { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
+          },
+          {
+            src: '/images/live/eme-olhares-2009-005.jpg',
+            alt: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009',
+            photographer: { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
+          },
         ],
       },
     ],
