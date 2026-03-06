@@ -13,7 +13,7 @@ export const worksData: WorksData = {
         title: 'En Veille',
         bandcampId: '310471498',
         coverImage: '/images/en-veille.jpg',
-        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/en-veille',
+        bandcampUrl: 'https://music.jeromefaria.com/album/en-veille',
         meta: 'Digital — BRØQN, BRQN008, 2025',
         tracklist: ['En Veille'],
         credits: 'Music by Jerome Faria. Photography by Else Siegel. Pour Éliane Radigue, 1932–2026.',
@@ -23,7 +23,7 @@ export const worksData: WorksData = {
         title: '2504',
         bandcampId: '1275977827',
         coverImage: '/images/2504.jpg',
-        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/2504',
+        bandcampUrl: 'https://music.jeromefaria.com/album/2504',
         meta: 'Digital — BRØQN, BRQN006, 2024',
         tracklist: [
           'Prólogo: Estado Novo',
@@ -39,7 +39,7 @@ export const worksData: WorksData = {
         title: 'Music Written & Performed for The Cabinet of Dr. Caligari',
         bandcampId: '2395712384',
         coverImage: '/images/caligari.jpg',
-        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/music-written-performed-for-the-cabinet-of-dr-caligari',
+        bandcampUrl: 'https://music.jeromefaria.com/album/music-written-performed-for-the-cabinet-of-dr-caligari',
         meta: 'Digital — BRØQN, BRQN005, 2023',
         tracklist: [
           'Spirits Surround Us On Every Side',
@@ -55,7 +55,7 @@ export const worksData: WorksData = {
         title: 'Overlapse',
         bandcampId: '1643026936',
         coverImage: '/images/overlapse.jpg',
-        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/overlapse',
+        bandcampUrl: 'https://music.jeromefaria.com/album/overlapse',
         meta: 'Digital — BRØQN, BRQN002 / Enough Records, ENRMP296, 2012',
         tracklist: [
           'Attack (Prelude)',
@@ -73,7 +73,7 @@ export const worksData: WorksData = {
         title: '17:14',
         bandcampId: '2845412685',
         coverImage: '/images/1714.jpg',
-        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/17-14',
+        bandcampUrl: 'https://music.jeromefaria.com/album/17-14',
         meta: 'Digital — BRØQN, BRQN001, 2010',
         tracklist: ['2:58', '5:18', '8:58'],
         credits: 'Music and artwork by Jerome Faria.',
@@ -142,7 +142,7 @@ export const worksData: WorksData = {
         title: 'Overlapse XIII',
         bandcampId: '2661997682',
         coverImage: '/images/overlapse-xiii.jpg',
-        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/overlapse-xiii',
+        bandcampUrl: 'https://music.jeromefaria.com/album/overlapse-xiii',
         meta: 'Digital/Cassette — BRØQN, BRQN007, 2025',
         tracklist: [
           '<a href="https://cavernancia.bandcamp.com/">CAVERNANCIA</a> — Attack (Prelude)',
@@ -170,6 +170,7 @@ export const worksData: WorksData = {
         id: 'depolarized',
         title: 'Depolarized',
         coverImage: '/images/depolarized.jpg',
+        externalUrl: 'https://archive.org/details/brqn-003-jerome-faria-nelson-p.-ferreira-01-depolarized',
         meta: 'Digital — BRØQN, BRQN003, 2012',
         tracklist: ['Depolarized'],
         credits: 'Music and artwork by Jerome Faria and Nelson P. Ferreira.',
@@ -352,7 +353,7 @@ export const worksData: WorksData = {
       {
         id: 'master-overlapse-xiii',
         title: 'Overlapse XIII',
-        externalUrl: 'https://jeromefaria.bandcamp.com/album/overlapse-xiii',
+        externalUrl: 'https://music.jeromefaria.com/album/overlapse-xiii',
         meta: 'various artists, 2025',
       },
       {
@@ -364,6 +365,7 @@ export const worksData: WorksData = {
       {
         id: 'master-vessels',
         title: 'Vessels',
+        externalUrl: 'https://archive.org/details/brqn-004-rui-p.-andrade-01-what-hath-god-wrought',
         meta: '<a href="https://canadian-rifles.bandcamp.com/">Rui P. Andrade</a> — BRØQN, BRQN004, 2012',
       },
     ],
