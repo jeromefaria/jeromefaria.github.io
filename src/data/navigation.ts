@@ -25,5 +25,5 @@ export const navigation: NavItem[] = [
 
 export const social: SocialLink[] = [
   { name: 'bandcamp', url: 'https://music.jeromefaria.com' },
-  { name: 'patreon', url: 'https://www.patreon.com/jeromefaria' },
+  { name: 'patreon', url: 'https://blog.jeromefaria.com' },
 ];
