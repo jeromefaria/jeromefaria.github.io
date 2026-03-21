@@ -50,7 +50,8 @@
     "node_modules",
     "dist",
     "**/*.test.ts",
-    "**/*.spec.ts",
+    "**/*.cy.ts",
+    "cypress",
     "src/test-setup.ts"
   ]
 }

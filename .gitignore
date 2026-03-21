@@ -32,9 +32,11 @@ npm-debug.log*
 # Test coverage
 coverage/
 
-# Playwright
-playwright-report/
-test-results/
+# Cypress
+cypress/screenshots/
+cypress/videos/
+cypress/downloads/
+.cypress/
 
 # Claude Code
 CLAUDE.md
