@@ -31,7 +31,8 @@
   },
   "homepage": "https://jeromefaria.com",
   "overrides": {
-    "tmp": "^0.2.4"
+    "tmp": "^0.2.4",
+    "unhead": "^2.1.13"
   },
   "dependencies": {
     "vue": "^3.5.25",
