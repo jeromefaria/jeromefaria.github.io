@@ -69,7 +69,9 @@ describe('Contact Form', () => {
 
   describe('Validation — email format', () => {
     it('does not mark email as invalid when non-empty (format not validated on blur)', () => {
-      cy.get(EMAIL_INPUT).type('notanemail').blur();
+      cy.get(EMAIL_INPUT).type('notanemail');
+      cy.get(EMAIL_INPUT).should('have.value', 'notanemail');
+      cy.get(EMAIL_INPUT).blur();
       cy.get(EMAIL_INPUT).should('not.have.class', 'contact-form__input--invalid');
     });
 
