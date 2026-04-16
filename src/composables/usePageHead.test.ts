@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { defineComponent, reactive } from 'vue';
 
 import { siteConfig } from '@/data/navigation';
+
 import { usePageHead } from './usePageHead';
 
 // Capture what gets passed to useHead
