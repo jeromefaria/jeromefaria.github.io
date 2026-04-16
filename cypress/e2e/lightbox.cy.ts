@@ -15,10 +15,15 @@ const GALLERY_BUTTON_SELECTOR = '.link-discrete';
 function openFirstGallery(): void {
   cy.visit('/works');
 
-  // Only click triggers that are not already expanded
-  cy.get(ACCORDION_TRIGGER_SELECTOR).each(($trigger) => {
-    if ($trigger.attr('aria-expanded') !== 'true') {
-      cy.wrap($trigger).click();
+  // Re-query by index on each iteration so stale refs after re-renders don't cause failures
+  cy.get(ACCORDION_TRIGGER_SELECTOR).then($triggers => {
+    const count = $triggers.length;
+    for (let i = 0; i < count; i++) {
+      cy.get(ACCORDION_TRIGGER_SELECTOR).eq(i).then($t => {
+        if ($t.attr('aria-expanded') !== 'true') {
+          cy.get(ACCORDION_TRIGGER_SELECTOR).eq(i).click();
+        }
+      });
     }
   });
 
