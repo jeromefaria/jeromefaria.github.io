@@ -45,22 +45,22 @@ describe('Contact Form', () => {
 
   describe('Validation — required fields', () => {
     it('marks name as invalid after blur when empty', () => {
-      cy.get(NAME_INPUT).focus().blur();
+      cy.get(NAME_INPUT).focus().trigger('blur');
       cy.get(NAME_INPUT).should('have.class', 'contact-form__input--invalid');
     });
 
     it('marks email as invalid after blur when empty', () => {
-      cy.get(EMAIL_INPUT).focus().blur();
+      cy.get(EMAIL_INPUT).focus().trigger('blur');
       cy.get(EMAIL_INPUT).should('have.class', 'contact-form__input--invalid');
     });
 
     it('marks message as invalid after blur when empty', () => {
-      cy.get(MESSAGE_INPUT).focus().blur();
+      cy.get(MESSAGE_INPUT).focus().trigger('blur');
       cy.get(MESSAGE_INPUT).should('have.class', 'contact-form__textarea--invalid');
     });
 
     it('clears invalid state when valid value is entered', () => {
-      cy.get(NAME_INPUT).focus().blur();
+      cy.get(NAME_INPUT).focus().trigger('blur');
       cy.get(NAME_INPUT).should('have.class', 'contact-form__input--invalid');
       cy.get(NAME_INPUT).type('Jane');
       cy.get(NAME_INPUT).should('not.have.class', 'contact-form__input--invalid');
@@ -71,12 +71,12 @@ describe('Contact Form', () => {
     it('does not mark email as invalid when non-empty (format not validated on blur)', () => {
       cy.get(EMAIL_INPUT).type('notanemail');
       cy.get(EMAIL_INPUT).should('have.value', 'notanemail');
-      cy.get(EMAIL_INPUT).blur();
+      cy.get(EMAIL_INPUT).trigger('blur');
       cy.get(EMAIL_INPUT).should('not.have.class', 'contact-form__input--invalid');
     });
 
     it('marks email as invalid after blur when empty', () => {
-      cy.get(EMAIL_INPUT).focus().blur();
+      cy.get(EMAIL_INPUT).focus().trigger('blur');
       cy.get(EMAIL_INPUT).should('have.class', 'contact-form__input--invalid');
     });
   });
