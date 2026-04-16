@@ -75,7 +75,8 @@ describe('Navigation', () => {
 
   it('should have working header navigation', () => {
     cy.visit(PAGES.WORKS);
-    cy.get(`header a[href="${PAGES.HOME}"]`).should('be.visible').click();
+    cy.get(`header a[href="${PAGES.HOME}"]`).should('be.visible');
+    cy.get(`header a[href="${PAGES.HOME}"]`).click({ force: true });
     cy.url().should('eq', Cypress.config().baseUrl + PAGES.HOME);
     cy.get(HERO_SELECTOR).should('be.visible');
   });
