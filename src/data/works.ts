@@ -14,7 +14,7 @@ export const worksData: WorksData = {
         bandcampId: '310471498',
         coverImage: '/images/en-veille.jpg',
         bandcampUrl: 'https://music.jeromefaria.com/album/en-veille',
-        meta: 'Digital — BRØQN, BRQN008, 2025',
+        meta: 'Digital — BRØQN, BRQN008, 2026',
         tracklist: ['En Veille'],
         credits: 'Music by Jerome Faria. Photography by Else Siegel. Pour Éliane Radigue, 1932–2026.',
       },
