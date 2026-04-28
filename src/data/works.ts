@@ -9,6 +9,16 @@ export const worksData: WorksData = {
     defaultOpen: true,
     items: [
       {
+        id: 'contraplacado',
+        title: 'Contraplacado',
+        bandcampId: '219697804',
+        coverImage: '/images/contraplacado.png',
+        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/contraplacado',
+        meta: 'Digital — BRØQN, BRQN009, 2026',
+        tracklist: ['Contraplacado (Se Deus nos der vida e saúde)'],
+        credits: 'Music by Jerome Faria, reinterpreting "Contraplacado" by <a href="https://aires.bandcamp.com/">Aires</a>. Photography by NASA, ESA, CSA, STScI.',
+      },
+      {
         id: 'en-veille',
         title: 'En Veille',
         bandcampId: '310471498',
