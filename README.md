@@ -11,7 +11,7 @@ Vue 3 + TypeScript portfolio website for [www.jeromefaria.com](https://www.jerom
 - **Frontend**: Vue 3 (Composition API), TypeScript (strict mode)
 - **Build**: Vite with SSG (Static Site Generation)
 - **Styling**: SCSS with BEM methodology
-- **Testing**: Vitest (98%+ coverage), Playwright E2E, axe-core accessibility
+- **Testing**: Vitest (98%+ coverage), Cypress E2E, axe-core accessibility
 - **CI/CD**: GitHub Actions with quality gates
 - **Performance**: Lighthouse CI with performance budgets
 
@@ -58,17 +58,17 @@ npm run test:coverage
 ### E2E Tests
 
 ```bash
-# Run E2E tests
+# Run E2E tests (defaults to Electron, headless)
 npm run test:e2e
 
-# Run with UI
-npm run test:e2e:ui
+# Run against Chrome
+npm run test:e2e:chrome
 
-# Run in headed mode (see browser)
-npm run test:e2e:headed
+# Run against Firefox
+npm run test:e2e:firefox
 
-# Debug mode
-npm run test:e2e:debug
+# Open the Cypress runner
+npm run test:e2e:open
 ```
 
 **E2E Test Coverage**:
@@ -114,8 +114,7 @@ npm run build
 # 3. Performance Audit
 npm run lighthouse
 
-# 4. E2E Tests (requires Playwright browsers)
-npx playwright install  # First time only
+# 4. E2E Tests (Cypress installs its own browser binary on first run)
 npm run test:e2e
 ```
 
@@ -157,16 +156,15 @@ Every push to `master` and pull request triggers a comprehensive CI pipeline wit
 - Performance budget enforcement
 
 ### E2E Tests
-- Cross-browser testing (Chromium, Firefox, WebKit)
-- Mobile device testing (Pixel 5, iPhone 12)
+- Cross-browser testing (Chrome, Firefox, Edge)
 - Accessibility testing with axe-core
-- Visual regression prevention
+- Hash navigation, accordion, lightbox, contact form, and navigation specs
 
-**Quality Gates**: All checks must pass before deployment. Deployment workflow only runs after successful CI completion.
+**Quality Gates**: All four CI jobs (Quality Checks, Build, Lighthouse, E2E) must pass for the CI workflow to be green. Deployment runs on its own workflow and gates on type-check, lint, unit tests with coverage, and the production build.
 
 ## Deployment
 
-The site automatically deploys to GitHub Pages via GitHub Actions when CI passes on `master`.
+The site deploys to GitHub Pages via GitHub Actions on push to `master` once the deploy workflow's pre-deploy checks and build succeed.
 
 ## License
 

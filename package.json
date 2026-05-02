@@ -32,8 +32,7 @@
   "homepage": "https://jeromefaria.com",
   "overrides": {
     "tmp": "^0.2.4",
-    "unhead": "^2.1.13",
-    "uuid": "^14.0.0"
+    "unhead": "^2.1.13"
   },
   "dependencies": {
     "vue": "^3.5.25",
