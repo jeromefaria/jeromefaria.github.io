@@ -11,7 +11,7 @@ Vue 3 + TypeScript portfolio website for [www.jeromefaria.com](https://www.jerom
 - **Frontend**: Vue 3 (Composition API), TypeScript (strict mode)
 - **Build**: Vite with SSG (Static Site Generation)
 - **Styling**: SCSS with BEM methodology
-- **Testing**: Vitest (98%+ coverage), Cypress E2E, axe-core accessibility
+- **Testing**: Vitest (100% lines, 95%+ branches), Cypress E2E, axe-core accessibility
 - **CI/CD**: GitHub Actions with quality gates
 - **Performance**: Lighthouse CI with performance budgets
 
@@ -158,7 +158,7 @@ Every push to `master` and pull request triggers a comprehensive CI pipeline wit
 ### E2E Tests
 - Cross-browser testing (Chrome, Firefox, Edge)
 - Accessibility testing with axe-core
-- Hash navigation, accordion, lightbox, contact form, and navigation specs
+- Specs: `accessibility`, `accordion`, `contact-form`, `lightbox`, `navigation`
 
 **Quality Gates**: All four CI jobs (Quality Checks, Build, Lighthouse, E2E) must pass for the CI workflow to be green. Deployment runs on its own workflow and gates on type-check, lint, unit tests with coverage, and the production build.
 
