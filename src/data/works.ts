@@ -12,7 +12,7 @@ export const worksData: WorksData = {
         id: 'contraplacado',
         title: 'Contraplacado',
         bandcampId: '219697804',
-        coverImage: '/images/contraplacado.png',
+        coverImage: '/images/contraplacado.jpg',
         bandcampUrl: 'https://jeromefaria.bandcamp.com/album/contraplacado',
         meta: 'Digital — BRØQN, BRQN009, 2026',
         tracklist: ['Contraplacado (Se Deus nos der vida e saúde)'],

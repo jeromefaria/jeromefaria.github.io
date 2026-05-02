@@ -261,6 +261,18 @@
       margin-top: $spacing-3;
       font-size: $font-size-xs;
       color: var(--color-text-muted);
+
+      // Ensure links are visually distinguishable (WCAG 2.1 Level A)
+      a {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.15em;
+
+        &:hover,
+        &:focus {
+          text-decoration-thickness: 2px;
+        }
+      }
     }
   }
 }
