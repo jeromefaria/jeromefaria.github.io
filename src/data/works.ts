@@ -85,7 +85,7 @@ export const worksData: WorksData = {
         coverImage: '/images/1714.jpg',
         bandcampUrl: 'https://music.jeromefaria.com/album/17-14',
         meta: 'Digital — BRØQN, BRQN001, 2010',
-        tracklist: ['2:58', '5:18', '8:58'],
+        tracklist: ['8:58', '2:58', '5:18'],
         credits: 'Music and artwork by Jerome Faria.',
       },
     ],
