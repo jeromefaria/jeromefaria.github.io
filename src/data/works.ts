@@ -111,7 +111,7 @@ export const worksData: WorksData = {
         bandcampUrl: 'https://mimirecords.bandcamp.com/album/coil',
         meta: 'Digital — <a href="https://mimirecords.bandcamp.com/">MiMi Records</a>, MI056, 2006',
         tracklist: ['Dream Cycles In Perpetual Motion'],
-        credits: 'Music by Jerome Faria. Recorded, mixed, and mastered at Human Error Labs. Artwork by Louis de Bettencourt.',
+        credits: 'Music by Jerome Faria. Recorded, mixed, and mastered at Human Error Labs. Artwork by Louie de Bettencourt.',
       },
       {
         id: 'readerror',
@@ -130,7 +130,7 @@ export const worksData: WorksData = {
         externalUrl: 'https://www.monocromatica.com/netlabel/releases/tube026.htm',
         meta: 'Digital — <a href="https://www.monocromatica.com/netlabel/">Test Tube</a>, TUBE026, 2005',
         tracklist: ['Play', '1noise', 'Spctiv', 'Mem.', 'Mcruscul', 'Ngen', 'Tekrish', 'Sy.kic/Pa.trn', 'Artria', '1noise (ps mix)'],
-        credits: 'Music by Jerome Faria. Artwork by Louis de Bettencourt.',
+        credits: 'Music by Jerome Faria. Artwork by Louie de Bettencourt.',
       },
       {
         id: 'offear',
