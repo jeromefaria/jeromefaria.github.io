@@ -13,7 +13,7 @@ export const worksData: WorksData = {
         title: 'Contraplacado',
         bandcampId: '219697804',
         coverImage: '/images/contraplacado.jpg',
-        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/contraplacado',
+        bandcampUrl: 'https://music.jeromefaria.com/album/contraplacado',
         meta: 'Digital — BRØQN, BRQN009, 2026',
         tracklist: ['Contraplacado (Se Deus nos der vida e saúde)'],
         credits: 'Music by Jerome Faria, reinterpreting "Contraplacado" by <a href="https://aires.bandcamp.com/">Aires</a>. Photography by NASA, ESA, CSA, STScI.',
@@ -364,7 +364,7 @@ export const worksData: WorksData = {
         id: 'master-overlapse-xiii',
         title: 'Overlapse XIII',
         externalUrl: 'https://music.jeromefaria.com/album/overlapse-xiii',
-        meta: 'various artists, 2025',
+        meta: 'various artists — BRØQN, BRQN007, 2025',
       },
       {
         id: 'master-open',
