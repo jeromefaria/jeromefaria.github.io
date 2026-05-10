@@ -364,7 +364,7 @@ export const worksData: WorksData = {
         id: 'master-overlapse-xiii',
         title: 'Overlapse XIII',
         externalUrl: 'https://music.jeromefaria.com/album/overlapse-xiii',
-        meta: 'various artists, 2025',
+        meta: 'various artists — BRØQN, BRQN007, 2025',
       },
       {
         id: 'master-open',
