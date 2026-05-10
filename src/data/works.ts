@@ -13,7 +13,7 @@ export const worksData: WorksData = {
         title: 'Contraplacado',
         bandcampId: '219697804',
         coverImage: '/images/contraplacado.jpg',
-        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/contraplacado',
+        bandcampUrl: 'https://music.jeromefaria.com/album/contraplacado',
         meta: 'Digital — BRØQN, BRQN009, 2026',
         tracklist: ['Contraplacado (Se Deus nos der vida e saúde)'],
         credits: 'Music by Jerome Faria, reinterpreting "Contraplacado" by <a href="https://aires.bandcamp.com/">Aires</a>. Photography by NASA, ESA, CSA, STScI.',
