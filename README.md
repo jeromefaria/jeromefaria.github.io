@@ -108,7 +108,7 @@ npm run lint
 npm run test:coverage
 node scripts/check-coverage.js
 
-# 2. Build
+# 2. Build (also runs scripts/check-anchors.js to validate internal hash anchors)
 npm run build
 
 # 3. Performance Audit
