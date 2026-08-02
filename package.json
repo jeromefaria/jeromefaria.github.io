@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite-ssg build && node scripts/async-css.js",
+    "build": "vue-tsc --noEmit && node scripts/check-anchors.js && vite-ssg build && node scripts/async-css.js",
     "preview": "vite preview",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "type-check": "vue-tsc --noEmit",
+    "check:anchors": "node scripts/check-anchors.js",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
