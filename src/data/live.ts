@@ -3,10 +3,30 @@
 import type { LiveData } from '@/types/live';
 
 export const liveData: LiveData = {
+  '2026': {
+    title: '2026',
+    id: '2026',
+    defaultOpen: true,
+    items: [
+      {
+        id: 'tbc-2026-09-19',
+        title: 'TBC',
+        date: '2026-09-19',
+        venue: 'Portugal',
+        description: 'Solo performance.',
+      },
+      {
+        id: 'tbc-2026-08-23',
+        title: 'TBC',
+        date: '2026-08-23',
+        venue: 'Portugal',
+        description: 'Solo performance.',
+      },
+    ],
+  },
   '2025': {
     title: '2025',
     id: '2025',
-    defaultOpen: true,
     items: [
       {
         id: 'showcase-casa-amarela',
