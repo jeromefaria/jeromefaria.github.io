@@ -41,6 +41,7 @@ onMounted(() => {
 <template>
   <div class="container-wide">
     <div class="home">
+      <h1 class="visually-hidden">{{ siteConfig.title }} — {{ siteConfig.tagline }}</h1>
       <section
         class="hero"
         :class="{ 'hero--loaded': heroImageLoaded }"

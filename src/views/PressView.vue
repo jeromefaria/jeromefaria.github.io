@@ -22,6 +22,7 @@ useHashScroll(scrollToHash);
       class="page"
       data-page="press"
     >
+      <h1 class="visually-hidden">Press</h1>
       <blockquote
         v-for="item in pressQuotes"
         :id="item.id"

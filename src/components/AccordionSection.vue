@@ -57,16 +57,18 @@ const toggle = () => {
     ref="sectionRef"
     class="accordion-section"
   >
-    <button
-      :id="`${ID_PREFIX.TRIGGER}${id}`"
-      class="accordion-trigger"
-      type="button"
-      :aria-expanded="isExpanded"
-      :aria-controls="`${ID_PREFIX.CONTENT}${id}`"
-      @click="toggle"
-    >
-      {{ title }}
-    </button>
+    <h2 class="accordion-heading">
+      <button
+        :id="`${ID_PREFIX.TRIGGER}${id}`"
+        class="accordion-trigger"
+        type="button"
+        :aria-expanded="isExpanded"
+        :aria-controls="`${ID_PREFIX.CONTENT}${id}`"
+        @click="toggle"
+      >
+        {{ title }}
+      </button>
+    </h2>
     <div
       :id="`${ID_PREFIX.CONTENT}${id}`"
       ref="contentRef"

@@ -46,12 +46,12 @@ watch(() => route.path, () => {
 <template>
   <header class="masthead">
     <div class="masthead-inner">
-      <h1 class="masthead-title">
+      <p class="masthead-title">
         <RouterLink to="/">
           {{ siteConfig.title }}
         </RouterLink>
         <span class="masthead-tagline">{{ siteConfig.tagline }}</span>
-      </h1>
+      </p>
 
       <div class="masthead-controls">
         <button

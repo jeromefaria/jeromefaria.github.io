@@ -18,4 +18,10 @@ describe('WorksView', () => {
     const totalReleases = Object.values(worksData).reduce((sum, section) => sum + section.items.length, 0);
     expect(wrapper.findAllComponents(ReleaseItem)).toHaveLength(totalReleases);
   });
+
+  it('has a page heading and wraps each accordion trigger in a heading', async () => {
+    const wrapper = await mountView(WorksView, '/works');
+    expect(wrapper.get('h1.visually-hidden').text()).toBe('Works');
+    expect(wrapper.findAll('h2.accordion-heading .accordion-trigger')).toHaveLength(worksSections.length);
+  });
 });
