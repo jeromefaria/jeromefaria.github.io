@@ -31,6 +31,7 @@ export default defineConfig({
         '**/*.test.ts',
         '**/types/**',
         'src/main.ts',
+        'src/test-support/**',
       ],
     },
   },
