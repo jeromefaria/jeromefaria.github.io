@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { nextTick, ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
 import { navigation, siteConfig } from '@/data/navigation';
@@ -8,6 +8,8 @@ import { TIMING } from '@/utils/constants';
 const route = useRoute();
 const navOpen = ref(false);
 const navClosing = ref(false);
+const navToggle = ref<HTMLButtonElement | null>(null);
+const navMenu = ref<HTMLElement | null>(null);
 
 const closeNav = () => {
   navClosing.value = true;
@@ -17,8 +19,23 @@ const closeNav = () => {
   }, TIMING.NAV_ANIMATION);
 };
 
+const openNav = () => {
+  navOpen.value = true;
+  // Move focus into the menu once it's rendered so keyboard users land in it.
+  nextTick(() => {
+    navMenu.value?.querySelector<HTMLElement>('.nav__link')?.focus();
+  });
+};
+
 const toggleNav = () => {
-  navOpen.value ? closeNav() : navOpen.value = true;
+  navOpen.value ? closeNav() : openNav();
+};
+
+const handleNavKeydown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape' && navOpen.value) {
+    closeNav();
+    navToggle.value?.focus();
+  }
 };
 
 watch(() => route.path, () => {
@@ -38,9 +55,11 @@ watch(() => route.path, () => {
 
       <div class="masthead-controls">
         <button
+          ref="navToggle"
           class="nav-toggle"
           type="button"
           aria-label="Toggle menu"
+          aria-controls="primary-nav"
           :aria-expanded="navOpen"
           @click="toggleNav"
         >
@@ -71,9 +90,12 @@ watch(() => route.path, () => {
       </div>
 
       <nav
+        id="primary-nav"
+        ref="navMenu"
         class="nav"
         :class="{ 'nav--open': navOpen, 'nav--closing': navClosing }"
         aria-label="Main navigation"
+        @keydown="handleNavKeydown"
       >
         <div class="nav__inner">
           <RouterLink
