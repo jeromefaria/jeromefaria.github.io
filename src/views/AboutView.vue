@@ -127,7 +127,6 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
       :current-item="currentItem"
       :current-index="currentIndex"
       :total-items="items.length"
-      variant="compact"
       @close="closeLightbox"
       @prev="goToPrev"
       @next="goToNext"
