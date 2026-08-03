@@ -423,6 +423,14 @@
     }
   }
 
+  // Per-field validation message (announced via role="alert")
+  &__error {
+    display: block;
+    margin-top: $spacing-2;
+    font-size: $font-size-xs;
+    color: var(--color-error, #c0392b);
+  }
+
   &__label {
     display: block;
     margin-bottom: $spacing-2;

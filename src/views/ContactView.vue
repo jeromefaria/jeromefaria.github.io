@@ -22,7 +22,7 @@ usePageHead({
   schema: contactSchema,
 });
 
-const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, handleBlur, handleInput, handleSubmit } =
+const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, handleBlur, handleInput, handleSubmit } =
   useContactForm(contactContent.form.action);
 </script>
 
@@ -97,9 +97,17 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, handleBl
             :class="['contact-form__input', { 'contact-form__input--invalid': fieldInvalid.name }]"
             :autocomplete="contactContent.form.fields.name.autocomplete"
             :required="contactContent.form.fields.name.required"
+            :aria-invalid="fieldInvalid.name"
+            :aria-describedby="fieldInvalid.name ? 'name-error' : undefined"
             @input="handleInput"
             @blur="handleBlur('name')"
           >
+          <span
+            v-if="fieldInvalid.name"
+            id="name-error"
+            class="contact-form__error"
+            role="alert"
+          >{{ errors.name }}</span>
         </div>
 
         <!-- Email Field -->
@@ -122,9 +130,17 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, handleBl
             :class="['contact-form__input', { 'contact-form__input--invalid': fieldInvalid.email }]"
             :autocomplete="contactContent.form.fields.email.autocomplete"
             :required="contactContent.form.fields.email.required"
+            :aria-invalid="fieldInvalid.email"
+            :aria-describedby="fieldInvalid.email ? 'email-error' : undefined"
             @input="handleInput"
             @blur="handleBlur('email')"
           >
+          <span
+            v-if="fieldInvalid.email"
+            id="email-error"
+            class="contact-form__error"
+            role="alert"
+          >{{ errors.email }}</span>
           <!-- FormSubmit: use email as reply-to -->
           <input
             type="hidden"
@@ -171,9 +187,17 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, handleBl
             :class="['contact-form__textarea', { 'contact-form__textarea--invalid': fieldInvalid.message }]"
             :rows="contactContent.form.fields.message.rows"
             :required="contactContent.form.fields.message.required"
+            :aria-invalid="fieldInvalid.message"
+            :aria-describedby="fieldInvalid.message ? 'message-error' : undefined"
             @input="handleInput"
             @blur="handleBlur('message')"
           />
+          <span
+            v-if="fieldInvalid.message"
+            id="message-error"
+            class="contact-form__error"
+            role="alert"
+          >{{ errors.message }}</span>
         </div>
 
         <!-- Submit Button -->
