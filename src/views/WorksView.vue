@@ -94,6 +94,7 @@ const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, g
       class="page"
       data-page="works"
     >
+      <h1 class="visually-hidden">Works</h1>
       <AccordionSection
         v-for="sectionKey in worksSections"
         :id="sectionKey"

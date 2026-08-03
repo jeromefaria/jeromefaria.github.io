@@ -57,4 +57,9 @@ describe('HomeView', () => {
 
     expect(wrapper.get('.hero').classes()).toContain('hero--loaded');
   });
+
+  it('has a visually-hidden page heading', async () => {
+    const wrapper = await mountView(HomeView);
+    expect(wrapper.get('h1.visually-hidden').text()).toContain('Jerome Faria');
+  });
 });
