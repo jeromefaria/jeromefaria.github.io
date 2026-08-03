@@ -150,4 +150,26 @@ describe('useImageLoader', () => {
       expect(loader.imageLoaded.value).toBe(false);
     });
   });
+
+  describe('setImageRef', () => {
+    it('stores an HTMLImageElement in imageRef', () => {
+      const { loader } = mountWithLoader(TEST_SRC_JPG);
+      const img = document.createElement('img');
+      loader.setImageRef(img);
+      expect(loader.imageRef.value).toBe(img);
+    });
+
+    it('resets imageRef to null when passed null', () => {
+      const { loader } = mountWithLoader(TEST_SRC_JPG);
+      loader.setImageRef(document.createElement('img'));
+      loader.setImageRef(null);
+      expect(loader.imageRef.value).toBeNull();
+    });
+
+    it('ignores non-image elements', () => {
+      const { loader } = mountWithLoader(TEST_SRC_JPG);
+      loader.setImageRef(document.createElement('div'));
+      expect(loader.imageRef.value).toBeNull();
+    });
+  });
 });

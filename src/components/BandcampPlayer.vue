@@ -19,6 +19,7 @@ const props = defineProps({
 });
 
 const {
+  setImageRef,
   imageError,
   imageLoaded,
   webpSrc,
@@ -51,6 +52,7 @@ const handleIframeLoad = () => {
         type="image/webp"
       >
       <img
+        :ref="setImageRef"
         :src="coverImage"
         :alt="`${albumTitle} album cover`"
         loading="lazy"

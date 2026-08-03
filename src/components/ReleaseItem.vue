@@ -27,6 +27,7 @@ const getCoverImage = (release: Release): string | undefined => {
 };
 
 const {
+  setImageRef,
   imageError,
   imageLoaded,
   webpSrc,
@@ -81,6 +82,7 @@ const isBandcampLink = computed(() => {
         >
         <img
           v-if="'coverImage' in release"
+          :ref="setImageRef"
           :src="release.coverImage"
           :alt="`${release.title} cover`"
           loading="lazy"
@@ -104,6 +106,7 @@ const isBandcampLink = computed(() => {
         >
         <img
           v-if="'coverImage' in release"
+          :ref="setImageRef"
           :src="release.coverImage"
           :alt="`${release.title} cover`"
           loading="lazy"

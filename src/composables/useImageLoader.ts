@@ -1,8 +1,9 @@
-import type { ComputedRef, Ref } from 'vue';
+import type { ComponentPublicInstance, ComputedRef, Ref } from 'vue';
 import { computed, nextTick, onMounted, ref } from 'vue';
 
 interface UseImageLoaderReturn {
   imageRef: Ref<HTMLImageElement | null>;
+  setImageRef: (el: Element | ComponentPublicInstance | null) => void;
   imageError: Ref<boolean>;
   imageLoaded: Ref<boolean>;
   webpSrc: ComputedRef<string | undefined>;
@@ -22,6 +23,13 @@ export const useImageLoader = (src: string): UseImageLoaderReturn => {
 
   const webpSrc = computed(() => src?.replace(/\.jpg$/, '.webp'));
 
+  // Callback ref: bound via `:ref` in templates so the composable owns the
+  // <img> element. Needed for the already-complete fast-path below to work
+  // when a cached image never re-fires `load` after hydration.
+  const setImageRef = (el: Element | ComponentPublicInstance | null): void => {
+    imageRef.value = el instanceof HTMLImageElement ? el : null;
+  };
+
   onMounted(async () => {
     await nextTick();
     if (imageRef.value?.complete && imageRef.value?.naturalHeight > 0) {
@@ -39,6 +47,7 @@ export const useImageLoader = (src: string): UseImageLoaderReturn => {
 
   return {
     imageRef,
+    setImageRef,
     imageError,
     imageLoaded,
     webpSrc,
