@@ -16,7 +16,6 @@ const mountOverlay = (props: Record<string, unknown> = {}) =>
       currentItem: image,
       currentIndex: 0,
       totalItems: 1,
-      variant: 'compact',
       ...props,
     },
   });
