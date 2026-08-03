@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { extractYear, parseVenue, stripHtml } from './formatters';
+import { extractYear, stripHtml } from './formatters';
 
 describe('formatters', () => {
   describe('stripHtml', () => {
@@ -51,96 +51,6 @@ describe('formatters', () => {
     it('should handle null/undefined gracefully', () => {
       expect(stripHtml(null as unknown as string)).toBe('');
       expect(stripHtml(undefined as unknown as string)).toBe('');
-    });
-  });
-
-  describe('parseVenue', () => {
-    it('should parse full venue format correctly', () => {
-      const venue = 'Teatro Nacional, Lisbon, Portugal';
-      const result = parseVenue(venue);
-
-      expect(result).toEqual({
-        name: 'Teatro Nacional',
-        addressLocality: 'Lisbon',
-        addressCountry: 'Portugal',
-      });
-    });
-
-    it('should parse venue with two parts', () => {
-      const venue = 'Teatro Nacional, Lisbon';
-      const result = parseVenue(venue);
-
-      expect(result).toEqual({
-        name: 'Teatro Nacional',
-        addressLocality: 'Lisbon',
-        addressCountry: '',
-      });
-    });
-
-    it('should parse venue with one part', () => {
-      const venue = 'Teatro Nacional';
-      const result = parseVenue(venue);
-
-      expect(result).toEqual({
-        name: 'Teatro Nacional',
-        addressLocality: '',
-        addressCountry: '',
-      });
-    });
-
-    it('should trim whitespace from parts', () => {
-      const venue = '  Teatro Nacional  ,  Lisbon  ,  Portugal  ';
-      const result = parseVenue(venue);
-
-      expect(result).toEqual({
-        name: 'Teatro Nacional',
-        addressLocality: 'Lisbon',
-        addressCountry: 'Portugal',
-      });
-    });
-
-    it('should handle empty string', () => {
-      const venue = '';
-      const result = parseVenue(venue);
-
-      expect(result).toEqual({
-        name: '',
-        addressLocality: '',
-        addressCountry: '',
-      });
-    });
-
-    it('should strip HTML from venue string', () => {
-      const venue = '<strong>Teatro Nacional</strong>, <em>Lisbon</em>, Portugal';
-      const result = parseVenue(venue);
-
-      expect(result).toEqual({
-        name: 'Teatro Nacional',
-        addressLocality: 'Lisbon',
-        addressCountry: 'Portugal',
-      });
-    });
-
-    it('should handle venue with HTML and commas in name', () => {
-      const venue = '<a href="#">Venue, Inc.</a>, New York, USA';
-      const result = parseVenue(venue);
-
-      expect(result).toEqual({
-        name: 'Venue',
-        addressLocality: 'Inc.',
-        addressCountry: 'New York',
-      });
-    });
-
-    it('should handle extra commas', () => {
-      const venue = 'Teatro Nacional, Lisbon, Portugal, Europe';
-      const result = parseVenue(venue);
-
-      expect(result).toEqual({
-        name: 'Teatro Nacional',
-        addressLocality: 'Lisbon',
-        addressCountry: 'Portugal',
-      });
     });
   });
 
