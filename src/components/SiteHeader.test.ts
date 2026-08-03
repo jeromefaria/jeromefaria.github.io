@@ -19,7 +19,7 @@ const mountHeader = async () => {
   const router = makeRouter();
   router.push('/');
   await router.isReady();
-  const wrapper = mount(SiteHeader, { global: { plugins: [router] } });
+  const wrapper = mount(SiteHeader, { global: { plugins: [router] }, attachTo: document.body });
   return { wrapper, router };
 };
 
@@ -62,5 +62,29 @@ describe('SiteHeader', () => {
     await wrapper.vm.$nextTick();
 
     expect(wrapper.find('.nav--open').exists()).toBe(false);
+  });
+
+  it('associates the toggle with the nav via aria-controls', async () => {
+    const { wrapper } = await mountHeader();
+    expect(wrapper.get('.nav-toggle').attributes('aria-controls')).toBe('primary-nav');
+    expect(wrapper.get('nav').attributes('id')).toBe('primary-nav');
+  });
+
+  it('moves focus into the menu when opened', async () => {
+    const { wrapper } = await mountHeader();
+    await wrapper.get('.nav-toggle').trigger('click');
+    await wrapper.vm.$nextTick();
+    expect(document.activeElement).toBe(wrapper.get('.nav__link').element);
+  });
+
+  it('closes on Escape and returns focus to the toggle', async () => {
+    const { wrapper } = await mountHeader();
+    await wrapper.get('.nav-toggle').trigger('click');
+    expect(wrapper.find('.nav--open').exists()).toBe(true);
+
+    await wrapper.get('#primary-nav').trigger('keydown', { key: 'Escape' });
+
+    expect(wrapper.find('.nav--open').exists()).toBe(false);
+    expect(document.activeElement).toBe(wrapper.get('.nav-toggle').element);
   });
 });
