@@ -622,6 +622,9 @@
     background: none;
     border: none;
     padding: $spacing-1;
+    // Meet the WCAG 2.5.8 target-size minimum (24px); use a comfortable 44px.
+    min-width: 44px;
+    min-height: 44px;
     font-size: $font-size-base;
     color: var(--color-background);
     opacity: $opacity-50;
