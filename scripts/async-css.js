@@ -13,13 +13,15 @@ async function makeCSSAsync() {
       const filePath = join(distDir, file);
       let content = await readFile(filePath, 'utf-8');
 
-      // Transform CSS links to load asynchronously
-      // Critical CSS is already inlined in index.html template
-      content = content.replace(
-        /<link\s+rel="stylesheet"\s+crossorigin=""\s+href="([^"]+)">/g,
-        (match, href) =>
-          `<link rel="preload" as="style" href="${href}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="${href}"></noscript>`,
-      );
+      // Transform CSS links to load asynchronously.
+      // Critical CSS is already inlined in index.html template.
+      // Match any stylesheet <link> regardless of attribute order, so a change
+      // in how Vite emits the tag doesn't silently turn this into a no-op.
+      content = content.replace(/<link\b[^>]*\brel="stylesheet"[^>]*>/g, tag => {
+        const href = tag.match(/\bhref="([^"]+)"/)?.[1];
+        if (!href) return tag;
+        return `<link rel="preload" as="style" href="${href}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="${href}"></noscript>`;
+      });
 
       await writeFile(filePath, content, 'utf-8');
       console.log(`✓ Made CSS async in ${file}`);
