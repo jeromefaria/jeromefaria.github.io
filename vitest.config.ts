@@ -18,13 +18,19 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'json-summary', 'html'],
+      // Instrument all source files, not only those a test imports, so the
+      // reported coverage reflects the whole codebase rather than the tested subset.
+      all: true,
+      include: ['src/**/*.{ts,vue}'],
       exclude: [
         'node_modules/',
         'dist/',
         'e2e/',
         '**/*.d.ts',
         '**/*.config.ts',
+        '**/*.test.ts',
         '**/types/**',
+        'src/main.ts',
       ],
     },
   },
