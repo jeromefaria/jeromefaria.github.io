@@ -1,0 +1,66 @@
+import { mount } from '@vue/test-utils';
+import { describe, expect, it } from 'vitest';
+import { createMemoryHistory, createRouter } from 'vue-router';
+
+import { navigation, siteConfig } from '@/data/navigation';
+
+import SiteHeader from './SiteHeader.vue';
+
+const makeRouter = () =>
+  createRouter({
+    history: createMemoryHistory(),
+    routes: [
+      { path: '/', component: { template: '<div />' } },
+      { path: '/about', component: { template: '<div />' } },
+    ],
+  });
+
+const mountHeader = async () => {
+  const router = makeRouter();
+  router.push('/');
+  await router.isReady();
+  const wrapper = mount(SiteHeader, { global: { plugins: [router] } });
+  return { wrapper, router };
+};
+
+describe('SiteHeader', () => {
+  it('renders the site title and tagline', async () => {
+    const { wrapper } = await mountHeader();
+    expect(wrapper.get('.masthead-title').text()).toContain(siteConfig.title);
+    expect(wrapper.get('.masthead-tagline').text()).toBe(siteConfig.tagline);
+  });
+
+  it('renders a link for every nav item', async () => {
+    const { wrapper } = await mountHeader();
+    const links = wrapper.findAll('.nav__link');
+    expect(links.map(link => link.text())).toEqual(navigation.map(item => item.title));
+  });
+
+  it('toggles the menu open and closed, reflecting aria-expanded', async () => {
+    const { wrapper } = await mountHeader();
+    const toggle = wrapper.get('.nav-toggle');
+
+    expect(toggle.attributes('aria-expanded')).toBe('false');
+    expect(wrapper.find('.nav--open').exists()).toBe(false);
+
+    await toggle.trigger('click');
+    expect(toggle.attributes('aria-expanded')).toBe('true');
+    expect(wrapper.find('.nav--open').exists()).toBe(true);
+
+    await toggle.trigger('click');
+    expect(toggle.attributes('aria-expanded')).toBe('false');
+    expect(wrapper.find('.nav--open').exists()).toBe(false);
+  });
+
+  it('closes an open menu when the route changes', async () => {
+    const { wrapper, router } = await mountHeader();
+
+    await wrapper.get('.nav-toggle').trigger('click');
+    expect(wrapper.find('.nav--open').exists()).toBe(true);
+
+    await router.push('/about');
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.find('.nav--open').exists()).toBe(false);
+  });
+});
