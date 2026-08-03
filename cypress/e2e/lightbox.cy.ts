@@ -1,7 +1,6 @@
 // Constants — WorksView uses the 'compact' variant of LightboxOverlay
 const LIGHTBOX_SELECTOR = '.lightbox';
 const LIGHTBOX_CLOSE_SELECTOR = '.lightbox__hint--close';
-const LIGHTBOX_PREV_SELECTOR = '.lightbox__hint--prev';
 const LIGHTBOX_NEXT_SELECTOR = '.lightbox__hint--next';
 const LIGHTBOX_IMAGE_SELECTOR = '.lightbox__image';
 const LIGHTBOX_CREDIT_SELECTOR = '.lightbox__credit';
@@ -88,12 +87,12 @@ describe('Lightbox', () => {
 
     it('shows next image when clicking the next button', () => {
       // compact variant always renders next button, but disables it for single-image galleries
-      cy.get(LIGHTBOX_NEXT_SELECTOR).then(($btn) => {
+      cy.get(LIGHTBOX_NEXT_SELECTOR).then($btn => {
         if ($btn.is(':disabled')) {
           cy.log('Skipping: single-image gallery');
           return;
         }
-        cy.get(LIGHTBOX_IMAGE_SELECTOR).invoke('attr', 'src').then((firstSrc) => {
+        cy.get(LIGHTBOX_IMAGE_SELECTOR).invoke('attr', 'src').then(firstSrc => {
           cy.get(LIGHTBOX_NEXT_SELECTOR).click();
           cy.get(LIGHTBOX_IMAGE_SELECTOR).invoke('attr', 'src').should('not.eq', firstSrc);
         });
@@ -101,12 +100,12 @@ describe('Lightbox', () => {
     });
 
     it('navigates to next image with ArrowRight key', () => {
-      cy.get(LIGHTBOX_NEXT_SELECTOR).then(($btn) => {
+      cy.get(LIGHTBOX_NEXT_SELECTOR).then($btn => {
         if ($btn.is(':disabled')) {
           cy.log('Skipping: single-image gallery');
           return;
         }
-        cy.get(LIGHTBOX_IMAGE_SELECTOR).invoke('attr', 'src').then((firstSrc) => {
+        cy.get(LIGHTBOX_IMAGE_SELECTOR).invoke('attr', 'src').then(firstSrc => {
           cy.get('body').trigger('keydown', { key: 'ArrowRight' });
           cy.get(LIGHTBOX_IMAGE_SELECTOR).invoke('attr', 'src').should('not.eq', firstSrc);
         });
@@ -114,13 +113,13 @@ describe('Lightbox', () => {
     });
 
     it('navigates to previous image with ArrowLeft key', () => {
-      cy.get(LIGHTBOX_NEXT_SELECTOR).then(($btn) => {
+      cy.get(LIGHTBOX_NEXT_SELECTOR).then($btn => {
         if ($btn.is(':disabled')) {
           cy.log('Skipping: single-image gallery');
           return;
         }
         cy.get(LIGHTBOX_NEXT_SELECTOR).click();
-        cy.get(LIGHTBOX_IMAGE_SELECTOR).invoke('attr', 'src').then((secondSrc) => {
+        cy.get(LIGHTBOX_IMAGE_SELECTOR).invoke('attr', 'src').then(secondSrc => {
           cy.get('body').trigger('keydown', { key: 'ArrowLeft' });
           cy.get(LIGHTBOX_IMAGE_SELECTOR).invoke('attr', 'src').should('not.eq', secondSrc);
         });
@@ -133,7 +132,7 @@ describe('Lightbox', () => {
       openFirstGallery();
       cy.get(GALLERY_BUTTON_SELECTOR).first().click({ force: true });
       cy.get(LIGHTBOX_SELECTOR).should('be.visible');
-      cy.get('body').then(($body) => {
+      cy.get('body').then($body => {
         if ($body.find(LIGHTBOX_CREDIT_SELECTOR).length > 0) {
           cy.get(LIGHTBOX_CREDIT_SELECTOR).should('be.visible');
         } else {

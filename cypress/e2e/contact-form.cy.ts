@@ -5,7 +5,6 @@ const EMAIL_INPUT = '#email';
 const SUBJECT_INPUT = '#subject';
 const MESSAGE_INPUT = '#message';
 const SUBMIT_BUTTON = '.contact-form__submit';
-const INVALID_CLASS = /contact-form__input--invalid|contact-form__textarea--invalid/;
 
 const VALID_FORM = {
   name: 'Test User',
@@ -33,9 +32,9 @@ describe('Contact Form', () => {
     });
 
     it('has required indicators on required fields', () => {
-      cy.get(`label[for="name"] abbr`).should('exist');
-      cy.get(`label[for="email"] abbr`).should('exist');
-      cy.get(`label[for="message"] abbr`).should('exist');
+      cy.get('label[for="name"] abbr').should('exist');
+      cy.get('label[for="email"] abbr').should('exist');
+      cy.get('label[for="message"] abbr').should('exist');
     });
 
     it('does not show success message initially', () => {
@@ -145,7 +144,7 @@ describe('Contact Form', () => {
       cy.intercept('POST', /formsubmit\.co/, { forceNetworkError: true }).as('formError');
 
       // Stub form.submit() to prevent actual navigation
-      cy.get(FORM_SELECTOR).then(($form) => {
+      cy.get(FORM_SELECTOR).then($form => {
         const form = $form[0] as HTMLFormElement;
         cy.stub(form, 'submit').as('nativeSubmit');
       });
@@ -168,7 +167,7 @@ describe('Contact Form', () => {
 
   describe('Accessibility', () => {
     it('all visible inputs have associated labels', () => {
-      cy.get(`input:not([type="hidden"]):not([tabindex="-1"]), textarea`).each(($input) => {
+      cy.get('input:not([type="hidden"]):not([tabindex="-1"]), textarea').each($input => {
         const id = $input.attr('id');
         if (!id) return;
         cy.get(`label[for="${id}"]`).should('exist');

@@ -121,7 +121,7 @@ describe('Navigation', () => {
   it('should have appropriate navigation UI for viewport', () => {
     cy.visit(PAGES.HOME);
 
-    cy.isMobile().then((isMobile) => {
+    cy.isMobile().then(isMobile => {
       if (isMobile) {
         // Mobile: should have toggle button and collapsible menu
         cy.get(NAV_TOGGLE_SELECTOR).should('be.visible').click();
