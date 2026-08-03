@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, nextTick, onMounted, ref } from 'vue';
 
 import type { LightboxItem } from '@/types';
 import { isLightboxImage, isLightboxVideo } from '@/types';
@@ -39,14 +39,68 @@ const handlePrev = () => emit('prev');
 const handleNext = () => emit('next');
 const handleTouchStart = (e: TouchEvent) => emit('touchstart', e);
 const handleTouchEnd = (e: TouchEvent) => emit('touchend', e);
+
+// Accessible name for the dialog, reflecting current media/position
+const dialogLabel = computed(() => {
+  if (isVideo.value) return 'Video viewer';
+  if (props.totalItems > 1) return `Image ${props.currentIndex + 1} of ${props.totalItems}`;
+  return 'Image viewer';
+});
+
+// Focus management: move focus into the dialog on open and trap Tab within
+// it, so keyboard users can't reach the inert background behind the overlay.
+const dialogRef = ref<HTMLElement | null>(null);
+
+const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
+
+const getFocusable = (): HTMLElement[] =>
+  dialogRef.value ? Array.from(dialogRef.value.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)) : [];
+
+const handleKeydown = (event: KeyboardEvent): void => {
+  if (event.key !== 'Tab') return;
+
+  const focusable = getFocusable();
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+
+  if (!first || !last) {
+    event.preventDefault();
+    dialogRef.value?.focus();
+    return;
+  }
+
+  const active = document.activeElement;
+
+  if (event.shiftKey && (active === first || active === dialogRef.value)) {
+    event.preventDefault();
+    last.focus();
+    return;
+  }
+
+  if (!event.shiftKey && active === last) {
+    event.preventDefault();
+    first.focus();
+  }
+};
+
+onMounted(async () => {
+  await nextTick();
+  dialogRef.value?.focus();
+});
 </script>
 
 <template>
   <Transition name="lightbox">
     <div
       v-if="isOpen"
+      ref="dialogRef"
       class="lightbox"
+      role="dialog"
+      aria-modal="true"
+      :aria-label="dialogLabel"
+      tabindex="-1"
       @click="handleClose"
+      @keydown="handleKeydown"
       @touchstart="handleTouchStart"
       @touchend="handleTouchEnd"
     >
