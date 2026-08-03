@@ -30,7 +30,6 @@ export interface LiveEvent {
 export interface LiveYearSection {
   title: string;
   id: string;
-  defaultOpen?: boolean;
   items: LiveEvent[];
 }
 

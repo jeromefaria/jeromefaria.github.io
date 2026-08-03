@@ -80,7 +80,6 @@ export interface Image {
 export interface WorksSection {
   title: string;
   id: string;
-  defaultOpen?: boolean;
   items: Release[];
 }
 

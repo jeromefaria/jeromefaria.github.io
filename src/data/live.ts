@@ -6,7 +6,6 @@ export const liveData: LiveData = {
   '2026': {
     title: '2026',
     id: '2026',
-    defaultOpen: true,
     items: [
       {
         id: 'tbc-2026-09-19',
