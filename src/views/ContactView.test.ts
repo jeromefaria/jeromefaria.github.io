@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vitest';
+import { flushPromises } from '@vue/test-utils';
+import { describe, expect, it, vi } from 'vitest';
 
 import { contactContent } from '@/data/contact';
 import { mountView } from '@/test-support/viewHarness';
@@ -44,5 +45,19 @@ describe('ContactView', () => {
     const error = wrapper.get('#name-error');
     expect(error.attributes('role')).toBe('alert');
     expect(error.text()).toBe('Name is required');
+  });
+
+  it('shows the success message after a successful submit', async () => {
+    const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue({ ok: true } as Response);
+    const wrapper = await mountView(ContactView);
+
+    await wrapper.get('#name').setValue('Jane');
+    await wrapper.get('#email').setValue('jane@example.com');
+    await wrapper.get('#message').setValue('Hello there, this is a message.');
+    await wrapper.get('form.contact-form').trigger('submit');
+    await flushPromises();
+
+    expect(wrapper.find('.contact-success').exists()).toBe(true);
+    fetchMock.mockRestore();
   });
 });
