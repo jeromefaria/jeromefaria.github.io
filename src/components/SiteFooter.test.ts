@@ -35,7 +35,7 @@ describe('SiteFooter', () => {
       expect(link?.attributes('href')).toBe(item.url);
       expect(link?.attributes('target')).toBe('_blank');
       expect(link?.attributes('rel')).toBe('noopener noreferrer');
-      expect(link?.attributes('aria-label')).toBe(`${siteConfig.author.name} on ${item.name}`);
+      expect(link?.attributes('aria-label')).toBe(`${siteConfig.author.name} on ${item.name} (opens in a new tab)`);
     });
   });
 

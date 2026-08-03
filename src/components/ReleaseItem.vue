@@ -92,6 +92,7 @@ const isBandcampLink = computed(() => {
           @error="handleImageError"
         >
       </picture>
+      <span class="visually-hidden"> (opens in a new tab)</span>
     </a>
 
     <!-- Static Cover (no link) -->

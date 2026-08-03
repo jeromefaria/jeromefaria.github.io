@@ -163,7 +163,7 @@ onMounted(async () => {
           :href="photographer.url"
           target="_blank"
           rel="noopener noreferrer"
-        >{{ photographer.name }}</a>
+        >{{ photographer.name }}<span class="visually-hidden"> (opens in a new tab)</span></a>
         <span v-else>{{ photographer.name }}</span>
       </div>
     </div>

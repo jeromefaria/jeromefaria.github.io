@@ -35,7 +35,7 @@ useHashScroll(scrollToHash);
             :href="item.url"
             target="_blank"
             rel="noopener noreferrer"
-          >{{ item.source }}</a>
+          >{{ item.source }}<span class="visually-hidden"> (opens in a new tab)</span></a>
           <template v-else>{{ item.source }}</template>
         </strong>
       </blockquote>
