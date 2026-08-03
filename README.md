@@ -11,7 +11,7 @@ Vue 3 + TypeScript portfolio website for [www.jeromefaria.com](https://www.jerom
 - **Frontend**: Vue 3 (Composition API), TypeScript (strict mode)
 - **Build**: Vite with SSG (Static Site Generation)
 - **Styling**: SCSS with BEM methodology
-- **Testing**: Vitest (100% lines, 95%+ branches), Cypress E2E, axe-core accessibility
+- **Testing**: Vitest (unit — logic layer ~100%, views/components backfilling), Cypress E2E, axe-core accessibility
 - **CI/CD**: GitHub Actions with quality gates
 - **Performance**: Lighthouse CI with performance budgets
 
@@ -53,7 +53,7 @@ npm run test:ui
 npm run test:coverage
 ```
 
-**Coverage Thresholds**: Lines 95%, Statements 95%, Functions 90%, Branches 85%
+**Coverage**: The whole `src` tree is instrumented (`all: true`), so the reported percentage reflects the entire codebase rather than only the files a test imports. The logic layer (composables, utils) is ~100% covered; views and components are being backfilled with unit tests (UI paths are also exercised by the Cypress E2E suite). CI enforces a regression **floor** (`scripts/check-coverage.js`) that ratchets upward as coverage climbs — currently Lines 38%, Statements 37%, Functions 24%, Branches 24%.
 
 ### E2E Tests
 

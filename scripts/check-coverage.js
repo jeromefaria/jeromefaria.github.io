@@ -12,12 +12,15 @@ import { dirname, join } from 'node:path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Coverage thresholds
+// Coverage thresholds — a regression floor for the WHOLE instrumented codebase
+// (all of src, not just the files a test imports). The logic layer
+// (composables/utils) is ~100%; views and components are being backfilled with
+// unit tests, so raise these numbers as coverage climbs.
 const THRESHOLDS = {
-  lines: 95,
-  statements: 95,
-  functions: 90,
-  branches: 85,
+  lines: 38,
+  statements: 37,
+  functions: 24,
+  branches: 24,
 };
 
 const COVERAGE_SUMMARY_PATH = join(__dirname, '../coverage/coverage-summary.json');
