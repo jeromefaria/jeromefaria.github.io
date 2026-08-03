@@ -5,27 +5,6 @@
  */
 export const stripHtml = (html: string): string => html?.replace(/<[^>]*>/g, '') || '';
 
-export interface ParsedVenue {
-  name: string;
-  addressLocality: string;
-  addressCountry: string;
-}
-
-/**
- * Parse a venue string into structured address components
- * @param venue - Venue string (e.g., "Venue Name, City, Country")
- * @returns Parsed venue with name, addressLocality, addressCountry
- */
-export const parseVenue = (venue: string): ParsedVenue => {
-  const text = stripHtml(venue);
-  const parts = text.split(',').map(s => s.trim());
-  return {
-    name: parts[0] || '',
-    addressLocality: parts[1] || '',
-    addressCountry: parts[2] || '',
-  };
-};
-
 /**
  * Extract a year (1900-2099) from a string
  * @param text - Text containing a year (e.g., "Digital — BRØQN, 2024")

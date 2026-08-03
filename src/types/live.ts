@@ -17,11 +17,18 @@ export interface LiveVideo {
   platform: 'youtube' | 'vimeo';
 }
 
+export interface EventVenue {
+  name?: string;
+  url?: string;
+  city?: string;
+  country: string;
+}
+
 export interface LiveEvent {
   id: string;
   title: string;
   date: string;
-  venue: string;
+  venue: EventVenue;
   description?: string;
   images?: LiveImage[];
   videos?: LiveVideo[];

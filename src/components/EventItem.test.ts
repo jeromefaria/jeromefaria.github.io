@@ -15,21 +15,21 @@ const plainEvent: LiveEvent = {
   id: 'fim-de-emissao-45',
   title: 'Fim de Emissão #45',
   date: '2025-01-17',
-  venue: 'Desterro, Lisbon, Portugal',
+  venue: { name: 'Desterro', url: 'https://darc.pt', city: 'Lisbon', country: 'Portugal' },
 };
 
 const festivalEvent: LiveEvent = {
   id: 'madeiradig-2011',
   title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
   date: '2011-12-02',
-  venue: 'Casa das Mudas, Calheta, Portugal',
+  venue: { name: 'Casa das Mudas', city: 'Calheta', country: 'Portugal' },
 };
 
 const internalRefEvent: LiveEvent = {
   id: 'aragao-funchal',
   title: '<a href="/works#aragao">Aragão</a>',
   date: '2021-09-22',
-  venue: 'Teatro Municipal Baltazar Dias, Funchal, Portugal',
+  venue: { name: 'Teatro Municipal Baltazar Dias', city: 'Funchal', country: 'Portugal' },
 };
 
 describe('EventItem', () => {
@@ -111,6 +111,31 @@ describe('EventItem', () => {
     it('renders no media control when the event has neither images nor videos', () => {
       const wrapper = mountEvent(plainEvent);
       expect(wrapper.find('.event-photos-link').exists()).toBe(false);
+    });
+  });
+
+  describe('venue', () => {
+    it('renders a linked venue name with city and country', () => {
+      const wrapper = mountEvent(plainEvent);
+      const venue = wrapper.get('.event-venue');
+      const link = venue.get('a');
+      expect(link.attributes('href')).toBe('https://darc.pt');
+      expect(link.text()).toBe('Desterro');
+      expect(venue.text()).toBe('Desterro, Lisbon, Portugal');
+    });
+
+    it('renders an unlinked venue name when there is no url', () => {
+      const wrapper = mountEvent(festivalEvent);
+      const venue = wrapper.get('.event-venue');
+      expect(venue.find('a').exists()).toBe(false);
+      expect(venue.text()).toBe('Casa das Mudas, Calheta, Portugal');
+    });
+
+    it('renders a country-only (TBC) venue as plain text', () => {
+      const wrapper = mountEvent({ ...plainEvent, venue: { country: 'Portugal' } });
+      const venue = wrapper.get('.event-venue');
+      expect(venue.find('a').exists()).toBe(false);
+      expect(venue.text()).toBe('Portugal');
     });
   });
 });
