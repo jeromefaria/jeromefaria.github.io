@@ -29,4 +29,20 @@ describe('ContactView', () => {
     const wrapper = await mountView(ContactView);
     expect(wrapper.get('.contact-form__submit').text()).toBe(contactContent.form.submitText);
   });
+
+  it('marks a required field invalid and exposes an announced error after blur', async () => {
+    const wrapper = await mountView(ContactView);
+    const name = wrapper.get('#name');
+
+    expect(name.attributes('aria-invalid')).toBe('false');
+
+    await name.trigger('blur');
+
+    expect(name.attributes('aria-invalid')).toBe('true');
+    expect(name.attributes('aria-describedby')).toBe('name-error');
+
+    const error = wrapper.get('#name-error');
+    expect(error.attributes('role')).toBe('alert');
+    expect(error.text()).toBe('Name is required');
+  });
 });

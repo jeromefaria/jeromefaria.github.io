@@ -461,4 +461,22 @@ describe('useContactForm', () => {
       expect(mockEvent.preventDefault).toHaveBeenCalled();
     });
   });
+
+  describe('errors', () => {
+    it('produces a required-field message once a field is touched and empty', () => {
+      const wrapper = mount(createTestComponent(TEST_URL));
+      wrapper.vm.handleBlur('name');
+      expect(wrapper.vm.errors.name).toBe('Name is required');
+    });
+
+    it('clears the message once the field is filled', async () => {
+      const wrapper = mount(createTestComponent(TEST_URL));
+      wrapper.vm.handleBlur('email');
+      expect(wrapper.vm.errors.email).toBe('Email is required');
+
+      wrapper.vm.formData.email = 'a@b.com';
+      await wrapper.vm.$nextTick();
+      expect(wrapper.vm.errors.email).toBe('');
+    });
+  });
 });
