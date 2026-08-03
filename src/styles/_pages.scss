@@ -378,6 +378,24 @@
       outline-offset: 2px;
     }
   }
+
+  // Trailing icon linking to an embedded festival site / related work
+  .event-title-ref {
+    margin-left: $spacing-1;
+    color: var(--color-text-muted);
+    font-size: 0.85em;
+    text-decoration: none;
+    transition: opacity $transition-base;
+
+    &:hover {
+      opacity: $opacity-70;
+    }
+
+    &:focus-visible {
+      outline: 1px solid var(--color-border);
+      outline-offset: 2px;
+    }
+  }
 }
 
 // =============================================================================
