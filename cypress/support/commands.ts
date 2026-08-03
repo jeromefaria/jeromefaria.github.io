@@ -33,11 +33,11 @@ Cypress.Commands.add('toggleAndVerifyAccordion', (
  * Automatically detects viewport width and opens menu on mobile
  */
 Cypress.Commands.add('openMobileMenuIfNeeded', () => {
-  cy.window().then((win) => {
+  cy.window().then(win => {
     const isMobile = win.innerWidth < 768;
     if (!isMobile) return;
 
-    cy.get('.nav--open').then(($nav) => {
+    cy.get('.nav--open').then($nav => {
       if ($nav.is(':visible')) return;
 
       cy.get('.nav-toggle').click();
@@ -51,5 +51,5 @@ Cypress.Commands.add('openMobileMenuIfNeeded', () => {
  * Returns true if viewport width < 768px
  */
 Cypress.Commands.add('isMobile', () => {
-  return cy.window().then((win) => win.innerWidth < 768);
+  return cy.window().then(win => win.innerWidth < 768);
 });
