@@ -8,7 +8,7 @@ const baseEvent: LiveEvent = {
   id: 'madeiradig-2011',
   title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
   date: '2011-12-02',
-  venue: '<a href="https://example.com">Casa das Mudas</a>, Calheta, Portugal',
+  venue: { name: 'Casa das Mudas', url: 'https://example.com', city: 'Calheta', country: 'Portugal' },
 };
 
 describe('createMusicEventSchema', () => {

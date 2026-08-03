@@ -1,7 +1,7 @@
 import type { LiveEvent } from '@/types/live';
 import type { SchemaItemList, SchemaMusicAlbum, SchemaMusicEvent } from '@/types/schema';
 
-import { parseVenue, stripHtml } from './formatters';
+import { stripHtml } from './formatters';
 
 interface ReleaseForSchema {
   title: string;
@@ -23,18 +23,17 @@ export const createMusicEventSchema = (
   performerName: string,
   fallbackDate = '',
 ): SchemaMusicEvent => {
-  const venue = parseVenue(event.venue);
   return {
     '@type': 'MusicEvent',
     name: stripHtml(event.title),
     startDate: event.date || fallbackDate,
     location: {
       '@type': 'Place',
-      name: venue.name,
+      name: event.venue.name ?? '',
       address: {
         '@type': 'PostalAddress',
-        addressLocality: venue.addressLocality,
-        addressCountry: venue.addressCountry,
+        addressLocality: event.venue.city ?? '',
+        addressCountry: event.venue.country,
       },
     },
     performer: {

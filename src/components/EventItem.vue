@@ -28,6 +28,10 @@ const titleHref = computed(() => {
 
 const titleHrefIsExternal = computed(() => /^https?:/i.test(titleHref.value ?? ''));
 
+// City + country suffix for the venue line (either may be absent for a TBC venue).
+const venueLocation = computed(() =>
+  [props.event.venue.city, props.event.venue.country].filter(Boolean).join(', '));
+
 // Convert LiveImage to LightboxImage
 const convertImagesToLightbox = (images: LiveImage[]): LightboxItem[] => {
   return images.map(img => {
@@ -89,7 +93,10 @@ const convertVideosToLightbox = (videos: LiveVideo[]): LightboxItem[] => {
           v-if="event.date"
           class="event-date"
         >{{ formattedDate }} · </span>
-        <span v-html="event.venue" />
+        <span class="event-venue"><template v-if="event.venue.name"><a
+          v-if="event.venue.url"
+          :href="event.venue.url"
+        >{{ event.venue.name }}</a><template v-else>{{ event.venue.name }}</template><template v-if="venueLocation">, </template></template>{{ venueLocation }}</span>
       </p>
       <p
         v-if="event.description"
