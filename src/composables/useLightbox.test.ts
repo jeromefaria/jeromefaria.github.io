@@ -275,6 +275,36 @@ describe('useLightbox', () => {
     });
   });
 
+  describe('focus management', () => {
+    it('restores focus to the element focused before opening', () => {
+      const opener = document.createElement('button');
+      document.body.appendChild(opener);
+      opener.focus();
+      expect(document.activeElement).toBe(opener);
+
+      const wrapper = mount(createTestComponent(), { attachTo: document.body });
+      wrapper.vm.openLightbox(mockImages, 0);
+      wrapper.vm.closeLightbox();
+
+      expect(document.activeElement).toBe(opener);
+
+      wrapper.unmount();
+      opener.remove();
+    });
+
+    it('does not throw when nothing was focused before opening', () => {
+      const wrapper = mount(createTestComponent(), { attachTo: document.body });
+      (document.activeElement as HTMLElement | null)?.blur();
+
+      expect(() => {
+        wrapper.vm.openLightbox(mockImages, 0);
+        wrapper.vm.closeLightbox();
+      }).not.toThrow();
+
+      wrapper.unmount();
+    });
+  });
+
   describe('cleanup', () => {
     it('should restore body overflow on unmount', () => {
       const wrapper = mount(createTestComponent());
