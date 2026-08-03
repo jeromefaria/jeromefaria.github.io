@@ -21,6 +21,7 @@ interface UseContactFormReturn {
   showSuccess: Ref<boolean>;
   isFormValid: ComputedRef<boolean>;
   fieldInvalid: ComputedRef<FormState>;
+  errors: ComputedRef<Record<keyof FormState, string>>;
   handleBlur: (field: keyof FormState) => void;
   handleInput: () => void;
   handleSubmit: (event: Event) => Promise<void>;
@@ -63,6 +64,14 @@ export const useContactForm = (submitUrl: string): UseContactFormReturn => {
     name: touched.value.name && formData.value.name.trim() === '',
     email: touched.value.email && formData.value.email.trim() === '',
     message: touched.value.message && formData.value.message.trim() === '',
+  }));
+
+  const FIELD_LABELS: Record<keyof FormState, string> = { name: 'Name', email: 'Email', message: 'Message' };
+
+  const errors = computed<Record<keyof FormState, string>>(() => ({
+    name: fieldInvalid.value.name ? `${FIELD_LABELS.name} is required` : '',
+    email: fieldInvalid.value.email ? `${FIELD_LABELS.email} is required` : '',
+    message: fieldInvalid.value.message ? `${FIELD_LABELS.message} is required` : '',
   }));
 
   // Handlers
@@ -130,6 +139,7 @@ export const useContactForm = (submitUrl: string): UseContactFormReturn => {
     // Validation
     isFormValid,
     fieldInvalid,
+    errors,
     // Handlers
     handleBlur,
     handleInput,
