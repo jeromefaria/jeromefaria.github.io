@@ -25,7 +25,11 @@ export const useLightbox = (): UseLightboxReturn => {
   const currentIndex = ref(0);
   const items = ref<LightboxItem[]>([]);
 
+  // Element focused before opening, restored on close (WCAG 2.4.3)
+  let previouslyFocused: HTMLElement | null = null;
+
   const openLightbox = (allItems: LightboxItem[] = [], index = 0): void => {
+    previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     items.value = allItems;
     currentIndex.value = index;
     updateCurrentItem(index);
@@ -39,6 +43,8 @@ export const useLightbox = (): UseLightboxReturn => {
     items.value = [];
     currentIndex.value = 0;
     document.body.style.overflow = '';
+    previouslyFocused?.focus();
+    previouslyFocused = null;
   };
 
   const updateCurrentItem = (index: number): void => {
