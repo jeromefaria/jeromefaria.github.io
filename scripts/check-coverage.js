@@ -17,10 +17,10 @@ const __dirname = dirname(__filename);
 // (composables/utils) is ~100%; views and components are being backfilled with
 // unit tests, so raise these numbers as coverage climbs.
 const THRESHOLDS = {
-  lines: 82,
-  statements: 81,
-  functions: 65,
-  branches: 75,
+  lines: 93,
+  statements: 91,
+  functions: 84,
+  branches: 81,
 };
 
 const COVERAGE_SUMMARY_PATH = join(__dirname, '../coverage/coverage-summary.json');

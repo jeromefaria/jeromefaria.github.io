@@ -25,4 +25,10 @@ describe('AboutView', () => {
     expect(wrapper.findAll('.about-image-group')).toHaveLength(groupCount);
     expect(wrapper.findAll('.about-image-group__image')).toHaveLength(imageCount);
   });
+
+  it('opens the lightbox when an image-group figure is clicked', async () => {
+    const wrapper = await mountView(AboutView, '/about');
+    await wrapper.get('.about-image-group__image').trigger('click');
+    expect(wrapper.find('.lightbox').exists()).toBe(true);
+  });
 });
