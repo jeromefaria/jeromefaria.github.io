@@ -1,0 +1,34 @@
+# Dependabot configuration
+# Groups routine npm updates into a single weekly PR (instead of one PR per
+# package) to cut review noise. Major bumps stay ungrouped so breaking changes
+# get individual review. Also keeps GitHub Actions pinned versions current.
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      # One combined PR for all minor/patch npm updates (security and version).
+      npm-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      npm-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
