@@ -33,7 +33,7 @@ describe('Accordion Functionality', () => {
       cy.visit(WORKS_PAGE);
       cy.waitForHydration();
 
-      cy.get(ACCORDION_SECTION_SELECTOR).eq(1).invoke('attr', 'id').then((sectionId) => {
+      cy.get(ACCORDION_SECTION_SELECTOR).eq(1).invoke('attr', 'id').then(sectionId => {
         if (!sectionId) {
           throw new Error('Second section ID not found');
         }
@@ -87,7 +87,7 @@ describe('Accordion Functionality', () => {
 
       cy.get(ACCORDION_SECTION_SELECTOR).should('have.length.greaterThan', 0);
 
-      cy.get(ACCORDION_SECTION_SELECTOR).first().invoke('attr', 'id').then((firstSectionId) => {
+      cy.get(ACCORDION_SECTION_SELECTOR).first().invoke('attr', 'id').then(firstSectionId => {
         if (!firstSectionId) {
           throw new Error('First section ID not found');
         }

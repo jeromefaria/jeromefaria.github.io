@@ -28,7 +28,7 @@ function hasAccessibleLabel(element: JQuery<HTMLElement>): boolean {
 
 describe('Accessibility', () => {
   describe('WCAG Compliance', () => {
-    PAGES.forEach((page) => {
+    PAGES.forEach(page => {
       it(`${page} should not have violations`, () => {
         cy.visit(page);
         cy.waitForHydration();
@@ -44,7 +44,7 @@ describe('Accessibility', () => {
 
       cy.get(SKIP_LINK_SELECTOR).focus();
 
-      cy.focused().then(($el) => {
+      cy.focused().then($el => {
         expect($el[0].tagName).to.eq('A');
       });
     });
@@ -53,7 +53,7 @@ describe('Accessibility', () => {
       cy.visit('/');
       cy.waitForHydration();
 
-      cy.get(SKIP_LINK_SELECTOR).then(($skipLink) => {
+      cy.get(SKIP_LINK_SELECTOR).then($skipLink => {
         if ($skipLink.length === 0) {
           cy.log('Skipping: No skip link found');
           return;
@@ -64,7 +64,7 @@ describe('Accessibility', () => {
         cy.get(MAIN_CONTENT_SELECTOR).should('be.visible');
 
         // Verify page scrolled to main content (allow small tolerance for scroll positioning)
-        cy.get(MAIN_CONTENT_SELECTOR).then(($main) => {
+        cy.get(MAIN_CONTENT_SELECTOR).then($main => {
           const rect = $main[0].getBoundingClientRect();
           expect(rect.top).to.be.lessThan(110);
         });
@@ -84,7 +84,7 @@ describe('Accessibility', () => {
       cy.visit('/');
       cy.get('a').first().focus();
 
-      cy.focused().then(($el) => {
+      cy.focused().then($el => {
         const styles = window.getComputedStyle($el[0]);
         const outline = styles.outline || styles.outlineWidth;
         expect(outline).not.to.eq('none');
@@ -93,11 +93,11 @@ describe('Accessibility', () => {
 
     it('should maintain focus order', () => {
       cy.visit('/works');
-      cy.get('a, button, input, textarea, [tabindex="0"]').then(($elements) => {
+      cy.get('a, button, input, textarea, [tabindex="0"]').then($elements => {
         if ($elements.length === 0) return;
 
         cy.get('a, button, input, textarea, [tabindex="0"]').first().focus();
-        cy.focused().then(($focused) => {
+        cy.focused().then($focused => {
           expect($focused[0].tagName).to.exist;
         });
       });
@@ -115,7 +115,7 @@ describe('Accessibility', () => {
     it('should have landmark regions', () => {
       cy.visit('/');
 
-      Object.values(LANDMARK_SELECTORS).forEach((selector) => {
+      Object.values(LANDMARK_SELECTORS).forEach(selector => {
         cy.get(selector).should('be.visible');
       });
     });
@@ -124,7 +124,7 @@ describe('Accessibility', () => {
       cy.visit('/contact');
       cy.get('form').should('exist');
 
-      cy.get('input:not([type="submit"]):not([type="hidden"]), textarea').each(($input) => {
+      cy.get('input:not([type="submit"]):not([type="hidden"]), textarea').each($input => {
         const hasLabel = hasAccessibleLabel($input);
         expect(hasLabel).to.be.true;
       });
@@ -134,10 +134,10 @@ describe('Accessibility', () => {
   describe('Images and Media', () => {
     it('should have alt text for all images', () => {
       cy.visit('/');
-      cy.get('body').then(($body) => {
+      cy.get('body').then($body => {
         const imgs = $body.find('img');
         if (imgs.length === 0) return;
-        cy.wrap(imgs).each(($img) => {
+        cy.wrap(imgs).each($img => {
           expect($img.attr('alt')).to.not.be.undefined;
         });
       });
@@ -145,10 +145,10 @@ describe('Accessibility', () => {
 
     it('should have accessible video elements', () => {
       cy.visit('/works');
-      cy.get('body').then(($body) => {
+      cy.get('body').then($body => {
         const videos = $body.find('video, iframe[src*="youtube"], iframe[src*="vimeo"]');
         if (videos.length === 0) return;
-        cy.wrap(videos).each(($video) => {
+        cy.wrap(videos).each($video => {
           const title = $video.attr('title');
           const ariaLabel = $video.attr('aria-label');
           const hasAccessibleName = Boolean(title || ariaLabel);
@@ -199,10 +199,10 @@ describe('Accessibility', () => {
 
     it('should use ARIA roles appropriately', () => {
       cy.visit('/');
-      cy.get('body').then(($body) => {
+      cy.get('body').then($body => {
         const roleEls = $body.find('[role]');
         if (roleEls.length === 0) return;
-        cy.wrap(roleEls).each(($el) => {
+        cy.wrap(roleEls).each($el => {
           expect($el.attr('role')).to.exist;
         });
       });
@@ -217,7 +217,7 @@ describe('Accessibility', () => {
     });
 
     it('should have touch-friendly targets on mobile', () => {
-      cy.isMobile().then((isMobile) => {
+      cy.isMobile().then(isMobile => {
         if (!isMobile) {
           cy.log('Skipping: Not a mobile viewport');
           return;
@@ -226,7 +226,7 @@ describe('Accessibility', () => {
         cy.visit('/');
         cy.waitForHydration();
 
-        cy.get('.nav-toggle').then(($navToggle) => {
+        cy.get('.nav-toggle').then($navToggle => {
           if ($navToggle.length === 0) {
             throw new Error('Nav toggle not found or not visible');
           }

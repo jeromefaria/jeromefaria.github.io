@@ -182,4 +182,15 @@ export default [
       }],
     },
   },
+  {
+    // Ambient Cypress command typings — the `declare namespace` augments the
+    // global Cypress types and is used by TS, but reads as "unused" to ESLint.
+    files: ['cypress/support/types.ts'],
+    plugins: {
+      '@typescript-eslint': tseslint,
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
+  },
 ];
