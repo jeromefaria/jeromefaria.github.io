@@ -6,7 +6,6 @@ export const worksData: WorksData = {
   solo: {
     title: 'Solo',
     id: 'solo',
-    defaultOpen: true,
     items: [
       {
         id: 'contraplacado',
