@@ -29,7 +29,7 @@ const currentYear = new Date().getFullYear();
             :href="item.url"
             target="_blank"
             rel="noopener noreferrer"
-            :aria-label="`${siteConfig.author.name} on ${item.name}`"
+            :aria-label="`${siteConfig.author.name} on ${item.name} (opens in a new tab)`"
           >
             {{ item.name }}
           </a>
