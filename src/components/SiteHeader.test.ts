@@ -87,4 +87,10 @@ describe('SiteHeader', () => {
     expect(wrapper.find('.nav--open').exists()).toBe(false);
     expect(document.activeElement).toBe(wrapper.get('.nav-toggle').element);
   });
+
+  it('renders the site title as branding, not a page heading', async () => {
+    const { wrapper } = await mountHeader();
+    expect(wrapper.get('.masthead-title').element.tagName).toBe('P');
+    expect(wrapper.find('h1').exists()).toBe(false);
+  });
 });

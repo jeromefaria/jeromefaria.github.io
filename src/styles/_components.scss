@@ -727,6 +727,12 @@
   }
 }
 
+// Semantic heading wrapper around the trigger button — no visual footprint
+.accordion-heading {
+  margin: 0;
+  font: inherit;
+}
+
 .accordion-trigger {
   display: flex;
   align-items: center;
