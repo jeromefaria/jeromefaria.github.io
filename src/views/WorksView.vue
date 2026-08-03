@@ -120,7 +120,6 @@ const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, g
       :current-item="currentItem"
       :current-index="currentIndex"
       :total-items="items.length"
-      variant="compact"
       @close="closeLightbox"
       @prev="goToPrev"
       @next="goToNext"

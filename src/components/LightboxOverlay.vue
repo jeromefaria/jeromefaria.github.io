@@ -4,15 +4,12 @@ import { computed, nextTick, onMounted, ref } from 'vue';
 import type { LightboxItem } from '@/types';
 import { isLightboxImage, isLightboxVideo } from '@/types';
 
-const props = withDefaults(defineProps<{
+const props = defineProps<{
   isOpen: boolean;
   currentItem: LightboxItem | null;
   currentIndex: number;
   totalItems: number;
-  variant?: 'default' | 'compact';
-}>(), {
-  variant: 'default',
-});
+}>();
 
 const emit = defineEmits<{
   close: [];
@@ -104,131 +101,71 @@ onMounted(async () => {
       @touchstart="handleTouchStart"
       @touchend="handleTouchEnd"
     >
-      <!-- Default variant: separate close button + side navigation -->
-      <template v-if="variant === 'default'">
+      <!-- Video -->
+      <iframe
+        v-if="isVideo && currentItem && isLightboxVideo(currentItem)"
+        :src="currentItem.url"
+        class="lightbox__video"
+        :title="currentItem.title || 'Video'"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        @click.stop
+      />
+
+      <!-- Image -->
+      <picture v-else-if="isImage && currentItem && isLightboxImage(currentItem)">
+        <source
+          :srcset="currentItem.src.replace('.jpg', '.webp')"
+          type="image/webp"
+        >
+        <img
+          :src="currentItem.src"
+          :alt="currentItem.alt"
+          class="lightbox__image"
+        >
+      </picture>
+
+      <!-- Navigation hints as buttons -->
+      <div class="lightbox__hints">
         <button
-          class="lightbox__close"
+          class="lightbox__hint lightbox__hint--prev"
+          :disabled="currentIndex === 0"
+          aria-label="Previous image"
+          @click.stop="handlePrev"
+        >
+          ←
+        </button>
+        <button
+          class="lightbox__hint lightbox__hint--close"
           aria-label="Close lightbox"
           @click.stop="handleClose"
-        />
-
+        >
+          ×
+        </button>
         <button
-          v-if="currentIndex > 0"
-          class="lightbox__nav lightbox__nav--prev"
-          aria-label="Previous item"
-          @click.stop="handlePrev"
-        />
-
-        <!-- Video -->
-        <iframe
-          v-if="isVideo && currentItem && isLightboxVideo(currentItem)"
-          :src="currentItem.url"
-          class="lightbox__video"
-          :title="currentItem.title || 'Video'"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          @click.stop
-        />
-
-        <!-- Image -->
-        <picture v-else-if="isImage && currentItem && isLightboxImage(currentItem)">
-          <source
-            :srcset="currentItem.src.replace('.jpg', '.webp')"
-            type="image/webp"
-          >
-          <img
-            :src="currentItem.src"
-            :alt="currentItem.alt"
-            class="lightbox__image"
-          >
-        </picture>
-
-        <button
-          v-if="currentIndex < totalItems - 1"
-          class="lightbox__nav lightbox__nav--next"
+          class="lightbox__hint lightbox__hint--next"
+          :disabled="currentIndex >= totalItems - 1"
           aria-label="Next item"
           @click.stop="handleNext"
-        />
-
-        <!-- Keyboard hints -->
-        <div class="lightbox__hints">
-          <span class="lightbox__hint">ESC to close</span>
-          <span
-            v-if="totalItems > 1"
-            class="lightbox__hint"
-          >← → to navigate</span>
-        </div>
-      </template>
-
-      <!-- Compact variant: button hints + photographer credit -->
-      <template v-else-if="variant === 'compact'">
-        <!-- Video -->
-        <iframe
-          v-if="isVideo && currentItem && isLightboxVideo(currentItem)"
-          :src="currentItem.url"
-          class="lightbox__video"
-          :title="currentItem.title || 'Video'"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          @click.stop
-        />
-
-        <!-- Image -->
-        <picture v-else-if="isImage && currentItem && isLightboxImage(currentItem)">
-          <source
-            :srcset="currentItem.src.replace('.jpg', '.webp')"
-            type="image/webp"
-          >
-          <img
-            :src="currentItem.src"
-            :alt="currentItem.alt"
-            class="lightbox__image"
-          >
-        </picture>
-
-        <!-- Navigation hints as buttons -->
-        <div class="lightbox__hints">
-          <button
-            class="lightbox__hint lightbox__hint--prev"
-            :disabled="currentIndex === 0"
-            aria-label="Previous image"
-            @click.stop="handlePrev"
-          >
-            ←
-          </button>
-          <button
-            class="lightbox__hint lightbox__hint--close"
-            aria-label="Close lightbox"
-            @click.stop="handleClose"
-          >
-            ×
-          </button>
-          <button
-            class="lightbox__hint lightbox__hint--next"
-            :disabled="currentIndex >= totalItems - 1"
-            aria-label="Next item"
-            @click.stop="handleNext"
-          >
-            →
-          </button>
-        </div>
-
-        <!-- Photographer credit -->
-        <div
-          v-if="photographer"
-          class="lightbox__credit"
         >
-          Photo by <a
-            v-if="photographer.url"
-            :href="photographer.url"
-            target="_blank"
-            rel="noopener noreferrer"
-          >{{ photographer.name }}</a>
-          <span v-else>{{ photographer.name }}</span>
-        </div>
-      </template>
+          →
+        </button>
+      </div>
+
+      <!-- Photographer credit -->
+      <div
+        v-if="photographer"
+        class="lightbox__credit"
+      >
+        Photo by <a
+          v-if="photographer.url"
+          :href="photographer.url"
+          target="_blank"
+          rel="noopener noreferrer"
+        >{{ photographer.name }}</a>
+        <span v-else>{{ photographer.name }}</span>
+      </div>
     </div>
   </Transition>
 </template>
