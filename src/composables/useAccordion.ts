@@ -50,7 +50,8 @@ export const useAccordion = (
         if (element) {
           const scrollMargin = parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
           const targetY = element.getBoundingClientRect().top + window.scrollY - scrollMargin;
-          window.scrollTo({ top: targetY, behavior: 'smooth' });
+          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          window.scrollTo({ top: targetY, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
         }
       }, TIMING.ACCORDION_ANIMATION);
     });

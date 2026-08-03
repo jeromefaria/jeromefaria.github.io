@@ -37,7 +37,7 @@ const eventSchemas = computed(() =>
   liveYears.flatMap(year => {
     const yearData = sortedLiveData.value[year];
     return (yearData?.items || []).map(event =>
-      createMusicEventSchema(event, siteConfig.author.name, year),
+      createMusicEventSchema(event, siteConfig.author.name, `${year}-01-01`),
     );
   }),
 );

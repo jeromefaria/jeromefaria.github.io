@@ -27,10 +27,14 @@ const heroImageSrc = '/images/performance.jpg';
 
 onMounted(() => {
   const img = new Image();
-  img.src = heroImageSrc;
   img.onload = () => {
     heroImageLoaded.value = true;
   };
+  // Reveal the hero even if the image fails, so the loader never spins forever.
+  img.onerror = () => {
+    heroImageLoaded.value = true;
+  };
+  img.src = heroImageSrc;
 });
 </script>
 

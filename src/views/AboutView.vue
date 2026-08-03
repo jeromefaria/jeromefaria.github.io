@@ -97,7 +97,7 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
               <img
                 :src="image.src"
                 :alt="image.alt"
-                :style="getImageStyles(image) as any"
+                :style="getImageStyles(image)"
                 loading="lazy"
                 decoding="async"
               >
