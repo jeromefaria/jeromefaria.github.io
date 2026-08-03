@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
-
+import { useHashScroll } from '@/composables/useHashScroll';
 import { usePageHead } from '@/composables/usePageHead';
 import { pressQuotes } from '@/data/press';
 
@@ -10,24 +8,12 @@ usePageHead({
   description: 'Press coverage and reviews of Jerome Faria\'s work from The Quietus, Bodyspace, Indie Rock Mag, and more.',
 });
 
-const route = useRoute();
-const isInitialLoad = ref(true);
-
 const scrollToHash = (hash: string) => {
-  if (!hash) return;
   const element = document.getElementById(hash.replace('#', ''));
   element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
 
-onMounted(() => {
-  isInitialLoad.value = false;
-});
-
-watch(() => route.hash, hash => {
-  if (!isInitialLoad.value && hash) {
-    scrollToHash(hash);
-  }
-});
+useHashScroll(scrollToHash);
 </script>
 
 <template>
