@@ -112,6 +112,40 @@ describe('EventItem', () => {
       const wrapper = mountEvent(plainEvent);
       expect(wrapper.find('.event-photos-link').exists()).toBe(false);
     });
+
+    it('shows a "View video" control and emits the converted video on click', async () => {
+      const wrapper = mountEvent({
+        ...plainEvent,
+        videos: [{ url: 'https://player.vimeo.com/video/1', title: 'Live set', platform: 'vimeo' }],
+      });
+      const button = wrapper.get('.event-photos-link button');
+      expect(button.text()).toBe('View video');
+
+      await button.trigger('click');
+      const payload = wrapper.emitted('open-lightbox')?.[0];
+
+      expect(payload?.[1]).toBe(0);
+      expect(payload?.[0]).toEqual([
+        { type: 'video', url: 'https://player.vimeo.com/video/1', title: 'Live set', platform: 'vimeo' },
+      ]);
+    });
+
+    it('pluralises the video control and separates photo and video controls', () => {
+      const wrapper = mountEvent({
+        ...plainEvent,
+        images: [{ src: '/images/live/a-001.jpg', alt: 'A' }],
+        videos: [
+          { url: 'https://player.vimeo.com/video/1', title: 'One', platform: 'vimeo' },
+          { url: 'https://player.vimeo.com/video/2', title: 'Two', platform: 'vimeo' },
+        ],
+      });
+      const buttons = wrapper.findAll('.event-photos-link button');
+
+      expect(buttons).toHaveLength(2);
+      expect(buttons[0].text()).toBe('View photo');
+      expect(buttons[1].text()).toBe('View videos');
+      expect(wrapper.get('.event-photos-link').text()).toContain('|');
+    });
   });
 
   describe('venue', () => {

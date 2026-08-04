@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import LightboxOverlay from '@/components/LightboxOverlay.vue';
 import { aboutSections } from '@/data/about';
 import { mountView } from '@/test-support/viewHarness';
 
@@ -30,5 +31,21 @@ describe('AboutView', () => {
     const wrapper = await mountView(AboutView, '/about');
     await wrapper.get('.about-image-group__image').trigger('click');
     expect(wrapper.find('.lightbox').exists()).toBe(true);
+  });
+
+  it('opens the lightbox at the global index of a figure in a later group', async () => {
+    const wrapper = await mountView(AboutView, '/about');
+    const figures = wrapper.findAll('.about-image-group__image');
+    // Figure 4 lives in the second image group, so its global index only
+    // resolves correctly if the per-section start offset is applied.
+    const targetIndex = 4;
+    const figure = figures[targetIndex];
+    const expectedSrc = figure.get('img').attributes('src');
+
+    await figure.trigger('click');
+
+    const lightbox = wrapper.getComponent(LightboxOverlay);
+    expect(lightbox.props('currentIndex')).toBe(targetIndex);
+    expect(lightbox.props('currentItem')).toMatchObject({ type: 'image', src: expectedSrc });
   });
 });

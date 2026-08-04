@@ -204,6 +204,52 @@ describe('useAccordion', () => {
     vi.useRealTimers();
   });
 
+  it('should scroll smoothly when reduced motion is not preferred', async () => {
+    vi.useFakeTimers();
+    const scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+    vi.spyOn(window, 'matchMedia').mockReturnValue({ matches: false } as MediaQueryList);
+    mockRoute.hash = `#section-${VALID_SECTIONS[1]}`;
+
+    mount(createTestComponent());
+    await nextTick();
+    await vi.advanceTimersByTimeAsync(ACCORDION_ANIMATION_TIMING);
+
+    expect(scrollToSpy).toHaveBeenCalledWith(expect.objectContaining({ behavior: 'smooth' }));
+
+    vi.useRealTimers();
+  });
+
+  it('should jump without animation when reduced motion is preferred', async () => {
+    vi.useFakeTimers();
+    const scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+    vi.spyOn(window, 'matchMedia').mockReturnValue({ matches: true } as MediaQueryList);
+    mockRoute.hash = `#section-${VALID_SECTIONS[1]}`;
+
+    mount(createTestComponent());
+    await nextTick();
+    await vi.advanceTimersByTimeAsync(ACCORDION_ANIMATION_TIMING);
+
+    expect(scrollToSpy).toHaveBeenCalledWith(expect.objectContaining({ behavior: 'auto' }));
+
+    vi.useRealTimers();
+  });
+
+  it('should scroll to the nested item id when a hash resolves via its parent section', async () => {
+    vi.useFakeTimers();
+    const itemId = 'nested-item-1';
+    const findSectionForId = (id: string): string | null => (id === itemId ? VALID_SECTIONS[1] : null);
+    mockRoute.hash = `#${itemId}`;
+
+    mount(createTestComponent(INITIAL_SECTION, VALID_SECTIONS, findSectionForId));
+    await nextTick();
+    await vi.advanceTimersByTimeAsync(ACCORDION_ANIMATION_TIMING);
+
+    // Parent-resolved hashes scroll to the item itself, not the section trigger.
+    expect(getElementByIdSpy).toHaveBeenCalledWith(itemId);
+
+    vi.useRealTimers();
+  });
+
   it('should handle empty hash', async () => {
     mockRoute.hash = '';
 

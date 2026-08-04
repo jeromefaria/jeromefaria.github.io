@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { nextTick } from 'vue';
 
 import AccordionSection from '@/components/AccordionSection.vue';
 import EventItem from '@/components/EventItem.vue';
@@ -6,6 +7,9 @@ import { liveData, liveYears } from '@/data/live';
 import { mountView } from '@/test-support/viewHarness';
 
 import LiveView from './LiveView.vue';
+
+const expandedYears = (wrapper: Awaited<ReturnType<typeof mountView>>): string[] =>
+  liveYears.filter(year => wrapper.get(`#trigger-${year}`).attributes('aria-expanded') === 'true');
 
 describe('LiveView', () => {
   it('renders an accordion section for every year', async () => {
@@ -17,5 +21,27 @@ describe('LiveView', () => {
     const wrapper = await mountView(LiveView, '/live');
     const totalEvents = Object.values(liveData).reduce((sum, year) => sum + year.items.length, 0);
     expect(wrapper.findAllComponents(EventItem)).toHaveLength(totalEvents);
+  });
+
+  it('opens only the most recent year by default', async () => {
+    const wrapper = await mountView(LiveView, '/live');
+    expect(expandedYears(wrapper)).toEqual([liveYears[0]]);
+  });
+
+  it('opens the year that owns a deep-linked event id from the URL hash', async () => {
+    // `showcase-casa-amarela` lives under 2025, not the default (most recent) year.
+    const wrapper = await mountView(LiveView, '/live#showcase-casa-amarela');
+    await nextTick();
+    expect(expandedYears(wrapper)).toEqual(['2025']);
+  });
+
+  it('switches the open year when another year trigger is activated', async () => {
+    const wrapper = await mountView(LiveView, '/live');
+    const secondYear = liveYears[1];
+
+    await wrapper.get(`#trigger-${secondYear}`).trigger('click');
+    await nextTick();
+
+    expect(expandedYears(wrapper)).toEqual([secondYear]);
   });
 });
