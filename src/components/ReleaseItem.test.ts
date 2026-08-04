@@ -66,6 +66,38 @@ describe('ReleaseItem', () => {
     expect(cover.find('img').attributes('src')).toBe('/images/ect.jpg');
   });
 
+  it('flags an external cover that links to Bandcamp with a modifier class', () => {
+    const bandcampExternal: ExternalRelease = {
+      id: 'bc-ext',
+      title: 'BC External',
+      meta: 'Digital, 2020',
+      coverImage: '/images/bc.jpg',
+      externalUrl: 'https://artist.bandcamp.com/album/bc-external',
+    };
+    const wrapper = mountRelease(bandcampExternal);
+    expect(wrapper.get('a.release-cover').classes()).toContain('release-cover--bandcamp');
+  });
+
+  it('falls back to a text-only layout when the cover image fails to load', async () => {
+    const wrapper = mountRelease(external);
+    expect(wrapper.find('a.release-cover').exists()).toBe(true);
+
+    await wrapper.get('a.release-cover img').trigger('error');
+
+    expect(wrapper.find('a.release-cover').exists()).toBe(false);
+    expect(wrapper.get('article').classes()).toContain('release--text-only');
+  });
+
+  it('marks the cover image as loaded once it fires the load event', async () => {
+    const wrapper = mountRelease(external);
+    const image = wrapper.get('a.release-cover img');
+    expect(image.classes()).not.toContain('is-loaded');
+
+    await image.trigger('load');
+
+    expect(wrapper.get('a.release-cover img').classes()).toContain('is-loaded');
+  });
+
   it('renders a static (unlinked) cover when there is no player or link', () => {
     const wrapper = mountRelease(staticCover);
     expect(wrapper.find('.release-cover--static').exists()).toBe(true);
