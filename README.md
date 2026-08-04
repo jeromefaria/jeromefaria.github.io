@@ -53,7 +53,7 @@ npm run test:ui
 npm run test:coverage
 ```
 
-**Coverage**: The whole `src` tree is instrumented (`all: true`), so the reported percentage reflects the entire codebase rather than only the files a test imports. The logic layer (composables, utils) is ~100% covered; views and components are being backfilled with unit tests (UI paths are also exercised by the Cypress E2E suite). CI enforces a regression **floor** (`scripts/check-coverage.js`) that ratchets upward as coverage climbs. Current coverage is ~95% lines / 93% statements / 86% functions / 83% branches, with the floor set just below at Lines 93%, Statements 91%, Functions 84%, Branches 81%.
+**Coverage**: The whole `src` tree is instrumented (`all: true`), so the reported percentage reflects the entire codebase rather than only the files a test imports. The logic layer (composables, utils) is ~100% covered; the view and component tests assert behaviour (hash-driven accordion opening, link processing, focus trapping, image load/error fallbacks) rather than render counts, and UI paths are also exercised by the Cypress E2E suite. CI enforces a regression **floor** (`scripts/check-coverage.js`) that ratchets upward as coverage climbs. Current coverage is ~98% lines / 96% statements / 93% functions / 87% branches, with the floor set just below at Lines 96%, Statements 95%, Functions 91%, Branches 85%.
 
 ### E2E Tests
 
