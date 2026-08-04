@@ -4,13 +4,17 @@
  */
 
 /**
- * Wait for Vue hydration to complete
- * Ensures event handlers are fully attached before testing
+ * Wait for Vue hydration to complete.
+ * `body.ready` is added in App's onMounted, i.e. after the app has mounted and
+ * hydrated (event handlers attached). Waiting for web fonts to finish loading
+ * on top of that removes a FOUT-driven flake class from axe colour-contrast
+ * checks, and replaces the previous arbitrary fixed delay with a deterministic
+ * signal.
  */
 Cypress.Commands.add('waitForHydration', () => {
   cy.get('body.ready', { timeout: 10000 }).should('exist');
+  cy.document().then(doc => cy.wrap(doc.fonts.ready, { timeout: 10000 }));
   cy.injectAxe();
-  cy.wait(100); // Handler attach delay
 });
 
 /**

@@ -187,7 +187,7 @@ describe('Accessibility', () => {
   describe('ARIA Attributes', () => {
     it('should have valid ARIA attributes', () => {
       cy.visit('/');
-      cy.injectAxe();
+      cy.waitForHydration();
 
       cy.checkA11y(null, {
         runOnly: {

@@ -16,6 +16,12 @@ const LinksPage = {
   </div>`,
 };
 
+// A distinct page whose external link only exists after navigating to it, so
+// the nav-reprocess test proves a freshly rendered link is handled.
+const SecondPage = {
+  template: '<div><a href="https://second.example.com">second</a></div>',
+};
+
 // App wraps the router-view in <Suspense>, so the routed component commits to
 // the DOM a macrotask after mount — later than flushPromises (microtasks) can
 // wait for. Settle across a few macrotask + microtask rounds so onMounted's
@@ -39,7 +45,7 @@ const mountApp = async () => {
     history: createMemoryHistory(),
     routes: [
       { path: '/', component: LinksPage },
-      { path: '/about', component: LinksPage },
+      { path: '/about', component: SecondPage },
     ],
   });
   router.push('/');
@@ -92,10 +98,13 @@ describe('App', () => {
     expect(sameOrigin.attributes('rel')).toBeUndefined();
   });
 
-  it('reprocesses links on navigation without error', async () => {
+  it('reprocesses a freshly rendered external link after navigation', async () => {
     const { wrapper, router } = await mountApp();
     await router.push('/about');
     await settle();
-    expect(wrapper.find('main').exists()).toBe(true);
+
+    const external = wrapper.get('main a[href="https://second.example.com"]');
+    expect(external.attributes('target')).toBe('_blank');
+    expect(external.attributes('rel')).toBe('noopener noreferrer');
   });
 });

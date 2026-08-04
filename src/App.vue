@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { nextTick, onMounted, watch } from 'vue';
-import { RouterView, useRoute } from 'vue-router';
+import { nextTick, onMounted } from 'vue';
+import { RouterView } from 'vue-router';
 
 import SiteFooter from '@/components/SiteFooter.vue';
 import SiteHeader from '@/components/SiteHeader.vue';
-
-const route = useRoute();
 
 const processExternalLinks = () => {
   // Only process links in main content area, not entire document
@@ -21,13 +19,17 @@ const processExternalLinks = () => {
   });
 };
 
+// The routed view renders inside <Suspense>, so on navigation the new page is
+// committed asynchronously — later than a route watcher's nextTick would fire.
+// Reprocessing on the Suspense `resolve` event guarantees the freshly rendered
+// page (including links inside v-html content) is in the DOM before we scan it.
+const handleContentResolved = () => {
+  nextTick(() => processExternalLinks());
+};
+
 onMounted(() => {
   processExternalLinks();
   document.body.classList.add('ready');
-});
-watch(() => route.path, async () => {
-  await nextTick();
-  processExternalLinks();
 });
 </script>
 
@@ -44,7 +46,7 @@ watch(() => route.path, async () => {
           name="page"
           mode="out-in"
         >
-          <Suspense>
+          <Suspense @resolve="handleContentResolved">
             <component :is="Component" />
             <template #fallback>
               <div
