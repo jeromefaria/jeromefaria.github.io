@@ -27,23 +27,26 @@ export const createApp = ViteSSG(
     },
   },
   ({ router, isClient }: ViteSSGContext) => {
-    // Handle SPA redirect from 404.html (client-side only)
-    if (isClient) {
-      const redirect = sessionStorage.getItem('spa-redirect');
-      if (redirect) {
-        sessionStorage.removeItem('spa-redirect');
-        router.replace(redirect);
-      }
+    // Client-side only: SSG pre-render has no session storage or live DOM.
+    if (!isClient) return;
 
-      // Add ready class to body when Vue is fully hydrated
-      // Use requestAnimationFrame to ensure event handlers are attached
-      router.isReady().then(() => {
+    // Handle SPA redirect from 404.html.
+    const redirect = sessionStorage.getItem('spa-redirect');
+    if (redirect) {
+      sessionStorage.removeItem('spa-redirect');
+      router.replace(redirect);
+    }
+
+    // Add the ready class to body once Vue is fully hydrated. This is a
+    // deliberate fire-and-forget: the setup callback must NOT await
+    // router.isReady() here, since that resolves only after mount and would
+    // deadlock hydration. The nested rAF ensures event handlers are attached.
+    router.isReady().then(() => {
+      requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            document.body.classList.add('ready');
-          });
+          document.body.classList.add('ready');
         });
       });
-    }
+    });
   },
 );
