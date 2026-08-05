@@ -23,27 +23,20 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://jeromefaria.com">
     <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://bandcamp.com" crossorigin>
     <link rel="dns-prefetch" href="https://bandcamp.com">
-    <!-- The homepage preloads its hero image from within HomeView (only the home
-         route uses it). Load Iosevka Aile async to avoid render-blocking. -->
-    <!-- Load Iosevka Aile font (quasi-proportional variant) - async to prevent render blocking -->
-    <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/400.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/500.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/600.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-      <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/400.css" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/500.css" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka-aile@5.0.18/600.css" rel="stylesheet">
-    </noscript>
+    <!-- Iosevka Aile is self-hosted and subset (public/fonts/); preload the body
+         weight. The homepage preloads its hero image from within HomeView. -->
+    <link rel="preload" href="/fonts/iosevka-aile-400.woff2" as="font" type="font/woff2" crossorigin>
     <script>
       // Set dark theme before page renders to prevent flash
       document.documentElement.setAttribute('data-theme', 'dark');
     </script>
     <style>
-      /* Critical CSS - prevents FOUC by styling initial render. The Iosevka Aile
-         @font-face comes from the async-loaded @fontsource stylesheet above. */
+      /* Critical CSS - prevents FOUC by styling initial render. The body (400)
+         @font-face is inlined so the preloaded, self-hosted font applies at
+         first paint; the 500/600 weights come from the bundled stylesheet. */
+      @font-face{font-family:'Iosevka Aile';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/iosevka-aile-400.woff2) format('woff2')}
       :root{--color-bg:#fff;--color-text:#000;--color-text-secondary:#444;--color-text-muted:#767676;--color-border:#ddd;--color-border-subtle:#eee;--color-link:#000;--color-link-hover:#595959}
       [data-theme=dark]{--color-bg:#000;--color-text:#fff;--color-text-secondary:#bbb;--color-text-muted:#a3a3a3;--color-border:#333;--color-border-subtle:#222;--color-link:#fff;--color-link-hover:#a3a3a3}
       *,*:before,*:after{box-sizing:border-box}
