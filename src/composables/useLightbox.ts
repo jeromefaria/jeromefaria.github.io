@@ -3,6 +3,8 @@ import { onMounted, onUnmounted, ref } from 'vue';
 
 import type { LightboxItem } from '@/types/lightbox';
 
+import { useScrollLock } from './useScrollLock';
+
 interface UseLightboxReturn {
   isOpen: Ref<boolean>;
   currentItem: Ref<LightboxItem | null>;
@@ -28,13 +30,15 @@ export const useLightbox = (): UseLightboxReturn => {
   // Element focused before opening, restored on close (WCAG 2.4.3)
   let previouslyFocused: HTMLElement | null = null;
 
+  const { lock, unlock } = useScrollLock();
+
   const openLightbox = (allItems: LightboxItem[] = [], index = 0): void => {
     previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     items.value = allItems;
     currentIndex.value = index;
     updateCurrentItem(index);
     isOpen.value = true;
-    document.body.style.overflow = 'hidden';
+    lock();
   };
 
   const closeLightbox = (): void => {
@@ -42,7 +46,7 @@ export const useLightbox = (): UseLightboxReturn => {
     currentItem.value = null;
     items.value = [];
     currentIndex.value = 0;
-    document.body.style.overflow = '';
+    unlock();
     previouslyFocused?.focus();
     previouslyFocused = null;
   };
@@ -89,9 +93,9 @@ export const useLightbox = (): UseLightboxReturn => {
     document.addEventListener('keydown', handleKeydown, { signal: abortController.signal });
   });
 
+  // Body scroll is released by useScrollLock's own unmount hook.
   onUnmounted(() => {
     abortController.abort();
-    document.body.style.overflow = '';
   });
 
   return {
