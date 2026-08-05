@@ -25,7 +25,7 @@ export const useAccordion = (
   const openSection = ref<string | null>(initialSection);
 
   const scrollToElement = (id: string): void => {
-    nextTick(() => {
+    void nextTick(() => {
       setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {

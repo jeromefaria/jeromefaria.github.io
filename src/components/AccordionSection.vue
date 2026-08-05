@@ -42,7 +42,7 @@ const toggle = () => {
 
   if (!willExpand) return;
 
-  nextTick(() => {
+  void nextTick(() => {
     setTimeout(() => {
       scrollToSection();
       contentRef.value?.focus({ preventScroll: true });

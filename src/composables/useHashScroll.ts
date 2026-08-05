@@ -28,7 +28,7 @@ export const useHashScroll = (
 
   onMounted(() => {
     if (immediate && route.hash) onHash(route.hash);
-    nextTick(() => {
+    void nextTick(() => {
       isInitialLoad.value = false;
     });
   });
