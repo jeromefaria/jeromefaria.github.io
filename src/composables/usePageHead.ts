@@ -10,6 +10,8 @@ interface UsePageHeadOptions {
   schema?: object | null;
   includeImage?: boolean;
   noIndex?: boolean;
+  /** WebP image to preload with high priority (e.g. an above-the-fold hero). */
+  preloadImage?: string;
 }
 
 /**
@@ -29,6 +31,7 @@ export const usePageHead = ({
   schema = null,
   includeImage = false,
   noIndex = false,
+  preloadImage,
 }: UsePageHeadOptions): void => {
   const route = useRoute();
   const fullTitle = title.includes(siteConfig.title)
@@ -61,9 +64,13 @@ export const usePageHead = ({
     meta.push({ name: 'robots', content: 'noindex' });
   }
 
-  const link = [
+  const link: Record<string, string>[] = [
     { rel: 'canonical', href: canonicalUrl },
   ];
+
+  if (preloadImage) {
+    link.push({ rel: 'preload', as: 'image', type: 'image/webp', href: preloadImage, fetchpriority: 'high' });
+  }
 
   const headConfig: Record<string, unknown> = { title: fullTitle, meta, link };
 

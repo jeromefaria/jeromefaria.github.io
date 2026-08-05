@@ -27,7 +27,7 @@ describe('HomeView', () => {
   it('renders the hero with the background image', async () => {
     const wrapper = await mountView(HomeView);
     const hero = wrapper.get('.hero');
-    expect(hero.attributes('style')).toContain('/images/performance.jpg');
+    expect(hero.attributes('style')).toContain('/images/performance.webp');
   });
 
   it('shows the loading indicator until the hero image loads', async () => {

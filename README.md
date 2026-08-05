@@ -85,12 +85,15 @@ npm run test:e2e:report
 npm run lighthouse
 ```
 
-**Performance Budgets**:
-- Performance Score: 90+
-- Accessibility Score: 95+
-- First Contentful Paint: <1.5s
-- Largest Contentful Paint: <2.5s
-- Cumulative Layout Shift: <0.1
+**Performance Budgets** (`.lighthouserc.json`). The **enforced** assertions fail CI:
+- Accessibility ≥ 95 and Best Practices ≥ 90
+- No browser-console errors
+- Script ≤ 250KB and stylesheet ≤ 75KB (transfer), text compression enabled
+
+The following are **advisory** (reported as warnings, not gating) because they vary with the CI runner or with image-rich portfolio content:
+- Performance and SEO category scores
+- Timing metrics: FCP < 1.5s, LCP < 2.5s, CLS < 0.1, TBT < 300ms, Speed Index < 3s
+- Image and total transfer weight
 
 ## Running CI Locally
 
@@ -145,14 +148,13 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 
 ### Build
 - Production bundle build
-- Bundle size checks (JS <200KB, CSS <50KB per file)
+- Bundle size budget — **enforced**: fails CI if any JS file exceeds 200KB or CSS 50KB (uncompressed, per file)
 - Build artifact generation
 
 ### Lighthouse CI
-- Performance audits
-- Accessibility audits
-- SEO and best practices checks
-- Performance budget enforcement
+- Accessibility and best-practices audits (**enforced**)
+- Console-error and resource-size (JS/CSS) checks (**enforced**)
+- Performance, SEO, timing, and image-weight budgets (advisory — reported, not gating)
 
 ### E2E Tests
 - Cross-browser testing across all three engines (Chromium, Firefox, WebKit)
