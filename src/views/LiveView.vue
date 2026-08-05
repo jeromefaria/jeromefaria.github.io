@@ -36,7 +36,7 @@ const sortedLiveData = computed<LiveData>(() => {
 const eventSchemas = computed(() =>
   liveYears.flatMap(year => {
     const yearData = sortedLiveData.value[year];
-    return (yearData?.items || []).map(event =>
+    return (yearData?.items ?? []).map(event =>
       createMusicEventSchema(event, siteConfig.author.name, `${year}-01-01`),
     );
   }),
@@ -62,7 +62,7 @@ const findYearForEvent = (eventId: string): string | null =>
     return yearData?.items?.some(e => e.id === eventId);
   }) ?? null;
 
-const { openSection, handleToggle } = useAccordion(liveYears[0] || '', liveYears, findYearForEvent);
+const { openSection, handleToggle } = useAccordion(liveYears[0] ?? '', liveYears, findYearForEvent);
 const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev, handleTouchStart, handleTouchEnd } = useLightboxWithSwipe();
 </script>
 

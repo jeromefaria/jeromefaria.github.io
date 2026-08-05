@@ -58,6 +58,7 @@ test.describe('Accessibility', () => {
   test.describe('Focus Management', () => {
     test('should have visible focus indicators', async ({ page }) => {
       await page.goto('/');
+      await waitForHydration(page);
 
       const firstLink = page.locator('a').first();
       await firstLink.focus();
@@ -71,6 +72,7 @@ test.describe('Accessibility', () => {
 
     test('should maintain focus order', async ({ page }) => {
       await page.goto('/works');
+      await waitForHydration(page);
 
       const interactive = page.locator('a, button, input, textarea, [tabindex="0"]').first();
       await interactive.focus();

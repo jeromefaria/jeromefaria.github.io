@@ -33,7 +33,7 @@ const {
   webpSrc,
   handleImageLoad,
   handleImageError,
-} = useImageLoader(getCoverImage(props.release) || '');
+} = useImageLoader(getCoverImage(props.release) ?? '');
 
 // Computed properties with type guards for release properties
 const hasBandcampId = computed(() => 'bandcampId' in props.release && props.release.bandcampId);

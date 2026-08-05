@@ -34,14 +34,14 @@ export const createApp = ViteSSG(
     const redirect = sessionStorage.getItem('spa-redirect');
     if (redirect) {
       sessionStorage.removeItem('spa-redirect');
-      router.replace(redirect);
+      void router.replace(redirect);
     }
 
     // Add the ready class to body once Vue is fully hydrated. This is a
     // deliberate fire-and-forget: the setup callback must NOT await
     // router.isReady() here, since that resolves only after mount and would
     // deadlock hydration. The nested rAF ensures event handlers are attached.
-    router.isReady().then(() => {
+    void router.isReady().then(() => {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           document.body.classList.add('ready');

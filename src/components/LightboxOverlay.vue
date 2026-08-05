@@ -26,7 +26,7 @@ const isImage = computed(() => props.currentItem !== null && isLightboxImage(pro
 // Computed photographer credit (if exists on current image)
 const photographer = computed(() => {
   if (props.currentItem && isLightboxImage(props.currentItem)) {
-    return props.currentItem.photographer || null;
+    return props.currentItem.photographer ?? null;
   }
   return null;
 });

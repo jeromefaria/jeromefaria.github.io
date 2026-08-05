@@ -101,6 +101,15 @@ const vueRules = {
   }],
 };
 
+// Rules that need type information. Scoped to the app source (src, excluding
+// tests), which is covered by tsconfig.json.
+const typeAwareRules = {
+  '@typescript-eslint/prefer-nullish-coalescing': 'error',
+  '@typescript-eslint/prefer-optional-chain': 'error',
+  '@typescript-eslint/prefer-includes': 'error',
+  '@typescript-eslint/no-floating-promises': 'error',
+};
+
 export default [
   ...pluginVue.configs['flat/recommended'],
   {
@@ -127,5 +136,36 @@ export default [
     },
     plugins: sharedPlugins,
     rules: baseRules,
+  },
+  {
+    // Type-aware rules for the app source (excludes co-located tests + helpers,
+    // which tsconfig.json does not include).
+    files: ['src/**/*.ts'],
+    ignores: ['src/**/*.test.ts', 'src/test-support/**', 'src/test-setup.ts'],
+    languageOptions: {
+      parser: tsparser,
+      parserOptions: {
+        projectService: true,
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
+    plugins: sharedPlugins,
+    rules: typeAwareRules,
+  },
+  {
+    files: ['src/**/*.vue'],
+    languageOptions: {
+      parser: vueParser,
+      parserOptions: {
+        parser: tsparser,
+        projectService: true,
+        extraFileExtensions: ['.vue'],
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
+    plugins: sharedPlugins,
+    rules: typeAwareRules,
   },
 ];

@@ -82,8 +82,8 @@ export const createMusicAlbumSchema = (
   const schema: SchemaMusicAlbum = {
     '@type': 'MusicAlbum',
     name: release.title,
-    url: release.bandcampUrl || '',
-    datePublished: release.datePublished || '',
+    url: release.bandcampUrl ?? '',
+    datePublished: release.datePublished ?? '',
     byArtist: {
       '@type': 'Person',
       name: artistName,
