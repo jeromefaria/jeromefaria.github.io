@@ -24,7 +24,7 @@ const processExternalLinks = () => {
 // Reprocessing on the Suspense `resolve` event guarantees the freshly rendered
 // page (including links inside v-html content) is in the DOM before we scan it.
 const handleContentResolved = () => {
-  nextTick(() => processExternalLinks());
+  void nextTick(() => processExternalLinks());
 };
 
 onMounted(() => {

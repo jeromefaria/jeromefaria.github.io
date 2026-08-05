@@ -22,7 +22,7 @@ const closeNav = () => {
 const openNav = () => {
   navOpen.value = true;
   // Move focus into the menu once it's rendered so keyboard users land in it.
-  nextTick(() => {
+  void nextTick(() => {
     navMenu.value?.querySelector<HTMLElement>('.nav__link')?.focus();
   });
 };
