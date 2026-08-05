@@ -1,8 +1,7 @@
 # Jerome Faria - Personal Website
 
-[![CI](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/ci.yml)
+[![CI/CD](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml)
 [![codecov](https://codecov.io/gh/jeromefaria/jeromefaria.github.io/branch/master/graph/badge.svg)](https://codecov.io/gh/jeromefaria/jeromefaria.github.io)
-[![Deploy](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml)
 
 Vue 3 + TypeScript portfolio website for [www.jeromefaria.com](https://www.jeromefaria.com).
 
@@ -136,7 +135,7 @@ npm run lint:fix && npm run type-check && npm run test:coverage && npm run build
 
 ## CI/CD Pipeline
 
-Every push to `master` and pull request triggers a comprehensive CI pipeline with the following jobs:
+The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the deploy gate on `master` (via `workflow_call`) so the checks are defined in exactly one place. It has the following jobs:
 
 ### Quality Checks
 - TypeScript type checking
@@ -160,11 +159,11 @@ Every push to `master` and pull request triggers a comprehensive CI pipeline wit
 - Accessibility testing with axe-core (`@axe-core/playwright`)
 - Specs: `accessibility`, `accordion`, `contact-form`, `lightbox`, `navigation`
 
-**Quality Gates**: All four CI jobs (Quality Checks, Build, Lighthouse, E2E) must pass for the CI workflow to be green. Deployment runs on its own workflow and gates on type-check, lint, unit tests with coverage, the production build, and the cross-browser E2E suite (Chromium, Firefox, WebKit) run against the exact artifact to be deployed.
+**Quality Gates**: All four CI jobs (Quality Checks, Build, Lighthouse, E2E) must pass for the pipeline to be green.
 
 ## Deployment
 
-The site deploys to GitHub Pages via GitHub Actions on push to `master` once the deploy workflow's pre-deploy checks, production build, and cross-browser E2E gate succeed.
+The site deploys to GitHub Pages via GitHub Actions on push to `master`. The deploy workflow (`deploy.yml`) first runs the full CI pipeline as its gate, then repackages the **exact `dist` the E2E suite exercised** as a Pages artifact and publishes it — so what ships is what was tested, and the checks aren't duplicated between the two workflows.
 
 ## License
 

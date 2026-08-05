@@ -2,8 +2,8 @@ name: CI
 
 on:
   pull_request:
-  push:
-    branches: [master]
+  # On master, this pipeline runs as the deploy workflow's gate (workflow_call)
+  # rather than standalone, so the checks execute exactly once per push.
   workflow_call:
 
 # Cancel in-progress runs when a new workflow with the same group name is triggered

@@ -15,123 +15,39 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  pre-deploy-checks:
-    name: Pre-Deploy Checks
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
+  # Run the full CI pipeline (quality checks, build, Lighthouse, cross-browser
+  # E2E) as the deploy gate — the exact workflow that runs on pull requests, so
+  # the checks are defined in a single place.
+  checks:
+    uses: ./.github/workflows/ci.yml
+    secrets: inherit
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Type check
-        run: npm run type-check
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Run unit tests with coverage
-        run: npm run test:coverage
-
-      - name: Check coverage thresholds
-        run: node scripts/check-coverage.js
-
-  build:
-    needs: pre-deploy-checks
+  build-pages:
+    needs: checks
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v6
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: dist
-
-      # Plain copy of the built site so the E2E gate exercises the exact
-      # artifact that will be deployed, without rebuilding.
-      - name: Upload dist for E2E
-        uses: actions/upload-artifact@v7
-        with:
-          name: dist
-          path: dist/
-          retention-days: 1
-
-  e2e:
-    name: E2E Tests
-    needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-
-    strategy:
-      fail-fast: false
-      matrix:
-        project: [chromium, firefox, webkit]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright browser
-        run: npx playwright install --with-deps ${{ matrix.project }}
-
-      - name: Download build artifacts
+      # Reuse the exact dist the E2E gate exercised, repackaged as a Pages
+      # artifact — no rebuild, so what ships is what was tested.
+      - name: Download build artifact
         uses: actions/download-artifact@v8
         with:
           name: dist
           path: dist/
 
-      - name: Run Playwright tests
-        run: npx playwright test --project=${{ matrix.project }}
+      - name: Setup Pages
+        uses: actions/configure-pages@v6
 
-      - name: Upload Playwright report
-        uses: actions/upload-artifact@v7
-        if: failure()
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
         with:
-          name: playwright-report-${{ matrix.project }}
-          path: |
-            playwright-report/
-            test-results/
-          retention-days: 30
+          path: dist
 
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: [build, e2e]
+    needs: build-pages
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
