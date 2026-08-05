@@ -7,7 +7,7 @@ interface UsePageHeadOptions {
   title: string;
   description: string;
   ogType?: string;
-  schema?: Record<string, unknown> | null;
+  schema?: object | null;
   includeImage?: boolean;
   noIndex?: boolean;
 }

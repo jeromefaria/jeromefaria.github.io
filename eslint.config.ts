@@ -65,6 +65,13 @@ export default [
       // Object shorthand
       'object-shorthand': ['error', 'always'],
 
+      // Modern JavaScript over legacy patterns
+      'eqeqeq': ['error', 'always'],
+      'prefer-object-spread': 'error',
+      'no-array-constructor': 'error',
+      'prefer-spread': 'error',
+      'prefer-rest-params': 'error',
+
       // Early returns
       'no-else-return': ['error', { allowElseIf: false }],
       'no-lonely-if': 'error',
@@ -160,6 +167,13 @@ export default [
 
       // Object shorthand
       'object-shorthand': ['error', 'always'],
+
+      // Modern JavaScript over legacy patterns
+      'eqeqeq': ['error', 'always'],
+      'prefer-object-spread': 'error',
+      'no-array-constructor': 'error',
+      'prefer-spread': 'error',
+      'prefer-rest-params': 'error',
 
       // Early returns
       'no-else-return': ['error', { allowElseIf: false }],
