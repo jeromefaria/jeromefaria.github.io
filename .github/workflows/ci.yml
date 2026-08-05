@@ -191,13 +191,58 @@ jobs:
           path: dist/
 
       - name: Run Playwright tests
-        run: npx playwright test --project=${{ matrix.project }}
+        run: npx playwright test --project=${{ matrix.project }} --grep-invert @visual
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: playwright-report-${{ matrix.project }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 30
+
+  # Visual-regression snapshots. Runs on pull requests only (skipped when this
+  # workflow is called by the deploy pipeline), so a pixel diff surfaces on the
+  # PR without ever blocking a deploy. Baselines live in e2e/*-snapshots/.
+  visual-tests:
+    name: Visual Regression
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'pull_request'
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist/
+
+      - name: Run visual snapshots
+        run: npx playwright test --grep @visual
+
+      - name: Upload visual diff report
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: visual-report
           path: |
             playwright-report/
             test-results/
