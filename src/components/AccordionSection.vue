@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, ref } from 'vue';
 
+import { provideAccordionExpanded } from '@/composables/useAccordionContext';
 import { ID_PREFIX, LAYOUT, TIMING } from '@/utils/constants';
 
 const props = withDefaults(defineProps<{
@@ -19,6 +20,10 @@ const isExpanded = computed({
   get: () => props.modelValue,
   set: value => emit('update:modelValue', value),
 });
+
+// Share expanded state so collapsed sections can defer loading heavy content.
+provideAccordionExpanded(isExpanded);
+
 const sectionRef = ref<HTMLElement | null>(null);
 const contentRef = ref<HTMLDivElement | null>(null);
 
