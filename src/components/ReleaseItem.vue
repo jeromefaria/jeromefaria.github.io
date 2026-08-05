@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import { useAccordionVisibility } from '@/composables/useAccordionContext';
 import { useImageLoader } from '@/composables/useImageLoader';
 import type { LightboxItem, Release } from '@/types';
 
@@ -35,6 +36,11 @@ const {
   handleImageError,
 } = useImageLoader(getCoverImage(props.release) ?? '');
 
+// Defer cover loading until the release's accordion section is first opened —
+// collapsed sections sit at zero height near the viewport, defeating native
+// lazy-loading.
+const coverVisible = useAccordionVisibility();
+
 // Computed properties with type guards for release properties
 const hasBandcampId = computed(() => 'bandcampId' in props.release && props.release.bandcampId);
 const hasExternalUrl = computed(() => 'externalUrl' in props.release && props.release.externalUrl);
@@ -60,7 +66,7 @@ const isBandcampLink = computed(() => {
   >
     <!-- Bandcamp Player -->
     <BandcampPlayer
-      v-if="hasBandcampId && hasCoverImage && 'bandcampId' in release && 'coverImage' in release"
+      v-if="coverVisible && hasBandcampId && hasCoverImage && 'bandcampId' in release && 'coverImage' in release"
       :album-id="release.bandcampId"
       :cover-image="release.coverImage"
       :album-title="release.title"
@@ -68,7 +74,7 @@ const isBandcampLink = computed(() => {
 
     <!-- External Link Cover -->
     <a
-      v-else-if="hasExternalUrl && hasCoverImage && !imageError && 'externalUrl' in release"
+      v-else-if="coverVisible && hasExternalUrl && hasCoverImage && !imageError && 'externalUrl' in release"
       :href="release.externalUrl"
       target="_blank"
       rel="noopener noreferrer"
@@ -97,7 +103,7 @@ const isBandcampLink = computed(() => {
 
     <!-- Static Cover (no link) -->
     <div
-      v-else-if="hasCoverImage && !imageError"
+      v-else-if="coverVisible && hasCoverImage && !imageError"
       class="release-cover release-cover--static"
     >
       <picture>
