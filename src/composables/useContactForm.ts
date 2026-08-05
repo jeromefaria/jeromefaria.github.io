@@ -99,9 +99,11 @@ export const useContactForm = (submitUrl: string): UseContactFormReturn => {
 
   const handleSubmit = async (event: Event): Promise<void> => {
     event.preventDefault();
-    isSubmitting.value = true;
 
-    const form = event.target as HTMLFormElement;
+    const form = event.target;
+    if (!(form instanceof HTMLFormElement)) return;
+
+    isSubmitting.value = true;
     const formDataToSend = new FormData(form);
 
     try {

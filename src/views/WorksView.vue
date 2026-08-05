@@ -23,10 +23,7 @@ const albumSchemas = soloSection
     })
     .map(release => {
       const datePublished = extractYear(release.meta ?? null);
-      const releaseWithDate = { ...release };
-      if (datePublished) {
-        Object.assign(releaseWithDate, { datePublished });
-      }
+      const releaseWithDate = { ...release, ...(datePublished ? { datePublished } : {}) };
       return createMusicAlbumSchema(
         releaseWithDate,
         siteConfig.author.name,

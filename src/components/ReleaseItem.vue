@@ -158,11 +158,12 @@ const isBandcampLink = computed(() => {
       >
         <button
           class="link-discrete"
-          @click="emit('open-lightbox', release.images.map(img => {
-            const lightboxImg = { type: 'image' as const, src: img.src, alt: img.alt };
-            if (img.photographer) Object.assign(lightboxImg, { photographer: img.photographer });
-            return lightboxImg;
-          }), 0)"
+          @click="emit('open-lightbox', release.images.map(img => ({
+            type: 'image' as const,
+            src: img.src,
+            alt: img.alt,
+            ...(img.photographer ? { photographer: img.photographer } : {}),
+          })), 0)"
         >
           View gallery
         </button>

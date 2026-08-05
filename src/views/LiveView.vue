@@ -53,7 +53,7 @@ const eventsSchema = computed(() =>
 usePageHead({
   title: 'Live',
   description: 'Live performance history of Jerome Faria from 2005 to present, including festivals, concerts, and collaborations.',
-  schema: eventsSchema.value as unknown as Record<string, unknown>,
+  schema: eventsSchema.value,
 });
 
 const findYearForEvent = (eventId: string): string | null =>
