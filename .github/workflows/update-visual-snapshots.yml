@@ -1,0 +1,40 @@
+name: Update Visual Snapshots
+
+# Manually dispatched to (re)generate the platform-specific visual-regression
+# baselines in the CI (Linux) environment. Download the resulting artifact and
+# commit it to e2e/. Run this whenever an intentional visual change lands.
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Regenerate visual baselines
+        run: npx playwright test --grep @visual --update-snapshots
+
+      - name: Upload baselines
+        uses: actions/upload-artifact@v7
+        with:
+          name: visual-snapshots
+          path: e2e/**/*-snapshots/**
+          retention-days: 1
