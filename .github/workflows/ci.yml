@@ -90,35 +90,30 @@ jobs:
 
       - name: Check bundle size
         run: |
-          echo "📦 Checking bundle sizes..."
+          echo "📦 Checking bundle sizes (per-file, uncompressed)..."
+          over_budget=0
 
-          # Find all JS files and check sizes
-          for file in dist/assets/*.js; do
-            if [ -f "$file" ]; then
-              size=$(wc -c < "$file")
-              size_kb=$((size / 1024))
-              echo "  $(basename "$file"): ${size_kb}KB"
-
-              # Warn if any JS file exceeds 200KB (uncompressed)
-              if [ $size_kb -gt 200 ]; then
-                echo "⚠️  Warning: $(basename "$file") exceeds 200KB uncompressed"
+          check() {
+            local pattern="$1" limit_kb="$2"
+            for file in $pattern; do
+              [ -f "$file" ] || continue
+              local size_kb=$(( $(wc -c < "$file") / 1024 ))
+              echo "  $(basename "$file"): ${size_kb}KB (budget ${limit_kb}KB)"
+              if [ "$size_kb" -gt "$limit_kb" ]; then
+                echo "❌ $(basename "$file") exceeds ${limit_kb}KB uncompressed"
+                over_budget=1
               fi
-            fi
-          done
+            done
+          }
 
-          # Find all CSS files and check sizes
-          for file in dist/assets/*.css; do
-            if [ -f "$file" ]; then
-              size=$(wc -c < "$file")
-              size_kb=$((size / 1024))
-              echo "  $(basename "$file"): ${size_kb}KB"
+          check 'dist/assets/*.js' 200
+          check 'dist/assets/*.css' 50
 
-              # Warn if any CSS file exceeds 50KB (uncompressed)
-              if [ $size_kb -gt 50 ]; then
-                echo "⚠️  Warning: $(basename "$file") exceeds 50KB uncompressed"
-              fi
-            fi
-          done
+          if [ "$over_budget" -ne 0 ]; then
+            echo "Bundle size budget exceeded."
+            exit 1
+          fi
+          echo "✅ All bundles within budget."
 
   lighthouse:
     name: Lighthouse
@@ -145,9 +140,12 @@ jobs:
           name: dist
           path: dist/
 
+      # Assertions are enforced (no continue-on-error): the deterministic quality
+      # gates (accessibility, best-practices, no console errors, JS/CSS resource
+      # sizes, text compression) block CI. Performance timings and content-driven
+      # image weight are advisory (warn) in .lighthouserc.json.
       - name: Run Lighthouse CI
         run: npm run lighthouse
-        continue-on-error: true
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
