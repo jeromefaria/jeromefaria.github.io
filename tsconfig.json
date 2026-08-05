@@ -50,8 +50,7 @@
     "node_modules",
     "dist",
     "**/*.test.ts",
-    "**/*.cy.ts",
-    "cypress",
+    "e2e",
     "src/test-setup.ts"
   ]
 }

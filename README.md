@@ -11,7 +11,7 @@ Vue 3 + TypeScript portfolio website for [www.jeromefaria.com](https://www.jerom
 - **Frontend**: Vue 3 (Composition API), TypeScript (strict mode)
 - **Build**: Vite with SSG (Static Site Generation)
 - **Styling**: SCSS with BEM methodology
-- **Testing**: Vitest (unit — ~95% coverage across the whole `src` tree), Cypress E2E, axe-core accessibility
+- **Testing**: Vitest (unit — ~95% coverage across the whole `src` tree), Playwright E2E (Chromium, Firefox, WebKit), axe-core accessibility
 - **CI/CD**: GitHub Actions with quality gates
 - **Performance**: Lighthouse CI with performance budgets
 
@@ -53,22 +53,22 @@ npm run test:ui
 npm run test:coverage
 ```
 
-**Coverage**: The whole `src` tree is instrumented (`all: true`), so the reported percentage reflects the entire codebase rather than only the files a test imports. The logic layer (composables, utils) is ~100% covered; the view and component tests assert behaviour (hash-driven accordion opening, link processing, focus trapping, image load/error fallbacks) rather than render counts, and UI paths are also exercised by the Cypress E2E suite. CI enforces a regression **floor** (`scripts/check-coverage.js`) that ratchets upward as coverage climbs. Current coverage is ~98% lines / 96% statements / 93% functions / 87% branches, with the floor set just below at Lines 96%, Statements 95%, Functions 91%, Branches 85%.
+**Coverage**: The whole `src` tree is instrumented (`all: true`), so the reported percentage reflects the entire codebase rather than only the files a test imports. The logic layer (composables, utils) is ~100% covered; the view and component tests assert behaviour (hash-driven accordion opening, link processing, focus trapping, image load/error fallbacks) rather than render counts, and UI paths are also exercised by the Playwright E2E suite. CI enforces a regression **floor** (`scripts/check-coverage.js`) that ratchets upward as coverage climbs. Current coverage is ~98% lines / 96% statements / 93% functions / 87% branches, with the floor set just below at Lines 96%, Statements 95%, Functions 91%, Branches 85%.
 
 ### E2E Tests
 
 ```bash
-# Run E2E tests (defaults to Electron, headless)
+# Build, then run the E2E suite across all browsers (Chromium, Firefox, WebKit)
 npm run test:e2e
 
-# Run against Chrome
-npm run test:e2e:chrome
+# Run a single engine
+npx playwright test --project=webkit
 
-# Run against Firefox
-npm run test:e2e:firefox
+# Open the Playwright UI runner
+npm run test:e2e:ui
 
-# Open the Cypress runner
-npm run test:e2e:open
+# Open the last HTML report
+npm run test:e2e:report
 ```
 
 **E2E Test Coverage**:
@@ -114,7 +114,7 @@ npm run build
 # 3. Performance Audit
 npm run lighthouse
 
-# 4. E2E Tests (Cypress installs its own browser binary on first run)
+# 4. E2E Tests (first run: npx playwright install --with-deps)
 npm run test:e2e
 ```
 
@@ -156,11 +156,11 @@ Every push to `master` and pull request triggers a comprehensive CI pipeline wit
 - Performance budget enforcement
 
 ### E2E Tests
-- Cross-browser testing (Chrome, Firefox, Edge)
-- Accessibility testing with axe-core
+- Cross-browser testing across all three engines (Chromium, Firefox, WebKit)
+- Accessibility testing with axe-core (`@axe-core/playwright`)
 - Specs: `accessibility`, `accordion`, `contact-form`, `lightbox`, `navigation`
 
-**Quality Gates**: All four CI jobs (Quality Checks, Build, Lighthouse, E2E) must pass for the CI workflow to be green. Deployment runs on its own workflow and gates on type-check, lint, unit tests with coverage, the production build, and the cross-browser E2E suite (Chrome, Firefox, Edge) run against the exact artifact to be deployed.
+**Quality Gates**: All four CI jobs (Quality Checks, Build, Lighthouse, E2E) must pass for the CI workflow to be green. Deployment runs on its own workflow and gates on type-check, lint, unit tests with coverage, the production build, and the cross-browser E2E suite (Chromium, Firefox, WebKit) run against the exact artifact to be deployed.
 
 ## Deployment
 
