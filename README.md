@@ -160,11 +160,11 @@ Every push to `master` and pull request triggers a comprehensive CI pipeline wit
 - Accessibility testing with axe-core
 - Specs: `accessibility`, `accordion`, `contact-form`, `lightbox`, `navigation`
 
-**Quality Gates**: All four CI jobs (Quality Checks, Build, Lighthouse, E2E) must pass for the CI workflow to be green. Deployment runs on its own workflow and gates on type-check, lint, unit tests with coverage, and the production build.
+**Quality Gates**: All four CI jobs (Quality Checks, Build, Lighthouse, E2E) must pass for the CI workflow to be green. Deployment runs on its own workflow and gates on type-check, lint, unit tests with coverage, the production build, and the cross-browser E2E suite (Chrome, Firefox, Edge) run against the exact artifact to be deployed.
 
 ## Deployment
 
-The site deploys to GitHub Pages via GitHub Actions on push to `master` once the deploy workflow's pre-deploy checks and build succeed.
+The site deploys to GitHub Pages via GitHub Actions on push to `master` once the deploy workflow's pre-deploy checks, production build, and cross-browser E2E gate succeed.
 
 ## License
 
