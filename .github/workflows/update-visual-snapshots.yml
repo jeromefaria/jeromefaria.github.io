@@ -5,8 +5,6 @@ name: Update Visual Snapshots
 # commit it to e2e/. Run this whenever an intentional visual change lands.
 on:
   workflow_dispatch:
-  push:
-    branches: [test/visual-regression]
 
 jobs:
   update:
