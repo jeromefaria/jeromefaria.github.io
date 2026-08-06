@@ -70,11 +70,15 @@ describe('SiteHeader', () => {
     expect(wrapper.get('nav').attributes('id')).toBe('primary-nav');
   });
 
-  it('moves focus into the menu when opened', async () => {
+  it('moves focus to the menu container (not an interactive link) when opened', async () => {
     const { wrapper } = await mountHeader();
     await wrapper.get('.nav-toggle').trigger('click');
     await wrapper.vm.$nextTick();
-    expect(document.activeElement).toBe(wrapper.get('.nav__link').element);
+    // Focusing the tabindex="-1" container lands keyboard/AT users in the nav
+    // region without giving a link a focus ring on a touch-opened menu.
+    const nav = wrapper.get('#primary-nav');
+    expect(nav.attributes('tabindex')).toBe('-1');
+    expect(document.activeElement).toBe(nav.element);
   });
 
   it('closes on Escape and returns focus to the toggle', async () => {
