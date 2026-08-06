@@ -20,7 +20,10 @@
     "lighthouse": "lhci autorun",
     "fonts:subset": "node scripts/subset-fonts.mjs",
     "test:e2e:visual": "playwright test --grep @visual",
-    "test:e2e:visual:update": "playwright test --grep @visual --update-snapshots"
+    "test:e2e:visual:update": "playwright test --grep @visual --update-snapshots",
+    "prebuild": "node scripts/generate-responsive-images.mjs",
+    "predev": "node scripts/generate-responsive-images.mjs",
+    "images:responsive": "node scripts/generate-responsive-images.mjs"
   },
   "repository": {
     "type": "git",
@@ -60,7 +63,7 @@
     "happy-dom": "^20.0.11",
     "jiti": "^2.6.1",
     "sass": "^1.94.2",
-    "sharp": "^0.35.0",
+    "sharp": "^0.35.3",
     "subset-font": "^2.5.0",
     "typescript": "^5.9.3",
     "vite": "^8.2.0",
