@@ -4,6 +4,7 @@ import { computed } from 'vue';
 import { useAccordionVisibility } from '@/composables/useAccordionContext';
 import { useImageLoader } from '@/composables/useImageLoader';
 import type { LightboxItem, Release } from '@/types';
+import { responsiveSrcset } from '@/utils/responsiveImage';
 
 import BandcampPlayer from './BandcampPlayer.vue';
 
@@ -40,6 +41,13 @@ const {
 // collapsed sections sit at zero height near the viewport, defeating native
 // lazy-loading.
 const coverVisible = useAccordionVisibility();
+
+// Responsive WebP srcset for the cover (displayed ~200px), falling back to the
+// full-resolution source when no variants exist.
+const coverSrcset = computed(() => {
+  const cover = getCoverImage(props.release);
+  return cover ? responsiveSrcset(cover) : null;
+});
 
 // Computed properties with type guards for release properties
 const hasBandcampId = computed(() => 'bandcampId' in props.release && props.release.bandcampId);
@@ -83,6 +91,12 @@ const isBandcampLink = computed(() => {
     >
       <picture>
         <source
+          v-if="coverSrcset"
+          :srcset="coverSrcset"
+          sizes="(min-width: 768px) 200px, 90vw"
+          type="image/webp"
+        >
+        <source
           :srcset="webpSrc"
           type="image/webp"
         >
@@ -107,6 +121,12 @@ const isBandcampLink = computed(() => {
       class="release-cover release-cover--static"
     >
       <picture>
+        <source
+          v-if="coverSrcset"
+          :srcset="coverSrcset"
+          sizes="(min-width: 768px) 200px, 90vw"
+          type="image/webp"
+        >
         <source
           :srcset="webpSrc"
           type="image/webp"

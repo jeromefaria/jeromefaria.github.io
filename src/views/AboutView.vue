@@ -7,6 +7,7 @@ import { usePageHead } from '@/composables/usePageHead';
 import { aboutSections } from '@/data/about';
 import type { AboutImage, LightboxImage } from '@/types';
 import { getImageStyles } from '@/utils/imageStyles';
+import { responsiveSrcset } from '@/utils/responsiveImage';
 
 usePageHead({
   title: 'About',
@@ -91,6 +92,12 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
             @click="openLightbox(allImages, getGlobalIndex(sectionIndex, imageIndex))"
           >
             <picture>
+              <source
+                v-if="responsiveSrcset(image.src)"
+                :srcset="responsiveSrcset(image.src) ?? undefined"
+                sizes="(min-width: 768px) 45vw, 48vw"
+                type="image/webp"
+              >
               <source
                 :srcset="image.src.replace('.jpg', '.webp')"
                 type="image/webp"
