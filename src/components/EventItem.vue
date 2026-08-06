@@ -5,6 +5,8 @@ import type { LightboxItem, LiveEvent, LiveImage, LiveVideo } from '@/types';
 import { formatEventDate } from '@/utils/dateFormatter';
 import { stripHtml } from '@/utils/formatters';
 
+import IconArrow from './IconArrow.vue';
+
 const props = defineProps<{
   event: LiveEvent;
 }>();
@@ -79,13 +81,13 @@ const convertVideosToLightbox = (videos: LiveVideo[]): LightboxItem[] => {
             target="_blank"
             rel="noopener noreferrer"
             :aria-label="`${titleText} website (opens in a new tab)`"
-          ><span aria-hidden="true">↗</span></a>
+          ><IconArrow direction="up-right" /></a>
           <RouterLink
             v-else-if="titleHref"
             class="event-title-ref"
             :to="titleHref"
             :aria-label="`View ${titleText}`"
-          ><span aria-hidden="true">↗</span></RouterLink>
+          ><IconArrow direction="up-right" /></RouterLink>
         </strong>
       </p>
       <p class="event-meta">
