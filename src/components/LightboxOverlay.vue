@@ -4,6 +4,8 @@ import { computed, nextTick, onMounted, ref } from 'vue';
 import type { LightboxItem } from '@/types';
 import { isLightboxImage, isLightboxVideo } from '@/types';
 
+import IconArrow from './IconArrow.vue';
+
 const props = defineProps<{
   isOpen: boolean;
   currentItem: LightboxItem | null;
@@ -134,7 +136,7 @@ onMounted(async () => {
           aria-label="Previous image"
           @click.stop="handlePrev"
         >
-          ←
+          <IconArrow direction="left" />
         </button>
         <button
           class="lightbox__hint lightbox__hint--close"
@@ -149,7 +151,7 @@ onMounted(async () => {
           aria-label="Next item"
           @click.stop="handleNext"
         >
-          →
+          <IconArrow direction="right" />
         </button>
       </div>
 
