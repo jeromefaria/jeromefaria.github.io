@@ -72,7 +72,9 @@ const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, g
       class="page"
       data-page="live"
     >
-      <h1 class="visually-hidden">Live</h1>
+      <h1 class="visually-hidden">
+        Live
+      </h1>
       <AccordionSection
         v-for="year in liveYears"
         :id="year"
