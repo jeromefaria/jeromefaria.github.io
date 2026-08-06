@@ -1,26 +1,26 @@
-// Self-hosted Iosevka Aile, subset to the glyphs the site uses.
+// Self-hosted Inter, subset to the glyphs the site uses.
 // Regenerate with `node scripts/subset-fonts.mjs` (see public/fonts/).
 
 @font-face {
-  font-family: 'Iosevka Aile';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/iosevka-aile-400.woff2') format('woff2');
+  src: url('/fonts/inter-400.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Iosevka Aile';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('/fonts/iosevka-aile-500.woff2') format('woff2');
+  src: url('/fonts/inter-500.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Iosevka Aile';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('/fonts/iosevka-aile-600.woff2') format('woff2');
+  src: url('/fonts/inter-600.woff2') format('woff2');
 }

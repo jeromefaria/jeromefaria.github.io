@@ -1,8 +1,8 @@
 /**
- * Subsets the Iosevka Aile weights down to the glyphs this site actually uses
- * and writes self-hosted woff2 files to public/fonts/. Re-run whenever the
- * content introduces characters outside Basic Latin + Latin-1 (the script
- * reports any used character that the source font can't provide).
+ * Subsets the Inter weights down to the glyphs this site actually uses and
+ * writes self-hosted woff2 files to public/fonts/. Re-run whenever the content
+ * introduces characters outside Basic Latin + Latin-1 (the script reports any
+ * used character that the source font can't provide).
  *
  * Usage: node scripts/subset-fonts.mjs
  */
@@ -14,9 +14,9 @@ import { fileURLToPath } from 'node:url';
 import subsetFont from 'subset-font';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const FONT_DIR = join(root, 'node_modules/@fontsource/iosevka-aile/files');
+const FONT_DIR = join(root, 'node_modules/@fontsource/inter/files');
 const OUT_DIR = join(root, 'public/fonts');
-const WEIGHTS = { 400: 'iosevka-aile-latin-400-normal.woff2', 500: 'iosevka-aile-latin-500-normal.woff2', 600: 'iosevka-aile-latin-600-normal.woff2' };
+const WEIGHTS = { 400: 'inter-latin-400-normal.woff2', 500: 'inter-latin-500-normal.woff2', 600: 'inter-latin-600-normal.woff2' };
 
 // 1. Collect every character the shipped content and templates use.
 const collectChars = () => {
@@ -61,7 +61,7 @@ mkdirSync(OUT_DIR, { recursive: true });
 for (const [weight, file] of Object.entries(WEIGHTS)) {
   const buffer = readFileSync(join(FONT_DIR, file));
   const subset = await subsetFont(buffer, text, { targetFormat: 'woff2' });
-  writeFileSync(join(OUT_DIR, `iosevka-aile-${weight}.woff2`), subset);
+  writeFileSync(join(OUT_DIR, `inter-${weight}.woff2`), subset);
   console.log(`  ${weight}: ${(buffer.length / 1024).toFixed(0)}KB → ${(subset.length / 1024).toFixed(1)}KB`);
 }
 console.log('✅ Subsetted fonts written to public/fonts/');
