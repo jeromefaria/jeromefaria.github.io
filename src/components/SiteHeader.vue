@@ -21,9 +21,12 @@ const closeNav = () => {
 
 const openNav = () => {
   navOpen.value = true;
-  // Move focus into the menu once it's rendered so keyboard users land in it.
+  // Move focus to the menu container (not the first link) once it's rendered,
+  // so keyboard and screen-reader users land in the labelled nav region. The
+  // container is tabindex="-1" and non-interactive, so — unlike focusing a
+  // link — this never paints a focus ring when the menu is opened by touch.
   void nextTick(() => {
-    navMenu.value?.querySelector<HTMLElement>('.nav__link')?.focus();
+    navMenu.value?.focus();
   });
 };
 
@@ -95,6 +98,7 @@ watch(() => route.path, () => {
         class="nav"
         :class="{ 'nav--open': navOpen, 'nav--closing': navClosing }"
         aria-label="Main navigation"
+        tabindex="-1"
         @keydown="handleNavKeydown"
       >
         <div class="nav__inner">

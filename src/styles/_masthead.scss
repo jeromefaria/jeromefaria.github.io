@@ -79,6 +79,13 @@
   width: 100%;
   border-top: 1px solid var(--color-border-subtle);
 
+  // The menu container is focused programmatically on open (tabindex="-1") to
+  // move keyboard/AT users into the region; it is never a Tab stop itself, so
+  // it must not show a focus ring.
+  &:focus {
+    outline: none;
+  }
+
   @include respond-to(md) {
     display: flex;
     width: auto;
