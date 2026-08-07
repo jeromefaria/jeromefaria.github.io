@@ -32,7 +32,9 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
       class="page"
       data-page="contact"
     >
-      <h1 class="visually-hidden">Contact</h1>
+      <h1 class="visually-hidden">
+        Contact
+      </h1>
       <!-- Introduction -->
       <div
         v-show="!showSuccess"

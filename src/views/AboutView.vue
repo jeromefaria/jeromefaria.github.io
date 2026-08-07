@@ -61,7 +61,9 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
       class="page"
       data-page="about"
     >
-      <h1 class="visually-hidden">About</h1>
+      <h1 class="visually-hidden">
+        About
+      </h1>
       <template
         v-for="(section, sectionIndex) in aboutSections"
         :key="section.id"
