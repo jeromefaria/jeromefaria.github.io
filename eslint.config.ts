@@ -168,4 +168,13 @@ export default [
     plugins: sharedPlugins,
     rules: typeAwareRules,
   },
+  {
+    // vue/one-component-per-file (from flat/recommended, which also lints .ts)
+    // guards source SFCs. Tests legitimately define several throwaway
+    // components to exercise composables, so scope it off for them.
+    files: ['**/*.test.ts', '**/*.test.tsx'],
+    rules: {
+      'vue/one-component-per-file': 'off',
+    },
+  },
 ];

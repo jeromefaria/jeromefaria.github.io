@@ -108,31 +108,21 @@ describe('useImageLoader', () => {
 
   describe('onMounted — already-complete image', () => {
     it('sets imageLoaded true if image is already complete with natural height', async () => {
-      let loader: ReturnType<typeof useImageLoader>;
-
-      const TestComponent = defineComponent({
-        setup() {
-          loader = useImageLoader(TEST_SRC_JPG);
-          return loader;
-        },
-        template: '<img ref="imageRef" />',
-      });
-
-      const wrapper = mount(TestComponent, { attachTo: document.body });
+      const { loader, wrapper } = mountWithLoader(TEST_SRC_JPG);
 
       // Simulate an already-loaded image
       const img = wrapper.find('img').element as HTMLImageElement;
       Object.defineProperty(img, 'complete', { value: true, configurable: true });
       Object.defineProperty(img, 'naturalHeight', { value: 100, configurable: true });
-      loader!.imageRef.value = img;
+      loader.imageRef.value = img;
 
       // Re-trigger mounted logic via nextTick
       await nextTick();
       await nextTick();
 
       // The onMounted ran before we set the mock, so this tests the handler path
-      loader!.handleImageLoad();
-      expect(loader!.imageLoaded.value).toBe(true);
+      loader.handleImageLoad();
+      expect(loader.imageLoaded.value).toBe(true);
     });
 
     it('does not set imageLoaded if image complete but naturalHeight is 0 (broken image)', async () => {

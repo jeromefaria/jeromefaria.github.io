@@ -1,4 +1,3 @@
-/* eslint-disable vue/one-component-per-file -- test needs a provider parent + injecting child */
 import { mount } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
 import { defineComponent, nextTick, type Ref, ref } from 'vue';
