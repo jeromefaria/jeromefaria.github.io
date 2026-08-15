@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
+import { nextTick } from 'vue';
 import { createMemoryHistory, createRouter } from 'vue-router';
 
 import { navigation, siteConfig } from '@/data/navigation';
@@ -90,6 +91,41 @@ describe('SiteHeader', () => {
 
     expect(wrapper.find('.nav--open').exists()).toBe(false);
     expect(document.activeElement).toBe(wrapper.get('.nav-toggle').element);
+  });
+
+  it('closes when a pointer interaction happens outside the menu', async () => {
+    const { wrapper } = await mountHeader();
+    await wrapper.get('.nav-toggle').trigger('click');
+    await nextTick();  // the outside-pointer listener binds on the next tick
+    expect(wrapper.find('.nav--open').exists()).toBe(true);
+
+    document.body.dispatchEvent(new Event('pointerdown', { bubbles: true }));
+    await nextTick();
+
+    expect(wrapper.find('.nav--open').exists()).toBe(false);
+  });
+
+  it('stays open on a pointer interaction inside the menu', async () => {
+    const { wrapper } = await mountHeader();
+    await wrapper.get('.nav-toggle').trigger('click');
+    await nextTick();
+
+    wrapper.get('.nav__link').element.dispatchEvent(new Event('pointerdown', { bubbles: true }));
+    await nextTick();
+
+    expect(wrapper.find('.nav--open').exists()).toBe(true);
+  });
+
+  it('closes when the page is scrolled', async () => {
+    const { wrapper } = await mountHeader();
+    await wrapper.get('.nav-toggle').trigger('click');
+    await nextTick();
+    expect(wrapper.find('.nav--open').exists()).toBe(true);
+
+    window.dispatchEvent(new Event('scroll'));
+    await nextTick();
+
+    expect(wrapper.find('.nav--open').exists()).toBe(false);
   });
 
   it('renders the site title as branding, not a page heading', async () => {
