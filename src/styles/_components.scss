@@ -607,15 +607,45 @@
     border: none;
   }
 
+  // Bottom control cluster. On mobile it is one safe-area-padded column, so the
+  // counter, credit and navigation clear the home-indicator gesture zone and get
+  // consistent breathing room. On desktop it dissolves (display: contents) and
+  // the counter/credit return to the corner while the hints stay centred.
+  &__controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-2;
+    padding-bottom: calc(#{$spacing-4} + env(safe-area-inset-bottom, 0px));
+    pointer-events: none;  // clicks fall through to the backdrop; children opt in
+
+    @include respond-to(md) {
+      display: contents;
+    }
+  }
+
   &__hints {
     display: flex;
-    position: absolute;
-    bottom: 1vh;  // Slight offset from bottom edge
-    left: 50%;
-    transform: translateX(-50%);
-    gap: 0;
-    z-index: 10000;
     align-items: center;
+    gap: $spacing-2;  // separate the prev / close / next controls
+    // The 44px tap targets centre a ~16px icon, adding ~14px of dead space above
+    // the arrows; pull the row up so the visual gap matches the text lines above.
+    margin-top: -$spacing-3;
+    z-index: 10000;
+    pointer-events: auto;
+
+    @include respond-to(md) {
+      position: absolute;
+      bottom: 1vh;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 0;
+    }
   }
 
   &__hint {
@@ -670,47 +700,38 @@
     }
   }
 
-  // Position counter — pinned one line above the credit so it lands in the same
-  // spot for photos and videos, independent of whether a credit is shown.
+  // Counter and credit. Plain flex items in the mobile controls column; on
+  // desktop they lift out to the bottom-right corner (counter above credit).
   &__counter {
-    position: absolute;
-    bottom: 7vh;  // One line above the credit on mobile
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10000;
     margin: 0;
     font-size: $font-size-sm;
     color: var(--text-overlay-muted);
     font-variant-numeric: tabular-nums;
     text-align: center;
+    z-index: 10000;
     pointer-events: none;
 
     @include respond-to(md) {
-      bottom: 4vh;  // Above the credit in the bottom-right corner
-      left: auto;
+      position: absolute;
+      bottom: 4vh;
       right: $spacing-8;
-      transform: none;
       text-align: right;
       font-size: $font-size-xs;
     }
   }
 
   &__credit {
-    position: absolute;
-    bottom: 4vh;  // Above navigation hints on mobile
-    left: 50%;
-    transform: translateX(-50%);
+    margin: 0;
     font-size: $font-size-sm;
     color: var(--text-overlay-muted);
+    text-align: center;
     z-index: 10000;
     pointer-events: auto;
-    text-align: center;
 
     @include respond-to(md) {
-      bottom: 1vh;  // Bottom corner on desktop
-      left: auto;
+      position: absolute;
+      bottom: 1vh;
       right: $spacing-8;
-      transform: none;
       text-align: right;
       font-size: $font-size-xs;
     }
