@@ -133,55 +133,59 @@ onMounted(async () => {
         >
       </picture>
 
-      <!-- Navigation hints as buttons -->
-      <div class="lightbox__hints">
-        <button
-          class="lightbox__hint lightbox__hint--prev"
-          :disabled="currentIndex === 0"
-          aria-label="Previous image"
-          @click.stop="handlePrev"
+      <!-- Bottom controls — counter, credit and navigation. On mobile they stack
+           in one safe-area-padded column clear of the home-indicator gesture zone;
+           on desktop the counter/credit move to the corner (see styles). -->
+      <div class="lightbox__controls">
+        <!-- Position counter — same spot for photos and videos -->
+        <p
+          v-if="totalItems > 1"
+          class="lightbox__counter"
+          aria-hidden="true"
         >
-          <IconArrow direction="left" />
-        </button>
-        <button
-          class="lightbox__hint lightbox__hint--close"
-          aria-label="Close lightbox"
-          @click.stop="handleClose"
-        >
-          ×
-        </button>
-        <button
-          class="lightbox__hint lightbox__hint--next"
-          :disabled="currentIndex >= totalItems - 1"
-          aria-label="Next item"
-          @click.stop="handleNext"
-        >
-          <IconArrow direction="right" />
-        </button>
-      </div>
+          {{ currentIndex + 1 }} / {{ totalItems }}
+        </p>
 
-      <!-- Position counter — pinned above the credit line, so photos and videos
-           share the same spot regardless of whether a credit is present -->
-      <p
-        v-if="totalItems > 1"
-        class="lightbox__counter"
-        aria-hidden="true"
-      >
-        {{ currentIndex + 1 }} / {{ totalItems }}
-      </p>
+        <!-- Credit — photographer or video author -->
+        <div
+          v-if="credit"
+          class="lightbox__credit"
+        >
+          {{ credit.prefix }} <a
+            v-if="credit.url"
+            :href="credit.url"
+            target="_blank"
+            rel="noopener noreferrer"
+          >{{ credit.name }}<span class="visually-hidden"> (opens in a new tab)</span></a>
+          <span v-else>{{ credit.name }}</span>
+        </div>
 
-      <!-- Credit — photographer or video author — on its own line below the counter -->
-      <div
-        v-if="credit"
-        class="lightbox__credit"
-      >
-        {{ credit.prefix }} <a
-          v-if="credit.url"
-          :href="credit.url"
-          target="_blank"
-          rel="noopener noreferrer"
-        >{{ credit.name }}<span class="visually-hidden"> (opens in a new tab)</span></a>
-        <span v-else>{{ credit.name }}</span>
+        <!-- Navigation hints as buttons -->
+        <div class="lightbox__hints">
+          <button
+            class="lightbox__hint lightbox__hint--prev"
+            :disabled="currentIndex === 0"
+            aria-label="Previous image"
+            @click.stop="handlePrev"
+          >
+            <IconArrow direction="left" />
+          </button>
+          <button
+            class="lightbox__hint lightbox__hint--close"
+            aria-label="Close lightbox"
+            @click.stop="handleClose"
+          >
+            ×
+          </button>
+          <button
+            class="lightbox__hint lightbox__hint--next"
+            :disabled="currentIndex >= totalItems - 1"
+            aria-label="Next item"
+            @click.stop="handleNext"
+          >
+            <IconArrow direction="right" />
+          </button>
+        </div>
       </div>
     </div>
   </Transition>
