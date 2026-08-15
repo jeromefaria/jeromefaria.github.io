@@ -1,5 +1,7 @@
 // Lightbox types with discriminated unions for Image and Video
 
+// A credited contributor (name + optional link). Shared by photo credits
+// (photographer) and video credits (author).
 export interface Photographer {
   name: string;
   url?: string;
@@ -20,6 +22,7 @@ export interface LightboxVideo {
   url: string;
   title: string;
   platform: 'youtube' | 'vimeo';
+  author?: Photographer;
 }
 
 export type LightboxItem = LightboxImage | LightboxVideo;
