@@ -174,6 +174,14 @@ export const worksData: WorksData = {
         meta: 'Digital/Cassette — <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#035, 2024',
         tracklist: ['A', 'L', 'T', 'A', 'R'],
         credits: 'Music by Pedro Roque and Jerome Faria. Artwork by <a href="https://www.instagram.com/mafaldappm/">Mafalda Melim</a>.',
+        videos: [
+          {
+            url: 'https://www.youtube-nocookie.com/embed/3b3pM8URdVc',
+            platform: 'youtube',
+            title: 'NOx - ALTAR',
+            author: { name: 'NOx', url: 'https://www.youtube.com/@noxexposure' },
+          },
+        ],
       },
       {
         id: 'depolarized',
