@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue';
+import { nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
 import { navigation, siteConfig } from '@/data/navigation';
@@ -43,6 +43,37 @@ const handleNavKeydown = (event: KeyboardEvent) => {
 
 watch(() => route.path, () => {
   if (navOpen.value) closeNav();
+});
+
+// While the menu is open, a tap outside it or any scroll signals the visitor is
+// done with it — dismiss it (Escape and link-select are handled above).
+const handleOutsidePointer = (event: PointerEvent) => {
+  const target = event.target as Node | null;
+  if (target && !navMenu.value?.contains(target) && !navToggle.value?.contains(target)) {
+    closeNav();
+  }
+};
+
+const handleScroll = () => {
+  if (navOpen.value) closeNav();
+};
+
+watch(navOpen, open => {
+  if (!open) {
+    document.removeEventListener('pointerdown', handleOutsidePointer);
+    window.removeEventListener('scroll', handleScroll);
+    return;
+  }
+  // Bind on the next tick so the tap that opened the menu doesn't close it.
+  void nextTick(() => {
+    document.addEventListener('pointerdown', handleOutsidePointer);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  });
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('pointerdown', handleOutsidePointer);
+  window.removeEventListener('scroll', handleScroll);
 });
 </script>
 
