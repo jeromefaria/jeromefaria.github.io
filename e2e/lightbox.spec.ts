@@ -9,7 +9,9 @@ const LIGHTBOX_IMAGE_SELECTOR = '.lightbox__image';
 const LIGHTBOX_CREDIT_SELECTOR = '.lightbox__credit';
 const ACCORDION_SECTION_SELECTOR = '.accordion-section';
 const ACCORDION_TRIGGER_SELECTOR = '.accordion-trigger';
-const GALLERY_BUTTON_SELECTOR = '.link-discrete';
+// Works entries share `.link-discrete` between "View gallery" (images) and the
+// "View video" control; scope to the gallery so the lightbox opens photos.
+const GALLERY_BUTTON_SELECTOR = '.link-discrete:has-text("View gallery")';
 // A gallery button is only actionable while its own accordion section is open —
 // collapsed sections are `inert`. Scope every interaction to a visible one.
 const VISIBLE_GALLERY_BUTTON = `${GALLERY_BUTTON_SELECTOR}:visible`;
