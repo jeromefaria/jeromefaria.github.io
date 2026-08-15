@@ -15,6 +15,7 @@ export interface LiveVideo {
   url: string;
   title: string;
   platform: 'youtube' | 'vimeo';
+  author?: Photographer;
 }
 
 export interface EventVenue {

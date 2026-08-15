@@ -129,7 +129,29 @@ describe('LightboxOverlay', () => {
     });
   });
 
-  describe('photographer credit', () => {
+  describe('credit line', () => {
+    it('credits a video author as "Video by" with a safe new-tab link', () => {
+      const wrapper = mountOverlay({
+        currentItem: {
+          type: 'video',
+          url: 'https://player.example.com/v/9',
+          title: 'Set',
+          platform: 'vimeo',
+          author: { name: 'Hugo Olim', url: 'https://vimeo.com/hugoolim' },
+        },
+      });
+      const credit = wrapper.get('.lightbox__credit');
+      const link = credit.get('a');
+
+      expect(credit.text()).toContain('Video by');
+      expect(link.attributes('href')).toBe('https://vimeo.com/hugoolim');
+      expect(link.attributes('target')).toBe('_blank');
+      expect(link.attributes('rel')).toBe('noopener noreferrer');
+      expect(link.text()).toContain('Hugo Olim');
+
+      wrapper.unmount();
+    });
+
     it('links the photographer name as a safe new-tab link when a url is given', () => {
       const wrapper = mountOverlay({
         currentItem: { type: 'image', src: '/p.jpg', alt: 'P', photographer: { name: 'Ana Lens', url: 'https://ana.example.com' } },
@@ -166,6 +188,32 @@ describe('LightboxOverlay', () => {
       const videoOverlay = mountOverlay({ currentItem: video });
       expect(videoOverlay.find('.lightbox__credit').exists()).toBe(false);
       videoOverlay.unmount();
+    });
+  });
+
+  describe('position counter', () => {
+    it('hides the counter for a single item', () => {
+      const wrapper = mountOverlay();
+      expect(wrapper.find('.lightbox__counter').exists()).toBe(false);
+      wrapper.unmount();
+    });
+
+    it('shows a decorative "n / total" counter for multi-item sets', () => {
+      const wrapper = mountOverlay({ currentIndex: 1, totalItems: 3 });
+      const counter = wrapper.get('.lightbox__counter');
+
+      expect(counter.text()).toBe('2 / 3');
+      expect(counter.attributes('aria-hidden')).toBe('true');
+
+      wrapper.unmount();
+    });
+
+    it('reflects video position in the accessible name for multi-video sets', () => {
+      const wrapper = mountOverlay({ currentItem: video, currentIndex: 0, totalItems: 2 });
+
+      expect(wrapper.get('.lightbox').attributes('aria-label')).toBe('Video 1 of 2');
+
+      wrapper.unmount();
     });
   });
 });

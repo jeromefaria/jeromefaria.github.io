@@ -57,6 +57,7 @@ const convertVideosToLightbox = (videos: LiveVideo[]): LightboxItem[] => {
     url: vid.url,
     title: vid.title,
     platform: vid.platform,
+    ...(vid.author ? { author: vid.author } : {}),
   }));
 };
 </script>

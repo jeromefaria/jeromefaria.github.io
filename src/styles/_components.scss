@@ -670,6 +670,31 @@
     }
   }
 
+  // Position counter — pinned one line above the credit so it lands in the same
+  // spot for photos and videos, independent of whether a credit is shown.
+  &__counter {
+    position: absolute;
+    bottom: 7vh;  // One line above the credit on mobile
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    margin: 0;
+    font-size: $font-size-sm;
+    color: var(--text-overlay-muted);
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    pointer-events: none;
+
+    @include respond-to(md) {
+      bottom: 4vh;  // Above the credit in the bottom-right corner
+      left: auto;
+      right: $spacing-8;
+      transform: none;
+      text-align: right;
+      font-size: $font-size-xs;
+    }
+  }
+
   &__credit {
     position: absolute;
     bottom: 4vh;  // Above navigation hints on mobile

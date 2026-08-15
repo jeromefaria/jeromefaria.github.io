@@ -25,10 +25,15 @@ const emit = defineEmits<{
 const isVideo = computed(() => props.currentItem !== null && isLightboxVideo(props.currentItem));
 const isImage = computed(() => props.currentItem !== null && isLightboxImage(props.currentItem));
 
-// Computed photographer credit (if exists on current image)
-const photographer = computed(() => {
-  if (props.currentItem && isLightboxImage(props.currentItem)) {
-    return props.currentItem.photographer ?? null;
+// Credit for the current item: "Photo by" for an image's photographer,
+// "Video by" for a video's author. Null when the current item has neither.
+const credit = computed(() => {
+  const item = props.currentItem;
+  if (item && isLightboxImage(item) && item.photographer) {
+    return { prefix: 'Photo by', ...item.photographer };
+  }
+  if (item && isLightboxVideo(item) && item.author) {
+    return { prefix: 'Video by', ...item.author };
   }
   return null;
 });
@@ -41,9 +46,9 @@ const handleTouchEnd = (e: TouchEvent) => emit('touchend', e);
 
 // Accessible name for the dialog, reflecting current media/position
 const dialogLabel = computed(() => {
-  if (isVideo.value) return 'Video viewer';
-  if (props.totalItems > 1) return `Image ${props.currentIndex + 1} of ${props.totalItems}`;
-  return 'Image viewer';
+  const noun = isVideo.value ? 'Video' : 'Image';
+  if (props.totalItems > 1) return `${noun} ${props.currentIndex + 1} of ${props.totalItems}`;
+  return `${noun} viewer`;
 });
 
 // Focus management: move focus into the dialog on open and trap Tab within
@@ -155,18 +160,28 @@ onMounted(async () => {
         </button>
       </div>
 
-      <!-- Photographer credit -->
+      <!-- Position counter — pinned above the credit line, so photos and videos
+           share the same spot regardless of whether a credit is present -->
+      <p
+        v-if="totalItems > 1"
+        class="lightbox__counter"
+        aria-hidden="true"
+      >
+        {{ currentIndex + 1 }} / {{ totalItems }}
+      </p>
+
+      <!-- Credit — photographer or video author — on its own line below the counter -->
       <div
-        v-if="photographer"
+        v-if="credit"
         class="lightbox__credit"
       >
-        Photo by <a
-          v-if="photographer.url"
-          :href="photographer.url"
+        {{ credit.prefix }} <a
+          v-if="credit.url"
+          :href="credit.url"
           target="_blank"
           rel="noopener noreferrer"
-        >{{ photographer.name }}<span class="visually-hidden"> (opens in a new tab)</span></a>
-        <span v-else>{{ photographer.name }}</span>
+        >{{ credit.name }}<span class="visually-hidden"> (opens in a new tab)</span></a>
+        <span v-else>{{ credit.name }}</span>
       </div>
     </div>
   </Transition>

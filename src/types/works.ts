@@ -1,10 +1,13 @@
 // Works/Discography types
 
+import type { Photographer } from './lightbox';
+
 export interface BaseRelease {
   id: string;
   title: string;
   meta: string;
   credits?: string;
+  videos?: VideoItem[];
 }
 
 export interface BandcampRelease extends BaseRelease {
@@ -27,7 +30,6 @@ export interface FilmScore extends BaseRelease {
   description: string;
   credits: string;
   tracklist?: string[];
-  videos?: VideoItem[];
 }
 
 export interface PublicationRelease extends BaseRelease {
@@ -66,6 +68,7 @@ export interface VideoItem {
   url: string;
   title: string;
   platform: 'youtube' | 'vimeo';
+  author?: Photographer;
 }
 
 export interface Image {

@@ -58,6 +58,19 @@ const hasTracklist = computed(() => 'tracklist' in props.release && props.releas
 const hasCredits = computed(() => 'credits' in props.release && props.release.credits);
 const hasImages = computed(() => 'images' in props.release && props.release.images);
 
+// Videos (a release may attach YouTube/Vimeo clips) pre-mapped to lightbox items.
+const videoLightboxItems = computed<LightboxItem[]>(() => {
+  if (!('videos' in props.release) || !props.release.videos) return [];
+  return props.release.videos.map(video => ({
+    type: 'video' as const,
+    url: video.url,
+    title: video.title,
+    platform: video.platform,
+    ...(video.author ? { author: video.author } : {}),
+  }));
+});
+const hasVideos = computed(() => videoLightboxItems.value.length > 0);
+
 const isBandcampLink = computed(() => {
   if ('externalUrl' in props.release && props.release.externalUrl) {
     return props.release.externalUrl.includes('bandcamp.com');
@@ -179,10 +192,11 @@ const isBandcampLink = computed(() => {
         v-html="release.credits"
       />
       <p
-        v-if="hasImages && 'images' in release && release.images.length"
+        v-if="(hasImages && 'images' in release && release.images.length) || hasVideos"
         class="release-gallery-link"
       >
         <button
+          v-if="hasImages && 'images' in release && release.images.length"
           class="link-discrete"
           @click="emit('open-lightbox', release.images.map(img => ({
             type: 'image' as const,
@@ -192,6 +206,14 @@ const isBandcampLink = computed(() => {
           })), 0)"
         >
           View gallery
+        </button>
+        <span v-if="hasImages && 'images' in release && release.images.length && hasVideos"> | </span>
+        <button
+          v-if="hasVideos"
+          class="link-discrete"
+          @click="emit('open-lightbox', videoLightboxItems, 0)"
+        >
+          View {{ videoLightboxItems.length === 1 ? 'video' : 'videos' }}
         </button>
       </p>
     </div>
