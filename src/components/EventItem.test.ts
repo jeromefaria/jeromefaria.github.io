@@ -116,7 +116,7 @@ describe('EventItem', () => {
     it('shows a "View video" control and emits the converted video on click', async () => {
       const wrapper = mountEvent({
         ...plainEvent,
-        videos: [{ url: 'https://player.vimeo.com/video/1', title: 'Live set', platform: 'vimeo' }],
+        videos: [{ url: 'https://player.vimeo.com/video/1', title: 'Live set', platform: 'vimeo', author: { name: 'Hugo Olim', url: 'https://vimeo.com/hugoolim' } }],
       });
       const button = wrapper.get('.event-photos-link button');
       expect(button.text()).toBe('View video');
@@ -126,7 +126,7 @@ describe('EventItem', () => {
 
       expect(payload?.[1]).toBe(0);
       expect(payload?.[0]).toEqual([
-        { type: 'video', url: 'https://player.vimeo.com/video/1', title: 'Live set', platform: 'vimeo' },
+        { type: 'video', url: 'https://player.vimeo.com/video/1', title: 'Live set', platform: 'vimeo', author: { name: 'Hugo Olim', url: 'https://vimeo.com/hugoolim' } },
       ]);
     });
 
