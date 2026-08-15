@@ -151,4 +151,61 @@ describe('ReleaseItem', () => {
     expect(payload?.[0]).toHaveLength(2);
     expect((payload?.[0] as Array<{ src: string }>)[0].src).toBe('/images/publications/glitch-spread-01.jpg');
   });
+
+  it('emits open-lightbox with converted videos from the video button', async () => {
+    const withVideo: CollaborationRelease = {
+      id: 'altar',
+      title: 'ALTAR',
+      meta: 'Digital/Cassette, 2024',
+      credits: 'Music by Pedro Roque and Jerome Faria.',
+      videos: [
+        {
+          url: 'https://www.youtube-nocookie.com/embed/3b3pM8URdVc',
+          platform: 'youtube',
+          title: 'NOx - ALTAR',
+          author: { name: 'NOx', url: 'https://www.youtube.com/@noxexposure' },
+        },
+      ],
+    };
+    const wrapper = mountRelease(withVideo);
+    const button = wrapper.get('.release-gallery-link button');
+    expect(button.text()).toBe('View video');
+
+    await button.trigger('click');
+    const payload = wrapper.emitted('open-lightbox')?.[0];
+
+    expect(payload?.[1]).toBe(0);
+    expect(payload?.[0]).toHaveLength(1);
+    expect((payload?.[0] as Array<Record<string, unknown>>)[0]).toMatchObject({
+      type: 'video',
+      url: 'https://www.youtube-nocookie.com/embed/3b3pM8URdVc',
+      platform: 'youtube',
+      title: 'NOx - ALTAR',
+      author: { name: 'NOx', url: 'https://www.youtube.com/@noxexposure' },
+    });
+  });
+
+  it('pluralizes the video button and separates it from the gallery link', () => {
+    const withBoth: PublicationRelease = {
+      id: 'glitch',
+      title: 'Glitch',
+      meta: 'Book, 2009',
+      coverImage: '/images/glitch.jpg',
+      externalUrl: 'https://example.com/glitch',
+      description: 'A book.',
+      credits: 'Editors.',
+      images: [{ src: '/images/publications/glitch-spread-01.jpg', alt: 'Spread 1' }],
+      videos: [
+        { url: 'https://www.youtube-nocookie.com/embed/a', platform: 'youtube', title: 'One' },
+        { url: 'https://player.vimeo.com/video/2', platform: 'vimeo', title: 'Two' },
+      ],
+    };
+    const wrapper = mountRelease(withBoth);
+    const buttons = wrapper.findAll('.release-gallery-link button');
+
+    expect(buttons).toHaveLength(2);
+    expect(buttons[0].text()).toBe('View gallery');
+    expect(buttons[1].text()).toBe('View videos');
+    expect(wrapper.get('.release-gallery-link').text()).toContain('|');
+  });
 });
