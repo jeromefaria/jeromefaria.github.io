@@ -38,6 +38,10 @@ playwright-report/
 blob-report/
 playwright/.cache/
 
+# Local visual snapshots — only the Linux baselines (regenerated in CI) are committed
+e2e/**/*-darwin.png
+e2e/**/*-win32.png
+
 # Claude Code
 CLAUDE.md
 
