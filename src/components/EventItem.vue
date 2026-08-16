@@ -7,6 +7,7 @@ import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 
 import ExternalLink from './ExternalLink.vue';
 import IconArrow from './IconArrow.vue';
+import MediaLinks from './MediaLinks.vue';
 
 const props = defineProps<{
   event: LiveEvent;
@@ -34,6 +35,10 @@ const titleHrefIsExternal = computed(() => /^https?:/i.test(titleHref.value ?? '
 // City + country suffix for the venue line (either may be absent for a TBC venue).
 const venueLocation = computed(() =>
   [props.event.venue.city, props.event.venue.country].filter(Boolean).join(', '));
+
+const imageLightboxItems = computed<LightboxItem[]>(() => props.event.images?.map(toLightboxImage) ?? []);
+const videoLightboxItems = computed<LightboxItem[]>(() => props.event.videos?.map(toLightboxVideo) ?? []);
+const imageLabel = computed(() => `View ${imageLightboxItems.value.length === 1 ? 'photo' : 'photos'}`);
 </script>
 
 <template>
@@ -78,26 +83,12 @@ const venueLocation = computed(() =>
         class="event-description"
         v-html="event.description"
       />
-      <p
-        v-if="event.images?.length || event.videos?.length"
-        class="event-photos-link"
-      >
-        <button
-          v-if="event.images?.length"
-          class="link-discrete"
-          @click="emit('open-lightbox', event.images.map(toLightboxImage), 0)"
-        >
-          View {{ event.images.length === 1 ? 'photo' : 'photos' }}
-        </button>
-        <span v-if="event.images?.length && event.videos?.length"> | </span>
-        <button
-          v-if="event.videos?.length"
-          class="link-discrete"
-          @click="emit('open-lightbox', event.videos.map(toLightboxVideo), 0)"
-        >
-          View {{ event.videos.length === 1 ? 'video' : 'videos' }}
-        </button>
-      </p>
+      <MediaLinks
+        :images="imageLightboxItems"
+        :videos="videoLightboxItems"
+        :image-label="imageLabel"
+        @open-lightbox="(items, index) => emit('open-lightbox', items, index)"
+      />
     </div>
   </article>
 </template>
