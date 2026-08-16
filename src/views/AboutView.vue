@@ -5,31 +5,19 @@ import LightboxHost from '@/components/LightboxHost.vue';
 import { usePageHead } from '@/composables/usePageHead';
 import { aboutSections } from '@/data/about';
 import { pageMeta } from '@/data/pageMeta';
-import type { AboutImage, LightboxImage } from '@/types';
 import { getImageStyles } from '@/utils/imageStyles';
-import { responsiveSrcset } from '@/utils/responsiveImage';
+import { toLightboxImage } from '@/utils/lightboxAdapters';
+import { responsiveSrcset, toWebp } from '@/utils/responsiveImage';
 
 usePageHead(pageMeta.about);
 
 const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 
-const convertToLightboxImage = (image: AboutImage): LightboxImage => {
-  const lightboxImage: LightboxImage = {
-    type: 'image' as const,
-    src: image.src,
-    alt: image.alt,
-  };
-  if (image.photographer) {
-    lightboxImage.photographer = image.photographer;
-  }
-  return lightboxImage;
-};
-
 // All image-group images, flattened to lightbox items.
 const allImages = computed(() => {
   return aboutSections
     .filter(section => section.type === 'image-group' && 'images' in section)
-    .flatMap(section => section.images.map(convertToLightboxImage));
+    .flatMap(section => section.images.map(toLightboxImage));
 });
 
 // Pre-compute section starting indices for O(1) lookup
@@ -96,7 +84,7 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
                 type="image/webp"
               >
               <source
-                :srcset="image.src.replace('.jpg', '.webp')"
+                :srcset="toWebp(image.src)"
                 type="image/webp"
               >
               <img
