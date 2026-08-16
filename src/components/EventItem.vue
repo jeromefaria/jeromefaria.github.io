@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import type { LightboxItem, LiveEvent, LiveImage, LiveVideo } from '@/types';
+import type { LightboxItem, LiveEvent } from '@/types';
 import { formatEventDate } from '@/utils/dateFormatter';
 import { stripHtml } from '@/utils/formatters';
+import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 
 import IconArrow from './IconArrow.vue';
 
@@ -33,31 +34,6 @@ const titleHrefIsExternal = computed(() => /^https?:/i.test(titleHref.value ?? '
 // City + country suffix for the venue line (either may be absent for a TBC venue).
 const venueLocation = computed(() =>
   [props.event.venue.city, props.event.venue.country].filter(Boolean).join(', '));
-
-const convertImagesToLightbox = (images: LiveImage[]): LightboxItem[] => {
-  return images.map(img => {
-    const lightboxImage: LightboxItem = {
-      type: 'image' as const,
-      src: img.src,
-      alt: img.alt,
-    };
-    if (img.position) lightboxImage.position = img.position;
-    if (img.scale) lightboxImage.scale = img.scale;
-    if (img.rotate) lightboxImage.rotate = img.rotate;
-    if (img.photographer) lightboxImage.photographer = img.photographer;
-    return lightboxImage;
-  });
-};
-
-const convertVideosToLightbox = (videos: LiveVideo[]): LightboxItem[] => {
-  return videos.map(vid => ({
-    type: 'video' as const,
-    url: vid.url,
-    title: vid.title,
-    platform: vid.platform,
-    ...(vid.author ? { author: vid.author } : {}),
-  }));
-};
 </script>
 
 <template>
@@ -111,7 +87,7 @@ const convertVideosToLightbox = (videos: LiveVideo[]): LightboxItem[] => {
         <button
           v-if="event.images?.length"
           class="link-discrete"
-          @click="emit('open-lightbox', convertImagesToLightbox(event.images), 0)"
+          @click="emit('open-lightbox', event.images.map(toLightboxImage), 0)"
         >
           View {{ event.images.length === 1 ? 'photo' : 'photos' }}
         </button>
@@ -119,7 +95,7 @@ const convertVideosToLightbox = (videos: LiveVideo[]): LightboxItem[] => {
         <button
           v-if="event.videos?.length"
           class="link-discrete"
-          @click="emit('open-lightbox', convertVideosToLightbox(event.videos), 0)"
+          @click="emit('open-lightbox', event.videos.map(toLightboxVideo), 0)"
         >
           View {{ event.videos.length === 1 ? 'video' : 'videos' }}
         </button>
