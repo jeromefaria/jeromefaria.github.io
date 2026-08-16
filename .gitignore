@@ -44,6 +44,7 @@ e2e/**/*-win32.png
 
 # Claude Code
 CLAUDE.md
+.claude/
 
 # Lighthouse
 lighthouse-report*
