@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import { useAccordionVisibility } from '@/composables/useAccordionContext';
-import { useImageLoader } from '@/composables/useImageLoader';
 import type { LightboxItem, Release } from '@/types';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
-import { responsiveSrcset } from '@/utils/responsiveImage';
 
 import BandcampPlayer from './BandcampPlayer.vue';
-import ExternalLink from './ExternalLink.vue';
+import ReleaseCover from './ReleaseCover.vue';
 
 const props = withDefaults(defineProps<{
   release: Release;
@@ -22,33 +20,13 @@ const emit = defineEmits<{
   'open-lightbox': [items: LightboxItem[], index: number];
 }>();
 
-const getCoverImage = (release: Release): string | undefined => {
-  if ('coverImage' in release) {
-    return release.coverImage;
-  }
-  return undefined;
-};
-
-const {
-  setImageRef,
-  imageError,
-  imageLoaded,
-  webpSrc,
-  handleImageLoad,
-  handleImageError,
-} = useImageLoader(getCoverImage(props.release) ?? '');
-
 // Defer cover loading until the release's accordion section is first opened —
 // collapsed sections sit at zero height near the viewport, defeating native
 // lazy-loading.
 const coverVisible = useAccordionVisibility();
 
-// Responsive WebP srcset for the cover (displayed ~200px), falling back to the
-// full-resolution source when no variants exist.
-const coverSrcset = computed(() => {
-  const cover = getCoverImage(props.release);
-  return cover ? responsiveSrcset(cover) : null;
-});
+// Set when the cover image fails to load, so we fall back to a text-only layout.
+const coverErrored = ref(false);
 
 const hasBandcampId = computed(() => 'bandcampId' in props.release && props.release.bandcampId);
 const hasExternalUrl = computed(() => 'externalUrl' in props.release && props.release.externalUrl);
@@ -81,7 +59,7 @@ const isBandcampLink = computed(() => {
   <article
     :id="release.id"
     class="release"
-    :class="{ 'release--text-only': textOnly || imageError }"
+    :class="{ 'release--text-only': textOnly || coverErrored }"
   >
     <!-- Bandcamp Player -->
     <BandcampPlayer
@@ -91,67 +69,15 @@ const isBandcampLink = computed(() => {
       :album-title="release.title"
     />
 
-    <!-- External Link Cover -->
-    <ExternalLink
-      v-else-if="coverVisible && hasExternalUrl && hasCoverImage && !imageError && 'externalUrl' in release"
-      :href="release.externalUrl"
-      class="release-cover"
-      :class="{ 'release-cover--bandcamp': isBandcampLink }"
-    >
-      <picture>
-        <source
-          v-if="coverSrcset"
-          :srcset="coverSrcset"
-          sizes="(min-width: 768px) 200px, 90vw"
-          type="image/webp"
-        >
-        <source
-          :srcset="webpSrc"
-          type="image/webp"
-        >
-        <img
-          v-if="'coverImage' in release"
-          :ref="setImageRef"
-          :src="release.coverImage"
-          :alt="`${release.title} cover`"
-          loading="lazy"
-          decoding="async"
-          :class="{ 'is-loaded': imageLoaded }"
-          @load="handleImageLoad"
-          @error="handleImageError"
-        >
-      </picture>
-    </ExternalLink>
-
-    <!-- Static Cover (no link) -->
-    <div
-      v-else-if="coverVisible && hasCoverImage && !imageError"
-      class="release-cover release-cover--static"
-    >
-      <picture>
-        <source
-          v-if="coverSrcset"
-          :srcset="coverSrcset"
-          sizes="(min-width: 768px) 200px, 90vw"
-          type="image/webp"
-        >
-        <source
-          :srcset="webpSrc"
-          type="image/webp"
-        >
-        <img
-          v-if="'coverImage' in release"
-          :ref="setImageRef"
-          :src="release.coverImage"
-          :alt="`${release.title} cover`"
-          loading="lazy"
-          decoding="async"
-          :class="{ 'is-loaded': imageLoaded }"
-          @load="handleImageLoad"
-          @error="handleImageError"
-        >
-      </picture>
-    </div>
+    <!-- Cover — rendered as an external link when the release has one -->
+    <ReleaseCover
+      v-else-if="coverVisible && hasCoverImage && !coverErrored && 'coverImage' in release"
+      :src="release.coverImage"
+      :alt="`${release.title} cover`"
+      :href="hasExternalUrl && 'externalUrl' in release ? release.externalUrl : undefined"
+      :bandcamp="isBandcampLink"
+      @error="coverErrored = true"
+    />
 
     <!-- Release Details -->
     <div class="release-details">
