@@ -16,19 +16,63 @@ export interface Image {
   };
 }
 
+export interface MetaLink {
+  text: string;
+  url?: string;
+}
+
+export type Medium = 'Digital' | 'Cassette' | 'MP3' | 'CD' | 'CDr';
+
 export interface Edition {
-  label: string;
+  label: MetaLink;
   catalog?: string;
 }
 
-export interface ReleaseMeta {
-  appearance?: string;
-  credit?: string;
-  format?: string;
+export interface Isbn {
+  value: string;
+  url?: string;
+}
+
+export interface MusicMeta {
+  kind: 'music';
+  mediums: Medium[];
   editions: Edition[];
   year: number;
-  note?: string;
 }
+
+export interface CompilationMeta {
+  kind: 'compilation';
+  compilation: MetaLink;
+  collaborators?: string[];
+  mediums: Medium[];
+  editions: Edition[];
+  year: number;
+}
+
+export interface CommissionMeta {
+  kind: 'commission';
+  work: 'Film' | 'Theatre' | 'Live Score' | 'DVD';
+  director?: MetaLink;
+  venue?: MetaLink;
+  publisher?: Edition;
+  year: number;
+}
+
+export interface PublicationMeta {
+  kind: 'publication';
+  publisher: MetaLink;
+  isbn?: Isbn;
+  year: number;
+}
+
+export interface MasteringMeta {
+  kind: 'mastering';
+  artist: MetaLink;
+  editions: Edition[];
+  year: number;
+}
+
+export type ReleaseMeta = MusicMeta | CompilationMeta | CommissionMeta | PublicationMeta | MasteringMeta;
 
 export interface Release {
   id: string;
