@@ -37,23 +37,12 @@ try {
   console.log(`Branches:   ${totals.branches.pct}% (threshold: ${THRESHOLDS.branches}%)`);
   console.log('━'.repeat(50));
 
-  const failures = [];
-
-  if (totals.lines.pct < THRESHOLDS.lines) {
-    failures.push(`Lines: ${totals.lines.pct}% < ${THRESHOLDS.lines}%`);
-  }
-
-  if (totals.statements.pct < THRESHOLDS.statements) {
-    failures.push(`Statements: ${totals.statements.pct}% < ${THRESHOLDS.statements}%`);
-  }
-
-  if (totals.functions.pct < THRESHOLDS.functions) {
-    failures.push(`Functions: ${totals.functions.pct}% < ${THRESHOLDS.functions}%`);
-  }
-
-  if (totals.branches.pct < THRESHOLDS.branches) {
-    failures.push(`Branches: ${totals.branches.pct}% < ${THRESHOLDS.branches}%`);
-  }
+  const failures = Object.entries(THRESHOLDS)
+    .filter(([metric, threshold]) => totals[metric].pct < threshold)
+    .map(([metric, threshold]) => {
+      const label = metric.charAt(0).toUpperCase() + metric.slice(1);
+      return `${label}: ${totals[metric].pct}% < ${threshold}%`;
+    });
 
   if (failures.length > 0) {
     console.error('\n❌ Coverage thresholds not met:');
