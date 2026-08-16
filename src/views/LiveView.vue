@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { useTemplateRef } from 'vue';
+
 import AccordionSection from '@/components/AccordionSection.vue';
 import EventItem from '@/components/EventItem.vue';
-import LightboxOverlay from '@/components/LightboxOverlay.vue';
+import LightboxHost from '@/components/LightboxHost.vue';
 import { useAccordion } from '@/composables/useAccordion';
-import { useLightboxWithSwipe } from '@/composables/useLightboxWithSwipe';
 import { usePageHead } from '@/composables/usePageHead';
 import { liveYears, sortedLiveData } from '@/data/live';
 import { pageMeta } from '@/data/pageMeta';
@@ -19,7 +20,7 @@ const findYearForEvent = (eventId: string): string | null =>
   liveYears.find(year => sortedLiveData[year]?.items?.some(e => e.id === eventId)) ?? null;
 
 const { openSection, handleToggle } = useAccordion(liveYears[0] ?? '', liveYears, findYearForEvent);
-const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev, handleTouchStart, handleTouchEnd } = useLightboxWithSwipe();
+const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 </script>
 
 <template>
@@ -44,23 +45,11 @@ const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, g
           :key="event.id"
           :event="event"
           @update-hash="updateHash"
-          @open-lightbox="openLightbox"
+          @open-lightbox="lightbox?.openLightbox"
         />
       </AccordionSection>
     </article>
 
-    <!-- Lightbox overlay -->
-    <LightboxOverlay
-      v-if="currentItem"
-      :is-open="isOpen"
-      :current-item="currentItem"
-      :current-index="currentIndex"
-      :total-items="items.length"
-      @close="closeLightbox"
-      @prev="goToPrev"
-      @next="goToNext"
-      @touchstart="handleTouchStart"
-      @touchend="handleTouchEnd"
-    />
+    <LightboxHost ref="lightbox" />
   </div>
 </template>

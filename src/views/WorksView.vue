@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { useTemplateRef } from 'vue';
+
 import AccordionSection from '@/components/AccordionSection.vue';
-import LightboxOverlay from '@/components/LightboxOverlay.vue';
+import LightboxHost from '@/components/LightboxHost.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
 import { useAccordion } from '@/composables/useAccordion';
-import { useLightboxWithSwipe } from '@/composables/useLightboxWithSwipe';
 import { usePageHead } from '@/composables/usePageHead';
 import { pageMeta } from '@/data/pageMeta';
 import { worksData, worksSections } from '@/data/works';
@@ -22,7 +23,7 @@ const findSectionForRelease = (releaseId: string): string | null =>
   }) ?? null;
 
 const { openSection, handleToggle } = useAccordion('solo', worksSections, findSectionForRelease);
-const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev, handleTouchStart, handleTouchEnd } = useLightboxWithSwipe();
+const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 </script>
 
 <template>
@@ -48,23 +49,11 @@ const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, g
           :release="release"
           :text-only="!('coverImage' in release && release.coverImage)"
           @update-hash="updateHash"
-          @open-lightbox="openLightbox"
+          @open-lightbox="lightbox?.openLightbox"
         />
       </AccordionSection>
     </article>
 
-    <!-- Lightbox overlay -->
-    <LightboxOverlay
-      v-if="currentItem"
-      :is-open="isOpen"
-      :current-item="currentItem"
-      :current-index="currentIndex"
-      :total-items="items.length"
-      @close="closeLightbox"
-      @prev="goToPrev"
-      @next="goToNext"
-      @touchstart="handleTouchStart"
-      @touchend="handleTouchEnd"
-    />
+    <LightboxHost ref="lightbox" />
   </div>
 </template>
