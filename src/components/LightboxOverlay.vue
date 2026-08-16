@@ -5,6 +5,7 @@ import type { LightboxItem } from '@/types';
 import { isLightboxImage, isLightboxVideo } from '@/types';
 import { toWebp } from '@/utils/responsiveImage';
 
+import ExternalLink from './ExternalLink.vue';
 import IconArrow from './IconArrow.vue';
 
 const props = defineProps<{
@@ -149,12 +150,12 @@ onMounted(async () => {
           v-if="credit"
           class="lightbox__credit"
         >
-          {{ credit.prefix }} <a
+          {{ credit.prefix }} <ExternalLink
             v-if="credit.url"
             :href="credit.url"
-            target="_blank"
-            rel="noopener noreferrer"
-          >{{ credit.name }}<span class="visually-hidden"> (opens in a new tab)</span></a>
+          >
+            {{ credit.name }}
+          </ExternalLink>
           <span v-else>{{ credit.name }}</span>
         </div>
 
