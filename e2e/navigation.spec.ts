@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { isMobile, openMobileMenuIfNeeded } from './helpers';
+import { isMobile, openMobileMenuIfNeeded, waitForHydration } from './helpers';
 
 const NAV_TOGGLE_SELECTOR = '.nav-toggle';
 const NAV_OPEN_SELECTOR = '.nav--open';
@@ -132,5 +132,21 @@ test.describe('Navigation', () => {
 
     await expect(page.locator(NAV_SELECTOR)).toBeVisible();
     await expect(page.locator(NAV_LINK_SELECTOR).first()).toBeVisible();
+  });
+
+  test('keeps the mobile menu open when opened on a scrolled page', async ({ page }) => {
+    // Force a mobile viewport (the desktop projects never exercise the hamburger).
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto(PAGES.ABOUT);
+    await waitForHydration(page);
+
+    await page.mouse.wheel(0, 400);
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+
+    await page.locator(NAV_TOGGLE_SELECTOR).click();
+
+    // Regression: focusing the sticky nav used to scroll to the top, which fired
+    // the dismiss-on-scroll handler and closed the menu the instant it opened.
+    await expect(page.locator(NAV_OPEN_SELECTOR)).toBeVisible();
   });
 });

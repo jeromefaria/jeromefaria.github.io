@@ -25,8 +25,10 @@ const openNav = () => {
   // so keyboard and screen-reader users land in the labelled nav region. The
   // container is tabindex="-1" and non-interactive, so — unlike focusing a
   // link — this never paints a focus ring when the menu is opened by touch.
+  // preventScroll: focusing the sticky nav on a scrolled page would otherwise
+  // jump the viewport to the top (and that scroll used to auto-dismiss the menu).
   void nextTick(() => {
-    navMenu.value?.focus();
+    navMenu.value?.focus({ preventScroll: true });
   });
 };
 
@@ -45,8 +47,9 @@ watch(() => route.path, () => {
   if (navOpen.value) closeNav();
 });
 
-// While the menu is open, a tap outside it or any scroll signals the visitor is
-// done with it — dismiss it (Escape and link-select are handled above).
+// While the menu is open, a pointer interaction outside it dismisses it. This
+// also covers a scroll gesture, which begins with a touch on the content behind
+// the menu (Escape and link-select are handled above).
 const handleOutsidePointer = (event: PointerEvent) => {
   const target = event.target as Node | null;
   if (target && !navMenu.value?.contains(target) && !navToggle.value?.contains(target)) {
@@ -54,26 +57,19 @@ const handleOutsidePointer = (event: PointerEvent) => {
   }
 };
 
-const handleScroll = () => {
-  if (navOpen.value) closeNav();
-};
-
 watch(navOpen, open => {
   if (!open) {
     document.removeEventListener('pointerdown', handleOutsidePointer);
-    window.removeEventListener('scroll', handleScroll);
     return;
   }
   // Bind on the next tick so the tap that opened the menu doesn't close it.
   void nextTick(() => {
     document.addEventListener('pointerdown', handleOutsidePointer);
-    window.addEventListener('scroll', handleScroll, { passive: true });
   });
 });
 
 onBeforeUnmount(() => {
   document.removeEventListener('pointerdown', handleOutsidePointer);
-  window.removeEventListener('scroll', handleScroll);
 });
 </script>
 
