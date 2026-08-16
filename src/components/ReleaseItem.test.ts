@@ -12,7 +12,7 @@ const mountRelease = (release: Release, textOnly = false) =>
 const bandcamp: Release = {
   id: 'overlapse',
   title: 'Overlapse',
-  meta: 'Digital — BRØQN, 2012',
+  meta: { format: 'Digital', editions: [{ label: 'BRØQN' }], year: 2012 },
   bandcampId: '1643026936',
   coverImage: '/images/overlapse.jpg',
   bandcampUrl: 'https://music.jeromefaria.com/album/overlapse',
@@ -23,7 +23,7 @@ const bandcamp: Release = {
 const external: Release = {
   id: 'ect',
   title: 'ECT',
-  meta: 'Digital — Test Tube, 2005',
+  meta: { format: 'Digital', editions: [{ label: 'Test Tube' }], year: 2005 },
   coverImage: '/images/ect.jpg',
   externalUrl: 'https://example.com/ect',
   tracklist: ['Play'],
@@ -33,7 +33,7 @@ const external: Release = {
 const staticCover: Release = {
   id: 'depolarized',
   title: 'Depolarized',
-  meta: 'Digital — BRØQN, 2012',
+  meta: { format: 'Digital', editions: [{ label: 'BRØQN' }], year: 2012 },
   coverImage: '/images/depolarized.jpg',
   credits: 'Music by Jerome Faria and Nelson P. Ferreira.',
 };
@@ -41,7 +41,7 @@ const staticCover: Release = {
 const textOnlyRelease: Release = {
   id: 'master-open',
   title: 'Open',
-  meta: 'Hugo Calcio, 2021',
+  meta: { credit: 'Hugo Calcio', editions: [], year: 2021 },
 };
 
 describe('ReleaseItem', () => {
@@ -63,7 +63,7 @@ describe('ReleaseItem', () => {
     const bandcampExternal: Release = {
       id: 'bc-ext',
       title: 'BC External',
-      meta: 'Digital, 2020',
+      meta: { format: 'Digital', editions: [], year: 2020 },
       coverImage: '/images/bc.jpg',
       externalUrl: 'https://artist.bandcamp.com/album/bc-external',
     };
@@ -125,7 +125,7 @@ describe('ReleaseItem', () => {
     const publication: Release = {
       id: 'glitch',
       title: 'Glitch',
-      meta: 'Book, 2009',
+      meta: { format: 'Book', editions: [], year: 2009 },
       coverImage: '/images/glitch.jpg',
       externalUrl: 'https://example.com/glitch',
       description: 'A book.',
@@ -149,7 +149,7 @@ describe('ReleaseItem', () => {
     const withVideo: Release = {
       id: 'altar',
       title: 'ALTAR',
-      meta: 'Digital/Cassette, 2024',
+      meta: { format: 'Digital/Cassette', editions: [], year: 2024 },
       credits: 'Music by Pedro Roque and Jerome Faria.',
       videos: [
         {
@@ -182,7 +182,7 @@ describe('ReleaseItem', () => {
     const withBoth: Release = {
       id: 'glitch',
       title: 'Glitch',
-      meta: 'Book, 2009',
+      meta: { format: 'Book', editions: [], year: 2009 },
       coverImage: '/images/glitch.jpg',
       externalUrl: 'https://example.com/glitch',
       description: 'A book.',
