@@ -1,5 +1,3 @@
-// Schema.org types for structured data
-
 export interface SchemaOrganization {
   '@type': 'Organization';
   name: string;

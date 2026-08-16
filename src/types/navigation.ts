@@ -1,5 +1,3 @@
-// Navigation and site config types
-
 export interface SiteConfig {
   title: string;
   tagline: string;

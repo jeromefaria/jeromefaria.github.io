@@ -4,7 +4,6 @@ import { type Component, defineComponent, nextTick, reactive } from 'vue';
 
 import { useAccordion } from './useAccordion';
 
-// Constants
 const TEST_PATH = '/test';
 const ACCORDION_ANIMATION_TIMING = 350; // 320ms animation + buffer
 const SCROLL_MARGIN_TOP = '20px';

@@ -28,7 +28,6 @@ export const createPersonSchema = (): SchemaProfilePerson => ({
   sameAs: social.map(s => s.url),
 });
 
-/** ContactPage schema. */
 export const createContactPageSchema = (): SchemaContactPage => ({
   '@context': 'https://schema.org',
   '@type': 'ContactPage',

@@ -28,7 +28,6 @@ export const toLightboxImage = (image: LightboxImageSource): LightboxImage => {
   return item;
 };
 
-/** Map a domain video to a lightbox video item. */
 export const toLightboxVideo = (video: LightboxVideoSource): LightboxVideo => {
   const item: LightboxVideo = { type: 'video', url: video.url, title: video.title, platform: video.platform };
   if (video.author) item.author = video.author;
