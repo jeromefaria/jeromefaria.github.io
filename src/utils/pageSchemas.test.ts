@@ -65,6 +65,7 @@ describe('createWorksPageSchema', () => {
       expect(album['@type']).toBe('MusicAlbum');
       expect(album.name).toBeTruthy();
       expect(album.byArtist.name).toBe(siteConfig.author.name);
+      expect(album.datePublished, `datePublished for "${album.name}"`).toMatch(/^\d{4}$/);
     });
   });
 });

@@ -13,7 +13,6 @@ import type {
   SchemaWorksGraph,
 } from '@/types/schema';
 
-import { extractYear } from './formatters';
 import { createItemListSchema, createMusicAlbumSchema, createMusicEventSchema } from './schemaHelpers';
 
 /** Person schema for the homepage. */
@@ -68,8 +67,7 @@ export const createWorksPageSchema = (): SchemaWorksGraph => {
   const albums = (soloSection?.items ?? [])
     .filter(release => hasBandcampId(release) || hasBandcampUrl(release))
     .map(release => {
-      const datePublished = extractYear(release.meta ?? null);
-      const withDate = { ...release, ...(datePublished ? { datePublished } : {}) };
+      const withDate = { ...release, datePublished: String(release.meta.year) };
       return createMusicAlbumSchema(withDate, siteConfig.author.name, siteConfig.url);
     });
 

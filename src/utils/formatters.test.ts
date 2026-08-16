@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { extractYear, formatEventDate, stripHtml } from './formatters';
+import { formatEventDate, stripHtml } from './formatters';
 
 describe('formatters', () => {
   describe('stripHtml', () => {
@@ -51,73 +51,6 @@ describe('formatters', () => {
     it('should handle null/undefined gracefully', () => {
       expect(stripHtml(null as unknown as string)).toBe('');
       expect(stripHtml(undefined as unknown as string)).toBe('');
-    });
-  });
-
-  describe('extractYear', () => {
-    it('should extract 4-digit year from 2000s', () => {
-      const text = 'Digital — BRØQN, 2024';
-      expect(extractYear(text)).toBe('2024');
-    });
-
-    it('should extract 4-digit year from 1900s', () => {
-      const text = 'Released in 1998';
-      expect(extractYear(text)).toBe('1998');
-    });
-
-    it('should return null when no year found', () => {
-      const text = 'No year here';
-      expect(extractYear(text)).toBeNull();
-    });
-
-    it('should return first year if multiple', () => {
-      const text = '2020 was followed by 2021';
-      expect(extractYear(text)).toBe('2020');
-    });
-
-    it('should handle year in middle of text', () => {
-      const text = 'The album from 2015 was great';
-      expect(extractYear(text)).toBe('2015');
-    });
-
-    it('should handle year at start of text', () => {
-      const text = '2010 was a good year';
-      expect(extractYear(text)).toBe('2010');
-    });
-
-    it('should handle year at end of text', () => {
-      const text = 'Released 2019';
-      expect(extractYear(text)).toBe('2019');
-    });
-
-    it('should not match years outside 1900-2099 range', () => {
-      const text = 'The year 1899 or 2100';
-      expect(extractYear(text)).toBeNull();
-    });
-
-    it('should not match partial year matches', () => {
-      const text = 'Code 12024 or 20245';
-      expect(extractYear(text)).toBeNull();
-    });
-
-    it('should handle empty string', () => {
-      const text = '';
-      expect(extractYear(text)).toBeNull();
-    });
-
-    it('should handle null/undefined gracefully', () => {
-      expect(extractYear(null as unknown as string)).toBeNull();
-      expect(extractYear(undefined as unknown as string)).toBeNull();
-    });
-
-    it('should match year with word boundaries', () => {
-      const text = 'Year: 2022.';
-      expect(extractYear(text)).toBe('2022');
-    });
-
-    it('should handle year with surrounding punctuation', () => {
-      const text = '(2021)';
-      expect(extractYear(text)).toBe('2021');
     });
   });
 
