@@ -47,6 +47,24 @@ describe('ContactView', () => {
     expect(error.text()).toBe('Name is required');
   });
 
+  it('validates email and message on blur and accepts optional subject input', async () => {
+    const wrapper = await mountView(ContactView);
+
+    const email = wrapper.get('#email');
+    await email.trigger('blur');
+    expect(email.attributes('aria-invalid')).toBe('true');
+    expect(wrapper.get('#email-error').text()).toBe('Email is required');
+
+    const message = wrapper.get('#message');
+    await message.trigger('blur');
+    expect(message.attributes('aria-invalid')).toBe('true');
+    expect(wrapper.get('#message-error').text()).toBe('Message is required');
+
+    const subject = wrapper.get('#subject');
+    await subject.setValue('Commission enquiry');
+    expect((subject.element as HTMLInputElement).value).toBe('Commission enquiry');
+  });
+
   it('shows the success message after a successful submit', async () => {
     const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue({ ok: true } as Response);
     const wrapper = await mountView(ContactView);
