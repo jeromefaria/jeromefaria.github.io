@@ -607,10 +607,8 @@
     border: none;
   }
 
-  // Bottom control cluster. On mobile it is one safe-area-padded column, so the
-  // counter, credit and navigation clear the home-indicator gesture zone and get
-  // consistent breathing room. On desktop it dissolves (display: contents) and
-  // the counter/credit return to the corner while the hints stay centred.
+  // Bottom controls. Mobile: a safe-area-padded column clear of the home-indicator
+  // zone. Desktop: dissolves (display: contents) — counter/credit corner, hints centre.
   &__controls {
     position: absolute;
     left: 0;

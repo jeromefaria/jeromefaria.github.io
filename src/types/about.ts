@@ -33,7 +33,6 @@ export interface AboutLegacyImageSection {
 
 export type AboutSection = AboutTextSection | AboutImageSection | AboutLegacyImageSection;
 
-// Type guard
 export function isImageSection(section: AboutSection): section is AboutImageSection {
   return section.type === 'image-group';
 }

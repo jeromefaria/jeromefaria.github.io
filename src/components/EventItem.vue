@@ -34,7 +34,6 @@ const titleHrefIsExternal = computed(() => /^https?:/i.test(titleHref.value ?? '
 const venueLocation = computed(() =>
   [props.event.venue.city, props.event.venue.country].filter(Boolean).join(', '));
 
-// Convert LiveImage to LightboxImage
 const convertImagesToLightbox = (images: LiveImage[]): LightboxItem[] => {
   return images.map(img => {
     const lightboxImage: LightboxItem = {
@@ -50,7 +49,6 @@ const convertImagesToLightbox = (images: LiveImage[]): LightboxItem[] => {
   });
 };
 
-// Convert LiveVideo to LightboxVideo
 const convertVideosToLightbox = (videos: LiveVideo[]): LightboxItem[] => {
   return videos.map(vid => ({
     type: 'video' as const,

@@ -20,7 +20,6 @@ const emit = defineEmits<{
   'open-lightbox': [items: LightboxItem[], index: number];
 }>();
 
-// Type guard to check if release has coverImage
 const getCoverImage = (release: Release): string | undefined => {
   if ('coverImage' in release) {
     return release.coverImage;
@@ -49,7 +48,6 @@ const coverSrcset = computed(() => {
   return cover ? responsiveSrcset(cover) : null;
 });
 
-// Computed properties with type guards for release properties
 const hasBandcampId = computed(() => 'bandcampId' in props.release && props.release.bandcampId);
 const hasExternalUrl = computed(() => 'externalUrl' in props.release && props.release.externalUrl);
 const hasCoverImage = computed(() => 'coverImage' in props.release && props.release.coverImage);
@@ -58,7 +56,7 @@ const hasTracklist = computed(() => 'tracklist' in props.release && props.releas
 const hasCredits = computed(() => 'credits' in props.release && props.release.credits);
 const hasImages = computed(() => 'images' in props.release && props.release.images);
 
-// Videos (a release may attach YouTube/Vimeo clips) pre-mapped to lightbox items.
+// A release's videos, mapped to lightbox items.
 const videoLightboxItems = computed<LightboxItem[]>(() => {
   if (!('videos' in props.release) || !props.release.videos) return [];
   return props.release.videos.map(video => ({

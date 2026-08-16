@@ -21,7 +21,6 @@ const emit = defineEmits<{
   touchend: [e: TouchEvent];
 }>();
 
-// Determine if current item is a video or image
 const isVideo = computed(() => props.currentItem !== null && isLightboxVideo(props.currentItem));
 const isImage = computed(() => props.currentItem !== null && isLightboxImage(props.currentItem));
 
@@ -133,11 +132,9 @@ onMounted(async () => {
         >
       </picture>
 
-      <!-- Bottom controls — counter, credit and navigation. On mobile they stack
-           in one safe-area-padded column clear of the home-indicator gesture zone;
-           on desktop the counter/credit move to the corner (see styles). -->
+      <!-- Bottom controls; layout differs by breakpoint (see styles). -->
       <div class="lightbox__controls">
-        <!-- Position counter — same spot for photos and videos -->
+        <!-- Position counter -->
         <p
           v-if="totalItems > 1"
           class="lightbox__counter"
