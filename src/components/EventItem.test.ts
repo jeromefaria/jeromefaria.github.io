@@ -89,7 +89,7 @@ describe('EventItem', () => {
           { src: '/images/live/a-002.jpg', alt: 'B' },
         ],
       });
-      const button = wrapper.get('.event-photos-link button');
+      const button = wrapper.get('.media-links button');
       expect(button.text()).toBe('View photos');
     });
 
@@ -99,7 +99,7 @@ describe('EventItem', () => {
         images: [{ src: '/images/live/a-001.jpg', alt: 'A', photographer: { name: 'Someone' } }],
       });
 
-      await wrapper.get('.event-photos-link button').trigger('click');
+      await wrapper.get('.media-links button').trigger('click');
       const payload = wrapper.emitted('open-lightbox')?.[0];
 
       expect(payload?.[1]).toBe(0);
@@ -110,7 +110,7 @@ describe('EventItem', () => {
 
     it('renders no media control when the event has neither images nor videos', () => {
       const wrapper = mountEvent(plainEvent);
-      expect(wrapper.find('.event-photos-link').exists()).toBe(false);
+      expect(wrapper.find('.media-links').exists()).toBe(false);
     });
 
     it('shows a "View video" control and emits the converted video on click', async () => {
@@ -118,7 +118,7 @@ describe('EventItem', () => {
         ...plainEvent,
         videos: [{ url: 'https://player.vimeo.com/video/1', title: 'Live set', platform: 'vimeo', author: { name: 'Hugo Olim', url: 'https://vimeo.com/hugoolim' } }],
       });
-      const button = wrapper.get('.event-photos-link button');
+      const button = wrapper.get('.media-links button');
       expect(button.text()).toBe('View video');
 
       await button.trigger('click');
@@ -139,12 +139,12 @@ describe('EventItem', () => {
           { url: 'https://player.vimeo.com/video/2', title: 'Two', platform: 'vimeo' },
         ],
       });
-      const buttons = wrapper.findAll('.event-photos-link button');
+      const buttons = wrapper.findAll('.media-links button');
 
       expect(buttons).toHaveLength(2);
       expect(buttons[0].text()).toBe('View photo');
       expect(buttons[1].text()).toBe('View videos');
-      expect(wrapper.get('.event-photos-link').text()).toContain('|');
+      expect(wrapper.get('.media-links').text()).toContain('|');
     });
   });
 

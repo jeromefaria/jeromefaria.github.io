@@ -144,7 +144,7 @@ describe('ReleaseItem', () => {
     };
     const wrapper = mountRelease(publication);
 
-    await wrapper.get('.release-gallery-link button').trigger('click');
+    await wrapper.get('.media-links button').trigger('click');
     const payload = wrapper.emitted('open-lightbox')?.[0];
 
     expect(payload?.[1]).toBe(0);
@@ -168,7 +168,7 @@ describe('ReleaseItem', () => {
       ],
     };
     const wrapper = mountRelease(withVideo);
-    const button = wrapper.get('.release-gallery-link button');
+    const button = wrapper.get('.media-links button');
     expect(button.text()).toBe('View video');
 
     await button.trigger('click');
@@ -201,11 +201,11 @@ describe('ReleaseItem', () => {
       ],
     };
     const wrapper = mountRelease(withBoth);
-    const buttons = wrapper.findAll('.release-gallery-link button');
+    const buttons = wrapper.findAll('.media-links button');
 
     expect(buttons).toHaveLength(2);
     expect(buttons[0].text()).toBe('View gallery');
     expect(buttons[1].text()).toBe('View videos');
-    expect(wrapper.get('.release-gallery-link').text()).toContain('|');
+    expect(wrapper.get('.media-links').text()).toContain('|');
   });
 });
