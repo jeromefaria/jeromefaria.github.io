@@ -16,10 +16,24 @@ export interface Image {
   };
 }
 
+export interface Edition {
+  label: string;
+  catalog?: string;
+}
+
+export interface ReleaseMeta {
+  appearance?: string;
+  credit?: string;
+  format?: string;
+  editions: Edition[];
+  year: number;
+  note?: string;
+}
+
 export interface Release {
   id: string;
   title: string;
-  meta: string;
+  meta: ReleaseMeta;
   bandcampId?: string;
   bandcampUrl?: string;
   externalUrl?: string;
