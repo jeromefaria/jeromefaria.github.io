@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 import { TOUCH } from '@/utils/constants';
 
-interface UseSwipeNavigationReturn {
+export interface UseSwipeNavigationReturn {
   handleTouchStart: (e: TouchEvent) => void;
   handleTouchEnd: (e: TouchEvent) => void;
 }

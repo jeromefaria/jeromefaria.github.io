@@ -5,6 +5,7 @@ import LightboxHost from '@/components/LightboxHost.vue';
 import { usePageHead } from '@/composables/usePageHead';
 import { aboutSections } from '@/data/about';
 import { pageMeta } from '@/data/pageMeta';
+import { isImageSection } from '@/types';
 import { getImageStyles } from '@/utils/imageStyles';
 import { toLightboxImage } from '@/utils/lightboxAdapters';
 import { responsiveSrcset, toWebp } from '@/utils/responsiveImage';
@@ -16,7 +17,7 @@ const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 // All image-group images, flattened to lightbox items.
 const allImages = computed(() => {
   return aboutSections
-    .filter(section => section.type === 'image-group' && 'images' in section)
+    .filter(isImageSection)
     .flatMap(section => section.images.map(toLightboxImage));
 });
 
@@ -25,7 +26,7 @@ const sectionStartIndices = computed(() => {
   let currentIndex = 0;
   return aboutSections.map(section => {
     const startIndex = currentIndex;
-    if (section.type === 'image-group' && 'images' in section) {
+    if (isImageSection(section)) {
       currentIndex += section.images.length;
     }
     return startIndex;

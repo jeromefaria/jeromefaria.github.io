@@ -2,8 +2,7 @@
 import { computed } from 'vue';
 
 import type { LightboxItem, LiveEvent } from '@/types';
-import { formatEventDate } from '@/utils/dateFormatter';
-import { stripHtml } from '@/utils/formatters';
+import { formatEventDate, stripHtml } from '@/utils/formatters';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 
 import IconArrow from './IconArrow.vue';
