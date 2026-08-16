@@ -97,6 +97,15 @@ test.describe('Navigation', () => {
     await expect(page.locator(`${NOT_FOUND_SELECTOR} h1`)).toContainText('Page Not Found');
   });
 
+  test('follows the 404.html SPA redirect through to the not-found page', async ({ page }) => {
+    // 404.html stores the unknown path and bounces to '/'; main.ts replaces to it.
+    await page.addInitScript(() => sessionStorage.setItem('spa-redirect', '/deep/missing-page'));
+    await page.goto(PAGES.HOME);
+
+    await expect(page.locator(NOT_FOUND_SELECTOR)).toBeVisible();
+    await expect(page).toHaveURL(/\/deep\/missing-page$/);
+  });
+
   test('should maintain navigation state across pages', async ({ page }) => {
     await page.goto(PAGES.HOME);
     await openMobileMenuIfNeeded(page);

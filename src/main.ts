@@ -30,11 +30,12 @@ export const createApp = ViteSSG(
     // Client-side only: SSG pre-render has no session storage or live DOM.
     if (!isClient) return;
 
-    // Handle SPA redirect from 404.html.
+    // SPA redirect from 404.html — replace after the initial navigation resolves,
+    // or the startup route overrides it and the stored path is lost.
     const redirect = sessionStorage.getItem('spa-redirect');
     if (redirect) {
       sessionStorage.removeItem('spa-redirect');
-      void router.replace(redirect);
+      void router.isReady().then(() => router.replace(redirect));
     }
 
     // Add the ready class to body once Vue is fully hydrated. This is a
