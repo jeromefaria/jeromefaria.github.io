@@ -4,6 +4,7 @@ import { useTemplateRef } from 'vue';
 import AccordionSection from '@/components/AccordionSection.vue';
 import EventItem from '@/components/EventItem.vue';
 import LightboxHost from '@/components/LightboxHost.vue';
+import PageShell from '@/components/PageShell.vue';
 import { useAccordion } from '@/composables/useAccordion';
 import { usePageHead } from '@/composables/usePageHead';
 import { liveYears, sortedLiveData } from '@/data/live';
@@ -25,13 +26,10 @@ const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 
 <template>
   <div class="container-wide">
-    <article
-      class="page"
+    <PageShell
       data-page="live"
+      title="Live"
     >
-      <h1 class="visually-hidden">
-        Live
-      </h1>
       <AccordionSection
         v-for="year in liveYears"
         :id="year"
@@ -48,7 +46,7 @@ const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
           @open-lightbox="lightbox?.openLightbox"
         />
       </AccordionSection>
-    </article>
+    </PageShell>
 
     <LightboxHost ref="lightbox" />
   </div>
