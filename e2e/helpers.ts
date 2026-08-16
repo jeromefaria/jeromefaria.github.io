@@ -1,6 +1,8 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, type Locator, type Page } from '@playwright/test';
 
+// Mirror of LAYOUT.BREAKPOINT_MD (src/utils/constants.ts) / $breakpoint-md
+// (src/styles/_variables.scss). e2e can't import from src, so keep in sync.
 export const MOBILE_BREAKPOINT = 768;
 export const MIN_TOUCH_TARGET_SIZE = 44;
 

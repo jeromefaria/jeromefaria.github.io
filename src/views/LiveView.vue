@@ -9,7 +9,7 @@ import { useAccordion } from '@/composables/useAccordion';
 import { usePageHead } from '@/composables/usePageHead';
 import { liveYears, sortedLiveData } from '@/data/live';
 import { pageMeta } from '@/data/pageMeta';
-import { updateHash } from '@/utils/navigation';
+import { findSectionContainingId, updateHash } from '@/utils/navigation';
 import { createLiveEventsSchema } from '@/utils/pageSchemas';
 
 usePageHead({
@@ -18,7 +18,7 @@ usePageHead({
 });
 
 const findYearForEvent = (eventId: string): string | null =>
-  liveYears.find(year => sortedLiveData[year]?.items?.some(e => e.id === eventId)) ?? null;
+  findSectionContainingId(liveYears, sortedLiveData, eventId);
 
 const { openSection, handleToggle } = useAccordion(liveYears[0] ?? '', liveYears, findYearForEvent);
 const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');

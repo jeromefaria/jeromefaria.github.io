@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, nextTick, ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import { provideAccordionExpanded } from '@/composables/useAccordionContext';
-import { ID_PREFIX, LAYOUT, TIMING } from '@/utils/constants';
+import { ID_PREFIX, LAYOUT } from '@/utils/constants';
+import { afterAccordionAnimation, scrollToElement } from '@/utils/scroll';
 
 const props = withDefaults(defineProps<{
   title: string;
@@ -35,10 +36,7 @@ const getHeaderOffset = () => {
 
 const scrollToSection = () => {
   if (!sectionRef.value) return;
-
-  const rect = sectionRef.value.getBoundingClientRect();
-  const targetY = rect.top + window.scrollY - getHeaderOffset();
-  window.scrollTo({ top: targetY, behavior: 'instant' });
+  scrollToElement(sectionRef.value, { offset: getHeaderOffset(), behavior: 'instant' });
 };
 
 const toggle = () => {
@@ -47,11 +45,9 @@ const toggle = () => {
 
   if (!willExpand) return;
 
-  void nextTick(() => {
-    setTimeout(() => {
-      scrollToSection();
-      contentRef.value?.focus({ preventScroll: true });
-    }, TIMING.ACCORDION_ANIMATION);
+  afterAccordionAnimation(() => {
+    scrollToSection();
+    contentRef.value?.focus({ preventScroll: true });
   });
 };
 </script>
