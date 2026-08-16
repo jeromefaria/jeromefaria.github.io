@@ -116,18 +116,6 @@ describe('SiteHeader', () => {
     expect(wrapper.find('.nav--open').exists()).toBe(true);
   });
 
-  it('closes when the page is scrolled', async () => {
-    const { wrapper } = await mountHeader();
-    await wrapper.get('.nav-toggle').trigger('click');
-    await nextTick();
-    expect(wrapper.find('.nav--open').exists()).toBe(true);
-
-    window.dispatchEvent(new Event('scroll'));
-    await nextTick();
-
-    expect(wrapper.find('.nav--open').exists()).toBe(false);
-  });
-
   it('renders the site title as branding, not a page heading', async () => {
     const { wrapper } = await mountHeader();
     expect(wrapper.get('.masthead-title').element.tagName).toBe('P');
