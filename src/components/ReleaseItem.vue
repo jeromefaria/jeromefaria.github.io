@@ -6,6 +6,7 @@ import type { LightboxItem, Release } from '@/types';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 
 import BandcampPlayer from './BandcampPlayer.vue';
+import MediaLinks from './MediaLinks.vue';
 import ReleaseCover from './ReleaseCover.vue';
 
 const props = withDefaults(defineProps<{
@@ -39,13 +40,11 @@ const imageLightboxItems = computed<LightboxItem[]>(() => {
   if (!('images' in props.release) || !props.release.images) return [];
   return props.release.images.map(toLightboxImage);
 });
-const hasImages = computed(() => imageLightboxItems.value.length > 0);
 
 const videoLightboxItems = computed<LightboxItem[]>(() => {
   if (!('videos' in props.release) || !props.release.videos) return [];
   return props.release.videos.map(toLightboxVideo);
 });
-const hasVideos = computed(() => videoLightboxItems.value.length > 0);
 
 const isBandcampLink = computed(() => {
   if ('externalUrl' in props.release && props.release.externalUrl) {
@@ -112,26 +111,12 @@ const isBandcampLink = computed(() => {
         class="release-credits"
         v-html="release.credits"
       />
-      <p
-        v-if="hasImages || hasVideos"
-        class="release-gallery-link"
-      >
-        <button
-          v-if="hasImages"
-          class="link-discrete"
-          @click="emit('open-lightbox', imageLightboxItems, 0)"
-        >
-          View gallery
-        </button>
-        <span v-if="hasImages && hasVideos"> | </span>
-        <button
-          v-if="hasVideos"
-          class="link-discrete"
-          @click="emit('open-lightbox', videoLightboxItems, 0)"
-        >
-          View {{ videoLightboxItems.length === 1 ? 'video' : 'videos' }}
-        </button>
-      </p>
+      <MediaLinks
+        :images="imageLightboxItems"
+        :videos="videoLightboxItems"
+        image-label="View gallery"
+        @open-lightbox="(items, index) => emit('open-lightbox', items, index)"
+      />
     </div>
   </article>
 </template>
