@@ -21,12 +21,9 @@ const closeNav = () => {
 
 const openNav = () => {
   navOpen.value = true;
-  // Move focus to the menu container (not the first link) once it's rendered,
-  // so keyboard and screen-reader users land in the labelled nav region. The
-  // container is tabindex="-1" and non-interactive, so — unlike focusing a
-  // link — this never paints a focus ring when the menu is opened by touch.
-  // preventScroll: focusing the sticky nav on a scrolled page would otherwise
-  // jump the viewport to the top (and that scroll used to auto-dismiss the menu).
+  // Focus the tabindex="-1" container (not a link) so keyboard/AT users land in
+  // the labelled nav without a touch focus ring; preventScroll stops a scrolled
+  // page from jumping to the top (which used to auto-dismiss the menu).
   void nextTick(() => {
     navMenu.value?.focus({ preventScroll: true });
   });
