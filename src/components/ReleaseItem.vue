@@ -4,6 +4,7 @@ import { computed } from 'vue';
 import { useAccordionVisibility } from '@/composables/useAccordionContext';
 import { useImageLoader } from '@/composables/useImageLoader';
 import type { LightboxItem, Release } from '@/types';
+import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 import { responsiveSrcset } from '@/utils/responsiveImage';
 
 import BandcampPlayer from './BandcampPlayer.vue';
@@ -54,18 +55,16 @@ const hasCoverImage = computed(() => 'coverImage' in props.release && props.rele
 const hasDescription = computed(() => 'description' in props.release && props.release.description);
 const hasTracklist = computed(() => 'tracklist' in props.release && props.release.tracklist);
 const hasCredits = computed(() => 'credits' in props.release && props.release.credits);
-const hasImages = computed(() => 'images' in props.release && props.release.images);
+// A release's images and videos, mapped to lightbox items.
+const imageLightboxItems = computed<LightboxItem[]>(() => {
+  if (!('images' in props.release) || !props.release.images) return [];
+  return props.release.images.map(toLightboxImage);
+});
+const hasImages = computed(() => imageLightboxItems.value.length > 0);
 
-// A release's videos, mapped to lightbox items.
 const videoLightboxItems = computed<LightboxItem[]>(() => {
   if (!('videos' in props.release) || !props.release.videos) return [];
-  return props.release.videos.map(video => ({
-    type: 'video' as const,
-    url: video.url,
-    title: video.title,
-    platform: video.platform,
-    ...(video.author ? { author: video.author } : {}),
-  }));
+  return props.release.videos.map(toLightboxVideo);
 });
 const hasVideos = computed(() => videoLightboxItems.value.length > 0);
 
@@ -190,22 +189,17 @@ const isBandcampLink = computed(() => {
         v-html="release.credits"
       />
       <p
-        v-if="(hasImages && 'images' in release && release.images.length) || hasVideos"
+        v-if="hasImages || hasVideos"
         class="release-gallery-link"
       >
         <button
-          v-if="hasImages && 'images' in release && release.images.length"
+          v-if="hasImages"
           class="link-discrete"
-          @click="emit('open-lightbox', release.images.map(img => ({
-            type: 'image' as const,
-            src: img.src,
-            alt: img.alt,
-            ...(img.photographer ? { photographer: img.photographer } : {}),
-          })), 0)"
+          @click="emit('open-lightbox', imageLightboxItems, 0)"
         >
           View gallery
         </button>
-        <span v-if="hasImages && 'images' in release && release.images.length && hasVideos"> | </span>
+        <span v-if="hasImages && hasVideos"> | </span>
         <button
           v-if="hasVideos"
           class="link-discrete"

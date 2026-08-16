@@ -1,6 +1,8 @@
 import type { ComponentPublicInstance, ComputedRef, Ref } from 'vue';
 import { computed, nextTick, onMounted, ref } from 'vue';
 
+import { toWebp } from '@/utils/responsiveImage';
+
 interface UseImageLoaderReturn {
   imageRef: Ref<HTMLImageElement | null>;
   setImageRef: (el: Element | ComponentPublicInstance | null) => void;
@@ -21,7 +23,7 @@ export const useImageLoader = (src: string): UseImageLoaderReturn => {
   const imageError = ref(false);
   const imageLoaded = ref(false);
 
-  const webpSrc = computed(() => src?.replace(/\.jpg$/, '.webp'));
+  const webpSrc = computed(() => (src ? toWebp(src) : src));
 
   // Callback ref: bound via `:ref` in templates so the composable owns the
   // <img> element. Needed for the already-complete fast-path below to work

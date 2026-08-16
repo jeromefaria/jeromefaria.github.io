@@ -3,6 +3,7 @@ import { computed, nextTick, onMounted, ref } from 'vue';
 
 import type { LightboxItem } from '@/types';
 import { isLightboxImage, isLightboxVideo } from '@/types';
+import { toWebp } from '@/utils/responsiveImage';
 
 import IconArrow from './IconArrow.vue';
 
@@ -122,7 +123,7 @@ onMounted(async () => {
       <!-- Image -->
       <picture v-else-if="isImage && currentItem && isLightboxImage(currentItem)">
         <source
-          :srcset="currentItem.src.replace('.jpg', '.webp')"
+          :srcset="toWebp(currentItem.src)"
           type="image/webp"
         >
         <img
