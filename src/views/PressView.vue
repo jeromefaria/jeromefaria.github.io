@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { useHashScroll } from '@/composables/useHashScroll';
 import { usePageHead } from '@/composables/usePageHead';
+import { pageMeta } from '@/data/pageMeta';
 import { pressQuotes } from '@/data/press';
 
-usePageHead({
-  title: 'Press',
-  description: 'Press coverage and reviews of Jerome Faria\'s work from The Quietus, Bodyspace, Indie Rock Mag, and more.',
-});
+usePageHead(pageMeta.press);
 
 const scrollToHash = (hash: string) => {
   const element = document.getElementById(hash.replace('#', ''));

@@ -2,24 +2,13 @@
 import { useContactForm } from '@/composables/useContactForm';
 import { usePageHead } from '@/composables/usePageHead';
 import { contactContent } from '@/data/contact';
-import { siteConfig } from '@/data/navigation';
+import { pageMeta } from '@/data/pageMeta';
 import { FORM_SUBMIT } from '@/utils/constants';
-
-const contactSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'ContactPage',
-  mainEntity: {
-    '@type': 'Person',
-    name: siteConfig.author.name,
-    email: siteConfig.author.email,
-    url: siteConfig.url,
-  },
-};
+import { createContactPageSchema } from '@/utils/pageSchemas';
 
 usePageHead({
-  title: 'Contact',
-  description: 'Get in touch with Jerome Faria for commissions, collaborations, performance bookings, and general inquiries.',
-  schema: contactSchema,
+  ...pageMeta.contact,
+  schema: createContactPageSchema(),
 });
 
 const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, handleBlur, handleInput, handleSubmit } =

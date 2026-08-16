@@ -1,69 +1,26 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { useTemplateRef } from 'vue';
 
 import AccordionSection from '@/components/AccordionSection.vue';
 import EventItem from '@/components/EventItem.vue';
-import LightboxOverlay from '@/components/LightboxOverlay.vue';
+import LightboxHost from '@/components/LightboxHost.vue';
 import { useAccordion } from '@/composables/useAccordion';
-import { useLightboxWithSwipe } from '@/composables/useLightboxWithSwipe';
 import { usePageHead } from '@/composables/usePageHead';
-import { liveData, liveYears } from '@/data/live';
-import { siteConfig } from '@/data/navigation';
-import type { LiveData } from '@/types';
+import { liveYears, sortedLiveData } from '@/data/live';
+import { pageMeta } from '@/data/pageMeta';
 import { updateHash } from '@/utils/navigation';
-import { createItemListSchema, createMusicEventSchema } from '@/utils/schemaHelpers';
-
-// Sort events within each year by date (most recent first)
-// ISO dates can be compared as strings: '2022-07-02' > '2022-03-05'
-const sortedLiveData = computed<LiveData>(() => {
-  const sorted: LiveData = {};
-  for (const year in liveData) {
-    const yearData = liveData[year];
-    if (yearData) {
-      sorted[year] = {
-        ...yearData,
-        items: [...(yearData.items || [])].sort((a, b) => {
-          const dateA = a.date || '';
-          const dateB = b.date || '';
-          return dateB.localeCompare(dateA); // Descending
-        }),
-      };
-    }
-  }
-  return sorted;
-});
-
-const eventSchemas = computed(() =>
-  liveYears.flatMap(year => {
-    const yearData = sortedLiveData.value[year];
-    return (yearData?.items ?? []).map(event =>
-      createMusicEventSchema(event, siteConfig.author.name, `${year}-01-01`),
-    );
-  }),
-);
-
-const eventsSchema = computed(() =>
-  createItemListSchema(
-    eventSchemas.value,
-    `${siteConfig.author.name} Live Performances`,
-    'Live performance history from 2005 to present',
-  ),
-);
+import { createLiveEventsSchema } from '@/utils/pageSchemas';
 
 usePageHead({
-  title: 'Live',
-  description: 'Live performance history of Jerome Faria from 2005 to present, including festivals, concerts, and collaborations.',
-  schema: eventsSchema.value,
+  ...pageMeta.live,
+  schema: createLiveEventsSchema(),
 });
 
 const findYearForEvent = (eventId: string): string | null =>
-  liveYears.find(year => {
-    const yearData = sortedLiveData.value[year];
-    return yearData?.items?.some(e => e.id === eventId);
-  }) ?? null;
+  liveYears.find(year => sortedLiveData[year]?.items?.some(e => e.id === eventId)) ?? null;
 
 const { openSection, handleToggle } = useAccordion(liveYears[0] ?? '', liveYears, findYearForEvent);
-const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev, handleTouchStart, handleTouchEnd } = useLightboxWithSwipe();
+const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 </script>
 
 <template>
@@ -88,23 +45,11 @@ const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, g
           :key="event.id"
           :event="event"
           @update-hash="updateHash"
-          @open-lightbox="openLightbox"
+          @open-lightbox="lightbox?.openLightbox"
         />
       </AccordionSection>
     </article>
 
-    <!-- Lightbox overlay -->
-    <LightboxOverlay
-      v-if="currentItem"
-      :is-open="isOpen"
-      :current-item="currentItem"
-      :current-index="currentIndex"
-      :total-items="items.length"
-      @close="closeLightbox"
-      @prev="goToPrev"
-      @next="goToNext"
-      @touchstart="handleTouchStart"
-      @touchend="handleTouchEnd"
-    />
+    <LightboxHost ref="lightbox" />
   </div>
 </template>

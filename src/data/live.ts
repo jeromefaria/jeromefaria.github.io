@@ -1071,3 +1071,15 @@ export const liveData: LiveData = {
 
 // Export years dynamically from liveData keys (newest first)
 export const liveYears: string[] = Object.keys(liveData).sort((a, b) => b.localeCompare(a));
+
+// Events within each year, sorted by date (most recent first). ISO date
+// strings compare correctly as strings: '2022-07-02' > '2022-03-05'.
+export const sortedLiveData: LiveData = Object.fromEntries(
+  Object.entries(liveData).map(([year, yearData]) => [
+    year,
+    {
+      ...yearData,
+      items: [...yearData.items].sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '')),
+    },
+  ]),
+);

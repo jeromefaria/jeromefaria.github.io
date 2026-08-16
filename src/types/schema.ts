@@ -66,3 +66,38 @@ export interface SchemaBook {
   editor: SchemaPerson[];
   contributor: SchemaPerson;
 }
+
+export interface SchemaProfilePerson {
+  '@context': 'https://schema.org';
+  '@type': 'Person';
+  name: string;
+  url: string;
+  jobTitle: string;
+  description: string;
+  image: string;
+  sameAs: string[];
+}
+
+export interface SchemaContactPage {
+  '@context': 'https://schema.org';
+  '@type': 'ContactPage';
+  mainEntity: {
+    '@type': 'Person';
+    name: string;
+    email: string;
+    url: string;
+  };
+}
+
+export interface SchemaMusicGroup {
+  '@type': 'MusicGroup';
+  name: string;
+  url: string;
+  genre: string[];
+  album: SchemaMusicAlbum[];
+}
+
+export interface SchemaWorksGraph {
+  '@context': 'https://schema.org';
+  '@graph': [SchemaMusicGroup, SchemaBook];
+}

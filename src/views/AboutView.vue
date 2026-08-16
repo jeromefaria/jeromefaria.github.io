@@ -1,21 +1,17 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useTemplateRef } from 'vue';
 
-import LightboxOverlay from '@/components/LightboxOverlay.vue';
-import { useLightboxWithSwipe } from '@/composables/useLightboxWithSwipe';
+import LightboxHost from '@/components/LightboxHost.vue';
 import { usePageHead } from '@/composables/usePageHead';
 import { aboutSections } from '@/data/about';
+import { pageMeta } from '@/data/pageMeta';
 import type { AboutImage, LightboxImage } from '@/types';
 import { getImageStyles } from '@/utils/imageStyles';
 import { responsiveSrcset } from '@/utils/responsiveImage';
 
-usePageHead({
-  title: 'About',
-  description: 'Biography and background of Jerome Faria, Portuguese sound artist and electronic music composer.',
-  ogType: 'profile',
-});
+usePageHead(pageMeta.about);
 
-const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev, handleTouchStart, handleTouchEnd } = useLightboxWithSwipe();
+const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 
 const convertToLightboxImage = (image: AboutImage): LightboxImage => {
   const lightboxImage: LightboxImage = {
@@ -90,7 +86,7 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
             v-for="(image, imageIndex) in section.images"
             :key="imageIndex"
             class="about-image-group__image"
-            @click="openLightbox(allImages, getGlobalIndex(sectionIndex, imageIndex))"
+            @click="lightbox?.openLightbox(allImages, getGlobalIndex(sectionIndex, imageIndex))"
           >
             <picture>
               <source
@@ -129,18 +125,6 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
       </template>
     </article>
 
-    <!-- Lightbox overlay -->
-    <LightboxOverlay
-      v-if="currentItem"
-      :is-open="isOpen"
-      :current-item="currentItem"
-      :current-index="currentIndex"
-      :total-items="items.length"
-      @close="closeLightbox"
-      @prev="goToPrev"
-      @next="goToNext"
-      @touchstart="handleTouchStart"
-      @touchend="handleTouchEnd"
-    />
+    <LightboxHost ref="lightbox" />
   </div>
 </template>
