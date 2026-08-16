@@ -8,7 +8,6 @@ interface UsePageHeadOptions {
   description: string;
   ogType?: string;
   schema?: object | null;
-  includeImage?: boolean;
   noIndex?: boolean;
   /** WebP image to preload with high priority (e.g. an above-the-fold hero). */
   preloadImage?: string;
@@ -21,7 +20,6 @@ interface UsePageHeadOptions {
  * @param options.description - Page meta description
  * @param options.ogType - Open Graph type (default: 'website')
  * @param options.schema - JSON-LD structured data schema
- * @param options.includeImage - Include og:image and twitter:image meta tags
  * @param options.noIndex - Add robots noindex meta tag
  */
 export const usePageHead = ({
@@ -29,7 +27,6 @@ export const usePageHead = ({
   description,
   ogType = 'website',
   schema = null,
-  includeImage = false,
   noIndex = false,
   preloadImage,
 }: UsePageHeadOptions): void => {
@@ -39,6 +36,7 @@ export const usePageHead = ({
     : `${title} - ${siteConfig.title}`;
 
   const canonicalUrl = `${siteConfig.url}${route.path}`;
+  const imageUrl = `${siteConfig.url}${siteConfig.image}`;
 
   const meta = [
     { name: 'description', content: description },
@@ -47,18 +45,12 @@ export const usePageHead = ({
     { property: 'og:type', content: ogType },
     { property: 'og:url', content: canonicalUrl },
     { property: 'og:site_name', content: siteConfig.title },
-    { name: 'twitter:card', content: includeImage ? 'summary_large_image' : 'summary' },
+    { property: 'og:image', content: imageUrl },
+    { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: fullTitle },
     { name: 'twitter:description', content: description },
+    { name: 'twitter:image', content: imageUrl },
   ];
-
-  if (includeImage) {
-    const imageUrl = `${siteConfig.url}${siteConfig.image}`;
-    meta.push(
-      { property: 'og:image', content: imageUrl },
-      { name: 'twitter:image', content: imageUrl },
-    );
-  }
 
   if (noIndex) {
     meta.push({ name: 'robots', content: 'noindex' });

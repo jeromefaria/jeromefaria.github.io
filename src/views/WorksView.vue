@@ -1,78 +1,19 @@
 <script setup lang="ts">
+import { useTemplateRef } from 'vue';
+
 import AccordionSection from '@/components/AccordionSection.vue';
-import LightboxOverlay from '@/components/LightboxOverlay.vue';
+import LightboxHost from '@/components/LightboxHost.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
 import { useAccordion } from '@/composables/useAccordion';
-import { useLightboxWithSwipe } from '@/composables/useLightboxWithSwipe';
 import { usePageHead } from '@/composables/usePageHead';
-import { siteConfig } from '@/data/navigation';
+import { pageMeta } from '@/data/pageMeta';
 import { worksData, worksSections } from '@/data/works';
-import type { BandcampRelease, ExternalRelease } from '@/types';
-import { extractYear } from '@/utils/formatters';
 import { updateHash } from '@/utils/navigation';
-import { createMusicAlbumSchema } from '@/utils/schemaHelpers';
-
-const soloSection = worksData['solo'];
-const albumSchemas = soloSection
-  ? soloSection.items
-    .filter((r): r is BandcampRelease | ExternalRelease => {
-      return (
-        ('bandcampId' in r && r.bandcampId !== undefined) ||
-          ('bandcampUrl' in r && r.bandcampUrl !== undefined)
-      );
-    })
-    .map(release => {
-      const datePublished = extractYear(release.meta ?? null);
-      const releaseWithDate = { ...release, ...(datePublished ? { datePublished } : {}) };
-      return createMusicAlbumSchema(
-        releaseWithDate,
-        siteConfig.author.name,
-        siteConfig.url,
-      );
-    })
-  : [];
-
-const bookSchema = {
-  '@type': 'Book',
-  name: 'Glitch: Designing Imperfection',
-  image: `${siteConfig.url}/images/glitch.jpg`,
-  url: 'https://www.amazon.com/Glitch-Designing-Imperfection-Iman-Moradi/dp/0979966663',
-  datePublished: '2009',
-  isbn: '978-0-9799666-6-8',
-  publisher: {
-    '@type': 'Organization',
-    name: 'Mark Batty Publisher',
-  },
-  editor: [
-    { '@type': 'Person', name: 'Iman Moradi' },
-    { '@type': 'Person', name: 'Ant Scott' },
-    { '@type': 'Person', name: 'Joe Gilmore' },
-    { '@type': 'Person', name: 'Christopher Murphy' },
-  ],
-  contributor: {
-    '@type': 'Person',
-    name: siteConfig.author.name,
-  },
-};
-
-const creativeWorkSchema = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'MusicGroup',
-      name: siteConfig.author.name,
-      url: siteConfig.url,
-      genre: ['Electronic', 'Experimental', 'Ambient'],
-      album: albumSchemas,
-    },
-    bookSchema,
-  ],
-};
+import { createWorksPageSchema } from '@/utils/pageSchemas';
 
 usePageHead({
-  title: 'Works',
-  description: 'Discography, film scores, and works by Jerome Faria including solo releases, collaborations, and curatorial projects.',
-  schema: creativeWorkSchema,
+  ...pageMeta.works,
+  schema: createWorksPageSchema(),
 });
 
 const findSectionForRelease = (releaseId: string): string | null =>
@@ -82,7 +23,7 @@ const findSectionForRelease = (releaseId: string): string | null =>
   }) ?? null;
 
 const { openSection, handleToggle } = useAccordion('solo', worksSections, findSectionForRelease);
-const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev, handleTouchStart, handleTouchEnd } = useLightboxWithSwipe();
+const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 </script>
 
 <template>
@@ -108,23 +49,11 @@ const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, g
           :release="release"
           :text-only="!('coverImage' in release && release.coverImage)"
           @update-hash="updateHash"
-          @open-lightbox="openLightbox"
+          @open-lightbox="lightbox?.openLightbox"
         />
       </AccordionSection>
     </article>
 
-    <!-- Lightbox overlay -->
-    <LightboxOverlay
-      v-if="currentItem"
-      :is-open="isOpen"
-      :current-item="currentItem"
-      :current-index="currentIndex"
-      :total-items="items.length"
-      @close="closeLightbox"
-      @prev="goToPrev"
-      @next="goToNext"
-      @touchstart="handleTouchStart"
-      @touchend="handleTouchEnd"
-    />
+    <LightboxHost ref="lightbox" />
   </div>
 </template>

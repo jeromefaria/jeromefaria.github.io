@@ -2,26 +2,15 @@
 import { onMounted, ref } from 'vue';
 
 import { usePageHead } from '@/composables/usePageHead';
-import { siteConfig, social } from '@/data/navigation';
-
-const personSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: siteConfig.author.name,
-  url: siteConfig.url,
-  jobTitle: siteConfig.tagline,
-  description: siteConfig.description,
-  image: `${siteConfig.url}${siteConfig.image}`,
-  sameAs: social.map(s => s.url),
-};
+import { siteConfig } from '@/data/navigation';
+import { pageMeta } from '@/data/pageMeta';
+import { createPersonSchema } from '@/utils/pageSchemas';
 
 const heroImageSrc = '/images/performance.webp';
 
 usePageHead({
-  title: `${siteConfig.title} - ${siteConfig.tagline}`,
-  description: siteConfig.description,
-  schema: personSchema,
-  includeImage: true,
+  ...pageMeta.home,
+  schema: createPersonSchema(),
   preloadImage: heroImageSrc,
 });
 
