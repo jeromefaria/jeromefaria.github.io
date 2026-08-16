@@ -1,14 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
 
-import type {
-  BandcampRelease,
-  CollaborationRelease,
-  ExternalRelease,
-  MasteringCredit,
-  PublicationRelease,
-  Release,
-} from '@/types';
+import type { Release } from '@/types';
 
 import BandcampPlayer from './BandcampPlayer.vue';
 import ReleaseItem from './ReleaseItem.vue';
@@ -16,7 +9,7 @@ import ReleaseItem from './ReleaseItem.vue';
 const mountRelease = (release: Release, textOnly = false) =>
   mount(ReleaseItem, { props: { release, textOnly } });
 
-const bandcamp: BandcampRelease = {
+const bandcamp: Release = {
   id: 'overlapse',
   title: 'Overlapse',
   meta: 'Digital — BRØQN, 2012',
@@ -27,7 +20,7 @@ const bandcamp: BandcampRelease = {
   credits: 'Music by Jerome Faria.',
 };
 
-const external: ExternalRelease = {
+const external: Release = {
   id: 'ect',
   title: 'ECT',
   meta: 'Digital — Test Tube, 2005',
@@ -37,7 +30,7 @@ const external: ExternalRelease = {
   credits: 'Music by Jerome Faria.',
 };
 
-const staticCover: CollaborationRelease = {
+const staticCover: Release = {
   id: 'depolarized',
   title: 'Depolarized',
   meta: 'Digital — BRØQN, 2012',
@@ -45,7 +38,7 @@ const staticCover: CollaborationRelease = {
   credits: 'Music by Jerome Faria and Nelson P. Ferreira.',
 };
 
-const textOnlyRelease: MasteringCredit = {
+const textOnlyRelease: Release = {
   id: 'master-open',
   title: 'Open',
   meta: 'Hugo Calcio, 2021',
@@ -67,7 +60,7 @@ describe('ReleaseItem', () => {
   });
 
   it('flags an external cover that links to Bandcamp with a modifier class', () => {
-    const bandcampExternal: ExternalRelease = {
+    const bandcampExternal: Release = {
       id: 'bc-ext',
       title: 'BC External',
       meta: 'Digital, 2020',
@@ -129,7 +122,7 @@ describe('ReleaseItem', () => {
   });
 
   it('emits open-lightbox with converted images from the gallery button', async () => {
-    const publication: PublicationRelease = {
+    const publication: Release = {
       id: 'glitch',
       title: 'Glitch',
       meta: 'Book, 2009',
@@ -153,7 +146,7 @@ describe('ReleaseItem', () => {
   });
 
   it('emits open-lightbox with converted videos from the video button', async () => {
-    const withVideo: CollaborationRelease = {
+    const withVideo: Release = {
       id: 'altar',
       title: 'ALTAR',
       meta: 'Digital/Cassette, 2024',
@@ -186,7 +179,7 @@ describe('ReleaseItem', () => {
   });
 
   it('pluralizes the video button and separates it from the gallery link', () => {
-    const withBoth: PublicationRelease = {
+    const withBoth: Release = {
       id: 'glitch',
       title: 'Glitch',
       meta: 'Book, 2009',
