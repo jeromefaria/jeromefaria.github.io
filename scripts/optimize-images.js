@@ -7,7 +7,7 @@ const QUALITY = 80
 
 async function optimizeImages() {
   const files = await readdir(IMAGES_DIR)
-  const jpgFiles = files.filter(f => extname(f).toLowerCase() === '.jpg')
+  const jpgFiles = files.filter(file => extname(file).toLowerCase() === '.jpg')
 
   console.log(`Converting ${jpgFiles.length} images to WebP...`)
 

@@ -19,8 +19,8 @@ const emit = defineEmits<{
   close: [];
   prev: [];
   next: [];
-  touchstart: [e: TouchEvent];
-  touchend: [e: TouchEvent];
+  touchstart: [event: TouchEvent];
+  touchend: [event: TouchEvent];
 }>();
 
 const isVideo = computed(() => props.currentItem !== null && isLightboxVideo(props.currentItem));
@@ -30,20 +30,16 @@ const isImage = computed(() => props.currentItem !== null && isLightboxImage(pro
 // "Video by" for a video's author. Null when the current item has neither.
 const credit = computed(() => {
   const item = props.currentItem;
-  if (item && isLightboxImage(item) && item.photographer) {
-    return { prefix: 'Photo by', ...item.photographer };
-  }
-  if (item && isLightboxVideo(item) && item.author) {
-    return { prefix: 'Video by', ...item.author };
-  }
+  if (item && isLightboxImage(item) && item.photographer) return { prefix: 'Photo by', ...item.photographer };
+  if (item && isLightboxVideo(item) && item.author) return { prefix: 'Video by', ...item.author };
   return null;
 });
 
 const handleClose = () => emit('close');
 const handlePrev = () => emit('prev');
 const handleNext = () => emit('next');
-const handleTouchStart = (e: TouchEvent) => emit('touchstart', e);
-const handleTouchEnd = (e: TouchEvent) => emit('touchend', e);
+const handleTouchStart = (event: TouchEvent) => emit('touchstart', event);
+const handleTouchEnd = (event: TouchEvent) => emit('touchend', event);
 
 // Accessible name for the dialog, reflecting current media/position
 const dialogLabel = computed(() => {
