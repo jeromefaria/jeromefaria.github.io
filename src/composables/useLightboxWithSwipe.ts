@@ -1,22 +1,8 @@
-import type { Ref } from 'vue';
+import { useLightbox, type UseLightboxReturn } from './useLightbox';
+import { useSwipeNavigation, type UseSwipeNavigationReturn } from './useSwipeNavigation';
 
-import type { LightboxItem } from '@/types/lightbox';
-
-import { useLightbox } from './useLightbox';
-import { useSwipeNavigation } from './useSwipeNavigation';
-
-interface UseLightboxWithSwipeReturn {
-  isOpen: Ref<boolean>;
-  currentItem: Ref<LightboxItem | null>;
-  currentIndex: Ref<number>;
-  items: Ref<LightboxItem[]>;
-  openLightbox: (allItems: LightboxItem[], index?: number) => void;
-  closeLightbox: () => void;
-  goToNext: () => void;
-  goToPrev: () => void;
-  handleTouchStart: (e: TouchEvent) => void;
-  handleTouchEnd: (e: TouchEvent) => void;
-}
+// Lightbox state/actions plus the swipe handlers, combined verbatim.
+type UseLightboxWithSwipeReturn = UseLightboxReturn & UseSwipeNavigationReturn;
 
 /**
  * Combines lightbox functionality with swipe navigation
