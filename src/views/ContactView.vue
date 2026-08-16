@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PageShell from '@/components/PageShell.vue';
 import { useContactForm } from '@/composables/useContactForm';
 import { usePageHead } from '@/composables/usePageHead';
 import { contactContent } from '@/data/contact';
@@ -17,13 +18,10 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
 
 <template>
   <div class="container-wide">
-    <article
-      class="page"
+    <PageShell
       data-page="contact"
+      title="Contact"
     >
-      <h1 class="visually-hidden">
-        Contact
-      </h1>
       <!-- Introduction -->
       <div
         v-show="!showSuccess"
@@ -201,6 +199,6 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
           {{ isSubmitting ? 'Sending...' : contactContent.form.submitText }}
         </button>
       </form>
-    </article>
+    </PageShell>
   </div>
 </template>

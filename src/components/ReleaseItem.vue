@@ -8,6 +8,7 @@ import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 import { responsiveSrcset } from '@/utils/responsiveImage';
 
 import BandcampPlayer from './BandcampPlayer.vue';
+import ExternalLink from './ExternalLink.vue';
 
 const props = withDefaults(defineProps<{
   release: Release;
@@ -91,11 +92,9 @@ const isBandcampLink = computed(() => {
     />
 
     <!-- External Link Cover -->
-    <a
+    <ExternalLink
       v-else-if="coverVisible && hasExternalUrl && hasCoverImage && !imageError && 'externalUrl' in release"
       :href="release.externalUrl"
-      target="_blank"
-      rel="noopener noreferrer"
       class="release-cover"
       :class="{ 'release-cover--bandcamp': isBandcampLink }"
     >
@@ -122,8 +121,7 @@ const isBandcampLink = computed(() => {
           @error="handleImageError"
         >
       </picture>
-      <span class="visually-hidden"> (opens in a new tab)</span>
-    </a>
+    </ExternalLink>
 
     <!-- Static Cover (no link) -->
     <div

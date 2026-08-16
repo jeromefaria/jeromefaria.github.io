@@ -2,6 +2,7 @@
 import { computed, useTemplateRef } from 'vue';
 
 import LightboxHost from '@/components/LightboxHost.vue';
+import PageShell from '@/components/PageShell.vue';
 import { usePageHead } from '@/composables/usePageHead';
 import { aboutSections } from '@/data/about';
 import { pageMeta } from '@/data/pageMeta';
@@ -41,13 +42,10 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
 
 <template>
   <div class="container-wide">
-    <article
-      class="page"
+    <PageShell
       data-page="about"
+      title="About"
     >
-      <h1 class="visually-hidden">
-        About
-      </h1>
       <template
         v-for="(section, sectionIndex) in aboutSections"
         :key="section.id"
@@ -112,7 +110,7 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
           >
         </figure>
       </template>
-    </article>
+    </PageShell>
 
     <LightboxHost ref="lightbox" />
   </div>

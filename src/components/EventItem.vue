@@ -5,6 +5,7 @@ import type { LightboxItem, LiveEvent } from '@/types';
 import { formatEventDate, stripHtml } from '@/utils/formatters';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 
+import ExternalLink from './ExternalLink.vue';
 import IconArrow from './IconArrow.vue';
 
 const props = defineProps<{
@@ -48,14 +49,12 @@ const venueLocation = computed(() =>
             :href="`#${event.id}`"
             @click.prevent="emit('update-hash', event.id)"
           >{{ titleText }}</a>
-          <a
+          <ExternalLink
             v-if="titleHref && titleHrefIsExternal"
             class="event-title-ref"
             :href="titleHref"
-            target="_blank"
-            rel="noopener noreferrer"
             :aria-label="`${titleText} website (opens in a new tab)`"
-          ><IconArrow direction="up-right" /></a>
+          ><IconArrow direction="up-right" /></ExternalLink>
           <RouterLink
             v-else-if="titleHref"
             class="event-title-ref"

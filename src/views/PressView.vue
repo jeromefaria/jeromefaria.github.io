@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ExternalLink from '@/components/ExternalLink.vue';
+import PageShell from '@/components/PageShell.vue';
 import { useHashScroll } from '@/composables/useHashScroll';
 import { usePageHead } from '@/composables/usePageHead';
 import { pageMeta } from '@/data/pageMeta';
@@ -16,13 +18,10 @@ useHashScroll(scrollToHash);
 
 <template>
   <div class="container-wide">
-    <article
-      class="page"
+    <PageShell
       data-page="press"
+      title="Press"
     >
-      <h1 class="visually-hidden">
-        Press
-      </h1>
       <blockquote
         v-for="item in pressQuotes"
         :id="item.id"
@@ -30,15 +29,13 @@ useHashScroll(scrollToHash);
       >
         <p v-html="item.quote" />
         <strong>
-          <a
+          <ExternalLink
             v-if="item.url"
             :href="item.url"
-            target="_blank"
-            rel="noopener noreferrer"
-          >{{ item.source }}<span class="visually-hidden"> (opens in a new tab)</span></a>
+          >{{ item.source }}</ExternalLink>
           <template v-else>{{ item.source }}</template>
         </strong>
       </blockquote>
-    </article>
+    </PageShell>
   </div>
 </template>

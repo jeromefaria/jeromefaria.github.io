@@ -3,6 +3,7 @@ import { useTemplateRef } from 'vue';
 
 import AccordionSection from '@/components/AccordionSection.vue';
 import LightboxHost from '@/components/LightboxHost.vue';
+import PageShell from '@/components/PageShell.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
 import { useAccordion } from '@/composables/useAccordion';
 import { usePageHead } from '@/composables/usePageHead';
@@ -28,13 +29,10 @@ const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 
 <template>
   <div class="container-wide">
-    <article
-      class="page"
+    <PageShell
       data-page="works"
+      title="Works"
     >
-      <h1 class="visually-hidden">
-        Works
-      </h1>
       <AccordionSection
         v-for="sectionKey in worksSections"
         :id="sectionKey"
@@ -52,7 +50,7 @@ const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
           @open-lightbox="lightbox?.openLightbox"
         />
       </AccordionSection>
-    </article>
+    </PageShell>
 
     <LightboxHost ref="lightbox" />
   </div>
