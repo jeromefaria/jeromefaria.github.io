@@ -1,7 +1,8 @@
 import type { Ref } from 'vue';
-import { nextTick, ref } from 'vue';
+import { ref } from 'vue';
 
-import { ID_PREFIX, TIMING } from '@/utils/constants';
+import { ID_PREFIX } from '@/utils/constants';
+import { afterAccordionAnimation, prefersReducedMotion, scrollToElement } from '@/utils/scroll';
 
 import { useHashScroll } from './useHashScroll';
 
@@ -24,17 +25,13 @@ export const useAccordion = (
 ): UseAccordionReturn => {
   const openSection = ref<string | null>(initialSection);
 
-  const scrollToElement = (id: string): void => {
-    void nextTick(() => {
-      setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          const scrollMargin = parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
-          const targetY = element.getBoundingClientRect().top + window.scrollY - scrollMargin;
-          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          window.scrollTo({ top: targetY, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-        }
-      }, TIMING.ACCORDION_ANIMATION);
+  const scrollToHashTarget = (id: string): void => {
+    afterAccordionAnimation(() => {
+      const element = document.getElementById(id);
+      if (!element) return;
+
+      const offset = parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
+      scrollToElement(element, { offset, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
     });
   };
 
@@ -45,7 +42,7 @@ export const useAccordion = (
 
     if (validSections.includes(id)) {
       openSection.value = id;
-      if (shouldScroll) scrollToElement(`${ID_PREFIX.TRIGGER}${id}`);
+      if (shouldScroll) scrollToHashTarget(`${ID_PREFIX.TRIGGER}${id}`);
       return;
     }
 
@@ -55,7 +52,7 @@ export const useAccordion = (
     if (!parentSection) return;
 
     openSection.value = parentSection;
-    if (shouldScroll) scrollToElement(id);
+    if (shouldScroll) scrollToHashTarget(id);
   };
 
   // Open (and scroll to) the hash target on load and on hash changes.
