@@ -9,6 +9,9 @@ const RESPONSIVE_DIR = '/images/responsive';
 const baseName = (imagePath: string): string =>
   imagePath.replace(/^.*\//, '').replace(/\.[a-z]+$/i, '');
 
+/** Swap a `.jpg` source for its `.webp` sibling, anchored to the extension. */
+export const toWebp = (imagePath: string): string => imagePath.replace(/\.jpg$/, '.webp');
+
 /**
  * Builds a WebP `srcset` from an image's pre-generated responsive widths, or
  * null when it has none — in which case callers fall back to the full-resolution

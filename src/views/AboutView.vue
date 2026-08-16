@@ -7,7 +7,7 @@ import { aboutSections } from '@/data/about';
 import { pageMeta } from '@/data/pageMeta';
 import type { AboutImage, LightboxImage } from '@/types';
 import { getImageStyles } from '@/utils/imageStyles';
-import { responsiveSrcset } from '@/utils/responsiveImage';
+import { responsiveSrcset, toWebp } from '@/utils/responsiveImage';
 
 usePageHead(pageMeta.about);
 
@@ -96,7 +96,7 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
                 type="image/webp"
               >
               <source
-                :srcset="image.src.replace('.jpg', '.webp')"
+                :srcset="toWebp(image.src)"
                 type="image/webp"
               >
               <img
