@@ -17,7 +17,6 @@ usePageHead({
 
 const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev, handleTouchStart, handleTouchEnd } = useLightboxWithSwipe();
 
-// Convert AboutImage to LightboxImage
 const convertToLightboxImage = (image: AboutImage): LightboxImage => {
   const lightboxImage: LightboxImage = {
     type: 'image' as const,
@@ -30,7 +29,7 @@ const convertToLightboxImage = (image: AboutImage): LightboxImage => {
   return lightboxImage;
 };
 
-// Collect all images from all image groups and convert to LightboxItems
+// All image-group images, flattened to lightbox items.
 const allImages = computed(() => {
   return aboutSections
     .filter(section => section.type === 'image-group' && 'images' in section)
@@ -49,7 +48,7 @@ const sectionStartIndices = computed(() => {
   });
 });
 
-// Helper to get global index of an image - O(1) instead of O(n)
+// Global index of an image — O(1) via the precomputed section starts.
 const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
   return (sectionStartIndices.value[sectionIndex] ?? 0) + imageIndex;
 };

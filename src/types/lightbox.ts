@@ -27,7 +27,6 @@ export interface LightboxVideo {
 
 export type LightboxItem = LightboxImage | LightboxVideo;
 
-// Type guards for discriminated unions
 export function isLightboxImage(item: LightboxItem): item is LightboxImage {
   return item.type === 'image';
 }
