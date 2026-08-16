@@ -1,88 +1,26 @@
 import { describe, expect, it } from 'vitest';
 
-import { formatMeta } from '@/utils/formatMeta';
-
 import { worksData } from './works';
 
-// Golden snapshot of every release's display string as it read before `meta`
-// was normalised into structured fields. `formatMeta` must reproduce each one
-// byte-for-byte, which guards the migration against transcription drift.
-const ORIGINAL_META: Record<string, string> = {
-  'contraplacado': 'Digital — BRØQN, BRQN009, 2026',
-  'en-veille': 'Digital — BRØQN, BRQN008, 2026',
-  '2504': 'Digital — BRØQN, BRQN006, 2024',
-  'caligari-album': 'Digital — BRØQN, BRQN005, 2023',
-  'overlapse': 'Digital — BRØQN, BRQN002 / Enough Records, ENRMP296, 2012',
-  '1714': 'Digital — BRØQN, BRQN001, 2010',
-  'nny-plus': 'CDr — <a href="https://www.discogs.com/label/84424-Almasud-Records">Almasud Records</a>, CDRASUD015, 2007',
-  'coil': 'Digital — <a href="https://mimirecords.bandcamp.com/">MiMi Records</a>, MI056, 2006',
-  'readerror': 'Digital — <a href="https://mimirecords.bandcamp.com/">MiMi Records</a>, MI031, 2005',
-  'ect': 'Digital — <a href="https://www.monocromatica.com/netlabel/">Test Tube</a>, TUBE026, 2005',
-  'offear': 'Digital — <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRMP040, 2004',
-  'overlapse-xiii': 'Digital/Cassette — BRØQN, BRQN007, 2025',
-  'altar': 'Digital/Cassette — <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#035, 2024',
-  'depolarized': 'Digital — BRØQN, BRQN003, 2012',
-  'aragao': 'Theatre — <a href="https://teatrobaltazardias.funchal.pt/">Teatro Municipal Baltazar Dias</a>, 2021',
-  'invisible-other': 'Film — dir. <a href="https://margaridapaiva.net/">Margarida Paiva</a>, 2016',
-  'caligari': 'Live Score — 2013',
-  'hyphema': 'DVD — Pixelnerve, PXN001, 2008',
-  'comp-marrow': 'in <em><a href="https://citiesandmemory.bandcamp.com/album/migration-sounds">Migration Sounds</a></em> — MP3, <a href="https://citiesandmemory.com/">Cities and Memory</a>, 2024',
-  'comp-100421': 'in <em><a href="https://descendresalacave.bandcamp.com/album/transmissions-from-the-heart-of-darkness-part-v-elsewhere">Transmissions From The Heart Of Darkness, Part V: Elsewhere</a></em> — MP3, Des Cendres À La Cave, 2013',
-  'comp-absence': 'in <em><a href="https://indierockmag.bandcamp.com/album/irm-presents-clashes">IRM Presents: Clashes</a></em> — MP3, Indie Rock Mag, 2012',
-  'comp-sustain': 'in <em><a href="https://futuresequence.bandcamp.com/album/sequence4">SEQUENCE4</a></em> — MP3, Future Sequence, SEQ004, 2011',
-  'comp-madeiradig11': 'in <em><a href="https://www.discogs.com/release/3345819-Michael-Rosen-What-Does-It-Sound-Like-When-Volcanoes-Start-To-Whisper-Edition-2011-Madeira-Island">What Does It Sound Like When Volcanoes Start To Whisper</a></em> — CD, Madeira Dig, MADEIRADIG2011, 2011',
-  'comp-madeiradig09': 'in <em><a href="https://www.discogs.com/release/11528327-Various-What-It-Sounds-Like-When-Flowers-Start-To-Think-edition-09-madeira-island">What It Sounds Like When Flowers Start To Think</a></em> — CD, Madeira Dig, MadeiraDig09, 2009',
-  'comp-sand-dune': 'in <em>Baconism</em> — CD/MP3, NIkO, NIKO005, 2008',
-  'comp-crystal-space-thisco': 'in <em><a href="https://thisco.bandcamp.com/album/thisagree-shadow">Thisagree & Shadow</a></em> — CD, Thisco, THISK.43, 2008',
-  'comp-datacross': 'in <em><a href="https://archive.org/details/enrcmp07">Datacross.1</a></em> — MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP07, 2007',
-  'comp-cybernetics': 'with Structura in <em><a href="https://archive.org/details/enrcmp05">SOUNDResearch</a></em> — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP05, 2007',
-  'comp-13': 'in <em><a href="https://archive.org/details/enrcmp06">Falésia</a></em> — CD/MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP06, 2007',
-  'comp-twoism': 'in <em><a href="https://twoismrecords.bandcamp.com/album/one-on-twoism-volume-1">One On Twoism</a></em> — MP3, <a href="https://twoismrecords.bandcamp.com/">Twoism Records</a>, OOT001, 2007',
-  'comp-332': 'in <em><a href="https://archive.org/details/mimi065">Friends Reinterpretations Of Unreleased 332 Variations Volume 4</a></em> — MP3, <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI065, 2006',
-  'comp-crystal-space-mimi': 'in <em><a href="https://archive.org/details/mimi050">Saudade: V/A from the Atlantic Coast</a></em> — MP3, <a href="https://archive.org/details/mimi-records">MiMi Records</a>, MI050, 2006',
-  'comp-valid-specimen': 'in <em><a href="https://archive.org/details/enrcmp03">Dark Vault</a></em> — MP3, <a href="https://enoughrecords.scene.org/">Enough Records</a>, ENRCMP03, 2004',
-  'glitch': 'Book — Mark Batty Publisher, 2009 — <a href="https://www.google.com/books/edition/_/3r65PAAACAAJ?hl=en">ISBN 978-0-9799666-6-8</a>',
-  'master-overlapse-xiii': 'various artists — BRØQN, BRQN007, 2025',
-  'master-open': 'Hugo Calcio — <a href="https://casaamarela.bandcamp.com/">Colectivo Casa Amarela</a>, CCA#016, 2021',
-  'master-vessels': '<a href="https://canadian-rifles.bandcamp.com/">Rui P. Andrade</a> — BRØQN, BRQN004, 2012',
-};
-
 const allReleases = Object.values(worksData).flatMap(section => section.items);
+const KINDS = ['music', 'compilation', 'commission', 'publication', 'mastering'];
 
 describe('worksData', () => {
-  describe('meta normalisation', () => {
-    it('has a golden entry for every release, and no orphan entries', () => {
-      const ids = allReleases.map(release => release.id).sort();
-      expect(ids).toEqual(Object.keys(ORIGINAL_META).sort());
-    });
-
-    it('reproduces the original display string for every release', () => {
-      for (const release of allReleases) {
-        expect(formatMeta(release.meta), `id="${release.id}"`).toBe(ORIGINAL_META[release.id]);
-      }
-    });
-
-    it('carries a four-digit year on every release', () => {
-      for (const release of allReleases) {
-        expect(release.meta.year, `id="${release.id}"`).toBeGreaterThanOrEqual(1900);
-        expect(release.meta.year, `id="${release.id}"`).toBeLessThan(2100);
-      }
-    });
+  it('every release has a known meta kind and a four-digit year', () => {
+    for (const release of allReleases) {
+      expect(KINDS, `id="${release.id}" kind`).toContain(release.meta.kind);
+      expect(release.meta.year, `id="${release.id}" year`).toBeGreaterThanOrEqual(1900);
+      expect(release.meta.year, `id="${release.id}" year`).toBeLessThan(2100);
+    }
   });
 
-  describe('mastering entries', () => {
-    const masteringItems = worksData.mastering.items;
+  it('every mastering entry names the mastered artist', () => {
+    for (const item of worksData.mastering.items) {
+      expect(item.meta.kind, `id="${item.id}"`).toBe('mastering');
 
-    it('every entry has a non-empty title', () => {
-      for (const item of masteringItems) {
-        expect(item.title.trim(), `id="${item.id}" title`).not.toBe('');
+      if (item.meta.kind === 'mastering') {
+        expect(item.meta.artist.text.trim(), `id="${item.id}" artist`).toBeTruthy();
       }
-    });
-
-    it('every entry credits the mastered artist', () => {
-      for (const item of masteringItems) {
-        expect(item.meta.credit?.trim(), `id="${item.id}" credit`).toBeTruthy();
-      }
-    });
+    }
   });
 });

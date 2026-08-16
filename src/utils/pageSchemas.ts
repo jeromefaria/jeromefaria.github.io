@@ -38,27 +38,38 @@ export const createContactPageSchema = (): SchemaContactPage => ({
   },
 });
 
-const glitchBookSchema: SchemaBook = {
-  '@type': 'Book',
-  name: 'Glitch: Designing Imperfection',
-  image: `${siteConfig.url}/images/glitch.jpg`,
-  url: 'https://www.amazon.com/Glitch-Designing-Imperfection-Iman-Moradi/dp/0979966663',
-  datePublished: '2009',
-  isbn: '978-0-9799666-6-8',
-  publisher: {
-    '@type': 'Organization',
-    name: 'Mark Batty Publisher',
-  },
-  editor: [
-    { '@type': 'Person', name: 'Iman Moradi' },
-    { '@type': 'Person', name: 'Ant Scott' },
-    { '@type': 'Person', name: 'Joe Gilmore' },
-    { '@type': 'Person', name: 'Christopher Murphy' },
-  ],
-  contributor: {
-    '@type': 'Person',
-    name: siteConfig.author.name,
-  },
+// Book schema derived from the publication release, so the shared facts
+// (title, cover, url, year, publisher, ISBN) have a single source of truth in
+// the works data. Editors and the contributor credit live only here.
+const createGlitchBookSchema = (): SchemaBook => {
+  const book = worksData['publications']?.items[0];
+  if (book?.meta.kind !== 'publication') {
+    throw new Error('Expected a publication release in worksData.publications');
+  }
+
+  const { meta } = book;
+  return {
+    '@type': 'Book',
+    name: book.title,
+    image: book.coverImage ? `${siteConfig.url}${book.coverImage}` : '',
+    url: book.externalUrl ?? '',
+    datePublished: String(meta.year),
+    isbn: meta.isbn?.value ?? '',
+    publisher: {
+      '@type': 'Organization',
+      name: meta.publisher.text,
+    },
+    editor: [
+      { '@type': 'Person', name: 'Iman Moradi' },
+      { '@type': 'Person', name: 'Ant Scott' },
+      { '@type': 'Person', name: 'Joe Gilmore' },
+      { '@type': 'Person', name: 'Christopher Murphy' },
+    ],
+    contributor: {
+      '@type': 'Person',
+      name: siteConfig.author.name,
+    },
+  };
 };
 
 /** Works page: a MusicGroup with its solo albums, plus the Glitch book. */
@@ -81,7 +92,7 @@ export const createWorksPageSchema = (): SchemaWorksGraph => {
         genre: ['Electronic', 'Experimental', 'Ambient'],
         album: albums,
       },
-      glitchBookSchema,
+      createGlitchBookSchema(),
     ],
   };
 };
