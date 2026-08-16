@@ -25,7 +25,7 @@ export const createPersonSchema = (): SchemaProfilePerson => ({
   jobTitle: siteConfig.tagline,
   description: siteConfig.description,
   image: `${siteConfig.url}${siteConfig.image}`,
-  sameAs: social.map(s => s.url),
+  sameAs: social.map(link => link.url),
 });
 
 export const createContactPageSchema = (): SchemaContactPage => ({

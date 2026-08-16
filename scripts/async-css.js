@@ -7,7 +7,7 @@ const distDir = 'dist';
 async function makeCSSAsync() {
   try {
     const files = await readdir(distDir);
-    const htmlFiles = files.filter(f => f.endsWith('.html'));
+    const htmlFiles = files.filter(file => file.endsWith('.html'));
 
     for (const file of htmlFiles) {
       const filePath = join(distDir, file);

@@ -5,7 +5,7 @@ import { toWebp } from '@/utils/responsiveImage';
 
 interface UseImageLoaderReturn {
   imageRef: Ref<HTMLImageElement | null>;
-  setImageRef: (el: Element | ComponentPublicInstance | null) => void;
+  setImageRef: (element: Element | ComponentPublicInstance | null) => void;
   imageError: Ref<boolean>;
   imageLoaded: Ref<boolean>;
   webpSrc: ComputedRef<string | undefined>;
@@ -28,8 +28,8 @@ export const useImageLoader = (src: string): UseImageLoaderReturn => {
   // Callback ref: bound via `:ref` in templates so the composable owns the
   // <img> element. Needed for the already-complete fast-path below to work
   // when a cached image never re-fires `load` after hydration.
-  const setImageRef = (el: Element | ComponentPublicInstance | null): void => {
-    imageRef.value = el instanceof HTMLImageElement ? el : null;
+  const setImageRef = (element: Element | ComponentPublicInstance | null): void => {
+    imageRef.value = element instanceof HTMLImageElement ? element : null;
   };
 
   onMounted(async () => {

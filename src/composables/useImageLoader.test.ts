@@ -111,10 +111,10 @@ describe('useImageLoader', () => {
       const { loader, wrapper } = mountWithLoader(TEST_SRC_JPG);
 
       // Simulate an already-loaded image
-      const img = wrapper.find('img').element as HTMLImageElement;
-      Object.defineProperty(img, 'complete', { value: true, configurable: true });
-      Object.defineProperty(img, 'naturalHeight', { value: 100, configurable: true });
-      loader.imageRef.value = img;
+      const imageElement = wrapper.find('img').element as HTMLImageElement;
+      Object.defineProperty(imageElement, 'complete', { value: true, configurable: true });
+      Object.defineProperty(imageElement, 'naturalHeight', { value: 100, configurable: true });
+      loader.imageRef.value = imageElement;
 
       // Re-trigger mounted logic via nextTick
       await nextTick();
@@ -128,10 +128,10 @@ describe('useImageLoader', () => {
     it('does not set imageLoaded if image complete but naturalHeight is 0 (broken image)', async () => {
       const { loader, wrapper } = mountWithLoader(TEST_SRC_JPG);
 
-      const img = wrapper.find('img').element as HTMLImageElement;
-      Object.defineProperty(img, 'complete', { value: true, configurable: true });
-      Object.defineProperty(img, 'naturalHeight', { value: 0, configurable: true });
-      loader.imageRef.value = img;
+      const imageElement = wrapper.find('img').element as HTMLImageElement;
+      Object.defineProperty(imageElement, 'complete', { value: true, configurable: true });
+      Object.defineProperty(imageElement, 'naturalHeight', { value: 0, configurable: true });
+      loader.imageRef.value = imageElement;
 
       await nextTick();
       await nextTick();
@@ -144,9 +144,9 @@ describe('useImageLoader', () => {
   describe('setImageRef', () => {
     it('stores an HTMLImageElement in imageRef', () => {
       const { loader } = mountWithLoader(TEST_SRC_JPG);
-      const img = document.createElement('img');
-      loader.setImageRef(img);
-      expect(loader.imageRef.value).toBe(img);
+      const imageElement = document.createElement('img');
+      loader.setImageRef(imageElement);
+      expect(loader.imageRef.value).toBe(imageElement);
     });
 
     it('resets imageRef to null when passed null', () => {

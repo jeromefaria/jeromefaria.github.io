@@ -27,17 +27,17 @@ const collectChars = () => {
       if (entry.isDirectory()) {
         walk(path);
       } else if (/\.(ts|vue)$/.test(entry.name) && !/\.test\.ts$/.test(entry.name)) {
-        for (const ch of readFileSync(path, 'utf8')) chars.add(ch);
+        for (const character of readFileSync(path, 'utf8')) chars.add(character);
       }
     }
   };
   walk(join(root, 'src'));
-  for (const ch of readFileSync(join(root, 'index.html'), 'utf8')) chars.add(ch);
+  for (const character of readFileSync(join(root, 'index.html'), 'utf8')) chars.add(character);
 
   // Safety margin: all of Basic Latin + Latin-1 Supplement, so ordinary future
   // copy (English + Portuguese) never needs a re-subset.
-  for (let cp = 0x20; cp <= 0x7e; cp += 1) chars.add(String.fromCodePoint(cp));
-  for (let cp = 0xa0; cp <= 0xff; cp += 1) chars.add(String.fromCodePoint(cp));
+  for (let codePoint = 0x20; codePoint <= 0x7e; codePoint += 1) chars.add(String.fromCodePoint(codePoint));
+  for (let codePoint = 0xa0; codePoint <= 0xff; codePoint += 1) chars.add(String.fromCodePoint(codePoint));
   return chars;
 };
 
@@ -47,12 +47,12 @@ const text = [...chars].join('');
 // 2. Report any used character the source font cannot provide (would silently
 //    fall back to a system font on the page).
 const source = create(readFileSync(join(FONT_DIR, WEIGHTS[400])));
-const missing = [...chars].filter(ch => {
-  const cp = ch.codePointAt(0);
-  return cp > 0x20 && !source.hasGlyphForCodePoint(cp);
+const missing = [...chars].filter(character => {
+  const codePoint = character.codePointAt(0);
+  return codePoint > 0x20 && !source.hasGlyphForCodePoint(codePoint);
 });
 if (missing.length) {
-  const list = missing.map(ch => `${ch} U+${ch.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')}`).join('  ');
+  const list = missing.map(character => `${character} U+${character.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')}`).join('  ');
   console.warn(`⚠️  ${missing.length} used character(s) not in the source font (will fall back):\n   ${list}`);
 }
 
