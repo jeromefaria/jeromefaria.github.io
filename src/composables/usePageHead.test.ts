@@ -100,9 +100,9 @@ describe('usePageHead', () => {
       expect(getMeta(config, 'og:site_name')?.content).toBe(siteConfig.title);
     });
 
-    it('sets twitter:card to summary by default', () => {
+    it('sets twitter:card to summary_large_image', () => {
       const config = mountWithPageHead({ title: 'About', description: 'desc' });
-      expect(getMeta(config, 'twitter:card')?.content).toBe('summary');
+      expect(getMeta(config, 'twitter:card')?.content).toBe('summary_large_image');
     });
 
     it('sets twitter:title and twitter:description', () => {
@@ -122,23 +122,12 @@ describe('usePageHead', () => {
     });
   });
 
-  describe('includeImage option', () => {
-    it('does not include og:image or twitter:image by default', () => {
+  describe('social image', () => {
+    it('always includes og:image and twitter:image from the site config', () => {
       const config = mountWithPageHead({ title: 'About', description: 'desc' });
-      expect(getMeta(config, 'og:image')).toBeUndefined();
-      expect(getMeta(config, 'twitter:image')).toBeUndefined();
-    });
-
-    it('includes og:image and twitter:image when includeImage is true', () => {
-      const config = mountWithPageHead({ title: 'About', description: 'desc', includeImage: true });
       const expectedImage = `${siteConfig.url}${siteConfig.image}`;
       expect(getMeta(config, 'og:image')?.content).toBe(expectedImage);
       expect(getMeta(config, 'twitter:image')?.content).toBe(expectedImage);
-    });
-
-    it('sets twitter:card to summary_large_image when includeImage is true', () => {
-      const config = mountWithPageHead({ title: 'About', description: 'desc', includeImage: true });
-      expect(getMeta(config, 'twitter:card')?.content).toBe('summary_large_image');
     });
   });
 

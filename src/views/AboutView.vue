@@ -5,15 +5,12 @@ import LightboxOverlay from '@/components/LightboxOverlay.vue';
 import { useLightboxWithSwipe } from '@/composables/useLightboxWithSwipe';
 import { usePageHead } from '@/composables/usePageHead';
 import { aboutSections } from '@/data/about';
+import { pageMeta } from '@/data/pageMeta';
 import type { AboutImage, LightboxImage } from '@/types';
 import { getImageStyles } from '@/utils/imageStyles';
 import { responsiveSrcset } from '@/utils/responsiveImage';
 
-usePageHead({
-  title: 'About',
-  description: 'Biography and background of Jerome Faria, Portuguese sound artist and electronic music composer.',
-  ogType: 'profile',
-});
+usePageHead(pageMeta.about);
 
 const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev, handleTouchStart, handleTouchEnd } = useLightboxWithSwipe();
 
