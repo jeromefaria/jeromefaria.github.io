@@ -1,6 +1,12 @@
 import type { ComputedRef, Ref } from 'vue';
 import { computed, ref } from 'vue';
 
+// The validated fields, in one place — everything below is derived from this.
+const REQUIRED_FIELDS = ['name', 'email', 'message'] as const;
+type RequiredField = (typeof REQUIRED_FIELDS)[number];
+
+const FIELD_LABELS: Record<RequiredField, string> = { name: 'Name', email: 'Email', message: 'Message' };
+
 interface FormData {
   name: string;
   email: string;
@@ -8,21 +14,23 @@ interface FormData {
   message: string;
 }
 
-interface FormState {
-  name: boolean;
-  email: boolean;
-  message: boolean;
-}
+type FieldFlags = Record<RequiredField, boolean>;
+
+// Build a record keyed by every required field (populates all keys, hence the cast).
+const byField = <T>(valueFor: (field: RequiredField) => T): Record<RequiredField, T> =>
+  Object.fromEntries(REQUIRED_FIELDS.map(field => [field, valueFor(field)])) as Record<RequiredField, T>;
+
+const emptyFormData = (): FormData => ({ name: '', email: '', subject: '', message: '' });
 
 interface UseContactFormReturn {
   formData: Ref<FormData>;
-  touched: Ref<FormState>;
+  touched: Ref<FieldFlags>;
   isSubmitting: Ref<boolean>;
   showSuccess: Ref<boolean>;
   isFormValid: ComputedRef<boolean>;
-  fieldInvalid: ComputedRef<FormState>;
-  errors: ComputedRef<Record<keyof FormState, string>>;
-  handleBlur: (field: keyof FormState) => void;
+  fieldInvalid: ComputedRef<FieldFlags>;
+  errors: ComputedRef<Record<RequiredField, string>>;
+  handleBlur: (field: RequiredField) => void;
   handleInput: () => void;
   handleSubmit: (event: Event) => Promise<void>;
   resetForm: () => void;
@@ -35,47 +43,24 @@ interface UseContactFormReturn {
  */
 export const useContactForm = (submitUrl: string): UseContactFormReturn => {
   // Form state
-  const formData = ref<FormData>({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
-
-  const touched = ref<FormState>({
-    name: false,
-    email: false,
-    message: false,
-  });
+  const formData = ref<FormData>(emptyFormData());
+  const touched = ref<FieldFlags>(byField(() => false));
 
   const isSubmitting = ref(false);
   const showSuccess = ref(false);
 
   // Validation
-  const isFormValid = computed(() => {
-    return (
-      formData.value.name.trim() !== '' &&
-      formData.value.email.trim() !== '' &&
-      formData.value.message.trim() !== ''
-    );
-  });
+  const isFormValid = computed(() =>
+    REQUIRED_FIELDS.every(field => formData.value[field].trim() !== ''));
 
-  const fieldInvalid = computed<FormState>(() => ({
-    name: touched.value.name && formData.value.name.trim() === '',
-    email: touched.value.email && formData.value.email.trim() === '',
-    message: touched.value.message && formData.value.message.trim() === '',
-  }));
+  const fieldInvalid = computed<FieldFlags>(() =>
+    byField(field => touched.value[field] && formData.value[field].trim() === ''));
 
-  const FIELD_LABELS: Record<keyof FormState, string> = { name: 'Name', email: 'Email', message: 'Message' };
-
-  const errors = computed<Record<keyof FormState, string>>(() => ({
-    name: fieldInvalid.value.name ? `${FIELD_LABELS.name} is required` : '',
-    email: fieldInvalid.value.email ? `${FIELD_LABELS.email} is required` : '',
-    message: fieldInvalid.value.message ? `${FIELD_LABELS.message} is required` : '',
-  }));
+  const errors = computed<Record<RequiredField, string>>(() =>
+    byField(field => (fieldInvalid.value[field] ? `${FIELD_LABELS[field]} is required` : '')));
 
   // Handlers
-  const handleBlur = (field: keyof FormState): void => {
+  const handleBlur = (field: RequiredField): void => {
     touched.value[field] = true;
   };
 
@@ -84,17 +69,8 @@ export const useContactForm = (submitUrl: string): UseContactFormReturn => {
   };
 
   const resetForm = (): void => {
-    formData.value = {
-      name: '',
-      email: '',
-      subject: '',
-      message: '',
-    };
-    touched.value = {
-      name: false,
-      email: false,
-      message: false,
-    };
+    formData.value = emptyFormData();
+    touched.value = byField(() => false);
   };
 
   const handleSubmit = async (event: Event): Promise<void> => {
