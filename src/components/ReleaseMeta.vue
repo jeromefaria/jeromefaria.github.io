@@ -5,7 +5,9 @@ import type { MetaLink, ReleaseMeta } from '@/types/works';
 import { buildMetaSegments } from '@/utils/metaSegments';
 
 const renderLink = (link: MetaLink): VNode | string =>
-  link.url ? h('a', { href: link.url }, link.text) : link.text;
+  link.url
+    ? h('a', { href: link.url, target: '_blank', rel: 'noopener noreferrer' }, link.text)
+    : link.text;
 
 export default defineComponent({
   name: 'ReleaseMeta',

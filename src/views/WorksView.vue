@@ -30,6 +30,9 @@ const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
       data-page="works"
       title="Works"
     >
+      <p class="visually-hidden">
+        External links open in a new tab.
+      </p>
       <AccordionSection
         v-for="sectionKey in worksSections"
         :id="sectionKey"
