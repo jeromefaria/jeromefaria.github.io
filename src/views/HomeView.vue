@@ -17,15 +17,15 @@ usePageHead({
 const heroImageLoaded = ref(false);
 
 onMounted(() => {
-  const img = new Image();
-  img.onload = () => {
+  const heroImage = new Image();
+  heroImage.onload = () => {
     heroImageLoaded.value = true;
   };
   // Reveal the hero even if the image fails, so the loader never spins forever.
-  img.onerror = () => {
+  heroImage.onerror = () => {
     heroImageLoaded.value = true;
   };
-  img.src = heroImageSrc;
+  heroImage.src = heroImageSrc;
 });
 </script>
 

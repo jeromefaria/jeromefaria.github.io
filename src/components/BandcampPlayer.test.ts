@@ -44,14 +44,14 @@ describe('BandcampPlayer', () => {
 
     it('renders the play button', () => {
       const wrapper = mountPlayer();
-      const btn = wrapper.find('.bandcamp-player__button');
-      expect(btn.exists()).toBe(true);
+      const playButton = wrapper.find('.bandcamp-player__button');
+      expect(playButton.exists()).toBe(true);
     });
 
     it('play button has an accessible aria-label', () => {
       const wrapper = mountPlayer();
-      const btn = wrapper.find('.bandcamp-player__button');
-      expect(btn.attributes('aria-label')).toBe(`Play ${DEFAULT_PROPS.albumTitle}`);
+      const playButton = wrapper.find('.bandcamp-player__button');
+      expect(playButton.attributes('aria-label')).toBe(`Play ${DEFAULT_PROPS.albumTitle}`);
     });
   });
 
@@ -114,9 +114,9 @@ describe('BandcampPlayer', () => {
     it('uses the correct Bandcamp embed URL', async () => {
       const wrapper = mountPlayer();
       await wrapper.find('.bandcamp-player').trigger('click');
-      const src = wrapper.find('iframe').attributes('src');
-      expect(src).toContain(DEFAULT_PROPS.albumId);
-      expect(src).toContain('bandcamp.com/EmbeddedPlayer');
+      const iframeSrc = wrapper.find('iframe').attributes('src');
+      expect(iframeSrc).toContain(DEFAULT_PROPS.albumId);
+      expect(iframeSrc).toContain('bandcamp.com/EmbeddedPlayer');
     });
 
     it('has a descriptive title attribute', async () => {

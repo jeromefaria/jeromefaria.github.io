@@ -15,11 +15,10 @@ usePageHead(pageMeta.about);
 
 const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 
-const allImages = computed(() => {
-  return aboutSections
+const allImages = computed(() =>
+  aboutSections
     .filter(isImageSection)
-    .flatMap(section => section.images.map(toLightboxImage));
-});
+    .flatMap(section => section.images.map(toLightboxImage)));
 
 // Pre-compute section starting indices for O(1) lookup
 const sectionStartIndices = computed(() => {
@@ -34,9 +33,8 @@ const sectionStartIndices = computed(() => {
 });
 
 // Global index of an image — O(1) via the precomputed section starts.
-const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
-  return (sectionStartIndices.value[sectionIndex] ?? 0) + imageIndex;
-};
+const getGlobalIndex = (sectionIndex: number, imageIndex: number): number =>
+  (sectionStartIndices.value[sectionIndex] ?? 0) + imageIndex;
 </script>
 
 <template>

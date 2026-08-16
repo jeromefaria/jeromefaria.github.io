@@ -16,13 +16,9 @@ export const createApp = ViteSSG(
   {
     routes,
     scrollBehavior(to, _from, savedPosition) {
-      if (savedPosition) {
-        return savedPosition;
-      }
+      if (savedPosition) return savedPosition;
       // If there's a hash, don't scroll - let the component handle it
-      if (to.hash) {
-        return false;
-      }
+      if (to.hash) return false;
       return { top: 0 };
     },
   },

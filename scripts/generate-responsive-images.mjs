@@ -20,8 +20,8 @@ const OUT = join(PUBLIC, 'images/responsive');
 // Extract '/images/<name>.jpg' occurrences after a given key in a data file.
 const extract = (file, key) => {
   const text = readFileSync(join(root, 'src/data', file), 'utf8');
-  const re = new RegExp(`${key}:\\s*'(/images/[a-z0-9-]+\\.jpg)'`, 'g');
-  return [...text.matchAll(re)].map(m => m[1]);
+  const imagePattern = new RegExp(`${key}:\\s*'(/images/[a-z0-9-]+\\.jpg)'`, 'g');
+  return [...text.matchAll(imagePattern)].map(match => match[1]);
 };
 
 const covers = [...new Set(extract('works.ts', 'coverImage'))].map(src => ({ src, widths: [320, 640, 960] }));

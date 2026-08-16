@@ -22,26 +22,24 @@ export const createMusicEventSchema = (
   event: LiveEvent,
   performerName: string,
   fallbackDate = '',
-): SchemaMusicEvent => {
-  return {
-    '@type': 'MusicEvent',
-    name: stripHtml(event.title),
-    startDate: event.date || fallbackDate,
-    location: {
-      '@type': 'Place',
-      name: event.venue.name ?? '',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: event.venue.city ?? '',
-        addressCountry: event.venue.country,
-      },
+): SchemaMusicEvent => ({
+  '@type': 'MusicEvent',
+  name: stripHtml(event.title),
+  startDate: event.date || fallbackDate,
+  location: {
+    '@type': 'Place',
+    name: event.venue.name ?? '',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: event.venue.city ?? '',
+      addressCountry: event.venue.country,
     },
-    performer: {
-      '@type': 'Person',
-      name: performerName,
-    },
-  };
-};
+  },
+  performer: {
+    '@type': 'Person',
+    name: performerName,
+  },
+});
 
 /**
  * Create an ItemList schema

@@ -4,8 +4,8 @@ import { ref } from 'vue';
 import { TOUCH } from '@/utils/constants';
 
 export interface UseSwipeNavigationReturn {
-  handleTouchStart: (e: TouchEvent) => void;
-  handleTouchEnd: (e: TouchEvent) => void;
+  handleTouchStart: (event: TouchEvent) => void;
+  handleTouchEnd: (event: TouchEvent) => void;
 }
 
 interface TouchPosition {
@@ -26,8 +26,8 @@ export const useSwipeNavigation = (
 ): UseSwipeNavigationReturn => {
   const touchStart: Ref<TouchPosition> = ref({ x: 0, y: 0, time: 0 });
 
-  const handleTouchStart = (e: TouchEvent): void => {
-    const touch = e.touches[0];
+  const handleTouchStart = (event: TouchEvent): void => {
+    const touch = event.touches[0];
     if (!touch) return;
 
     touchStart.value = {
@@ -37,8 +37,8 @@ export const useSwipeNavigation = (
     };
   };
 
-  const handleTouchEnd = (e: TouchEvent): void => {
-    const touch = e.changedTouches[0];
+  const handleTouchEnd = (event: TouchEvent): void => {
+    const touch = event.changedTouches[0];
     if (!touch) return;
 
     const deltaX = touch.clientX - touchStart.value.x;
