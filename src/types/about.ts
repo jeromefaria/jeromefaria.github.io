@@ -1,5 +1,3 @@
-// About page types
-
 export interface AboutImage {
   src: string;
   alt: string;

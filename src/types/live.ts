@@ -1,5 +1,3 @@
-// Live performance types
-
 import type { Photographer } from './lightbox';
 
 export interface LiveImage {

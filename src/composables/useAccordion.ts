@@ -62,7 +62,6 @@ export const useAccordion = (
   const handleToggle = (sectionId: string, isOpen: boolean): void => {
     if (isOpen) {
       openSection.value = sectionId;
-      // Update URL hash when opening a section
       if (!isInitialLoad.value) {
         updateHash(`${ID_PREFIX.SECTION}${sectionId}`);
       }
@@ -70,7 +69,6 @@ export const useAccordion = (
     }
     if (openSection.value === sectionId) {
       openSection.value = null;
-      // Clear hash when closing
       if (!isInitialLoad.value) {
         clearHash();
       }

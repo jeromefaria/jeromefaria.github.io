@@ -5,7 +5,6 @@ export const TIMING = {
   ACCORDION_ANIMATION: 320,
 } as const;
 
-// Layout constants (in pixels)
 // Keep in sync with _variables.scss
 export const LAYOUT = {
   BREAKPOINT_MD: 768,           // $breakpoint-md
@@ -21,7 +20,6 @@ export const ID_PREFIX = {
   CONTENT: 'content-',
 } as const;
 
-// Touch/swipe interaction constants
 export const TOUCH = {
   MIN_SWIPE_DISTANCE: 50,   // Minimum distance in pixels for a valid swipe
   MAX_SWIPE_TIME: 300,      // Maximum time in milliseconds for a swipe gesture

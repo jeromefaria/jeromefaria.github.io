@@ -1,4 +1,3 @@
-// About page content
 // Structured as sections with optional divider images
 
 import type { AboutSection } from '@/types/about';

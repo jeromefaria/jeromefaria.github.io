@@ -1,5 +1,3 @@
-// Discography and works data
-
 import type { WorksData } from '@/types/works';
 
 export const worksData: WorksData = {

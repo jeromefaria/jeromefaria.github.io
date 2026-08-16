@@ -1,5 +1,3 @@
-// Contact page content
-
 import type { ContactConfig } from '@/types/contact';
 
 export const contactContent: ContactConfig = {

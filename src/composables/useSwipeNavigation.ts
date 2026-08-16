@@ -52,10 +52,8 @@ export const useSwipeNavigation = (
 
     if (isHorizontalSwipe && isValidDistance && isValidSpeed) {
       if (deltaX > 0) {
-        // Swipe right
         onSwipeRight();
       } else {
-        // Swipe left
         onSwipeLeft();
       }
     }

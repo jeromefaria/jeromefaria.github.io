@@ -21,7 +21,6 @@ export const getImageStyles = (image?: ImageWithTransforms): CSSProperties => {
     styles.objectPosition = image.position;
   }
 
-  // CSS transforms (scale and/or rotate)
   if (image.scale || image.rotate) {
     const transforms: string[] = [];
     if (image.scale) transforms.push(`scale(${image.scale})`);

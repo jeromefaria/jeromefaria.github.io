@@ -35,7 +35,6 @@ const hasCoverImage = computed(() => 'coverImage' in props.release && props.rele
 const hasDescription = computed(() => 'description' in props.release && props.release.description);
 const hasTracklist = computed(() => 'tracklist' in props.release && props.release.tracklist);
 const hasCredits = computed(() => 'credits' in props.release && props.release.credits);
-// A release's images and videos, mapped to lightbox items.
 const imageLightboxItems = computed<LightboxItem[]>(() => {
   if (!('images' in props.release) || !props.release.images) return [];
   return props.release.images.map(toLightboxImage);
@@ -60,7 +59,6 @@ const isBandcampLink = computed(() => {
     class="release"
     :class="{ 'release--text-only': textOnly || coverErrored }"
   >
-    <!-- Bandcamp Player -->
     <BandcampPlayer
       v-if="coverVisible && hasBandcampId && hasCoverImage && 'bandcampId' in release && 'coverImage' in release"
       :album-id="release.bandcampId"
@@ -78,7 +76,6 @@ const isBandcampLink = computed(() => {
       @error="coverErrored = true"
     />
 
-    <!-- Release Details -->
     <div class="release-details">
       <p>
         <strong>

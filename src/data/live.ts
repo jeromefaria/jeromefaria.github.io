@@ -1,5 +1,3 @@
-// Live performance data
-
 import type { LiveData } from '@/types/live';
 
 export const liveData: LiveData = {

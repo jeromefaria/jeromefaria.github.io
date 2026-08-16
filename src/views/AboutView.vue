@@ -15,7 +15,6 @@ usePageHead(pageMeta.about);
 
 const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 
-// All image-group images, flattened to lightbox items.
 const allImages = computed(() => {
   return aboutSections
     .filter(isImageSection)
@@ -50,14 +49,12 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number => {
         v-for="(section, sectionIndex) in aboutSections"
         :key="section.id"
       >
-        <!-- Short bio -->
         <div
           v-if="section.type === 'short-bio'"
           class="short-bio"
           v-html="section.content"
         />
 
-        <!-- Text section -->
         <div
           v-else-if="!section.type"
           class="prose"

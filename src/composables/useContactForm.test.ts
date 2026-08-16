@@ -122,7 +122,6 @@ describe('useContactForm', () => {
       wrapper.vm.formData.name = 'John';
       wrapper.vm.formData.email = 'test@example.com';
       wrapper.vm.formData.message = 'Hello';
-      // subject is empty
 
       expect(wrapper.vm.isFormValid).toBe(true);
     });
@@ -169,7 +168,6 @@ describe('useContactForm', () => {
       expect(wrapper.vm.fieldInvalid.email).toBe(false);
       expect(wrapper.vm.fieldInvalid.message).toBe(false);
 
-      // Touch name field
       wrapper.vm.handleBlur('name');
 
       expect(wrapper.vm.fieldInvalid.name).toBe(true);
@@ -190,11 +188,9 @@ describe('useContactForm', () => {
     it('should not show errors for touched fields with values', () => {
       const wrapper = mount(createTestComponent(TEST_URL));
 
-      // Set values
       wrapper.vm.formData.email = 'test@example.com';
       wrapper.vm.formData.message = 'Test message';
 
-      // Touch fields
       wrapper.vm.handleBlur('email');
       wrapper.vm.handleBlur('message');
 

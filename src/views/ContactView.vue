@@ -22,14 +22,12 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
       data-page="contact"
       title="Contact"
     >
-      <!-- Introduction -->
       <div
         v-show="!showSuccess"
         class="contact-intro"
         v-html="contactContent.intro"
       />
 
-      <!-- Success Message -->
       <div
         v-if="showSuccess"
         class="contact-success"
@@ -39,7 +37,6 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
         <p>{{ contactContent.successMessage.text }}</p>
       </div>
 
-      <!-- Contact Form -->
       <form
         v-show="!showSuccess"
         :action="contactContent.form.action"
@@ -67,7 +64,6 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
           aria-label="Leave this field empty"
         >
 
-        <!-- Name Field -->
         <div class="contact-form__field">
           <label
             for="name"
@@ -100,7 +96,6 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
           >{{ errors.name }}</span>
         </div>
 
-        <!-- Email Field -->
         <div class="contact-form__field">
           <label
             for="email"
@@ -139,7 +134,6 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
           >
         </div>
 
-        <!-- Subject Field -->
         <div class="contact-form__field">
           <label
             for="subject"
@@ -158,7 +152,6 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
           >
         </div>
 
-        <!-- Message Field -->
         <div class="contact-form__field">
           <label
             for="message"
@@ -190,7 +183,6 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
           >{{ errors.message }}</span>
         </div>
 
-        <!-- Submit Button -->
         <button
           type="submit"
           :class="['contact-form__submit', { 'contact-form__submit--valid': isFormValid }]"

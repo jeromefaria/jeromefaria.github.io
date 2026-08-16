@@ -1,5 +1,3 @@
-// Contact form types
-
 export interface FormField {
   label: string;
   type: string;
