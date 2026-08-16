@@ -192,9 +192,3 @@ export const aboutSections: AboutSection[] = [
     ],
   },
 ];
-
-// Legacy export for backward compatibility (if needed elsewhere)
-export const aboutContent = aboutSections
-  .filter((section): section is { id: string; content: string; type?: 'short-bio' } => 'content' in section)
-  .map(section => section.content)
-  .join('\n\n');

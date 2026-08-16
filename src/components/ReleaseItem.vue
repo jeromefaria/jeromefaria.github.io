@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 
 import { useAccordionVisibility } from '@/composables/useAccordionContext';
 import type { LightboxItem, Release } from '@/types';
+import { hasBandcampId, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 
 import BandcampPlayer from './BandcampPlayer.vue';
@@ -29,28 +30,14 @@ const coverVisible = useAccordionVisibility();
 // Set when the cover image fails to load, so we fall back to a text-only layout.
 const coverErrored = ref(false);
 
-const hasBandcampId = computed(() => 'bandcampId' in props.release && props.release.bandcampId);
-const hasExternalUrl = computed(() => 'externalUrl' in props.release && props.release.externalUrl);
-const hasCoverImage = computed(() => 'coverImage' in props.release && props.release.coverImage);
-const hasDescription = computed(() => 'description' in props.release && props.release.description);
-const hasTracklist = computed(() => 'tracklist' in props.release && props.release.tracklist);
-const hasCredits = computed(() => 'credits' in props.release && props.release.credits);
-const imageLightboxItems = computed<LightboxItem[]>(() => {
-  if (!('images' in props.release) || !props.release.images) return [];
-  return props.release.images.map(toLightboxImage);
-});
+const imageLightboxItems = computed<LightboxItem[]>(() =>
+  hasImages(props.release) ? props.release.images.map(toLightboxImage) : []);
 
-const videoLightboxItems = computed<LightboxItem[]>(() => {
-  if (!('videos' in props.release) || !props.release.videos) return [];
-  return props.release.videos.map(toLightboxVideo);
-});
+const videoLightboxItems = computed<LightboxItem[]>(() =>
+  hasVideos(props.release) ? props.release.videos.map(toLightboxVideo) : []);
 
-const isBandcampLink = computed(() => {
-  if ('externalUrl' in props.release && props.release.externalUrl) {
-    return props.release.externalUrl.includes('bandcamp.com');
-  }
-  return false;
-});
+const isBandcampLink = computed(() =>
+  hasExternalUrl(props.release) && props.release.externalUrl.includes('bandcamp.com'));
 </script>
 
 <template>
@@ -60,7 +47,7 @@ const isBandcampLink = computed(() => {
     :class="{ 'release--text-only': textOnly || coverErrored }"
   >
     <BandcampPlayer
-      v-if="coverVisible && hasBandcampId && hasCoverImage && 'bandcampId' in release && 'coverImage' in release"
+      v-if="coverVisible && hasBandcampId(release) && hasCoverImage(release)"
       :album-id="release.bandcampId"
       :cover-image="release.coverImage"
       :album-title="release.title"
@@ -68,10 +55,10 @@ const isBandcampLink = computed(() => {
 
     <!-- Cover — rendered as an external link when the release has one -->
     <ReleaseCover
-      v-else-if="coverVisible && hasCoverImage && !coverErrored && 'coverImage' in release"
+      v-else-if="coverVisible && hasCoverImage(release) && !coverErrored"
       :src="release.coverImage"
       :alt="`${release.title} cover`"
-      :href="hasExternalUrl && 'externalUrl' in release ? release.externalUrl : undefined"
+      :href="hasExternalUrl(release) ? release.externalUrl : undefined"
       :bandcamp="isBandcampLink"
       @error="coverErrored = true"
     />
@@ -92,11 +79,11 @@ const isBandcampLink = computed(() => {
         v-html="release.meta"
       />
       <p
-        v-if="hasDescription && 'description' in release"
+        v-if="hasDescription(release)"
         class="release-description"
         v-html="release.description"
       />
-      <ol v-if="hasTracklist && 'tracklist' in release && release.tracklist.length">
+      <ol v-if="hasTracklist(release) && release.tracklist.length">
         <li
           v-for="(track, index) in release.tracklist"
           :key="index"
@@ -104,7 +91,7 @@ const isBandcampLink = computed(() => {
         />
       </ol>
       <p
-        v-if="hasCredits && 'credits' in release"
+        v-if="hasCredits(release)"
         class="release-credits"
         v-html="release.credits"
       />

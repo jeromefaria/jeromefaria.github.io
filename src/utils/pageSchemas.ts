@@ -4,7 +4,7 @@
 import { liveYears, sortedLiveData } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
-import type { BandcampRelease, ExternalRelease } from '@/types';
+import { hasBandcampId, hasBandcampUrl } from '@/types';
 import type {
   SchemaBook,
   SchemaContactPage,
@@ -66,9 +66,7 @@ const glitchBookSchema: SchemaBook = {
 export const createWorksPageSchema = (): SchemaWorksGraph => {
   const soloSection = worksData['solo'];
   const albums = (soloSection?.items ?? [])
-    .filter((release): release is BandcampRelease | ExternalRelease =>
-      ('bandcampId' in release && release.bandcampId !== undefined) ||
-      ('bandcampUrl' in release && release.bandcampUrl !== undefined))
+    .filter(release => hasBandcampId(release) || hasBandcampUrl(release))
     .map(release => {
       const datePublished = extractYear(release.meta ?? null);
       const withDate = { ...release, ...(datePublished ? { datePublished } : {}) };
