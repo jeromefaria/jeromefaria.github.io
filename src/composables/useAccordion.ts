@@ -2,6 +2,7 @@ import type { Ref } from 'vue';
 import { ref } from 'vue';
 
 import { ID_PREFIX } from '@/utils/constants';
+import { clearHash, updateHash } from '@/utils/navigation';
 import { afterAccordionAnimation, prefersReducedMotion, scrollToElement } from '@/utils/scroll';
 
 import { useHashScroll } from './useHashScroll';
@@ -63,7 +64,7 @@ export const useAccordion = (
       openSection.value = sectionId;
       // Update URL hash when opening a section
       if (!isInitialLoad.value) {
-        window.history.replaceState(null, '', `#${ID_PREFIX.SECTION}${sectionId}`);
+        updateHash(`${ID_PREFIX.SECTION}${sectionId}`);
       }
       return;
     }
@@ -71,7 +72,7 @@ export const useAccordion = (
       openSection.value = null;
       // Clear hash when closing
       if (!isInitialLoad.value) {
-        window.history.replaceState(null, '', window.location.pathname);
+        clearHash();
       }
     }
   };
