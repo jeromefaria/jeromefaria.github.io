@@ -78,8 +78,6 @@ export interface Image {
   };
 }
 
-// Field-presence guards for the Release union, so callers narrow once instead of
-// repeating `'x' in release && release.x` at every use site.
 export const hasBandcampId = (release: Release): release is Release & { bandcampId: string } =>
   'bandcampId' in release && Boolean(release.bandcampId);
 
