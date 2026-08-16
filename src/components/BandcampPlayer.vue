@@ -21,7 +21,6 @@ const {
 const showPlayer = ref(false);
 const isLoaded = ref(false);
 
-// Bandcamp embed styling — large player, dark theme (bg #000, links #fff) to match the site.
 const BANDCAMP_EMBED_PARAMS = 'size=large/bgcol=000000/linkcol=ffffff/minimal=true/transparent=true';
 const embedUrl = computed(() =>
   `https://bandcamp.com/EmbeddedPlayer/album=${props.albumId}/${BANDCAMP_EMBED_PARAMS}/`);
