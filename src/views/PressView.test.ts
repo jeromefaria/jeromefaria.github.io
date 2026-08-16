@@ -1,4 +1,8 @@
-import { describe, expect, it } from 'vitest';
+import { createHead } from '@unhead/vue/client';
+import { mount } from '@vue/test-utils';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { nextTick } from 'vue';
+import { createMemoryHistory, createRouter } from 'vue-router';
 
 import { pressQuotes } from '@/data/press';
 import { mountView } from '@/test-support/viewHarness';
@@ -6,6 +10,27 @@ import { mountView } from '@/test-support/viewHarness';
 import PressView from './PressView.vue';
 
 describe('PressView', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('scrolls the targeted quote into view when the hash changes', async () => {
+    const scrollIntoView = vi.spyOn(Element.prototype, 'scrollIntoView').mockImplementation(() => {});
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: [{ path: '/:pathMatch(.*)*', component: { template: '<div />' } }],
+    });
+    await router.push('/');
+    await router.isReady();
+    mount(PressView, { global: { plugins: [router, createHead()] }, attachTo: document.body });
+    await nextTick(); // useHashScroll clears isInitialLoad after the first tick
+
+    await router.push({ hash: `#${pressQuotes[0].id}` });
+    await nextTick();
+
+    expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
+  });
+
   it('renders a blockquote for every press quote, keyed by id', async () => {
     const wrapper = await mountView(PressView);
     const quotes = wrapper.findAll('blockquote');

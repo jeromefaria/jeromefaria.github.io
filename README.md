@@ -10,7 +10,7 @@ Vue 3 + TypeScript portfolio website for [www.jeromefaria.com](https://www.jerom
 - **Frontend**: Vue 3 (Composition API), TypeScript (strict mode)
 - **Build**: Vite with SSG (Static Site Generation)
 - **Styling**: SCSS with BEM methodology
-- **Testing**: Vitest (unit — ~95% coverage across the whole `src` tree), Playwright E2E (Chromium, Firefox, WebKit), axe-core accessibility
+- **Testing**: Vitest (unit — ~99% coverage across the whole `src` tree), Playwright E2E (Chromium, Firefox, WebKit), axe-core accessibility
 - **CI/CD**: GitHub Actions with quality gates
 - **Performance**: Lighthouse CI with performance budgets
 
@@ -52,7 +52,7 @@ npm run test:ui
 npm run test:coverage
 ```
 
-**Coverage**: The whole `src` tree is instrumented (`all: true`), so the reported percentage reflects the entire codebase rather than only the files a test imports. The logic layer (composables, utils) is ~100% covered; the view and component tests assert behaviour (hash-driven accordion opening, link processing, focus trapping, image load/error fallbacks) rather than render counts, and UI paths are also exercised by the Playwright E2E suite. CI enforces a regression **floor** (`scripts/check-coverage.js`) that ratchets upward as coverage climbs. Current coverage is ~98% lines / 96% statements / 93% functions / 87% branches, with the floor set just below at Lines 96%, Statements 95%, Functions 91%, Branches 85%.
+**Coverage**: The whole `src` tree is instrumented (`all: true`), so the reported percentage reflects the entire codebase rather than only the files a test imports. The logic layer (composables, utils) is ~100% covered; the view and component tests assert behaviour (hash-driven accordion opening, link processing, focus trapping, image load/error fallbacks) rather than render counts, and UI paths are also exercised by the Playwright E2E suite. CI enforces a regression **floor** (`scripts/check-coverage.js`) that ratchets upward as coverage climbs. Current coverage is ~99% lines / 98% statements / 97% functions / 92% branches, with the floor set just below at Lines 99%, Statements 97%, Functions 96%, Branches 91%.
 
 ### E2E Tests
 
