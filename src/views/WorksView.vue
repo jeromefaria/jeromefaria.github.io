@@ -9,7 +9,7 @@ import { useAccordion } from '@/composables/useAccordion';
 import { usePageHead } from '@/composables/usePageHead';
 import { pageMeta } from '@/data/pageMeta';
 import { worksData, worksSections } from '@/data/works';
-import { updateHash } from '@/utils/navigation';
+import { findSectionContainingId, updateHash } from '@/utils/navigation';
 import { createWorksPageSchema } from '@/utils/pageSchemas';
 
 usePageHead({
@@ -18,10 +18,7 @@ usePageHead({
 });
 
 const findSectionForRelease = (releaseId: string): string | null =>
-  worksSections.find(section => {
-    const sectionData = worksData[section];
-    return sectionData?.items?.some(r => r.id === releaseId);
-  }) ?? null;
+  findSectionContainingId(worksSections, worksData, releaseId);
 
 const { openSection, handleToggle } = useAccordion('solo', worksSections, findSectionForRelease);
 const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
