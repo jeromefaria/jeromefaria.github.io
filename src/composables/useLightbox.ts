@@ -5,7 +5,7 @@ import type { LightboxItem } from '@/types/lightbox';
 
 import { useScrollLock } from './useScrollLock';
 
-interface UseLightboxReturn {
+export interface UseLightboxReturn {
   isOpen: Ref<boolean>;
   currentItem: Ref<LightboxItem | null>;
   currentIndex: Ref<number>;
