@@ -6,7 +6,6 @@ import type { LightboxItem } from '@/types/lightbox';
 
 import { useLightbox } from './useLightbox';
 
-// Constants
 const KEYBOARD_KEYS = {
   ESCAPE: 'Escape',
   ARROW_LEFT: 'ArrowLeft',

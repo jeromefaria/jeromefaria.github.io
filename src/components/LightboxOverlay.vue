@@ -109,7 +109,6 @@ onMounted(async () => {
       @touchstart="handleTouchStart"
       @touchend="handleTouchEnd"
     >
-      <!-- Video -->
       <iframe
         v-if="isVideo && currentItem && isLightboxVideo(currentItem)"
         :src="currentItem.url"
@@ -121,7 +120,6 @@ onMounted(async () => {
         @click.stop
       />
 
-      <!-- Image -->
       <picture v-else-if="isImage && currentItem && isLightboxImage(currentItem)">
         <source
           :srcset="toWebp(currentItem.src)"
@@ -136,7 +134,6 @@ onMounted(async () => {
 
       <!-- Bottom controls; layout differs by breakpoint (see styles). -->
       <div class="lightbox__controls">
-        <!-- Position counter -->
         <p
           v-if="totalItems > 1"
           class="lightbox__counter"
@@ -145,7 +142,6 @@ onMounted(async () => {
           {{ currentIndex + 1 }} / {{ totalItems }}
         </p>
 
-        <!-- Credit — photographer or video author -->
         <div
           v-if="credit"
           class="lightbox__credit"
@@ -159,7 +155,6 @@ onMounted(async () => {
           <span v-else>{{ credit.name }}</span>
         </div>
 
-        <!-- Navigation hints as buttons -->
         <div class="lightbox__hints">
           <button
             class="lightbox__hint lightbox__hint--prev"

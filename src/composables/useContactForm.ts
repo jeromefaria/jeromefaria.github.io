@@ -42,14 +42,12 @@ interface UseContactFormReturn {
  * @returns Form state, validation, and handlers
  */
 export const useContactForm = (submitUrl: string): UseContactFormReturn => {
-  // Form state
   const formData = ref<FormData>(emptyFormData());
   const touched = ref<FieldFlags>(byField(() => false));
 
   const isSubmitting = ref(false);
   const showSuccess = ref(false);
 
-  // Validation
   const isFormValid = computed(() =>
     REQUIRED_FIELDS.every(field => formData.value[field].trim() !== ''));
 
@@ -59,7 +57,6 @@ export const useContactForm = (submitUrl: string): UseContactFormReturn => {
   const errors = computed<Record<RequiredField, string>>(() =>
     byField(field => (fieldInvalid.value[field] ? `${FIELD_LABELS[field]} is required` : '')));
 
-  // Handlers
   const handleBlur = (field: RequiredField): void => {
     touched.value[field] = true;
   };
@@ -109,16 +106,13 @@ export const useContactForm = (submitUrl: string): UseContactFormReturn => {
   };
 
   return {
-    // State
     formData,
     touched,
     isSubmitting,
     showSuccess,
-    // Validation
     isFormValid,
     fieldInvalid,
     errors,
-    // Handlers
     handleBlur,
     handleInput,
     handleSubmit,

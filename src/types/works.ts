@@ -1,5 +1,3 @@
-// Works/Discography types
-
 import type { Photographer } from './lightbox';
 
 export interface BaseRelease {

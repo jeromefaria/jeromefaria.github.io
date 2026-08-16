@@ -80,7 +80,6 @@ describe('useSwipeNavigation', () => {
     it('should detect right swipe (distance > 50px, time < 300ms, horizontal)', () => {
       const wrapper = mount(createTestComponent(onSwipeLeft, onSwipeRight));
 
-      // Start touch at x=100
       dateNowSpy.mockReturnValueOnce(1000);
       const startEvent = createTouchEvent('touchstart', 100, 200);
       wrapper.vm.handleTouchStart(startEvent);
@@ -111,7 +110,6 @@ describe('useSwipeNavigation', () => {
     it('should detect left swipe (distance > 50px, time < 300ms, horizontal)', () => {
       const wrapper = mount(createTestComponent(onSwipeLeft, onSwipeRight));
 
-      // Start touch at x=200
       dateNowSpy.mockReturnValueOnce(1000);
       wrapper.vm.handleTouchStart(createTouchEvent('touchstart', 200, 200));
 
@@ -140,7 +138,6 @@ describe('useSwipeNavigation', () => {
     it('should ignore vertical swipes (abs(deltaY) > abs(deltaX))', () => {
       const wrapper = mount(createTestComponent(onSwipeLeft, onSwipeRight));
 
-      // Start touch
       dateNowSpy.mockReturnValueOnce(1000);
       wrapper.vm.handleTouchStart(createTouchEvent('touchstart', 200, 100));
 

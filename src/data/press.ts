@@ -1,5 +1,3 @@
-// Press quotes data
-
 import type { PressQuote } from '@/types/press';
 
 export const pressQuotes: PressQuote[] = [

@@ -1,5 +1,3 @@
-// Site configuration and navigation data
-
 import type { NavItem, SiteConfig, SocialLink } from '@/types/navigation';
 
 export const siteConfig: SiteConfig = {
