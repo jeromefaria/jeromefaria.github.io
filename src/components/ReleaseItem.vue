@@ -4,6 +4,7 @@ import { computed, ref } from 'vue';
 import { useAccordionVisibility } from '@/composables/useAccordionContext';
 import type { LightboxItem, Release } from '@/types';
 import { hasBandcampId, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
+import { externalizeLinks } from '@/utils/externalizeLinks';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 
 import BandcampPlayer from './BandcampPlayer.vue';
@@ -80,7 +81,7 @@ const isBandcampLink = computed(() =>
       <p
         v-if="hasDescription(release)"
         class="release-description"
-        v-html="release.description"
+        v-html="externalizeLinks(release.description)"
       />
       <ol v-if="hasTracklist(release) && release.tracklist.length">
         <li
@@ -92,7 +93,7 @@ const isBandcampLink = computed(() =>
       <p
         v-if="hasCredits(release)"
         class="release-credits"
-        v-html="release.credits"
+        v-html="externalizeLinks(release.credits)"
       />
       <MediaLinks
         :images="imageLightboxItems"
