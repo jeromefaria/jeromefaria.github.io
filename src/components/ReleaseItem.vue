@@ -4,12 +4,12 @@ import { computed, ref } from 'vue';
 import { useAccordionVisibility } from '@/composables/useAccordionContext';
 import type { LightboxItem, Release } from '@/types';
 import { hasBandcampId, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
-import { formatMeta } from '@/utils/formatMeta';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 
 import BandcampPlayer from './BandcampPlayer.vue';
 import MediaLinks from './MediaLinks.vue';
 import ReleaseCover from './ReleaseCover.vue';
+import ReleaseMeta from './ReleaseMeta.vue';
 
 const props = withDefaults(defineProps<{
   release: Release;
@@ -74,10 +74,9 @@ const isBandcampLink = computed(() =>
           >{{ release.title }}</a>
         </strong>
       </p>
-      <p
-        class="release-meta"
-        v-html="formatMeta(release.meta)"
-      />
+      <p class="release-meta">
+        <ReleaseMeta :meta="release.meta" />
+      </p>
       <p
         v-if="hasDescription(release)"
         class="release-description"
