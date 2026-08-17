@@ -91,19 +91,6 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number =>
             </picture>
           </figure>
         </div>
-
-        <!-- Single image divider (legacy support) -->
-        <figure
-          v-else-if="section.type === 'image' && 'src' in section && 'alt' in section"
-          class="about-image"
-        >
-          <img
-            :src="section.src"
-            :alt="section.alt"
-            loading="lazy"
-            decoding="async"
-          >
-        </figure>
       </template>
     </PageShell>
 

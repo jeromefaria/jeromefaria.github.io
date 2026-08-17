@@ -21,14 +21,7 @@ export interface AboutImageSection {
   images: AboutImage[];
 }
 
-export interface AboutLegacyImageSection {
-  id: string;
-  type: 'image';
-  src: string;
-  alt: string;
-}
-
-export type AboutSection = AboutTextSection | AboutImageSection | AboutLegacyImageSection;
+export type AboutSection = AboutTextSection | AboutImageSection;
 
 export function isImageSection(section: AboutSection): section is AboutImageSection {
   return section.type === 'image-group';
