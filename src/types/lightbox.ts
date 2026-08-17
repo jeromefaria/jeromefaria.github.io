@@ -11,9 +11,6 @@ export interface LightboxImage {
   type: 'image';
   src: string;
   alt: string;
-  position?: string;
-  scale?: number;
-  rotate?: number;
   photographer?: Photographer;
 }
 

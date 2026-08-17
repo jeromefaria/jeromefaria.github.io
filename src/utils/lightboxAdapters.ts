@@ -5,9 +5,6 @@ import type { LightboxImage, LightboxVideo, Photographer } from '@/types/lightbo
 interface LightboxImageSource {
   src: string;
   alt: string;
-  position?: string;
-  scale?: number;
-  rotate?: number;
   photographer?: Photographer;
 }
 
@@ -18,12 +15,9 @@ interface LightboxVideoSource {
   author?: Photographer;
 }
 
-/** Map a domain image to a lightbox image item, copying optional fields when present. */
+/** Map a domain image to a lightbox image item, copying the credit when present. */
 export const toLightboxImage = (image: LightboxImageSource): LightboxImage => {
   const item: LightboxImage = { type: 'image', src: image.src, alt: image.alt };
-  if (image.position) item.position = image.position;
-  if (image.scale) item.scale = image.scale;
-  if (image.rotate) item.rotate = image.rotate;
   if (image.photographer) item.photographer = image.photographer;
   return item;
 };
