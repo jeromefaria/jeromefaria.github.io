@@ -1,4 +1,5 @@
-import type { LightboxImage, LightboxVideo, Photographer } from '@/types/lightbox';
+import type { LightboxImage, LightboxVideo } from '@/types/lightbox';
+import type { Photographer } from '@/types/media';
 
 // Superset of the fields the app's image/video data carry (About/Live/Works),
 // so a single adapter serves every call site.
