@@ -197,27 +197,6 @@
     }
   }
 
-  // Single image divider (legacy)
-  .about-image {
-    margin: $spacing-12 0;
-
-    @include respond-to(md) {
-      margin: $spacing-16 0;
-    }
-
-    img {
-      width: 100%;
-      height: auto;
-      display: block;
-      opacity: 0;
-      transition: opacity $transition-base;
-
-      &[src] {
-        opacity: 1;
-      }
-    }
-  }
-
   // Short bio section
   .short-bio {
     margin-bottom: $spacing-12;
