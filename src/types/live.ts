@@ -1,16 +1,9 @@
-import type { Photographer } from './lightbox';
+import type { Photographer, Video } from './media';
 
 export interface LiveImage {
   src: string;
   alt?: string;
   photographer?: Photographer;
-}
-
-export interface LiveVideo {
-  url: string;
-  title: string;
-  platform: 'youtube' | 'vimeo';
-  author?: Photographer;
 }
 
 export interface EventVenue {
@@ -28,7 +21,7 @@ export interface LiveEvent {
   description?: string;
   imageAlt?: string;
   images?: LiveImage[];
-  videos?: LiveVideo[];
+  videos?: Video[];
 }
 
 export interface LiveYearSection {

@@ -1,13 +1,12 @@
+import type { Photographer } from './media';
+
 export interface AboutImage {
   src: string;
   alt: string;
   position?: string;
   scale?: number;
   rotate?: number;
-  photographer?: {
-    name: string;
-    url?: string;
-  };
+  photographer?: Photographer;
 }
 
 export interface AboutTextSection {
