@@ -2,7 +2,8 @@ import type { Photographer } from './lightbox';
 
 export interface LiveImage {
   src: string;
-  alt: string;
+  // Per-image override; most galleries fall back to the event's imageAlt.
+  alt?: string;
   photographer?: Photographer;
 }
 
@@ -26,6 +27,7 @@ export interface LiveEvent {
   date: string;
   venue: EventVenue;
   description?: string;
+  imageAlt?: string;
   images?: LiveImage[];
   videos?: LiveVideo[];
 }
