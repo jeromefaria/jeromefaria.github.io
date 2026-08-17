@@ -46,6 +46,27 @@ const openLightboxFromFirstGallery = async (page: Page): Promise<void> => {
   await expect(page.locator(LIGHTBOX_SELECTOR)).toBeVisible();
 };
 
+// Live events label their gallery control "View photo(s)"; substring-match both.
+const LIVE_GALLERY_BUTTON = '.link-discrete:has-text("View photo")';
+
+/** Open the lightbox from a Live event gallery and wait for it. */
+const openLiveLightbox = async (page: Page): Promise<void> => {
+  await page.goto('/live');
+  await waitForHydration(page);
+
+  const owningSection = page.locator(ACCORDION_SECTION_SELECTOR)
+    .filter({ has: page.locator(LIVE_GALLERY_BUTTON) })
+    .first();
+  const trigger = owningSection.locator(ACCORDION_TRIGGER_SELECTOR);
+
+  if (await trigger.getAttribute('aria-expanded') !== 'true') {
+    await trigger.click();
+  }
+
+  await page.locator(`${LIVE_GALLERY_BUTTON}:visible`).first().click();
+  await expect(page.locator(LIGHTBOX_SELECTOR)).toBeVisible();
+};
+
 test.describe('Lightbox', () => {
   test.describe('Opening', () => {
     test('opens lightbox when clicking a View gallery button', async ({ page }) => {
@@ -127,6 +148,16 @@ test.describe('Lightbox', () => {
       if (await credit.count() > 0) {
         await expect(credit).toBeVisible();
       }
+    });
+  });
+
+  test.describe('Live page', () => {
+    test('opens and closes the lightbox from a live event gallery', async ({ page }) => {
+      await openLiveLightbox(page);
+      await expect(page.locator(LIGHTBOX_IMAGE_SELECTOR)).toBeVisible();
+
+      await page.locator(LIGHTBOX_CLOSE_SELECTOR).click();
+      await expect(page.locator(LIGHTBOX_SELECTOR)).toHaveCount(0);
     });
   });
 
