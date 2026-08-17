@@ -65,7 +65,7 @@ describe('liveData year grouping (derived)', () => {
     '2022': ['amess-teatro-baltazar-dias', 'amess-museu-franco', 'jejum-11'],
     '2024': ['cca-no-desterro-august', 'cca-no-desterro'],
     '2025': ['showcase-casa-amarela', 'fim-de-emissao-45'],
-    '2026': ['tbc-2026-09-19', 'tbc-2026-08-23'],
+    '2026': ['tbc-2026-09-19', 'festival-multiplo-2026'],
   };
 
   it('derives the same years, newest first', () => {
