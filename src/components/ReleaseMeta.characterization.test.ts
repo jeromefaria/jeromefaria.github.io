@@ -5,10 +5,8 @@ import { worksData } from '@/data/works';
 
 import ReleaseMeta from './ReleaseMeta.vue';
 
-// The display strings exactly as they read before `meta` was normalised into
-// structured, kind-discriminated fields. Rendering the new data through
-// <ReleaseMeta> must reproduce the same visible text and the same links —
-// this is the guard that the model migration changed nothing users can see.
+// Display strings from before meta was normalised — <ReleaseMeta> must
+// reproduce the same text and links, proving the migration is invisible.
 const ORIGINAL_META: Record<string, string> = {
   'contraplacado': 'Digital — BRØQN, BRQN009, 2026',
   'en-veille': 'Digital — BRØQN, BRQN008, 2026',
