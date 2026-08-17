@@ -7,6 +7,7 @@ import { usePageHead } from '@/composables/usePageHead';
 import { aboutSections } from '@/data/about';
 import { pageMeta } from '@/data/pageMeta';
 import { isImageSection } from '@/types';
+import { externalizeLinks } from '@/utils/externalizeLinks';
 import { getImageStyles } from '@/utils/imageStyles';
 import { toLightboxImage } from '@/utils/lightboxAdapters';
 import { responsiveSrcset, toWebp } from '@/utils/responsiveImage';
@@ -43,6 +44,9 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number =>
       data-page="about"
       title="About"
     >
+      <p class="visually-hidden">
+        External links open in a new tab.
+      </p>
       <template
         v-for="(section, sectionIndex) in aboutSections"
         :key="section.id"
@@ -50,13 +54,13 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number =>
         <div
           v-if="section.type === 'short-bio'"
           class="short-bio"
-          v-html="section.content"
+          v-html="externalizeLinks(section.content)"
         />
 
         <div
           v-else-if="!section.type"
           class="prose"
-          v-html="section.content"
+          v-html="externalizeLinks(section.content)"
         />
 
         <!-- Image group (magazine-style layout) -->

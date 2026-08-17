@@ -30,6 +30,9 @@ const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
       data-page="live"
       title="Live"
     >
+      <p class="visually-hidden">
+        External links open in a new tab.
+      </p>
       <AccordionSection
         v-for="year in liveYears"
         :id="year"
