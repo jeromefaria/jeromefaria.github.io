@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 
 import type { LightboxItem, LiveEvent } from '@/types';
+import { externalizeLinks } from '@/utils/externalizeLinks';
 import { formatEventDate, stripHtml } from '@/utils/formatters';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 
@@ -83,7 +84,7 @@ const imageLabel = computed(() => `View ${imageLightboxItems.value.length === 1 
       <p
         v-if="event.description"
         class="event-description"
-        v-html="event.description"
+        v-html="externalizeLinks(event.description)"
       />
       <MediaLinks
         :images="imageLightboxItems"
