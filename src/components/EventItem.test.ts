@@ -33,6 +33,20 @@ const internalRefEvent: LiveEvent = {
 };
 
 describe('EventItem', () => {
+  describe('description', () => {
+    it('opens external links in a new tab and leaves internal links alone', () => {
+      const wrapper = mountEvent({
+        ...plainEvent,
+        description: 'With <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a> at <a href="/works#x">Works</a>.',
+      });
+      const anchors = wrapper.findAll('.event-description a');
+
+      expect(anchors[0].attributes('target')).toBe('_blank');
+      expect(anchors[0].attributes('rel')).toBe('noopener noreferrer');
+      expect(anchors[1].attributes('target')).toBeUndefined();
+    });
+  });
+
   describe('title', () => {
     it('renders the title as the deep-link permalink and emits update-hash on click', async () => {
       const wrapper = mountEvent(plainEvent);
