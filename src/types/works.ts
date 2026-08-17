@@ -1,19 +1,9 @@
-import type { Photographer } from './lightbox';
-
-export interface VideoItem {
-  url: string;
-  title: string;
-  platform: 'youtube' | 'vimeo';
-  author?: Photographer;
-}
+import type { Photographer, Video } from './media';
 
 export interface Image {
   src: string;
   alt: string;
-  photographer?: {
-    name: string;
-    url?: string;
-  };
+  photographer?: Photographer;
 }
 
 export interface MetaLink {
@@ -86,7 +76,7 @@ export interface Release {
   description?: string;
   credits?: string;
   images?: Image[];
-  videos?: VideoItem[];
+  videos?: Video[];
 }
 
 export const hasBandcampId = (release: Release): release is Release & { bandcampId: string } =>
@@ -113,7 +103,7 @@ export const hasCredits = (release: Release): release is Release & { credits: st
 export const hasImages = (release: Release): release is Release & { images: Image[] } =>
   Boolean(release.images);
 
-export const hasVideos = (release: Release): release is Release & { videos: VideoItem[] } =>
+export const hasVideos = (release: Release): release is Release & { videos: Video[] } =>
   Boolean(release.videos);
 
 export interface WorksSection {

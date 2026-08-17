@@ -1,11 +1,6 @@
-// Lightbox types with discriminated unions for Image and Video
+// Lightbox types: the discriminated items rendered in the lightbox.
 
-// A credited contributor (name + optional link). Shared by photo credits
-// (photographer) and video credits (author).
-export interface Photographer {
-  name: string;
-  url?: string;
-}
+import type { Photographer, Video } from './media';
 
 export interface LightboxImage {
   type: 'image';
@@ -14,12 +9,8 @@ export interface LightboxImage {
   photographer?: Photographer;
 }
 
-export interface LightboxVideo {
+export interface LightboxVideo extends Video {
   type: 'video';
-  url: string;
-  title: string;
-  platform: 'youtube' | 'vimeo';
-  author?: Photographer;
 }
 
 export type LightboxItem = LightboxImage | LightboxVideo;
