@@ -878,7 +878,7 @@ const groupEventsByYear = (events: LiveEvent[]): LiveData => {
   return Object.fromEntries(
     Object.entries(byYear).map(([year, section]) => [
       year,
-      { ...section, items: [...section.items].sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '')) },
+      { ...section, items: [...section.items].sort((a, b) => b.date.localeCompare(a.date)) },
     ]),
   );
 };
