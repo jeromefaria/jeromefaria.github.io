@@ -38,9 +38,8 @@ export const createContactPageSchema = (): SchemaContactPage => ({
   },
 });
 
-// Book schema derived from the publication release, so the shared facts
-// (title, cover, url, year, publisher, ISBN) have a single source of truth in
-// the works data. Editors and the contributor credit live only here.
+// Derived from the publication release; only the editors and contributor
+// credit aren't in the works data.
 const createGlitchBookSchema = (): SchemaBook => {
   const book = worksData['publications']?.items[0];
   if (book?.meta.kind !== 'publication') {

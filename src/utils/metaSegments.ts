@@ -22,11 +22,6 @@ const editionSegments = (editions: Edition[]): MetaSegment[] =>
     return segments;
   });
 
-/**
- * Flatten a structured ReleaseMeta into an ordered list of render segments.
- * Segments carry their own spacing, so the view renders them adjacently
- * (as real elements, no v-html) without depending on template whitespace.
- */
 export const buildMetaSegments = (meta: ReleaseMeta): MetaSegment[] => {
   switch (meta.kind) {
     case 'music':
