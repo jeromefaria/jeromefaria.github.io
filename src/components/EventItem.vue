@@ -36,7 +36,9 @@ const titleHrefIsExternal = computed(() => /^https?:/i.test(titleHref.value ?? '
 const venueLocation = computed(() =>
   [props.event.venue.city, props.event.venue.country].filter(Boolean).join(', '));
 
-const imageLightboxItems = computed<LightboxItem[]>(() => props.event.images?.map(toLightboxImage) ?? []);
+const imageLightboxItems = computed<LightboxItem[]>(() =>
+  props.event.images?.map(image =>
+    toLightboxImage({ ...image, alt: image.alt ?? props.event.imageAlt ?? '' })) ?? []);
 const videoLightboxItems = computed<LightboxItem[]>(() => props.event.videos?.map(toLightboxVideo) ?? []);
 const imageLabel = computed(() => `View ${imageLightboxItems.value.length === 1 ? 'photo' : 'photos'}`);
 </script>
