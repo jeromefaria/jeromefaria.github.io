@@ -25,7 +25,7 @@ const jiti = createJiti(import.meta.url, { alias: { '@': srcDir } });
 
 const load = relativePath => jiti.import(resolve(srcDir, relativePath));
 
-const [{ worksData, worksSections }, { liveData, liveYears }, { pressQuotes }, { aboutSections }] =
+const [{ worksData, worksSections }, { sortedLiveData, liveYears }, { pressQuotes }, { aboutSections }] =
   await Promise.all([
     load('data/works.ts'),
     load('data/live.ts'),
@@ -38,7 +38,7 @@ const itemIds = groups => Object.values(groups).flatMap(group => (group.items ??
 // Valid anchor targets per page: section/year keys plus every item id.
 const validTargets = {
   works: new Set([...worksSections, ...itemIds(worksData)]),
-  live: new Set([...liveYears, ...itemIds(liveData)]),
+  live: new Set([...liveYears, ...itemIds(sortedLiveData)]),
   press: new Set(pressQuotes.map(quote => quote.id)),
 };
 
@@ -46,7 +46,7 @@ const validTargets = {
 const sources = {
   'data/about.ts': aboutSections,
   'data/works.ts': worksData,
-  'data/live.ts': liveData,
+  'data/live.ts': sortedLiveData,
   'data/press.ts': pressQuotes,
 };
 

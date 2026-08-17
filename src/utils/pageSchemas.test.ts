@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { liveData, liveYears } from '@/data/live';
+import { liveEvents, liveYears } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
 
@@ -73,10 +73,7 @@ describe('createWorksPageSchema', () => {
 describe('createLiveEventsSchema', () => {
   it('builds an ItemList covering every performance', () => {
     const schema = createLiveEventsSchema();
-    const totalEvents = liveYears.reduce(
-      (sum, year) => sum + (liveData[year]?.items.length ?? 0),
-      0,
-    );
+    const totalEvents = liveEvents.length;
 
     expect(schema['@type']).toBe('ItemList');
     expect(schema.numberOfItems).toBe(totalEvents);
