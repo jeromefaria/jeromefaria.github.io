@@ -108,6 +108,22 @@ describe('EventItem', () => {
       ]);
     });
 
+    it('falls back to the event imageAlt when an image has no alt of its own', async () => {
+      const wrapper = mountEvent({
+        ...plainEvent,
+        imageAlt: 'Event-level description',
+        images: [{ src: '/images/live/a-001.jpg' }, { src: '/images/live/a-002.jpg', alt: 'Override' }],
+      });
+
+      await wrapper.get('.media-links button').trigger('click');
+      const payload = wrapper.emitted('open-lightbox')?.[0];
+
+      expect((payload?.[0] as Array<{ alt: string }>).map(item => item.alt)).toEqual([
+        'Event-level description',
+        'Override',
+      ]);
+    });
+
     it('renders no media control when the event has neither images nor videos', () => {
       const wrapper = mountEvent(plainEvent);
       expect(wrapper.find('.media-links').exists()).toBe(false);
