@@ -1,7 +1,5 @@
 import type { LiveData, LiveEvent, LiveYearSection } from '@/types/live';
 
-// Flat list of every performance; the year grouping is derived (see below),
-// so adding an event is a plain append — no year bucket to find or create.
 export const liveEvents: LiveEvent[] = [
   {
     id: 'tbc-2026-09-19',
@@ -867,8 +865,6 @@ export const liveEvents: LiveEvent[] = [
   },
 ];
 
-// Group events by the year in their date, newest year first and newest event
-// first within each year. Replaces the hand-maintained year-keyed structure.
 const groupEventsByYear = (events: LiveEvent[]): LiveData => {
   const byYear: Record<string, LiveYearSection> = {};
 
@@ -879,9 +875,6 @@ const groupEventsByYear = (events: LiveEvent[]): LiveData => {
     byYear[year] = section;
   }
 
-  // Sort each year's events newest first. ISO date strings compare correctly,
-  // e.g. '2022-07-02' > '2022-03-05'. Year ordering is not encoded here: numeric
-  // string keys always enumerate ascending, so liveYears sorts them explicitly.
   return Object.fromEntries(
     Object.entries(byYear).map(([year, section]) => [
       year,

@@ -1,10 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 
-// Mock the works data so the album filter sees all three cases: a release with
-// both Bandcamp ids, one with only a URL (exercises the || right-hand branch —
-// real solo releases carry both ids, so it never short-circuits there), and one
-// with neither (excluded). Isolated in its own file so the mock never leaks into
-// the real-data suite (pageSchemas.test.ts).
+// Mocked so the album filter sees a URL-only release (the || right branch real
+// data never reaches, since solo releases carry both ids) and a non-Bandcamp
+// one. Isolated so the mock doesn't leak into the real-data suite.
 vi.mock('@/data/works', () => ({
   worksData: {
     solo: {
