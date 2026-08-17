@@ -1,57 +1,27 @@
 <script setup lang="ts">
-import { useTemplateRef } from 'vue';
-
-import AccordionSection from '@/components/AccordionSection.vue';
-import LightboxHost from '@/components/LightboxHost.vue';
-import PageShell from '@/components/PageShell.vue';
+import AccordionListPage from '@/components/AccordionListPage.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
-import { useAccordion } from '@/composables/useAccordion';
-import { usePageHead } from '@/composables/usePageHead';
 import { pageMeta } from '@/data/pageMeta';
 import { worksData, worksSections } from '@/data/works';
-import { findSectionContainingId, updateHash } from '@/utils/navigation';
 import { createWorksPageSchema } from '@/utils/pageSchemas';
-
-usePageHead({
-  ...pageMeta.works,
-  schema: createWorksPageSchema(),
-});
-
-const findSectionForRelease = (releaseId: string): string | null =>
-  findSectionContainingId(worksSections, worksData, releaseId);
-
-const { openSection, handleToggle } = useAccordion('solo', worksSections, findSectionForRelease);
-const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 </script>
 
 <template>
-  <div class="container-wide">
-    <PageShell
-      data-page="works"
-      title="Works"
-    >
-      <p class="visually-hidden">
-        External links open in a new tab.
-      </p>
-      <AccordionSection
-        v-for="sectionKey in worksSections"
-        :id="sectionKey"
-        :key="sectionKey"
-        :title="worksData[sectionKey]?.title || sectionKey"
-        :model-value="openSection === sectionKey"
-        @update:model-value="handleToggle(sectionKey, $event)"
-      >
-        <ReleaseItem
-          v-for="release in worksData[sectionKey]?.items || []"
-          :key="release.id"
-          :release="release"
-          :text-only="!('coverImage' in release && release.coverImage)"
-          @update-hash="updateHash"
-          @open-lightbox="lightbox?.openLightbox"
-        />
-      </AccordionSection>
-    </PageShell>
-
-    <LightboxHost ref="lightbox" />
-  </div>
+  <AccordionListPage
+    data-page="works"
+    title="Works"
+    :sections="worksSections"
+    :section-data="worksData"
+    initial-section="solo"
+    :head="{ ...pageMeta.works, schema: createWorksPageSchema() }"
+  >
+    <template #item="{ item, openLightbox, updateHash }">
+      <ReleaseItem
+        :release="item"
+        :text-only="!('coverImage' in item && item.coverImage)"
+        @update-hash="updateHash"
+        @open-lightbox="openLightbox"
+      />
+    </template>
+  </AccordionListPage>
 </template>
