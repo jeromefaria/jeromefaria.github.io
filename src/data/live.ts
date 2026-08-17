@@ -9,11 +9,11 @@ export const liveEvents: LiveEvent[] = [
     description: 'Solo performance.',
   },
   {
-    id: 'tbc-2026-08-23',
-    title: 'TBC',
+    id: 'festival-multiplo-2026',
+    title: '<a href="https://ma.to/event/festival-multiplo-21-aug-2026">Festival Múltiplo</a>',
     date: '2026-08-23',
-    venue: { country: 'Portugal' },
-    description: 'Solo performance.',
+    venue: { name: 'Zaratan', url: 'https://zaratan.pt', city: 'Lisbon', country: 'Portugal' },
+    description: 'With Água Doce, Alga, <a href="https://canadian-rifles.bandcamp.com/">Canadian Rifles</a>, Caranguejos, Double Double, Formidolor, <a href="https://joanadesa.work/">Joana de Sá</a>, <a href="https://llamavirgem.bandcamp.com/">Llama Virgem</a>, Musgos, Open Source 3IO, Pedro PMDS.',
   },
   {
     id: 'showcase-casa-amarela',
