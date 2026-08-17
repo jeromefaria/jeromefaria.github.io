@@ -7,12 +7,12 @@ describe('toLightboxImage', () => {
     expect(toLightboxImage({ src: '/a.jpg', alt: 'A' })).toEqual({ type: 'image', src: '/a.jpg', alt: 'A' });
   });
 
-  it('copies optional layout and credit fields when present', () => {
+  it('copies the photographer credit when present', () => {
     const photographer = { name: 'Jane', url: 'https://example.com/jane' };
 
     expect(
-      toLightboxImage({ src: '/a.jpg', alt: 'A', position: 'top', scale: 1.2, rotate: 3, photographer }),
-    ).toEqual({ type: 'image', src: '/a.jpg', alt: 'A', position: 'top', scale: 1.2, rotate: 3, photographer });
+      toLightboxImage({ src: '/a.jpg', alt: 'A', photographer }),
+    ).toEqual({ type: 'image', src: '/a.jpg', alt: 'A', photographer });
   });
 });
 

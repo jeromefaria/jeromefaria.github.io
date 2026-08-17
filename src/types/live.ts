@@ -3,9 +3,6 @@ import type { Photographer } from './lightbox';
 export interface LiveImage {
   src: string;
   alt: string;
-  position?: string;
-  scale?: number;
-  rotate?: number;
   photographer?: Photographer;
 }
 
