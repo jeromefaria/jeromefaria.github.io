@@ -1,7 +1,8 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { nextTick } from 'vue';
 
 import AccordionSection from '@/components/AccordionSection.vue';
+import LightboxOverlay from '@/components/LightboxOverlay.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
 import { worksData, worksSections } from '@/data/works';
 import { mountView } from '@/test-support/viewHarness';
@@ -12,6 +13,28 @@ const expandedSections = (wrapper: Awaited<ReturnType<typeof mountView>>): strin
   worksSections.filter(section => wrapper.get(`#trigger-${section}`).attributes('aria-expanded') === 'true');
 
 describe('WorksView', () => {
+  afterEach(() => {
+    window.history.replaceState(null, '', window.location.pathname);
+  });
+
+  it('forwards a release open-lightbox event to the lightbox host', async () => {
+    const wrapper = await mountView(WorksView, '/works');
+    expect(wrapper.findComponent(LightboxOverlay).exists()).toBe(false);
+
+    wrapper.findComponent(ReleaseItem).vm.$emit('open-lightbox', [{ type: 'image', src: '/x.jpg', alt: 'x' }], 0);
+    await nextTick();
+
+    expect(wrapper.findComponent(LightboxOverlay).exists()).toBe(true);
+  });
+
+  it('updates the URL hash when a release requests it', async () => {
+    const wrapper = await mountView(WorksView, '/works');
+
+    wrapper.findComponent(ReleaseItem).vm.$emit('update-hash', 'contraplacado');
+
+    expect(window.location.hash).toBe('#contraplacado');
+  });
+
   it('renders an accordion section for every works category', async () => {
     const wrapper = await mountView(WorksView, '/works');
     expect(wrapper.findAllComponents(AccordionSection)).toHaveLength(worksSections.length);
