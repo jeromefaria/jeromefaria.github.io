@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AccordionListPage from '@/components/AccordionListPage.vue';
+import AccordionPage from '@/components/AccordionPage.vue';
 import EventItem from '@/components/EventItem.vue';
 import { liveYears, sortedLiveData } from '@/data/live';
 import { pageMeta } from '@/data/pageMeta';
@@ -7,7 +7,7 @@ import { createLiveEventsSchema } from '@/utils/pageSchemas';
 </script>
 
 <template>
-  <AccordionListPage
+  <AccordionPage
     data-page="live"
     title="Live"
     :sections="liveYears"
@@ -22,5 +22,5 @@ import { createLiveEventsSchema } from '@/utils/pageSchemas';
         @open-lightbox="openLightbox"
       />
     </template>
-  </AccordionListPage>
+  </AccordionPage>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AccordionListPage from '@/components/AccordionListPage.vue';
+import AccordionPage from '@/components/AccordionPage.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
 import { pageMeta } from '@/data/pageMeta';
 import { worksData, worksSections } from '@/data/works';
@@ -7,7 +7,7 @@ import { createWorksPageSchema } from '@/utils/pageSchemas';
 </script>
 
 <template>
-  <AccordionListPage
+  <AccordionPage
     data-page="works"
     title="Works"
     :sections="worksSections"
@@ -23,5 +23,5 @@ import { createWorksPageSchema } from '@/utils/pageSchemas';
         @open-lightbox="openLightbox"
       />
     </template>
-  </AccordionListPage>
+  </AccordionPage>
 </template>
