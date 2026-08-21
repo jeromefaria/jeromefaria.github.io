@@ -95,7 +95,7 @@ describe('EventItem', () => {
   });
 
   describe('media links', () => {
-    it('shows a "View photos" control when the event has images', () => {
+    it('shows a "Photos" control when the event has images', () => {
       const wrapper = mountEvent({
         ...plainEvent,
         images: [
@@ -104,7 +104,8 @@ describe('EventItem', () => {
         ],
       });
       const button = wrapper.get('.media-links button');
-      expect(button.text()).toBe('View photos');
+      expect(button.text()).toBe('Photos');
+      expect(button.attributes('aria-label')).toBe('View photos');
     });
 
     it('emits open-lightbox with the converted images on click', async () => {
@@ -143,13 +144,13 @@ describe('EventItem', () => {
       expect(wrapper.find('.media-links').exists()).toBe(false);
     });
 
-    it('shows a "View video" control and emits the converted video on click', async () => {
+    it('shows a "Video" control and emits the converted video on click', async () => {
       const wrapper = mountEvent({
         ...plainEvent,
         videos: [{ url: 'https://player.vimeo.com/video/1', title: 'Live set', platform: 'vimeo', author: { name: 'Hugo Olim', url: 'https://vimeo.com/hugoolim' } }],
       });
       const button = wrapper.get('.media-links button');
-      expect(button.text()).toBe('View video');
+      expect(button.text()).toBe('Video');
 
       await button.trigger('click');
       const payload = wrapper.emitted('open-lightbox')?.[0];
@@ -172,9 +173,50 @@ describe('EventItem', () => {
       const buttons = wrapper.findAll('.media-links button');
 
       expect(buttons).toHaveLength(2);
-      expect(buttons[0].text()).toBe('View photo');
-      expect(buttons[1].text()).toBe('View videos');
+      expect(buttons[0].text()).toBe('Photo');
+      expect(buttons[1].text()).toBe('Videos');
       expect(wrapper.get('.media-links').text()).toContain('|');
+    });
+
+    it('shows a "Posters" control and emits the converted posters (no photographer) on click', async () => {
+      const wrapper = mountEvent({
+        ...plainEvent,
+        posters: [
+          { src: '/images/live/a-poster-001.jpg', alt: 'Poster one' },
+          { src: '/images/live/a-poster-002.jpg', alt: 'Poster two' },
+        ],
+      });
+      const button = wrapper.get('.media-links button');
+      expect(button.text()).toBe('Posters');
+
+      await button.trigger('click');
+      expect(wrapper.emitted('open-lightbox')?.[0]).toEqual([
+        [
+          { type: 'image', src: '/images/live/a-poster-001.jpg', alt: 'Poster one' },
+          { type: 'image', src: '/images/live/a-poster-002.jpg', alt: 'Poster two' },
+        ],
+        0,
+      ]);
+    });
+
+    it('uses the singular poster label for a single poster', () => {
+      const wrapper = mountEvent({
+        ...plainEvent,
+        posters: [{ src: '/images/live/a-poster-001.jpg', alt: 'Poster one' }],
+      });
+      expect(wrapper.get('.media-links button').text()).toBe('Poster');
+    });
+
+    it('orders the controls photos, posters, then videos', () => {
+      const wrapper = mountEvent({
+        ...plainEvent,
+        images: [{ src: '/images/live/a-001.jpg', alt: 'A' }],
+        posters: [{ src: '/images/live/a-poster-001.jpg', alt: 'Poster one' }],
+        videos: [{ url: 'https://player.vimeo.com/video/1', title: 'One', platform: 'vimeo' }],
+      });
+      const buttons = wrapper.findAll('.media-links button');
+
+      expect(buttons.map(button => button.text())).toEqual(['Photo', 'Poster', 'Video']);
     });
   });
 

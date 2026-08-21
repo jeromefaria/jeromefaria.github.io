@@ -7,6 +7,7 @@ export interface LightboxImage {
   src: string;
   alt: string;
   photographer?: Photographer;
+  artist?: Photographer;
 }
 
 export interface LightboxVideo extends Video {
