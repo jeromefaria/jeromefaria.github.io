@@ -11,6 +11,7 @@ import BandcampPlayer from './BandcampPlayer.vue';
 import MediaLinks from './MediaLinks.vue';
 import ReleaseCover from './ReleaseCover.vue';
 import ReleaseMeta from './ReleaseMeta.vue';
+import TrackListItem from './TrackListItem.vue';
 
 const props = withDefaults(defineProps<{
   release: Release;
@@ -87,8 +88,9 @@ const isBandcampLink = computed(() =>
         <li
           v-for="(track, index) in release.tracklist"
           :key="index"
-          v-html="track"
-        />
+        >
+          <TrackListItem :track="track" />
+        </li>
       </ol>
       <p
         v-if="hasCredits(release)"
