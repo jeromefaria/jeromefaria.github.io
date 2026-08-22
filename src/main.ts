@@ -17,7 +17,6 @@ export const createApp = ViteSSG(
     routes,
     scrollBehavior(to, _from, savedPosition) {
       if (savedPosition) return savedPosition;
-      // If there's a hash, don't scroll - let the component handle it
       if (to.hash) return false;
       return { top: 0 };
     },
@@ -34,10 +33,9 @@ export const createApp = ViteSSG(
       void router.isReady().then(() => router.replace(redirect));
     }
 
-    // Add the ready class to body once Vue is fully hydrated. This is a
-    // deliberate fire-and-forget: the setup callback must NOT await
-    // router.isReady() here, since that resolves only after mount and would
-    // deadlock hydration. The nested rAF ensures event handlers are attached.
+    // Fire-and-forget: awaiting router.isReady() in the setup callback would
+    // deadlock hydration (it resolves only after mount). The nested rAF waits
+    // until event handlers are attached before flagging the body ready.
     void router.isReady().then(() => {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {

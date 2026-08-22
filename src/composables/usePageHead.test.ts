@@ -6,7 +6,6 @@ import { siteConfig } from '@/data/navigation';
 
 import { usePageHead } from './usePageHead';
 
-// Capture what gets passed to useHead
 const headConfig: Record<string, unknown>[] = [];
 
 vi.mock('@unhead/vue', () => ({

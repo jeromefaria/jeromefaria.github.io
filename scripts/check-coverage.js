@@ -1,10 +1,5 @@
 #!/usr/bin/env node
 
-/**
- * Coverage threshold checker for CI
- * Reads coverage summary and fails if thresholds are not met
- */
-
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -12,10 +7,7 @@ import { dirname, join } from 'node:path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Coverage thresholds — a regression floor for the WHOLE instrumented codebase
-// (all of src, not just the files a test imports). The logic layer
-// (composables/utils) is ~100%; views and components are being backfilled with
-// unit tests, so raise these numbers as coverage climbs.
+// Floor for the WHOLE instrumented codebase (all of src), not just files a test imports.
 const THRESHOLDS = {
   lines: 99,
   statements: 97,

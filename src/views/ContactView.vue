@@ -45,7 +45,6 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
         class="contact-form"
         @submit="handleSubmit"
       >
-        <!-- FormSubmit Configuration Fields -->
         <input
           type="hidden"
           :name="FORM_SUBMIT.SUBJECT"
@@ -89,7 +88,6 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
           @input="handleInput"
           @blur="handleBlur('email')"
         >
-          <!-- FormSubmit: use email as reply-to -->
           <input
             type="hidden"
             :name="FORM_SUBMIT.REPLY_TO"

@@ -140,8 +140,6 @@ test.describe('Contact Form', () => {
     test('falls back to native form submit on network error', async ({ page }) => {
       await page.route(FORMSUBMIT_URL, route => route.abort());
 
-      // Override the form's native submit so we can detect the fallback without
-      // triggering a real navigation.
       const nativeSubmitCalled = page.evaluate(() => new Promise<boolean>(resolve => {
         const form = document.querySelector<HTMLFormElement>('.contact-form');
         if (!form) {
@@ -163,9 +161,8 @@ test.describe('Contact Form', () => {
   test.describe('Spam protection', () => {
     test('honeypot field is hidden from users', async ({ page }) => {
       const honeypot = page.locator('input[tabindex="-1"]');
-      // The trap is removed from the tab order and visually hidden off-screen at
-      // zero opacity (Playwright treats off-screen/zero-opacity nodes as present,
-      // so assert the hiding mechanism rather than a visibility flag).
+      // Playwright treats off-screen / zero-opacity nodes as present, so assert the
+      // hiding mechanism (opacity + off-screen x) rather than a visibility flag.
       await expect(honeypot).toHaveCSS('opacity', '0');
 
       const box = await honeypot.boundingBox();

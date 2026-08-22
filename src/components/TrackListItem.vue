@@ -5,8 +5,6 @@ import type { Track } from '@/types/works';
 
 const props = defineProps<{ track: Track }>();
 
-// Text before the title: a linked artist renders as an <a>, so it only needs
-// the separator; an unlinked artist is inlined here; a plain track has neither.
 const prefix = computed(() => {
   const { artist } = props.track;
   if (!artist) return '';

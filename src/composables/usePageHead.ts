@@ -1,4 +1,4 @@
-import { useHead } from '@unhead/vue'; // Provided by vite-ssg
+import { useHead } from '@unhead/vue';
 import { useRoute } from 'vue-router';
 
 import { siteConfig } from '@/data/navigation';
@@ -9,19 +9,9 @@ interface UsePageHeadOptions {
   ogType?: string;
   schema?: object | null;
   noIndex?: boolean;
-  /** WebP image to preload with high priority (e.g. an above-the-fold hero). */
   preloadImage?: string;
 }
 
-/**
- * Composable for setting page head meta tags with consistent patterns
- * @param options - Page head options
- * @param options.title - Page title (will be appended with site title)
- * @param options.description - Page meta description
- * @param options.ogType - Open Graph type (default: 'website')
- * @param options.schema - JSON-LD structured data schema
- * @param options.noIndex - Add robots noindex meta tag
- */
 export const usePageHead = ({
   title,
   description,

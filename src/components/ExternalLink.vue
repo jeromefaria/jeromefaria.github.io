@@ -1,7 +1,6 @@
 <script setup lang="ts">
-// A link that opens in a new tab with safe rel. By default it appends a
-// visually-hidden "(opens in a new tab)" cue; pass `ariaLabel` when the caller
-// already conveys that in a full accessible name (avoids a double announcement).
+// Pass `ariaLabel` when the caller's accessible name already conveys "new tab",
+// so the visually-hidden cue isn't announced twice.
 defineProps<{
   href: string;
   ariaLabel?: string;

@@ -1,8 +1,3 @@
-/**
- * Format an ISO date string as a human-readable date
- * @param isoDate - Date in ISO format (YYYY-MM-DD)
- * @returns Formatted date (e.g., "January 17, 2025"), or '' when empty
- */
 export const formatEventDate = (isoDate: string): string => {
   if (!isoDate) return '';
 

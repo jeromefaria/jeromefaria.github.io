@@ -13,11 +13,6 @@ interface UseImageLoaderReturn {
   handleImageError: () => void;
 }
 
-/**
- * Composable for handling image loading state with WebP support
- * @param src - Original image source path (jpg)
- * @returns Image loading state and handlers
- */
 export const useImageLoader = (src: string): UseImageLoaderReturn => {
   const imageRef = ref<HTMLImageElement | null>(null);
   const imageError = ref(false);
@@ -25,9 +20,7 @@ export const useImageLoader = (src: string): UseImageLoaderReturn => {
 
   const webpSrc = computed(() => (src ? toWebp(src) : src));
 
-  // Callback ref: bound via `:ref` in templates so the composable owns the
-  // <img> element. Needed for the already-complete fast-path below to work
-  // when a cached image never re-fires `load` after hydration.
+  // A cached image may never re-fire `load` after hydration, so the composable owns the <img> and the onMounted `complete` check below is the fallback.
   const setImageRef = (element: Element | ComponentPublicInstance | null): void => {
     imageRef.value = element instanceof HTMLImageElement ? element : null;
   };

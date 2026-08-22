@@ -144,7 +144,6 @@ test.describe('Navigation', () => {
   });
 
   test('keeps the mobile menu open when opened on a scrolled page', async ({ page }) => {
-    // Force a mobile viewport (the desktop projects never exercise the hamburger).
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto(PAGES.ABOUT);
     await waitForHydration(page);

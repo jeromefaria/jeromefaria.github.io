@@ -2,8 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { liveEvents, liveYears, sortedLiveData } from './live';
 
-// The event-level image alt exactly as each was written per-image before it was
-// hoisted to the event. Guards the hoist (and future edits) against drift.
+// Golden of each event's image alt text — must match src/data/live.ts, guards against drift.
 const IMAGE_ALT: Record<string, string> = {
   'showcase-casa-amarela': 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
   'fim-de-emissao-45': 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025',
@@ -47,8 +46,7 @@ describe('liveData image alts', () => {
 });
 
 describe('liveData posters', () => {
-  // Golden of the poster artwork attached to each event, so alt text (which
-  // carries the event's own lineup/date text) is guarded against drift.
+  // Golden of each event's poster alt text — must match src/data/live.ts, guards against drift.
   const POSTERS: Record<string, { src: string; alt: string; artist?: { name: string; url?: string } }[]> = {
     'aragao-funchal': [
       {
@@ -109,8 +107,7 @@ describe('liveData posters', () => {
 });
 
 describe('liveData year grouping (derived)', () => {
-  // Snapshot of the grouping as it read when hand-authored, before the year
-  // sections were derived from event dates. groupEventsByYear must reproduce it.
+  // Golden grouping — groupEventsByYear must reproduce this.
   const YEARS = ['2026', '2025', '2024', '2022', '2021', '2015', '2013', '2012', '2011', '2010', '2009', '2008', '2007', '2006', '2005'];
   const EVENTS_BY_YEAR: Record<string, string[]> = {
     '2005': ['madeiradig-2005'],

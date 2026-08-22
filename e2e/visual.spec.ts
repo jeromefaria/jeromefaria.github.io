@@ -2,10 +2,8 @@ import { expect, test } from '@playwright/test';
 
 import { waitForHydration } from './helpers';
 
-// Visual-regression snapshots for each page. Tagged @visual so the normal E2E
-// job can exclude them; they run in a dedicated, non-deploy-gating CI job.
-// Baselines are platform-specific and generated on CI (Linux) — regenerate with
-// `playwright test --grep @visual --update-snapshots` in the CI environment.
+// Baselines are platform-specific (generated on CI/Linux) — regenerate with
+// `playwright test --grep @visual --update-snapshots` on CI, not locally.
 const PAGES = [
   ['/', 'home'],
   ['/works', 'works'],

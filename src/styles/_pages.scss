@@ -1,9 +1,4 @@
-// Pages — page-specific styling overrides
 @use "variables" as *;
-
-// =============================================================================
-// Homepage
-// =============================================================================
 
 .home {
   .hero {
@@ -12,7 +7,6 @@
     width: 100%;
     min-height: 50vh;
     position: relative;
-    // Fill viewport between header and footer, accounting for iPhone safe areas
     // Use 100vh (not 100dvh) to prevent resize when Safari UI changes
     // Subtract header, footer, and extra safe-area padding beyond footer base (24px), plus 3px for border alignment
     height: calc(100vh - #{$header-height-mobile} - #{$footer-height} - max(0px, env(safe-area-inset-bottom, 0px) - #{$footer-padding-y}) + 3px);
@@ -62,12 +56,7 @@
   }
 }
 
-// =============================================================================
-// About Page
-// =============================================================================
-
 .page[data-page="about"] {
-  // Magazine-style image group layout
   .about-image-group {
     margin: $spacing-12 0;
     display: grid;
@@ -82,7 +71,6 @@
       grid-auto-rows: minmax(200px, auto);
     }
 
-    // Reduce gap between consecutive image groups
     &:has(+ .about-image-group) {
       margin-bottom: 0;
     }
@@ -95,7 +83,6 @@
       }
     }
 
-    // Reduce height for 2-image and 4-image portrait layouts
     &:has(.about-image-group__image:first-child:nth-last-child(2)),
     &:has(.about-image-group__image:first-child:nth-last-child(4)) {
       @include respond-to(md) {
@@ -128,10 +115,6 @@
         }
       }
 
-      // Mobile: all images flow naturally in 2-column grid
-      // No special spanning needed
-
-      // 3-image layout: large + 2 stacked
       &:first-child:nth-last-child(3) {
         @include respond-to(md) {
           grid-column: 1 / 3;
@@ -153,7 +136,6 @@
         }
       }
 
-      // 4-image layout: 2x2 grid
       &:first-child:nth-last-child(4) {
         @include respond-to(md) {
           grid-column: 1 / 3;
@@ -182,7 +164,6 @@
         }
       }
 
-      // 2-image layout: side by side
       &:first-child:nth-last-child(2) {
         @include respond-to(md) {
           grid-column: 1 / 3;
@@ -197,7 +178,6 @@
     }
   }
 
-  // Short bio section
   .short-bio {
     margin-bottom: $spacing-12;
     padding-bottom: $spacing-8;
@@ -221,7 +201,6 @@
     }
   }
 
-  // Increase spacing between prose sections
   .prose {
     margin-bottom: $spacing-8;
 
@@ -229,7 +208,6 @@
       margin-bottom: $spacing-12;
     }
 
-    // Add extra spacing before prose sections that follow image groups
     .about-image-group + & {
       margin-top: $spacing-12;
 
@@ -239,10 +217,6 @@
     }
   }
 }
-
-// =============================================================================
-// Press Page
-// =============================================================================
 
 .page[data-page="press"] {
   blockquote {
@@ -262,25 +236,18 @@
     }
   }
 
-  // Radio section
   h2 + p {
     font-size: $font-size-sm;
     color: var(--color-text-muted);
   }
 }
 
-// =============================================================================
-// Live Page
-// =============================================================================
-
 .page[data-page="live"] {
-  // Event container
   .event {
     margin-bottom: $spacing-10;
     @include scroll-margin-header;
   }
 
-  // Event details — text-only variant
   .event--text-only .event-details {
     p {
       margin-bottom: $spacing-1;
@@ -297,12 +264,10 @@
     }
   }
 
-  // Event titles — uniform size
   .event-details p:first-child strong {
     font-size: $font-size-base;
   }
 
-  // Venue — softer styling
   .event-meta {
     text-transform: none;
     letter-spacing: normal;
@@ -320,7 +285,6 @@
     }
   }
 
-  //  Event description — ensure links are distinguishable
   .event-description {
     a {
       text-decoration: underline;
@@ -334,12 +298,10 @@
     }
   }
 
-  // Date — subtle color (removed opacity for WCAG AA compliance)
   .event-date {
     color: var(--color-text-muted);
   }
 
-  // Event title link — hash link for deep linking
   .event-title-link {
     color: inherit;
     text-decoration: none;
@@ -355,7 +317,6 @@
     }
   }
 
-  // Trailing icon linking to an embedded festival site / related work
   .event-title-ref {
     margin-left: $spacing-1;
     color: var(--color-text-muted);
@@ -374,19 +335,10 @@
   }
 }
 
-// =============================================================================
-// Photo Gallery Links (Works & Live pages)
-// =============================================================================
-
-// Media links (Gallery/Photos/Posters/Videos) — discrete and subtle
 .media-links {
   margin-top: $spacing-2;
   margin-bottom: 0;
 }
-
-// =============================================================================
-// 404 Page
-// =============================================================================
 
 .not-found {
   text-align: center;

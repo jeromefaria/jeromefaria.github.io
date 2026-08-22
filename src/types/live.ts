@@ -6,8 +6,8 @@ export interface LiveImage {
   photographer?: Credit;
 }
 
-// Rare paired or nested acts keep both links inline in `text` (e.g. '@c & Lia').
 export interface Act {
+  // Paired/nested acts keep both links inline in `text` (e.g. '@c & Lia').
   text: string;
   url?: string;
   suffix?: string;
@@ -23,7 +23,6 @@ export type Performance =
   | { kind: 'filmScore'; film: string; with?: Act; premiere?: boolean }
   | { kind: 'talk' };
 
-// Event artwork, not a photograph: alt is required (it carries the event's text) and it credits an artist.
 export interface Poster {
   src: string;
   alt: string;

@@ -98,7 +98,6 @@ describe('imageStyles', () => {
 
     it('should handle rotate value of 0 (falsy, returns empty)', () => {
       const styles = getImageStyles({ rotate: 0 });
-      // 0 is falsy, so no transform is applied
       expect(styles).toEqual({});
     });
 

@@ -22,7 +22,6 @@ const isExpanded = computed({
   set: value => emit('update:modelValue', value),
 });
 
-// Share expanded state so collapsed sections can defer loading heavy content.
 provideAccordionExpanded(isExpanded);
 
 const sectionRef = ref<HTMLElement | null>(null);

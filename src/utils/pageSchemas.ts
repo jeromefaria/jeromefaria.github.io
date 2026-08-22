@@ -1,6 +1,3 @@
-// Page-level JSON-LD builders, composing the primitives in ./schemaHelpers so
-// the views stay free of structured-data assembly.
-
 import { liveYears, sortedLiveData } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
@@ -15,7 +12,6 @@ import type {
 
 import { createItemListSchema, createMusicAlbumSchema, createMusicEventSchema } from './schemaHelpers';
 
-/** Person schema for the homepage. */
 export const createPersonSchema = (): SchemaProfilePerson => ({
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -38,8 +34,6 @@ export const createContactPageSchema = (): SchemaContactPage => ({
   },
 });
 
-// Derived from the publication release; only the editors and contributor
-// credit aren't in the works data.
 const createGlitchBookSchema = (): SchemaBook => {
   const book = worksData['publications']?.items[0];
   if (book?.meta.kind !== 'publication') {
@@ -71,7 +65,6 @@ const createGlitchBookSchema = (): SchemaBook => {
   };
 };
 
-/** Works page: a MusicGroup with its solo albums, plus the Glitch book. */
 export const createWorksPageSchema = (): SchemaWorksGraph => {
   const soloSection = worksData['solo'];
   const albums = (soloSection?.items ?? [])
@@ -96,7 +89,6 @@ export const createWorksPageSchema = (): SchemaWorksGraph => {
   };
 };
 
-/** Live page: an ItemList of every performance, newest year first. */
 export const createLiveEventsSchema = (): SchemaItemList => {
   const events = liveYears.flatMap(year => {
     const yearData = sortedLiveData[year];

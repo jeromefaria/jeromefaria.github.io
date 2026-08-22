@@ -1,12 +1,3 @@
-/**
- * Generates responsive WebP variants for the images that are displayed small
- * but shipped at full resolution (release covers ~200px, About group images
- * ~600px). Writes to public/images/responsive/<name>-<width>w.webp.
- *
- * The target list is derived from the same data the components render, so it
- * stays in sync. Re-run after adding covers or About images:
- *   node scripts/generate-responsive-images.mjs
- */
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -17,7 +8,6 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC = join(root, 'public');
 const OUT = join(PUBLIC, 'images/responsive');
 
-// Extract '/images/<name>.jpg' occurrences after a given key in a data file.
 const extract = (file, key) => {
   const text = readFileSync(join(root, 'src/data', file), 'utf8');
   const imagePattern = new RegExp(`${key}:\\s*'(/images/[a-z0-9-]+\\.jpg)'`, 'g');
@@ -40,11 +30,10 @@ for (const { src, widths } of targets) {
 
   const produced = [];
   for (const width of widths) {
-    if (meta.width && width > meta.width) continue; // never upscale
+    if (meta.width && width > meta.width) continue;
     const out = join(OUT, `${name}-${width}w.webp`);
     produced.push(width);
 
-    // Idempotent: skip if the variant already exists and is newer than the source.
     if (existsSync(out) && statSync(out).mtimeMs >= statSync(input).mtimeMs) continue;
 
     const info = await sharp(input).resize({ width }).webp({ quality: 78 }).toFile(out);

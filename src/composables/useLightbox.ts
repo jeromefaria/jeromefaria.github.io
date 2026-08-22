@@ -16,11 +16,6 @@ export interface UseLightboxReturn {
   goToPrev: () => void;
 }
 
-/**
- * Lightbox state management for viewing images and videos in fullscreen
- * Handles keyboard navigation (Escape, Left/Right arrows) and state management
- * @returns Lightbox state and controls
- */
 export const useLightbox = (): UseLightboxReturn => {
   const isOpen = ref(false);
   const currentItem = ref<LightboxItem | null>(null);
@@ -91,7 +86,6 @@ export const useLightbox = (): UseLightboxReturn => {
     document.addEventListener('keydown', handleKeydown, { signal: abortController.signal });
   });
 
-  // Body scroll is released by useScrollLock's own unmount hook.
   onUnmounted(() => {
     abortController.abort();
   });

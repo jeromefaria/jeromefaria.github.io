@@ -6,8 +6,6 @@ import { createMemoryHistory, createRouter } from 'vue-router';
 
 import App from './App.vue';
 
-// A route component containing an external and an internal link, so we can
-// exercise App's processExternalLinks pass.
 const LinksPage = {
   template: `<div>
     <a href="https://external.example.com">external</a>
@@ -16,8 +14,6 @@ const LinksPage = {
   </div>`,
 };
 
-// A distinct page whose external link only exists after navigating to it, so
-// the nav-reprocess test proves a freshly rendered link is handled.
 const SecondPage = {
   template: '<div><a href="https://second.example.com">second</a></div>',
 };

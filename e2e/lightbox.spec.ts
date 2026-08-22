@@ -16,17 +16,10 @@ const GALLERY_BUTTON_SELECTOR = '.link-discrete:has-text("Gallery")';
 // collapsed sections are `inert`. Scope every interaction to a visible one.
 const VISIBLE_GALLERY_BUTTON = `${GALLERY_BUTTON_SELECTOR}:visible`;
 
-/**
- * Open the accordion section that contains the first gallery button and wait for
- * that button to become actionable, so callers can click a real, visible,
- * non-inert control (no forced clicks, no fixed animation waits).
- */
 const openFirstGallery = async (page: Page): Promise<void> => {
   await page.goto('/works');
   await waitForHydration(page);
 
-  // The accordion keeps a single section open at a time, so find the section
-  // owning the first gallery button and open it if it isn't already.
   const owningSection = page.locator(ACCORDION_SECTION_SELECTOR)
     .filter({ has: page.locator(GALLERY_BUTTON_SELECTOR) })
     .first();
@@ -39,7 +32,6 @@ const openFirstGallery = async (page: Page): Promise<void> => {
   await expect(page.locator(VISIBLE_GALLERY_BUTTON).first()).toBeVisible();
 };
 
-/** Open the lightbox from the first visible gallery button and wait for it. */
 const openLightboxFromFirstGallery = async (page: Page): Promise<void> => {
   await openFirstGallery(page);
   await page.locator(VISIBLE_GALLERY_BUTTON).first().click();
@@ -49,7 +41,6 @@ const openLightboxFromFirstGallery = async (page: Page): Promise<void> => {
 // Live events label their gallery control "Photo(s)"; substring-match both.
 const LIVE_GALLERY_BUTTON = '.link-discrete:has-text("Photo")';
 
-/** Open the lightbox from a Live event gallery and wait for it. */
 const openLiveLightbox = async (page: Page): Promise<void> => {
   await page.goto('/live');
   await waitForHydration(page);
