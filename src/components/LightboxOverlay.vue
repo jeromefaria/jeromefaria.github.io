@@ -26,13 +26,14 @@ const emit = defineEmits<{
 const isVideo = computed(() => props.currentItem !== null && isLightboxVideo(props.currentItem));
 const isImage = computed(() => props.currentItem !== null && isLightboxImage(props.currentItem));
 
-// Credit for the current item: "Photo by" for a photograph's photographer,
-// "Poster by" for a poster's artist, "Video by" for a video's author. Null when
-// the current item carries no credit.
+// Credit line for the current item: an image's role-tagged credit renders as
+// "Photo by" / "Poster by", a video's author as "Video by". Null when absent.
 const credit = computed(() => {
   const item = props.currentItem;
-  if (item && isLightboxImage(item) && item.photographer) return { prefix: 'Photo by', ...item.photographer };
-  if (item && isLightboxImage(item) && item.artist) return { prefix: 'Poster by', ...item.artist };
+  if (item && isLightboxImage(item) && item.credit) {
+    const prefix = item.credit.role === 'photo' ? 'Photo by' : 'Poster by';
+    return { prefix, name: item.credit.name, url: item.credit.url };
+  }
   if (item && isLightboxVideo(item) && item.author) return { prefix: 'Video by', ...item.author };
   return null;
 });

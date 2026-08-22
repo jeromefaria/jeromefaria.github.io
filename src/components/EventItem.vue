@@ -38,7 +38,7 @@ const venueSeparator = computed(() => (props.event.venue.name && venueLocation.v
 
 const imageLightboxItems = computed<LightboxItem[]>(() =>
   props.event.images?.map(image =>
-    toLightboxImage({ ...image, alt: image.alt ?? props.event.imageAlt ?? '' })) ?? []);
+    toLightboxImage({ ...image, alt: props.event.imageAlt ?? '' })) ?? []);
 const posterLightboxItems = computed<LightboxItem[]>(() => props.event.posters?.map(toLightboxImage) ?? []);
 const videoLightboxItems = computed<LightboxItem[]>(() => props.event.videos?.map(toLightboxVideo) ?? []);
 const imageLabel = computed(() => pluralize(imageLightboxItems.value.length, 'Photo'));

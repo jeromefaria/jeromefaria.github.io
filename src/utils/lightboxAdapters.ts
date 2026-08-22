@@ -1,32 +1,21 @@
 import type { LightboxImage, LightboxVideo } from '@/types/lightbox';
-import type { Photographer } from '@/types/media';
+import type { Credit, Video } from '@/types/media';
 
-// Superset of the fields the app's image/video data carry (About/Live/Works),
-// so a single adapter serves every call site.
+// The app's image data carries either a photographer (photos) or an artist
+// (posters); this superset lets one adapter serve every call site.
 interface LightboxImageSource {
   src: string;
   alt: string;
-  photographer?: Photographer;
-  artist?: Photographer;
+  photographer?: Credit;
+  artist?: Credit;
 }
 
-interface LightboxVideoSource {
-  url: string;
-  title: string;
-  platform: 'youtube' | 'vimeo';
-  author?: Photographer;
-}
-
-/** Map a domain image to a lightbox image item, copying the credit when present. */
+/** Map a domain image to a lightbox item, tagging its credit with a role. */
 export const toLightboxImage = (image: LightboxImageSource): LightboxImage => {
   const item: LightboxImage = { type: 'image', src: image.src, alt: image.alt };
-  if (image.photographer) item.photographer = image.photographer;
-  if (image.artist) item.artist = image.artist;
+  if (image.photographer) item.credit = { role: 'photo', ...image.photographer };
+  else if (image.artist) item.credit = { role: 'poster', ...image.artist };
   return item;
 };
 
-export const toLightboxVideo = (video: LightboxVideoSource): LightboxVideo => {
-  const item: LightboxVideo = { type: 'video', url: video.url, title: video.title, platform: video.platform };
-  if (video.author) item.author = video.author;
-  return item;
-};
+export const toLightboxVideo = (video: Video): LightboxVideo => ({ type: 'video', ...video });

@@ -1,16 +1,15 @@
-import type { Photographer, Video } from './media';
+import type { Credit, Video } from './media';
 
 export interface LiveImage {
   src: string;
-  alt?: string;
-  photographer?: Photographer;
+  photographer?: Credit;
 }
 
 // Event artwork, not a photograph: alt is required (it carries the event's text) and it credits an artist.
 export interface Poster {
   src: string;
   alt: string;
-  artist?: Photographer;
+  artist?: Credit;
 }
 
 export interface EventVenue {

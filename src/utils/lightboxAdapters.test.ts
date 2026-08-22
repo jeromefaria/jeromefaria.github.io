@@ -7,20 +7,20 @@ describe('toLightboxImage', () => {
     expect(toLightboxImage({ src: '/a.jpg', alt: 'A' })).toEqual({ type: 'image', src: '/a.jpg', alt: 'A' });
   });
 
-  it('copies the photographer credit when present', () => {
+  it('tags a photographer as a photo-role credit', () => {
     const photographer = { name: 'Jane', url: 'https://example.com/jane' };
 
     expect(
       toLightboxImage({ src: '/a.jpg', alt: 'A', photographer }),
-    ).toEqual({ type: 'image', src: '/a.jpg', alt: 'A', photographer });
+    ).toEqual({ type: 'image', src: '/a.jpg', alt: 'A', credit: { role: 'photo', ...photographer } });
   });
 
-  it('copies the artist credit (poster) when present', () => {
+  it('tags an artist as a poster-role credit', () => {
     const artist = { name: 'André Lemos', url: 'https://example.com/andre' };
 
     expect(
       toLightboxImage({ src: '/poster.jpg', alt: 'Poster', artist }),
-    ).toEqual({ type: 'image', src: '/poster.jpg', alt: 'Poster', artist });
+    ).toEqual({ type: 'image', src: '/poster.jpg', alt: 'Poster', credit: { role: 'poster', ...artist } });
   });
 });
 

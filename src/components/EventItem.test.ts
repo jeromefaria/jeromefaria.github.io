@@ -110,10 +110,11 @@ describe('EventItem', () => {
       expect(button.attributes('aria-label')).toBe('View photos');
     });
 
-    it('emits open-lightbox with the converted images on click', async () => {
+    it('emits open-lightbox with the converted images (photo-role credit) on click', async () => {
       const wrapper = mountEvent({
         ...plainEvent,
-        images: [{ src: '/images/live/a-001.jpg', alt: 'A', photographer: { name: 'Someone' } }],
+        imageAlt: 'A live photo',
+        images: [{ src: '/images/live/a-001.jpg', photographer: { name: 'Someone' } }],
       });
 
       await wrapper.get('.media-links button').trigger('click');
@@ -121,15 +122,15 @@ describe('EventItem', () => {
 
       expect(payload?.[1]).toBe(0);
       expect(payload?.[0]).toEqual([
-        { type: 'image', src: '/images/live/a-001.jpg', alt: 'A', photographer: { name: 'Someone' } },
+        { type: 'image', src: '/images/live/a-001.jpg', alt: 'A live photo', credit: { role: 'photo', name: 'Someone' } },
       ]);
     });
 
-    it('falls back to the event imageAlt when an image has no alt of its own', async () => {
+    it('applies the event imageAlt to every photo', async () => {
       const wrapper = mountEvent({
         ...plainEvent,
         imageAlt: 'Event-level description',
-        images: [{ src: '/images/live/a-001.jpg' }, { src: '/images/live/a-002.jpg', alt: 'Override' }],
+        images: [{ src: '/images/live/a-001.jpg' }, { src: '/images/live/a-002.jpg' }],
       });
 
       await wrapper.get('.media-links button').trigger('click');
@@ -137,7 +138,7 @@ describe('EventItem', () => {
 
       expect((payload?.[0] as Array<{ alt: string }>).map(item => item.alt)).toEqual([
         'Event-level description',
-        'Override',
+        'Event-level description',
       ]);
     });
 
