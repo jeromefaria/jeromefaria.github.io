@@ -1,6 +1,3 @@
-import type { Ref } from 'vue';
-import { ref } from 'vue';
-
 import { TOUCH } from '@/utils/constants';
 
 export interface UseSwipeNavigationReturn {
@@ -24,13 +21,14 @@ export const useSwipeNavigation = (
   onSwipeLeft: () => void,
   onSwipeRight: () => void,
 ): UseSwipeNavigationReturn => {
-  const touchStart: Ref<TouchPosition> = ref({ x: 0, y: 0, time: 0 });
+  // Internal handle only — never rendered, so a plain binding (no reactivity).
+  let touchStart: TouchPosition = { x: 0, y: 0, time: 0 };
 
   const handleTouchStart = (event: TouchEvent): void => {
     const touch = event.touches[0];
     if (!touch) return;
 
-    touchStart.value = {
+    touchStart = {
       x: touch.clientX,
       y: touch.clientY,
       time: Date.now(),
@@ -41,9 +39,9 @@ export const useSwipeNavigation = (
     const touch = event.changedTouches[0];
     if (!touch) return;
 
-    const deltaX = touch.clientX - touchStart.value.x;
-    const deltaY = touch.clientY - touchStart.value.y;
-    const deltaTime = Date.now() - touchStart.value.time;
+    const deltaX = touch.clientX - touchStart.x;
+    const deltaY = touch.clientY - touchStart.y;
+    const deltaTime = Date.now() - touchStart.time;
 
     // Check if it's a horizontal swipe (not vertical scroll)
     const isHorizontalSwipe = Math.abs(deltaX) > Math.abs(deltaY);

@@ -79,6 +79,8 @@ export const useContactForm = (submitUrl: string): UseContactFormReturn => {
     isSubmitting.value = true;
     const formDataToSend = new FormData(form);
 
+    // Progressive enhancement: POST via fetch, falling back to a native form
+    // submission on a non-2xx response or a network/CORS failure.
     try {
       const response = await fetch(submitUrl, {
         method: 'POST',
@@ -91,17 +93,14 @@ export const useContactForm = (submitUrl: string): UseContactFormReturn => {
       if (response.ok) {
         showSuccess.value = true;
         resetForm();
-        isSubmitting.value = false;
-      } else {
-        // If response not ok, use regular form submission
-        isSubmitting.value = false;
-        form.submit();
+        return;
       }
-    } catch (error) {
-      // If fetch fails (CORS, network error), fall back to regular form submission
-      console.error('Form submission error:', error);
-      isSubmitting.value = false;
       form.submit();
+    } catch (error) {
+      console.error('Form submission error:', error);
+      form.submit();
+    } finally {
+      isSubmitting.value = false;
     }
   };
 

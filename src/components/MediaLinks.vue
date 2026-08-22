@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 
 import type { LightboxItem } from '@/types';
+import { pluralize } from '@/utils/pluralize';
 
 const props = withDefaults(
   defineProps<{
@@ -21,8 +22,8 @@ const emit = defineEmits<{
 const links = computed(() =>
   [
     { items: props.images, label: props.imageLabel },
-    { items: props.posters, label: props.posters.length === 1 ? 'Poster' : 'Posters' },
-    { items: props.videos, label: props.videos.length === 1 ? 'Video' : 'Videos' },
+    { items: props.posters, label: pluralize(props.posters.length, 'Poster') },
+    { items: props.videos, label: pluralize(props.videos.length, 'Video') },
   ].filter(link => link.items.length));
 </script>
 

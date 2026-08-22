@@ -4,19 +4,8 @@ import { useSwipeNavigation, type UseSwipeNavigationReturn } from './useSwipeNav
 type UseLightboxWithSwipeReturn = UseLightboxReturn & UseSwipeNavigationReturn;
 
 export const useLightboxWithSwipe = (): UseLightboxWithSwipeReturn => {
-  const { isOpen, currentItem, currentIndex, items, openLightbox, closeLightbox, goToNext, goToPrev } = useLightbox();
-  const { handleTouchStart, handleTouchEnd } = useSwipeNavigation(goToNext, goToPrev);
+  const lightbox = useLightbox();
+  const swipe = useSwipeNavigation(lightbox.goToNext, lightbox.goToPrev);
 
-  return {
-    isOpen,
-    currentItem,
-    currentIndex,
-    items,
-    openLightbox,
-    closeLightbox,
-    goToNext,
-    goToPrev,
-    handleTouchStart,
-    handleTouchEnd,
-  };
+  return { ...lightbox, ...swipe };
 };

@@ -55,8 +55,6 @@ export const useLightbox = (): UseLightboxReturn => {
     const item = items.value[index];
     if (!item) return;
 
-    // Support both image and video items
-    // Images have 'src', videos have 'url'
     currentItem.value = item;
   };
 
