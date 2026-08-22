@@ -26,8 +26,6 @@ const emit = defineEmits<{
 const isVideo = computed(() => props.currentItem !== null && isLightboxVideo(props.currentItem));
 const isImage = computed(() => props.currentItem !== null && isLightboxImage(props.currentItem));
 
-// Credit line for the current item: an image's role-tagged credit renders as
-// "Photo by" / "Poster by", a video's author as "Video by". Null when absent.
 const credit = computed(() => {
   const item = props.currentItem;
   if (item && isLightboxImage(item) && item.credit) {

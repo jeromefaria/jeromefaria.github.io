@@ -50,7 +50,6 @@ interface CheckA11yOptions {
   tags?: string[];
 }
 
-/** Run axe-core against the current page and fail on any violation. */
 export const checkA11y = async (page: Page, options: CheckA11yOptions = {}): Promise<void> => {
   const { tags } = options;
 

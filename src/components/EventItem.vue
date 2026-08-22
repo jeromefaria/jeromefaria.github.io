@@ -33,7 +33,6 @@ const titleHrefIsExternal = computed(() => /^https?:/i.test(titleHref.value ?? '
 const venueLocation = computed(() =>
   [props.event.venue.city, props.event.venue.country].filter(Boolean).join(', '));
 
-// Comma between the venue name and its city/country, only when both are present.
 const venueSeparator = computed(() => (props.event.venue.name && venueLocation.value ? ', ' : ''));
 
 const imageLightboxItems = computed<LightboxItem[]>(() =>
