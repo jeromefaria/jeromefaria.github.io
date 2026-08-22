@@ -1,4 +1,3 @@
-// Animation timing constants (in milliseconds)
 // Keep in sync with $transition-base in _variables.scss (300ms)
 export const TIMING = {
   NAV_ANIMATION: 300,
@@ -13,7 +12,6 @@ export const LAYOUT = {
   SPACING_4: 16,                // $spacing-4
 } as const;
 
-// ID prefixes used for accordion sections
 export const ID_PREFIX = {
   SECTION: 'section-',
   TRIGGER: 'trigger-',
@@ -21,8 +19,8 @@ export const ID_PREFIX = {
 } as const;
 
 export const TOUCH = {
-  MIN_SWIPE_DISTANCE: 50,   // Minimum distance in pixels for a valid swipe
-  MAX_SWIPE_TIME: 300,      // Maximum time in milliseconds for a swipe gesture
+  MIN_SWIPE_DISTANCE: 50,
+  MAX_SWIPE_TIME: 300,
 } as const;
 
 // FormSubmit.co hidden field names

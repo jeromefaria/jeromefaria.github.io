@@ -6,7 +6,6 @@ import SiteFooter from '@/components/SiteFooter.vue';
 import SiteHeader from '@/components/SiteHeader.vue';
 
 const processExternalLinks = () => {
-  // Only process links in main content area, not entire document
   const main = document.querySelector('main');
   if (!main) return;
 
@@ -19,10 +18,9 @@ const processExternalLinks = () => {
   });
 };
 
-// The routed view renders inside <Suspense>, so on navigation the new page is
-// committed asynchronously — later than a route watcher's nextTick would fire.
-// Reprocessing on the Suspense `resolve` event guarantees the freshly rendered
-// page (including links inside v-html content) is in the DOM before we scan it.
+// The routed view renders inside <Suspense>, committed asynchronously later than
+// a route watcher's nextTick; reprocessing on `resolve` guarantees the freshly
+// rendered page (including links in v-html) is in the DOM before we scan it.
 const handleContentResolved = () => {
   void nextTick(() => processExternalLinks());
 };

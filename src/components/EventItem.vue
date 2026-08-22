@@ -23,14 +23,12 @@ const emit = defineEmits<{
 
 const formattedDate = computed(() => formatEventDate(props.event.date));
 
-// A title may link to a festival/venue site or an internal /works ref. It stays
-// a plain permalink, with the link surfaced as a trailing icon (a new-tab
-// ExternalLink for http(s), a RouterLink for internal paths).
+// Surfaced as a trailing icon link, not wrapping the title, since the title is
+// already a permalink anchor and anchors can't nest.
 const titleHref = computed(() => props.event.titleUrl ?? null);
 
 const titleHrefIsExternal = computed(() => /^https?:/i.test(titleHref.value ?? ''));
 
-// City + country suffix for the venue line (either may be absent for a TBC venue).
 const venueLocation = computed(() =>
   [props.event.venue.city, props.event.venue.country].filter(Boolean).join(', '));
 

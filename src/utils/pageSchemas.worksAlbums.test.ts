@@ -1,8 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-// Mocked so the album filter sees a URL-only release (the || right branch real
-// data never reaches, since solo releases carry both ids) and a non-Bandcamp
-// one. Isolated so the mock doesn't leak into the real-data suite.
+// Isolated in its own file so this vi.mock doesn't replace real data in the main schema suite.
 vi.mock('@/data/works', () => ({
   worksData: {
     solo: {

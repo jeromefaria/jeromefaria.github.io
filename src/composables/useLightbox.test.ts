@@ -16,9 +16,6 @@ const KEYBOARD_KEYS = {
 const OVERFLOW_HIDDEN = 'hidden';
 const OVERFLOW_DEFAULT = '';
 
-/**
- * Create a test component that uses the useLightbox composable
- */
 function createTestComponent(): Component {
   return defineComponent({
     setup() {
@@ -29,7 +26,6 @@ function createTestComponent(): Component {
   });
 }
 
-// Mock lightbox items
 const mockImages: LightboxItem[] = [
   { type: 'image', src: '/image1.jpg', alt: 'Image 1' },
   { type: 'image', src: '/image2.jpg', alt: 'Image 2' },
@@ -199,7 +195,6 @@ describe('useLightbox', () => {
 
       wrapper.vm.openLightbox(mockImages, 0);
 
-      // Go forward through all items
       expect(wrapper.vm.currentIndex).toBe(0);
 
       wrapper.vm.goToNext();
@@ -208,7 +203,6 @@ describe('useLightbox', () => {
       wrapper.vm.goToNext();
       expect(wrapper.vm.currentIndex).toBe(2);
 
-      // Go back through all items
       wrapper.vm.goToPrev();
       expect(wrapper.vm.currentIndex).toBe(1);
 

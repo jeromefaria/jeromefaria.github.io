@@ -25,7 +25,6 @@ describe('router routes', () => {
   it('lazy-loads every route component', async () => {
     for (const route of routes) {
       expect(typeof route.component).toBe('function');
-      // Invoke the loader so the dynamic import resolves to a component module.
       const loaded = await (route.component as () => Promise<{ default: unknown }>)();
       expect(loaded.default).toBeTruthy();
     }

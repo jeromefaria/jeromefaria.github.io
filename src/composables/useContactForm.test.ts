@@ -4,9 +4,6 @@ import { type Component, defineComponent } from 'vue';
 
 import { useContactForm } from './useContactForm';
 
-/**
- * Create a test component that uses the useContactForm composable
- */
 function createTestComponent(submitUrl: string): Component {
   return defineComponent({
     setup() {
@@ -163,7 +160,6 @@ describe('useContactForm', () => {
     it('should only show errors for touched fields', () => {
       const wrapper = mount(createTestComponent(TEST_URL));
 
-      // Empty form, but not touched
       expect(wrapper.vm.fieldInvalid.name).toBe(false);
       expect(wrapper.vm.fieldInvalid.email).toBe(false);
       expect(wrapper.vm.fieldInvalid.message).toBe(false);
@@ -194,7 +190,6 @@ describe('useContactForm', () => {
       wrapper.vm.handleBlur('email');
       wrapper.vm.handleBlur('message');
 
-      // Should not show errors because fields have values
       expect(wrapper.vm.fieldInvalid.email).toBe(false);
       expect(wrapper.vm.fieldInvalid.message).toBe(false);
     });
@@ -248,7 +243,6 @@ describe('useContactForm', () => {
   });
 
   describe('handleSubmit - successful submission', () => {
-    // Helper to create a proper form element with inputs
     const createMockForm = () => {
       const form = document.createElement('form');
       const nameInput = document.createElement('input');
@@ -359,7 +353,6 @@ describe('useContactForm', () => {
   });
 
   describe('handleSubmit - error handling', () => {
-    // Helper to create a proper form element with inputs
     const createMockForm = () => {
       const form = document.createElement('form');
       const nameInput = document.createElement('input');

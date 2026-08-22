@@ -4,8 +4,6 @@ import type { ReleaseMeta } from '@/types/works';
 
 import { buildMetaSegments } from './metaSegments';
 
-// Flatten segments to their plain-text form so the tests read as the display
-// line; links contribute their text, em wraps its link's text.
 const asText = (meta: ReleaseMeta) =>
   buildMetaSegments(meta)
     .map(segment => (segment.kind === 'text' ? segment.text : segment.link.text))

@@ -1,9 +1,4 @@
-// Masthead — header and navigation
 @use "variables" as *;
-
-// =============================================================================
-// Header
-// =============================================================================
 
 .masthead {
   position: sticky;
@@ -56,10 +51,6 @@
   }
 }
 
-// =============================================================================
-// Mobile Controls
-// =============================================================================
-
 .masthead-controls {
   display: flex;
   align-items: center;
@@ -69,10 +60,6 @@
     display: none;
   }
 }
-
-// =============================================================================
-// Navigation
-// =============================================================================
 
 .nav {
   display: none;
@@ -99,7 +86,6 @@
     display: block;
 
     .nav__inner {
-      // Choreographed animation: expand height (200ms), then fade in (200ms, delayed 150ms)
       animation: nav-expand 200ms ease forwards, nav-fade-in 200ms ease 150ms forwards;
     }
   }
@@ -108,7 +94,6 @@
     display: block;
 
     .nav__inner {
-      // Choreographed animation: fade out (150ms), then collapse height (200ms, delayed 100ms)
       animation: nav-fade-out 150ms ease forwards, nav-collapse 200ms ease 100ms forwards;
     }
   }
@@ -173,7 +158,6 @@
   letter-spacing: $letter-spacing-wide;
   text-transform: uppercase;
   @include hover-text;
-  // Touch-friendly on mobile
   padding: $spacing-3 0;
   min-height: $touch-target-min;
   display: flex;
@@ -204,10 +188,6 @@
     }
   }
 }
-
-// =============================================================================
-// Hamburger Toggle
-// =============================================================================
 
 .nav-toggle {
   display: flex;

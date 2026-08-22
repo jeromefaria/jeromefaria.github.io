@@ -1,17 +1,7 @@
 #!/usr/bin/env node
 
-/**
- * Build-time validator for internal hash anchors in content data.
- *
- * The biography and other content strings link into `/works#…`, `/live#…`,
- * and `/press#…` fragments. Nothing at build time guarantees those fragments
- * still match a real target, so a renamed release or event id silently breaks
- * every in-copy link that points at it.
- *
- * This check loads the real data modules and mirrors the runtime resolution in
- * useAccordion: a fragment resolves if it is either a section/year key or the
- * id of an item on the target page. It fails the build on the first mismatch.
- */
+// Mirrors useAccordion resolution: a fragment resolves to a section/year key or an item id.
+// Keep in sync with that composable, or valid in-copy anchors will fail the build.
 
 import { createJiti } from 'jiti';
 import { dirname, resolve } from 'node:path';
@@ -35,14 +25,12 @@ const [{ worksData, worksSections }, { sortedLiveData, liveYears }, { pressQuote
 
 const itemIds = groups => Object.values(groups).flatMap(group => (group.items ?? []).map(item => item.id));
 
-// Valid anchor targets per page: section/year keys plus every item id.
 const validTargets = {
   works: new Set([...worksSections, ...itemIds(worksData)]),
   live: new Set([...liveYears, ...itemIds(sortedLiveData)]),
   press: new Set(pressQuotes.map(quote => quote.id)),
 };
 
-// Content modules whose strings may contain internal anchors, keyed by source.
 const sources = {
   'data/about.ts': aboutSections,
   'data/works.ts': worksData,

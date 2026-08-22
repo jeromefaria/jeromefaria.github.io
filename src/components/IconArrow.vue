@@ -7,10 +7,6 @@ const props = defineProps<{
   direction: ArrowDirection;
 }>();
 
-// left/right share one horizontal arrow, flipped via rotation. The up-right
-// arrow is drawn natively with an axis-aligned head (horizontal + vertical
-// barbs off the corner) so it reads like the system ↗ glyph rather than a
-// horizontal arrow spun 45°.
 const isDiagonal = computed(() => props.direction === 'up-right');
 
 const rotation = computed(() => (props.direction === 'left' ? 180 : 0));

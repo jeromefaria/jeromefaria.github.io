@@ -1,5 +1,3 @@
-// Structured as sections with optional divider images
-
 import type { AboutSection } from '@/types/about';
 
 export const aboutSections: AboutSection[] = [

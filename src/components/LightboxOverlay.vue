@@ -42,15 +42,14 @@ const handleNext = () => emit('next');
 const handleTouchStart = (event: TouchEvent) => emit('touchstart', event);
 const handleTouchEnd = (event: TouchEvent) => emit('touchend', event);
 
-// Accessible name for the dialog, reflecting current media/position
 const dialogLabel = computed(() => {
   const noun = isVideo.value ? 'Video' : 'Image';
   if (props.totalItems > 1) return `${noun} ${props.currentIndex + 1} of ${props.totalItems}`;
   return `${noun} viewer`;
 });
 
-// Focus management: move focus into the dialog on open and trap Tab within
-// it, so keyboard users can't reach the inert background behind the overlay.
+// Move focus into the dialog on open and trap Tab within it, so keyboard users
+// can't reach the inert background behind the overlay.
 const dialogRef = ref<HTMLElement | null>(null);
 
 const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
@@ -129,7 +128,6 @@ onMounted(async () => {
         >
       </picture>
 
-      <!-- Bottom controls; layout differs by breakpoint (see styles). -->
       <div class="lightbox__controls">
         <p
           v-if="totalItems > 1"

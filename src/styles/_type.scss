@@ -1,9 +1,4 @@
-// Typography — headings, body text, and prose
 @use "variables" as *;
-
-// =============================================================================
-// Headings
-// =============================================================================
 
 h1, h2, h3, h4, h5, h6 {
   margin-top: $spacing-10;
@@ -19,7 +14,6 @@ h1 {
   margin-bottom: $spacing-4;
 }
 
-// Section headers — uppercase labels
 h2 {
   font-size: $font-size-xs;
   text-transform: uppercase;
@@ -45,10 +39,6 @@ h4, h5, h6 {
   font-size: $font-size-sm;
 }
 
-// =============================================================================
-// Body Text
-// =============================================================================
-
 p {
   margin-top: 0;
   margin-bottom: $spacing-4;
@@ -67,10 +57,6 @@ small {
   color: var(--color-text-muted);
 }
 
-// =============================================================================
-// Lists
-// =============================================================================
-
 ul, ol {
   margin: 0 0 $spacing-4;
   padding-left: $spacing-4;
@@ -88,10 +74,6 @@ nav ul {
   padding: 0;
   margin: 0;
 }
-
-// =============================================================================
-// Blockquotes
-// =============================================================================
 
 blockquote {
   margin: $spacing-6 0;
@@ -118,10 +100,6 @@ blockquote {
   }
 }
 
-// =============================================================================
-// Lead & Intro
-// =============================================================================
-
 .lead {
   font-size: $font-size-lg;
   line-height: $line-height-relaxed;
@@ -135,10 +113,6 @@ blockquote {
   color: var(--color-text-secondary);
 }
 
-// =============================================================================
-// Horizontal Rule
-// =============================================================================
-
 hr {
   border: 0;
   border-top: 1px solid var(--color-border);
@@ -149,15 +123,9 @@ hr {
   }
 }
 
-// =============================================================================
-// Prose — Long-form Editorial Content
-// =============================================================================
-// Note: Intentionally uses em units for spacing to scale with font-size
-// This ensures consistent vertical rhythm regardless of base font size
-
 .prose {
   p {
-    margin-bottom: 1.25em;  // Relative to parent font-size
+    margin-bottom: 1.25em;
     line-height: $line-height-relaxed;
     color: var(--color-text-secondary);
 
@@ -201,11 +169,11 @@ hr {
   }
 
   ul, ol {
-    margin-bottom: 1.25em;  // Relative to parent font-size
+    margin-bottom: 1.25em;
     line-height: $line-height-prose;
   }
 
   li {
-    margin-bottom: 0.5em;  // Relative to parent font-size
+    margin-bottom: 0.5em;
   }
 }

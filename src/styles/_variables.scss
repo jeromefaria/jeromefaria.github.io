@@ -1,91 +1,66 @@
-// Design System — Jerome Faria
-// Informed by: Fennesz, Ryoji Ikeda, Alva Noto, 12k, Room40
-// Anti-design, information architecture, conceptual restraint
-
-// =============================================================================
-// Design Tokens
-// =============================================================================
-
-// Typography
-// -----------------------------------------------------------------------------
 $font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 $font-mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
 
-// Type scale
-$font-size-xs: 0.6875rem;   // 11px
-$font-size-sm: 0.75rem;     // 12px
-$font-size-base: 0.875rem;  // 14px
-$font-size-lg: 1rem;        // 16px
-$font-size-xl: 1.125rem;    // 18px
-$font-size-2xl: 1.375rem;   // 22px
-$font-size-3xl: 1.625rem;   // 26px
+$font-size-xs: 0.6875rem;
+$font-size-sm: 0.75rem;
+$font-size-base: 0.875rem;
+$font-size-lg: 1rem;
+$font-size-xl: 1.125rem;
+$font-size-2xl: 1.375rem;
+$font-size-3xl: 1.625rem;
 
-// Line heights
 $line-height-tight: 1.25;
 $line-height-snug: 1.4;
 $line-height-base: 1.6;
 $line-height-relaxed: 1.75;
 $line-height-prose: 1.8;
 
-// Letter spacing
 $letter-spacing-tight: -0.01em;
 $letter-spacing-normal: 0;
 $letter-spacing-wide: 0.05em;
 $letter-spacing-wider: 0.12em;
 
-// Font weights
 $font-weight-normal: 400;
 $font-weight-medium: 500;
 $font-weight-semibold: 600;
 
-// Spacing
-// -----------------------------------------------------------------------------
-$spacing-1: 0.25rem;   // 4px
-$spacing-2: 0.5rem;    // 8px
-$spacing-3: 0.75rem;   // 12px
-$spacing-4: 1rem;      // 16px
-$spacing-5: 1.25rem;   // 20px
-$spacing-6: 1.5rem;    // 24px
-$spacing-8: 2rem;      // 32px
-$spacing-10: 2.5rem;   // 40px
-$spacing-12: 3rem;     // 48px
-$spacing-16: 4rem;     // 64px
-$spacing-20: 5rem;     // 80px
-$spacing-24: 6rem;     // 96px
+$spacing-1: 0.25rem;
+$spacing-2: 0.5rem;
+$spacing-3: 0.75rem;
+$spacing-4: 1rem;
+$spacing-5: 1.25rem;
+$spacing-6: 1.5rem;
+$spacing-8: 2rem;
+$spacing-10: 2.5rem;
+$spacing-12: 3rem;
+$spacing-16: 4rem;
+$spacing-20: 5rem;
+$spacing-24: 6rem;
 
-// Layout
-// -----------------------------------------------------------------------------
 $max-width: 33rem;
 $max-width-wide: 72rem;
 $max-width-full: 100%;
 
-// Breakpoints
 $breakpoint-sm: 480px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 1024px;
 $breakpoint-xl: 1280px;
 
-// Component dimensions
 $header-height-mobile: 57px;
 $header-height-desktop: 77px;
-$touch-target-min: 2.75rem;  // 44px
+$touch-target-min: 2.75rem;
 
-// Footer dimensions (used by homepage hero calc)
 // Derived from: padding (24px × 2) + nav row (44px) + social row (44px) + copyright (~18px) + gaps (16px × 2) + border (1px)
-$footer-padding-y: $spacing-6;           // 24px
-$footer-content-gap: $spacing-4;         // 16px
+$footer-padding-y: $spacing-6;
+$footer-content-gap: $spacing-4;
 $footer-height: 180px;                   // Measured total height - update if footer structure changes
 $nav-max-height: 20rem;
 $release-media-width: 200px;
 $loading-dot-size: 6px;
 
-// Motion
-// -----------------------------------------------------------------------------
 $transition-fast: 120ms ease;
 $transition-base: 300ms ease;
 
-// Opacity
-// -----------------------------------------------------------------------------
 $opacity-20: 0.2;
 $opacity-30: 0.3;
 $opacity-40: 0.4;
@@ -95,15 +70,8 @@ $opacity-70: 0.7;
 $opacity-80: 0.8;
 $opacity-90: 0.9;
 
-// Overlays
-// -----------------------------------------------------------------------------
 $overlay-dark: rgba(0, 0, 0, 0.4);
 
-// =============================================================================
-// Mixins
-// =============================================================================
-
-// Responsive breakpoint mixin
 @mixin respond-to($breakpoint) {
   @if $breakpoint == sm {
     @media (min-width: $breakpoint-sm) { @content; }
@@ -116,7 +84,6 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   }
 }
 
-// Safe area insets for notched devices
 @mixin safe-area-padding($top: null, $right: null, $bottom: null, $left: null) {
   @if $top {
     padding-top: max(#{$top}, env(safe-area-inset-top, 0px));
@@ -132,7 +99,6 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   }
 }
 
-// Uppercase label styling (used for meta, categories, etc.)
 @mixin label-style {
   font-size: $font-size-xs;
   font-weight: $font-weight-normal;
@@ -141,14 +107,12 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   color: var(--color-text-muted);
 }
 
-// Play triangle icon (CSS border triangle technique)
 @mixin play-triangle($color: #fff) {
   border-style: solid;
   border-width: 10px 0 10px 16px;
   border-color: transparent transparent transparent $color;
 }
 
-// Centered play triangle (for pseudo-elements)
 @mixin play-triangle-centered($color: #fff) {
   content: '';
   position: absolute;
@@ -158,13 +122,11 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   @include play-triangle($color);
 }
 
-// Focus ring for keyboard navigation
 @mixin focus-ring($offset: 2px) {
   outline: 2px solid var(--color-text);
   outline-offset: $offset;
 }
 
-// Muted to text color hover transition
 @mixin hover-text {
   color: var(--color-text-muted);
   transition: color $transition-base;
@@ -181,7 +143,6 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   text-underline-offset: 0.15em;
 }
 
-// Absolute fill (cover parent container)
 @mixin absolute-fill {
   position: absolute;
   top: 0;
@@ -190,7 +151,6 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   height: 100%;
 }
 
-// Image reveal animation (fade + slide up)
 @mixin image-reveal {
   opacity: 0;
   transform: translateY($spacing-2);
@@ -202,7 +162,6 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   }
 }
 
-// Scroll margin for hash navigation with sticky header
 @mixin scroll-margin-header {
   scroll-margin-top: calc(#{$header-height-mobile} + #{$spacing-4});
 
