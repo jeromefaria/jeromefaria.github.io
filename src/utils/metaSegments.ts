@@ -42,22 +42,22 @@ export const buildMetaSegments = (meta: ReleaseMeta): MetaSegment[] => {
       ];
     }
 
-    case 'commission': {
-      if (meta.director) {
-        return [text(`${meta.work} — dir. `), { kind: 'link', link: meta.director }, text(`, ${meta.year}`)];
-      }
+    case 'commission':
+      switch (meta.work) {
+        case 'Film':
+          return [text(`${meta.work} — dir. `), { kind: 'link', link: meta.director }, text(`, ${meta.year}`)];
 
-      if (meta.venue) {
-        return [text(`${meta.work} — `), { kind: 'link', link: meta.venue }, text(`, ${meta.year}`)];
-      }
+        case 'Theatre':
+          return [text(`${meta.work} — `), { kind: 'link', link: meta.venue }, text(`, ${meta.year}`)];
 
-      if (meta.publisher) {
-        const catalog = meta.publisher.catalog ? `, ${meta.publisher.catalog}` : '';
-        return [text(`${meta.work} — `), { kind: 'link', link: meta.publisher.label }, text(`${catalog}, ${meta.year}`)];
-      }
+        case 'DVD': {
+          const catalog = meta.publisher.catalog ? `, ${meta.publisher.catalog}` : '';
+          return [text(`${meta.work} — `), { kind: 'link', link: meta.publisher.label }, text(`${catalog}, ${meta.year}`)];
+        }
 
-      return [text(`${meta.work} — ${meta.year}`)];
-    }
+        case 'Live Score':
+          return [text(`${meta.work} — ${meta.year}`)];
+      }
 
     case 'publication': {
       const segments: MetaSegment[] = [

@@ -39,14 +39,36 @@ export interface CompilationMeta {
   year: number;
 }
 
-export interface CommissionMeta {
+// Each commission `work` requires exactly its own credit field, so the variant
+// is discriminated rather than carrying three undiscriminated optionals.
+interface FilmCommission {
   kind: 'commission';
-  work: 'Film' | 'Theatre' | 'Live Score' | 'DVD';
-  director?: MetaLink;
-  venue?: MetaLink;
-  publisher?: Edition;
+  work: 'Film';
+  director: MetaLink;
   year: number;
 }
+
+interface TheatreCommission {
+  kind: 'commission';
+  work: 'Theatre';
+  venue: MetaLink;
+  year: number;
+}
+
+interface DvdCommission {
+  kind: 'commission';
+  work: 'DVD';
+  publisher: Edition;
+  year: number;
+}
+
+interface LiveScoreCommission {
+  kind: 'commission';
+  work: 'Live Score';
+  year: number;
+}
+
+export type CommissionMeta = FilmCommission | TheatreCommission | DvdCommission | LiveScoreCommission;
 
 export interface PublicationMeta {
   kind: 'publication';
