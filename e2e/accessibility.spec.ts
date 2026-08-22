@@ -149,14 +149,14 @@ test.describe('Accessibility', () => {
     test('should meet WCAG AA contrast requirements', async ({ page }) => {
       await page.goto('/');
       await waitForHydration(page);
-      await checkA11y(page, { tags: ['wcag2aa'], failOnViolations: false });
+      await checkA11y(page, { tags: ['wcag2aa'] });
     });
 
     test('should be readable in dark mode', async ({ page }) => {
       await page.emulateMedia({ colorScheme: 'dark' });
       await page.goto('/');
       await waitForHydration(page);
-      await checkA11y(page, { tags: ['wcag2aa'], failOnViolations: false });
+      await checkA11y(page, { tags: ['wcag2aa'] });
     });
   });
 
