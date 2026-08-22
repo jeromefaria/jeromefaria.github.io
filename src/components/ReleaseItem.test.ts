@@ -16,7 +16,7 @@ const bandcamp: Release = {
   bandcampId: '1643026936',
   coverImage: '/images/overlapse.jpg',
   bandcampUrl: 'https://music.jeromefaria.com/album/overlapse',
-  tracklist: ['Attack', 'Sustain'],
+  tracklist: [{ title: 'Attack' }, { title: 'Sustain' }],
   credits: 'Music by Jerome Faria.',
 };
 
@@ -26,7 +26,7 @@ const external: Release = {
   meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'Test Tube' } }], year: 2005 },
   coverImage: '/images/ect.jpg',
   externalUrl: 'https://example.com/ect',
-  tracklist: ['Play'],
+  tracklist: [{ title: 'Play' }],
   credits: 'Music by Jerome Faria.',
 };
 

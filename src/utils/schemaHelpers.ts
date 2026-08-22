@@ -1,12 +1,13 @@
 import type { LiveEvent } from '@/types/live';
 import type { SchemaItemList, SchemaMusicAlbum, SchemaMusicEvent } from '@/types/schema';
+import type { Track } from '@/types/works';
 
 interface ReleaseForSchema {
   title: string;
   bandcampUrl?: string;
   coverImage?: string;
   datePublished?: string;
-  tracklist?: string[];
+  tracklist?: Track[];
 }
 
 /**
