@@ -1,6 +1,6 @@
-// A credited contributor (name + optional link). Used as both a photo credit
-// (photographer) and a video credit (author).
-export interface Photographer {
+// A credited contributor: a name and an optional link. Serves as a photo
+// (photographer), poster (artist), or video (author) credit.
+export interface Credit {
   name: string;
   url?: string;
 }
@@ -9,5 +9,5 @@ export interface Video {
   url: string;
   title: string;
   platform: 'youtube' | 'vimeo';
-  author?: Photographer;
+  author?: Credit;
 }

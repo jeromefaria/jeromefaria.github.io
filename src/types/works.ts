@@ -1,9 +1,9 @@
-import type { Photographer, Video } from './media';
+import type { Credit, Video } from './media';
 
 export interface Image {
   src: string;
   alt: string;
-  photographer?: Photographer;
+  photographer?: Credit;
 }
 
 export interface MetaLink {

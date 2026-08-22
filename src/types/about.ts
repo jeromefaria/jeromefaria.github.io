@@ -1,4 +1,4 @@
-import type { Photographer } from './media';
+import type { Credit } from './media';
 
 export interface AboutImage {
   src: string;
@@ -6,7 +6,7 @@ export interface AboutImage {
   position?: string;
   scale?: number;
   rotate?: number;
-  photographer?: Photographer;
+  photographer?: Credit;
 }
 
 export interface AboutTextSection {
