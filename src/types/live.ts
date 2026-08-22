@@ -6,6 +6,13 @@ export interface LiveImage {
   photographer?: Photographer;
 }
 
+// Event artwork, not a photograph: alt is required (it carries the event's text) and it credits an artist.
+export interface Poster {
+  src: string;
+  alt: string;
+  artist?: Photographer;
+}
+
 export interface EventVenue {
   name?: string;
   url?: string;
@@ -21,6 +28,7 @@ export interface LiveEvent {
   description?: string;
   imageAlt?: string;
   images?: LiveImage[];
+  posters?: Poster[];
   videos?: Video[];
 }
 

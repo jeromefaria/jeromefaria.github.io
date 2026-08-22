@@ -162,7 +162,7 @@ describe('ReleaseItem', () => {
     };
     const wrapper = mountRelease(withVideo);
     const button = wrapper.get('.media-links button');
-    expect(button.text()).toBe('View video');
+    expect(button.text()).toBe('Video');
 
     await button.trigger('click');
     const payload = wrapper.emitted('open-lightbox')?.[0];
@@ -197,8 +197,8 @@ describe('ReleaseItem', () => {
     const buttons = wrapper.findAll('.media-links button');
 
     expect(buttons).toHaveLength(2);
-    expect(buttons[0].text()).toBe('View gallery');
-    expect(buttons[1].text()).toBe('View videos');
+    expect(buttons[0].text()).toBe('Gallery');
+    expect(buttons[1].text()).toBe('Videos');
     expect(wrapper.get('.media-links').text()).toContain('|');
   });
 });

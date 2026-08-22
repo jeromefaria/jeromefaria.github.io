@@ -14,6 +14,14 @@ describe('toLightboxImage', () => {
       toLightboxImage({ src: '/a.jpg', alt: 'A', photographer }),
     ).toEqual({ type: 'image', src: '/a.jpg', alt: 'A', photographer });
   });
+
+  it('copies the artist credit (poster) when present', () => {
+    const artist = { name: 'André Lemos', url: 'https://example.com/andre' };
+
+    expect(
+      toLightboxImage({ src: '/poster.jpg', alt: 'Poster', artist }),
+    ).toEqual({ type: 'image', src: '/poster.jpg', alt: 'Poster', artist });
+  });
 });
 
 describe('toLightboxVideo', () => {

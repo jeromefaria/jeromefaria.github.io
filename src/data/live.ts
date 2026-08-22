@@ -14,10 +14,20 @@ export const liveEvents: LiveEvent[] = [
     date: '2026-08-23',
     venue: { name: 'Zaratan', url: 'https://zaratan.pt', city: 'Lisbon', country: 'Portugal' },
     description: 'With Água Doce, Alga, <a href="https://canadian-rifles.bandcamp.com/">Canadian Rifles</a>, Caranguejos, Double Double, Formidolor, <a href="https://joanadesa.work/">Joana de Sá</a>, <a href="https://llamavirgem.bandcamp.com/">Llama Virgem</a>, Musgos, Open Source 3IO, Pedro PMDS.',
+    posters: [
+      {
+        src: '/images/live/festival-multiplo-2026-poster-001.jpg',
+        alt: 'Festival Múltiplo 2026 poster listing the full three-day lineup, Zaratan, Lisbon',
+      },
+      {
+        src: '/images/live/festival-multiplo-2026-poster-002.jpg',
+        alt: 'Festival Múltiplo 2026 poster for 23 August at Zaratan, Lisbon — Jerome Faria, Formidolor, Joana de Sá, Double Double',
+      },
+    ],
   },
   {
     id: 'showcase-casa-amarela',
-    title: 'Showcase Casa Amarela',
+    title: '<a href="https://outra.pt/evento/showcase-casa-amarela-copo-dagua-nox-tiaavo-rebolation-all-stars-dj-set/">Showcase Casa Amarela</a>',
     date: '2025-06-14',
     venue: { name: 'Cooperativa Mula', url: 'https://www.instagram.com/cooperativamula/', city: 'Barreiro', country: 'Portugal' },
     description: 'NOx (with <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a>). With <a href="https://copodagua.bandcamp.com/">Copo d\'Água</a>, TiaAvô, Rebolation All-Stars.',
@@ -66,6 +76,12 @@ export const liveEvents: LiveEvent[] = [
       {
         src: '/images/live/showcase-casa-amarela-012.jpg',
         photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+      },
+    ],
+    posters: [
+      {
+        src: '/images/live/showcase-casa-amarela-poster-001.jpg',
+        alt: 'Showcase Casa Amarela poster — Cooperativa Mula, Barreiro, 14 June 2025 — NOx, Copo d\'Água, TiaAvô, Rebolation All-Stars DJ set',
       },
     ],
   },
@@ -345,6 +361,13 @@ export const liveEvents: LiveEvent[] = [
         photographer: { name: 'Ricardo Nogueira', url: 'https://www.instagram.com/nogueirafoto/' },
       },
     ],
+    posters: [
+      {
+        src: '/images/live/nariz-entupido-poster-001.jpg',
+        alt: 'Nariz Entupido poster — 30 anos SPH / 20 anos Thisco anniversary, SMUP, Parede, 22 October 2021; CAVERNANCIA + Jerome Faria',
+        artist: { name: 'André Lemos', url: 'https://www.chilicomcarne.com/index.php/autores/gallery/18' },
+      },
+    ],
   },
   {
     id: 'aragao-funchal',
@@ -357,6 +380,24 @@ export const liveEvents: LiveEvent[] = [
       {
         src: '/images/live/aragao-funchal-001.jpg',
         photographer: { name: 'Mário André Pereira' },
+      },
+    ],
+    posters: [
+      {
+        src: '/images/live/aragao-funchal-poster-001.jpg',
+        alt: 'Aragão poster — Teatro Municipal Baltazar Dias, Funchal, 22–25 September 2021; text by Rui Zink, staged by Sara Gonçalves',
+      },
+      {
+        src: '/images/live/aragao-funchal-poster-002.jpg',
+        alt: 'Aragão programme spread — synopsis and technical credits, Teatro Municipal Baltazar Dias, Funchal, 2021',
+      },
+    ],
+    videos: [
+      {
+        url: 'https://www.youtube-nocookie.com/embed/6LpRJBS7pzg',
+        platform: 'youtube',
+        title: 'Aragão at Teatro Municipal Baltazar Dias, Funchal, 2021',
+        author: { name: 'TRANSLOCAL Culturas Contemporâneas Locais e Urbanas', url: 'https://www.youtube.com/@translocalculturascontempo3938' },
       },
     ],
   },
