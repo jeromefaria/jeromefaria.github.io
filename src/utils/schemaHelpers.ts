@@ -1,8 +1,6 @@
 import type { LiveEvent } from '@/types/live';
 import type { SchemaItemList, SchemaMusicAlbum, SchemaMusicEvent } from '@/types/schema';
 
-import { stripHtml } from './formatters';
-
 interface ReleaseForSchema {
   title: string;
   bandcampUrl?: string;
@@ -24,7 +22,7 @@ export const createMusicEventSchema = (
   fallbackDate = '',
 ): SchemaMusicEvent => ({
   '@type': 'MusicEvent',
-  name: stripHtml(event.title),
+  name: event.title,
   startDate: event.date || fallbackDate,
   location: {
     '@type': 'Place',

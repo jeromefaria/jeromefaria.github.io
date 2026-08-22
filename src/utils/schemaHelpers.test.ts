@@ -6,13 +6,14 @@ import { createItemListSchema, createMusicAlbumSchema, createMusicEventSchema } 
 
 const baseEvent: LiveEvent = {
   id: 'madeiradig-2011',
-  title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
+  title: 'MADEIRADIG',
+  titleUrl: 'https://digitalinberlin.eu/',
   date: '2011-12-02',
   venue: { name: 'Casa das Mudas', url: 'https://example.com', city: 'Calheta', country: 'Portugal' },
 };
 
 describe('createMusicEventSchema', () => {
-  it('strips HTML from the title for the schema name', () => {
+  it('uses the event title as the schema name', () => {
     const schema = createMusicEventSchema(baseEvent, 'Jerome Faria');
     expect(schema.name).toBe('MADEIRADIG');
   });

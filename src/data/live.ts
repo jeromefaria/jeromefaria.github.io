@@ -10,7 +10,8 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'festival-multiplo-2026',
-    title: '<a href="https://zaratan.pt/en/event/806">Festival Múltiplo</a>',
+    title: 'Festival Múltiplo',
+    titleUrl: 'https://zaratan.pt/en/event/806',
     date: '2026-08-23',
     venue: { name: 'Zaratan', url: 'https://zaratan.pt', city: 'Lisbon', country: 'Portugal' },
     description: 'With Água Doce, Alga, <a href="https://canadian-rifles.bandcamp.com/">Canadian Rifles</a>, Caranguejos, Double Double, Formidolor, <a href="https://joanadesa.work/">Joana de Sá</a>, <a href="https://llamavirgem.bandcamp.com/">Llama Virgem</a>, Musgos, Open Source 3IO, Pedro PMDS.',
@@ -27,7 +28,8 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'showcase-casa-amarela',
-    title: '<a href="https://outra.pt/evento/showcase-casa-amarela-copo-dagua-nox-tiaavo-rebolation-all-stars-dj-set/">Showcase Casa Amarela</a>',
+    title: 'Showcase Casa Amarela',
+    titleUrl: 'https://outra.pt/evento/showcase-casa-amarela-copo-dagua-nox-tiaavo-rebolation-all-stars-dj-set/',
     date: '2025-06-14',
     venue: { name: 'Cooperativa Mula', url: 'https://www.instagram.com/cooperativamula/', city: 'Barreiro', country: 'Portugal' },
     description: 'NOx (with <a href="https://cavernancia.bandcamp.com/">Pedro Roque</a>). With <a href="https://copodagua.bandcamp.com/">Copo d\'Água</a>, TiaAvô, Rebolation All-Stars.',
@@ -331,7 +333,8 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'aragao-cartaxo',
-    title: '<a href="/works#aragao">Aragão</a>',
+    title: 'Aragão',
+    titleUrl: '/works#aragao',
     date: '2021-10-23',
     venue: { name: 'Centro Cultural do Cartaxo', url: 'https://www.cm-cartaxo.pt/servicos-municipais/cultura/equipamentos-culturais/item/49-centro-cultural-municipio-do-cartaxo', city: 'Cartaxo', country: 'Portugal' },
     description: 'Theatre production. Live music & interpretation.',
@@ -371,7 +374,8 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'aragao-funchal',
-    title: '<a href="/works#aragao">Aragão</a>',
+    title: 'Aragão',
+    titleUrl: '/works#aragao',
     date: '2021-09-22',
     venue: { name: 'Teatro Municipal Baltazar Dias', url: 'https://www.teatromunicipal.pt/', city: 'Funchal', country: 'Portugal' },
     description: 'Theatre production. Live music & interpretation.',
@@ -460,7 +464,8 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'fica-na-cidade',
-    title: '<a href="https://www.visitfunchal.pt/pt/todos-os-eventos/280-fica-na-cidade.html">Fica na Cidade</a>',
+    title: 'Fica na Cidade',
+    titleUrl: 'https://www.visitfunchal.pt/pt/todos-os-eventos/280-fica-na-cidade.html',
     date: '2015-06-05',
     venue: { name: 'Praça de Colombo', city: 'Funchal', country: 'Portugal' },
     description: 'With <a href="https://trengosoundsystem.bandcamp.com/">Tren Go! Sound System</a>.',
@@ -481,7 +486,8 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'caligari-live-3',
-    title: '<a href="https://www.pontadosol.com/l-concerts">Concertos L</a>: The Cabinet of Dr. Caligari',
+    title: 'Concertos L: The Cabinet of Dr. Caligari',
+    titleUrl: 'https://www.pontadosol.com/l-concerts',
     date: '2013-10-26',
     venue: { name: 'Estalagem da Ponta do Sol', url: 'https://www.pontadosol.com/', city: 'Ponta do Sol', country: 'Portugal' },
     description: 'Live score for Robert Wiene\'s 1920 expressionist silent film. With <a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>.',
@@ -530,7 +536,8 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'madeiradig-2011',
-    title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
+    title: 'MADEIRADIG',
+    titleUrl: 'https://digitalinberlin.eu/',
     date: '2011-12-02',
     venue: { name: 'Casa das Mudas', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1', city: 'Calheta', country: 'Portugal' },
     description: 'Duo with <a href="https://12k.com/">Taylor Deupree</a>. With <a href="https://sunblind.net/">Tim Hecker</a>, <a href="https://pointnever.com/">Oneohtrix Point Never</a>, <a href="https://ktl10.bandcamp.com/">KTL</a>, <a href="https://deafcenter.bandcamp.com/">Deaf Center</a>, <a href="https://www.leeranaldo.com/">Lee Ranaldo</a> & Manuel Mota, <a href="https://nadja.bandcamp.com/">Nadja</a>, <a href="https://akionda.net/">Aki Onda</a>.',
@@ -621,7 +628,8 @@ export const liveEvents: LiveEvent[] = [
   {
     id: 'madeiradig-2009',
     date: '2009-12-04',
-    title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
+    title: 'MADEIRADIG',
+    titleUrl: 'https://digitalinberlin.eu/',
     venue: { name: 'Casa das Mudas', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1', city: 'Calheta', country: 'Portugal' },
     description: 'Duo with <a href="https://vimeo.com/hugoolim">Hugo Olim</a>. With <a href="https://www.alvanoto.com/">Alva Noto</a>, <a href="https://murcof.com/">Murcof</a>, <a href="https://felixkubin.bandcamp.com/">Felix Kubin</a>, <a href="https://www.discogs.com/artist/31633-Christ">Christ.</a>, <a href="https://zavoloka.com/">Zavoloka</a> & <a href="https://laetitiamorais.com/">Laetitia Morais</a>, <a href="https://gigantiq.bandcamp.com/">Gigantiq</a>, <a href="http://www.jade-enterprises.at/">Jade</a>.',
     imageAlt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, Casa das Mudas, Calheta, 2009',
@@ -756,7 +764,8 @@ export const liveEvents: LiveEvent[] = [
   {
     id: 'storung-2008',
     date: '2008-09-25',
-    title: '<a href="https://ra.co/promoters/4519">Störung</a>',
+    title: 'Störung',
+    titleUrl: 'https://ra.co/promoters/4519',
     venue: { name: 'La Farinera del Clot', url: 'https://farinera.org/', city: 'Barcelona', country: 'Spain' },
     description: 'With <a href="https://kimcascone.bandcamp.com/">Kim Cascone</a>, <a href="https://www.franciscolopez.net/">Francisco López</a>, <a href="https://philippepetit.bandcamp.com/">Philippe Petit</a>, <a href="https://ritornell.bandcamp.com/">Ritornell</a>, Sébastien Roux, Tonne.',
     imageAlt: 'Jerome Faria performing at Störung Festival, La Farinera del Clot, Barcelona, 2008',
@@ -800,7 +809,8 @@ export const liveEvents: LiveEvent[] = [
   {
     id: 'madeiradig-2007',
     date: '2007-12-08',
-    title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
+    title: 'MADEIRADIG',
+    titleUrl: 'https://digitalinberlin.eu/',
     venue: { name: 'Casa das Mudas', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1', city: 'Calheta', country: 'Portugal' },
     description: 'With <a href="https://alogmusic.bandcamp.com/">Alog</a>, <a href="https://vladislavdelay.bandcamp.com/">Vladislav Delay</a>, <a href="https://ranslavin.com/">Ran Slavin</a>.',
     imageAlt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
@@ -849,7 +859,8 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'madeiradig-2006',
-    title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
+    title: 'MADEIRADIG',
+    titleUrl: 'https://digitalinberlin.eu/',
     date: '2006-12-07',
     venue: { name: 'RDP Auditorium', url: 'https://madeira.rtp.pt/', city: 'Funchal', country: 'Portugal' },
     description: 'With <a href="https://phonophani.bandcamp.com/">Phonophani</a> & <a href="https://mariuswatz.com/">Marius Watz</a>, <a href="https://frankbretschneider.bandcamp.com/">Frank Bretschneider</a>.',
@@ -857,7 +868,8 @@ export const liveEvents: LiveEvent[] = [
   {
     id: 'madeiradig-2005',
     date: '2005-12-07',
-    title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
+    title: 'MADEIRADIG',
+    titleUrl: 'https://digitalinberlin.eu/',
     venue: { name: 'RDP Auditorium', url: 'https://madeira.rtp.pt/', city: 'Funchal', country: 'Portugal' },
     description: 'Duo with <a href="https://vimeo.com/hugoolim">Hugo Olim</a>. With <a href="https://www.fennesz.com/">Fennesz</a>, <a href="https://florianhecker.blogspot.com/">Florian Hecker</a>, <a href="https://at-c.org/">@c</a> & <a href="https://liaworks.com/">Lia</a>.',
     imageAlt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005',

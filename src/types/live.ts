@@ -23,6 +23,7 @@ export interface EventVenue {
 export interface LiveEvent {
   id: string;
   title: string;
+  titleUrl?: string;
   date: string;
   venue: EventVenue;
   description?: string;

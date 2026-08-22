@@ -20,14 +20,16 @@ const plainEvent: LiveEvent = {
 
 const festivalEvent: LiveEvent = {
   id: 'madeiradig-2011',
-  title: '<a href="https://digitalinberlin.eu/">MADEIRADIG</a>',
+  title: 'MADEIRADIG',
+  titleUrl: 'https://digitalinberlin.eu/',
   date: '2011-12-02',
   venue: { name: 'Casa das Mudas', city: 'Calheta', country: 'Portugal' },
 };
 
 const internalRefEvent: LiveEvent = {
   id: 'aragao-funchal',
-  title: '<a href="/works#aragao">Aragão</a>',
+  title: 'Aragão',
+  titleUrl: '/works#aragao',
   date: '2021-09-22',
   venue: { name: 'Teatro Municipal Baltazar Dias', city: 'Funchal', country: 'Portugal' },
 };
