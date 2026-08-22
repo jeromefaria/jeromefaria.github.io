@@ -4,12 +4,6 @@ import { type Component, defineComponent } from 'vue';
 
 import { useSwipeNavigation } from './useSwipeNavigation';
 
-// Swipe threshold constants documented here for reference
-// MIN_SWIPE_DISTANCE = 50, MAX_SWIPE_DURATION_MS = 300
-
-/**
- * Create a test component that uses the useSwipeNavigation composable
- */
 function createTestComponent(onSwipeLeft: () => void, onSwipeRight: () => void): Component {
   return defineComponent({
     setup() {
@@ -20,9 +14,6 @@ function createTestComponent(onSwipeLeft: () => void, onSwipeRight: () => void):
   });
 }
 
-/**
- * Create a mock TouchEvent for testing swipe gestures
- */
 function createTouchEvent(type: 'touchstart' | 'touchend', clientX: number, clientY: number): TouchEvent {
   const touch = {
     clientX,
@@ -84,7 +75,6 @@ describe('useSwipeNavigation', () => {
       const startEvent = createTouchEvent('touchstart', 100, 200);
       wrapper.vm.handleTouchStart(startEvent);
 
-      // End touch at x=200 (100px to the right), after 200ms
       dateNowSpy.mockReturnValueOnce(1200);
       const endEvent = createTouchEvent('touchend', 200, 200);
       wrapper.vm.handleTouchEnd(endEvent);
@@ -113,7 +103,6 @@ describe('useSwipeNavigation', () => {
       dateNowSpy.mockReturnValueOnce(1000);
       wrapper.vm.handleTouchStart(createTouchEvent('touchstart', 200, 200));
 
-      // End touch at x=100 (100px to the left), after 200ms
       dateNowSpy.mockReturnValueOnce(1200);
       wrapper.vm.handleTouchEnd(createTouchEvent('touchend', 100, 200));
 
@@ -141,9 +130,8 @@ describe('useSwipeNavigation', () => {
       dateNowSpy.mockReturnValueOnce(1000);
       wrapper.vm.handleTouchStart(createTouchEvent('touchstart', 200, 100));
 
-      // End touch with more vertical than horizontal movement
       dateNowSpy.mockReturnValueOnce(1200);
-      wrapper.vm.handleTouchEnd(createTouchEvent('touchend', 220, 200)); // 20px horizontal, 100px vertical
+      wrapper.vm.handleTouchEnd(createTouchEvent('touchend', 220, 200));
 
       expect(onSwipeLeft).not.toHaveBeenCalled();
       expect(onSwipeRight).not.toHaveBeenCalled();
@@ -156,7 +144,7 @@ describe('useSwipeNavigation', () => {
       wrapper.vm.handleTouchStart(createTouchEvent('touchstart', 200, 100));
 
       dateNowSpy.mockReturnValueOnce(1200);
-      wrapper.vm.handleTouchEnd(createTouchEvent('touchend', 200, 250)); // No horizontal movement
+      wrapper.vm.handleTouchEnd(createTouchEvent('touchend', 200, 250));
 
       expect(onSwipeLeft).not.toHaveBeenCalled();
       expect(onSwipeRight).not.toHaveBeenCalled();
@@ -170,7 +158,6 @@ describe('useSwipeNavigation', () => {
       dateNowSpy.mockReturnValueOnce(1000);
       wrapper.vm.handleTouchStart(createTouchEvent('touchstart', 100, 200));
 
-      // Only 30px horizontal movement
       dateNowSpy.mockReturnValueOnce(1200);
       wrapper.vm.handleTouchEnd(createTouchEvent('touchend', 130, 200));
 
@@ -184,7 +171,6 @@ describe('useSwipeNavigation', () => {
       dateNowSpy.mockReturnValueOnce(1000);
       wrapper.vm.handleTouchStart(createTouchEvent('touchstart', 100, 200));
 
-      // Exactly 50px movement (needs > 50, not >= 50)
       dateNowSpy.mockReturnValueOnce(1200);
       wrapper.vm.handleTouchEnd(createTouchEvent('touchend', 150, 200));
 
@@ -200,7 +186,6 @@ describe('useSwipeNavigation', () => {
       dateNowSpy.mockReturnValueOnce(1000);
       wrapper.vm.handleTouchStart(createTouchEvent('touchstart', 100, 200));
 
-      // 100px movement but 350ms duration (too slow)
       dateNowSpy.mockReturnValueOnce(1350);
       wrapper.vm.handleTouchEnd(createTouchEvent('touchend', 200, 200));
 
@@ -214,7 +199,6 @@ describe('useSwipeNavigation', () => {
       dateNowSpy.mockReturnValueOnce(1000);
       wrapper.vm.handleTouchStart(createTouchEvent('touchstart', 100, 200));
 
-      // Exactly 299ms (< 300)
       dateNowSpy.mockReturnValueOnce(1299);
       wrapper.vm.handleTouchEnd(createTouchEvent('touchend', 200, 200));
 
@@ -226,7 +210,6 @@ describe('useSwipeNavigation', () => {
     it('should require all three conditions (horizontal, distance, speed)', () => {
       const wrapper = mount(createTestComponent(onSwipeLeft, onSwipeRight));
 
-      // Horizontal + good speed, but short distance
       dateNowSpy.mockReturnValueOnce(1000);
       wrapper.vm.handleTouchStart(createTouchEvent('touchstart', 100, 200));
 
@@ -243,9 +226,6 @@ describe('useSwipeNavigation', () => {
       dateNowSpy.mockReturnValueOnce(1000);
       wrapper.vm.handleTouchStart(createTouchEvent('touchstart', 100, 200));
 
-      // Horizontal (210 - 100 = 110px horizontal, 0px vertical)
-      // Distance > 50 (110px)
-      // Speed < 300ms (250ms)
       dateNowSpy.mockReturnValueOnce(1250);
       wrapper.vm.handleTouchEnd(createTouchEvent('touchend', 210, 200));
 

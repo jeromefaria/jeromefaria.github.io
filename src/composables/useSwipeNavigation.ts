@@ -11,17 +11,10 @@ interface TouchPosition {
   time: number;
 }
 
-/**
- * Composable for handling horizontal swipe gestures
- * @param onSwipeLeft - Callback when swiping left
- * @param onSwipeRight - Callback when swiping right
- * @returns Touch event handlers
- */
 export const useSwipeNavigation = (
   onSwipeLeft: () => void,
   onSwipeRight: () => void,
 ): UseSwipeNavigationReturn => {
-  // Internal handle only — never rendered, so a plain binding (no reactivity).
   let touchStart: TouchPosition = { x: 0, y: 0, time: 0 };
 
   const handleTouchStart = (event: TouchEvent): void => {
@@ -43,7 +36,6 @@ export const useSwipeNavigation = (
     const deltaY = touch.clientY - touchStart.y;
     const deltaTime = Date.now() - touchStart.time;
 
-    // Check if it's a horizontal swipe (not vertical scroll)
     const isHorizontalSwipe = Math.abs(deltaX) > Math.abs(deltaY);
     const isValidDistance = Math.abs(deltaX) > TOUCH.MIN_SWIPE_DISTANCE;
     const isValidSpeed = deltaTime < TOUCH.MAX_SWIPE_TIME;

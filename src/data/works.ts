@@ -650,5 +650,4 @@ export const worksData: WorksData = {
   },
 };
 
-// Export sections dynamically from worksData keys (maintains insertion order)
 export const worksSections: string[] = Object.keys(worksData);

@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-// With no publication release, the schema should fail fast, not emit empty
-// fields. Isolated so the mock doesn't leak into the real-data suite.
+// Isolated in its own file so this vi.mock doesn't replace real data in the main schema suite.
 vi.mock('@/data/works', () => ({
   worksData: {
     publications: { title: 'Publications', id: 'publications', items: [] },

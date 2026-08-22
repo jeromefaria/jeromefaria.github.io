@@ -21,9 +21,7 @@ test.describe('Accordion Functionality', () => {
       await waitForHydration(page);
 
       const firstTrigger = page.locator(ACCORDION_TRIGGER_SELECTOR).first();
-      // First accordion ('solo') starts OPEN by default.
       await toggleAndVerifyAccordion(firstTrigger, 'true');
-      // Click to open again.
       await toggleAndVerifyAccordion(firstTrigger, 'false');
     });
 
@@ -54,9 +52,7 @@ test.describe('Accordion Functionality', () => {
 
       expect(await page.locator(ACCORDION_TRIGGER_SELECTOR).count()).toBeGreaterThan(1);
 
-      // First accordion ('solo') starts open, close it.
       await toggleAndVerifyAccordion(page.locator(ACCORDION_TRIGGER_SELECTOR).nth(0), 'true');
-      // Open second section.
       await toggleAndVerifyAccordion(page.locator(ACCORDION_TRIGGER_SELECTOR).nth(1), 'false');
     });
 
@@ -77,7 +73,6 @@ test.describe('Accordion Functionality', () => {
       await page.goto(LIVE_PAGE);
       await waitForHydration(page);
 
-      // First year section starts OPEN by default.
       await toggleAndVerifyAccordion(page.locator(ACCORDION_TRIGGER_SELECTOR).first(), 'true');
     });
 
@@ -108,7 +103,6 @@ test.describe('Accordion Functionality', () => {
       await firstTrigger.focus();
       await expect(firstTrigger).toBeFocused();
 
-      // First accordion starts open, pressing Enter closes it.
       await expect(firstTrigger).toHaveAttribute('aria-expanded', 'true');
       await firstTrigger.press('Enter');
       await expect(firstTrigger).toHaveAttribute('aria-expanded', 'false');
@@ -121,7 +115,6 @@ test.describe('Accordion Functionality', () => {
       const firstTrigger = page.locator(ACCORDION_TRIGGER_SELECTOR).first();
       await firstTrigger.focus();
 
-      // First accordion starts open, pressing Space closes it.
       await expect(firstTrigger).toHaveAttribute('aria-expanded', 'true');
       await firstTrigger.press('Space');
       await expect(firstTrigger).toHaveAttribute('aria-expanded', 'false');
@@ -134,7 +127,6 @@ test.describe('Accordion Functionality', () => {
       await waitForHydration(page);
 
       const firstTrigger = page.locator(ACCORDION_TRIGGER_SELECTOR).first();
-      // First accordion starts open.
       await expect(firstTrigger).toHaveAttribute('aria-expanded', 'true');
       await firstTrigger.click();
       await expect(firstTrigger).toHaveAttribute('aria-expanded', 'false');

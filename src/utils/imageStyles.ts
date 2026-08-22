@@ -6,17 +6,11 @@ export interface ImageWithTransforms {
   rotate?: number;
 }
 
-/**
- * Calculates CSS style object for image transformations
- * @param image - Image object with optional position, scale, rotate properties
- * @returns CSS style object usable directly as a Vue `:style` binding
- */
 export const getImageStyles = (image?: ImageWithTransforms): CSSProperties => {
   if (!image) return {};
 
   const styles: CSSProperties = {};
 
-  // Object position (e.g., "center top", "50% 25%")
   if (image.position) {
     styles.objectPosition = image.position;
   }

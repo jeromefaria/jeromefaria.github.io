@@ -1,12 +1,6 @@
-// Base — clean reset and element defaults
 @use "variables" as *;
 
-// =============================================================================
-// CSS Custom Properties (Theme Colors)
-// =============================================================================
-
 :root {
-  // Light theme (default)
   --color-bg: #fff;
   --color-text: #000;
   --color-text-secondary: #444;
@@ -16,7 +10,6 @@
   --color-link: #000;
   --color-link-hover: #595959; // WCAG AA compliant (7:1 on white)
   --color-error: #c44;
-  // Overlays
   --overlay-lightbox: rgba(0, 0, 0, 0.95);
   --text-overlay-muted: rgba(255, 255, 255, 0.5);
 }
@@ -31,14 +24,9 @@
   --color-link: #fff;
   --color-link-hover: #a3a3a3; // WCAG AA compliant (4.58:1 on black)
   --color-error: #e55;
-  // Overlays
   --overlay-lightbox: rgba(0, 0, 0, 0.98);
   --text-overlay-muted: rgba(255, 255, 255, 0.4);
 }
-
-// =============================================================================
-// Reset
-// =============================================================================
 
 *,
 *::before,
@@ -48,7 +36,6 @@
 
 html {
   font-size: 18px;
-  // Account for sticky header when scrolling to anchors
   scroll-padding-top: calc(#{$header-height-mobile} + #{$spacing-12});
 
   @include respond-to(md) {
@@ -71,10 +58,6 @@ body {
   overflow-x: hidden;
 }
 
-// =============================================================================
-// Links
-// =============================================================================
-
 a {
   color: var(--color-link);
   text-decoration: none;
@@ -85,19 +68,11 @@ a {
   }
 }
 
-// =============================================================================
-// Images
-// =============================================================================
-
 img {
   max-width: 100%;
   height: auto;
   display: block;
 }
-
-// =============================================================================
-// Selection & Focus
-// =============================================================================
 
 ::selection {
   background-color: var(--color-text);
@@ -105,13 +80,9 @@ img {
 }
 
 :focus-visible {
-  outline: 1px solid var(--color-text);  // Thinner default for all elements
+  outline: 1px solid var(--color-text);
   outline-offset: 2px;
 }
-
-// =============================================================================
-// Buttons
-// =============================================================================
 
 button {
   background: none;
@@ -125,10 +96,6 @@ button {
     opacity: $opacity-70;
   }
 }
-
-// =============================================================================
-// Reduced Motion
-// =============================================================================
 
 @media (prefers-reduced-motion: reduce) {
   *,

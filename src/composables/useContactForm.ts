@@ -1,7 +1,6 @@
 import type { ComputedRef, Ref } from 'vue';
 import { computed, ref } from 'vue';
 
-// The validated fields, in one place — everything below is derived from this.
 const REQUIRED_FIELDS = ['name', 'email', 'message'] as const;
 type RequiredField = (typeof REQUIRED_FIELDS)[number];
 
@@ -16,7 +15,6 @@ interface FormData {
 
 type FieldFlags = Record<RequiredField, boolean>;
 
-// Build a record keyed by every required field (populates all keys, hence the cast).
 const byField = <T>(valueFor: (field: RequiredField) => T): Record<RequiredField, T> =>
   Object.fromEntries(REQUIRED_FIELDS.map(field => [field, valueFor(field)])) as Record<RequiredField, T>;
 
@@ -36,11 +34,6 @@ interface UseContactFormReturn {
   resetForm: () => void;
 }
 
-/**
- * Contact form state and validation logic
- * @param submitUrl - URL to submit the form to
- * @returns Form state, validation, and handlers
- */
 export const useContactForm = (submitUrl: string): UseContactFormReturn => {
   const formData = ref<FormData>(emptyFormData());
   const touched = ref<FieldFlags>(byField(() => false));
@@ -79,8 +72,6 @@ export const useContactForm = (submitUrl: string): UseContactFormReturn => {
     isSubmitting.value = true;
     const formDataToSend = new FormData(form);
 
-    // Progressive enhancement: POST via fetch, falling back to a native form
-    // submission on a non-2xx response or a network/CORS failure.
     try {
       const response = await fetch(submitUrl, {
         method: 'POST',

@@ -1,10 +1,4 @@
-// Components — reusable UI patterns
 @use "variables" as *;
-
-// =============================================================================
-// Release / Discography Item
-// =============================================================================
-// Two-column layout: details left, media right (reversed on mobile)
 
 .release {
   display: grid;
@@ -18,13 +12,11 @@
     gap: $spacing-6;
   }
 
-  // Text-only releases (no images) - single column, tighter spacing
   &--text-only {
     display: block;
     margin-bottom: $spacing-6;
   }
 
-  // Media elements
   img,
   iframe {
     width: 100%;
@@ -46,7 +38,6 @@
     height: auto;
   }
 
-  // Bandcamp lazy-load player
   .bandcamp-player {
     position: relative;
     width: 100%;
@@ -117,7 +108,6 @@
     letter-spacing: $letter-spacing-wide;
   }
 
-  // Image loading spinner
   .release__spinner {
     @include absolute-fill;
     display: flex;
@@ -127,7 +117,6 @@
     background: var(--color-border-subtle);
   }
 
-  // Linked cover (external URL)
   .release-cover {
     position: relative;
     display: block;
@@ -151,7 +140,6 @@
       @include focus-ring;
     }
 
-    // Bandcamp links: show play button overlay on hover
     &--bandcamp {
       &::after {
         content: '';
@@ -178,7 +166,6 @@
     }
   }
 
-  // Release details
   .release-details {
     order: 1;
 
@@ -190,7 +177,6 @@
       margin-bottom: $spacing-2;
     }
 
-    // Release title
     p:first-child {
       strong {
         font-size: $font-size-lg;
@@ -198,7 +184,6 @@
       }
     }
 
-    // Release title link — hash link for deep linking
     .release-title-link {
       color: inherit;
       text-decoration: none;
@@ -214,7 +199,6 @@
       }
     }
 
-    // Format/label/year line
     .release-meta {
       font-size: $font-size-sm;
       color: var(--color-text-muted);
@@ -232,14 +216,12 @@
       }
     }
 
-    // Description
     .release-description {
       font-size: $font-size-base;
       line-height: $line-height-relaxed;
       color: var(--color-text-secondary);
     }
 
-    // Tracklist
     ol {
       margin-top: $spacing-4;
       margin-bottom: 0;
@@ -253,7 +235,6 @@
       }
     }
 
-    // Credits
     .release-credits {
       margin-top: $spacing-3;
       font-size: $font-size-xs;
@@ -274,7 +255,6 @@
   }
 }
 
-// Text-only release details - tighter spacing
 .release--text-only .release-details {
   p {
     margin-bottom: $spacing-1;
@@ -290,10 +270,6 @@
   }
 }
 
-// =============================================================================
-// Social Links
-// =============================================================================
-
 .social-links {
   display: flex;
   justify-content: center;
@@ -307,10 +283,6 @@
     @include hover-text;
   }
 }
-
-// =============================================================================
-// Pagination
-// =============================================================================
 
 .pagination {
   display: flex;
@@ -335,10 +307,6 @@
   opacity: $opacity-50;
   pointer-events: none;
 }
-
-// =============================================================================
-// Contact Form
-// =============================================================================
 
 .contact-intro {
   max-width: $max-width;
@@ -402,7 +370,6 @@
   max-width: $max-width;
   margin: 0 auto;
 
-  // Honeypot field - completely hidden from humans
   &__honeypot {
     position: absolute;
     left: -9999px;
@@ -420,7 +387,6 @@
     }
   }
 
-  // Per-field validation message (announced via role="alert")
   &__error {
     display: block;
     margin-top: $spacing-2;
@@ -479,7 +445,6 @@
       }
     }
 
-    // Invalid state - show red border for touched empty required fields
     &--invalid {
       border-color: var(--color-error);
 
@@ -524,7 +489,6 @@
       width: auto;
     }
 
-    // Valid state - filled button
     &--valid {
       color: var(--color-bg);
       background-color: var(--color-text);
@@ -539,7 +503,6 @@
       }
     }
 
-    // Invalid state - outline only (default)
     &:not(&--valid) {
       &:hover:not(:disabled) {
         background-color: var(--color-border-subtle);
@@ -565,10 +528,6 @@
   }
 }
 
-// =============================================================================
-// Lightbox
-// =============================================================================
-
 .lightbox {
   position: fixed;
   top: 0;
@@ -589,23 +548,21 @@
   }
 
   &__image {
-    width: 90vw;  // 90% of viewport width
-    height: 90vh;  // 90% of viewport height
+    width: 90vw;
+    height: 90vh;
     object-fit: contain;
     cursor: default;
   }
 
   &__video {
-    width: 90vw;  // 90% of viewport width
+    width: 90vw;
     max-width: 160vh; // 16:9 aspect ratio limit
     height: 50.625vw; // 9/16 of 90vw for 16:9 videos
-    max-height: 90vh;  // 90% of viewport height
+    max-height: 90vh;
     cursor: default;
     border: none;
   }
 
-  // Bottom controls. Mobile: a safe-area-padded column clear of the home-indicator
-  // zone. Desktop: dissolves (display: contents) — counter/credit corner, hints centre.
   &__controls {
     position: absolute;
     left: 0;
@@ -627,7 +584,7 @@
   &__hints {
     display: flex;
     align-items: center;
-    gap: $spacing-2;  // separate the prev / close / next controls
+    gap: $spacing-2;
     // The 44px tap targets centre a ~16px icon, adding ~14px of dead space above
     // the arrows; pull the row up so the visual gap matches the text lines above.
     margin-top: -$spacing-3;
@@ -695,8 +652,6 @@
     }
   }
 
-  // Counter and credit. Plain flex items in the mobile controls column; on
-  // desktop they lift out to the bottom-right corner (counter above credit).
   &__counter {
     margin: 0;
     font-size: $font-size-sm;
@@ -744,7 +699,6 @@
   }
 }
 
-// Lightbox transitions
 .lightbox-enter-active,
 .lightbox-leave-active {
   transition: opacity $transition-base;
@@ -755,10 +709,6 @@
   opacity: 0;
 }
 
-// =============================================================================
-// Accordion Sections (Works & Live pages)
-// =============================================================================
-
 .accordion-section {
   margin-top: $spacing-2;
   @include scroll-margin-header;
@@ -768,7 +718,6 @@
   }
 }
 
-// Semantic heading wrapper around the trigger button — no visual footprint
 .accordion-heading {
   margin: 0;
   font: inherit;
@@ -807,7 +756,6 @@
     @include focus-ring;
   }
 
-  // Chevron icon
   &::after {
     content: '';
     flex-shrink: 0;
@@ -855,4 +803,3 @@
   transition: opacity $transition-base;
   will-change: opacity;
 }
-

@@ -12,13 +12,6 @@ interface UseAccordionReturn {
   handleToggle: (sectionId: string, isOpen: boolean) => void;
 }
 
-/**
- * Composable for managing accordion state with URL hash navigation
- * @param initialSection - The section to open by default
- * @param validSections - Array of valid section IDs
- * @param findSectionForId - Optional function to find parent section for a given ID
- * @returns Accordion state and handlers
- */
 export const useAccordion = (
   initialSection: string,
   validSections: string[],
@@ -56,7 +49,6 @@ export const useAccordion = (
     if (shouldScroll) scrollToHashTarget(id);
   };
 
-  // Open (and scroll to) the hash target on load and on hash changes.
   const { isInitialLoad } = useHashScroll(hash => processHash(hash, true), { immediate: true });
 
   const handleToggle = (sectionId: string, isOpen: boolean): void => {

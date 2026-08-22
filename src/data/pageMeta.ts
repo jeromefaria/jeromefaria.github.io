@@ -6,8 +6,6 @@ export interface PageMeta {
   ogType?: string;
 }
 
-// Per-page title/description for usePageHead. The homepage represents the whole
-// site, so its meta derives from siteConfig; the rest carry their own SEO copy.
 export const pageMeta = {
   home: {
     title: `${siteConfig.title} - ${siteConfig.tagline}`,

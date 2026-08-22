@@ -10,13 +10,6 @@ interface ReleaseForSchema {
   tracklist?: Track[];
 }
 
-/**
- * Create a MusicEvent schema for a live performance
- * @param event - Event object with title, date, venue, etc.
- * @param performerName - Name of the performer
- * @param fallbackDate - Fallback date if event.date is not available
- * @returns Schema.org MusicEvent
- */
 export const createMusicEventSchema = (
   event: LiveEvent,
   performerName: string,
@@ -40,13 +33,6 @@ export const createMusicEventSchema = (
   },
 });
 
-/**
- * Create an ItemList schema
- * @param items - Array of schema items
- * @param name - List name
- * @param description - List description
- * @returns Schema.org ItemList
- */
 export const createItemListSchema = (
   items: SchemaMusicEvent[],
   name: string,
@@ -64,13 +50,6 @@ export const createItemListSchema = (
   })),
 });
 
-/**
- * Create a MusicAlbum schema
- * @param release - Release object
- * @param artistName - Artist name
- * @param siteUrl - Base site URL for images
- * @returns Schema.org MusicAlbum
- */
 export const createMusicAlbumSchema = (
   release: ReleaseForSchema,
   artistName: string,

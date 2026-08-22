@@ -40,7 +40,6 @@ test.describe('Accessibility', () => {
 
       await expect(page.locator(MAIN_CONTENT_SELECTOR)).toBeVisible();
 
-      // Verify page scrolled to main content (allow small tolerance for scroll positioning).
       const top = await page.locator(MAIN_CONTENT_SELECTOR).evaluate(el => el.getBoundingClientRect().top);
       expect(top).toBeLessThan(110);
     });

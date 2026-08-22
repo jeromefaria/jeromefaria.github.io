@@ -1,11 +1,3 @@
-/**
- * Subsets the Inter weights down to the glyphs this site actually uses and
- * writes self-hosted woff2 files to public/fonts/. Re-run whenever the content
- * introduces characters outside Basic Latin + Latin-1 (the script reports any
- * used character that the source font can't provide).
- *
- * Usage: node scripts/subset-fonts.mjs
- */
 import { create } from 'fontkit';
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -18,7 +10,6 @@ const FONT_DIR = join(root, 'node_modules/@fontsource/inter/files');
 const OUT_DIR = join(root, 'public/fonts');
 const WEIGHTS = { 400: 'inter-latin-400-normal.woff2', 500: 'inter-latin-500-normal.woff2', 600: 'inter-latin-600-normal.woff2' };
 
-// 1. Collect every character the shipped content and templates use.
 const collectChars = () => {
   const chars = new Set();
   const walk = dir => {
@@ -34,8 +25,6 @@ const collectChars = () => {
   walk(join(root, 'src'));
   for (const character of readFileSync(join(root, 'index.html'), 'utf8')) chars.add(character);
 
-  // Safety margin: all of Basic Latin + Latin-1 Supplement, so ordinary future
-  // copy (English + Portuguese) never needs a re-subset.
   for (let codePoint = 0x20; codePoint <= 0x7e; codePoint += 1) chars.add(String.fromCodePoint(codePoint));
   for (let codePoint = 0xa0; codePoint <= 0xff; codePoint += 1) chars.add(String.fromCodePoint(codePoint));
   return chars;
@@ -44,8 +33,6 @@ const collectChars = () => {
 const chars = collectChars();
 const text = [...chars].join('');
 
-// 2. Report any used character the source font cannot provide (would silently
-//    fall back to a system font on the page).
 const source = create(readFileSync(join(FONT_DIR, WEIGHTS[400])));
 const missing = [...chars].filter(character => {
   const codePoint = character.codePointAt(0);
@@ -56,7 +43,6 @@ if (missing.length) {
   console.warn(`⚠️  ${missing.length} used character(s) not in the source font (will fall back):\n   ${list}`);
 }
 
-// 3. Subset each weight.
 mkdirSync(OUT_DIR, { recursive: true });
 for (const [weight, file] of Object.entries(WEIGHTS)) {
   const buffer = readFileSync(join(FONT_DIR, file));

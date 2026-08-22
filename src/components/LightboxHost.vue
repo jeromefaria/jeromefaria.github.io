@@ -15,7 +15,6 @@ const {
   handleTouchEnd,
 } = useLightboxWithSwipe();
 
-// Parents trigger the lightbox through a template ref: `lightbox.openLightbox(...)`.
 defineExpose({ openLightbox });
 </script>
 

@@ -21,7 +21,6 @@ const allImages = computed(() =>
     .filter(isImageSection)
     .flatMap(section => section.images.map(toLightboxImage)));
 
-// Pre-compute section starting indices for O(1) lookup
 const sectionStartIndices = computed(() => {
   let currentIndex = 0;
   return aboutSections.map(section => {
@@ -33,7 +32,6 @@ const sectionStartIndices = computed(() => {
   });
 });
 
-// Global index of an image — O(1) via the precomputed section starts.
 const getGlobalIndex = (sectionIndex: number, imageIndex: number): number =>
   (sectionStartIndices.value[sectionIndex] ?? 0) + imageIndex;
 </script>
@@ -63,7 +61,6 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number =>
           v-html="externalizeLinks(section.content)"
         />
 
-        <!-- Image group (magazine-style layout) -->
         <div
           v-else-if="section.type === 'image-group'"
           class="about-image-group"

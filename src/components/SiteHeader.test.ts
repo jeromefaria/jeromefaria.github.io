@@ -75,8 +75,6 @@ describe('SiteHeader', () => {
     const { wrapper } = await mountHeader();
     await wrapper.get('.nav-toggle').trigger('click');
     await wrapper.vm.$nextTick();
-    // Focusing the tabindex="-1" container lands keyboard/AT users in the nav
-    // region without giving a link a focus ring on a touch-opened menu.
     const nav = wrapper.get('#primary-nav');
     expect(nav.attributes('tabindex')).toBe('-1');
     expect(document.activeElement).toBe(nav.element);

@@ -19,8 +19,7 @@ const emit = defineEmits<{
   blur: [];
 }>();
 
-// A field is validated when the parent supplies an `error` slot for it; only
-// then does it carry aria-invalid (the optional subject omits it entirely).
+// aria-invalid is set only when the parent supplies an `error` for the field.
 const ariaInvalid = computed(() => (props.error === undefined ? undefined : props.invalid));
 
 const onInput = (event: Event): void => {

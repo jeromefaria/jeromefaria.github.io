@@ -21,9 +21,8 @@ const closeNav = () => {
 
 const openNav = () => {
   navOpen.value = true;
-  // Focus the tabindex="-1" container (not a link) so keyboard/AT users land in
-  // the labelled nav without a touch focus ring; preventScroll stops a scrolled
-  // page from jumping to the top (which used to auto-dismiss the menu).
+  // Focus the tabindex="-1" container (not a link) so AT users land in the
+  // labelled nav without a touch focus ring; preventScroll keeps the page still.
   void nextTick(() => {
     navMenu.value?.focus({ preventScroll: true });
   });
@@ -44,9 +43,6 @@ watch(() => route.path, () => {
   if (navOpen.value) closeNav();
 });
 
-// While the menu is open, a pointer interaction outside it dismisses it. This
-// also covers a scroll gesture, which begins with a touch on the content behind
-// the menu (Escape and link-select are handled above).
 const handleOutsidePointer = (event: PointerEvent) => {
   const target = event.target as Node | null;
   if (target && !navMenu.value?.contains(target) && !navToggle.value?.contains(target)) {

@@ -42,8 +42,6 @@ export interface CompilationMeta {
   year: number;
 }
 
-// Each commission `work` requires exactly its own credit field, so the variant
-// is discriminated rather than carrying three undiscriminated optionals.
 interface FilmCommission {
   kind: 'commission';
   work: 'Film';

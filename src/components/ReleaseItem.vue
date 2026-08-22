@@ -25,12 +25,10 @@ const emit = defineEmits<{
   'open-lightbox': [items: LightboxItem[], index: number];
 }>();
 
-// Defer cover loading until the release's accordion section is first opened —
-// collapsed sections sit at zero height near the viewport, defeating native
-// lazy-loading.
+// Collapsed accordion sections sit at zero height, defeating native
+// lazy-loading; defer cover loading until the section is first opened.
 const coverVisible = useAccordionVisibility();
 
-// Set when the cover image fails to load, so we fall back to a text-only layout.
 const coverErrored = ref(false);
 
 const imageLightboxItems = computed<LightboxItem[]>(() =>
@@ -56,7 +54,6 @@ const isBandcampLink = computed(() =>
       :album-title="release.title"
     />
 
-    <!-- Cover — rendered as an external link when the release has one -->
     <ReleaseCover
       v-else-if="coverVisible && hasCoverImage(release) && !coverErrored"
       :src="release.coverImage"

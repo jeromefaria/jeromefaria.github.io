@@ -1080,5 +1080,4 @@ const groupEventsByYear = (events: LiveEvent[]): LiveData => {
 
 export const sortedLiveData: LiveData = groupEventsByYear(liveEvents);
 
-// Newest year first — the object's own keys enumerate ascending, so sort here.
 export const liveYears: string[] = Object.keys(sortedLiveData).sort((a, b) => b.localeCompare(a));

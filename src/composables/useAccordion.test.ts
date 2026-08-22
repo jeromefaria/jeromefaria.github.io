@@ -11,7 +11,6 @@ const ELEMENT_TOP_POSITION = 100;
 const VALID_SECTIONS = ['solo', 'collab'];
 const INITIAL_SECTION = 'solo';
 
-// Mock vue-router with reactive route object
 const mockRoute = reactive({
   hash: '',
   path: TEST_PATH,
@@ -26,9 +25,6 @@ vi.mock('vue-router', () => ({
   useRouter: () => mockRouter,
 }));
 
-/**
- * Create a test component that uses the useAccordion composable
- */
 function createTestComponent(
   initialSection: string = INITIAL_SECTION,
   validSections: string[] = VALID_SECTIONS,
@@ -43,9 +39,6 @@ function createTestComponent(
   });
 }
 
-/**
- * Create a mock HTMLElement for testing scroll behavior
- */
 function createMockElement(): HTMLElement {
   return {
     getBoundingClientRect: () => ({
@@ -243,7 +236,6 @@ describe('useAccordion', () => {
     await nextTick();
     await vi.advanceTimersByTimeAsync(ACCORDION_ANIMATION_TIMING);
 
-    // Parent-resolved hashes scroll to the item itself, not the section trigger.
     expect(getElementByIdSpy).toHaveBeenCalledWith(itemId);
 
     vi.useRealTimers();

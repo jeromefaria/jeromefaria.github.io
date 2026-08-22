@@ -1,21 +1,11 @@
-// Layout — site structure
 @use "variables" as *;
-
-// =============================================================================
-// Site Wrapper
-// =============================================================================
 
 .site {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  // Note: overflow-x: hidden is set on body, not here,
-  // because it would break position: sticky on masthead
+  // overflow-x: hidden is set on body, not here, because it would break position: sticky on masthead
 }
-
-// =============================================================================
-// Main Content
-// =============================================================================
 
 main {
   flex: 1;
@@ -26,7 +16,6 @@ main {
   }
 }
 
-// Minimal padding for homepage
 main:has(.home) {
   padding: 0;
 
@@ -36,14 +25,9 @@ main:has(.home) {
   }
 }
 
-// No scroll on homepage
 body:has(.home) {
   overflow: hidden;
 }
-
-// =============================================================================
-// Footer
-// =============================================================================
 
 footer {
   padding: $footer-padding-y $spacing-5;
@@ -101,10 +85,6 @@ footer {
   }
 }
 
-// =============================================================================
-// Page Loading State
-// =============================================================================
-
 .page-loading {
   display: flex;
   justify-content: center;
@@ -121,7 +101,6 @@ footer {
   border-radius: 50%;
   animation: loading-pulse 1.2s ease-in-out infinite;
 
-  // Staggered delays create wave effect: 0s, 0.2s, 0.4s
   &:nth-child(2) {
     animation-delay: 0.2s;
   }

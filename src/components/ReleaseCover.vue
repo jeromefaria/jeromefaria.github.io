@@ -17,10 +17,8 @@ const emit = defineEmits<{ error: [] }>();
 
 const { setImageRef, imageLoaded, webpSrc, handleImageLoad, handleImageError } = useImageLoader(props.src);
 
-// Responsive WebP srcset (cover displays ~200px), null when no variants exist.
 const coverSrcset = computed(() => responsiveSrcset(props.src));
 
-// Surface a load failure so the parent can fall back to a text-only layout.
 const onError = (): void => {
   handleImageError();
   emit('error');

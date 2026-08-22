@@ -13,8 +13,6 @@ async function makeCSSAsync() {
       const filePath = join(distDir, file);
       let content = await readFile(filePath, 'utf-8');
 
-      // Transform CSS links to load asynchronously.
-      // Critical CSS is already inlined in index.html template.
       // Match any stylesheet <link> regardless of attribute order, so a change
       // in how Vite emits the tag doesn't silently turn this into a no-op.
       content = content.replace(/<link\b[^>]*\brel="stylesheet"[^>]*>/g, tag => {
