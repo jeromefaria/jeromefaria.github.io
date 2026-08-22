@@ -26,7 +26,6 @@ const embedUrl = computed(() =>
   `https://bandcamp.com/EmbeddedPlayer/album=${props.albumId}/${BANDCAMP_EMBED_PARAMS}/`);
 
 const loadPlayer = () => {
-  if (showPlayer.value) return;
   showPlayer.value = true;
 };
 
@@ -39,7 +38,6 @@ const handleIframeLoad = () => {
   <div
     class="bandcamp-player"
     :class="{ 'bandcamp-player--loading': showPlayer && !isLoaded, 'bandcamp-player--error': imageError }"
-    @click="loadPlayer"
   >
     <picture v-if="!showPlayer && !imageError">
       <source
@@ -68,6 +66,7 @@ const handleIframeLoad = () => {
       class="bandcamp-player__button"
       type="button"
       :aria-label="`Play ${albumTitle}`"
+      @click="loadPlayer"
     />
     <div
       v-if="showPlayer && !isLoaded"

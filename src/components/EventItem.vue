@@ -5,6 +5,7 @@ import type { LightboxItem, LiveEvent } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { formatEventDate } from '@/utils/formatters';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
+import { pluralize } from '@/utils/pluralize';
 
 import ExternalLink from './ExternalLink.vue';
 import IconArrow from './IconArrow.vue';
@@ -32,12 +33,15 @@ const titleHrefIsExternal = computed(() => /^https?:/i.test(titleHref.value ?? '
 const venueLocation = computed(() =>
   [props.event.venue.city, props.event.venue.country].filter(Boolean).join(', '));
 
+// Comma between the venue name and its city/country, only when both are present.
+const venueSeparator = computed(() => (props.event.venue.name && venueLocation.value ? ', ' : ''));
+
 const imageLightboxItems = computed<LightboxItem[]>(() =>
   props.event.images?.map(image =>
     toLightboxImage({ ...image, alt: image.alt ?? props.event.imageAlt ?? '' })) ?? []);
 const posterLightboxItems = computed<LightboxItem[]>(() => props.event.posters?.map(toLightboxImage) ?? []);
 const videoLightboxItems = computed<LightboxItem[]>(() => props.event.videos?.map(toLightboxVideo) ?? []);
-const imageLabel = computed(() => (imageLightboxItems.value.length === 1 ? 'Photo' : 'Photos'));
+const imageLabel = computed(() => pluralize(imageLightboxItems.value.length, 'Photo'));
 </script>
 
 <template>
@@ -72,10 +76,10 @@ const imageLabel = computed(() => (imageLightboxItems.value.length === 1 ? 'Phot
           v-if="event.date"
           class="event-date"
         >{{ formattedDate }} · </span>
-        <span class="event-venue"><template v-if="event.venue.name"><a
-          v-if="event.venue.url"
+        <span class="event-venue"><a
+          v-if="event.venue.name && event.venue.url"
           :href="event.venue.url"
-        >{{ event.venue.name }}</a><template v-else>{{ event.venue.name }}</template><template v-if="venueLocation">, </template></template>{{ venueLocation }}</span>
+        >{{ event.venue.name }}</a><template v-else-if="event.venue.name">{{ event.venue.name }}</template>{{ venueSeparator }}{{ venueLocation }}</span>
       </p>
       <p
         v-if="event.description"

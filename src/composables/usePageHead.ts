@@ -64,16 +64,12 @@ export const usePageHead = ({
     link.push({ rel: 'preload', as: 'image', type: 'image/webp', href: preloadImage, fetchpriority: 'high' });
   }
 
-  const headConfig: Record<string, unknown> = { title: fullTitle, meta, link };
-
-  if (schema) {
-    headConfig['script'] = [
-      {
-        type: 'application/ld+json',
-        innerHTML: JSON.stringify(schema),
-      },
-    ];
-  }
-
-  useHead(headConfig);
+  useHead({
+    title: fullTitle,
+    meta,
+    link,
+    ...(schema && {
+      script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(schema) }],
+    }),
+  });
 };
