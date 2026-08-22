@@ -107,33 +107,27 @@ test.describe('Lightbox', () => {
   });
 
   test.describe('Navigation', () => {
+    // Open a guaranteed multi-image gallery (the live showcase carries many
+    // photos) so next/prev are always exercised rather than skipped on a lone
+    // image.
     test.beforeEach(async ({ page }) => {
-      await openLightboxFromFirstGallery(page);
+      await openLiveLightbox(page);
     });
 
     test('shows next image when clicking the next button', async ({ page }) => {
-      const nextButton = page.locator(LIGHTBOX_NEXT_SELECTOR);
-      test.skip(await nextButton.isDisabled(), 'single-image gallery');
-
       const firstSrc = await page.locator(LIGHTBOX_IMAGE_SELECTOR).getAttribute('src');
-      await nextButton.click();
+      await page.locator(LIGHTBOX_NEXT_SELECTOR).click();
       await expect(page.locator(LIGHTBOX_IMAGE_SELECTOR)).not.toHaveAttribute('src', firstSrc ?? '');
     });
 
     test('navigates to next image with ArrowRight key', async ({ page }) => {
-      const nextButton = page.locator(LIGHTBOX_NEXT_SELECTOR);
-      test.skip(await nextButton.isDisabled(), 'single-image gallery');
-
       const firstSrc = await page.locator(LIGHTBOX_IMAGE_SELECTOR).getAttribute('src');
       await page.keyboard.press('ArrowRight');
       await expect(page.locator(LIGHTBOX_IMAGE_SELECTOR)).not.toHaveAttribute('src', firstSrc ?? '');
     });
 
     test('navigates to previous image with ArrowLeft key', async ({ page }) => {
-      const nextButton = page.locator(LIGHTBOX_NEXT_SELECTOR);
-      test.skip(await nextButton.isDisabled(), 'single-image gallery');
-
-      await nextButton.click();
+      await page.locator(LIGHTBOX_NEXT_SELECTOR).click();
       const secondSrc = await page.locator(LIGHTBOX_IMAGE_SELECTOR).getAttribute('src');
       await page.keyboard.press('ArrowLeft');
       await expect(page.locator(LIGHTBOX_IMAGE_SELECTOR)).not.toHaveAttribute('src', secondSrc ?? '');
