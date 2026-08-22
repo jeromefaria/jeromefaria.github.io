@@ -11,7 +11,6 @@ export interface MetaLink {
   url?: string;
 }
 
-// A tracklist entry: a title, plus an artist credit on various-artists releases.
 export interface Track {
   title: string;
   artist?: MetaLink;
