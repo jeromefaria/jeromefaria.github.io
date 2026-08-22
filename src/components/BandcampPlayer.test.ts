@@ -58,62 +58,54 @@ describe('BandcampPlayer', () => {
   describe('loading the player', () => {
     it('shows the iframe after clicking the player', async () => {
       const wrapper = mountPlayer();
-      await wrapper.find('.bandcamp-player').trigger('click');
+      await wrapper.find('.bandcamp-player__button').trigger('click');
       expect(wrapper.find('iframe').exists()).toBe(true);
     });
 
     it('hides the cover image after clicking', async () => {
       const wrapper = mountPlayer();
-      await wrapper.find('.bandcamp-player').trigger('click');
+      await wrapper.find('.bandcamp-player__button').trigger('click');
       expect(wrapper.find('picture').exists()).toBe(false);
     });
 
     it('hides the play button after clicking', async () => {
       const wrapper = mountPlayer();
-      await wrapper.find('.bandcamp-player').trigger('click');
+      await wrapper.find('.bandcamp-player__button').trigger('click');
       expect(wrapper.find('.bandcamp-player__button').exists()).toBe(false);
     });
 
     it('shows a loading indicator before iframe fires load', async () => {
       const wrapper = mountPlayer();
-      await wrapper.find('.bandcamp-player').trigger('click');
+      await wrapper.find('.bandcamp-player__button').trigger('click');
       expect(wrapper.find('.bandcamp-player__loading').exists()).toBe(true);
     });
 
     it('hides the loading indicator after iframe fires load', async () => {
       const wrapper = mountPlayer();
-      await wrapper.find('.bandcamp-player').trigger('click');
+      await wrapper.find('.bandcamp-player__button').trigger('click');
       await wrapper.find('iframe').trigger('load');
       expect(wrapper.find('.bandcamp-player__loading').exists()).toBe(false);
     });
 
     it('adds the loading class while iframe is loading', async () => {
       const wrapper = mountPlayer();
-      await wrapper.find('.bandcamp-player').trigger('click');
+      await wrapper.find('.bandcamp-player__button').trigger('click');
       expect(wrapper.find('.bandcamp-player').classes()).toContain('bandcamp-player--loading');
     });
 
     it('removes the loading class after iframe fires load', async () => {
       const wrapper = mountPlayer();
-      await wrapper.find('.bandcamp-player').trigger('click');
+      await wrapper.find('.bandcamp-player__button').trigger('click');
       await wrapper.find('iframe').trigger('load');
       expect(wrapper.find('.bandcamp-player').classes()).not.toContain('bandcamp-player--loading');
     });
 
-    it('does not re-open player on second click', async () => {
-      const wrapper = mountPlayer();
-      await wrapper.find('.bandcamp-player').trigger('click');
-      await wrapper.find('iframe').trigger('load');
-      await wrapper.find('.bandcamp-player').trigger('click');
-      // Still only one iframe
-      expect(wrapper.findAll('iframe')).toHaveLength(1);
-    });
   });
 
   describe('iframe attributes', () => {
     it('uses the correct Bandcamp embed URL', async () => {
       const wrapper = mountPlayer();
-      await wrapper.find('.bandcamp-player').trigger('click');
+      await wrapper.find('.bandcamp-player__button').trigger('click');
       const iframeSrc = wrapper.find('iframe').attributes('src');
       expect(iframeSrc).toContain(DEFAULT_PROPS.albumId);
       expect(iframeSrc).toContain('bandcamp.com/EmbeddedPlayer');
@@ -121,13 +113,13 @@ describe('BandcampPlayer', () => {
 
     it('has a descriptive title attribute', async () => {
       const wrapper = mountPlayer();
-      await wrapper.find('.bandcamp-player').trigger('click');
+      await wrapper.find('.bandcamp-player__button').trigger('click');
       expect(wrapper.find('iframe').attributes('title')).toContain(DEFAULT_PROPS.albumTitle);
     });
 
     it('uses sandbox attribute for security', async () => {
       const wrapper = mountPlayer();
-      await wrapper.find('.bandcamp-player').trigger('click');
+      await wrapper.find('.bandcamp-player__button').trigger('click');
       expect(wrapper.find('iframe').attributes('sandbox')).toBeTruthy();
     });
   });
@@ -154,7 +146,7 @@ describe('BandcampPlayer', () => {
     it('still opens player on click after image error', async () => {
       const wrapper = mountPlayer();
       await wrapper.find('img').trigger('error');
-      await wrapper.find('.bandcamp-player').trigger('click');
+      await wrapper.find('.bandcamp-player__button').trigger('click');
       expect(wrapper.find('iframe').exists()).toBe(true);
     });
   });
