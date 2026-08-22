@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import FormField from '@/components/FormField.vue';
 import PageShell from '@/components/PageShell.vue';
 import { useContactForm } from '@/composables/useContactForm';
 import { usePageHead } from '@/composables/usePageHead';
@@ -64,124 +65,58 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
           aria-label="Leave this field empty"
         >
 
-        <div class="contact-form__field">
-          <label
-            for="name"
-            class="contact-form__label"
-          >
-            {{ contactContent.form.fields.name.label }}
-            <abbr
-              v-if="contactContent.form.fields.name.required"
-              title="Required"
-            >*</abbr>
-          </label>
-          <input
-            id="name"
-            v-model="formData.name"
-            type="text"
-            name="name"
-            :class="['contact-form__input', { 'contact-form__input--invalid': fieldInvalid.name }]"
-            :autocomplete="contactContent.form.fields.name.autocomplete"
-            :required="contactContent.form.fields.name.required"
-            :aria-invalid="fieldInvalid.name"
-            :aria-describedby="fieldInvalid.name ? 'name-error' : undefined"
-            @input="handleInput"
-            @blur="handleBlur('name')"
-          >
-          <span
-            v-if="fieldInvalid.name"
-            id="name-error"
-            class="contact-form__error"
-            role="alert"
-          >{{ errors.name }}</span>
-        </div>
+        <FormField
+          id="name"
+          v-model="formData.name"
+          :label="contactContent.form.fields.name.label"
+          :required="contactContent.form.fields.name.required"
+          :autocomplete="contactContent.form.fields.name.autocomplete"
+          :invalid="fieldInvalid.name"
+          :error="errors.name"
+          @input="handleInput"
+          @blur="handleBlur('name')"
+        />
 
-        <div class="contact-form__field">
-          <label
-            for="email"
-            class="contact-form__label"
-          >
-            {{ contactContent.form.fields.email.label }}
-            <abbr
-              v-if="contactContent.form.fields.email.required"
-              title="Required"
-            >*</abbr>
-          </label>
-          <input
-            id="email"
-            v-model="formData.email"
-            type="email"
-            name="email"
-            :class="['contact-form__input', { 'contact-form__input--invalid': fieldInvalid.email }]"
-            :autocomplete="contactContent.form.fields.email.autocomplete"
-            :required="contactContent.form.fields.email.required"
-            :aria-invalid="fieldInvalid.email"
-            :aria-describedby="fieldInvalid.email ? 'email-error' : undefined"
-            @input="handleInput"
-            @blur="handleBlur('email')"
-          >
-          <span
-            v-if="fieldInvalid.email"
-            id="email-error"
-            class="contact-form__error"
-            role="alert"
-          >{{ errors.email }}</span>
+        <FormField
+          id="email"
+          v-model="formData.email"
+          type="email"
+          :label="contactContent.form.fields.email.label"
+          :required="contactContent.form.fields.email.required"
+          :autocomplete="contactContent.form.fields.email.autocomplete"
+          :invalid="fieldInvalid.email"
+          :error="errors.email"
+          @input="handleInput"
+          @blur="handleBlur('email')"
+        >
           <!-- FormSubmit: use email as reply-to -->
           <input
             type="hidden"
             :name="FORM_SUBMIT.REPLY_TO"
             :value="formData.email"
           >
-        </div>
+        </FormField>
 
-        <div class="contact-form__field">
-          <label
-            for="subject"
-            class="contact-form__label"
-          >
-            {{ contactContent.form.fields.subject.label }}
-          </label>
-          <input
-            id="subject"
-            v-model="formData.subject"
-            type="text"
-            name="subject"
-            class="contact-form__input"
-            :autocomplete="contactContent.form.fields.subject.autocomplete"
-            @input="handleInput"
-          >
-        </div>
+        <FormField
+          id="subject"
+          v-model="formData.subject"
+          :label="contactContent.form.fields.subject.label"
+          :autocomplete="contactContent.form.fields.subject.autocomplete"
+          @input="handleInput"
+        />
 
-        <div class="contact-form__field">
-          <label
-            for="message"
-            class="contact-form__label"
-          >
-            {{ contactContent.form.fields.message.label }}
-            <abbr
-              v-if="contactContent.form.fields.message.required"
-              title="Required"
-            >*</abbr>
-          </label>
-          <textarea
-            id="message"
-            v-model="formData.message"
-            name="message"
-            :class="['contact-form__textarea', { 'contact-form__textarea--invalid': fieldInvalid.message }]"
-            :rows="contactContent.form.fields.message.rows"
-            :required="contactContent.form.fields.message.required"
-            :aria-invalid="fieldInvalid.message"
-            :aria-describedby="fieldInvalid.message ? 'message-error' : undefined"
-            @input="handleInput"
-            @blur="handleBlur('message')"
-          />
-          <span
-            v-if="fieldInvalid.message"
-            id="message-error"
-            class="contact-form__error"
-            role="alert"
-          >{{ errors.message }}</span>
-        </div>
+        <FormField
+          id="message"
+          v-model="formData.message"
+          type="textarea"
+          :label="contactContent.form.fields.message.label"
+          :rows="contactContent.form.fields.message.rows"
+          :required="contactContent.form.fields.message.required"
+          :invalid="fieldInvalid.message"
+          :error="errors.message"
+          @input="handleInput"
+          @blur="handleBlur('message')"
+        />
 
         <button
           type="submit"
