@@ -9,9 +9,9 @@ const LIGHTBOX_IMAGE_SELECTOR = '.lightbox__image';
 const LIGHTBOX_CREDIT_SELECTOR = '.lightbox__credit';
 const ACCORDION_SECTION_SELECTOR = '.accordion-section';
 const ACCORDION_TRIGGER_SELECTOR = '.accordion-trigger';
-// Works entries share `.link-discrete` between "View gallery" (images) and the
-// "View video" control; scope to the gallery so the lightbox opens photos.
-const GALLERY_BUTTON_SELECTOR = '.link-discrete:has-text("View gallery")';
+// Works entries share `.link-discrete` between the "Gallery" (images) and
+// "Video" controls; scope to the gallery so the lightbox opens photos.
+const GALLERY_BUTTON_SELECTOR = '.link-discrete:has-text("Gallery")';
 // A gallery button is only actionable while its own accordion section is open —
 // collapsed sections are `inert`. Scope every interaction to a visible one.
 const VISIBLE_GALLERY_BUTTON = `${GALLERY_BUTTON_SELECTOR}:visible`;
@@ -46,8 +46,8 @@ const openLightboxFromFirstGallery = async (page: Page): Promise<void> => {
   await expect(page.locator(LIGHTBOX_SELECTOR)).toBeVisible();
 };
 
-// Live events label their gallery control "View photo(s)"; substring-match both.
-const LIVE_GALLERY_BUTTON = '.link-discrete:has-text("View photo")';
+// Live events label their gallery control "Photo(s)"; substring-match both.
+const LIVE_GALLERY_BUTTON = '.link-discrete:has-text("Photo")';
 
 /** Open the lightbox from a Live event gallery and wait for it. */
 const openLiveLightbox = async (page: Page): Promise<void> => {
@@ -69,7 +69,7 @@ const openLiveLightbox = async (page: Page): Promise<void> => {
 
 test.describe('Lightbox', () => {
   test.describe('Opening', () => {
-    test('opens lightbox when clicking a View gallery button', async ({ page }) => {
+    test('opens lightbox when clicking a Gallery button', async ({ page }) => {
       await openLightboxFromFirstGallery(page);
       await expect(page.locator(LIGHTBOX_SELECTOR)).toBeVisible();
     });

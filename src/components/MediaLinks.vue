@@ -1,36 +1,48 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import type { LightboxItem } from '@/types';
 
-defineProps<{
-  images: LightboxItem[];
-  videos: LightboxItem[];
-  imageLabel: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    images: LightboxItem[];
+    videos: LightboxItem[];
+    imageLabel: string;
+    posters?: LightboxItem[];
+  }>(),
+  { posters: () => [] },
+);
 
 const emit = defineEmits<{
   'open-lightbox': [items: LightboxItem[], index: number];
 }>();
+
+// The visible label is a bare noun; the 'View …' aria-label keeps the affordance for assistive tech.
+const links = computed(() =>
+  [
+    { items: props.images, label: props.imageLabel },
+    { items: props.posters, label: props.posters.length === 1 ? 'Poster' : 'Posters' },
+    { items: props.videos, label: props.videos.length === 1 ? 'Video' : 'Videos' },
+  ].filter(link => link.items.length));
 </script>
 
 <template>
   <p
-    v-if="images.length || videos.length"
+    v-if="links.length"
     class="media-links"
   >
-    <button
-      v-if="images.length"
-      class="link-discrete"
-      @click="emit('open-lightbox', images, 0)"
+    <template
+      v-for="(link, index) in links"
+      :key="link.label"
     >
-      {{ imageLabel }}
-    </button>
-    <span v-if="images.length && videos.length"> | </span>
-    <button
-      v-if="videos.length"
-      class="link-discrete"
-      @click="emit('open-lightbox', videos, 0)"
-    >
-      View {{ videos.length === 1 ? 'video' : 'videos' }}
-    </button>
+      <span v-if="index > 0"> | </span>
+      <button
+        class="link-discrete"
+        :aria-label="`View ${link.label.toLowerCase()}`"
+        @click="emit('open-lightbox', link.items, 0)"
+      >
+        {{ link.label }}
+      </button>
+    </template>
   </p>
 </template>

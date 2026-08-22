@@ -7,6 +7,7 @@ interface LightboxImageSource {
   src: string;
   alt: string;
   photographer?: Photographer;
+  artist?: Photographer;
 }
 
 interface LightboxVideoSource {
@@ -20,6 +21,7 @@ interface LightboxVideoSource {
 export const toLightboxImage = (image: LightboxImageSource): LightboxImage => {
   const item: LightboxImage = { type: 'image', src: image.src, alt: image.alt };
   if (image.photographer) item.photographer = image.photographer;
+  if (image.artist) item.artist = image.artist;
   return item;
 };
 

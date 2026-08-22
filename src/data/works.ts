@@ -278,6 +278,14 @@ export const worksData: WorksData = {
         },
         description: 'Theatre production celebrating the centenary of <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event. Faria provided both original music and live interpretation—embedding himself in a multidisciplinary creative team rather than delivering a score from a distance.',
         credits: 'Direction: Sara Gonçalves. Text: <a href="https://pt.wikipedia.org/wiki/Rui_Zink">Rui Zink</a>. Set design: <a href="https://pt.wikipedia.org/wiki/Jos%C3%A9_Manuel_Castanheira">José Manuel Castanheira</a>. Video: Filipe Ferraz. Music and live interpretation: Jerome Faria.',
+        videos: [
+          {
+            url: 'https://www.youtube-nocookie.com/embed/6LpRJBS7pzg',
+            platform: 'youtube',
+            title: 'Aragão at Teatro Municipal Baltazar Dias, Funchal, 2021',
+            author: { name: 'TRANSLOCAL Culturas Contemporâneas Locais e Urbanas', url: 'https://www.youtube.com/@translocalculturascontempo3938' },
+          },
+        ],
       },
       {
         id: 'invisible-other',

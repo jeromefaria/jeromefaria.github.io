@@ -26,11 +26,13 @@ const emit = defineEmits<{
 const isVideo = computed(() => props.currentItem !== null && isLightboxVideo(props.currentItem));
 const isImage = computed(() => props.currentItem !== null && isLightboxImage(props.currentItem));
 
-// Credit for the current item: "Photo by" for an image's photographer,
-// "Video by" for a video's author. Null when the current item has neither.
+// Credit for the current item: "Photo by" for a photograph's photographer,
+// "Poster by" for a poster's artist, "Video by" for a video's author. Null when
+// the current item carries no credit.
 const credit = computed(() => {
   const item = props.currentItem;
   if (item && isLightboxImage(item) && item.photographer) return { prefix: 'Photo by', ...item.photographer };
+  if (item && isLightboxImage(item) && item.artist) return { prefix: 'Poster by', ...item.artist };
   if (item && isLightboxVideo(item) && item.author) return { prefix: 'Video by', ...item.author };
   return null;
 });

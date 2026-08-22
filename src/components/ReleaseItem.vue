@@ -98,7 +98,7 @@ const isBandcampLink = computed(() =>
       <MediaLinks
         :images="imageLightboxItems"
         :videos="videoLightboxItems"
-        image-label="View gallery"
+        image-label="Gallery"
         @open-lightbox="(items, index) => emit('open-lightbox', items, index)"
       />
     </div>

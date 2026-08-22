@@ -180,6 +180,22 @@ describe('LightboxOverlay', () => {
       wrapper.unmount();
     });
 
+    it('credits a poster artist as "Poster by" with a safe new-tab link', () => {
+      const wrapper = mountOverlay({
+        currentItem: { type: 'image', src: '/poster.jpg', alt: 'Poster', artist: { name: 'André Lemos', url: 'https://andre.example.com' } },
+      });
+      const credit = wrapper.get('.lightbox__credit');
+      const link = credit.get('a');
+
+      expect(credit.text()).toContain('Poster by');
+      expect(link.attributes('href')).toBe('https://andre.example.com');
+      expect(link.attributes('target')).toBe('_blank');
+      expect(link.attributes('rel')).toBe('noopener noreferrer');
+      expect(link.text()).toContain('André Lemos');
+
+      wrapper.unmount();
+    });
+
     it('shows no credit for a video or an image without a photographer', () => {
       const withoutPhotographer = mountOverlay({ currentItem: image });
       expect(withoutPhotographer.find('.lightbox__credit').exists()).toBe(false);

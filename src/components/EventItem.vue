@@ -40,8 +40,9 @@ const venueLocation = computed(() =>
 const imageLightboxItems = computed<LightboxItem[]>(() =>
   props.event.images?.map(image =>
     toLightboxImage({ ...image, alt: image.alt ?? props.event.imageAlt ?? '' })) ?? []);
+const posterLightboxItems = computed<LightboxItem[]>(() => props.event.posters?.map(toLightboxImage) ?? []);
 const videoLightboxItems = computed<LightboxItem[]>(() => props.event.videos?.map(toLightboxVideo) ?? []);
-const imageLabel = computed(() => `View ${imageLightboxItems.value.length === 1 ? 'photo' : 'photos'}`);
+const imageLabel = computed(() => (imageLightboxItems.value.length === 1 ? 'Photo' : 'Photos'));
 </script>
 
 <template>
@@ -88,6 +89,7 @@ const imageLabel = computed(() => `View ${imageLightboxItems.value.length === 1 
       />
       <MediaLinks
         :images="imageLightboxItems"
+        :posters="posterLightboxItems"
         :videos="videoLightboxItems"
         :image-label="imageLabel"
         @open-lightbox="(items, index) => emit('open-lightbox', items, index)"

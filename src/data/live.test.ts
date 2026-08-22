@@ -46,6 +46,68 @@ describe('liveData image alts', () => {
   });
 });
 
+describe('liveData posters', () => {
+  // Golden of the poster artwork attached to each event, so alt text (which
+  // carries the event's own lineup/date text) is guarded against drift.
+  const POSTERS: Record<string, { src: string; alt: string; artist?: { name: string; url?: string } }[]> = {
+    'aragao-funchal': [
+      {
+        src: '/images/live/aragao-funchal-poster-001.jpg',
+        alt: 'Aragão poster — Teatro Municipal Baltazar Dias, Funchal, 22–25 September 2021; text by Rui Zink, staged by Sara Gonçalves',
+      },
+      {
+        src: '/images/live/aragao-funchal-poster-002.jpg',
+        alt: 'Aragão programme spread — synopsis and technical credits, Teatro Municipal Baltazar Dias, Funchal, 2021',
+      },
+    ],
+    'showcase-casa-amarela': [
+      {
+        src: '/images/live/showcase-casa-amarela-poster-001.jpg',
+        alt: 'Showcase Casa Amarela poster — Cooperativa Mula, Barreiro, 14 June 2025 — NOx, Copo d\'Água, TiaAvô, Rebolation All-Stars DJ set',
+      },
+    ],
+    'nariz-entupido': [
+      {
+        src: '/images/live/nariz-entupido-poster-001.jpg',
+        alt: 'Nariz Entupido poster — 30 anos SPH / 20 anos Thisco anniversary, SMUP, Parede, 22 October 2021; CAVERNANCIA + Jerome Faria',
+        artist: { name: 'André Lemos', url: 'https://www.chilicomcarne.com/index.php/autores/gallery/18' },
+      },
+    ],
+    'festival-multiplo-2026': [
+      {
+        src: '/images/live/festival-multiplo-2026-poster-001.jpg',
+        alt: 'Festival Múltiplo 2026 poster listing the full three-day lineup, Zaratan, Lisbon',
+      },
+      {
+        src: '/images/live/festival-multiplo-2026-poster-002.jpg',
+        alt: 'Festival Múltiplo 2026 poster for 23 August at Zaratan, Lisbon — Jerome Faria, Formidolor, Joana de Sá, Double Double',
+      },
+    ],
+  };
+
+  it('has a poster snapshot for exactly the poster-bearing events', () => {
+    const withPosters = events.filter(event => event.posters?.length).map(event => event.id).sort();
+    expect(withPosters).toEqual(Object.keys(POSTERS).sort());
+  });
+
+  it('matches the golden src and alt for every poster', () => {
+    for (const event of events) {
+      if (event.posters?.length) {
+        expect(event.posters, `id="${event.id}"`).toEqual(POSTERS[event.id]);
+      }
+    }
+  });
+
+  it('gives every poster a non-empty alt and a live-images source', () => {
+    for (const event of events) {
+      for (const poster of event.posters ?? []) {
+        expect(poster.alt.trim().length, `id="${event.id}"`).toBeGreaterThan(0);
+        expect(poster.src).toMatch(/^\/images\/live\/.+\.jpg$/);
+      }
+    }
+  });
+});
+
 describe('liveData year grouping (derived)', () => {
   // Snapshot of the grouping as it read when hand-authored, before the year
   // sections were derived from event dates. groupEventsByYear must reproduce it.
