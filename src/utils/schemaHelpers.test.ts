@@ -10,6 +10,7 @@ const baseEvent: LiveEvent = {
   titleUrl: 'https://digitalinberlin.eu/',
   date: '2011-12-02',
   venue: { name: 'Casa das Mudas', url: 'https://example.com', city: 'Calheta', country: 'Portugal' },
+  performance: { kind: 'solo' },
 };
 
 describe('createMusicEventSchema', () => {
