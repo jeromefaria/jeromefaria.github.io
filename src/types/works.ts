@@ -11,6 +11,12 @@ export interface MetaLink {
   url?: string;
 }
 
+// A tracklist entry: a title, plus an artist credit on various-artists releases.
+export interface Track {
+  title: string;
+  artist?: MetaLink;
+}
+
 export type Medium = 'Digital' | 'Cassette' | 'MP3' | 'CD' | 'CDr';
 
 export interface Edition {
@@ -94,7 +100,7 @@ export interface Release {
   bandcampUrl?: string;
   externalUrl?: string;
   coverImage?: string;
-  tracklist?: string[];
+  tracklist?: Track[];
   description?: string;
   credits?: string;
   images?: Image[];
@@ -113,7 +119,7 @@ export const hasExternalUrl = (release: Release): release is Release & { externa
 export const hasCoverImage = (release: Release): release is Release & { coverImage: string } =>
   Boolean(release.coverImage);
 
-export const hasTracklist = (release: Release): release is Release & { tracklist: string[] } =>
+export const hasTracklist = (release: Release): release is Release & { tracklist: Track[] } =>
   Boolean(release.tracklist);
 
 export const hasDescription = (release: Release): release is Release & { description: string } =>
