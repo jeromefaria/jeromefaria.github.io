@@ -1,14 +1,12 @@
+import type { MetaLink } from './common';
 import type { Credit, Video } from './media';
+
+export type { MetaLink };
 
 export interface Image {
   src: string;
   alt: string;
   photographer?: Credit;
-}
-
-export interface MetaLink {
-  text: string;
-  url?: string;
 }
 
 export interface Track {
