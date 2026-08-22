@@ -154,7 +154,7 @@ describe('LightboxOverlay', () => {
 
     it('links the photographer name as a safe new-tab link when a url is given', () => {
       const wrapper = mountOverlay({
-        currentItem: { type: 'image', src: '/p.jpg', alt: 'P', photographer: { name: 'Ana Lens', url: 'https://ana.example.com' } },
+        currentItem: { type: 'image', src: '/p.jpg', alt: 'P', credit: { role: 'photo', name: 'Ana Lens', url: 'https://ana.example.com' } },
       });
       const credit = wrapper.get('.lightbox__credit');
       const link = credit.get('a');
@@ -170,7 +170,7 @@ describe('LightboxOverlay', () => {
 
     it('renders the photographer name as plain text when no url is given', () => {
       const wrapper = mountOverlay({
-        currentItem: { type: 'image', src: '/p.jpg', alt: 'P', photographer: { name: 'Ana Lens' } },
+        currentItem: { type: 'image', src: '/p.jpg', alt: 'P', credit: { role: 'photo', name: 'Ana Lens' } },
       });
       const credit = wrapper.get('.lightbox__credit');
 
@@ -182,7 +182,7 @@ describe('LightboxOverlay', () => {
 
     it('credits a poster artist as "Poster by" with a safe new-tab link', () => {
       const wrapper = mountOverlay({
-        currentItem: { type: 'image', src: '/poster.jpg', alt: 'Poster', artist: { name: 'André Lemos', url: 'https://andre.example.com' } },
+        currentItem: { type: 'image', src: '/poster.jpg', alt: 'Poster', credit: { role: 'poster', name: 'André Lemos', url: 'https://andre.example.com' } },
       });
       const credit = wrapper.get('.lightbox__credit');
       const link = credit.get('a');
