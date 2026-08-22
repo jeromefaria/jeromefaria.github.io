@@ -48,23 +48,16 @@ export const toggleAndVerifyAccordion = async (
 
 interface CheckA11yOptions {
   tags?: string[];
-  failOnViolations?: boolean;
 }
 
-/**
- * Run axe-core against the current page. Mirrors the previous cypress-axe usage:
- * `failOnViolations: false` logs violations without failing (used for the
- * colour-contrast passes that were previously run with skipFailures).
- */
+/** Run axe-core against the current page and fail on any violation. */
 export const checkA11y = async (page: Page, options: CheckA11yOptions = {}): Promise<void> => {
-  const { tags, failOnViolations = true } = options;
+  const { tags } = options;
 
   let builder = new AxeBuilder({ page });
   if (tags) builder = builder.withTags(tags);
 
   const { violations } = await builder.analyze();
-
-  if (!failOnViolations) return;
 
   const summary = violations.map(violation => `${violation.id} (${violation.nodes.length})`).join(', ');
   expect(violations, `Accessibility violations: ${summary}`).toEqual([]);
