@@ -5,6 +5,7 @@ import type { LightboxItem, LiveEvent } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { formatEventDate } from '@/utils/formatters';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
+import { buildEventDescription } from '@/utils/liveDescription';
 import { pluralize } from '@/utils/pluralize';
 
 import ExternalLink from './ExternalLink.vue';
@@ -81,9 +82,8 @@ const imageLabel = computed(() => pluralize(imageLightboxItems.value.length, 'Ph
         >{{ event.venue.name }}</a><template v-else-if="event.venue.name">{{ event.venue.name }}</template>{{ venueSeparator }}{{ venueLocation }}</span>
       </p>
       <p
-        v-if="event.description"
         class="event-description"
-        v-html="externalizeLinks(event.description)"
+        v-html="externalizeLinks(buildEventDescription(event))"
       />
       <MediaLinks
         :images="imageLightboxItems"
