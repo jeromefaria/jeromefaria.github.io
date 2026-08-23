@@ -410,6 +410,7 @@ export const liveEvents: LiveEvent[] = [
     title: 'Aragão',
     titleUrl: '/works#aragao',
     date: '2021-09-22',
+    endDate: '2021-09-25',
     venue: { name: 'Teatro Municipal Baltazar Dias', url: 'https://www.teatromunicipal.pt/', city: 'Funchal', country: 'Portugal' },
     performance: { kind: 'theatre' },
     imageAlt: 'Aragão theatre production at Teatro Municipal Baltazar Dias, Funchal, 2021',

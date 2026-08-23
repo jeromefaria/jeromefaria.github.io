@@ -24,6 +24,7 @@ export interface SchemaMusicEvent {
   '@type': 'MusicEvent';
   name: string;
   startDate: string;
+  endDate?: string;
   location: SchemaPlace;
   performer: SchemaPerson;
 }

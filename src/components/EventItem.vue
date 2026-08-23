@@ -3,7 +3,7 @@ import { computed } from 'vue';
 
 import type { LightboxItem, LiveEvent } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
-import { formatEventDate } from '@/utils/formatters';
+import { formatEventDateRange } from '@/utils/formatters';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 import { buildEventDescription } from '@/utils/liveDescription';
 import { pluralize } from '@/utils/pluralize';
@@ -21,7 +21,7 @@ const emit = defineEmits<{
   'open-lightbox': [items: LightboxItem[], index: number];
 }>();
 
-const formattedDate = computed(() => formatEventDate(props.event.date));
+const formattedDate = computed(() => formatEventDateRange(props.event.date, props.event.endDate));
 
 // Surfaced as a trailing icon link, not wrapping the title, since the title is
 // already a permalink anchor and anchors can't nest.
