@@ -41,6 +41,7 @@ export interface LiveEvent {
   title: string;
   titleUrl?: string;
   date: string;
+  endDate?: string;
   venue: EventVenue;
   performance: Performance;
   lineup?: Act[];

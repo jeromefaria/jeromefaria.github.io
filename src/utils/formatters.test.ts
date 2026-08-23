@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { formatEventDate } from './formatters';
+import { formatEventDate, formatEventDateRange } from './formatters';
 
 describe('formatters', () => {
   describe('formatEventDate', () => {
@@ -27,6 +27,28 @@ describe('formatters', () => {
       expect(formatEventDate('')).toBe('');
       expect(formatEventDate(null as unknown as string)).toBe('');
       expect(formatEventDate(undefined as unknown as string)).toBe('');
+    });
+  });
+
+  describe('formatEventDateRange', () => {
+    it('formats a single date when there is no end date', () => {
+      expect(formatEventDateRange('2021-09-22')).toBe('September 22, 2021');
+    });
+
+    it('formats a single date when the end date equals the start', () => {
+      expect(formatEventDateRange('2021-09-22', '2021-09-22')).toBe('September 22, 2021');
+    });
+
+    it('collapses a same-month run to a shared month and year', () => {
+      expect(formatEventDateRange('2021-09-22', '2021-09-25')).toBe('September 22–25, 2021');
+    });
+
+    it('spells out both months for a same-year run that crosses months', () => {
+      expect(formatEventDateRange('2021-09-30', '2021-10-02')).toBe('September 30 – October 2, 2021');
+    });
+
+    it('spells out both full dates for a run that crosses years', () => {
+      expect(formatEventDateRange('2021-12-31', '2022-01-02')).toBe('December 31, 2021 – January 2, 2022');
     });
   });
 });

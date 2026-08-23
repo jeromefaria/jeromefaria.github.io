@@ -18,6 +18,7 @@ export const createMusicEventSchema = (
   '@type': 'MusicEvent',
   name: event.title,
   startDate: event.date || fallbackDate,
+  ...(event.endDate && { endDate: event.endDate }),
   location: {
     '@type': 'Place',
     name: event.venue.name ?? '',

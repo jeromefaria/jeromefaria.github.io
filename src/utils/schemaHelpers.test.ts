@@ -42,6 +42,16 @@ describe('createMusicEventSchema', () => {
     expect(schema.startDate).toBe('2011');
   });
 
+  it('emits endDate for a multi-day run', () => {
+    const schema = createMusicEventSchema({ ...baseEvent, endDate: '2011-12-04' }, 'Jerome Faria');
+    expect(schema.endDate).toBe('2011-12-04');
+  });
+
+  it('omits endDate for a single-day event', () => {
+    const schema = createMusicEventSchema(baseEvent, 'Jerome Faria');
+    expect(schema.endDate).toBeUndefined();
+  });
+
   it('sets the performer name', () => {
     const schema = createMusicEventSchema(baseEvent, 'Jerome Faria');
     expect(schema.performer).toEqual({ '@type': 'Person', name: 'Jerome Faria' });
