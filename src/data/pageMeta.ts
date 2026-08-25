@@ -32,4 +32,9 @@ export const pageMeta = {
     title: 'Press',
     description: 'Press coverage and reviews of Jerome Faria\'s work from The Quietus, Bodyspace, Indie Rock Mag, and more.',
   },
+  epk: {
+    title: 'Press Kit',
+    description: 'Press kit for Jerome Faria — biography, selected performances and works, press quotes, photography, and contact.',
+    ogType: 'profile',
+  },
 } satisfies Record<string, PageMeta>;
