@@ -5,7 +5,7 @@ export const aboutSections: AboutSection[] = [
     id: 'short-bio',
     type: 'short-bio',
     content:
-      '<p>Jerome Faria (born 1983) is a Lisbon-based composer working at the edges of electronic music. Over two decades, his practice has moved between confrontational noise and patient drones, film scores and theatre, with performances at festivals including MADEIRADIG and Störung alongside artists such as Alva Noto, Tim Hecker, and Taylor Deupree.</p>',
+      '<p>Jerome Faria (b. 1983) is a Portuguese composer and sound artist. Over two decades, his practice has moved between confrontational noise and patient drone, film scores and theatre, with performances at festivals including MADEIRADIG and Störung alongside artists such as Alva Noto, Fennesz, and Tim Hecker.</p>',
   },
   {
     id: 'section-1',

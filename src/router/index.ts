@@ -32,6 +32,11 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/ContactView.vue'),
   },
   {
+    path: '/epk',
+    name: 'epk',
+    component: () => import('@/views/EpkView.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import('@/views/NotFoundView.vue'),

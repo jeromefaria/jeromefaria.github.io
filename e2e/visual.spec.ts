@@ -11,6 +11,7 @@ const PAGES = [
   ['/press', 'press'],
   ['/about', 'about'],
   ['/contact', 'contact'],
+  ['/epk', 'epk'],
 ] as const;
 
 test.describe('Visual regression', () => {
