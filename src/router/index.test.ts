@@ -12,6 +12,7 @@ describe('router routes', () => {
       '/live',
       '/press',
       '/contact',
+      '/epk',
       '/:pathMatch(.*)*',
     ]);
   });
