@@ -32,7 +32,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><style>
   .grid a { color: #1a1a1a; text-decoration: underline; text-decoration-color: #ccc; text-underline-offset: 2px; }
   .year { color: #999; font-variant-numeric: tabular-nums; }
   .quotes { column-count: 2; column-gap: 30px; margin-top: 7px; }
-  blockquote { margin: 0 0 10px; font-style: italic; break-inside: avoid; }
+  blockquote { margin: 0 0 10px; break-inside: avoid; }
   blockquote cite { display: block; font-style: normal; font-size: 8pt; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 3px; }
   .press { margin-top: 16px; }
   .contact { margin-top: 16px; padding-top: 10px; border-top: 1px solid #ddd; font-size: 9.5pt; }
