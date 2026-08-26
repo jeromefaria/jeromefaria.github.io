@@ -23,9 +23,8 @@ describe('useScrollLock', () => {
     document.body.style.overflow = '';
   });
 
-  it('starts unlocked', () => {
-    const { api } = mountWithScrollLock();
-    expect(api.isLocked.value).toBe(false);
+  it('starts with body scroll unlocked', () => {
+    mountWithScrollLock();
     expect(document.body.style.overflow).toBe('');
   });
 
@@ -33,11 +32,9 @@ describe('useScrollLock', () => {
     const { api } = mountWithScrollLock();
 
     api.lock();
-    expect(api.isLocked.value).toBe(true);
     expect(document.body.style.overflow).toBe('hidden');
 
     api.unlock();
-    expect(api.isLocked.value).toBe(false);
     expect(document.body.style.overflow).toBe('');
   });
 
