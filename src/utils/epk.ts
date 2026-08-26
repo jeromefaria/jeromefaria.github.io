@@ -41,6 +41,9 @@ export const epkKitBasename = 'jerome-faria-press-kit';
 export const epkZipHref = `/epk/${epkKitBasename}.zip`;
 export const epkPdfHref = `/epk/${epkKitBasename}.pdf`;
 
+export const epkRiderBasename = 'jerome-faria-tech-rider';
+export const epkRiderHref = `/epk/${epkRiderBasename}.pdf`;
+
 export const resolveLongBio = (longBio: EpkLongBio, sections: AboutSection[]): string => {
   if (longBio.source === 'custom') {
     return longBio.html;
