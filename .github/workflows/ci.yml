@@ -78,6 +78,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Generate EPK bundle
+        run: npm run epk:bundle
+
       - name: Build production bundle
         run: npm run build
 

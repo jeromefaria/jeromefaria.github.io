@@ -14,7 +14,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "test:e2e": "npm run build && playwright test --grep-invert @visual",
+    "test:e2e": "npm run epk:bundle && npm run build && playwright test --grep-invert @visual",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",
     "lighthouse": "lhci autorun",
@@ -24,7 +24,9 @@
     "prebuild": "node scripts/generate-responsive-images.mjs",
     "predev": "node scripts/generate-responsive-images.mjs",
     "images:responsive": "node scripts/generate-responsive-images.mjs",
-    "epk:kit": "node scripts/generate-epk.mjs"
+    "epk:photos": "node scripts/generate-epk-photos.mjs",
+    "epk:bundle": "node scripts/generate-epk-bundle.mjs",
+    "epk:kit": "npm run epk:photos && npm run epk:bundle"
   },
   "repository": {
     "type": "git",
