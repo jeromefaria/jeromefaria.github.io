@@ -13,6 +13,7 @@ describe('router routes', () => {
       '/press',
       '/contact',
       '/epk',
+      '/privacy',
       '/:pathMatch(.*)*',
     ]);
   });

@@ -37,4 +37,8 @@ export const pageMeta = {
     description: 'Press kit for Jerome Faria — biography, selected performances and works, press quotes, photography, and contact.',
     ogType: 'profile',
   },
+  privacy: {
+    title: 'Privacy',
+    description: 'How this site handles the contact form, spam protection, and your data — no cookies, no analytics, no tracking.',
+  },
 } satisfies Record<string, PageMeta>;
