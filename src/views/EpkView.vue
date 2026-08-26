@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router';
+
 import ExternalLink from '@/components/ExternalLink.vue';
 import PageShell from '@/components/PageShell.vue';
 import { usePageHead } from '@/composables/usePageHead';
 import { epkManifest } from '@/data/epk';
 import { pageMeta } from '@/data/pageMeta';
-import { resolveEpkContent } from '@/utils/epk';
+import { epkPdfHref, epkZipHref, photoDownloadHref, resolveEpkContent } from '@/utils/epk';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { responsiveSrcset, toWebp } from '@/utils/responsiveImage';
 
@@ -35,6 +37,25 @@ const epk = resolveEpkContent(epkManifest);
 
       <section class="epk__section">
         <h2 class="epk__heading">
+          Download
+        </h2>
+        <p class="media-links">
+          <a
+            class="link-discrete"
+            :href="epkZipHref"
+            download
+          >Full press kit (ZIP)</a>
+          <span> | </span>
+          <a
+            class="link-discrete"
+            :href="epkPdfHref"
+            download
+          >One-sheet (PDF)</a>
+        </p>
+      </section>
+
+      <section class="epk__section">
+        <h2 class="epk__heading">
           Biography
         </h2>
         <div
@@ -49,7 +70,7 @@ const epk = resolveEpkContent(epkManifest);
         </h2>
         <div class="epk__photos">
           <figure
-            v-for="photo in epk.photos"
+            v-for="(photo, index) in epk.photos"
             :key="photo.src"
             class="epk__photo"
           >
@@ -70,17 +91,26 @@ const epk = resolveEpkContent(epkManifest);
                 decoding="async"
               >
             </picture>
-            <figcaption v-if="photo.photographer">
-              Photo:
-              <ExternalLink
-                v-if="photo.photographer.url"
-                :href="photo.photographer.url"
-              >
-                {{ photo.photographer.name }}
-              </ExternalLink>
-              <template v-else>
-                {{ photo.photographer.name }}
+            <figcaption>
+              <template v-if="photo.photographer">
+                Photo:
+                <ExternalLink
+                  v-if="photo.photographer.url"
+                  :href="photo.photographer.url"
+                >
+                  {{ photo.photographer.name }}
+                </ExternalLink>
+                <template v-else>
+                  {{ photo.photographer.name }}
+                </template>
+                ·
               </template>
+              <a
+                :href="photoDownloadHref(photo, index)"
+                download
+              >
+                Download
+              </a>
             </figcaption>
           </figure>
         </div>
@@ -97,7 +127,12 @@ const epk = resolveEpkContent(epkManifest);
             class="epk__list-item"
           >
             <span class="epk__year">{{ highlight.year }}</span>
-            <span>{{ highlight.title }} — {{ highlight.location }}</span>
+            <span>
+              <RouterLink
+                class="epk__link"
+                :to="`/live#${highlight.id}`"
+              >{{ highlight.title }}</RouterLink> — {{ highlight.location }}
+            </span>
           </li>
         </ul>
       </section>
@@ -113,7 +148,12 @@ const epk = resolveEpkContent(epkManifest);
             class="epk__list-item"
           >
             <span class="epk__year">{{ work.year }}</span>
-            <span>{{ work.title }}</span>
+            <span>
+              <RouterLink
+                class="epk__link"
+                :to="`/works#${work.id}`"
+              >{{ work.title }}</RouterLink>
+            </span>
           </li>
         </ul>
       </section>

@@ -27,6 +27,16 @@
   line-height: $line-height-snug;
 }
 
+.epk__link {
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 2px;
+
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
 .epk__year {
   flex-shrink: 0;
   width: 3rem;
