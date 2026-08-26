@@ -4,7 +4,7 @@ import { pressQuotes } from '@/data/press';
 import { worksData } from '@/data/works';
 import type { AboutSection, AboutTextSection } from '@/types/about';
 import { isImageSection } from '@/types/about';
-import type { EpkContent, EpkLiveHighlight, EpkLongBio, EpkManifest, EpkWorkHighlight } from '@/types/epk';
+import type { EpkContent, EpkLiveHighlight, EpkLongBio, EpkManifest, EpkPhoto, EpkWorkHighlight } from '@/types/epk';
 import type { EventVenue, LiveEvent } from '@/types/live';
 import type { Release } from '@/types/works';
 
@@ -19,6 +19,27 @@ const findById = <T extends { id: string }>(items: T[], id: string): T => {
 };
 
 const isTextSection = (section: AboutSection): section is AboutTextSection => !isImageSection(section);
+
+const slugify = (value: string): string =>
+  value
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+export const photoDownloadFilename = (photo: EpkPhoto, index: number): string => {
+  const credit = photo.photographer ? `-by-${slugify(photo.photographer.name)}` : '';
+
+  return `jerome-faria-${index + 1}${credit}.jpg`;
+};
+
+export const photoDownloadHref = (photo: EpkPhoto, index: number): string =>
+  `/epk/photos/${photoDownloadFilename(photo, index)}`;
+
+export const epkKitBasename = 'jerome-faria-press-kit';
+export const epkZipHref = `/epk/${epkKitBasename}.zip`;
+export const epkPdfHref = `/epk/${epkKitBasename}.pdf`;
 
 export const resolveLongBio = (longBio: EpkLongBio, sections: AboutSection[]): string => {
   if (longBio.source === 'custom') {
@@ -37,12 +58,14 @@ export const eventLocation = (venue: EventVenue): string => {
 };
 
 export const toLiveHighlight = (event: LiveEvent): EpkLiveHighlight => ({
+  id: event.id,
   year: event.date.slice(0, 4),
   title: event.title,
   location: eventLocation(event.venue),
 });
 
 export const toWorkHighlight = (release: Release): EpkWorkHighlight => ({
+  id: release.id,
   year: release.meta.year,
   title: release.title,
 });

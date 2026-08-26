@@ -11,7 +11,7 @@ test.describe('Press kit (EPK)', () => {
     await expect(page).toHaveTitle(/Press Kit/);
     await expect(page.locator('[data-page="epk"]')).toBeVisible();
 
-    for (const heading of ['Short bio', 'Biography', 'Selected performances', 'Selected works', 'Press', 'Photography']) {
+    for (const heading of ['Short bio', 'Download', 'Biography', 'Photography', 'Selected performances', 'Selected works', 'Press']) {
       await expect(page.getByRole('heading', { name: heading, exact: true })).toBeVisible();
     }
   });
@@ -26,6 +26,23 @@ test.describe('Press kit (EPK)', () => {
     await page.goto('/epk');
 
     await expect(page.locator('[data-page="epk"] a[target="_blank"]').first()).toBeVisible();
+  });
+
+  test('serves every download the page links to', async ({ page }) => {
+    await page.goto('/epk');
+
+    const hrefs = await page
+      .locator('[data-page="epk"] a[download]')
+      .evaluateAll(anchors => anchors.map(anchor => anchor.getAttribute('href') ?? ''));
+
+    expect(hrefs.length).toBeGreaterThan(0);
+
+    for (const href of hrefs) {
+      const response = await page.request.head(href);
+
+      expect(response.status(), href).toBe(200);
+      expect(response.headers()['content-type'] ?? '', href).toMatch(/zip|pdf|jpeg/);
+    }
   });
 
   test('has no detectable accessibility violations', async ({ page }) => {

@@ -21,12 +21,14 @@ export interface EpkManifest {
 }
 
 export interface EpkLiveHighlight {
+  id: string;
   year: string;
   title: string;
   location: string;
 }
 
 export interface EpkWorkHighlight {
+  id: string;
   year: number;
   title: string;
 }
