@@ -316,7 +316,7 @@ export const worksData: WorksData = {
     items: [
       {
         id: 'aragao',
-        title: 'Aragão',
+        title: 'ARAGÃO',
         coverImage: '/images/aragao.jpg',
         meta: {
           kind: 'commission',
