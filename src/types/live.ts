@@ -1,4 +1,3 @@
-import type { MetaLink } from './common';
 import type { Credit, Video } from './media';
 
 export interface LiveImage {
@@ -13,15 +12,17 @@ export interface Act {
   suffix?: string;
 }
 
-export type Performance =
+export type Setup =
   | { kind: 'solo' }
   | { kind: 'duo'; with: Act }
-  | { kind: 'project'; name: MetaLink; members?: MetaLink[] }
-  | { kind: 'withBand'; band: MetaLink }
-  | { kind: 'ensemble'; name: string; note?: string }
+  | { kind: 'project'; name: Act; members?: Act[] }
+  | { kind: 'band'; band: Act }
+  | { kind: 'ensemble'; name: string; members?: Act[] };
+
+export type Format =
   | { kind: 'theatre' }
-  | { kind: 'filmScore'; film: string; with?: Act; premiere?: boolean }
-  | { kind: 'talk' };
+  | { kind: 'talk' }
+  | { kind: 'filmScore'; film: string; premiere?: boolean };
 
 export interface Poster {
   src: string;
@@ -43,8 +44,9 @@ export interface LiveEvent {
   date: string;
   endDate?: string;
   venue: EventVenue;
-  performance: Performance;
-  lineup?: Act[];
+  setup: Setup;
+  format?: Format;
+  bill?: Act[];
   note?: string;
   imageAlt?: string;
   images?: LiveImage[];

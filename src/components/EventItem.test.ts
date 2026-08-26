@@ -16,7 +16,7 @@ const plainEvent: LiveEvent = {
   title: 'Fim de Emissão #45',
   date: '2025-01-17',
   venue: { name: 'Desterro', url: 'https://darc.pt', city: 'Lisbon', country: 'Portugal' },
-  performance: { kind: 'solo' },
+  setup: { kind: 'solo' },
 };
 
 const festivalEvent: LiveEvent = {
@@ -25,7 +25,7 @@ const festivalEvent: LiveEvent = {
   titleUrl: 'https://digitalinberlin.eu/',
   date: '2011-12-02',
   venue: { name: 'Casa das Mudas', city: 'Calheta', country: 'Portugal' },
-  performance: { kind: 'solo' },
+  setup: { kind: 'solo' },
 };
 
 const internalRefEvent: LiveEvent = {
@@ -34,7 +34,7 @@ const internalRefEvent: LiveEvent = {
   titleUrl: '/works#aragao',
   date: '2021-09-22',
   venue: { name: 'Teatro Municipal Baltazar Dias', city: 'Funchal', country: 'Portugal' },
-  performance: { kind: 'solo' },
+  setup: { kind: 'solo' },
 };
 
 describe('EventItem', () => {
@@ -42,8 +42,8 @@ describe('EventItem', () => {
     it('derives the lead sentence and opens lineup links in a new tab', () => {
       const wrapper = mountEvent({
         ...plainEvent,
-        performance: { kind: 'solo' },
-        lineup: [{ text: 'Pedro Roque', url: 'https://cavernancia.bandcamp.com/' }],
+        setup: { kind: 'solo' },
+        bill: [{ text: 'Pedro Roque', url: 'https://cavernancia.bandcamp.com/' }],
       });
       const description = wrapper.get('.event-description');
       const anchors = description.findAll('a');
