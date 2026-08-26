@@ -2,20 +2,71 @@ import { mount } from '@vue/test-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { type Component, defineComponent } from 'vue';
 
+import type { ContactFormConfig } from '@/types/contact';
+
 import { useContactForm } from './useContactForm';
 
-function createTestComponent(submitUrl: string): Component {
+const TEST_URL = 'https://example.com/submit';
+
+const CONFIG: ContactFormConfig = {
+  action: TEST_URL,
+  inquiry: { id: 'inquiry', label: 'Inquiry type', type: 'select', required: true, placeholder: 'Select one' },
+  baseFields: {
+    name: { id: 'name', label: 'Name', type: 'text', required: true },
+    email: { id: 'email', label: 'Email', type: 'email', required: true },
+    message: { id: 'message', label: 'Message', type: 'textarea', required: true },
+  },
+  inquiryTypes: [
+    {
+      id: 'booking',
+      label: 'Booking',
+      subjectPrefix: 'Booking',
+      blurb: '',
+      fields: [{ id: 'eventVenue', label: 'Event or venue', type: 'text', required: false }],
+    },
+    {
+      id: 'licensing',
+      label: 'Licensing',
+      subjectPrefix: 'Licensing',
+      blurb: '',
+      fields: [{ id: 'track', label: 'Track or release', type: 'text', required: true }],
+    },
+  ],
+  submitText: 'Send',
+};
+
+function createTestComponent(): Component {
   return defineComponent({
     setup() {
-      const form = useContactForm(submitUrl);
+      const form = useContactForm(CONFIG);
       return { ...form };
     },
     template: '<div></div>',
   });
 }
 
+const fillBaseFields = (vm: Record<string, Record<string, string>>): void => {
+  vm.formData.name = 'John';
+  vm.formData.email = 'test@example.com';
+  vm.formData.message = 'Hello';
+};
+
+const createMockForm = (): HTMLFormElement => {
+  const form = document.createElement('form');
+  ['name', 'email', 'message'].forEach(field => {
+    const input = document.createElement('input');
+    input.name = field;
+    input.value = 'value';
+    form.appendChild(input);
+  });
+
+  return form;
+};
+
+const submitEvent = (target: EventTarget): Event =>
+  ({ preventDefault: vi.fn(), target }) as unknown as Event;
+
 describe('useContactForm', () => {
-  const TEST_URL = 'https://example.com/submit';
   let fetchSpy: ReturnType<typeof vi.spyOn>;
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
 
@@ -26,446 +77,222 @@ describe('useContactForm', () => {
   });
 
   describe('initial state', () => {
-    it('should initialize with empty form data', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
+    it('initializes every field empty, including adaptive ones', () => {
+      const wrapper = mount(createTestComponent());
 
       expect(wrapper.vm.formData).toEqual({
+        inquiry: '',
         name: '',
         email: '',
-        subject: '',
         message: '',
+        eventVenue: '',
+        track: '',
       });
     });
 
-    it('should initialize with no touched fields', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
+    it('initializes with no touched fields, is not submitting, and is invalid', () => {
+      const wrapper = mount(createTestComponent());
 
-      expect(wrapper.vm.touched).toEqual({
-        name: false,
-        email: false,
-        message: false,
-      });
-    });
-
-    it('should initialize with isSubmitting as false', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
+      expect(Object.values(wrapper.vm.touched).every(flag => flag === false)).toBe(true);
       expect(wrapper.vm.isSubmitting).toBe(false);
-    });
-
-    it('should initialize with showSuccess as false', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
       expect(wrapper.vm.showSuccess).toBe(false);
-    });
-
-    it('should initialize as invalid when empty', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
       expect(wrapper.vm.isFormValid).toBe(false);
+      expect(wrapper.vm.selectedType).toBeNull();
     });
   });
 
-  describe('field validation', () => {
-    it('should validate name as required', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
+  describe('inquiry selection', () => {
+    it('resolves the selected inquiry type', () => {
+      const wrapper = mount(createTestComponent());
 
-      wrapper.vm.formData.email = 'test@example.com';
-      wrapper.vm.formData.message = 'Hello';
+      wrapper.vm.formData.inquiry = 'booking';
 
+      expect(wrapper.vm.selectedType?.id).toBe('booking');
+    });
+  });
+
+  describe('validation', () => {
+    it('requires an inquiry type alongside the base fields', () => {
+      const wrapper = mount(createTestComponent());
+
+      fillBaseFields(wrapper.vm);
       expect(wrapper.vm.isFormValid).toBe(false);
 
-      wrapper.vm.formData.name = 'John';
+      wrapper.vm.formData.inquiry = 'booking';
       expect(wrapper.vm.isFormValid).toBe(true);
     });
 
-    it('should validate email as required', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
+    it('enforces a required adaptive field for the selected type', () => {
+      const wrapper = mount(createTestComponent());
 
-      wrapper.vm.formData.name = 'John';
-      wrapper.vm.formData.message = 'Hello';
-
+      fillBaseFields(wrapper.vm);
+      wrapper.vm.formData.inquiry = 'licensing';
       expect(wrapper.vm.isFormValid).toBe(false);
 
-      wrapper.vm.formData.email = 'test@example.com';
+      wrapper.vm.formData.track = 'Overlapse';
       expect(wrapper.vm.isFormValid).toBe(true);
     });
 
-    it('should validate message as required', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
+    it('does not require optional adaptive fields', () => {
+      const wrapper = mount(createTestComponent());
 
-      wrapper.vm.formData.name = 'John';
-      wrapper.vm.formData.email = 'test@example.com';
+      fillBaseFields(wrapper.vm);
+      wrapper.vm.formData.inquiry = 'booking';
 
-      expect(wrapper.vm.isFormValid).toBe(false);
-
-      wrapper.vm.formData.message = 'Hello';
       expect(wrapper.vm.isFormValid).toBe(true);
     });
 
-    it('should reject whitespace-only values', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
+    it('rejects whitespace-only values', () => {
+      const wrapper = mount(createTestComponent());
 
+      wrapper.vm.formData.inquiry = 'booking';
       wrapper.vm.formData.name = '   ';
       wrapper.vm.formData.email = '  ';
       wrapper.vm.formData.message = '   ';
 
       expect(wrapper.vm.isFormValid).toBe(false);
     });
-
-    it('should not require subject field', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      wrapper.vm.formData.name = 'John';
-      wrapper.vm.formData.email = 'test@example.com';
-      wrapper.vm.formData.message = 'Hello';
-
-      expect(wrapper.vm.isFormValid).toBe(true);
-    });
   });
 
-  describe('touched state', () => {
-    it('should track touched state for name field', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
+  describe('touched state and errors', () => {
+    it('tracks touched only after blur and surfaces an error for empty required fields', () => {
+      const wrapper = mount(createTestComponent());
 
-      expect(wrapper.vm.touched.name).toBe(false);
+      expect(wrapper.vm.fieldInvalid.name).toBe(false);
 
       wrapper.vm.handleBlur('name');
 
       expect(wrapper.vm.touched.name).toBe(true);
-    });
-
-    it('should track touched state for email field', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      expect(wrapper.vm.touched.email).toBe(false);
-
-      wrapper.vm.handleBlur('email');
-
-      expect(wrapper.vm.touched.email).toBe(true);
-    });
-
-    it('should track touched state for message field', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      expect(wrapper.vm.touched.message).toBe(false);
-
-      wrapper.vm.handleBlur('message');
-
-      expect(wrapper.vm.touched.message).toBe(true);
-    });
-  });
-
-  describe('field validation errors', () => {
-    it('should only show errors for touched fields', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      expect(wrapper.vm.fieldInvalid.name).toBe(false);
-      expect(wrapper.vm.fieldInvalid.email).toBe(false);
-      expect(wrapper.vm.fieldInvalid.message).toBe(false);
-
-      wrapper.vm.handleBlur('name');
-
       expect(wrapper.vm.fieldInvalid.name).toBe(true);
-      expect(wrapper.vm.fieldInvalid.email).toBe(false);
-      expect(wrapper.vm.fieldInvalid.message).toBe(false);
-    });
-
-    it('should clear errors when field has valid value', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      wrapper.vm.handleBlur('name');
-      expect(wrapper.vm.fieldInvalid.name).toBe(true);
-
-      wrapper.vm.formData.name = 'John';
-      expect(wrapper.vm.fieldInvalid.name).toBe(false);
-    });
-
-    it('should not show errors for touched fields with values', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      wrapper.vm.formData.email = 'test@example.com';
-      wrapper.vm.formData.message = 'Test message';
-
-      wrapper.vm.handleBlur('email');
-      wrapper.vm.handleBlur('message');
-
-      expect(wrapper.vm.fieldInvalid.email).toBe(false);
-      expect(wrapper.vm.fieldInvalid.message).toBe(false);
-    });
-  });
-
-  describe('handleInput', () => {
-    it('should hide success message when user types', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      wrapper.vm.showSuccess = true;
-      wrapper.vm.handleInput();
-
-      expect(wrapper.vm.showSuccess).toBe(false);
-    });
-  });
-
-  describe('resetForm', () => {
-    it('should reset form data to empty values', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      wrapper.vm.formData.name = 'John';
-      wrapper.vm.formData.email = 'test@example.com';
-      wrapper.vm.formData.subject = 'Inquiry';
-      wrapper.vm.formData.message = 'Hello';
-
-      wrapper.vm.resetForm();
-
-      expect(wrapper.vm.formData).toEqual({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
-    });
-
-    it('should reset touched state', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      wrapper.vm.touched.name = true;
-      wrapper.vm.touched.email = true;
-      wrapper.vm.touched.message = true;
-
-      wrapper.vm.resetForm();
-
-      expect(wrapper.vm.touched).toEqual({
-        name: false,
-        email: false,
-        message: false,
-      });
-    });
-  });
-
-  describe('handleSubmit - successful submission', () => {
-    const createMockForm = () => {
-      const form = document.createElement('form');
-      const nameInput = document.createElement('input');
-      nameInput.name = 'name';
-      nameInput.value = 'John';
-      const emailInput = document.createElement('input');
-      emailInput.name = 'email';
-      emailInput.value = 'test@example.com';
-      const messageTextarea = document.createElement('textarea');
-      messageTextarea.name = 'message';
-      messageTextarea.value = 'Hello';
-      form.appendChild(nameInput);
-      form.appendChild(emailInput);
-      form.appendChild(messageTextarea);
-      return form;
-    };
-
-    it('should set isSubmitting to true during submission', async () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      fetchSpy.mockResolvedValueOnce({
-        ok: true,
-      } as Response);
-
-      const form = createMockForm();
-      const mockEvent = {
-        preventDefault: vi.fn(),
-        target: form,
-      } as unknown as Event;
-
-      const submitPromise = wrapper.vm.handleSubmit(mockEvent);
-
-      expect(wrapper.vm.isSubmitting).toBe(true);
-
-      await submitPromise;
-
-      expect(wrapper.vm.isSubmitting).toBe(false);
-    });
-
-    it('should call fetch with correct parameters', async () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      fetchSpy.mockResolvedValueOnce({
-        ok: true,
-      } as Response);
-
-      const form = createMockForm();
-      const mockEvent = {
-        preventDefault: vi.fn(),
-        target: form,
-      } as unknown as Event;
-
-      await wrapper.vm.handleSubmit(mockEvent);
-
-      expect(fetchSpy).toHaveBeenCalledWith(TEST_URL, {
-        method: 'POST',
-        body: expect.any(FormData),
-        headers: {
-          'Accept': 'application/json',
-        },
-      });
-    });
-
-    it('should show success message after successful submission', async () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      fetchSpy.mockResolvedValueOnce({
-        ok: true,
-      } as Response);
-
-      const form = createMockForm();
-      const mockEvent = {
-        preventDefault: vi.fn(),
-        target: form,
-      } as unknown as Event;
-
-      await wrapper.vm.handleSubmit(mockEvent);
-
-      expect(wrapper.vm.showSuccess).toBe(true);
-    });
-
-    it('should reset form after successful submission', async () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      wrapper.vm.formData.name = 'John';
-      wrapper.vm.formData.email = 'test@example.com';
-      wrapper.vm.formData.message = 'Hello';
-
-      fetchSpy.mockResolvedValueOnce({
-        ok: true,
-      } as Response);
-
-      const form = createMockForm();
-      const mockEvent = {
-        preventDefault: vi.fn(),
-        target: form,
-      } as unknown as Event;
-
-      await wrapper.vm.handleSubmit(mockEvent);
-
-      expect(wrapper.vm.formData).toEqual({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
-    });
-  });
-
-  describe('handleSubmit - error handling', () => {
-    const createMockForm = () => {
-      const form = document.createElement('form');
-      const nameInput = document.createElement('input');
-      nameInput.name = 'name';
-      nameInput.value = 'John';
-      const emailInput = document.createElement('input');
-      emailInput.name = 'email';
-      emailInput.value = 'test@example.com';
-      const messageTextarea = document.createElement('textarea');
-      messageTextarea.name = 'message';
-      messageTextarea.value = 'Hello';
-      form.appendChild(nameInput);
-      form.appendChild(emailInput);
-      form.appendChild(messageTextarea);
-      return form;
-    };
-
-    it('should fall back to native form submission on non-ok response', async () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      fetchSpy.mockResolvedValueOnce({
-        ok: false,
-        status: 400,
-      } as Response);
-
-      const mockForm = createMockForm();
-      const submitSpy = vi.spyOn(mockForm, 'submit').mockImplementation(() => {});
-
-      const mockEvent = {
-        preventDefault: vi.fn(),
-        target: mockForm,
-      } as unknown as Event;
-
-      await wrapper.vm.handleSubmit(mockEvent);
-
-      expect(submitSpy).toHaveBeenCalled();
-      expect(wrapper.vm.isSubmitting).toBe(false);
-      expect(wrapper.vm.showSuccess).toBe(false);
-    });
-
-    it('should fall back to native form submission on fetch error', async () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      fetchSpy.mockRejectedValueOnce(new Error('Network error'));
-
-      const mockForm = createMockForm();
-      const submitSpy = vi.spyOn(mockForm, 'submit').mockImplementation(() => {});
-
-      const mockEvent = {
-        preventDefault: vi.fn(),
-        target: mockForm,
-      } as unknown as Event;
-
-      await wrapper.vm.handleSubmit(mockEvent);
-
-      expect(submitSpy).toHaveBeenCalled();
-      expect(wrapper.vm.isSubmitting).toBe(false);
-      expect(wrapper.vm.showSuccess).toBe(false);
-    });
-
-    it('should log error to console on fetch failure', async () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      const error = new Error('Network error');
-      fetchSpy.mockRejectedValueOnce(error);
-
-      const mockForm = createMockForm();
-      vi.spyOn(mockForm, 'submit').mockImplementation(() => {});
-
-      const mockEvent = {
-        preventDefault: vi.fn(),
-        target: mockForm,
-      } as unknown as Event;
-
-      await wrapper.vm.handleSubmit(mockEvent);
-
-      expect(consoleErrorSpy).toHaveBeenCalledWith('Form submission error:', error);
-    });
-
-    it('should prevent default form submission', async () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-
-      fetchSpy.mockResolvedValueOnce({
-        ok: true,
-      } as Response);
-
-      const mockForm = createMockForm();
-      const mockEvent = {
-        preventDefault: vi.fn(),
-        target: mockForm,
-      } as unknown as Event;
-
-      await wrapper.vm.handleSubmit(mockEvent);
-
-      expect(mockEvent.preventDefault).toHaveBeenCalled();
-    });
-  });
-
-  describe('errors', () => {
-    it('produces a required-field message once a field is touched and empty', () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
-      wrapper.vm.handleBlur('name');
       expect(wrapper.vm.errors.name).toBe('Name is required');
     });
 
-    it('clears the message once the field is filled', async () => {
-      const wrapper = mount(createTestComponent(TEST_URL));
+    it('clears the error once the field is filled', async () => {
+      const wrapper = mount(createTestComponent());
+
       wrapper.vm.handleBlur('email');
       expect(wrapper.vm.errors.email).toBe('Email is required');
 
       wrapper.vm.formData.email = 'a@b.com';
       await wrapper.vm.$nextTick();
       expect(wrapper.vm.errors.email).toBe('');
+    });
+
+    it('surfaces errors for a required adaptive field', () => {
+      const wrapper = mount(createTestComponent());
+
+      wrapper.vm.formData.inquiry = 'licensing';
+      wrapper.vm.handleBlur('track');
+
+      expect(wrapper.vm.errors.track).toBe('Track or release is required');
+    });
+  });
+
+  describe('handleInput and resetForm', () => {
+    it('hides the success message when the user types', () => {
+      const wrapper = mount(createTestComponent());
+
+      wrapper.vm.showSuccess = true;
+      wrapper.vm.handleInput();
+
+      expect(wrapper.vm.showSuccess).toBe(false);
+    });
+
+    it('resets every field value and touched flag', () => {
+      const wrapper = mount(createTestComponent());
+
+      wrapper.vm.formData.inquiry = 'booking';
+      fillBaseFields(wrapper.vm);
+      wrapper.vm.formData.eventVenue = 'Festival';
+      wrapper.vm.touched.name = true;
+
+      wrapper.vm.resetForm();
+
+      expect(wrapper.vm.formData).toEqual({
+        inquiry: '',
+        name: '',
+        email: '',
+        message: '',
+        eventVenue: '',
+        track: '',
+      });
+      expect(Object.values(wrapper.vm.touched).every(flag => flag === false)).toBe(true);
+    });
+  });
+
+  describe('handleSubmit', () => {
+    it('posts to the configured action and shows success on ok', async () => {
+      const wrapper = mount(createTestComponent());
+      fetchSpy.mockResolvedValueOnce({ ok: true } as Response);
+
+      fillBaseFields(wrapper.vm);
+      await wrapper.vm.handleSubmit(submitEvent(createMockForm()));
+
+      expect(fetchSpy).toHaveBeenCalledWith(TEST_URL, {
+        method: 'POST',
+        body: expect.any(FormData),
+        headers: { 'Accept': 'application/json' },
+      });
+      expect(wrapper.vm.showSuccess).toBe(true);
+      expect(wrapper.vm.formData.name).toBe('');
+      expect(wrapper.vm.isSubmitting).toBe(false);
+    });
+
+    it('toggles isSubmitting during the request', async () => {
+      const wrapper = mount(createTestComponent());
+      fetchSpy.mockResolvedValueOnce({ ok: true } as Response);
+
+      const pending = wrapper.vm.handleSubmit(submitEvent(createMockForm()));
+      expect(wrapper.vm.isSubmitting).toBe(true);
+
+      await pending;
+      expect(wrapper.vm.isSubmitting).toBe(false);
+    });
+
+    it('falls back to native submission on a non-ok response', async () => {
+      const wrapper = mount(createTestComponent());
+      fetchSpy.mockResolvedValueOnce({ ok: false, status: 400 } as Response);
+
+      const form = createMockForm();
+      const submitSpy = vi.spyOn(form, 'submit').mockImplementation(() => {});
+
+      await wrapper.vm.handleSubmit(submitEvent(form));
+
+      expect(submitSpy).toHaveBeenCalled();
+      expect(wrapper.vm.showSuccess).toBe(false);
+    });
+
+    it('logs and falls back to native submission on a fetch error', async () => {
+      const wrapper = mount(createTestComponent());
+      const error = new Error('Network error');
+      fetchSpy.mockRejectedValueOnce(error);
+
+      const form = createMockForm();
+      const submitSpy = vi.spyOn(form, 'submit').mockImplementation(() => {});
+
+      await wrapper.vm.handleSubmit(submitEvent(form));
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith('Form submission error:', error);
+      expect(submitSpy).toHaveBeenCalled();
+    });
+
+    it('prevents the default submission', async () => {
+      const wrapper = mount(createTestComponent());
+      fetchSpy.mockResolvedValueOnce({ ok: true } as Response);
+
+      const event = submitEvent(createMockForm());
+      await wrapper.vm.handleSubmit(event);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+    });
+
+    it('ignores a submit whose target is not a form', async () => {
+      const wrapper = mount(createTestComponent());
+
+      await wrapper.vm.handleSubmit(submitEvent(document.createElement('div')));
+
+      expect(fetchSpy).not.toHaveBeenCalled();
+      expect(wrapper.vm.isSubmitting).toBe(false);
     });
   });
 });
