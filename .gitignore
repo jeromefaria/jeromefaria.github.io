@@ -29,6 +29,9 @@ npm-debug.log*
 # Cache
 .cache/
 
+# Cloudflare Worker (wrangler) local state
+.wrangler/
+
 # Test coverage
 coverage/
 
