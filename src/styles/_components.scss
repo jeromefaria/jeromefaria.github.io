@@ -308,37 +308,6 @@
   pointer-events: none;
 }
 
-.contact-intro {
-  max-width: $max-width;
-  margin: 0 auto $spacing-8;
-
-  @include respond-to(md) {
-    margin-bottom: $spacing-12;
-  }
-
-  p {
-    font-size: $font-size-base;
-    line-height: $line-height-relaxed;
-    color: var(--color-text-secondary);
-    margin-bottom: $spacing-4;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  a {
-    color: var(--color-text);
-    text-decoration: none;
-    border-bottom: 1px solid var(--color-border);
-    transition: border-color $transition-base;
-
-    &:hover {
-      border-color: var(--color-text);
-    }
-  }
-}
-
 .contact-success {
   max-width: $max-width;
   margin: 0 auto $spacing-8;
@@ -387,6 +356,13 @@
     }
   }
 
+  &__blurb {
+    margin: 0 0 $spacing-6;
+    font-size: $font-size-sm;
+    line-height: $line-height-relaxed;
+    color: var(--color-text-secondary);
+  }
+
   &__error {
     display: block;
     margin-top: $spacing-2;
@@ -416,7 +392,8 @@
     padding: $spacing-3;
     border: 1px solid var(--color-border);
     font-family: $font-sans;
-    font-size: $font-size-base;
+    // 16px (1rem) keeps iOS Safari from auto-zooming the focused control
+    font-size: $font-size-lg;
     line-height: $line-height-base;
     color: var(--color-text);
     background-color: var(--color-bg);
@@ -467,6 +444,47 @@
     resize: vertical;
     min-height: 8rem;
     max-height: 24rem;
+  }
+
+  &__select {
+    width: 100%;
+    padding: $spacing-3;
+    padding-right: $spacing-8;
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    appearance: none;
+    font-family: $font-sans;
+    font-size: $font-size-lg;
+    line-height: $line-height-base;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right $spacing-3 center;
+    background-size: 0.7rem;
+    transition: border-color $transition-base, background-color $transition-base;
+
+    &:hover {
+      border-color: var(--color-text-muted);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-text);
+    }
+
+    &--invalid {
+      border-color: var(--color-error);
+
+      &:hover,
+      &:focus {
+        border-color: var(--color-error);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition-duration: 0.01ms;
+    }
   }
 
   &__submit {

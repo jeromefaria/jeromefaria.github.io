@@ -1,57 +1,80 @@
 import type { ComputedRef, Ref } from 'vue';
-import { computed, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 
-const REQUIRED_FIELDS = ['name', 'email', 'message'] as const;
-type RequiredField = (typeof REQUIRED_FIELDS)[number];
+import type { ContactField, ContactFormConfig, InquiryType } from '@/types/contact';
 
-const FIELD_LABELS: Record<RequiredField, string> = { name: 'Name', email: 'Email', message: 'Message' };
+type StringMap = Record<string, string>;
+type FlagMap = Record<string, boolean>;
 
-interface FormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
+const collectFields = (form: ContactFormConfig): ContactField[] => [
+  form.inquiry,
+  form.baseFields.name,
+  form.baseFields.email,
+  form.baseFields.message,
+  ...form.inquiryTypes.flatMap(type => type.fields),
+];
 
-type FieldFlags = Record<RequiredField, boolean>;
+const uniqueFields = (fields: ContactField[]): ContactField[] => {
+  const seen = new Set<string>();
 
-const byField = <T>(valueFor: (field: RequiredField) => T): Record<RequiredField, T> =>
-  Object.fromEntries(REQUIRED_FIELDS.map(field => [field, valueFor(field)])) as Record<RequiredField, T>;
-
-const emptyFormData = (): FormData => ({ name: '', email: '', subject: '', message: '' });
+  return fields.filter(field => (seen.has(field.id) ? false : seen.add(field.id)));
+};
 
 interface UseContactFormReturn {
-  formData: Ref<FormData>;
-  touched: Ref<FieldFlags>;
+  formData: StringMap;
+  touched: FlagMap;
   isSubmitting: Ref<boolean>;
   showSuccess: Ref<boolean>;
+  selectedType: ComputedRef<InquiryType | null>;
   isFormValid: ComputedRef<boolean>;
-  fieldInvalid: ComputedRef<FieldFlags>;
-  errors: ComputedRef<Record<RequiredField, string>>;
-  handleBlur: (field: RequiredField) => void;
+  fieldInvalid: ComputedRef<FlagMap>;
+  errors: ComputedRef<StringMap>;
+  handleBlur: (id: string) => void;
   handleInput: () => void;
   handleSubmit: (event: Event) => Promise<void>;
   resetForm: () => void;
 }
 
-export const useContactForm = (submitUrl: string): UseContactFormReturn => {
-  const formData = ref<FormData>(emptyFormData());
-  const touched = ref<FieldFlags>(byField(() => false));
+export const useContactForm = (form: ContactFormConfig): UseContactFormReturn => {
+  const fields = uniqueFields(collectFields(form));
+  const labelById = new Map(fields.map(field => [field.id, field.label]));
+
+  const emptyState = <T>(value: T): Record<string, T> =>
+    Object.fromEntries(fields.map(field => [field.id, value]));
+
+  const formData = reactive<StringMap>(emptyState(''));
+  const touched = reactive<FlagMap>(emptyState(false));
 
   const isSubmitting = ref(false);
   const showSuccess = ref(false);
 
-  const isFormValid = computed(() =>
-    REQUIRED_FIELDS.every(field => formData.value[field].trim() !== ''));
+  const selectedType = computed<InquiryType | null>(() =>
+    form.inquiryTypes.find(type => type.id === formData['inquiry']) ?? null);
 
-  const fieldInvalid = computed<FieldFlags>(() =>
-    byField(field => touched.value[field] && formData.value[field].trim() === ''));
+  const requiredIds = computed<string[]>(() => {
+    const base = [form.inquiry, form.baseFields.name, form.baseFields.email, form.baseFields.message]
+      .filter(field => field.required)
+      .map(field => field.id);
 
-  const errors = computed<Record<RequiredField, string>>(() =>
-    byField(field => (fieldInvalid.value[field] ? `${FIELD_LABELS[field]} is required` : '')));
+    const adaptive = (selectedType.value?.fields ?? []).filter(field => field.required).map(field => field.id);
 
-  const handleBlur = (field: RequiredField): void => {
-    touched.value[field] = true;
+    return [...base, ...adaptive];
+  });
+
+  const isEmpty = (id: string): boolean => (formData[id] ?? '').trim() === '';
+
+  const isFormValid = computed(() => requiredIds.value.every(id => !isEmpty(id)));
+
+  const fieldInvalid = computed<FlagMap>(() =>
+    Object.fromEntries(requiredIds.value.map(id => [id, Boolean(touched[id]) && isEmpty(id)])));
+
+  const errors = computed<StringMap>(() =>
+    Object.fromEntries(
+      requiredIds.value.map(id => [id, fieldInvalid.value[id] ? `${labelById.get(id)} is required` : '']),
+    ));
+
+  const handleBlur = (id: string): void => {
+    touched[id] = true;
   };
 
   const handleInput = (): void => {
@@ -59,23 +82,24 @@ export const useContactForm = (submitUrl: string): UseContactFormReturn => {
   };
 
   const resetForm = (): void => {
-    formData.value = emptyFormData();
-    touched.value = byField(() => false);
+    fields.forEach(field => {
+      formData[field.id] = '';
+      touched[field.id] = false;
+    });
   };
 
   const handleSubmit = async (event: Event): Promise<void> => {
     event.preventDefault();
 
-    const form = event.target;
-    if (!(form instanceof HTMLFormElement)) return;
+    const formElement = event.target;
+    if (!(formElement instanceof HTMLFormElement)) return;
 
     isSubmitting.value = true;
-    const formDataToSend = new FormData(form);
 
     try {
-      const response = await fetch(submitUrl, {
+      const response = await fetch(form.action, {
         method: 'POST',
-        body: formDataToSend,
+        body: new FormData(formElement),
         headers: {
           'Accept': 'application/json',
         },
@@ -86,10 +110,10 @@ export const useContactForm = (submitUrl: string): UseContactFormReturn => {
         resetForm();
         return;
       }
-      form.submit();
+      formElement.submit();
     } catch (error) {
       console.error('Form submission error:', error);
-      form.submit();
+      formElement.submit();
     } finally {
       isSubmitting.value = false;
     }
@@ -100,6 +124,7 @@ export const useContactForm = (submitUrl: string): UseContactFormReturn => {
     touched,
     isSubmitting,
     showSuccess,
+    selectedType,
     isFormValid,
     fieldInvalid,
     errors,

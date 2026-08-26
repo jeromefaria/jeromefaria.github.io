@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import FormField from '@/components/FormField.vue';
 import PageShell from '@/components/PageShell.vue';
 import { useContactForm } from '@/composables/useContactForm';
 import { usePageHead } from '@/composables/usePageHead';
 import { contactContent } from '@/data/contact';
+import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
 import { FORM_SUBMIT } from '@/utils/constants';
 import { createContactPageSchema } from '@/utils/pageSchemas';
@@ -13,8 +16,20 @@ usePageHead({
   schema: createContactPageSchema(),
 });
 
-const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, handleBlur, handleInput, handleSubmit } =
-  useContactForm(contactContent.form.action);
+const { form } = contactContent;
+
+const { formData, isSubmitting, showSuccess, selectedType, isFormValid, fieldInvalid, errors, handleBlur, handleInput, handleSubmit } =
+  useContactForm(form);
+
+const inquiryOptions = form.inquiryTypes.map(type => ({ value: type.id, label: type.label }));
+
+const subject = computed(() => {
+  const prefix = selectedType.value?.subjectPrefix ?? 'General';
+  const who = (formData['name'] ?? '').trim();
+  const base = `[${prefix}] ${siteConfig.author.name}`;
+
+  return who ? `${base} — ${who}` : base;
+});
 </script>
 
 <template>
@@ -23,12 +38,6 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
       data-page="contact"
       title="Contact"
     >
-      <div
-        v-show="!showSuccess"
-        class="contact-intro"
-        v-html="contactContent.intro"
-      />
-
       <div
         v-if="showSuccess"
         class="contact-success"
@@ -40,7 +49,7 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
 
       <form
         v-show="!showSuccess"
-        :action="contactContent.form.action"
+        :action="form.action"
         method="POST"
         class="contact-form"
         @submit="handleSubmit"
@@ -48,7 +57,7 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
         <input
           type="hidden"
           :name="FORM_SUBMIT.SUBJECT"
-          value="Contact Form Submission"
+          :value="subject"
         >
         <input
           type="hidden"
@@ -65,53 +74,95 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
         >
 
         <FormField
+          id="inquiry"
+          type="select"
+          :model-value="formData['inquiry'] ?? ''"
+          :label="form.inquiry.label"
+          :placeholder="form.inquiry.placeholder"
+          :options="inquiryOptions"
+          :required="form.inquiry.required"
+          :invalid="fieldInvalid['inquiry']"
+          :error="errors['inquiry']"
+          @update:model-value="value => (formData['inquiry'] = value)"
+          @input="handleInput"
+          @blur="handleBlur('inquiry')"
+        >
+          <input
+            type="hidden"
+            name="Inquiry"
+            :value="selectedType?.label ?? ''"
+          >
+        </FormField>
+
+        <p
+          v-if="selectedType"
+          class="contact-form__blurb"
+        >
+          {{ selectedType.blurb }}
+        </p>
+
+        <FormField
           id="name"
-          v-model="formData.name"
-          :label="contactContent.form.fields.name.label"
-          :required="contactContent.form.fields.name.required"
-          :autocomplete="contactContent.form.fields.name.autocomplete"
-          :invalid="fieldInvalid.name"
-          :error="errors.name"
+          :model-value="formData['name'] ?? ''"
+          :name="form.baseFields.name.label"
+          :label="form.baseFields.name.label"
+          :required="form.baseFields.name.required"
+          :autocomplete="form.baseFields.name.autocomplete"
+          :invalid="fieldInvalid['name']"
+          :error="errors['name']"
+          @update:model-value="value => (formData['name'] = value)"
           @input="handleInput"
           @blur="handleBlur('name')"
         />
 
         <FormField
           id="email"
-          v-model="formData.email"
           type="email"
-          :label="contactContent.form.fields.email.label"
-          :required="contactContent.form.fields.email.required"
-          :autocomplete="contactContent.form.fields.email.autocomplete"
-          :invalid="fieldInvalid.email"
-          :error="errors.email"
+          :model-value="formData['email'] ?? ''"
+          :name="form.baseFields.email.label"
+          :label="form.baseFields.email.label"
+          :required="form.baseFields.email.required"
+          :autocomplete="form.baseFields.email.autocomplete"
+          :invalid="fieldInvalid['email']"
+          :error="errors['email']"
+          @update:model-value="value => (formData['email'] = value)"
           @input="handleInput"
           @blur="handleBlur('email')"
         >
           <input
             type="hidden"
             :name="FORM_SUBMIT.REPLY_TO"
-            :value="formData.email"
+            :value="formData['email']"
           >
         </FormField>
 
         <FormField
-          id="subject"
-          v-model="formData.subject"
-          :label="contactContent.form.fields.subject.label"
-          :autocomplete="contactContent.form.fields.subject.autocomplete"
+          v-for="field in selectedType?.fields ?? []"
+          :id="field.id"
+          :key="field.id"
+          :model-value="formData[field.id] ?? ''"
+          :name="field.label"
+          :label="field.label"
+          :placeholder="field.placeholder"
+          :required="field.required"
+          :invalid="fieldInvalid[field.id]"
+          :error="errors[field.id]"
+          @update:model-value="value => (formData[field.id] = value)"
           @input="handleInput"
+          @blur="handleBlur(field.id)"
         />
 
         <FormField
           id="message"
-          v-model="formData.message"
           type="textarea"
-          :label="contactContent.form.fields.message.label"
-          :rows="contactContent.form.fields.message.rows"
-          :required="contactContent.form.fields.message.required"
-          :invalid="fieldInvalid.message"
-          :error="errors.message"
+          :model-value="formData['message'] ?? ''"
+          :name="form.baseFields.message.label"
+          :label="form.baseFields.message.label"
+          :rows="form.baseFields.message.rows"
+          :required="form.baseFields.message.required"
+          :invalid="fieldInvalid['message']"
+          :error="errors['message']"
+          @update:model-value="value => (formData['message'] = value)"
           @input="handleInput"
           @blur="handleBlur('message')"
         />
@@ -121,7 +172,7 @@ const { formData, isSubmitting, showSuccess, isFormValid, fieldInvalid, errors, 
           :class="['contact-form__submit', { 'contact-form__submit--valid': isFormValid }]"
           :disabled="isSubmitting"
         >
-          {{ isSubmitting ? 'Sending...' : contactContent.form.submitText }}
+          {{ isSubmitting ? 'Sending...' : form.submitText }}
         </button>
       </form>
     </PageShell>
