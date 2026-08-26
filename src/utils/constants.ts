@@ -23,10 +23,7 @@ export const TOUCH = {
   MAX_SWIPE_TIME: 300,
 } as const;
 
-// FormSubmit.co hidden field names
-export const FORM_SUBMIT = {
-  SUBJECT: '_subject',
-  CAPTCHA: '_captcha',
-  HONEYPOT: '_honey',
-  REPLY_TO: '_replyto',
+export const TURNSTILE = {
+  ONLOAD_CALLBACK: 'onloadTurnstileCallback',
+  SCRIPT_URL: 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback',
 } as const;

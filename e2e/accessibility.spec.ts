@@ -4,7 +4,7 @@ import { checkA11y, isMobile, MIN_TOUCH_TARGET_SIZE, waitForHydration } from './
 
 const MAIN_CONTENT_SELECTOR = '#main-content';
 const SKIP_LINK_SELECTOR = 'a[href="#main-content"]';
-const PAGES = ['/', '/works', '/live', '/press', '/about', '/contact'] as const;
+const PAGES = ['/', '/works', '/live', '/press', '/about', '/contact', '/privacy'] as const;
 const LANDMARK_SELECTORS = ['header', 'main', 'footer'] as const;
 
 test.describe('Accessibility', () => {
@@ -99,7 +99,7 @@ test.describe('Accessibility', () => {
       await page.goto('/contact');
       await expect(page.locator('form')).toBeAttached();
 
-      const inputs = page.locator('input:not([type="submit"]):not([type="hidden"]), textarea');
+      const inputs = page.locator('input:not([type="submit"]):not([type="hidden"]):not([aria-hidden="true"]), textarea');
       const count = await inputs.count();
 
       for (let index = 0; index < count; index += 1) {

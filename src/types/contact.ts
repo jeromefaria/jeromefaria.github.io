@@ -31,6 +31,7 @@ export interface ContactBaseFields {
 
 export interface ContactFormConfig {
   action: string;
+  turnstileSiteKey: string;
   inquiry: ContactField;
   baseFields: ContactBaseFields;
   inquiryTypes: InquiryType[];

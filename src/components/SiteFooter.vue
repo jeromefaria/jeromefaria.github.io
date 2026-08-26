@@ -38,6 +38,10 @@ const currentYear = new Date().getFullYear();
           &copy; {{ currentYear }} <RouterLink to="/contact">
             {{ siteConfig.author.name }}
           </RouterLink>
+          <span class="footer__separator">·</span>
+          <RouterLink to="/privacy">
+            Privacy
+          </RouterLink>
         </p>
       </div>
     </div>

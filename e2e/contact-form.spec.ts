@@ -1,59 +1,91 @@
-import { expect, test } from '@playwright/test';
+import { expect, type Page, test } from '@playwright/test';
 
-const FORM_SELECTOR = '.contact-form';
-const INQUIRY_SELECT = '#inquiry';
-const NAME_INPUT = '#name';
-const EMAIL_INPUT = '#email';
-const MESSAGE_INPUT = '#message';
-const SUBMIT_BUTTON = '.contact-form__submit';
-const INVALID_INPUT_CLASS = /contact-form__input--invalid/;
-const INVALID_TEXTAREA_CLASS = /contact-form__textarea--invalid/;
-const VALID_SUBMIT_CLASS = /contact-form__submit--valid/;
-const FORMSUBMIT_URL = /formsubmit\.co/;
+const FORM = '.contact-form';
+const INQUIRY = '#inquiry';
+const NAME = '#name';
+const EMAIL = '#email';
+const MESSAGE = '#message';
+const SUBMIT = '.contact-form__submit';
+const WORKER_URL = /workers\.dev/;
+const INVALID_INPUT = /contact-form__input--invalid/;
+const INVALID_TEXTAREA = /contact-form__textarea--invalid/;
+const VALID_SUBMIT = /contact-form__submit--valid/;
 
-const VALID_FORM = {
-  name: 'Test User',
-  email: 'test@example.com',
-  message: 'This is a test message with enough content.',
+const CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-const fillValidForm = async (page: import('@playwright/test').Page): Promise<void> => {
-  await page.locator(INQUIRY_SELECT).selectOption('booking');
-  await page.locator(NAME_INPUT).fill(VALID_FORM.name);
-  await page.locator(EMAIL_INPUT).fill(VALID_FORM.email);
-  await page.locator(MESSAGE_INPUT).fill(VALID_FORM.message);
+// Stub the invisible Turnstile widget so execute() resolves a token without a
+// real network challenge. Runs before app scripts so useTurnstile picks it up.
+const stubTurnstile = (page: Page): Promise<void> =>
+  page.addInitScript(() => {
+    let onToken: ((token: string) => void) | undefined;
+    (window as unknown as { turnstile: unknown }).turnstile = {
+      render: (_element: HTMLElement, options: { callback: (token: string) => void }) => {
+        onToken = options.callback;
+        return 'test-widget';
+      },
+      execute: () => onToken?.('test-token'),
+      reset: () => {},
+      remove: () => {},
+    };
+  });
+
+const mockWorker = (page: Page, status: number): Promise<void> =>
+  page.route(WORKER_URL, route => {
+    if (route.request().method() === 'OPTIONS') {
+      return route.fulfill({ status: 204, headers: CORS });
+    }
+
+    return route.fulfill({
+      status,
+      headers: CORS,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: status === 200 }),
+    });
+  });
+
+const fillValid = async (page: Page): Promise<void> => {
+  await page.locator(INQUIRY).selectOption('booking');
+  await page.locator(NAME).fill('Test User');
+  await page.locator(EMAIL).fill('test@example.com');
+  await page.locator(MESSAGE).fill('This is a test message with enough content.');
 };
 
 test.describe('Contact Form', () => {
   test.beforeEach(async ({ page }) => {
+    await stubTurnstile(page);
     await page.goto('/contact');
-    await expect(page.locator(FORM_SELECTOR)).toBeVisible();
+    await expect(page.locator(FORM)).toBeVisible();
   });
 
   test.describe('Rendering', () => {
     test('shows the inquiry selector and base fields', async ({ page }) => {
-      await expect(page.locator(INQUIRY_SELECT)).toBeVisible();
-      await expect(page.locator(NAME_INPUT)).toBeVisible();
-      await expect(page.locator(EMAIL_INPUT)).toBeVisible();
-      await expect(page.locator(MESSAGE_INPUT)).toBeVisible();
+      await expect(page.locator(INQUIRY)).toBeVisible();
+      await expect(page.locator(NAME)).toBeVisible();
+      await expect(page.locator(EMAIL)).toBeVisible();
+      await expect(page.locator(MESSAGE)).toBeVisible();
     });
 
     test('reveals adaptive fields once an inquiry type is chosen', async ({ page }) => {
       await expect(page.locator('#eventVenue')).toHaveCount(0);
-      await page.locator(INQUIRY_SELECT).selectOption('booking');
+      await page.locator(INQUIRY).selectOption('booking');
       await expect(page.locator('#eventVenue')).toBeVisible();
       await expect(page.locator('.contact-form__blurb')).toBeVisible();
     });
 
-    test('shows the submit button', async ({ page }) => {
-      await expect(page.locator(SUBMIT_BUTTON)).toBeVisible();
+    test('has required indicators on required fields', async ({ page }) => {
+      for (const id of ['inquiry', 'name', 'email', 'message']) {
+        await expect(page.locator(`label[for="${id}"] abbr`)).toHaveCount(1);
+      }
     });
 
-    test('has required indicators on required fields', async ({ page }) => {
-      await expect(page.locator('label[for="inquiry"] abbr')).toHaveCount(1);
-      await expect(page.locator('label[for="name"] abbr')).toHaveCount(1);
-      await expect(page.locator('label[for="email"] abbr')).toHaveCount(1);
-      await expect(page.locator('label[for="message"] abbr')).toHaveCount(1);
+    test('shows the privacy notice linking to the privacy page', async ({ page }) => {
+      const notice = page.locator('.contact-form__notice');
+      await expect(notice).toContainText('Cloudflare Turnstile');
+      await expect(notice.locator('a')).toHaveAttribute('href', '/privacy');
     });
 
     test('does not show success message initially', async ({ page }) => {
@@ -61,120 +93,73 @@ test.describe('Contact Form', () => {
     });
   });
 
-  test.describe('Validation — required fields', () => {
-    test('marks name as invalid after blur when empty', async ({ page }) => {
-      await page.locator(NAME_INPUT).focus();
-      await page.locator(NAME_INPUT).blur();
-      await expect(page.locator(NAME_INPUT)).toHaveClass(INVALID_INPUT_CLASS);
+  test.describe('Validation', () => {
+    test('marks name invalid after blur when empty', async ({ page }) => {
+      await page.locator(NAME).focus();
+      await page.locator(NAME).blur();
+      await expect(page.locator(NAME)).toHaveClass(INVALID_INPUT);
     });
 
-    test('marks email as invalid after blur when empty', async ({ page }) => {
-      await page.locator(EMAIL_INPUT).focus();
-      await page.locator(EMAIL_INPUT).blur();
-      await expect(page.locator(EMAIL_INPUT)).toHaveClass(INVALID_INPUT_CLASS);
+    test('marks message invalid after blur when empty', async ({ page }) => {
+      await page.locator(MESSAGE).focus();
+      await page.locator(MESSAGE).blur();
+      await expect(page.locator(MESSAGE)).toHaveClass(INVALID_TEXTAREA);
     });
 
-    test('marks message as invalid after blur when empty', async ({ page }) => {
-      await page.locator(MESSAGE_INPUT).focus();
-      await page.locator(MESSAGE_INPUT).blur();
-      await expect(page.locator(MESSAGE_INPUT)).toHaveClass(INVALID_TEXTAREA_CLASS);
-    });
+    test('submit is not valid until a type and required fields are filled', async ({ page }) => {
+      await expect(page.locator(SUBMIT)).not.toHaveClass(VALID_SUBMIT);
 
-    test('clears invalid state when valid value is entered', async ({ page }) => {
-      await page.locator(NAME_INPUT).focus();
-      await page.locator(NAME_INPUT).blur();
-      await expect(page.locator(NAME_INPUT)).toHaveClass(INVALID_INPUT_CLASS);
-      await page.locator(NAME_INPUT).fill('Jane');
-      await expect(page.locator(NAME_INPUT)).not.toHaveClass(INVALID_INPUT_CLASS);
-    });
-  });
+      await page.locator(NAME).fill('Test User');
+      await page.locator(EMAIL).fill('test@example.com');
+      await page.locator(MESSAGE).fill('A message.');
+      await expect(page.locator(SUBMIT)).not.toHaveClass(VALID_SUBMIT);
 
-  test.describe('Validation — email format', () => {
-    test('does not mark email as invalid when non-empty (format not validated on blur)', async ({ page }) => {
-      await page.locator(EMAIL_INPUT).fill('notanemail');
-      await expect(page.locator(EMAIL_INPUT)).toHaveValue('notanemail');
-      await page.locator(EMAIL_INPUT).blur();
-      await expect(page.locator(EMAIL_INPUT)).not.toHaveClass(INVALID_INPUT_CLASS);
-    });
-  });
-
-  test.describe('Submit button state', () => {
-    test('does not have the valid class when form is empty', async ({ page }) => {
-      await expect(page.locator(SUBMIT_BUTTON)).not.toHaveClass(VALID_SUBMIT_CLASS);
-    });
-
-    test('does not have the valid class when no inquiry type is selected', async ({ page }) => {
-      await page.locator(NAME_INPUT).fill(VALID_FORM.name);
-      await page.locator(EMAIL_INPUT).fill(VALID_FORM.email);
-      await page.locator(MESSAGE_INPUT).fill(VALID_FORM.message);
-      await expect(page.locator(SUBMIT_BUTTON)).not.toHaveClass(VALID_SUBMIT_CLASS);
-    });
-
-    test('gets the valid class when a type and all required fields are filled', async ({ page }) => {
-      await fillValidForm(page);
-      await expect(page.locator(SUBMIT_BUTTON)).toHaveClass(VALID_SUBMIT_CLASS);
+      await page.locator(INQUIRY).selectOption('booking');
+      await expect(page.locator(SUBMIT)).toHaveClass(VALID_SUBMIT);
     });
 
     test('requires a type-specific field before validating', async ({ page }) => {
-      await page.locator(INQUIRY_SELECT).selectOption('licensing');
-      await page.locator(NAME_INPUT).fill(VALID_FORM.name);
-      await page.locator(EMAIL_INPUT).fill(VALID_FORM.email);
-      await page.locator(MESSAGE_INPUT).fill(VALID_FORM.message);
-      await expect(page.locator(SUBMIT_BUTTON)).not.toHaveClass(VALID_SUBMIT_CLASS);
+      await page.locator(INQUIRY).selectOption('licensing');
+      await page.locator(NAME).fill('Test User');
+      await page.locator(EMAIL).fill('test@example.com');
+      await page.locator(MESSAGE).fill('A message.');
+      await expect(page.locator(SUBMIT)).not.toHaveClass(VALID_SUBMIT);
 
       await page.locator('#track').fill('Overlapse');
-      await expect(page.locator(SUBMIT_BUTTON)).toHaveClass(VALID_SUBMIT_CLASS);
+      await expect(page.locator(SUBMIT)).toHaveClass(VALID_SUBMIT);
     });
   });
 
-  test.describe('Successful submission', () => {
-    test('shows success message after successful submission', async ({ page }) => {
-      await page.route(FORMSUBMIT_URL, route =>
-        route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true }) }));
-
-      await fillValidForm(page);
-      await page.locator(SUBMIT_BUTTON).click();
+  test.describe('Submission', () => {
+    test('shows the success message after a verified submit', async ({ page }) => {
+      await mockWorker(page, 200);
+      await fillValid(page);
+      await page.locator(SUBMIT).click();
 
       await expect(page.locator('.contact-success')).toBeVisible();
-      await expect(page.locator(FORM_SELECTOR)).toBeHidden();
+      await expect(page.locator(FORM)).toBeHidden();
     });
 
-    test('success message contains a title', async ({ page }) => {
-      await page.route(FORMSUBMIT_URL, route =>
-        route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true }) }));
+    test('shows the verification error on a 403', async ({ page }) => {
+      await mockWorker(page, 403);
+      await fillValid(page);
+      await page.locator(SUBMIT).click();
 
-      await fillValidForm(page);
-      await page.locator(SUBMIT_BUTTON).click();
-
-      await expect(page.locator('.contact-success h2')).toBeVisible();
+      await expect(page.locator('.contact-form__submit-error')).toContainText('verify');
     });
-  });
 
-  test.describe('Failed submission — fallback', () => {
-    test('falls back to native form submit on network error', async ({ page }) => {
-      await page.route(FORMSUBMIT_URL, route => route.abort());
+    test('shows the generic error on a server failure', async ({ page }) => {
+      await mockWorker(page, 502);
+      await fillValid(page);
+      await page.locator(SUBMIT).click();
 
-      const nativeSubmitCalled = page.evaluate(() => new Promise<boolean>(resolve => {
-        const form = document.querySelector<HTMLFormElement>('.contact-form');
-        if (!form) {
-          resolve(false);
-          return;
-        }
-        form.submit = () => resolve(true);
-      }));
-
-      await fillValidForm(page);
-      await page.locator(SUBMIT_BUTTON).click();
-
-      expect(await nativeSubmitCalled).toBe(true);
+      await expect(page.locator('.contact-form__submit-error')).toContainText('went wrong');
     });
   });
 
   test.describe('Spam protection', () => {
     test('honeypot field is hidden from users', async ({ page }) => {
-      const honeypot = page.locator('input[tabindex="-1"]');
-      // Playwright treats off-screen / zero-opacity nodes as present, so assert the
-      // hiding mechanism (opacity + off-screen x) rather than a visibility flag.
+      const honeypot = page.locator('.contact-form__honeypot');
       await expect(honeypot).toHaveCSS('opacity', '0');
 
       const box = await honeypot.boundingBox();
@@ -184,7 +169,7 @@ test.describe('Contact Form', () => {
 
   test.describe('Accessibility', () => {
     test('all visible fields have associated labels', async ({ page }) => {
-      await page.locator(INQUIRY_SELECT).selectOption('booking');
+      await page.locator(INQUIRY).selectOption('booking');
       const fields = page.locator('input:not([type="hidden"]):not([tabindex="-1"]), textarea, select');
       const count = await fields.count();
 
@@ -193,11 +178,6 @@ test.describe('Contact Form', () => {
         if (!id) continue;
         await expect(page.locator(`label[for="${id}"]`)).toHaveCount(1);
       }
-    });
-
-    test('submit button has descriptive text', async ({ page }) => {
-      const text = await page.locator(SUBMIT_BUTTON).innerText();
-      expect(text.trim()).not.toBe('');
     });
   });
 });

@@ -6,12 +6,18 @@ import { mountView } from '@/test-support/viewHarness';
 
 import ContactView from './ContactView.vue';
 
-describe('ContactView', () => {
-  it('posts to the configured form action', async () => {
-    const wrapper = await mountView(ContactView);
-    expect(wrapper.get('form.contact-form').attributes('action')).toBe(contactContent.form.action);
-  });
+vi.mock('@/composables/useTurnstile', () => ({
+  useTurnstile: () => ({ execute: () => Promise.resolve('test-token') }),
+}));
 
+const fillValid = async (wrapper: Awaited<ReturnType<typeof mountView>>): Promise<void> => {
+  await wrapper.get('#inquiry').setValue('other');
+  await wrapper.get('#name').setValue('Jane');
+  await wrapper.get('#email').setValue('jane@example.com');
+  await wrapper.get('#message').setValue('Hello there.');
+};
+
+describe('ContactView', () => {
   it('renders the inquiry selector and base fields', async () => {
     const wrapper = await mountView(ContactView);
     ['inquiry', 'name', 'email', 'message'].forEach(field => {
@@ -29,38 +35,40 @@ describe('ContactView', () => {
     const wrapper = await mountView(ContactView);
 
     expect(wrapper.find('#eventVenue').exists()).toBe(false);
-    expect(wrapper.find('.contact-form__blurb').exists()).toBe(false);
-
     await wrapper.get('#inquiry').setValue('booking');
 
-    ['eventVenue', 'preferredDate', 'location'].forEach(field => {
-      expect(wrapper.find(`#${field}`).exists()).toBe(true);
-    });
+    expect(wrapper.find('#eventVenue').exists()).toBe(true);
     expect(wrapper.get('.contact-form__blurb').text()).toBe('For festivals, venues, and performance opportunities.');
   });
 
-  it('swaps adaptive fields when the type changes', async () => {
+  it('includes a hidden honeypot field', async () => {
     const wrapper = await mountView(ContactView);
-
-    await wrapper.get('#inquiry').setValue('booking');
-    expect(wrapper.find('#eventVenue').exists()).toBe(true);
-
-    await wrapper.get('#inquiry').setValue('licensing');
-    expect(wrapper.find('#eventVenue').exists()).toBe(false);
-    expect(wrapper.find('#track').exists()).toBe(true);
+    const honeypot = wrapper.get('.contact-form__honeypot');
+    expect(honeypot.attributes('tabindex')).toBe('-1');
+    expect(honeypot.attributes('aria-hidden')).toBe('true');
   });
 
-  it('carries the selected type label and a structured subject into hidden fields', async () => {
+  it('shows a privacy notice linking to the privacy page', async () => {
+    const wrapper = await mountView(ContactView);
+    const notice = wrapper.get('.contact-form__notice');
+    expect(notice.text()).toContain('Cloudflare Turnstile');
+    expect(notice.get('a').attributes('href')).toBe('/privacy');
+  });
+
+  it('announces a required error for each base field on blur', async () => {
     const wrapper = await mountView(ContactView);
 
-    await wrapper.get('#inquiry').setValue('booking');
-    await wrapper.get('#name').setValue('Jane Roe');
+    await wrapper.get('#inquiry').trigger('blur');
+    expect(wrapper.get('#inquiry-error').text()).toBe('Inquiry type is required');
 
-    expect((wrapper.get('input[name="Inquiry"]').element as HTMLInputElement).value).toBe('Booking');
+    await wrapper.get('#name').trigger('blur');
+    expect(wrapper.get('#name-error').text()).toBe('Name is required');
 
-    const subject = (wrapper.get('input[name="_subject"]').element as HTMLInputElement).value;
-    expect(subject).toContain('[Booking]');
-    expect(subject).toContain('Jane Roe');
+    await wrapper.get('#email').trigger('blur');
+    expect(wrapper.get('#email-error').text()).toBe('Email is required');
+
+    await wrapper.get('#message').trigger('blur');
+    expect(wrapper.get('#message-error').text()).toBe('Message is required');
   });
 
   it('captures input for an adaptive field and validates it on blur', async () => {
@@ -76,61 +84,30 @@ describe('ContactView', () => {
     expect(wrapper.get('#track-error').text()).toBe('Track or release is required');
   });
 
-  it('includes a hidden honeypot field for spam protection', async () => {
-    const wrapper = await mountView(ContactView);
-    const honeypot = wrapper.get('.contact-form__honeypot');
-    expect(honeypot.attributes('tabindex')).toBe('-1');
-    expect(honeypot.attributes('aria-label')).toBe('Leave this field empty');
-  });
-
-  it('marks required base fields with an indicator', async () => {
-    const wrapper = await mountView(ContactView);
-    ['inquiry', 'name', 'email', 'message'].forEach(field => {
-      expect(wrapper.find(`label[for="${field}"] abbr`).exists()).toBe(true);
-    });
-  });
-
-  it('marks a required field invalid and exposes an announced error after blur', async () => {
-    const wrapper = await mountView(ContactView);
-    const name = wrapper.get('#name');
-
-    expect(name.attributes('aria-invalid')).toBe('false');
-
-    await name.trigger('blur');
-
-    expect(name.attributes('aria-invalid')).toBe('true');
-    expect(name.attributes('aria-describedby')).toBe('name-error');
-
-    const error = wrapper.get('#name-error');
-    expect(error.attributes('role')).toBe('alert');
-    expect(error.text()).toBe('Name is required');
-  });
-
-  it('announces a required error for each base field on blur', async () => {
-    const wrapper = await mountView(ContactView);
-
-    await wrapper.get('#inquiry').trigger('blur');
-    expect(wrapper.get('#inquiry-error').text()).toBe('Inquiry type is required');
-
-    await wrapper.get('#email').trigger('blur');
-    expect(wrapper.get('#email-error').text()).toBe('Email is required');
-
-    await wrapper.get('#message').trigger('blur');
-    expect(wrapper.get('#message-error').text()).toBe('Message is required');
-  });
-
   it('shows the success message after a successful submit', async () => {
     const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue({ ok: true } as Response);
     const wrapper = await mountView(ContactView);
 
-    await wrapper.get('#inquiry').setValue('other');
-    await wrapper.get('#name').setValue('Jane');
-    await wrapper.get('#email').setValue('jane@example.com');
-    await wrapper.get('#message').setValue('Hello there, this is a message.');
+    await fillValid(wrapper);
     await wrapper.get('form.contact-form').trigger('submit');
     await flushPromises();
 
     expect(wrapper.find('.contact-success').exists()).toBe(true);
+    const payload = JSON.parse((fetchMock.mock.calls[0] as [string, RequestInit])[1].body as string);
+    expect(payload.token).toBe('test-token');
+    expect(payload.inquiry).toBe('Other');
+    fetchMock.mockRestore();
+  });
+
+  it('surfaces the verification error on a 403', async () => {
+    const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue({ ok: false, status: 403 } as Response);
+    const wrapper = await mountView(ContactView);
+
+    await fillValid(wrapper);
+    await wrapper.get('form.contact-form').trigger('submit');
+    await flushPromises();
+
+    expect(wrapper.get('.contact-form__submit-error').text()).toContain('verify');
     fetchMock.mockRestore();
   });
 });

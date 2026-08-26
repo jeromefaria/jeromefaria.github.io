@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref } from 'vue';
+import { RouterLink } from 'vue-router';
 
 import FormField from '@/components/FormField.vue';
 import PageShell from '@/components/PageShell.vue';
 import { useContactForm } from '@/composables/useContactForm';
 import { usePageHead } from '@/composables/usePageHead';
+import { useTurnstile } from '@/composables/useTurnstile';
 import { contactContent } from '@/data/contact';
-import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
-import { FORM_SUBMIT } from '@/utils/constants';
 import { createContactPageSchema } from '@/utils/pageSchemas';
 
 usePageHead({
@@ -18,18 +18,14 @@ usePageHead({
 
 const { form } = contactContent;
 
-const { formData, isSubmitting, showSuccess, selectedType, isFormValid, fieldInvalid, errors, handleBlur, handleInput, handleSubmit } =
-  useContactForm(form);
+const turnstileContainer = ref<HTMLElement | null>(null);
+
+const { execute } = useTurnstile(form.turnstileSiteKey, turnstileContainer);
+
+const { formData, botField, isSubmitting, showSuccess, errorMessage, selectedType, isFormValid, fieldInvalid, errors, handleBlur, handleInput, handleSubmit } =
+  useContactForm(form, execute);
 
 const inquiryOptions = form.inquiryTypes.map(type => ({ value: type.id, label: type.label }));
-
-const subject = computed(() => {
-  const prefix = selectedType.value?.subjectPrefix ?? 'General';
-  const who = (formData['name'] ?? '').trim();
-  const base = `[${prefix}] ${siteConfig.author.name}`;
-
-  return who ? `${base} — ${who}` : base;
-});
 </script>
 
 <template>
@@ -49,28 +45,18 @@ const subject = computed(() => {
 
       <form
         v-show="!showSuccess"
-        :action="form.action"
-        method="POST"
         class="contact-form"
+        novalidate
         @submit="handleSubmit"
       >
         <input
-          type="hidden"
-          :name="FORM_SUBMIT.SUBJECT"
-          :value="subject"
-        >
-        <input
-          type="hidden"
-          :name="FORM_SUBMIT.CAPTCHA"
-          value="false"
-        >
-        <input
+          v-model="botField"
           type="text"
-          :name="FORM_SUBMIT.HONEYPOT"
+          name="contact-nickname"
           class="contact-form__honeypot"
           tabindex="-1"
           autocomplete="off"
-          aria-label="Leave this field empty"
+          aria-hidden="true"
         >
 
         <FormField
@@ -86,13 +72,7 @@ const subject = computed(() => {
           @update:model-value="value => (formData['inquiry'] = value)"
           @input="handleInput"
           @blur="handleBlur('inquiry')"
-        >
-          <input
-            type="hidden"
-            name="Inquiry"
-            :value="selectedType?.label ?? ''"
-          >
-        </FormField>
+        />
 
         <p
           v-if="selectedType"
@@ -128,13 +108,7 @@ const subject = computed(() => {
           @update:model-value="value => (formData['email'] = value)"
           @input="handleInput"
           @blur="handleBlur('email')"
-        >
-          <input
-            type="hidden"
-            :name="FORM_SUBMIT.REPLY_TO"
-            :value="formData['email']"
-          >
-        </FormField>
+        />
 
         <FormField
           v-for="field in selectedType?.fields ?? []"
@@ -167,6 +141,19 @@ const subject = computed(() => {
           @blur="handleBlur('message')"
         />
 
+        <div
+          ref="turnstileContainer"
+          class="contact-form__turnstile"
+        />
+
+        <p
+          v-if="errorMessage"
+          class="contact-form__submit-error"
+          role="alert"
+        >
+          {{ errorMessage }}
+        </p>
+
         <button
           type="submit"
           :class="['contact-form__submit', { 'contact-form__submit--valid': isFormValid }]"
@@ -174,6 +161,14 @@ const subject = computed(() => {
         >
           {{ isSubmitting ? 'Sending...' : form.submitText }}
         </button>
+
+        <p class="contact-form__notice">
+          <span>Protected by Cloudflare Turnstile</span>
+          <span aria-hidden="true">·</span>
+          <RouterLink to="/privacy">
+            Privacy
+          </RouterLink>
+        </p>
       </form>
     </PageShell>
   </div>
