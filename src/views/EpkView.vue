@@ -6,7 +6,7 @@ import PageShell from '@/components/PageShell.vue';
 import { usePageHead } from '@/composables/usePageHead';
 import { epkManifest } from '@/data/epk';
 import { pageMeta } from '@/data/pageMeta';
-import { epkPdfHref, epkZipHref, photoDownloadHref, resolveEpkContent } from '@/utils/epk';
+import { epkPdfHref, epkRiderHref, epkZipHref, photoDownloadHref, resolveEpkContent } from '@/utils/epk';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { responsiveSrcset, toWebp } from '@/utils/responsiveImage';
 
@@ -51,6 +51,12 @@ const epk = resolveEpkContent(epkManifest);
             :href="epkPdfHref"
             download
           >One-sheet (PDF)</a>
+          <span> | </span>
+          <a
+            class="link-discrete"
+            :href="epkRiderHref"
+            download
+          >Technical rider (PDF)</a>
         </p>
       </section>
 

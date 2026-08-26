@@ -14,7 +14,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "test:e2e": "npm run epk:bundle && npm run build && playwright test --grep-invert @visual",
+    "test:e2e": "npm run downloads:build && npm run build && playwright test --grep-invert @visual",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",
     "lighthouse": "lhci autorun",
@@ -26,7 +26,9 @@
     "images:responsive": "node scripts/generate-responsive-images.mjs",
     "epk:photos": "node scripts/generate-epk-photos.mjs",
     "epk:bundle": "node scripts/generate-epk-bundle.mjs",
-    "epk:kit": "npm run epk:photos && npm run epk:bundle"
+    "rider:pdf": "node scripts/generate-tech-rider.mjs",
+    "downloads:build": "npm run epk:bundle && npm run rider:pdf",
+    "epk:kit": "npm run epk:photos && npm run downloads:build"
   },
   "repository": {
     "type": "git",

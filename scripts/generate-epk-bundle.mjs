@@ -1,20 +1,16 @@
 import { createWriteStream } from 'node:fs';
-import { readFile, writeFile } from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 
 import { chromium } from '@playwright/test';
 
 import { contact, content, kitName, outDir, photoDownloadFilename, photosDir, root, siteConfig, siteUrl } from './epk-context.mjs';
+import { baseStyles } from './pdf-styles.mjs';
 
 const archiver = createRequire(import.meta.url)('archiver');
 
-const fontFace = async weight => {
-  const data = (await readFile(join(root, `public/fonts/inter-${weight}.woff2`))).toString('base64');
-  return `@font-face{font-family:'Inter';font-style:normal;font-weight:${weight};src:url(data:font/woff2;base64,${data}) format('woff2')}`;
-};
-
-const fonts = (await Promise.all([400, 500, 600].map(fontFace))).join('');
+const styles = await baseStyles(root);
 
 const photoFiles = content.photos.map((photo, index) => {
   const filename = photoDownloadFilename(photo, index);
@@ -24,12 +20,11 @@ const photoFiles = content.photos.map((photo, index) => {
 const rows = items => items.map(item => `<div class="year">${item.year}</div><div>${item.body}</div>`).join('');
 
 const html = `<!doctype html><html><head><meta charset="utf-8"><style>
-  ${fonts}
-  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a1a; font-size: 10pt; line-height: 1.48; margin: 0; }
+  ${styles}
+  body { line-height: 1.48; }
   header { border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 16px; }
-  h1 { font-size: 20pt; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
-  .tagline { text-transform: uppercase; letter-spacing: 0.12em; font-size: 8pt; color: #666; margin-top: 4px; }
-  h2 { font-size: 8pt; text-transform: uppercase; letter-spacing: 0.12em; color: #666; border-bottom: 1px solid #eee; padding-bottom: 4px; margin: 0 0 7px; }
+  .tagline { margin-top: 4px; }
+  h2 { margin: 0 0 7px; }
   .prose p { margin: 0 0 7px; }
   .prose p:last-child { margin-bottom: 0; }
   .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 30px; margin-top: 16px; }
@@ -42,7 +37,6 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><style>
   .press { margin-top: 16px; }
   .contact { margin-top: 16px; padding-top: 10px; border-top: 1px solid #ddd; font-size: 9.5pt; }
   .contact a { color: #1a1a1a; text-decoration: none; }
-  em { font-style: italic; }
 </style></head><body>
   <header>
     <h1>Jerome Faria</h1><div class="tagline">Sound Artist &amp; Composer</div>
