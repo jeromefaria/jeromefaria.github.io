@@ -2,7 +2,8 @@ import type { ContactConfig } from '@/types/contact';
 
 export const contactContent: ContactConfig = {
   form: {
-    action: 'https://formsubmit.co/240dea360ea49eda83bb6a71730870cd',
+    action: 'https://contact.jeromefaria.workers.dev',
+    turnstileSiteKey: '0x4AAAAAAEdHqOqCP3kQoP_p',
     inquiry: {
       id: 'inquiry',
       label: 'Inquiry type',

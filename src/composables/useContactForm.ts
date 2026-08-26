@@ -6,6 +6,9 @@ import type { ContactField, ContactFormConfig, InquiryType } from '@/types/conta
 type StringMap = Record<string, string>;
 type FlagMap = Record<string, boolean>;
 
+const SUBMIT_ERROR = 'Something went wrong sending your message. Please try again.';
+const VERIFY_ERROR = 'Could not verify you are human. Please try again.';
+
 const collectFields = (form: ContactFormConfig): ContactField[] => [
   form.inquiry,
   form.baseFields.name,
@@ -20,11 +23,23 @@ const uniqueFields = (fields: ContactField[]): ContactField[] => {
   return fields.filter(field => (seen.has(field.id) ? false : seen.add(field.id)));
 };
 
+interface ContactPayload {
+  token: string;
+  inquiry: string;
+  name: string;
+  email: string;
+  message: string;
+  fields: { label: string; value: string }[];
+  botField: string;
+}
+
 interface UseContactFormReturn {
   formData: StringMap;
   touched: FlagMap;
+  botField: Ref<string>;
   isSubmitting: Ref<boolean>;
   showSuccess: Ref<boolean>;
+  errorMessage: Ref<string>;
   selectedType: ComputedRef<InquiryType | null>;
   isFormValid: ComputedRef<boolean>;
   fieldInvalid: ComputedRef<FlagMap>;
@@ -35,7 +50,10 @@ interface UseContactFormReturn {
   resetForm: () => void;
 }
 
-export const useContactForm = (form: ContactFormConfig): UseContactFormReturn => {
+export const useContactForm = (
+  form: ContactFormConfig,
+  requestToken: () => Promise<string>,
+): UseContactFormReturn => {
   const fields = uniqueFields(collectFields(form));
   const labelById = new Map(fields.map(field => [field.id, field.label]));
 
@@ -45,8 +63,10 @@ export const useContactForm = (form: ContactFormConfig): UseContactFormReturn =>
   const formData = reactive<StringMap>(emptyState(''));
   const touched = reactive<FlagMap>(emptyState(false));
 
+  const botField = ref('');
   const isSubmitting = ref(false);
   const showSuccess = ref(false);
+  const errorMessage = ref('');
 
   const selectedType = computed<InquiryType | null>(() =>
     form.inquiryTypes.find(type => type.id === formData['inquiry']) ?? null);
@@ -79,6 +99,7 @@ export const useContactForm = (form: ContactFormConfig): UseContactFormReturn =>
 
   const handleInput = (): void => {
     showSuccess.value = false;
+    errorMessage.value = '';
   };
 
   const resetForm = (): void => {
@@ -86,23 +107,34 @@ export const useContactForm = (form: ContactFormConfig): UseContactFormReturn =>
       formData[field.id] = '';
       touched[field.id] = false;
     });
+    botField.value = '';
   };
+
+  const buildPayload = (token: string): ContactPayload => ({
+    token,
+    inquiry: selectedType.value?.label ?? '',
+    name: formData['name'] ?? '',
+    email: formData['email'] ?? '',
+    message: formData['message'] ?? '',
+    fields: (selectedType.value?.fields ?? [])
+      .map(field => ({ label: field.label, value: formData[field.id] ?? '' }))
+      .filter(entry => entry.value.trim() !== ''),
+    botField: botField.value,
+  });
 
   const handleSubmit = async (event: Event): Promise<void> => {
     event.preventDefault();
-
-    const formElement = event.target;
-    if (!(formElement instanceof HTMLFormElement)) return;
+    if (!isFormValid.value || isSubmitting.value) return;
 
     isSubmitting.value = true;
+    errorMessage.value = '';
 
     try {
+      const token = await requestToken();
       const response = await fetch(form.action, {
         method: 'POST',
-        body: new FormData(formElement),
-        headers: {
-          'Accept': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(buildPayload(token)),
       });
 
       if (response.ok) {
@@ -110,10 +142,11 @@ export const useContactForm = (form: ContactFormConfig): UseContactFormReturn =>
         resetForm();
         return;
       }
-      formElement.submit();
+
+      errorMessage.value = response.status === 403 ? VERIFY_ERROR : SUBMIT_ERROR;
     } catch (error) {
-      console.error('Form submission error:', error);
-      formElement.submit();
+      console.error('Contact submission error:', error);
+      errorMessage.value = SUBMIT_ERROR;
     } finally {
       isSubmitting.value = false;
     }
@@ -122,8 +155,10 @@ export const useContactForm = (form: ContactFormConfig): UseContactFormReturn =>
   return {
     formData,
     touched,
+    botField,
     isSubmitting,
     showSuccess,
+    errorMessage,
     selectedType,
     isFormValid,
     fieldInvalid,
