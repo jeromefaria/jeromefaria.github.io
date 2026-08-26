@@ -34,13 +34,17 @@ Responses: `200 {ok:true}` on success (and on a tripped honeypot, silently),
 
 ## Deploy
 
+Set the secrets **after** `deploy`, and don't `deploy` again afterward — a
+`wrangler deploy` detaches previously-set secrets from the served version, so
+setting them last is what binds them at runtime.
+
 ```sh
 cd worker
 npm install
 npx wrangler login
-npx wrangler secret put TURNSTILE_SECRET   # paste the Turnstile secret key
-npx wrangler secret put RESEND_API_KEY     # paste the Resend API key
 npx wrangler deploy                         # prints the *.workers.dev URL
+npx wrangler secret put TURNSTILE_SECRET    # paste the Turnstile secret key
+npx wrangler secret put RESEND_API_KEY      # paste the Resend API key
 ```
 
 ## Develop / test
