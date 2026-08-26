@@ -23,7 +23,8 @@
     "test:e2e:visual:update": "playwright test --grep @visual --update-snapshots",
     "prebuild": "node scripts/generate-responsive-images.mjs",
     "predev": "node scripts/generate-responsive-images.mjs",
-    "images:responsive": "node scripts/generate-responsive-images.mjs"
+    "images:responsive": "node scripts/generate-responsive-images.mjs",
+    "epk:kit": "node scripts/generate-epk.mjs"
   },
   "repository": {
     "type": "git",
@@ -56,9 +57,11 @@
     "@vitest/coverage-v8": "^4.0.16",
     "@vitest/ui": "^4.0.16",
     "@vue/test-utils": "^2.4.6",
+    "archiver": "^7.0.1",
     "eslint": "^10.8.1",
     "eslint-plugin-simple-import-sort": "^14.0.0",
     "eslint-plugin-vue": "^10.6.2",
+    "exiftool-vendored": "^37.2.0",
     "fontkit": "^2.0.4",
     "happy-dom": "^20.11.2",
     "jiti": "^2.6.1",

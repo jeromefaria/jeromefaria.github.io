@@ -7,6 +7,7 @@ import type { Release } from '@/types/works';
 
 import {
   eventLocation,
+  photoDownloadFilename,
   resolveEpkContent,
   resolveLongBio,
   toLiveHighlight,
@@ -43,6 +44,17 @@ describe('resolveLongBio', () => {
   });
 });
 
+describe('photoDownloadFilename', () => {
+  it('encodes the 1-based index and the accent-folded photographer credit', () => {
+    expect(photoDownloadFilename({ src: '/x.jpg', alt: 'x', photographer: { name: 'Valentina Araújo' } }, 0))
+      .toBe('jerome-faria-1-by-valentina-araujo.jpg');
+  });
+
+  it('omits the credit when a photo has no photographer', () => {
+    expect(photoDownloadFilename({ src: '/x.jpg', alt: 'x' }, 4)).toBe('jerome-faria-5.jpg');
+  });
+});
+
 describe('eventLocation', () => {
   it('joins venue name and city when both are present', () => {
     const venue: EventVenue = { name: 'Zaratan', city: 'Lisbon', country: 'Portugal' };
@@ -70,7 +82,7 @@ describe('toLiveHighlight', () => {
       performance: { kind: 'solo' },
     });
 
-    expect(highlight).toEqual({ year: '2011', title: 'MADEIRADIG', location: 'Estalagem da Ponta do Sol, Ponta do Sol' });
+    expect(highlight).toEqual({ id: 'x', year: '2011', title: 'MADEIRADIG', location: 'Estalagem da Ponta do Sol, Ponta do Sol' });
   });
 });
 
@@ -82,7 +94,7 @@ describe('toWorkHighlight', () => {
       meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'self-released' } }], year: 2024 },
     };
 
-    expect(toWorkHighlight(release)).toEqual({ year: 2024, title: '2504' });
+    expect(toWorkHighlight(release)).toEqual({ id: '2504', year: 2024, title: '2504' });
   });
 });
 

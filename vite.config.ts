@@ -7,6 +7,8 @@ export default defineConfig({
   plugins: [
     vue(),
     ViteImageOptimizer({
+      // Re-optimizing would strip the embedded IPTC credits from the downloads.
+      exclude: /epk[/\\]photos/,
       jpg: {
         quality: 65,
       },
