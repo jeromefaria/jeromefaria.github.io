@@ -1,65 +1,18 @@
-// Local-only: reads the gitignored masters in assets-source/press/, so CI can't run it.
-import { chromium } from '@playwright/test';
-import { exiftool } from 'exiftool-vendored';
 import { createWriteStream } from 'node:fs';
-import { mkdir, rm, writeFile } from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
-import { basename, dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { createJiti } from 'jiti';
-import sharp from 'sharp';
+import { join } from 'node:path';
+
+import { chromium } from '@playwright/test';
+
+import { contact, content, kitName, outDir, photoDownloadFilename, photosDir, siteConfig, siteUrl } from './epk-context.mjs';
 
 const archiver = createRequire(import.meta.url)('archiver');
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const src = join(root, 'src');
-const mastersDir = join(root, 'assets-source/press');
-const outDir = join(root, 'public/epk');
-const photosDir = join(outDir, 'photos');
-
-const jiti = createJiti(import.meta.url, { alias: { '@': src } });
-const { epkManifest } = await jiti.import(join(src, 'data/epk.ts'));
-const { resolveEpkContent, photoDownloadFilename, epkKitBasename: kitName } = await jiti.import(join(src, 'utils/epk.ts'));
-const { siteConfig, social } = await jiti.import(join(src, 'data/navigation.ts'));
-
-const content = resolveEpkContent(epkManifest);
-const siteUrl = siteConfig.url.replace(/\/$/, '');
-const bandcamp = social.find(item => item.name === 'bandcamp');
-const contact = {
-  email: siteConfig.author.email,
-  website: siteConfig.url,
-  bandcamp: bandcamp?.url,
-};
-
-await rm(outDir, { recursive: true, force: true });
-await mkdir(photosDir, { recursive: true });
-
-const photoFiles = [];
-for (const [index, photo] of content.photos.entries()) {
+const photoFiles = content.photos.map((photo, index) => {
   const filename = photoDownloadFilename(photo, index);
-  const outPath = join(photosDir, filename);
-
-  await sharp(join(mastersDir, basename(photo.src)))
-    .rotate()
-    .resize({ width: 3000, height: 3000, fit: 'inside', withoutEnlargement: true })
-    .jpeg({ quality: 90 })
-    .toFile(outPath);
-
-  if (photo.photographer) {
-    const name = photo.photographer.name;
-    await exiftool.write(outPath, {
-      'EXIF:Artist': name,
-      'XMP:Creator': name,
-      'IPTC:By-line': name,
-      'IPTC:Credit': name,
-      'EXIF:Copyright': `© ${name}`,
-      'XMP:Rights': `© ${name}`,
-      'IPTC:CopyrightNotice': `© ${name}`,
-    }, { writeArgs: ['-overwrite_original'] });
-  }
-
-  photoFiles.push({ path: outPath, filename, credit: photo.photographer?.name ?? 'Jerome Faria' });
-}
+  return { path: join(photosDir, filename), filename, credit: photo.photographer?.name ?? 'Jerome Faria' };
+});
 
 const rows = items => items.map(item => `<div class="year">${item.year}</div><div>${item.body}</div>`).join('');
 
@@ -125,5 +78,4 @@ await new Promise((resolvePromise, reject) => {
   archive.finalize();
 });
 
-await exiftool.end();
-console.log(`EPK kit: ${photoFiles.length} photos + PDF + zip → public/epk/`);
+console.log(`EPK bundle: PDF + zip → public/epk/`);
