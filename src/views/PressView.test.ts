@@ -14,7 +14,7 @@ describe('PressView', () => {
     vi.restoreAllMocks();
   });
 
-  it('scrolls the targeted quote into view when the hash changes', async () => {
+  const mountAndScrollToFirstQuote = async (): Promise<ReturnType<typeof vi.spyOn>> => {
     const scrollIntoView = vi.spyOn(Element.prototype, 'scrollIntoView').mockImplementation(() => {});
     const router = createRouter({
       history: createMemoryHistory(),
@@ -28,7 +28,23 @@ describe('PressView', () => {
     await router.push({ hash: `#${pressQuotes[0].id}` });
     await nextTick();
 
+    return scrollIntoView;
+  };
+
+  it('smooth-scrolls the targeted quote into view when the hash changes', async () => {
+    vi.spyOn(window, 'matchMedia').mockReturnValue({ matches: false } as MediaQueryList);
+
+    const scrollIntoView = await mountAndScrollToFirstQuote();
+
     expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
+  });
+
+  it('jumps without animation when reduced motion is preferred', async () => {
+    vi.spyOn(window, 'matchMedia').mockReturnValue({ matches: true } as MediaQueryList);
+
+    const scrollIntoView = await mountAndScrollToFirstQuote();
+
+    expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'auto', block: 'start' });
   });
 
   it('renders a blockquote for every press quote, keyed by id', async () => {

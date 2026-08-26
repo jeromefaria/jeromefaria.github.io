@@ -5,12 +5,13 @@ import { useHashScroll } from '@/composables/useHashScroll';
 import { usePageHead } from '@/composables/usePageHead';
 import { pageMeta } from '@/data/pageMeta';
 import { pressQuotes } from '@/data/press';
+import { prefersReducedMotion } from '@/utils/scroll';
 
 usePageHead(pageMeta.press);
 
 const scrollToHash = (hash: string) => {
   const element = document.getElementById(hash.replace('#', ''));
-  element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  element?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
 };
 
 useHashScroll(scrollToHash);
