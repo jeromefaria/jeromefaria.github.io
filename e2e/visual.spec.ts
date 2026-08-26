@@ -22,7 +22,10 @@ test.describe('Visual regression', () => {
 
       await expect(page).toHaveScreenshot(`${name}.png`, {
         animations: 'disabled',
-        maxDiffPixelRatio: 0.02,
+        // Absolute budget, not a ratio: a ratio scaled with page density, so a full
+        // redesign of a mostly-dark page slipped under 2%. 500px absorbs cross-run
+        // anti-aliasing jitter while still catching any real layout or style shift.
+        maxDiffPixels: 500,
       });
     });
   }
