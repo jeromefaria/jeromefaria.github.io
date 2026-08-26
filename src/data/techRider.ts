@@ -1,3 +1,5 @@
+import { siteConfig } from './navigation';
+
 export interface RiderBullet {
   label?: string;
   text: string;
@@ -26,7 +28,7 @@ export interface TechRider {
 
 export const techRider: TechRider = {
   updated: 'August 2026',
-  contact: 'jerome.faria@gmail.com',
+  contact: siteConfig.author.email,
   overview:
     'Solo electronic performance — analogue instrument, sampler, and effects through a small-format mixer. No backline, no additional musicians, and no crew required beyond venue power and PA access.',
   summary: [

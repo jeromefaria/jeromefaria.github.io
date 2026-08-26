@@ -1,7 +1,10 @@
+// Local midnight, so an ISO date parses as a calendar day without timezone drift.
+const parseLocalDate = (isoDate: string): Date => new Date(`${isoDate}T00:00:00`);
+
 export const formatEventDate = (isoDate: string): string => {
   if (!isoDate) return '';
 
-  const date = new Date(`${isoDate}T00:00:00`); // Local midnight, avoids timezone drift
+  const date = parseLocalDate(isoDate);
   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
   return date.toLocaleDateString('en-US', options);
 };
@@ -9,8 +12,8 @@ export const formatEventDate = (isoDate: string): string => {
 export const formatEventDateRange = (isoStart: string, isoEnd?: string): string => {
   if (!isoEnd || isoEnd === isoStart) return formatEventDate(isoStart);
 
-  const start = new Date(`${isoStart}T00:00:00`);
-  const end = new Date(`${isoEnd}T00:00:00`);
+  const start = parseLocalDate(isoStart);
+  const end = parseLocalDate(isoEnd);
 
   if (start.getFullYear() !== end.getFullYear()) {
     return `${formatEventDate(isoStart)} – ${formatEventDate(isoEnd)}`;
