@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
 import { epkManifest } from '@/data/epk';
-import type { AboutSection } from '@/types/about';
 import type { EventVenue } from '@/types/live';
 import type { Release } from '@/types/works';
 
@@ -9,40 +8,9 @@ import {
   eventLocation,
   photoDownloadFilename,
   resolveEpkContent,
-  resolveLongBio,
   toLiveHighlight,
   toWorkHighlight,
 } from './epk';
-
-const aboutFixture: AboutSection[] = [
-  { id: 'short-bio', type: 'short-bio', content: '<p>short</p>' },
-  { id: 'section-1', content: '<p>one</p>' },
-  {
-    id: 'image-group-1',
-    type: 'image-group',
-    images: [
-      { src: '/credited.jpg', alt: 'credited shot', photographer: { name: 'Marta León', url: 'https://example.com' } },
-      { src: '/uncredited.jpg', alt: 'uncredited shot' },
-    ],
-  },
-  { id: 'section-2', content: '<p>two</p>' },
-];
-
-describe('resolveLongBio', () => {
-  it('joins the referenced About text sections in order, skipping image groups', () => {
-    const result = resolveLongBio({ source: 'about', sectionIds: ['section-1', 'section-2'] }, aboutFixture);
-
-    expect(result).toBe('<p>one</p>\n<p>two</p>');
-  });
-
-  it('returns the bespoke html verbatim for a custom source', () => {
-    expect(resolveLongBio({ source: 'custom', html: '<p>bespoke</p>' }, aboutFixture)).toBe('<p>bespoke</p>');
-  });
-
-  it('throws when a referenced section id is absent', () => {
-    expect(() => resolveLongBio({ source: 'about', sectionIds: ['missing'] }, aboutFixture)).toThrow(/missing/);
-  });
-});
 
 describe('photoDownloadFilename', () => {
   it('encodes the 1-based index and the accent-folded photographer credit', () => {

@@ -7,14 +7,12 @@ export interface EpkPhoto {
   photographer?: Credit;
 }
 
-export type EpkLongBio =
-  | { source: 'about'; sectionIds: string[] }
-  | { source: 'custom'; html: string };
+export type BioVariant = 'short' | 'press';
 
 export interface EpkManifest {
   photos: EpkPhoto[];
-  shortBioId: string;
-  longBio: EpkLongBio;
+  shortBio: BioVariant;
+  longBio: BioVariant;
   pressQuoteIds: string[];
   highlightLiveIds: string[];
   highlightWorkIds: string[];
