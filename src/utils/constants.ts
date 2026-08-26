@@ -24,6 +24,5 @@ export const TOUCH = {
 } as const;
 
 export const TURNSTILE = {
-  ONLOAD_CALLBACK: 'onloadTurnstileCallback',
   SCRIPT_URL: 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback',
 } as const;

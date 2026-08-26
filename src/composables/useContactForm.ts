@@ -57,6 +57,11 @@ export const useContactForm = (
   const fields = uniqueFields(collectFields(form));
   const labelById = new Map(fields.map(field => [field.id, field.label]));
 
+  const inquiryId = form.inquiry.id;
+  const nameId = form.baseFields.name.id;
+  const emailId = form.baseFields.email.id;
+  const messageId = form.baseFields.message.id;
+
   const emptyState = <T>(value: T): Record<string, T> =>
     Object.fromEntries(fields.map(field => [field.id, value]));
 
@@ -69,7 +74,7 @@ export const useContactForm = (
   const errorMessage = ref('');
 
   const selectedType = computed<InquiryType | null>(() =>
-    form.inquiryTypes.find(type => type.id === formData['inquiry']) ?? null);
+    form.inquiryTypes.find(type => type.id === formData[inquiryId]) ?? null);
 
   const requiredIds = computed<string[]>(() => {
     const base = [form.inquiry, form.baseFields.name, form.baseFields.email, form.baseFields.message]
@@ -113,9 +118,9 @@ export const useContactForm = (
   const buildPayload = (token: string): ContactPayload => ({
     token,
     inquiry: selectedType.value?.label ?? '',
-    name: formData['name'] ?? '',
-    email: formData['email'] ?? '',
-    message: formData['message'] ?? '',
+    name: formData[nameId] ?? '',
+    email: formData[emailId] ?? '',
+    message: formData[messageId] ?? '',
     fields: (selectedType.value?.fields ?? [])
       .map(field => ({ label: field.label, value: formData[field.id] ?? '' }))
       .filter(entry => entry.value.trim() !== ''),

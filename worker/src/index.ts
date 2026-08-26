@@ -111,7 +111,12 @@ const sendEmail = async (payload: ContactPayload, env: Env): Promise<boolean> =>
     }),
   });
 
-  return response.ok;
+  if (!response.ok) {
+    console.error('Resend send failed:', response.status, await response.text());
+    return false;
+  }
+
+  return true;
 };
 
 export default {
@@ -142,16 +147,21 @@ export default {
       return jsonResponse({ error: `Missing required field: ${missing}` }, 400, cors);
     }
 
-    const verified = await verifyTurnstile(payload.token, env.TURNSTILE_SECRET, request);
-    if (!verified) {
-      return jsonResponse({ error: 'Verification failed' }, 403, cors);
-    }
+    try {
+      const verified = await verifyTurnstile(payload.token, env.TURNSTILE_SECRET, request);
+      if (!verified) {
+        return jsonResponse({ error: 'Verification failed' }, 403, cors);
+      }
 
-    const delivered = await sendEmail(payload, env);
-    if (!delivered) {
+      const delivered = await sendEmail(payload, env);
+      if (!delivered) {
+        return jsonResponse({ error: 'Could not send message' }, 502, cors);
+      }
+
+      return jsonResponse({ ok: true }, 200, cors);
+    } catch (error) {
+      console.error('Contact relay error:', error);
       return jsonResponse({ error: 'Could not send message' }, 502, cors);
     }
-
-    return jsonResponse({ ok: true }, 200, cors);
   },
 };
