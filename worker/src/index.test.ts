@@ -30,7 +30,7 @@ const postRequest = (body: unknown, origin = 'https://jeromefaria.com'): Request
 const turnstileResult = (success: boolean): Response =>
   ({ ok: true, json: async () => ({ success }) }) as unknown as Response;
 
-const resendResult = (ok: boolean): Response => ({ ok }) as unknown as Response;
+const resendResult = (ok: boolean): Response => ({ ok, text: async () => 'error body' }) as unknown as Response;
 
 const sentBody = (fetchMock: ReturnType<typeof vi.spyOn>): Record<string, string> =>
   JSON.parse((fetchMock.mock.calls[1] as [string, RequestInit])[1].body as string);
@@ -40,6 +40,7 @@ describe('contact worker', () => {
 
   beforeEach(() => {
     fetchMock = vi.spyOn(globalThis, 'fetch');
+    vi.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -116,6 +117,15 @@ describe('contact worker', () => {
     const response = await worker.fetch(postRequest(VALID_BODY), ENV);
 
     expect(response.status).toBe(502);
+  });
+
+  it('returns a CORS 502 when a downstream request throws', async () => {
+    fetchMock.mockRejectedValueOnce(new Error('network error'));
+
+    const response = await worker.fetch(postRequest(VALID_BODY), ENV);
+
+    expect(response.status).toBe(502);
+    expect(response.headers.get('Access-Control-Allow-Origin')).toBe('https://jeromefaria.com');
   });
 
   it('escapes HTML in user content', async () => {
