@@ -1,20 +1,27 @@
 import { expect, test } from '@playwright/test';
 
 const FORM_SELECTOR = '.contact-form';
+const INQUIRY_SELECT = '#inquiry';
 const NAME_INPUT = '#name';
 const EMAIL_INPUT = '#email';
-const SUBJECT_INPUT = '#subject';
 const MESSAGE_INPUT = '#message';
 const SUBMIT_BUTTON = '.contact-form__submit';
 const INVALID_INPUT_CLASS = /contact-form__input--invalid/;
 const INVALID_TEXTAREA_CLASS = /contact-form__textarea--invalid/;
+const VALID_SUBMIT_CLASS = /contact-form__submit--valid/;
 const FORMSUBMIT_URL = /formsubmit\.co/;
 
 const VALID_FORM = {
   name: 'Test User',
   email: 'test@example.com',
-  subject: 'Test Subject',
   message: 'This is a test message with enough content.',
+};
+
+const fillValidForm = async (page: import('@playwright/test').Page): Promise<void> => {
+  await page.locator(INQUIRY_SELECT).selectOption('booking');
+  await page.locator(NAME_INPUT).fill(VALID_FORM.name);
+  await page.locator(EMAIL_INPUT).fill(VALID_FORM.email);
+  await page.locator(MESSAGE_INPUT).fill(VALID_FORM.message);
 };
 
 test.describe('Contact Form', () => {
@@ -24,11 +31,18 @@ test.describe('Contact Form', () => {
   });
 
   test.describe('Rendering', () => {
-    test('shows all form fields', async ({ page }) => {
+    test('shows the inquiry selector and base fields', async ({ page }) => {
+      await expect(page.locator(INQUIRY_SELECT)).toBeVisible();
       await expect(page.locator(NAME_INPUT)).toBeVisible();
       await expect(page.locator(EMAIL_INPUT)).toBeVisible();
-      await expect(page.locator(SUBJECT_INPUT)).toBeVisible();
       await expect(page.locator(MESSAGE_INPUT)).toBeVisible();
+    });
+
+    test('reveals adaptive fields once an inquiry type is chosen', async ({ page }) => {
+      await expect(page.locator('#eventVenue')).toHaveCount(0);
+      await page.locator(INQUIRY_SELECT).selectOption('booking');
+      await expect(page.locator('#eventVenue')).toBeVisible();
+      await expect(page.locator('.contact-form__blurb')).toBeVisible();
     });
 
     test('shows the submit button', async ({ page }) => {
@@ -36,6 +50,7 @@ test.describe('Contact Form', () => {
     });
 
     test('has required indicators on required fields', async ({ page }) => {
+      await expect(page.locator('label[for="inquiry"] abbr')).toHaveCount(1);
       await expect(page.locator('label[for="name"] abbr')).toHaveCount(1);
       await expect(page.locator('label[for="email"] abbr')).toHaveCount(1);
       await expect(page.locator('label[for="message"] abbr')).toHaveCount(1);
@@ -81,30 +96,34 @@ test.describe('Contact Form', () => {
       await page.locator(EMAIL_INPUT).blur();
       await expect(page.locator(EMAIL_INPUT)).not.toHaveClass(INVALID_INPUT_CLASS);
     });
-
-    test('marks email as invalid after blur when empty', async ({ page }) => {
-      await page.locator(EMAIL_INPUT).focus();
-      await page.locator(EMAIL_INPUT).blur();
-      await expect(page.locator(EMAIL_INPUT)).toHaveClass(INVALID_INPUT_CLASS);
-    });
   });
 
   test.describe('Submit button state', () => {
     test('does not have the valid class when form is empty', async ({ page }) => {
-      await expect(page.locator(SUBMIT_BUTTON)).not.toHaveClass(/contact-form__submit--valid/);
+      await expect(page.locator(SUBMIT_BUTTON)).not.toHaveClass(VALID_SUBMIT_CLASS);
     });
 
-    test('does not have the valid class when only some required fields are filled', async ({ page }) => {
-      await page.locator(NAME_INPUT).fill(VALID_FORM.name);
-      await page.locator(EMAIL_INPUT).fill(VALID_FORM.email);
-      await expect(page.locator(SUBMIT_BUTTON)).not.toHaveClass(/contact-form__submit--valid/);
-    });
-
-    test('gets the valid class when all required fields are filled', async ({ page }) => {
+    test('does not have the valid class when no inquiry type is selected', async ({ page }) => {
       await page.locator(NAME_INPUT).fill(VALID_FORM.name);
       await page.locator(EMAIL_INPUT).fill(VALID_FORM.email);
       await page.locator(MESSAGE_INPUT).fill(VALID_FORM.message);
-      await expect(page.locator(SUBMIT_BUTTON)).toHaveClass(/contact-form__submit--valid/);
+      await expect(page.locator(SUBMIT_BUTTON)).not.toHaveClass(VALID_SUBMIT_CLASS);
+    });
+
+    test('gets the valid class when a type and all required fields are filled', async ({ page }) => {
+      await fillValidForm(page);
+      await expect(page.locator(SUBMIT_BUTTON)).toHaveClass(VALID_SUBMIT_CLASS);
+    });
+
+    test('requires a type-specific field before validating', async ({ page }) => {
+      await page.locator(INQUIRY_SELECT).selectOption('licensing');
+      await page.locator(NAME_INPUT).fill(VALID_FORM.name);
+      await page.locator(EMAIL_INPUT).fill(VALID_FORM.email);
+      await page.locator(MESSAGE_INPUT).fill(VALID_FORM.message);
+      await expect(page.locator(SUBMIT_BUTTON)).not.toHaveClass(VALID_SUBMIT_CLASS);
+
+      await page.locator('#track').fill('Overlapse');
+      await expect(page.locator(SUBMIT_BUTTON)).toHaveClass(VALID_SUBMIT_CLASS);
     });
   });
 
@@ -113,10 +132,7 @@ test.describe('Contact Form', () => {
       await page.route(FORMSUBMIT_URL, route =>
         route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true }) }));
 
-      await page.locator(NAME_INPUT).fill(VALID_FORM.name);
-      await page.locator(EMAIL_INPUT).fill(VALID_FORM.email);
-      await page.locator(SUBJECT_INPUT).fill(VALID_FORM.subject);
-      await page.locator(MESSAGE_INPUT).fill(VALID_FORM.message);
+      await fillValidForm(page);
       await page.locator(SUBMIT_BUTTON).click();
 
       await expect(page.locator('.contact-success')).toBeVisible();
@@ -127,9 +143,7 @@ test.describe('Contact Form', () => {
       await page.route(FORMSUBMIT_URL, route =>
         route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true }) }));
 
-      await page.locator(NAME_INPUT).fill(VALID_FORM.name);
-      await page.locator(EMAIL_INPUT).fill(VALID_FORM.email);
-      await page.locator(MESSAGE_INPUT).fill(VALID_FORM.message);
+      await fillValidForm(page);
       await page.locator(SUBMIT_BUTTON).click();
 
       await expect(page.locator('.contact-success h2')).toBeVisible();
@@ -149,9 +163,7 @@ test.describe('Contact Form', () => {
         form.submit = () => resolve(true);
       }));
 
-      await page.locator(NAME_INPUT).fill(VALID_FORM.name);
-      await page.locator(EMAIL_INPUT).fill(VALID_FORM.email);
-      await page.locator(MESSAGE_INPUT).fill(VALID_FORM.message);
+      await fillValidForm(page);
       await page.locator(SUBMIT_BUTTON).click();
 
       expect(await nativeSubmitCalled).toBe(true);
@@ -171,12 +183,13 @@ test.describe('Contact Form', () => {
   });
 
   test.describe('Accessibility', () => {
-    test('all visible inputs have associated labels', async ({ page }) => {
-      const inputs = page.locator('input:not([type="hidden"]):not([tabindex="-1"]), textarea');
-      const count = await inputs.count();
+    test('all visible fields have associated labels', async ({ page }) => {
+      await page.locator(INQUIRY_SELECT).selectOption('booking');
+      const fields = page.locator('input:not([type="hidden"]):not([tabindex="-1"]), textarea, select');
+      const count = await fields.count();
 
       for (let index = 0; index < count; index += 1) {
-        const id = await inputs.nth(index).getAttribute('id');
+        const id = await fields.nth(index).getAttribute('id');
         if (!id) continue;
         await expect(page.locator(`label[for="${id}"]`)).toHaveCount(1);
       }

@@ -60,8 +60,71 @@ describe('FormField', () => {
     expect(field.emitted('blur')).toHaveLength(1);
   });
 
+  it('emits update:modelValue and blur from a textarea', async () => {
+    const field = mountField({ id: 'message', label: 'Message', type: 'textarea' });
+    const textarea = field.get('textarea');
+
+    await textarea.setValue('Hello');
+    expect(field.emitted('update:modelValue')?.[0]).toEqual(['Hello']);
+
+    await textarea.trigger('blur');
+    expect(field.emitted('blur')).toHaveLength(1);
+  });
+
   it('renders slotted content (e.g. a hidden reply-to input)', () => {
     const field = mountField({}, { default: '<input type="hidden" name="_replyto">' });
     expect(field.find('input[name="_replyto"]').exists()).toBe(true);
+  });
+
+  it('uses the name prop as the control name when provided', () => {
+    const field = mountField({ name: 'Full name' });
+    expect(field.get('input').attributes('name')).toBe('Full name');
+  });
+
+  it('renders a placeholder when supplied', () => {
+    const field = mountField({ placeholder: 'City, country' });
+    expect(field.get('input').attributes('placeholder')).toBe('City, country');
+  });
+
+  describe('select', () => {
+    const OPTIONS = [
+      { value: 'booking', label: 'Booking' },
+      { value: 'licensing', label: 'Licensing' },
+    ];
+
+    it('renders a select with a disabled placeholder and the given options', () => {
+      const field = mountField({ id: 'inquiry', label: 'Inquiry type', type: 'select', placeholder: 'Select one', options: OPTIONS });
+
+      expect(field.find('select').exists()).toBe(true);
+      expect(field.find('input').exists()).toBe(false);
+
+      const placeholder = field.get('option[value=""]');
+      expect(placeholder.attributes('disabled')).toBeDefined();
+      expect(placeholder.text()).toBe('Select one');
+
+      expect(field.findAll('option')).toHaveLength(3);
+    });
+
+    it('is not submitted as a control (no name attribute)', () => {
+      const field = mountField({ id: 'inquiry', type: 'select', options: OPTIONS });
+      expect(field.get('select').attributes('name')).toBeUndefined();
+    });
+
+    it('emits update:modelValue and input on change', async () => {
+      const field = mountField({ id: 'inquiry', type: 'select', options: OPTIONS });
+
+      await field.get('select').setValue('licensing');
+
+      expect(field.emitted('update:modelValue')?.[0]).toEqual(['licensing']);
+      expect(field.emitted('input')).toHaveLength(1);
+    });
+
+    it('emits blur on blur', async () => {
+      const field = mountField({ id: 'inquiry', type: 'select', options: OPTIONS });
+
+      await field.get('select').trigger('blur');
+
+      expect(field.emitted('blur')).toHaveLength(1);
+    });
   });
 });
