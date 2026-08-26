@@ -34,15 +34,23 @@ Responses: `200 {ok:true}` on success (and on a tripped honeypot, silently),
 
 ## Deploy
 
-Set the secrets **after** `deploy`, and don't `deploy` again afterward — a
-`wrangler deploy` detaches previously-set secrets from the served version, so
-setting them last is what binds them at runtime.
-
 ```sh
 cd worker
 npm install
 npx wrangler login
 npx wrangler deploy                         # prints the *.workers.dev URL
+npx wrangler secret list                    # confirm both secrets are attached
+```
+
+The secrets live at the Worker level and persist across deploys, so a routine
+code deploy needs nothing more. Note that `wrangler deploy`'s "bindings" list
+only prints the `wrangler.toml` vars — out-of-band secrets never appear there,
+which is expected and not a sign they were dropped. Verify with `secret list`
+rather than reading the deploy output.
+
+First-time setup (or if `secret list` ever comes back missing one) sets them:
+
+```sh
 npx wrangler secret put TURNSTILE_SECRET    # paste the Turnstile secret key
 npx wrangler secret put RESEND_API_KEY      # paste the Resend API key
 ```
