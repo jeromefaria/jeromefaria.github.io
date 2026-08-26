@@ -13,12 +13,12 @@ export const pageMeta = {
   },
   about: {
     title: 'About',
-    description: 'Biography and background of Jerome Faria, Portuguese sound artist and electronic music composer.',
+    description: 'The biography of Jerome Faria — Portuguese composer and sound artist, from netlabel-era noise to drone, film scores, and theatre.',
     ogType: 'profile',
   },
   works: {
     title: 'Works',
-    description: 'Discography, film scores, and works by Jerome Faria including solo releases, collaborations, and curatorial projects.',
+    description: 'Discography and works by Jerome Faria — solo releases, film and theatre scores, collaborations, curation, and mastering.',
   },
   live: {
     title: 'Live',
@@ -26,7 +26,7 @@ export const pageMeta = {
   },
   contact: {
     title: 'Contact',
-    description: 'Get in touch with Jerome Faria for commissions, collaborations, performance bookings, and general inquiries.',
+    description: 'Get in touch with Jerome Faria — performance bookings, commissions, licensing, mastering, and general inquiries.',
   },
   press: {
     title: 'Press',
