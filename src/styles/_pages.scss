@@ -371,7 +371,7 @@
 
   &__heading {
     margin-bottom: $spacing-3;
-    @include label-style($font-weight-medium);
+    @include label-style;
   }
 
   &__body {
