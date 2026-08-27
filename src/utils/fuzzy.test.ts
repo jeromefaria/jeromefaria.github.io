@@ -47,6 +47,17 @@ describe('fuzzyRank', () => {
     expect(fuzzyRank('vitor', [item('Vítor')])).toHaveLength(1);
   });
 
+  it('ranks entity (keyword) matches above prose (text) matches', () => {
+    const entity = { title: 'Alpha', keywords: ['zephyr'] };
+    const prose = { title: 'Beta', text: ['a zephyr drifts through'] };
+
+    expect(fuzzyRank('zephyr', [prose, entity])[0]).toBe(entity);
+  });
+
+  it('still surfaces prose-only text matches', () => {
+    expect(fuzzyRank('zephyr', [{ title: 'Beta', text: ['a zephyr drifts through'] }])).toHaveLength(1);
+  });
+
   it('narrows as tokens are added — every word must match', () => {
     const items = [
       item('MADEIRADIG', ['2009']),
