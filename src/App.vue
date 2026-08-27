@@ -2,6 +2,8 @@
 import { nextTick, onMounted } from 'vue';
 import { RouterView } from 'vue-router';
 
+import CommandPalette from '@/components/CommandPalette.vue';
+import KeyboardHelp from '@/components/KeyboardHelp.vue';
 import SiteFooter from '@/components/SiteFooter.vue';
 import SiteHeader from '@/components/SiteHeader.vue';
 
@@ -81,4 +83,6 @@ onMounted(() => {
     </main>
     <SiteFooter />
   </div>
+  <CommandPalette />
+  <KeyboardHelp />
 </template>

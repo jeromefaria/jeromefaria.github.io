@@ -14,6 +14,7 @@ A production-grade **Vue 3 + TypeScript** frontend for [www.jeromefaria.com](htt
 - **Performance engineering.** SSG pre-render + hydrate, Lighthouse budgets enforced in CI, responsive `<picture>`/WebP srcsets generated at build, subsetted self-hosted fonts, and non-render-blocking CSS.
 - **Testing rigor.** ~99% coverage behind a **ratcheting floor**, cross-browser E2E on three engines (Chromium, Firefox, WebKit), and per-route **visual-regression** snapshots.
 - **Component & styling architecture.** Single-responsibility components, reusable composables, and SCSS design tokens driving a themable, BEM-structured stylesheet.
+- **A hidden ⌘K command palette.** Keyboard-summoned search, navigation, and actions across the whole site — a typed command registry, a hand-rolled fuzzy ranker, a full combobox/listbox ARIA contract, and fzf-style keybindings. No visible affordance; it's an easter egg for those who reach for `⌘K` / `Ctrl+K`.
 - **Full-stack when it's warranted.** Even the contact form is a real backend I own — a **Cloudflare Worker** doing server-side Turnstile verification + Resend, not a form-SaaS embed.
 
 ## Architecture
