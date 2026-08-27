@@ -63,7 +63,7 @@ describe('buildMetaSegments', () => {
   it('renders a mastering credit leading with the artist', () => {
     expect(asText({
       kind: 'mastering',
-      artist: { text: 'Artist' },
+      artist: { name: 'Artist' },
       editions: [{ label: { text: 'Label' }, catalog: 'L1' }],
       year: 2025,
     })).toBe('Artist — Label, L1, 2025');

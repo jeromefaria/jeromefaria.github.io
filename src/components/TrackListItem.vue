@@ -8,7 +8,7 @@ const props = defineProps<{ track: Track }>();
 const prefix = computed(() => {
   const { artist } = props.track;
   if (!artist) return '';
-  return artist.url ? ' — ' : `${artist.text} — `;
+  return artist.url ? ' — ' : `${artist.name} — `;
 });
 </script>
 
@@ -16,5 +16,5 @@ const prefix = computed(() => {
   <a
     v-if="track.artist?.url"
     :href="track.artist.url"
-  >{{ track.artist.text }}</a>{{ prefix }}{{ track.title }}
+  >{{ track.artist.name }}</a>{{ prefix }}{{ track.title }}
 </template>
