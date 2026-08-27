@@ -20,7 +20,10 @@ export const worksData: WorksData = {
         tracklist: [
           { title: 'Contraplacado (Se Deus nos der vida e saúde)' },
         ],
-        credits: 'Music by Jerome Faria, reinterpreting "Contraplacado" by <a href="https://aires.bandcamp.com/">Aires</a>. Photography by NASA, ESA, CSA, STScI.',
+        credits: 'Music by Jerome Faria, reinterpreting "Contraplacado" by [[Aires]]. Photography by NASA, ESA, CSA, STScI.',
+        contributors: [
+          { name: 'Aires', url: 'https://aires.bandcamp.com/' },
+        ],
       },
       {
         id: 'en-veille',
@@ -145,7 +148,10 @@ export const worksData: WorksData = {
           { title: '002' },
           { title: '003' },
         ],
-        credits: 'Music by Jerome Faria, Kazuya Mise, and Filipe Cruz. Artwork by <a href="https://webuser.scene.org/~ps/">Filipe Cruz</a>.',
+        credits: 'Music by Jerome Faria, Kazuya Mise, and Filipe Cruz. Artwork by [[Filipe Cruz]].',
+        contributors: [
+          { name: 'Filipe Cruz', url: 'https://webuser.scene.org/~ps/' },
+        ],
       },
       {
         id: 'coil',
@@ -186,7 +192,10 @@ export const worksData: WorksData = {
           { title: 'Hell Rendered' },
           { title: 'Mutnt' },
         ],
-        credits: 'Music by Jerome Faria. Artwork by <a href="https://www.instagram.com/pbalpbal/">Philip Baljeu</a>.',
+        credits: 'Music by Jerome Faria. Artwork by [[Philip Baljeu]].',
+        contributors: [
+          { name: 'Philip Baljeu', url: 'https://www.instagram.com/pbalpbal/' },
+        ],
       },
       {
         id: 'ect',
@@ -231,7 +240,10 @@ export const worksData: WorksData = {
           { title: 'Exmatik' },
           { title: 'BL_P+' },
         ],
-        credits: 'Music by Jerome Faria. Artwork by <a href="https://www.deviantart.com/spiraljoe">Spiraljoe</a>.',
+        credits: 'Music by Jerome Faria. Artwork by [[Spiraljoe]].',
+        contributors: [
+          { name: 'Spiraljoe', url: 'https://www.deviantart.com/spiraljoe' },
+        ],
       },
     ],
   },
@@ -261,7 +273,11 @@ export const worksData: WorksData = {
           { title: 'Costa Norte', artist: { name: 'sol' } },
           { title: 'Release (Conclusion)', artist: { name: 'W. R. Pyo', url: 'https://wrpyo.bandcamp.com/' } },
         ],
-        credits: 'Artwork by Jerome Faria. Photography by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>, <a href="https://cargocollective.com/sueelieandradede">Sue-Elie Andrade-Dé</a>, Joana Marote.',
+        credits: 'Artwork by Jerome Faria. Photography by [[Pedro Jafuno]], [[Sue-Elie Andrade-Dé]], Joana Marote.',
+        contributors: [
+          { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+          { name: 'Sue-Elie Andrade-Dé', url: 'https://cargocollective.com/sueelieandradede' },
+        ],
       },
       {
         id: 'altar',
@@ -282,7 +298,10 @@ export const worksData: WorksData = {
           { title: 'A' },
           { title: 'R' },
         ],
-        credits: 'Music by Pedro Roque and Jerome Faria. Artwork by <a href="https://www.instagram.com/mafaldappm/">Mafalda Melim</a>.',
+        credits: 'Music by Pedro Roque and Jerome Faria. Artwork by [[Mafalda Melim]].',
+        contributors: [
+          { name: 'Mafalda Melim', url: 'https://www.instagram.com/mafaldappm/' },
+        ],
         videos: [
           {
             url: 'https://www.youtube-nocookie.com/embed/3b3pM8URdVc',
@@ -325,7 +344,11 @@ export const worksData: WorksData = {
           year: 2021,
         },
         description: 'Theatre production celebrating the centenary of <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event. Faria provided both original music and live interpretation—embedding himself in a multidisciplinary creative team rather than delivering a score from a distance.',
-        credits: 'Direction: Sara Gonçalves. Text: <a href="https://pt.wikipedia.org/wiki/Rui_Zink">Rui Zink</a>. Set design: <a href="https://pt.wikipedia.org/wiki/Jos%C3%A9_Manuel_Castanheira">José Manuel Castanheira</a>. Video: Filipe Ferraz. Music and live interpretation: Jerome Faria.',
+        credits: 'Direction: Sara Gonçalves. Text: [[Rui Zink]]. Set design: [[José Manuel Castanheira]]. Video: Filipe Ferraz. Music and live interpretation: Jerome Faria.',
+        contributors: [
+          { name: 'Rui Zink', url: 'https://pt.wikipedia.org/wiki/Rui_Zink' },
+          { name: 'José Manuel Castanheira', url: 'https://pt.wikipedia.org/wiki/Jos%C3%A9_Manuel_Castanheira' },
+        ],
         videos: [
           {
             url: 'https://www.youtube-nocookie.com/embed/6LpRJBS7pzg',
@@ -346,7 +369,16 @@ export const worksData: WorksData = {
           year: 2016,
         },
         description: 'Original score for film by Portuguese-Norwegian visual artist Margarida Paiva. The film depicts a park as a closed world where anonymous characters drift past one another, bound only by gestures and glances.',
-        credits: 'Producer: Rune Sandnes. Cinematography: <a href="https://www.instagram.com/diogocastrofilm/">Diogo Castro</a>. Music: Jerome Faria. Sound design: <a href="https://www.linkedin.com/in/dvarte/">Duarte Ferreira</a>. Sound editor: <a href="https://www.instagram.com/ochocobogordo/">Pedro Anacleto</a>. Editing: Margarida Paiva. Cast: <a href="https://chiocca.wixsite.com/susanachiocca">Susana Chiocca</a>, Alexandre Osório, Helena Carneiro, <a href="https://agenteanorte.com/en/atores-exclusivos/joao-pamplona/">João Pamplona</a>, <a href="https://agenteanorte.com/en/atores-exclusivos/susana-madeira/">Susana Madeira</a>, Mariana L. Ferreira. Shot at <a href="https://mhnc.up.pt/pt/jardim-botanico-da-universidade-do-porto/">Jardim Botânico do Porto</a>.',
+        credits: 'Producer: Rune Sandnes. Cinematography: [[Diogo Castro]]. Music: Jerome Faria. Sound design: [[Duarte Ferreira]]. Sound editor: [[Pedro Anacleto]]. Editing: Margarida Paiva. Cast: [[Susana Chiocca]], Alexandre Osório, Helena Carneiro, [[João Pamplona]], [[Susana Madeira]], Mariana L. Ferreira. Shot at [[Jardim Botânico do Porto]].',
+        contributors: [
+          { name: 'Diogo Castro', url: 'https://www.instagram.com/diogocastrofilm/' },
+          { name: 'Duarte Ferreira', url: 'https://www.linkedin.com/in/dvarte/' },
+          { name: 'Pedro Anacleto', url: 'https://www.instagram.com/ochocobogordo/' },
+          { name: 'Susana Chiocca', url: 'https://chiocca.wixsite.com/susanachiocca' },
+          { name: 'João Pamplona', url: 'https://agenteanorte.com/en/atores-exclusivos/joao-pamplona/' },
+          { name: 'Susana Madeira', url: 'https://agenteanorte.com/en/atores-exclusivos/susana-madeira/' },
+          { name: 'Jardim Botânico do Porto', url: 'https://mhnc.up.pt/pt/jardim-botanico-da-universidade-do-porto/' },
+        ],
       },
       {
         id: 'caligari',
@@ -358,7 +390,10 @@ export const worksData: WorksData = {
           year: 2013,
         },
         description: 'Live score for <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a>\'s 1920 expressionist silent film. Working against Wiene\'s angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honoring the film\'s unease while exploring territories the original could never have envisioned.',
-        credits: 'Music by Jerome Faria. Performed by Jerome Faria and <a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>.',
+        credits: 'Music by Jerome Faria. Performed by Jerome Faria and [[Nuno Filipe]].',
+        contributors: [
+          { name: 'Nuno Filipe', url: 'https://nunoandtheend.bandcamp.com/' },
+        ],
       },
       {
         id: 'hyphema',
@@ -379,7 +414,10 @@ export const worksData: WorksData = {
           { title: '0x04' },
           { title: '0xFF' },
         ],
-        credits: 'Music by Jerome Faria. Visuals by <a href="https://pixelnerve.com/">Victor Martins</a>. Artwork by Frederico Cunha.',
+        credits: 'Music by Jerome Faria. Visuals by [[Victor Martins]]. Artwork by Frederico Cunha.',
+        contributors: [
+          { name: 'Victor Martins', url: 'https://pixelnerve.com/' },
+        ],
       },
     ],
   },
@@ -571,7 +609,42 @@ export const worksData: WorksData = {
           year: 2009,
         },
         description: 'A curated collection of over 200 glitch images grabbed, composed and, in some cases, provoked by artists exploring digital aesthetics and imperfection. Jerome Faria contributed work alongside notable artists from the international glitch art community.',
-        credits: 'Editing and curation by <a href="https://organised.info/">Iman Moradi</a> and <a href="https://www.beflix.com/">Ant Scott</a>. Additional curation by <a href="https://qubik.com/">Joe Gilmore</a> and <a href="https://en.wikipedia.org/wiki/Christopher_Murphy_(designer)">Christopher Murphy</a>. Design by <a href="https://qubik.com/">Qubik</a> / Fehler. Contributing artists include <a href="https://jodi.org/">JODI</a>, <a href="https://kimcascone.bandcamp.com/">Kim Cascone</a>, <a href="https://www.12k.com/artist/deupree-taylor/">Taylor Deupree</a>, <a href="https://mariuswatz.com/">Marius Watz</a>, <a href="https://quasimondo.com/">Mario Klingemann</a>, <a href="https://liaworks.com/">Lia</a>, <a href="https://cargocollective.com/dextroorg">Dextro</a>, <a href="https://leegte.org/">Jan Robert Leegte</a>, <a href="https://lab404.com/">Curt Cloninger</a>, <a href="https://michaelbetancourt.com/">Michael Betancourt</a>, <a href="https://billyroisz.klingt.org/">Billy Roisz</a>, <a href="https://kohlberger.net/">Rainer Kohlberger</a>, <a href="https://www.tinafrank.net/">Tina Frank</a>, <a href="https://www.12k.com/artist/steinbruchel/">Ralph Steinbrüchel</a>, <a href="https://www.paulprudence.com/">Paul Prudence</a>, <a href="https://7hz.org/">Scott Arford</a>, <a href="https://canova.bandcamp.com/">Alessandro Canova</a>, <a href="https://www.carvalhais.org/">Miguel Carvalhais</a>, <a href="https://resilients.net/people/nik/">Nik Gaffney</a>, <a href="https://irisgarrelfs.com/">Iris Garrelfs</a>, <a href="https://mathiasgmachl.com/">Mathias Gmachl</a>, <a href="https://jasonkahn.net/">Jason Kahn</a>, <a href="https://lovid.org/">LoVid</a>, <a href="https://www.michaelnorris.info/">Michael Norris</a>, <a href="https://ok-parking.nl/">O.K. Parking</a>, <a href="https://norbertpfaffenbichler.com/">Norbert Pfaffenbichler</a>, <a href="https://perplatou.info/">Per Platou</a>, <a href="https://andreapolli.com/">Andrea Polli</a>, and others.',
+        credits: 'Editing and curation by [[Iman Moradi]] and [[Ant Scott]]. Additional curation by [[Joe Gilmore]] and [[Christopher Murphy]]. Design by [[Qubik]] / Fehler. Contributing artists include [[JODI]], [[Kim Cascone]], [[Taylor Deupree]], [[Marius Watz]], [[Mario Klingemann]], [[Lia]], [[Dextro]], [[Jan Robert Leegte]], [[Curt Cloninger]], [[Michael Betancourt]], [[Billy Roisz]], [[Rainer Kohlberger]], [[Tina Frank]], [[Ralph Steinbrüchel]], [[Paul Prudence]], [[Scott Arford]], [[Alessandro Canova]], [[Miguel Carvalhais]], [[Nik Gaffney]], [[Iris Garrelfs]], [[Mathias Gmachl]], [[Jason Kahn]], [[LoVid]], [[Michael Norris]], [[O.K. Parking]], [[Norbert Pfaffenbichler]], [[Per Platou]], [[Andrea Polli]], and others.',
+        contributors: [
+          { name: 'Iman Moradi', url: 'https://organised.info/' },
+          { name: 'Ant Scott', url: 'https://www.beflix.com/' },
+          { name: 'Joe Gilmore', url: 'https://qubik.com/' },
+          { name: 'Christopher Murphy', url: 'https://en.wikipedia.org/wiki/Christopher_Murphy_(designer)' },
+          { name: 'Qubik', url: 'https://qubik.com/' },
+          { name: 'JODI', url: 'https://jodi.org/' },
+          { name: 'Kim Cascone', url: 'https://kimcascone.bandcamp.com/' },
+          { name: 'Taylor Deupree', url: 'https://www.12k.com/artist/deupree-taylor/' },
+          { name: 'Marius Watz', url: 'https://mariuswatz.com/' },
+          { name: 'Mario Klingemann', url: 'https://quasimondo.com/' },
+          { name: 'Lia', url: 'https://liaworks.com/' },
+          { name: 'Dextro', url: 'https://cargocollective.com/dextroorg' },
+          { name: 'Jan Robert Leegte', url: 'https://leegte.org/' },
+          { name: 'Curt Cloninger', url: 'https://lab404.com/' },
+          { name: 'Michael Betancourt', url: 'https://michaelbetancourt.com/' },
+          { name: 'Billy Roisz', url: 'https://billyroisz.klingt.org/' },
+          { name: 'Rainer Kohlberger', url: 'https://kohlberger.net/' },
+          { name: 'Tina Frank', url: 'https://www.tinafrank.net/' },
+          { name: 'Ralph Steinbrüchel', url: 'https://www.12k.com/artist/steinbruchel/' },
+          { name: 'Paul Prudence', url: 'https://www.paulprudence.com/' },
+          { name: 'Scott Arford', url: 'https://7hz.org/' },
+          { name: 'Alessandro Canova', url: 'https://canova.bandcamp.com/' },
+          { name: 'Miguel Carvalhais', url: 'https://www.carvalhais.org/' },
+          { name: 'Nik Gaffney', url: 'https://resilients.net/people/nik/' },
+          { name: 'Iris Garrelfs', url: 'https://irisgarrelfs.com/' },
+          { name: 'Mathias Gmachl', url: 'https://mathiasgmachl.com/' },
+          { name: 'Jason Kahn', url: 'https://jasonkahn.net/' },
+          { name: 'LoVid', url: 'https://lovid.org/' },
+          { name: 'Michael Norris', url: 'https://www.michaelnorris.info/' },
+          { name: 'O.K. Parking', url: 'https://ok-parking.nl/' },
+          { name: 'Norbert Pfaffenbichler', url: 'https://norbertpfaffenbichler.com/' },
+          { name: 'Per Platou', url: 'https://perplatou.info/' },
+          { name: 'Andrea Polli', url: 'https://andreapolli.com/' },
+        ],
         images: [
           {
             src: '/images/publications/glitch-spread-01.jpg',
