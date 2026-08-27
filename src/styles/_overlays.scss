@@ -1,5 +1,25 @@
 @use "variables" as *;
 
+.overlay-fade-enter-active {
+  transition: opacity $transition-base;
+}
+
+.overlay-fade-leave-active {
+  transition: opacity $transition-fast;
+}
+
+.overlay-fade-enter-from,
+.overlay-fade-leave-to {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-fade-enter-active,
+  .overlay-fade-leave-active {
+    transition: none;
+  }
+}
+
 .command-palette {
   position: fixed;
   inset: 0;
@@ -28,6 +48,9 @@
     border-bottom: 1px solid var(--color-border-subtle);
     border-radius: 0;
 
+    // The shared input mixin brightens the border on hover/focus; the palette keeps
+    // its divider constant so nothing flickers as the overlay fades.
+    &:hover,
     &:focus {
       border-bottom-color: var(--color-border-subtle);
     }

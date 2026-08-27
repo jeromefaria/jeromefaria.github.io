@@ -26,41 +26,43 @@ const shortcuts: { keys: string[]; description: string }[] = [
 
 <template>
   <Teleport to="body">
-    <div
-      v-if="helpOpen"
-      class="keyboard-help"
-      @click.self="close"
-    >
+    <Transition name="overlay-fade">
       <div
-        ref="panelRef"
-        class="keyboard-help__panel"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Keyboard shortcuts"
-        tabindex="-1"
-        @keydown.tab.prevent
+        v-if="helpOpen"
+        class="keyboard-help"
+        @click.self="close"
       >
-        <h2 class="keyboard-help__title">
-          Keyboard shortcuts
-        </h2>
-        <dl class="keyboard-help__list">
-          <div
-            v-for="row in shortcuts"
-            :key="row.description"
-            class="keyboard-help__row"
-          >
-            <dt class="keyboard-help__keys">
-              <kbd
-                v-for="key in row.keys"
-                :key="key"
-              >{{ key }}</kbd>
-            </dt>
-            <dd class="keyboard-help__description">
-              {{ row.description }}
-            </dd>
-          </div>
-        </dl>
+        <div
+          ref="panelRef"
+          class="keyboard-help__panel"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Keyboard shortcuts"
+          tabindex="-1"
+          @keydown.tab.prevent
+        >
+          <h2 class="keyboard-help__title">
+            Keyboard shortcuts
+          </h2>
+          <dl class="keyboard-help__list">
+            <div
+              v-for="row in shortcuts"
+              :key="row.description"
+              class="keyboard-help__row"
+            >
+              <dt class="keyboard-help__keys">
+                <kbd
+                  v-for="key in row.keys"
+                  :key="key"
+                >{{ key }}</kbd>
+              </dt>
+              <dd class="keyboard-help__description">
+                {{ row.description }}
+              </dd>
+            </div>
+          </dl>
+        </div>
       </div>
-    </div>
+    </Transition>
   </Teleport>
 </template>
