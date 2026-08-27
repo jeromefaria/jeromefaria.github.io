@@ -11,7 +11,7 @@ export interface Image {
 
 export interface Track {
   title: string;
-  artist?: MetaLink;
+  artist?: Credit;
 }
 
 export type Medium = 'Digital' | 'Cassette' | 'MP3' | 'CD' | 'CDr';
@@ -80,7 +80,7 @@ export interface PublicationMeta {
 
 export interface MasteringMeta {
   kind: 'mastering';
-  artist: MetaLink;
+  artist: Credit;
   editions: Edition[];
   year: number;
 }
