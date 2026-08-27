@@ -32,23 +32,32 @@ const scoreAgainst = (query: string, target: string): number | null => {
   return score;
 };
 
+// Deliberate entities (labels, people, tracks, aliases) outrank incidental prose
+// (descriptions, credits, quotes), and the visible title outranks both.
+const KEYWORD_WEIGHT = 0.6;
+const TEXT_WEIGHT = 0.2;
+
 export interface Fuzzable {
   title: string;
   keywords?: string[];
+  text?: string[];
 }
 
-// Best score across the title and any keywords; keyword hits count for less than
-// a title hit so the visible label dominates ranking.
+const scoreField = (query: string, terms: string[], weight: number, scores: number[]): void => {
+  for (const term of terms) {
+    const score = scoreAgainst(query, term);
+    if (score !== null) scores.push(score * weight);
+  }
+};
+
 const bestScore = (query: string, item: Fuzzable): number | null => {
   const scores: number[] = [];
 
   const titleScore = scoreAgainst(query, item.title);
   if (titleScore !== null) scores.push(titleScore);
 
-  for (const keyword of item.keywords ?? []) {
-    const keywordScore = scoreAgainst(query, keyword);
-    if (keywordScore !== null) scores.push(keywordScore * 0.5);
-  }
+  scoreField(query, item.keywords ?? [], KEYWORD_WEIGHT, scores);
+  scoreField(query, item.text ?? [], TEXT_WEIGHT, scores);
 
   return scores.length > 0 ? Math.max(...scores) : null;
 };
