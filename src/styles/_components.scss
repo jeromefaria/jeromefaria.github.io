@@ -133,7 +133,6 @@
       height: auto;
       display: block;
       margin: 0;
-      @include image-reveal;
     }
 
     &:focus-visible {
