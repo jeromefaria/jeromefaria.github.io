@@ -20,30 +20,25 @@ A production-grade **Vue 3 + TypeScript** frontend for [www.jeromefaria.com](htt
 
 Two independent deploy targets from one repository: the **static site** (GitHub Pages) and the **contact Worker** (Cloudflare).
 
-```mermaid
-flowchart TD
-    subgraph Repo["Repository"]
-        data["Typed content<br/>src/data/*.ts"]
-        views["Views + composables<br/>Vue 3 / TS strict"]
-        worker["Contact Worker<br/>worker/src"]
-    end
+```text
+Repository
+  • Typed content        src/data/*.ts
+  • Views + composables  Vue 3 / TS (strict)
+  • Contact Worker       worker/src
 
-    subgraph BuildSite["Static build"]
-        data --> ssg["Vite-SSG<br/>pre-render + hydrate"]
-        views --> ssg
-        data --> pdf["Headless-Chromium<br/>PDF generation"]
-    end
+Build (static)
+  data + views  ──▶  Vite-SSG (pre-render + hydrate)   ──▶  GitHub Pages
+  data          ──▶  Headless-Chromium PDF generation  ──▶  GitHub Pages
 
-    ssg --> pages["GitHub Pages"]
-    pdf --> pages
+Contact (runtime)
+  Contact form (invisible Turnstile)
+        │  POST
+        ▼
+  Cloudflare Worker  ──▶  Turnstile siteverify
+        │
+        └──▶  Resend  ──▶  email
 
-    subgraph Contact["Contact flow (runtime)"]
-        form["Contact form<br/>invisible Turnstile"] --> worker
-        worker --> verify["Turnstile siteverify"]
-        worker --> resend["Resend → email"]
-    end
-
-    pages -.serves.-> form
+  GitHub Pages serves the contact form.
 ```
 
 - **Site:** static data → Vite-SSG pre-renders every route → hydrated Vue app on GitHub Pages. No CMS, API, or database behind the site itself.
