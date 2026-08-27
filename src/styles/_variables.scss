@@ -93,9 +93,9 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   }
 }
 
-@mixin label-style {
+@mixin label-style($weight: $font-weight-normal) {
   font-size: $font-size-xs;
-  font-weight: $font-weight-normal;
+  font-weight: $weight;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-wider;
   color: var(--color-text-muted);
@@ -130,6 +130,22 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   }
 }
 
+@mixin subtle-link-hover {
+  text-decoration: none;
+  transition: opacity $transition-base;
+
+  &:hover {
+    opacity: $opacity-70;
+  }
+}
+
+@mixin focus-outline-subtle {
+  &:focus-visible {
+    outline: 1px solid var(--color-border);
+    outline-offset: 2px;
+  }
+}
+
 // Visible underline for links in prose (WCAG 2.1 Level A — distinguishable without colour)
 @mixin link-underline {
   text-decoration: underline !important;
@@ -153,6 +169,22 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   &.is-loaded {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@mixin loading-dot {
+  width: $loading-dot-size;
+  height: $loading-dot-size;
+  background: var(--color-text-muted);
+  border-radius: 50%;
+  animation: loading-pulse 1.2s ease-in-out infinite;
+
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.4s;
   }
 }
 

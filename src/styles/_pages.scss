@@ -40,19 +40,7 @@
   }
 
   .hero__loading-dot {
-    width: $loading-dot-size;
-    height: $loading-dot-size;
-    background: var(--color-text-muted);
-    border-radius: 50%;
-    animation: loading-pulse 1.2s ease-in-out infinite;
-
-    &:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    &:nth-child(3) {
-      animation-delay: 0.4s;
-    }
+    @include loading-dot;
   }
 }
 
@@ -304,34 +292,16 @@
 
   .event-title-link {
     color: inherit;
-    text-decoration: none;
-    transition: opacity $transition-base;
-
-    &:hover {
-      opacity: $opacity-70;
-    }
-
-    &:focus-visible {
-      outline: 1px solid var(--color-border);
-      outline-offset: 2px;
-    }
+    @include subtle-link-hover;
+    @include focus-outline-subtle;
   }
 
   .event-title-ref {
     margin-left: $spacing-1;
     color: var(--color-text-muted);
     font-size: 0.85em;
-    text-decoration: none;
-    transition: opacity $transition-base;
-
-    &:hover {
-      opacity: $opacity-70;
-    }
-
-    &:focus-visible {
-      outline: 1px solid var(--color-border);
-      outline-offset: 2px;
-    }
+    @include subtle-link-hover;
+    @include focus-outline-subtle;
   }
 }
 
@@ -401,11 +371,7 @@
 
   &__heading {
     margin-bottom: $spacing-3;
-    font-size: $font-size-xs;
-    font-weight: $font-weight-medium;
-    text-transform: uppercase;
-    letter-spacing: $letter-spacing-wider;
-    color: var(--color-text-muted);
+    @include label-style($font-weight-medium);
   }
 
   &__body {
