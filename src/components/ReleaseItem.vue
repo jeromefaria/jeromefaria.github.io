@@ -6,6 +6,7 @@ import type { LightboxItem, Release } from '@/types';
 import { hasBandcampId, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
+import { renderCredits } from '@/utils/renderCredits';
 
 import BandcampPlayer from './BandcampPlayer.vue';
 import MediaLinks from './MediaLinks.vue';
@@ -92,7 +93,7 @@ const isBandcampLink = computed(() =>
       <p
         v-if="hasCredits(release)"
         class="release-credits"
-        v-html="externalizeLinks(release.credits)"
+        v-html="externalizeLinks(renderCredits(release.credits, release.contributors))"
       />
       <MediaLinks
         :images="imageLightboxItems"
