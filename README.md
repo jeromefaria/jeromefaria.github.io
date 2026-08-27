@@ -3,9 +3,9 @@
 [![CI/CD](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml)
 [![codecov](https://codecov.io/gh/jeromefaria/jeromefaria.github.io/branch/master/graph/badge.svg)](https://codecov.io/gh/jeromefaria/jeromefaria.github.io)
 
-A production-grade **Vue 3 + TypeScript** frontend for [www.jeromefaria.com](https://www.jeromefaria.com) — statically generated, hydrated, and built to the standard I'd hold professional work to: strict typing, accessibility gated in CI, performance budgets, and a test suite spanning unit, cross-browser E2E, and visual regression. A deliberate frontend-engineering exercise, owned end to end — down to the small serverless backend behind the contact form.
+A production-grade **Vue 3 + TypeScript** frontend for [www.jeromefaria.com](https://www.jeromefaria.com) — statically generated and hydrated, built to professional standards: strict typing, CI-gated accessibility, performance budgets, and unit + cross-browser E2E + visual-regression tests. Owned end to end, down to the serverless backend behind the contact form.
 
-> **For reviewers:** this repository is meant to stand in for a live-coding round — a durable artifact you can read to see how I build, test, and ship a frontend. The sections below lead with *what it demonstrates* and *why it's built this way*; the run-book follows.
+> The sections below lead with *what the project demonstrates* and *why it's built this way*; the run-book follows.
 
 ## What this demonstrates
 
@@ -41,17 +41,15 @@ Contact (runtime)
   GitHub Pages serves the contact form.
 ```
 
-- **Site:** static data → Vite-SSG pre-renders every route → hydrated Vue app on GitHub Pages. No CMS, API, or database behind the site itself.
-- **Contact:** the browser solves an invisible Turnstile challenge, POSTs to the Worker, which verifies the token server-side, then sends the message through Resend. Decoupled from the app — the frontend resolves the inquiry taxonomy and posts already-labelled fields, which the Worker validates and forwards.
+- **Site:** no CMS, API, or database — static data is pre-rendered to every route and hydrated on GitHub Pages.
+- **Contact:** the frontend posts already-labelled fields to the Worker, which verifies the Turnstile token server-side and relays the message through Resend — decoupled from the app.
 
 ## Key decisions & trade-offs
 
-- **SSG, not SPA or SSR.** Pre-rendering gives fast first paint, clean SEO, and free static hosting; hydration restores interactivity. The cost — no server runtime for the site — is deliberate, and pushed the one genuinely dynamic need (the contact form) into its own serverless function rather than compromising the static model.
-- **Accessibility gated, not aspirational.** `axe-core` runs in the E2E suite against every route and fails CI on violations, so a11y can't silently regress — which in turn drove concrete choices: a focus-trapped lightbox, a skip link, hash-routed accordion state, reduced-motion handling, and per-link new-tab cues.
-- **A coverage *floor* that only ratchets up.** CI enforces a minimum that rises as coverage climbs (`scripts/check-coverage.js`), preventing regressions without the busywork of chasing 100%.
-- **Per-route visual regression.** Screenshot snapshots catch unintended visual change that unit and E2E assertions miss; they gate pull requests (never a deploy) and are regenerated deliberately when a visual change is intended.
-- **Data-driven content, typed, no CMS.** Content is TypeScript data with discriminated unions — type-safe and versioned in git — and the same data drives both the rendered views and PDF generation (press kit, technical rider).
-- **Own the contact backend.** A Cloudflare Worker + Turnstile + Resend keeps spam handling, delivery, and data under my control instead of a form-SaaS embed — and shows the frontend focus doesn't stop at the network boundary. (Choosing the *invisible* Turnstile challenge also carried a disclosure obligation, which is why the site has a `/privacy` page — a technical choice driving a product requirement.)
+- **SSG, not SPA or SSR.** Pre-rendering gives fast first paint, clean SEO, and free static hosting; hydration restores interactivity. The trade-off — no server runtime for the site — is deliberate, so the one genuinely dynamic need, the contact form, became a small serverless function.
+- **Own the contact backend.** A Cloudflare Worker + Turnstile + Resend keeps spam handling, delivery, and data under my control rather than a form-SaaS embed. (The invisible Turnstile challenge carries a disclosure obligation — hence the `/privacy` page.)
+- **A coverage *floor* that only ratchets up.** CI enforces a minimum that rises as coverage climbs (`scripts/check-coverage.js`) — regression protection without chasing 100%.
+- **Typed content, no CMS.** Content is TypeScript with discriminated unions, versioned in git — and the same data renders the site *and* generates the PDF press kit and tech rider.
 
 ## Project structure
 
@@ -119,7 +117,7 @@ npm run test:ui
 npm run test:coverage
 ```
 
-**Coverage**: The whole `src` tree is instrumented (`all: true`), so the reported percentage reflects the entire codebase rather than only the files a test imports. The logic layer (composables, utils) is ~100% covered; the view and component tests assert behaviour (hash-driven accordion opening, link processing, focus trapping, image load/error fallbacks) rather than render counts, and UI paths are also exercised by the Playwright E2E suite. CI enforces a regression **floor** (`scripts/check-coverage.js`) that ratchets upward as coverage climbs. Current coverage is ~99% lines / 98% statements / 97% functions / 92% branches, with the floor set just below at Lines 99%, Statements 97%, Functions 96%, Branches 91%.
+**Coverage** instruments the whole `src` tree (`all: true`), not just the files a test imports. The logic layer is ~100% covered; component and view tests assert behaviour (accordion hash-opening, link processing, focus trapping, image fallbacks) rather than render counts, with UI paths also covered by E2E. A **ratcheting floor** (`scripts/check-coverage.js`) holds the current ~99% lines / 98% statements / 97% functions / 92% branches and only moves up.
 
 ### E2E Tests
 
@@ -257,7 +255,7 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 
 ## Deployment
 
-The site deploys to GitHub Pages via GitHub Actions on push to `master`. The deploy workflow (`deploy.yml`) first runs the full CI pipeline as its gate, then repackages the **exact `dist` the E2E suite exercised** as a Pages artifact and publishes it — so what ships is what was tested, and the checks aren't duplicated between the two workflows. The Cloudflare Worker deploys separately (`cd worker && npm run deploy`) and only when its code changes.
+On push to `master`, the deploy workflow (`deploy.yml`) runs the full CI pipeline as its gate, then publishes the **exact `dist` the E2E suite exercised** to GitHub Pages — so what ships is what was tested. The Cloudflare Worker deploys separately (`cd worker && npm run deploy`), only when its code changes.
 
 ## License
 
