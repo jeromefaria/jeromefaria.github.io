@@ -2,6 +2,9 @@
 import { computed, ref } from 'vue';
 
 import { useAccordionVisibility } from '@/composables/useAccordionContext';
+import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
+import { playRelease } from '@/composables/usePlayer';
+import { hasPlayableAudio } from '@/data/audio';
 import type { LightboxItem, Release } from '@/types';
 import { hasBandcampId, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
@@ -40,6 +43,8 @@ const videoLightboxItems = computed<LightboxItem[]>(() =>
 
 const isBandcampLink = computed(() =>
   hasExternalUrl(props.release) && props.release.externalUrl.includes('bandcamp.com'));
+
+const playable = computed(() => audioPlayerEnabled.value && hasPlayableAudio(props.release.id));
 </script>
 
 <template>
@@ -66,6 +71,15 @@ const isBandcampLink = computed(() =>
 
     <div class="release-details">
       <p>
+        <button
+          v-if="playable"
+          type="button"
+          class="release-play"
+          :aria-label="`Play ${release.title}`"
+          @click="playRelease(release.id)"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
+        </button>
         <strong>
           <a
             class="release-title-link"
