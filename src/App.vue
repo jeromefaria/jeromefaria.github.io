@@ -5,16 +5,35 @@ import { RouterView } from 'vue-router';
 import SiteFooter from '@/components/SiteFooter.vue';
 import SiteHeader from '@/components/SiteHeader.vue';
 
+// Every external link opens in a new tab and gets a visually-hidden cue so
+// screen readers announce it. This is the single source of that cue: links that
+// already carry one (the ExternalLink component, or an aria-label that conveys
+// it) are left alone, so nothing is announced twice.
+const NEW_TAB_CUE = ' (opens in a new tab)';
+
+const addNewTabCue = (link: HTMLAnchorElement) => {
+  if (link.hasAttribute('aria-label') || link.querySelector('.visually-hidden')) return;
+
+  const cue = document.createElement('span');
+  cue.className = 'visually-hidden';
+  cue.textContent = NEW_TAB_CUE;
+  link.appendChild(cue);
+};
+
 const processExternalLinks = () => {
   const main = document.querySelector('main');
   if (!main) return;
 
-  const links = main.querySelectorAll<HTMLAnchorElement>('a[href^="http"]:not([target])');
+  const links = main.querySelectorAll<HTMLAnchorElement>('a[href^="http"]');
   links.forEach(link => {
-    if (link.hostname !== window.location.hostname) {
+    if (link.hostname === window.location.hostname) return;
+
+    if (!link.hasAttribute('target')) {
       link.setAttribute('target', '_blank');
       link.setAttribute('rel', 'noopener noreferrer');
     }
+
+    addNewTabCue(link);
   });
 };
 

@@ -14,9 +14,6 @@ usePageHead(pageMeta.privacy);
       data-page="privacy"
       title="Privacy"
     >
-      <p class="visually-hidden">
-        External links open in a new tab.
-      </p>
       <div class="privacy">
         <p class="privacy__intro">
           {{ privacyContent.intro }}
