@@ -1,9 +1,10 @@
 import { flushPromises, mount, type VueWrapper } from '@vue/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { defineComponent } from 'vue';
+import { defineComponent, nextTick } from 'vue';
 import { createMemoryHistory, createRouter, type Router } from 'vue-router';
 
 import { useCommandPalette } from './useCommandPalette';
+import { paletteOpen } from './useOverlays';
 
 type Api = ReturnType<typeof useCommandPalette>;
 
@@ -38,11 +39,13 @@ describe('useCommandPalette', () => {
 
   beforeEach(() => {
     localStorage.clear();
+    paletteOpen.value = false;
   });
 
   afterEach(() => {
     active?.unmount();
     active = null;
+    paletteOpen.value = false;
     document.body.style.overflow = '';
   });
 
@@ -52,22 +55,13 @@ describe('useCommandPalette', () => {
 
     api.open();
     expect(api.isOpen.value).toBe(true);
+    await nextTick();
     expect(document.body.style.overflow).toBe('hidden');
 
     api.close();
     expect(api.isOpen.value).toBe(false);
+    await nextTick();
     expect(document.body.style.overflow).toBe('');
-  });
-
-  it('toggles on a global Cmd/Ctrl+K', async () => {
-    const { api, wrapper } = await mountPalette();
-    active = wrapper;
-
-    window.dispatchEvent(press('k', { metaKey: true }));
-    expect(api.isOpen.value).toBe(true);
-
-    window.dispatchEvent(press('k', { metaKey: true }));
-    expect(api.isOpen.value).toBe(false);
   });
 
   it('shows curated navigation on an empty query', async () => {

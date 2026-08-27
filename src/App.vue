@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { nextTick, onMounted } from 'vue';
+import { defineAsyncComponent, nextTick, onMounted } from 'vue';
 import { RouterView } from 'vue-router';
 
-import CommandPalette from '@/components/CommandPalette.vue';
-import KeyboardHelp from '@/components/KeyboardHelp.vue';
 import SiteFooter from '@/components/SiteFooter.vue';
 import SiteHeader from '@/components/SiteHeader.vue';
+import { helpMounted, paletteMounted, useOverlayHotkeys } from '@/composables/useOverlays';
+
+// Lazy-loaded so the palette's registry, fuzzy ranker, and the data it reads stay
+// out of the main bundle — they ship only once the overlay is first summoned.
+const CommandPalette = defineAsyncComponent(() => import('@/components/CommandPalette.vue'));
+const KeyboardHelp = defineAsyncComponent(() => import('@/components/KeyboardHelp.vue'));
+
+useOverlayHotkeys();
 
 // Every external link opens in a new tab and gets a visually-hidden cue so
 // screen readers announce it. This is the single source of that cue: links that
@@ -83,6 +89,6 @@ onMounted(() => {
     </main>
     <SiteFooter />
   </div>
-  <CommandPalette />
-  <KeyboardHelp />
+  <CommandPalette v-if="paletteMounted" />
+  <KeyboardHelp v-if="helpMounted" />
 </template>

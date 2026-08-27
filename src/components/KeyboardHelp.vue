@@ -28,7 +28,7 @@ watch(isOpen, async open => {
   }
   previouslyFocused?.focus();
   previouslyFocused = null;
-});
+}, { immediate: true });
 </script>
 
 <template>

@@ -3,6 +3,8 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { nextTick } from 'vue';
 import { createMemoryHistory, createRouter } from 'vue-router';
 
+import { paletteOpen } from '@/composables/useOverlays';
+
 import CommandPalette from './CommandPalette.vue';
 
 const mountPalette = async (): Promise<VueWrapper> => {
@@ -17,7 +19,7 @@ const mountPalette = async (): Promise<VueWrapper> => {
 };
 
 const openPalette = async (): Promise<void> => {
-  window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true, cancelable: true }));
+  paletteOpen.value = true;
   await nextTick();
   await nextTick();
 };
@@ -35,11 +37,13 @@ describe('CommandPalette', () => {
 
   beforeEach(() => {
     localStorage.clear();
+    paletteOpen.value = false;
   });
 
   afterEach(() => {
     active?.unmount();
     active = null;
+    paletteOpen.value = false;
     document.body.style.overflow = '';
   });
 

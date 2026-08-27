@@ -1,11 +1,12 @@
 import type { ComputedRef, Ref } from 'vue';
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { buildCommands } from '@/data/commands';
 import type { Command } from '@/types/command';
 import { fuzzyRank } from '@/utils/fuzzy';
 
+import { paletteOpen } from './useOverlays';
 import { useScrollLock } from './useScrollLock';
 
 const RECENTS_KEY = 'command-palette:recents';
@@ -40,8 +41,9 @@ interface UseCommandPaletteReturn {
   execute: (index?: number, newTab?: boolean) => Promise<void>;
 }
 
-// Owns the palette's state machine and the global ⌘K/Ctrl-K trigger. Mounted
-// once (in CommandPalette.vue), so it behaves as a single global instance.
+// The palette's query/results/execute logic. Visibility lives in the shared
+// `paletteOpen` (toggled by the always-loaded hotkey layer), so this heavy module
+// — registry, fuzzy, data — only loads when the palette is first summoned.
 export const useCommandPalette = (): UseCommandPaletteReturn => {
   const router = useRouter();
   const { lock, unlock } = useScrollLock();
@@ -49,7 +51,6 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
   const commands = buildCommands();
   const byId = new Map(commands.map(command => [command.id, command]));
 
-  const isOpen = ref(false);
   const query = ref('');
   const activeIndex = ref(0);
   const recentIds = ref<string[]>(loadRecents());
@@ -60,8 +61,6 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
       .filter((command): command is Command => command !== undefined)
       .map(command => ({ ...command, group: 'Recent' as const })));
 
-  // Empty query → curated defaults (recents, then navigation). A query → the
-  // fuzzy-ranked union of everything.
   const results = computed<Command[]>(() => {
     if (query.value.trim() === '') {
       const recents = recentCommands.value;
@@ -77,22 +76,31 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     activeIndex.value = 0;
   });
 
+  // Opening is triggered externally (the hotkey sets `paletteOpen`), so react to
+  // it: reset the query and lock scroll on open, release on close. Immediate so a
+  // freshly mounted palette (already open) initialises correctly.
+  watch(paletteOpen, open => {
+    if (open) {
+      query.value = '';
+      activeIndex.value = 0;
+      lock();
+    } else {
+      unlock();
+    }
+  }, { immediate: true });
+
+  const open = (): void => {
+    paletteOpen.value = true;
+  };
+
+  const close = (): void => {
+    paletteOpen.value = false;
+  };
+
   const move = (delta: number): void => {
     const count = results.value.length;
     if (count === 0) return;
     activeIndex.value = (activeIndex.value + delta + count) % count;
-  };
-
-  const open = (): void => {
-    query.value = '';
-    activeIndex.value = 0;
-    isOpen.value = true;
-    lock();
-  };
-
-  const close = (): void => {
-    isOpen.value = false;
-    unlock();
   };
 
   const remember = (id: string): void => {
@@ -120,8 +128,8 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     await router.push(command.to);
   };
 
-  // Keys handled while the palette is focused. Vim/fzf bindings sit alongside the
-  // arrows and move the same active row (progressive enhancement for the a11y).
+  // Keys handled while the palette input is focused. Vim/fzf bindings sit
+  // alongside the arrows and move the same active row.
   const handleKeydown = (event: KeyboardEvent): void => {
     const ctrl = event.ctrlKey;
 
@@ -160,22 +168,7 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     }
   };
 
-  const onGlobalKeydown = (event: KeyboardEvent): void => {
-    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
-      event.preventDefault();
-      if (isOpen.value) {
-        close();
-      } else {
-        open();
-      }
-    }
-  };
+  onUnmounted(unlock);
 
-  onMounted(() => window.addEventListener('keydown', onGlobalKeydown));
-  onUnmounted(() => {
-    window.removeEventListener('keydown', onGlobalKeydown);
-    unlock();
-  });
-
-  return { isOpen, query, activeIndex, results, open, close, handleKeydown, execute };
+  return { isOpen: paletteOpen, query, activeIndex, results, open, close, handleKeydown, execute };
 };

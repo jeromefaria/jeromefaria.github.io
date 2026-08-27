@@ -23,7 +23,7 @@ watch(isOpen, async open => {
   }
   previouslyFocused?.focus();
   previouslyFocused = null;
-});
+}, { immediate: true });
 
 // Keep the active row visible as it moves.
 watch(activeIndex, async () => {

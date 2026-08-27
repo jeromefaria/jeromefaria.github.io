@@ -2,35 +2,36 @@ import { mount, type VueWrapper } from '@vue/test-utils';
 import { afterEach, describe, expect, it } from 'vitest';
 import { nextTick } from 'vue';
 
+import { helpOpen } from '@/composables/useOverlays';
+
 import KeyboardHelp from './KeyboardHelp.vue';
 
-const dispatch = (key: string): void => {
-  window.dispatchEvent(new KeyboardEvent('keydown', { key, cancelable: true }));
-};
-
 const help = (): Element | null => document.querySelector('.keyboard-help');
+
+const openHelp = async (): Promise<void> => {
+  helpOpen.value = true;
+  await nextTick();
+  await nextTick();
+};
 
 describe('KeyboardHelp', () => {
   let active: VueWrapper | null = null;
 
   afterEach(() => {
-    dispatch('Escape');
+    helpOpen.value = false;
     active?.unmount();
     active = null;
     document.body.style.overflow = '';
   });
 
-  it('is hidden until "?" is pressed', () => {
+  it('is hidden until it is opened', () => {
     active = mount(KeyboardHelp, { attachTo: document.body });
     expect(help()).toBeNull();
   });
 
   it('opens as a labelled dialog listing the shortcuts', async () => {
     active = mount(KeyboardHelp, { attachTo: document.body });
-
-    dispatch('?');
-    await nextTick();
-    await nextTick();
+    await openHelp();
 
     const panel = document.querySelector('.keyboard-help__panel');
     expect(panel?.getAttribute('role')).toBe('dialog');
@@ -41,10 +42,7 @@ describe('KeyboardHelp', () => {
 
   it('closes on an outside click', async () => {
     active = mount(KeyboardHelp, { attachTo: document.body });
-
-    dispatch('?');
-    await nextTick();
-    await nextTick();
+    await openHelp();
 
     help()?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     await nextTick();

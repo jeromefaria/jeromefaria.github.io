@@ -1,4 +1,4 @@
-import { openKeyboardHelp } from '@/composables/useKeyboardHelp';
+import { openKeyboardHelp } from '@/composables/useOverlays';
 import { liveEvents } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
