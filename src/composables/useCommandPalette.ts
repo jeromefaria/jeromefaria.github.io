@@ -11,6 +11,7 @@ import { paletteOpen } from './useOverlays';
 
 const RECENTS_KEY = 'command-palette:recents';
 const RECENTS_MAX = 5;
+const CURATED_MAX = 8;
 const PAGE = 5;
 
 const loadRecents = (): string[] => {
@@ -60,8 +61,13 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     if (query.value.trim() === '') {
       const recents = recentCommands.value;
       const recentSet = new Set(recents.map(command => command.id));
-      const navigation = commands.filter(command => command.kind === 'navigate' && !recentSet.has(command.id));
-      return [...recents, ...navigation];
+      // Works-section deep-links stay searchable, but the default list shows only
+      // top-level routes so recents + navigation fit without scrolling.
+      const navigation = commands.filter(command =>
+        command.kind === 'navigate'
+        && !command.id.startsWith('nav:works:')
+        && !recentSet.has(command.id));
+      return [...recents, ...navigation].slice(0, CURATED_MAX);
     }
 
     return fuzzyRank(query.value, commands);

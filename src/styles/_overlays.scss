@@ -16,7 +16,7 @@
     max-width: 34rem;
     background: var(--color-bg);
     border: 1px solid var(--color-border);
-    box-shadow: $overlay-panel-shadow;
+    box-shadow: var(--overlay-panel-shadow);
     overflow: hidden;
   }
 
@@ -34,7 +34,7 @@
   }
 
   &__results {
-    max-height: 50vh;
+    max-height: 60vh;
     margin: 0;
     padding: $spacing-2 0;
     overflow-y: auto;
@@ -104,7 +104,7 @@
     padding: $spacing-5;
     background: var(--color-bg);
     border: 1px solid var(--color-border);
-    box-shadow: $overlay-panel-shadow;
+    box-shadow: var(--overlay-panel-shadow);
 
     &:focus {
       outline: none;
