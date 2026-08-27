@@ -151,7 +151,9 @@ describe('useCommandPalette', () => {
     const { api, wrapper } = await mountPalette();
     active = wrapper;
 
-    paletteOpen.value = true;
+    api.query.value = 'e';
+    expect(api.results.value.length).toBeGreaterThan(5);
+
     api.handleKeydown(press('d', { ctrlKey: true }));
     expect(api.activeIndex.value).toBe(5);
 
@@ -216,17 +218,17 @@ describe('useCommandPalette', () => {
     const { api, wrapper } = await mountPalette();
     active = wrapper;
 
-    for (const title of ['Home', 'Works', 'Live', 'Press', 'About', 'Contact']) {
+    for (const title of ['2504', 'Overlapse', 'Contraplacado', 'En Veille', 'COIL', '17:14']) {
       await executeByTitle(api, title);
     }
     const recents: string[] = JSON.parse(localStorage.getItem('command-palette:recents') ?? '[]');
     expect(recents).toHaveLength(5);
     expect(new Set(recents).size).toBe(5);
 
-    await executeByTitle(api, 'Works');
+    await executeByTitle(api, 'Overlapse');
     const afterRepeat: string[] = JSON.parse(localStorage.getItem('command-palette:recents') ?? '[]');
     expect(afterRepeat).toHaveLength(5);
-    expect(afterRepeat[0]).toBe('nav:works');
+    expect(afterRepeat[0]).toBe('works:overlapse');
   });
 
   it('ignores malformed recents in storage', async () => {

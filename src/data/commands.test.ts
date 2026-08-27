@@ -45,6 +45,14 @@ describe('buildCommands', () => {
     expect(commands.some(command => command.kind === 'result' && command.group === 'Press')).toBe(true);
   });
 
+  it('indexes labels, catalog, and live collaborators for search', () => {
+    const offear = commands.find(command => command.title === 'OFFEAR.EP');
+    expect(offear?.keywords).toEqual(expect.arrayContaining(['Enough Records', 'ENRMP040']));
+
+    const madeiradig = commands.find(command => command.id === 'live:madeiradig-2011');
+    expect(madeiradig?.keywords).toContain('Taylor Deupree');
+  });
+
   it('includes download, copy-email, and social actions', () => {
     const actionIds = commands.filter(command => command.kind === 'action').map(command => command.id);
 

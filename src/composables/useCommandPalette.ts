@@ -11,7 +11,9 @@ import { paletteOpen } from './useOverlays';
 
 const RECENTS_KEY = 'command-palette:recents';
 const RECENTS_MAX = 5;
-const CURATED_MAX = 8;
+const CURATED_RECENTS_MAX = 3;
+const PRIMARY_ROUTE_IDS = ['nav:home', 'nav:about', 'nav:works', 'nav:live', 'nav:contact'];
+const MAX_RESULTS = 9;
 const PAGE = 5;
 
 const loadRecents = (): string[] => {
@@ -59,18 +61,19 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
 
   const results = computed<Command[]>(() => {
     if (query.value.trim() === '') {
-      const recents = recentCommands.value;
-      const recentSet = new Set(recents.map(command => command.id));
-      // Works-section deep-links stay searchable, but the default list shows only
-      // top-level routes so recents + navigation fit without scrolling.
-      const navigation = commands.filter(command =>
-        command.kind === 'navigate'
-        && !command.id.startsWith('nav:works:')
-        && !recentSet.has(command.id));
-      return [...recents, ...navigation].slice(0, CURATED_MAX);
+      // The main routes are always shown under Navigate; Recent holds a few
+      // non-nav items (releases, press, actions). Everything else is searchable.
+      const recents = recentCommands.value
+        .filter(command => !PRIMARY_ROUTE_IDS.includes(command.id))
+        .slice(0, CURATED_RECENTS_MAX);
+      const navigation = PRIMARY_ROUTE_IDS
+        .map(id => byId.get(id))
+        .filter((command): command is Command => command !== undefined);
+      return [...recents, ...navigation];
     }
 
-    return fuzzyRank(query.value, commands);
+    // Cap the list: subsequence matching is permissive, so keep the best-ranked few.
+    return fuzzyRank(query.value, commands).slice(0, MAX_RESULTS);
   });
 
   watch(results, () => {
@@ -95,6 +98,9 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
   };
 
   const remember = (id: string): void => {
+    // Main-nav routes always sit in Navigate, so they never take a Recent slot.
+    if (PRIMARY_ROUTE_IDS.includes(id)) return;
+
     recentIds.value = [id, ...recentIds.value.filter(existing => existing !== id)].slice(0, RECENTS_MAX);
     saveRecents(recentIds.value);
   };

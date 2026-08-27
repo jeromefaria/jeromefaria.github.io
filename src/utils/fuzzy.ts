@@ -49,14 +49,28 @@ const bestScore = (query: string, item: Fuzzable): number | null => {
   return scores.length > 0 ? Math.max(...scores) : null;
 };
 
+// Every whitespace-separated token must match (fzf-style AND), so each extra word
+// narrows the results; the score is their sum.
+const scoreItem = (tokens: string[], item: Fuzzable): number | null => {
+  let total = 0;
+
+  for (const token of tokens) {
+    const score = bestScore(token, item);
+    if (score === null) return null;
+    total += score;
+  }
+
+  return total;
+};
+
 // Rank `items` by fuzzy relevance to `query`, dropping non-matches. An empty
 // query returns the input unchanged, so callers can show a curated default set.
 export const fuzzyRank = <T extends Fuzzable>(query: string, items: T[]): T[] => {
-  const trimmed = query.trim();
-  if (trimmed === '') return items;
+  const tokens = query.trim().split(/\s+/).filter(Boolean);
+  if (tokens.length === 0) return items;
 
   return items
-    .map(item => ({ item, score: bestScore(trimmed, item) }))
+    .map(item => ({ item, score: scoreItem(tokens, item) }))
     .filter((entry): entry is { item: T; score: number } => entry.score !== null)
     .sort((a, b) => b.score - a.score)
     .map(entry => entry.item);

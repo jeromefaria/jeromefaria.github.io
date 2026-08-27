@@ -41,4 +41,18 @@ describe('fuzzyRank', () => {
   it('is case-insensitive', () => {
     expect(fuzzyRank('WORKS', [item('works')])).toHaveLength(1);
   });
+
+  it('narrows as tokens are added — every word must match', () => {
+    const items = [
+      item('MADEIRADIG', ['2009']),
+      item('MADEIRADIG', ['2011']),
+      item('Störung', ['2008']),
+    ];
+
+    expect(fuzzyRank('madeiradig', items)).toHaveLength(2);
+
+    const narrowed = fuzzyRank('madeiradig 2009', items);
+    expect(narrowed).toHaveLength(1);
+    expect(narrowed[0].keywords).toEqual(['2009']);
+  });
 });

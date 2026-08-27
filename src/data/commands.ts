@@ -4,6 +4,8 @@ import { liveEvents } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
 import type { Command } from '@/types/command';
+import type { LiveEvent } from '@/types/live';
+import type { ReleaseMeta } from '@/types/works';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
 import { openInNewTab } from '@/utils/openInNewTab';
 
@@ -32,6 +34,23 @@ const sectionCommands = (): Command[] => [
   })),
 ];
 
+// Label names + catalog numbers, so a release is findable by the imprint that issued it.
+const releaseLabels = (meta: ReleaseMeta): string[] =>
+  ('editions' in meta ? meta.editions : []).flatMap(edition => [edition.label.text, edition.catalog ?? '']);
+
+// Collaborators and the rest of the bill, so a show is findable by anyone who shared the stage.
+const eventPeople = (event: LiveEvent): string[] => {
+  const { setup } = event;
+  const names: string[] = [];
+
+  if (setup.kind === 'duo') names.push(setup.with.text);
+  if (setup.kind === 'band') names.push(setup.band.text);
+  if (setup.kind === 'project') names.push(setup.name.text, ...(setup.members ?? []).map(member => member.text));
+  if (setup.kind === 'ensemble') names.push(setup.name, ...(setup.members ?? []).map(member => member.text));
+
+  return [...names, ...(event.bill ?? []).map(act => act.text)];
+};
+
 // Each release deep-links to its entry; the accordion opens the owning section.
 const releaseCommands = (): Command[] =>
   Object.values(worksData).flatMap(section =>
@@ -40,7 +59,7 @@ const releaseCommands = (): Command[] =>
       id: `works:${release.id}`,
       title: release.title,
       subtitle: section.title,
-      keywords: [section.title, String(release.meta.year)],
+      keywords: [section.title, String(release.meta.year), ...releaseLabels(release.meta)].filter(Boolean),
       group: 'Works',
       to: `/works#${release.id}`,
     })),
@@ -52,7 +71,7 @@ const liveCommands = (): Command[] =>
     id: `live:${event.id}`,
     title: event.title,
     subtitle: event.venue.name ?? event.venue.city ?? event.venue.country,
-    keywords: [event.venue.city ?? '', event.venue.country, event.date.slice(0, 4)].filter(Boolean),
+    keywords: [event.venue.name ?? '', event.venue.city ?? '', event.venue.country, event.date.slice(0, 4), ...eventPeople(event)].filter(Boolean),
     group: 'Live',
     to: `/live#${event.id}`,
   }));
