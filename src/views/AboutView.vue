@@ -42,9 +42,6 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number =>
       data-page="about"
       title="About"
     >
-      <p class="visually-hidden">
-        External links open in a new tab.
-      </p>
       <template
         v-for="(section, sectionIndex) in aboutSections"
         :key="section.id"

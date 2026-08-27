@@ -52,9 +52,6 @@ const openLightbox = (items: LightboxItem[], index: number): void => {
       :data-page="dataPage"
       :title="title"
     >
-      <p class="visually-hidden">
-        External links open in a new tab.
-      </p>
       <AccordionSection
         v-for="sectionKey in sections"
         :id="sectionKey"
