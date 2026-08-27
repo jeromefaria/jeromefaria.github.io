@@ -231,6 +231,35 @@ describe('useCommandPalette', () => {
     expect(afterRepeat[0]).toBe('works:overlapse');
   });
 
+  it('offers a Clear recents action in the default view and via search once recents exist', async () => {
+    const { api, wrapper } = await mountPalette();
+    active = wrapper;
+
+    api.query.value = '';
+    expect(api.results.value.some(command => command.id === 'act:clear-recents')).toBe(false);
+
+    await executeByTitle(api, 'Overlapse');
+
+    api.query.value = '';
+    expect(api.results.value.some(command => command.id === 'act:clear-recents')).toBe(true);
+
+    api.query.value = 'clear';
+    expect(api.results.value.some(command => command.id === 'act:clear-recents')).toBe(true);
+  });
+
+  it('empties stored recents when the Clear recents action runs', async () => {
+    const { api, wrapper } = await mountPalette();
+    active = wrapper;
+
+    await executeByTitle(api, 'Overlapse');
+    expect(JSON.parse(localStorage.getItem('command-palette:recents') ?? '[]')).not.toHaveLength(0);
+
+    api.query.value = '';
+    await api.execute(api.results.value.findIndex(command => command.id === 'act:clear-recents'));
+
+    expect(JSON.parse(localStorage.getItem('command-palette:recents') ?? '[]')).toHaveLength(0);
+  });
+
   it('ignores malformed recents in storage', async () => {
     localStorage.setItem('command-palette:recents', 'not json');
     const { api, wrapper } = await mountPalette();
