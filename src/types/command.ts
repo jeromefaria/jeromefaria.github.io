@@ -5,6 +5,7 @@ interface CommandBase {
   title: string;
   subtitle?: string;
   keywords?: string[];
+  text?: string[];
   group: CommandGroup;
 }
 
