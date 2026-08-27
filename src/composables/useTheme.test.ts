@@ -89,8 +89,22 @@ describe('useTheme', () => {
     expect(root.getAttribute('data-theme')).toBe('dark');
   });
 
-  it('defaults to dark when storage cannot be read', async () => {
-    const getItem = vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+  it('ignores OS changes once an explicit choice is set', async () => {
+    const { initTheme, toggleTheme } = await load(false);
+    initTheme();
+    toggleTheme();
+    expect(root.hasAttribute('data-theme')).toBe(false);
+
+    installMatchMedia(true);
+    systemListeners.forEach(notify => notify());
+
+    expect(root.hasAttribute('data-theme')).toBe(false);
+  });
+
+  it('falls back to dark when a stored choice cannot be read', async () => {
+    // Stored 'light' would win via the normal path — asserting 'dark' proves the catch fired.
+    localStorage.setItem('theme', 'light');
+    const getItem = vi.spyOn(localStorage, 'getItem').mockImplementation(() => {
       throw new Error('blocked');
     });
 
@@ -102,7 +116,7 @@ describe('useTheme', () => {
   });
 
   it('still applies the choice when persistence fails', async () => {
-    const setItem = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+    const setItem = vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
       throw new Error('blocked');
     });
 
