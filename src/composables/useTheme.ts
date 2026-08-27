@@ -1,21 +1,18 @@
-import type { Ref } from 'vue';
-import { readonly, ref } from 'vue';
-
 export type ThemeChoice = 'light' | 'dark' | 'system';
 
 const STORAGE_KEY = 'theme';
 const CHOICES: ThemeChoice[] = ['light', 'dark', 'system'];
 const DARK_QUERY = '(prefers-color-scheme: dark)';
+const THEME_COLOR = { light: '#ffffff', dark: '#0a0a0a' } as const;
 
-// Default is dark: a visitor with no stored choice, and any storage failure, lands on dark.
-const choice = ref<ThemeChoice>('dark');
+let choice: ThemeChoice = 'dark';
 let mediaQuery: MediaQueryList | null = null;
 
 const prefersDark = (): boolean => window.matchMedia(DARK_QUERY).matches;
 
 const resolved = (): 'light' | 'dark' => {
-  if (choice.value === 'system') return prefersDark() ? 'dark' : 'light';
-  return choice.value;
+  if (choice === 'system') return prefersDark() ? 'dark' : 'light';
+  return choice;
 };
 
 const applyToDocument = (): void => {
@@ -28,7 +25,7 @@ const applyToDocument = (): void => {
     root.removeAttribute('data-theme');
   }
 
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0a0a0a' : '#ffffff');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLOR[theme]);
 };
 
 const readStored = (): ThemeChoice => {
@@ -49,7 +46,7 @@ const persist = (value: ThemeChoice): void => {
 };
 
 const onSystemChange = (): void => {
-  if (choice.value === 'system') applyToDocument();
+  if (choice === 'system') applyToDocument();
 };
 
 const watchSystem = (): void => {
@@ -60,13 +57,13 @@ const watchSystem = (): void => {
 };
 
 const setChoice = (value: ThemeChoice): void => {
-  choice.value = value;
+  choice = value;
   persist(value);
   applyToDocument();
 };
 
 export const initTheme = (): void => {
-  choice.value = readStored();
+  choice = readStored();
   applyToDocument();
   watchSystem();
 };
@@ -78,13 +75,3 @@ export const toggleTheme = (): void => {
 export const matchSystemTheme = (): void => {
   setChoice('system');
 };
-
-export const useTheme = (): {
-  choice: Readonly<Ref<ThemeChoice>>;
-  toggleTheme: () => void;
-  matchSystemTheme: () => void;
-} => ({
-  choice: readonly(choice),
-  toggleTheme,
-  matchSystemTheme,
-});

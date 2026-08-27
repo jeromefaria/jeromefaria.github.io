@@ -39,21 +39,19 @@ describe('useTheme', () => {
   });
 
   it('defaults to dark when nothing is stored', async () => {
-    const { initTheme, useTheme } = await load();
+    const { initTheme } = await load();
     initTheme();
 
     expect(root.getAttribute('data-theme')).toBe('dark');
-    expect(useTheme().choice.value).toBe('dark');
     expect(themeColor.getAttribute('content')).toBe('#0a0a0a');
   });
 
   it('applies a stored light choice by clearing the attribute', async () => {
     localStorage.setItem('theme', 'light');
-    const { initTheme, useTheme } = await load();
+    const { initTheme } = await load();
     initTheme();
 
     expect(root.hasAttribute('data-theme')).toBe(false);
-    expect(useTheme().choice.value).toBe('light');
     expect(themeColor.getAttribute('content')).toBe('#ffffff');
   });
 
@@ -79,11 +77,10 @@ describe('useTheme', () => {
   });
 
   it('matches the system theme and follows a live OS change', async () => {
-    const { initTheme, matchSystemTheme, useTheme } = await load(false);
+    const { initTheme, matchSystemTheme } = await load(false);
     initTheme();
 
     matchSystemTheme();
-    expect(useTheme().choice.value).toBe('system');
     expect(localStorage.getItem('theme')).toBe('system');
     expect(root.hasAttribute('data-theme')).toBe(false);
 
