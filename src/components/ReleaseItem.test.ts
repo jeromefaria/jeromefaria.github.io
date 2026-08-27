@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
+import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import type { Release } from '@/types';
 
 import BandcampPlayer from './BandcampPlayer.vue';
@@ -119,6 +120,26 @@ describe('ReleaseItem', () => {
   it('applies the text-only modifier when requested', () => {
     const wrapper = mountRelease(textOnlyRelease, true);
     expect(wrapper.get('article').classes()).toContain('release--text-only');
+  });
+
+  it('shows a play control for a release with audio when the flag is on', async () => {
+    HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
+    audioPlayerEnabled.value = true;
+
+    try {
+      const wrapper = mountRelease(bandcamp);
+      const play = wrapper.find('.release-play');
+
+      expect(play.exists()).toBe(true);
+      expect(play.attributes('aria-label')).toContain('Overlapse');
+      await play.trigger('click');
+    } finally {
+      audioPlayerEnabled.value = false;
+    }
+  });
+
+  it('hides the play control when the flag is off', () => {
+    expect(mountRelease(bandcamp).find('.release-play').exists()).toBe(false);
   });
 
   it('emits open-lightbox with converted images from the gallery button', async () => {

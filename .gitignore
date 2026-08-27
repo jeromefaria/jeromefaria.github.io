@@ -66,3 +66,6 @@ public/epk/CREDITS.txt
 
 # Full-resolution press-photo masters — kept locally for the downloadable kit, never committed
 assets-source/
+
+# Local AAC encode staging — assets live in R2, never committed
+audio-dist/

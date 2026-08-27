@@ -4,6 +4,7 @@ import { RouterView } from 'vue-router';
 
 import SiteFooter from '@/components/SiteFooter.vue';
 import SiteHeader from '@/components/SiteHeader.vue';
+import { audioPlayerEnabled, initFeatureFlags } from '@/composables/useFeatureFlags';
 import { helpMounted, paletteMounted, useOverlayHotkeys } from '@/composables/useOverlays';
 import { initTheme } from '@/composables/useTheme';
 
@@ -11,6 +12,7 @@ import { initTheme } from '@/composables/useTheme';
 // out of the main bundle — they ship only once the overlay is first summoned.
 const CommandPalette = defineAsyncComponent(() => import('@/components/CommandPalette.vue'));
 const KeyboardHelp = defineAsyncComponent(() => import('@/components/KeyboardHelp.vue'));
+const PlayerBar = defineAsyncComponent(() => import('@/components/PlayerBar.vue'));
 
 useOverlayHotkeys();
 
@@ -55,6 +57,7 @@ const handleContentResolved = () => {
 
 onMounted(() => {
   initTheme();
+  initFeatureFlags();
   processExternalLinks();
   document.body.classList.add('ready');
 });
@@ -93,4 +96,5 @@ onMounted(() => {
   </div>
   <CommandPalette v-if="paletteMounted" />
   <KeyboardHelp v-if="helpMounted" />
+  <PlayerBar v-if="audioPlayerEnabled" />
 </template>
