@@ -1,6 +1,6 @@
 import { expect, type Page, test } from '@playwright/test';
 
-import { waitForHydration } from './helpers';
+import { gotoHydrated } from './helpers';
 
 const LIGHTBOX_SELECTOR = '.lightbox';
 const LIGHTBOX_CLOSE_SELECTOR = '.lightbox__hint--close';
@@ -17,8 +17,7 @@ const GALLERY_BUTTON_SELECTOR = '.link-discrete:has-text("Gallery")';
 const VISIBLE_GALLERY_BUTTON = `${GALLERY_BUTTON_SELECTOR}:visible`;
 
 const openFirstGallery = async (page: Page): Promise<void> => {
-  await page.goto('/works');
-  await waitForHydration(page);
+  await gotoHydrated(page, '/works');
 
   const owningSection = page.locator(ACCORDION_SECTION_SELECTOR)
     .filter({ has: page.locator(GALLERY_BUTTON_SELECTOR) })
@@ -42,8 +41,7 @@ const openLightboxFromFirstGallery = async (page: Page): Promise<void> => {
 const LIVE_GALLERY_BUTTON = '.link-discrete:has-text("Photo")';
 
 const openLiveLightbox = async (page: Page): Promise<void> => {
-  await page.goto('/live');
-  await waitForHydration(page);
+  await gotoHydrated(page, '/live');
 
   const owningSection = page.locator(ACCORDION_SECTION_SELECTOR)
     .filter({ has: page.locator(LIVE_GALLERY_BUTTON) })

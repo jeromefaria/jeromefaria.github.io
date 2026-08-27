@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { waitForHydration } from './helpers';
+import { gotoHydrated } from './helpers';
 
 // Baselines are platform-specific (generated on CI/Linux) — regenerate with
 // `playwright test --grep @visual --update-snapshots` on CI, not locally.
@@ -18,8 +18,7 @@ const PAGES = [
 test.describe('Visual regression', () => {
   for (const [path, name] of PAGES) {
     test(`${name} matches its snapshot`, { tag: '@visual' }, async ({ page }) => {
-      await page.goto(path);
-      await waitForHydration(page);
+      await gotoHydrated(page, path);
 
       await expect(page).toHaveScreenshot(`${name}.png`, {
         animations: 'disabled',

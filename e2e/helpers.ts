@@ -12,6 +12,11 @@ export const waitForHydration = async (page: Page): Promise<void> => {
   await page.evaluate(() => document.fonts.ready);
 };
 
+export const gotoHydrated = async (page: Page, path: string): Promise<void> => {
+  await page.goto(path);
+  await waitForHydration(page);
+};
+
 export const isMobile = (page: Page): boolean => {
   const viewport = page.viewportSize();
   return viewport !== null && viewport.width < MOBILE_BREAKPOINT;

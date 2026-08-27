@@ -1,21 +1,33 @@
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
-import { basename, dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { existsSync, mkdirSync, statSync, writeFileSync } from 'node:fs';
+import { basename, join } from 'node:path';
 
 import sharp from 'sharp';
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+import { loadData, root } from './data-loader.mjs';
+
 const PUBLIC = join(root, 'public');
 const OUT = join(PUBLIC, 'images/responsive');
 
-const extract = (file, key) => {
-  const text = readFileSync(join(root, 'src/data', file), 'utf8');
-  const imagePattern = new RegExp(`${key}:\\s*'(/images/[a-z0-9-]+\\.jpg)'`, 'g');
-  return [...text.matchAll(imagePattern)].map(match => match[1]);
-};
+// Only flat, lowercase-slug JPEGs get responsive variants — the same set the
+// runtime srcset expects. Reading the typed data (rather than regex-scanning the
+// source) keeps this robust to formatting changes in the data files.
+const RESPONSIVE_IMAGE = /^\/images\/[a-z0-9-]+\.jpg$/;
 
-const covers = [...new Set(extract('works.ts', 'coverImage'))].map(src => ({ src, widths: [320, 640, 960] }));
-const aboutImages = [...new Set(extract('about.ts', 'src'))].map(src => ({ src, widths: [480, 960, 1440] }));
+const { worksData } = await loadData('src/data/works.ts');
+const { aboutSections } = await loadData('src/data/about.ts');
+
+const coverSrcs = Object.values(worksData)
+  .flatMap(section => section.items)
+  .map(item => item.coverImage)
+  .filter(src => src && RESPONSIVE_IMAGE.test(src));
+
+const aboutSrcs = aboutSections
+  .flatMap(section => section.images ?? [])
+  .map(image => image.src)
+  .filter(src => RESPONSIVE_IMAGE.test(src));
+
+const covers = [...new Set(coverSrcs)].map(src => ({ src, widths: [320, 640, 960] }));
+const aboutImages = [...new Set(aboutSrcs)].map(src => ({ src, widths: [480, 960, 1440] }));
 const targets = [...covers, ...aboutImages];
 
 mkdirSync(OUT, { recursive: true });
