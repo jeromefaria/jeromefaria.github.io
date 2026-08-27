@@ -60,7 +60,7 @@ A hidden command palette — no on-screen affordance, summoned with **⌘K** (ma
 
 - **Navigate** — every route, plus each Works section.
 - **Jump to content** — any release, live date, or press quote, deep-linked to its entry (the owning accordion opens on arrival).
-- **Actions** — download the press kit (PDF/ZIP) or technical rider, copy the contact email, open any social profile or a release on Bandcamp, or bring up the shortcuts help.
+- **Actions** — download the press kit (PDF/ZIP) or technical rider, copy the contact email, switch the theme (light / dark / match system), open any social profile or a release on Bandcamp, or bring up the shortcuts help.
 
 An empty query surfaces recents (persisted in `localStorage`) followed by curated navigation; typing fuzzy-ranks the whole command set by title and keywords.
 

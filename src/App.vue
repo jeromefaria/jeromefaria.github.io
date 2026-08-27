@@ -5,6 +5,7 @@ import { RouterView } from 'vue-router';
 import SiteFooter from '@/components/SiteFooter.vue';
 import SiteHeader from '@/components/SiteHeader.vue';
 import { helpMounted, paletteMounted, useOverlayHotkeys } from '@/composables/useOverlays';
+import { initTheme } from '@/composables/useTheme';
 
 // Lazy-loaded so the palette's registry, fuzzy ranker, and the data it reads stay
 // out of the main bundle — they ship only once the overlay is first summoned.
@@ -53,6 +54,7 @@ const handleContentResolved = () => {
 };
 
 onMounted(() => {
+  initTheme();
   processExternalLinks();
   document.body.classList.add('ready');
 });

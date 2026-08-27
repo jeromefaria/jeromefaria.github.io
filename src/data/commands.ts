@@ -1,4 +1,5 @@
 import { openKeyboardHelp } from '@/composables/useOverlays';
+import { matchSystemTheme, toggleTheme } from '@/composables/useTheme';
 import { liveEvents } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
@@ -83,6 +84,11 @@ const actionCommands = (): Command[] => {
     run: () => openKeyboardHelp(),
   };
 
+  const appearance: Command[] = [
+    { kind: 'action', id: 'act:theme', title: 'Toggle theme', keywords: ['dark', 'light', 'mode', 'appearance', 'colour', 'color'], group: 'Actions', run: () => toggleTheme() },
+    { kind: 'action', id: 'act:theme-system', title: 'Match system theme', keywords: ['system', 'os', 'auto', 'preference', 'appearance', 'theme'], group: 'Actions', run: () => matchSystemTheme() },
+  ];
+
   const contact: Command = {
     kind: 'action',
     id: 'act:copy-email',
@@ -119,7 +125,7 @@ const actionCommands = (): Command[] => {
       } satisfies Command];
     });
 
-  return [...downloads, help, contact, ...socials, ...bandcamp];
+  return [...downloads, help, ...appearance, contact, ...socials, ...bandcamp];
 };
 
 export const buildCommands = (): Command[] => [

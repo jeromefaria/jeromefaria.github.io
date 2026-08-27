@@ -7,6 +7,8 @@ describe('buildCommands', () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+    localStorage.clear();
+    document.documentElement.removeAttribute('data-theme');
   });
 
   it('runs each action — downloads and socials open a tab, copy-email hits the clipboard', async () => {
@@ -49,6 +51,8 @@ describe('buildCommands', () => {
     expect(actionIds).toContain('act:press-kit-pdf');
     expect(actionIds).toContain('act:copy-email');
     expect(actionIds).toContain('act:shortcuts');
+    expect(actionIds).toContain('act:theme');
+    expect(actionIds).toContain('act:theme-system');
     expect(actionIds.some(id => id.startsWith('act:social:'))).toBe(true);
   });
 

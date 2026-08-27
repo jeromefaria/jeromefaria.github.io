@@ -51,6 +51,19 @@ test.describe('Command palette (⌘K)', () => {
     await checkA11y(page, { tags: WCAG_TAGS });
   });
 
+  test('toggles the theme from dark to light', async ({ page }) => {
+    await gotoHydrated(page, '/');
+    const html = page.locator('html');
+    await expect(html).toHaveAttribute('data-theme', 'dark');
+
+    await page.keyboard.press('Control+k');
+    await page.locator(INPUT).fill('toggle theme');
+    await expect(page.locator(OPTION).first()).toContainText('Toggle theme');
+
+    await page.keyboard.press('Enter');
+    await expect(html).not.toHaveAttribute('data-theme', 'dark');
+  });
+
   test('matches its snapshot @visual', async ({ page }) => {
     await gotoHydrated(page, '/');
 
