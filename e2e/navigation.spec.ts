@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { isMobile, openMobileMenuIfNeeded, waitForHydration } from './helpers';
+import { gotoHydrated, isMobile, openMobileMenuIfNeeded } from './helpers';
 
 const NAV_TOGGLE_SELECTOR = '.nav-toggle';
 const NAV_OPEN_SELECTOR = '.nav--open';
@@ -145,8 +145,7 @@ test.describe('Navigation', () => {
 
   test('keeps the mobile menu open when opened on a scrolled page', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto(PAGES.ABOUT);
-    await waitForHydration(page);
+    await gotoHydrated(page, PAGES.ABOUT);
 
     await page.mouse.wheel(0, 400);
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);

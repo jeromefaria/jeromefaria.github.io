@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { waitForHydration } from './helpers';
+import { gotoHydrated } from './helpers';
 
 const MAX_GAP = 3;
 
@@ -19,8 +19,7 @@ test.describe('Home hero fills the viewport to the footer', () => {
   ]) {
     test(`hero meets the footer with no gap on ${label}`, async ({ page }) => {
       await page.setViewportSize({ width, height });
-      await page.goto('/');
-      await waitForHydration(page);
+      await gotoHydrated(page, '/');
 
       const gap = await heroFooterGap(page);
       expect(

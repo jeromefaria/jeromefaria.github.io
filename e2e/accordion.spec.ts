@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { toggleAndVerifyAccordion, waitForHydration } from './helpers';
+import { gotoHydrated, toggleAndVerifyAccordion } from './helpers';
 
 const ACCORDION_SECTION_SELECTOR = '.accordion-section';
 const ACCORDION_TRIGGER_SELECTOR = '.accordion-trigger';
@@ -17,8 +17,7 @@ test.describe('Accordion Functionality', () => {
     });
 
     test('should toggle accordion sections on click', async ({ page }) => {
-      await page.goto(WORKS_PAGE);
-      await waitForHydration(page);
+      await gotoHydrated(page, WORKS_PAGE);
 
       const firstTrigger = page.locator(ACCORDION_TRIGGER_SELECTOR).first();
       await toggleAndVerifyAccordion(firstTrigger, 'true');
@@ -31,8 +30,7 @@ test.describe('Accordion Functionality', () => {
     });
 
     test('should update URL hash when accordion opens', async ({ page }) => {
-      await page.goto(WORKS_PAGE);
-      await waitForHydration(page);
+      await gotoHydrated(page, WORKS_PAGE);
 
       const sectionId = await page.locator(ACCORDION_SECTION_SELECTOR).nth(1).getAttribute('id');
       expect(sectionId).toBeTruthy();
@@ -47,8 +45,7 @@ test.describe('Accordion Functionality', () => {
     });
 
     test('should handle multiple accordion sections', async ({ page }) => {
-      await page.goto(WORKS_PAGE);
-      await waitForHydration(page);
+      await gotoHydrated(page, WORKS_PAGE);
 
       expect(await page.locator(ACCORDION_TRIGGER_SELECTOR).count()).toBeGreaterThan(1);
 
@@ -70,8 +67,7 @@ test.describe('Accordion Functionality', () => {
     });
 
     test('should toggle year sections', async ({ page }) => {
-      await page.goto(LIVE_PAGE);
-      await waitForHydration(page);
+      await gotoHydrated(page, LIVE_PAGE);
 
       await toggleAndVerifyAccordion(page.locator(ACCORDION_TRIGGER_SELECTOR).first(), 'true');
     });
@@ -96,8 +92,7 @@ test.describe('Accordion Functionality', () => {
 
   test.describe('Accordion Keyboard Accessibility', () => {
     test('should be keyboard navigable', async ({ page }) => {
-      await page.goto(WORKS_PAGE);
-      await waitForHydration(page);
+      await gotoHydrated(page, WORKS_PAGE);
 
       const firstTrigger = page.locator(ACCORDION_TRIGGER_SELECTOR).first();
       await firstTrigger.focus();
@@ -109,8 +104,7 @@ test.describe('Accordion Functionality', () => {
     });
 
     test('should support Space key activation', async ({ page }) => {
-      await page.goto(WORKS_PAGE);
-      await waitForHydration(page);
+      await gotoHydrated(page, WORKS_PAGE);
 
       const firstTrigger = page.locator(ACCORDION_TRIGGER_SELECTOR).first();
       await firstTrigger.focus();
@@ -123,8 +117,7 @@ test.describe('Accordion Functionality', () => {
 
   test.describe('Accordion Mobile Behavior', () => {
     test('should toggle accordion with pointer events', async ({ page }) => {
-      await page.goto(WORKS_PAGE);
-      await waitForHydration(page);
+      await gotoHydrated(page, WORKS_PAGE);
 
       const firstTrigger = page.locator(ACCORDION_TRIGGER_SELECTOR).first();
       await expect(firstTrigger).toHaveAttribute('aria-expanded', 'true');
@@ -135,8 +128,7 @@ test.describe('Accordion Functionality', () => {
     });
 
     test('should handle hash navigation on all devices', async ({ page }) => {
-      await page.goto(`${WORKS_PAGE}#section-solo`);
-      await waitForHydration(page);
+      await gotoHydrated(page, `${WORKS_PAGE}#section-solo`);
       await expect(page.locator(SOLO_SECTION_ID)).toBeVisible();
       await expect(page.locator(SOLO_TRIGGER_ID)).toHaveAttribute('aria-expanded', 'true');
     });

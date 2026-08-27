@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { checkA11y, waitForHydration } from './helpers';
+import { checkA11y, gotoHydrated } from './helpers';
 
 const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
 
@@ -46,8 +46,7 @@ test.describe('Press kit (EPK)', () => {
   });
 
   test('has no detectable accessibility violations', async ({ page }) => {
-    await page.goto('/epk');
-    await waitForHydration(page);
+    await gotoHydrated(page, '/epk');
 
     await checkA11y(page, { tags: WCAG_TAGS });
   });

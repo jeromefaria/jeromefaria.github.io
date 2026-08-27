@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { checkA11y, isMobile, MIN_TOUCH_TARGET_SIZE, waitForHydration } from './helpers';
+import { checkA11y, gotoHydrated, isMobile, MIN_TOUCH_TARGET_SIZE } from './helpers';
 
 const MAIN_CONTENT_SELECTOR = '#main-content';
 const SKIP_LINK_SELECTOR = 'a[href="#main-content"]';
@@ -11,8 +11,7 @@ test.describe('Accessibility', () => {
   test.describe('WCAG Compliance', () => {
     for (const path of PAGES) {
       test(`${path} should not have violations`, async ({ page }) => {
-        await page.goto(path);
-        await waitForHydration(page);
+        await gotoHydrated(page, path);
         await checkA11y(page);
       });
     }
@@ -20,16 +19,14 @@ test.describe('Accessibility', () => {
 
   test.describe('Keyboard Navigation', () => {
     test('should allow tab navigation through interactive elements', async ({ page }) => {
-      await page.goto('/');
-      await waitForHydration(page);
+      await gotoHydrated(page, '/');
 
       await page.locator(SKIP_LINK_SELECTOR).focus();
       await expect(page.locator(SKIP_LINK_SELECTOR)).toBeFocused();
     });
 
     test('should skip to main content with skip link', async ({ page }) => {
-      await page.goto('/');
-      await waitForHydration(page);
+      await gotoHydrated(page, '/');
 
       const skipLink = page.locator(SKIP_LINK_SELECTOR);
       test.skip(await skipLink.count() === 0, 'No skip link found');
@@ -56,8 +53,7 @@ test.describe('Accessibility', () => {
 
   test.describe('Focus Management', () => {
     test('should have visible focus indicators', async ({ page }) => {
-      await page.goto('/');
-      await waitForHydration(page);
+      await gotoHydrated(page, '/');
 
       const firstLink = page.locator('a').first();
       await firstLink.focus();
@@ -70,8 +66,7 @@ test.describe('Accessibility', () => {
     });
 
     test('should maintain focus order', async ({ page }) => {
-      await page.goto('/works');
-      await waitForHydration(page);
+      await gotoHydrated(page, '/works');
 
       const interactive = page.locator('a, button, input, textarea, [tabindex="0"]').first();
       await interactive.focus();
@@ -146,23 +141,20 @@ test.describe('Accessibility', () => {
 
   test.describe('Color Contrast', () => {
     test('should meet WCAG AA contrast requirements', async ({ page }) => {
-      await page.goto('/');
-      await waitForHydration(page);
+      await gotoHydrated(page, '/');
       await checkA11y(page, { tags: ['wcag2aa'] });
     });
 
     test('should be readable in dark mode', async ({ page }) => {
       await page.emulateMedia({ colorScheme: 'dark' });
-      await page.goto('/');
-      await waitForHydration(page);
+      await gotoHydrated(page, '/');
       await checkA11y(page, { tags: ['wcag2aa'] });
     });
   });
 
   test.describe('ARIA Attributes', () => {
     test('should have valid ARIA attributes', async ({ page }) => {
-      await page.goto('/');
-      await waitForHydration(page);
+      await gotoHydrated(page, '/');
       await checkA11y(page, { tags: ['wcag2a', 'wcag2aa'] });
     });
 
@@ -180,16 +172,14 @@ test.describe('Accessibility', () => {
 
   test.describe('Responsive Accessibility', () => {
     test('should be accessible on all viewports', async ({ page }) => {
-      await page.goto('/');
-      await waitForHydration(page);
+      await gotoHydrated(page, '/');
       await checkA11y(page);
     });
 
     test('should have touch-friendly targets on mobile', async ({ page }) => {
       test.skip(!isMobile(page), 'Not a mobile viewport');
 
-      await page.goto('/');
-      await waitForHydration(page);
+      await gotoHydrated(page, '/');
 
       const box = await page.locator('.nav-toggle').boundingBox();
       expect(box).not.toBeNull();
