@@ -50,10 +50,10 @@ const metaText = (meta: ReleaseMeta): string[] => {
   return out.filter(Boolean);
 };
 
-// Free-text (description/credits/quotes) is indexed word-by-word, so a query matches a
-// discrete word instead of scattering across the whole passage and diluting relevance.
+// Every field is indexed word-by-word after stripping HTML, so a query matches a discrete
+// word rather than scattering across a passage or raw markup (e.g. URLs inside a note).
 const stripHtml = (html?: string): string => (html ?? '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-const words = (html?: string): string[] => stripHtml(html).split(' ').filter(Boolean);
+const words = (text: string): string[] => stripHtml(text).split(' ').filter(Boolean);
 
 // Everyone attached to a show — collaborators, the rest of the bill, photographers, poster artists.
 const eventPeople = (event: LiveEvent): string[] => {
@@ -80,7 +80,7 @@ const releaseCommands = (): Command[] =>
       id: `works:${release.id}`,
       title: release.title,
       subtitle: section.title,
-      keywords: [section.title, String(release.meta.year), ...metaText(release.meta), ...(release.tracklist ?? []).map(track => track.title), ...(release.images ?? []).map(image => image.photographer?.name ?? ''), ...words(release.description), ...words(release.credits)].filter(Boolean),
+      keywords: words([section.title, String(release.meta.year), ...metaText(release.meta), ...(release.tracklist ?? []).map(track => track.title), ...(release.images ?? []).map(image => image.photographer?.name ?? ''), release.description ?? '', release.credits ?? ''].join(' ')),
       group: 'Works',
       to: `/works#${release.id}`,
     })),
@@ -92,7 +92,7 @@ const liveCommands = (): Command[] =>
     id: `live:${event.id}`,
     title: event.title,
     subtitle: event.venue.name ?? event.venue.city ?? event.venue.country,
-    keywords: [event.venue.name ?? '', event.venue.city ?? '', event.venue.country, event.date.slice(0, 4), event.note ?? '', ...eventPeople(event)].filter(Boolean),
+    keywords: words([event.venue.name ?? '', event.venue.city ?? '', event.venue.country, event.date.slice(0, 4), event.note ?? '', ...eventPeople(event)].join(' ')),
     group: 'Live',
     to: `/live#${event.id}`,
   }));
@@ -103,7 +103,7 @@ const pressCommands = (): Command[] =>
     id: `press:${quote.id}`,
     title: quote.source,
     subtitle: 'Press',
-    keywords: ['press', 'review', 'quote', ...words(quote.quote)],
+    keywords: words(['press', 'review', 'quote', quote.quote].join(' ')),
     group: 'Press',
     to: `/press#${quote.id}`,
   }));

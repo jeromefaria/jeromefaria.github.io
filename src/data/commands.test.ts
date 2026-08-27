@@ -47,13 +47,13 @@ describe('buildCommands', () => {
 
   it('indexes labels, catalog, credits, and collaborators for search', () => {
     const offear = commands.find(command => command.title === 'OFFEAR.EP');
-    expect(offear?.keywords).toEqual(expect.arrayContaining(['Enough Records', 'ENRMP040']));
+    expect(offear?.keywords).toEqual(expect.arrayContaining(['Enough', 'Records', 'ENRMP040']));
 
     const hyphema = commands.find(command => command.title === 'Hyphema');
     expect(hyphema?.keywords).toEqual(expect.arrayContaining(['Victor', 'Martins']));
 
     const madeiradig = commands.find(command => command.id === 'live:madeiradig-2011');
-    expect(madeiradig?.keywords).toContain('Taylor Deupree');
+    expect(madeiradig?.keywords).toEqual(expect.arrayContaining(['Taylor', 'Deupree']));
   });
 
   it('includes download, copy-email, and social actions', () => {
