@@ -59,21 +59,36 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
       .filter((command): command is Command => command !== undefined)
       .map(command => ({ ...command, group: 'Recent' as const })));
 
+  const clearRecents = (): void => {
+    recentIds.value = [];
+    saveRecents(recentIds.value);
+  };
+
+  const clearRecentsCommand: Command = {
+    kind: 'action',
+    id: 'act:clear-recents',
+    title: 'Clear recents',
+    keywords: ['clear', 'reset', 'history', 'forget'],
+    group: 'Actions',
+    run: () => clearRecents(),
+  };
+
   const results = computed<Command[]>(() => {
     if (query.value.trim() === '') {
-      // The main routes are always shown under Navigate; Recent holds a few
-      // non-nav items (releases, press, actions). Everything else is searchable.
+      // Main routes always live under Navigate, never Recent.
       const recents = recentCommands.value
         .filter(command => !PRIMARY_ROUTE_IDS.includes(command.id))
         .slice(0, CURATED_RECENTS_MAX);
       const navigation = PRIMARY_ROUTE_IDS
         .map(id => byId.get(id))
         .filter((command): command is Command => command !== undefined);
-      return [...recents, ...navigation];
+      const clear = recents.length ? [clearRecentsCommand] : [];
+      return [...recents, ...clear, ...navigation];
     }
 
     // Cap the list: subsequence matching is permissive, so keep the best-ranked few.
-    return fuzzyRank(query.value, commands).slice(0, MAX_RESULTS);
+    const searchable = recentCommands.value.length ? [...commands, clearRecentsCommand] : commands;
+    return fuzzyRank(query.value, searchable).slice(0, MAX_RESULTS);
   });
 
   watch(results, () => {
