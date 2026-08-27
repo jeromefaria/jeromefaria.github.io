@@ -42,6 +42,11 @@ describe('fuzzyRank', () => {
     expect(fuzzyRank('WORKS', [item('works')])).toHaveLength(1);
   });
 
+  it('ignores diacritics', () => {
+    expect(fuzzyRank('saude', [item('saúde')])).toHaveLength(1);
+    expect(fuzzyRank('vitor', [item('Vítor')])).toHaveLength(1);
+  });
+
   it('narrows as tokens are added — every word must match', () => {
     const items = [
       item('MADEIRADIG', ['2009']),

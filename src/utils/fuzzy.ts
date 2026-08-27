@@ -3,9 +3,13 @@
 // mildly favours earlier matches, so "sw" ranks "Solo Works" above "Password".
 const WORD_BOUNDARY = /[\s\-_/]/;
 
+// Lowercase and strip diacritics so "saude" matches "saúde" and "vitor" matches "Vítor".
+const normalize = (value: string): string =>
+  value.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '');
+
 const scoreAgainst = (query: string, target: string): number | null => {
-  const q = query.toLowerCase();
-  const t = target.toLowerCase();
+  const q = normalize(query);
+  const t = normalize(target);
 
   let score = 0;
   let cursor = 0;

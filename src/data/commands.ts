@@ -34,11 +34,28 @@ const sectionCommands = (): Command[] => [
   })),
 ];
 
-// Label names + catalog numbers, so a release is findable by the imprint that issued it.
-const releaseLabels = (meta: ReleaseMeta): string[] =>
-  ('editions' in meta ? meta.editions : []).flatMap(edition => [edition.label.text, edition.catalog ?? '']);
+// Every named entity attached to a release's metadata — labels, catalog numbers,
+// collaborators, compilation, publisher, director, venue, mastered artist.
+const metaText = (meta: ReleaseMeta): string[] => {
+  const out: string[] = [];
 
-// Collaborators and the rest of the bill, so a show is findable by anyone who shared the stage.
+  if ('editions' in meta) for (const edition of meta.editions) out.push(edition.label.text, edition.catalog ?? '');
+  if ('collaborators' in meta && meta.collaborators) out.push(...meta.collaborators);
+  if ('compilation' in meta) out.push(meta.compilation.text);
+  if ('publisher' in meta) out.push('label' in meta.publisher ? meta.publisher.label.text : meta.publisher.text);
+  if ('director' in meta) out.push(meta.director.text);
+  if ('venue' in meta) out.push(meta.venue.text);
+  if ('artist' in meta) out.push(meta.artist.name);
+
+  return out.filter(Boolean);
+};
+
+// Free-text (description/credits/quotes) is indexed word-by-word, so a query matches a
+// discrete word instead of scattering across the whole passage and diluting relevance.
+const stripHtml = (html?: string): string => (html ?? '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+const words = (html?: string): string[] => stripHtml(html).split(' ').filter(Boolean);
+
+// Everyone attached to a show — collaborators, the rest of the bill, photographers, poster artists.
 const eventPeople = (event: LiveEvent): string[] => {
   const { setup } = event;
   const names: string[] = [];
@@ -48,7 +65,11 @@ const eventPeople = (event: LiveEvent): string[] => {
   if (setup.kind === 'project') names.push(setup.name.text, ...(setup.members ?? []).map(member => member.text));
   if (setup.kind === 'ensemble') names.push(setup.name, ...(setup.members ?? []).map(member => member.text));
 
-  return [...names, ...(event.bill ?? []).map(act => act.text)];
+  names.push(...(event.bill ?? []).map(act => act.text));
+  names.push(...(event.images ?? []).map(image => image.photographer?.name ?? ''));
+  names.push(...(event.posters ?? []).map(poster => poster.artist?.name ?? ''));
+
+  return names.filter(Boolean);
 };
 
 // Each release deep-links to its entry; the accordion opens the owning section.
@@ -59,7 +80,7 @@ const releaseCommands = (): Command[] =>
       id: `works:${release.id}`,
       title: release.title,
       subtitle: section.title,
-      keywords: [section.title, String(release.meta.year), ...releaseLabels(release.meta)].filter(Boolean),
+      keywords: [section.title, String(release.meta.year), ...metaText(release.meta), ...(release.tracklist ?? []).map(track => track.title), ...(release.images ?? []).map(image => image.photographer?.name ?? ''), ...words(release.description), ...words(release.credits)].filter(Boolean),
       group: 'Works',
       to: `/works#${release.id}`,
     })),
@@ -71,7 +92,7 @@ const liveCommands = (): Command[] =>
     id: `live:${event.id}`,
     title: event.title,
     subtitle: event.venue.name ?? event.venue.city ?? event.venue.country,
-    keywords: [event.venue.name ?? '', event.venue.city ?? '', event.venue.country, event.date.slice(0, 4), ...eventPeople(event)].filter(Boolean),
+    keywords: [event.venue.name ?? '', event.venue.city ?? '', event.venue.country, event.date.slice(0, 4), event.note ?? '', ...eventPeople(event)].filter(Boolean),
     group: 'Live',
     to: `/live#${event.id}`,
   }));
@@ -82,7 +103,7 @@ const pressCommands = (): Command[] =>
     id: `press:${quote.id}`,
     title: quote.source,
     subtitle: 'Press',
-    keywords: ['press', 'review', 'quote'],
+    keywords: ['press', 'review', 'quote', ...words(quote.quote)],
     group: 'Press',
     to: `/press#${quote.id}`,
   }));
