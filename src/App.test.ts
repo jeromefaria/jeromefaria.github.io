@@ -11,6 +11,8 @@ const LinksPage = {
     <a href="https://external.example.com">external</a>
     <a href="/about">internal</a>
     <a href="http://localhost/local-page">same-origin absolute</a>
+    <a href="https://labelled.example.com" aria-label="Docs, opens in a new tab">labelled</a>
+    <a href="https://precued.example.com">precued<span class="visually-hidden"> (opens in a new tab)</span></a>
   </div>`,
 };
 
@@ -78,12 +80,35 @@ describe('App', () => {
     expect(external.attributes('rel')).toBe('noopener noreferrer');
   });
 
+  it('adds a single visually-hidden new-tab cue to a cross-origin link', async () => {
+    const { wrapper } = await mountApp();
+    const cues = wrapper.get('main a[href="https://external.example.com"]').findAll('.visually-hidden');
+
+    expect(cues).toHaveLength(1);
+    expect(cues[0].text()).toContain('opens in a new tab');
+  });
+
+  it('does not add a cue to a link that already conveys new-tab via aria-label', async () => {
+    const { wrapper } = await mountApp();
+    const labelled = wrapper.get('main a[href="https://labelled.example.com"]');
+
+    expect(labelled.findAll('.visually-hidden')).toHaveLength(0);
+  });
+
+  it('does not double-cue a link that already carries a visually-hidden cue', async () => {
+    const { wrapper } = await mountApp();
+    const precued = wrapper.get('main a[href="https://precued.example.com"]');
+
+    expect(precued.findAll('.visually-hidden')).toHaveLength(1);
+  });
+
   it('leaves a same-origin internal link untouched', async () => {
     const { wrapper } = await mountApp();
     const internal = wrapper.get('main a[href="/about"]');
 
     expect(internal.attributes('target')).toBeUndefined();
     expect(internal.attributes('rel')).toBeUndefined();
+    expect(internal.findAll('.visually-hidden')).toHaveLength(0);
   });
 
   it('leaves a same-origin absolute link untouched', async () => {

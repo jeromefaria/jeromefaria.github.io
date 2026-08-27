@@ -21,10 +21,6 @@ const epk = resolveEpkContent(epkManifest);
       data-page="epk"
       title="Press Kit"
     >
-      <p class="visually-hidden">
-        External links open in a new tab.
-      </p>
-
       <section class="epk__section">
         <h2 class="epk__heading">
           Short bio
