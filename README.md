@@ -14,6 +14,7 @@ A production-grade **Vue 3 + TypeScript** frontend for [www.jeromefaria.com](htt
 - **Performance engineering.** SSG pre-render + hydrate, Lighthouse budgets enforced in CI, responsive `<picture>`/WebP srcsets generated at build, subsetted self-hosted fonts, and non-render-blocking CSS.
 - **Testing rigor.** ~99% coverage behind a **ratcheting floor**, cross-browser E2E on three engines (Chromium, Firefox, WebKit), and per-route **visual-regression** snapshots.
 - **Component & styling architecture.** Single-responsibility components, reusable composables, and SCSS design tokens driving a themable, BEM-structured stylesheet.
+- **A hidden ⌘K command palette.** Keyboard-summoned search, navigation, and actions across the whole site — a typed command registry, a hand-rolled fuzzy ranker, a full combobox/listbox ARIA contract, and fzf-style keybindings. No visible affordance; it's an easter egg for those who reach for `⌘K` / `Ctrl+K`.
 - **Full-stack when it's warranted.** Even the contact form is a real backend I own — a **Cloudflare Worker** doing server-side Turnstile verification + Resend, not a form-SaaS embed.
 
 ## Architecture
@@ -51,12 +52,36 @@ Contact (runtime)
 - **A coverage *floor* that only ratchets up.** CI enforces a minimum that rises as coverage climbs (`scripts/check-coverage.js`) — regression protection without chasing 100%.
 - **Typed content, no CMS.** The catalog is TypeScript with discriminated unions — a release is `music | compilation | commission | publication | mastering`, a live event has its own shape — versioned in git. The same data renders the site *and* generates the PDF press kit and technical rider that bookers and press ask for.
 
+## Command palette
+
+A hidden command palette — no on-screen affordance, summoned with **⌘K** (macOS) or **Ctrl+K**. It searches, navigates, and acts across the whole site from the keyboard; press **?** anywhere (outside a text field) for the shortcuts cheat-sheet.
+
+**What it does**
+
+- **Navigate** — every route, plus each Works section.
+- **Jump to content** — any release, live date, or press quote, deep-linked to its entry (the owning accordion opens on arrival).
+- **Actions** — download the press kit (PDF/ZIP) or technical rider, copy the contact email, switch the theme (light / dark / match system), open any social profile or a release on Bandcamp, or bring up the shortcuts help.
+
+An empty query surfaces recents (persisted in `localStorage`) followed by curated navigation; typing fuzzy-ranks the whole command set by title and keywords.
+
+| Key | Action |
+| --- | --- |
+| `⌘K` / `Ctrl+K` | Open / close |
+| `↑` `↓` · `Ctrl+P` `Ctrl+N` · `Ctrl+K` `Ctrl+J` | Move selection (arrows, Emacs, or Vim / fzf) |
+| `Ctrl+U` / `Ctrl+D` | Jump half a page |
+| `↵` | Open the selected command |
+| `⌘↵` / `Ctrl+↵` | Open in a new tab |
+| `Esc` / `Ctrl+C` | Close |
+| `?` | Show the shortcuts help |
+
+Desktop-only and strictly additive — the site is fully usable without it. Under the hood: a typed command registry (`src/data/commands.ts`) over a discriminated `navigate | result | action` union, a hand-rolled fuzzy ranker (`src/utils/fuzzy.ts`), a full combobox/listbox ARIA contract with a live region, and shared focus-trap + scroll-lock (`useOverlay`). The palette and its help modal are lazy-loaded behind a tiny always-on hotkey layer, so none of that code ships in the main bundle.
+
 ## Project structure
 
 ```
 src/
   components/    Reusable UI components
-  composables/   Reusable logic (accordion + hash routing, image loading, page head/schema)
+  composables/   Reusable logic (accordion + hash routing, image loading, page head/schema, command palette + overlays)
   data/          Typed content — works, live events, press, about (no CMS)
   router/        Vue Router route table
   styles/        Modular SCSS with design tokens (_variables.scss)
@@ -65,7 +90,7 @@ src/
   views/         One component per route
 worker/          Cloudflare Worker — Turnstile verification + Resend relay
 scripts/         Build tooling — PDF generation, responsive images, font subsetting, CI checks
-e2e/             Playwright specs (navigation, accordion, contact, lightbox, a11y, visual)
+e2e/             Playwright specs (navigation, accordion, contact, lightbox, command palette, a11y, visual)
 public/          Static assets
 ```
 

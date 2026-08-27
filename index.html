@@ -14,8 +14,17 @@
          weight. The homepage preloads its hero image from within HomeView. -->
     <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
     <script>
-      // Set dark theme before page renders to prevent flash
-      document.documentElement.setAttribute('data-theme', 'dark');
+      // Resolve the stored theme before first paint to prevent a flash. Mirrors
+      // useTheme.ts: default dark; 'light' clears the attribute; 'system' follows the OS.
+      try {
+        let choice = localStorage.getItem('theme');
+        if (choice !== 'light' && choice !== 'system') choice = 'dark';
+        if (choice === 'dark' || (choice === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
     </script>
     <style>
       /* Critical CSS - prevents FOUC by styling initial render. The body (400)

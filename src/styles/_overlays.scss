@@ -1,0 +1,171 @@
+@use "variables" as *;
+
+.overlay-fade-enter-active {
+  transition: opacity $transition-base;
+}
+
+.overlay-fade-leave-active {
+  transition: opacity $transition-fast;
+}
+
+.overlay-fade-enter-from,
+.overlay-fade-leave-to {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-fade-enter-active,
+  .overlay-fade-leave-active {
+    transition: none;
+  }
+}
+
+.command-palette {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh $spacing-4 $spacing-4;
+  background: $overlay-scrim;
+  overflow-y: auto;
+
+  &__panel {
+    width: 100%;
+    max-width: 34rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--overlay-panel-shadow);
+    overflow: hidden;
+  }
+
+  &__input {
+    @include form-input-base;
+    margin: 0;
+    padding: $spacing-4 $spacing-5;
+    border: none;
+    border-bottom: 1px solid var(--color-border-subtle);
+    border-radius: 0;
+
+    // The shared input mixin brightens the border on hover/focus; the palette keeps
+    // its divider constant so nothing flickers as the overlay fades.
+    &:hover,
+    &:focus {
+      border-bottom-color: var(--color-border-subtle);
+    }
+  }
+
+  &__results {
+    max-height: 60vh;
+    margin: 0;
+    padding: $spacing-2 0;
+    overflow-y: auto;
+    list-style: none;
+  }
+
+  &__group {
+    padding: $spacing-3 $spacing-4 $spacing-1;
+    @include label-style;
+  }
+
+  &__option {
+    display: flex;
+    align-items: baseline;
+    gap: $spacing-3;
+    padding: $spacing-2 $spacing-4;
+    cursor: pointer;
+
+    &--active {
+      background: var(--color-border-subtle);
+    }
+  }
+
+  &__title {
+    color: var(--color-text);
+  }
+
+  &__subtitle {
+    margin-left: auto;
+    font-size: $font-size-sm;
+    color: var(--color-text-muted);
+  }
+
+  &__empty {
+    padding: $spacing-6 $spacing-5;
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+
+  &__hint {
+    display: flex;
+    gap: $spacing-4;
+    padding: $spacing-2 $spacing-5;
+    border-top: 1px solid var(--color-border);
+    font-size: $font-size-xs;
+    color: var(--color-text-muted);
+
+    kbd {
+      @include kbd-key;
+    }
+  }
+}
+
+.keyboard-help {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-4;
+  background: $overlay-scrim;
+
+  &__panel {
+    width: 100%;
+    max-width: 26rem;
+    padding: $spacing-5;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--overlay-panel-shadow);
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__title {
+    margin: 0 0 $spacing-4;
+    @include label-style;
+  }
+
+  &__list {
+    margin: 0;
+  }
+
+  &__row {
+    display: flex;
+    align-items: baseline;
+    gap: $spacing-4;
+    padding: $spacing-1 0;
+  }
+
+  &__keys {
+    flex: 0 0 8rem;
+    display: flex;
+    gap: $spacing-1;
+    margin: 0;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: $font-size-sm;
+    color: var(--color-text-secondary);
+  }
+
+  kbd {
+    @include kbd-key;
+    font-size: $font-size-xs;
+    color: var(--color-text-muted);
+  }
+}
