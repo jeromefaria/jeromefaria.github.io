@@ -8,6 +8,7 @@ import type { LiveEvent } from '@/types/live';
 import type { ReleaseMeta } from '@/types/works';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
 import { openInNewTab } from '@/utils/openInNewTab';
+import { plainCredits } from '@/utils/renderCredits';
 
 import { pressQuotes } from './press';
 
@@ -80,7 +81,7 @@ const releaseCommands = (): Command[] =>
       id: `works:${release.id}`,
       title: release.title,
       subtitle: section.title,
-      keywords: words([section.title, String(release.meta.year), ...metaText(release.meta), ...(release.tracklist ?? []).map(track => track.title), ...(release.images ?? []).map(image => image.photographer?.name ?? ''), release.description ?? '', release.credits ?? ''].join(' ')),
+      keywords: words([section.title, String(release.meta.year), ...metaText(release.meta), ...(release.tracklist ?? []).map(track => track.title), ...(release.images ?? []).map(image => image.photographer?.name ?? ''), release.description ?? '', plainCredits(release.credits ?? '')].join(' ')),
       group: 'Works',
       to: `/works#${release.id}`,
     })),
