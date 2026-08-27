@@ -93,9 +93,9 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   }
 }
 
-@mixin label-style($weight: $font-weight-normal) {
+@mixin label-style {
   font-size: $font-size-xs;
-  font-weight: $weight;
+  font-weight: $font-weight-medium;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-wider;
   color: var(--color-text-muted);
