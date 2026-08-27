@@ -75,12 +75,16 @@ export const buildMetaSegments = (meta: ReleaseMeta): MetaSegment[] => {
       return segments;
     }
 
-    case 'mastering':
+    case 'mastering': {
+      const artist = meta.artist.url
+        ? { text: meta.artist.name, url: meta.artist.url }
+        : { text: meta.artist.name };
       return [
-        { kind: 'link', link: meta.artist },
+        { kind: 'link', link: artist },
         text(' — '),
         ...editionSegments(meta.editions),
         text(`, ${meta.year}`),
       ];
+    }
   }
 };

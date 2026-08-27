@@ -19,7 +19,7 @@ describe('worksData', () => {
       expect(item.meta.kind, `id="${item.id}"`).toBe('mastering');
 
       if (item.meta.kind === 'mastering') {
-        expect(item.meta.artist.text.trim(), `id="${item.id}" artist`).toBeTruthy();
+        expect(item.meta.artist.name.trim(), `id="${item.id}" artist`).toBeTruthy();
       }
     }
   });

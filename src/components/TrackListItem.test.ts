@@ -13,7 +13,7 @@ describe('TrackListItem', () => {
 
   it('links a credited artist and separates it from the title', () => {
     const wrapper = mount(TrackListItem, {
-      props: { track: { title: 'Attack (Prelude)', artist: { text: 'CAVERNANCIA', url: 'https://cavernancia.bandcamp.com/' } } },
+      props: { track: { title: 'Attack (Prelude)', artist: { name: 'CAVERNANCIA', url: 'https://cavernancia.bandcamp.com/' } } },
     });
     const link = wrapper.get('a');
 
@@ -25,7 +25,7 @@ describe('TrackListItem', () => {
 
   it('inlines an unlinked artist as text', () => {
     const wrapper = mount(TrackListItem, {
-      props: { track: { title: 'Costa Norte', artist: { text: 'sol' } } },
+      props: { track: { title: 'Costa Norte', artist: { name: 'sol' } } },
     });
 
     expect(wrapper.find('a').exists()).toBe(false);

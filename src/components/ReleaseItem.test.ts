@@ -41,7 +41,7 @@ const staticCover: Release = {
 const textOnlyRelease: Release = {
   id: 'master-open',
   title: 'Open',
-  meta: { kind: 'mastering', artist: { text: 'Hugo Calcio' }, editions: [], year: 2021 },
+  meta: { kind: 'mastering', artist: { name: 'Hugo Calcio' }, editions: [], year: 2021 },
 };
 
 describe('ReleaseItem', () => {
