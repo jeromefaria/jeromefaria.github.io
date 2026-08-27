@@ -3,7 +3,7 @@
 [![CI/CD](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml)
 [![codecov](https://codecov.io/gh/jeromefaria/jeromefaria.github.io/branch/master/graph/badge.svg)](https://codecov.io/gh/jeromefaria/jeromefaria.github.io)
 
-A production-grade **Vue 3 + TypeScript** frontend for [www.jeromefaria.com](https://www.jeromefaria.com) — statically generated and hydrated, built to professional standards: strict typing, CI-gated accessibility, performance budgets, and unit + cross-browser E2E + visual-regression tests. Owned end to end, down to the serverless backend behind the contact form.
+A production-grade **Vue 3 + TypeScript** frontend for [www.jeromefaria.com](https://www.jeromefaria.com) — the portfolio of a composer and sound artist (discography, live history, press, and a downloadable press kit), statically generated and hydrated, built to professional standards: strict typing, CI-gated accessibility, performance budgets, and unit + cross-browser E2E + visual-regression tests. Owned end to end, down to the serverless backend behind the contact form.
 
 > The sections below lead with *what the project demonstrates* and *why it's built this way*; the run-book follows.
 
@@ -49,7 +49,7 @@ Contact (runtime)
 - **SSG, not SPA or SSR.** Pre-rendering gives fast first paint, clean SEO, and free static hosting; hydration restores interactivity. The trade-off — no server runtime for the site — is deliberate, so the one genuinely dynamic need, the contact form, became a small serverless function.
 - **Own the contact backend.** A Cloudflare Worker + Turnstile + Resend keeps spam handling, delivery, and data under my control rather than a form-SaaS embed. (The invisible Turnstile challenge carries a disclosure obligation — hence the `/privacy` page.)
 - **A coverage *floor* that only ratchets up.** CI enforces a minimum that rises as coverage climbs (`scripts/check-coverage.js`) — regression protection without chasing 100%.
-- **Typed content, no CMS.** Content is TypeScript with discriminated unions, versioned in git — and the same data renders the site *and* generates the PDF press kit and tech rider.
+- **Typed content, no CMS.** The catalog is TypeScript with discriminated unions — a release is `music | compilation | commission | publication | mastering`, a live event has its own shape — versioned in git. The same data renders the site *and* generates the PDF press kit and technical rider that bookers and press ask for.
 
 ## Project structure
 
