@@ -1,13 +1,13 @@
 import type { ComputedRef, Ref } from 'vue';
-import { computed, onUnmounted, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { buildCommands } from '@/data/commands';
 import type { Command } from '@/types/command';
 import { fuzzyRank } from '@/utils/fuzzy';
+import { openInNewTab } from '@/utils/openInNewTab';
 
 import { paletteOpen } from './useOverlays';
-import { useScrollLock } from './useScrollLock';
 
 const RECENTS_KEY = 'command-palette:recents';
 const RECENTS_MAX = 5;
@@ -35,18 +35,13 @@ interface UseCommandPaletteReturn {
   query: Ref<string>;
   activeIndex: Ref<number>;
   results: ComputedRef<Command[]>;
-  open: () => void;
   close: () => void;
   handleKeydown: (event: KeyboardEvent) => void;
   execute: (index?: number, newTab?: boolean) => Promise<void>;
 }
 
-// The palette's query/results/execute logic. Visibility lives in the shared
-// `paletteOpen` (toggled by the always-loaded hotkey layer), so this heavy module
-// — registry, fuzzy, data — only loads when the palette is first summoned.
 export const useCommandPalette = (): UseCommandPaletteReturn => {
   const router = useRouter();
-  const { lock, unlock } = useScrollLock();
 
   const commands = buildCommands();
   const byId = new Map(commands.map(command => [command.id, command]));
@@ -76,22 +71,12 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     activeIndex.value = 0;
   });
 
-  // Opening is triggered externally (the hotkey sets `paletteOpen`), so react to
-  // it: reset the query and lock scroll on open, release on close. Immediate so a
-  // freshly mounted palette (already open) initialises correctly.
+  // Immediate so a freshly-mounted, already-open palette resets its query.
   watch(paletteOpen, open => {
-    if (open) {
-      query.value = '';
-      activeIndex.value = 0;
-      lock();
-    } else {
-      unlock();
-    }
+    if (!open) return;
+    query.value = '';
+    activeIndex.value = 0;
   }, { immediate: true });
-
-  const open = (): void => {
-    paletteOpen.value = true;
-  };
 
   const close = (): void => {
     paletteOpen.value = false;
@@ -121,15 +106,13 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     }
 
     if (newTab) {
-      window.open(router.resolve(command.to).href, '_blank', 'noopener,noreferrer');
+      openInNewTab(router.resolve(command.to).href);
       return;
     }
 
     await router.push(command.to);
   };
 
-  // Keys handled while the palette input is focused. Vim/fzf bindings sit
-  // alongside the arrows and move the same active row.
   const handleKeydown = (event: KeyboardEvent): void => {
     const ctrl = event.ctrlKey;
 
@@ -168,7 +151,5 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     }
   };
 
-  onUnmounted(unlock);
-
-  return { isOpen: paletteOpen, query, activeIndex, results, open, close, handleKeydown, execute };
+  return { isOpen: paletteOpen, query, activeIndex, results, close, handleKeydown, execute };
 };

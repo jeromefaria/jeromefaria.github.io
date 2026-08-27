@@ -65,6 +65,8 @@ $opacity-80: 0.8;
 $opacity-90: 0.9;
 
 $overlay-dark: rgba(0, 0, 0, 0.4);
+$overlay-scrim: rgba(0, 0, 0, 0.5);
+$overlay-panel-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
 
 @mixin respond-to($breakpoint) {
   @if $breakpoint == sm {
@@ -99,6 +101,56 @@ $overlay-dark: rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   letter-spacing: $letter-spacing-wider;
   color: var(--color-text-muted);
+}
+
+@mixin form-input-base {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  font-family: $font-sans;
+  // 16px (1rem) keeps iOS Safari from auto-zooming the focused control
+  font-size: $font-size-lg;
+  line-height: $line-height-base;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  transition: border-color $transition-base, background-color $transition-base;
+
+  &::placeholder {
+    color: var(--color-text-muted);
+    opacity: $opacity-60;
+    transition: opacity $transition-base;
+  }
+
+  &:hover {
+    border-color: var(--color-text-muted);
+
+    &::placeholder {
+      opacity: $opacity-80;
+    }
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-text);
+
+    &::placeholder {
+      opacity: $opacity-40;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0.01ms;
+
+    &::placeholder {
+      transition-duration: 0.01ms;
+    }
+  }
+}
+
+@mixin kbd-key {
+  padding: 0 $spacing-1;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  font-family: inherit;
 }
 
 @mixin play-triangle($color: #fff) {

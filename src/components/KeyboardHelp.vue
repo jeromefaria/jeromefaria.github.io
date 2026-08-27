@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue';
+import { ref } from 'vue';
 
-import { useKeyboardHelp } from '@/composables/useKeyboardHelp';
-
-const { isOpen, close } = useKeyboardHelp();
+import { useOverlay } from '@/composables/useOverlay';
+import { helpOpen } from '@/composables/useOverlays';
 
 const panelRef = ref<HTMLElement | null>(null);
-let previouslyFocused: HTMLElement | null = null;
+
+useOverlay(helpOpen, panelRef);
+
+const close = (): void => {
+  helpOpen.value = false;
+};
 
 const shortcuts: { keys: string[]; description: string }[] = [
   { keys: ['⌘K'], description: 'Open the command palette' },
@@ -18,23 +22,12 @@ const shortcuts: { keys: string[]; description: string }[] = [
   { keys: ['Esc'], description: 'Close' },
   { keys: ['?'], description: 'Show this help' },
 ];
-
-watch(isOpen, async open => {
-  if (open) {
-    previouslyFocused = document.activeElement as HTMLElement | null;
-    await nextTick();
-    panelRef.value?.focus();
-    return;
-  }
-  previouslyFocused?.focus();
-  previouslyFocused = null;
-}, { immediate: true });
 </script>
 
 <template>
   <Teleport to="body">
     <div
-      v-if="isOpen"
+      v-if="helpOpen"
       class="keyboard-help"
       @click.self="close"
     >

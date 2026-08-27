@@ -2,30 +2,18 @@
 import { computed, nextTick, ref, watch } from 'vue';
 
 import { useCommandPalette } from '@/composables/useCommandPalette';
+import { useOverlay } from '@/composables/useOverlay';
 
 const { isOpen, query, activeIndex, results, close, handleKeydown, execute } = useCommandPalette();
 
 const inputRef = ref<HTMLInputElement | null>(null);
 
+useOverlay(isOpen, inputRef);
+
 const showHeaders = computed(() => query.value.trim() === '');
 const announcement = computed(() =>
   (isOpen.value ? `${results.value.length} result${results.value.length === 1 ? '' : 's'}` : ''));
 
-let previouslyFocused: HTMLElement | null = null;
-
-// Focus the input on open; restore focus to wherever it was on close.
-watch(isOpen, async open => {
-  if (open) {
-    previouslyFocused = document.activeElement as HTMLElement | null;
-    await nextTick();
-    inputRef.value?.focus();
-    return;
-  }
-  previouslyFocused?.focus();
-  previouslyFocused = null;
-}, { immediate: true });
-
-// Keep the active row visible as it moves.
 watch(activeIndex, async () => {
   await nextTick();
   document.getElementById(`command-palette-option-${activeIndex.value}`)?.scrollIntoView({ block: 'nearest' });
@@ -48,7 +36,7 @@ watch(activeIndex, async () => {
         <input
           ref="inputRef"
           v-model="query"
-          class="contact-form__input command-palette__input"
+          class="command-palette__input"
           type="text"
           role="combobox"
           aria-expanded="true"

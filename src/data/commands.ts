@@ -4,16 +4,11 @@ import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
 import type { Command } from '@/types/command';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
+import { openInNewTab } from '@/utils/openInNewTab';
 
 import { pressQuotes } from './press';
 
-const openExternal = (url: string): void => {
-  window.open(url, '_blank', 'noopener,noreferrer');
-};
-
-// Top-level routes. Authored (not derived from the router) so each carries a
-// human title and search keywords; includes routes that aren't in the visible
-// nav (Home, Press Kit, Privacy).
+// Authored (not router-derived) so each has a title + keywords, incl. routes not in the nav.
 const routeCommands = (): Command[] => [
   { kind: 'navigate', id: 'nav:home', title: 'Home', keywords: ['start', 'index'], group: 'Navigate', to: '/' },
   { kind: 'navigate', id: 'nav:works', title: 'Works', keywords: ['discography', 'releases', 'music', 'albums'], group: 'Navigate', to: '/works' },
@@ -25,7 +20,6 @@ const routeCommands = (): Command[] => [
   { kind: 'navigate', id: 'nav:privacy', title: 'Privacy', keywords: ['policy', 'data'], group: 'Navigate', to: '/privacy' },
 ];
 
-// Deep-links into the accordion sections — works categories and live years.
 const sectionCommands = (): Command[] => [
   ...Object.entries(worksData).map(([key, section]): Command => ({
     kind: 'navigate',
@@ -37,8 +31,7 @@ const sectionCommands = (): Command[] => [
   })),
 ];
 
-// One result per release, deep-linked to its entry (the accordion opens the
-// owning section and scrolls to it via the shared hash routing).
+// Each release deep-links to its entry; the accordion opens the owning section.
 const releaseCommands = (): Command[] =>
   Object.values(worksData).flatMap(section =>
     section.items.map((release): Command => ({
@@ -74,13 +67,11 @@ const pressCommands = (): Command[] =>
     to: `/press#${quote.id}`,
   }));
 
-// Downloads, clipboard, and outbound links — including one "open on Bandcamp"
-// per release that has a Bandcamp URL.
 const actionCommands = (): Command[] => {
   const downloads: Command[] = [
-    { kind: 'action', id: 'act:press-kit-pdf', title: 'Download press kit (PDF)', keywords: ['epk', 'pdf', 'press'], group: 'Actions', external: true, run: () => openExternal(epkPdfHref) },
-    { kind: 'action', id: 'act:rider-pdf', title: 'Download technical rider (PDF)', keywords: ['rider', 'tech', 'pdf', 'stage'], group: 'Actions', external: true, run: () => openExternal(epkRiderHref) },
-    { kind: 'action', id: 'act:press-kit-zip', title: 'Download press kit (ZIP)', keywords: ['epk', 'zip', 'photos', 'assets'], group: 'Actions', external: true, run: () => openExternal(epkZipHref) },
+    { kind: 'action', id: 'act:press-kit-pdf', title: 'Download press kit (PDF)', keywords: ['epk', 'pdf', 'press'], group: 'Actions', external: true, run: () => openInNewTab(epkPdfHref) },
+    { kind: 'action', id: 'act:rider-pdf', title: 'Download technical rider (PDF)', keywords: ['rider', 'tech', 'pdf', 'stage'], group: 'Actions', external: true, run: () => openInNewTab(epkRiderHref) },
+    { kind: 'action', id: 'act:press-kit-zip', title: 'Download press kit (ZIP)', keywords: ['epk', 'zip', 'photos', 'assets'], group: 'Actions', external: true, run: () => openInNewTab(epkZipHref) },
   ];
 
   const help: Command = {
@@ -108,7 +99,7 @@ const actionCommands = (): Command[] => {
     keywords: [link.name, 'social', 'link'],
     group: 'Actions',
     external: true,
-    run: () => openExternal(link.url),
+    run: () => openInNewTab(link.url),
   }));
 
   const bandcamp: Command[] = Object.values(worksData)
@@ -124,15 +115,13 @@ const actionCommands = (): Command[] => {
         keywords: [release.title, 'bandcamp', 'listen', 'play'],
         group: 'Actions',
         external: true,
-        run: () => openExternal(url),
+        run: () => openInNewTab(url),
       } satisfies Command];
     });
 
   return [...downloads, help, contact, ...socials, ...bandcamp];
 };
 
-// The full command universe, derived from the site's own typed data so it stays
-// in sync with content automatically.
 export const buildCommands = (): Command[] => [
   ...routeCommands(),
   ...sectionCommands(),

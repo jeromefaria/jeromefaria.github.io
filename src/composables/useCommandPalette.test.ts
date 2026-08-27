@@ -1,6 +1,6 @@
 import { flushPromises, mount, type VueWrapper } from '@vue/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { defineComponent, nextTick } from 'vue';
+import { defineComponent } from 'vue';
 import { createMemoryHistory, createRouter, type Router } from 'vue-router';
 
 import { useCommandPalette } from './useCommandPalette';
@@ -49,26 +49,22 @@ describe('useCommandPalette', () => {
     document.body.style.overflow = '';
   });
 
-  it('opens and closes, locking body scroll while open', async () => {
+  it('reflects the shared open state and closes via close()', async () => {
     const { api, wrapper } = await mountPalette();
     active = wrapper;
 
-    api.open();
+    paletteOpen.value = true;
     expect(api.isOpen.value).toBe(true);
-    await nextTick();
-    expect(document.body.style.overflow).toBe('hidden');
 
     api.close();
     expect(api.isOpen.value).toBe(false);
-    await nextTick();
-    expect(document.body.style.overflow).toBe('');
   });
 
   it('shows curated navigation on an empty query', async () => {
     const { api, wrapper } = await mountPalette();
     active = wrapper;
 
-    api.open();
+    paletteOpen.value = true;
     expect(api.results.value.every(command => command.kind === 'navigate')).toBe(true);
     expect(api.results.value.some(command => command.title === 'Works')).toBe(true);
   });
@@ -85,7 +81,7 @@ describe('useCommandPalette', () => {
     const { api, wrapper } = await mountPalette();
     active = wrapper;
 
-    api.open();
+    paletteOpen.value = true;
     const last = api.results.value.length - 1;
 
     api.handleKeydown(press('ArrowUp'));
@@ -99,7 +95,7 @@ describe('useCommandPalette', () => {
     const { api, wrapper } = await mountPalette();
     active = wrapper;
 
-    api.open();
+    paletteOpen.value = true;
     api.handleKeydown(press('j', { ctrlKey: true }));
     expect(api.activeIndex.value).toBe(1);
 
@@ -111,7 +107,7 @@ describe('useCommandPalette', () => {
     const { api, wrapper } = await mountPalette();
     active = wrapper;
 
-    api.open();
+    paletteOpen.value = true;
     api.handleKeydown(press('Escape'));
     expect(api.isOpen.value).toBe(false);
   });
@@ -155,7 +151,7 @@ describe('useCommandPalette', () => {
     const { api, wrapper } = await mountPalette();
     active = wrapper;
 
-    api.open();
+    paletteOpen.value = true;
     api.handleKeydown(press('d', { ctrlKey: true }));
     expect(api.activeIndex.value).toBe(5);
 
@@ -167,7 +163,7 @@ describe('useCommandPalette', () => {
     const { api, wrapper } = await mountPalette();
     active = wrapper;
 
-    api.open();
+    paletteOpen.value = true;
     const tab = press('Tab');
     api.handleKeydown(tab);
     expect(tab.defaultPrevented).toBe(true);
@@ -190,7 +186,7 @@ describe('useCommandPalette', () => {
     expect(open).toHaveBeenCalled();
     expect(api.isOpen.value).toBe(false);
 
-    api.open();
+    paletteOpen.value = true;
     await api.execute(9999);
     expect(api.isOpen.value).toBe(true);
   });
@@ -205,9 +201,61 @@ describe('useCommandPalette', () => {
 
     const second = await mountPalette();
     active = second.wrapper;
-    second.api.open();
+    paletteOpen.value = true;
 
     expect(second.api.results.value[0]?.group).toBe('Recent');
     expect(second.api.results.value[0]?.title).toBe('Privacy');
+  });
+
+  const executeByTitle = async (api: Api, title: string): Promise<void> => {
+    api.query.value = title;
+    await api.execute(api.results.value.findIndex(command => command.title === title));
+  };
+
+  it('dedupes recents and caps them at five', async () => {
+    const { api, wrapper } = await mountPalette();
+    active = wrapper;
+
+    for (const title of ['Home', 'Works', 'Live', 'Press', 'About', 'Contact']) {
+      await executeByTitle(api, title);
+    }
+    const recents: string[] = JSON.parse(localStorage.getItem('command-palette:recents') ?? '[]');
+    expect(recents).toHaveLength(5);
+    expect(new Set(recents).size).toBe(5);
+
+    await executeByTitle(api, 'Works');
+    const afterRepeat: string[] = JSON.parse(localStorage.getItem('command-palette:recents') ?? '[]');
+    expect(afterRepeat).toHaveLength(5);
+    expect(afterRepeat[0]).toBe('nav:works');
+  });
+
+  it('ignores malformed recents in storage', async () => {
+    localStorage.setItem('command-palette:recents', 'not json');
+    const { api, wrapper } = await mountPalette();
+    active = wrapper;
+
+    paletteOpen.value = true;
+    expect(api.results.value.every(command => command.group === 'Navigate')).toBe(true);
+  });
+
+  it('filters non-string recent ids from storage', async () => {
+    localStorage.setItem('command-palette:recents', JSON.stringify(['nav:privacy', 42, null]));
+    const { api, wrapper } = await mountPalette();
+    active = wrapper;
+
+    paletteOpen.value = true;
+    const recentTitles = api.results.value.filter(command => command.group === 'Recent').map(command => command.title);
+    expect(recentTitles).toEqual(['Privacy']);
+  });
+
+  it('does not list a recent navigation item twice', async () => {
+    const { api, wrapper } = await mountPalette();
+    active = wrapper;
+
+    api.query.value = 'privacy';
+    await api.execute(0);
+    api.query.value = '';
+
+    expect(api.results.value.filter(command => command.title === 'Privacy')).toHaveLength(1);
   });
 });
