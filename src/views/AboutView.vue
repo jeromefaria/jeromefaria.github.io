@@ -3,6 +3,7 @@ import { computed, useTemplateRef } from 'vue';
 
 import LightboxHost from '@/components/LightboxHost.vue';
 import PageShell from '@/components/PageShell.vue';
+import ResponsivePicture from '@/components/ResponsivePicture.vue';
 import { usePageHead } from '@/composables/usePageHead';
 import { aboutSections } from '@/data/about';
 import { pageMeta } from '@/data/pageMeta';
@@ -10,7 +11,6 @@ import { isImageSection } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { getImageStyles } from '@/utils/imageStyles';
 import { toLightboxImage } from '@/utils/lightboxAdapters';
-import { responsiveSrcset, toWebp } from '@/utils/responsiveImage';
 
 usePageHead(pageMeta.about);
 
@@ -68,25 +68,12 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number =>
             class="about-image-group__image"
             @click="lightbox?.openLightbox(allImages, getGlobalIndex(sectionIndex, imageIndex))"
           >
-            <picture>
-              <source
-                v-if="responsiveSrcset(image.src)"
-                :srcset="responsiveSrcset(image.src) ?? undefined"
-                sizes="(min-width: 768px) 45vw, 48vw"
-                type="image/webp"
-              >
-              <source
-                :srcset="toWebp(image.src)"
-                type="image/webp"
-              >
-              <img
-                :src="image.src"
-                :alt="image.alt"
-                :style="getImageStyles(image)"
-                loading="lazy"
-                decoding="async"
-              >
-            </picture>
+            <ResponsivePicture
+              :src="image.src"
+              :alt="image.alt"
+              sizes="(min-width: 768px) 45vw, 48vw"
+              :image-style="getImageStyles(image)"
+            />
           </figure>
         </div>
       </template>

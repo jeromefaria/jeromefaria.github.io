@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { useImageLoader } from '@/composables/useImageLoader';
-import { responsiveSrcset } from '@/utils/responsiveImage';
-
 import ExternalLink from './ExternalLink.vue';
+import ResponsivePicture from './ResponsivePicture.vue';
 
 const props = defineProps<{
   src: string;
@@ -13,16 +11,7 @@ const props = defineProps<{
   bandcamp?: boolean;
 }>();
 
-const emit = defineEmits<{ error: [] }>();
-
-const { setImageRef, imageLoaded, webpSrc, handleImageLoad, handleImageError } = useImageLoader(props.src);
-
-const coverSrcset = computed(() => responsiveSrcset(props.src));
-
-const onError = (): void => {
-  handleImageError();
-  emit('error');
-};
+defineEmits<{ error: [] }>();
 
 const wrapperClass = computed(() => ({
   'release-cover': true,
@@ -37,27 +26,11 @@ const wrapperClass = computed(() => ({
     :href="href"
     :class="wrapperClass"
   >
-    <picture>
-      <source
-        v-if="coverSrcset"
-        :srcset="coverSrcset"
-        sizes="(min-width: 768px) 200px, 90vw"
-        type="image/webp"
-      >
-      <source
-        :srcset="webpSrc"
-        type="image/webp"
-      >
-      <img
-        :ref="setImageRef"
-        :src="src"
-        :alt="alt"
-        loading="lazy"
-        decoding="async"
-        :class="{ 'is-loaded': imageLoaded }"
-        @load="handleImageLoad"
-        @error="onError"
-      >
-    </picture>
+    <ResponsivePicture
+      :src="src"
+      :alt="alt"
+      sizes="(min-width: 768px) 200px, 90vw"
+      @error="$emit('error')"
+    />
   </component>
 </template>

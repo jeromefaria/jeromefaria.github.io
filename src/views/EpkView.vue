@@ -3,12 +3,12 @@ import { RouterLink } from 'vue-router';
 
 import ExternalLink from '@/components/ExternalLink.vue';
 import PageShell from '@/components/PageShell.vue';
+import ResponsivePicture from '@/components/ResponsivePicture.vue';
 import { usePageHead } from '@/composables/usePageHead';
 import { epkManifest } from '@/data/epk';
 import { pageMeta } from '@/data/pageMeta';
 import { epkPdfHref, epkRiderHref, epkZipHref, photoDownloadHref, resolveEpkContent } from '@/utils/epk';
 import { externalizeLinks } from '@/utils/externalizeLinks';
-import { responsiveSrcset, toWebp } from '@/utils/responsiveImage';
 
 usePageHead({ ...pageMeta.epk, noIndex: true });
 
@@ -76,23 +76,10 @@ const epk = resolveEpkContent(epkManifest);
             :key="photo.src"
             class="epk__photo"
           >
-            <picture>
-              <source
-                v-if="responsiveSrcset(photo.src)"
-                :srcset="responsiveSrcset(photo.src) ?? undefined"
-                type="image/webp"
-              >
-              <source
-                :srcset="toWebp(photo.src)"
-                type="image/webp"
-              >
-              <img
-                :src="photo.src"
-                :alt="photo.alt"
-                loading="lazy"
-                decoding="async"
-              >
-            </picture>
+            <ResponsivePicture
+              :src="photo.src"
+              :alt="photo.alt"
+            />
             <figcaption>
               <template v-if="photo.photographer">
                 Photo:
