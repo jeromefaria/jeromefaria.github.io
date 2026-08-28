@@ -83,10 +83,6 @@ footer {
   a {
     @include hover-text;
   }
-
-  .footer__separator {
-    margin: 0 $spacing-1;
-  }
 }
 
 .page-loading {
