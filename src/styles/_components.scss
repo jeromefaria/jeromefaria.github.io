@@ -163,6 +163,38 @@
         opacity: 1;
       }
     }
+
+    &--playable:hover .release-cover__play,
+    &--playable.is-active .release-cover__play {
+      opacity: 1;
+    }
+  }
+
+  .release-cover__play {
+    @include absolute-fill;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: $overlay-dark;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity $transition-base;
+
+    svg {
+      width: $spacing-8;
+      height: $spacing-8;
+    }
+
+    &:focus-visible {
+      opacity: 1;
+      @include focus-ring(-2px);
+    }
+  }
+
+  .release-cover__spinner {
+    animation: player-spin 0.8s linear infinite;
   }
 
   .release-details {
@@ -198,6 +230,21 @@
 
       a {
         @include link-underline;
+
+        &:hover,
+        &:focus {
+          text-decoration-thickness: 2px;
+        }
+      }
+    }
+
+    .release-listen {
+      font-size: $font-size-sm;
+      color: var(--color-text-muted);
+
+      a {
+        @include link-underline;
+        color: var(--color-text-secondary);
 
         &:hover,
         &:focus {
