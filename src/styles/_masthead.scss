@@ -6,11 +6,14 @@
   z-index: 100;
   background: var(--color-bg);
   padding: $spacing-4 $spacing-5;
+
   @include safe-area-padding($top: $spacing-4, $left: $spacing-5, $right: $spacing-5);
+
   border-bottom: 1px solid var(--color-border);
 
   @include respond-to(md) {
     padding: $spacing-6 $spacing-8;
+
     @include safe-area-padding($top: $spacing-6, $left: $spacing-8, $right: $spacing-8);
   }
 }
@@ -121,6 +124,7 @@
     max-height: 0;
     padding-top: 0;
   }
+
   to {
     max-height: $nav-max-height;
     padding-top: $spacing-4;
@@ -132,6 +136,7 @@
     max-height: $nav-max-height;
     padding-top: $spacing-4;
   }
+
   to {
     max-height: 0;
     padding-top: 0;
@@ -148,6 +153,7 @@
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -157,7 +163,9 @@
   font-size: $font-size-sm;
   letter-spacing: $letter-spacing-wide;
   text-transform: uppercase;
+
   @include hover-text;
+
   padding: $spacing-3 0;
   min-height: $touch-target-min;
   display: flex;
@@ -196,6 +204,7 @@
   width: $touch-target-min;
   height: $touch-target-min;
   margin: -0.875rem;  // -14px: centers 44px touch target within $spacing-4 (16px) header padding
+
   @include hover-text;
 }
 

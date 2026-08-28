@@ -5,6 +5,7 @@
   grid-template-columns: 1fr;
   gap: $spacing-4;
   margin-bottom: $spacing-10;
+
   @include scroll-margin-header;
 
   @include respond-to(md) {
@@ -55,11 +56,13 @@
       height: 100%;
       object-fit: cover;
       display: block;
+
       @include image-reveal;
     }
 
     iframe {
       @include absolute-fill;
+
       border: 0;
     }
 
@@ -75,6 +78,7 @@
 
   .bandcamp-player__button {
     @include absolute-fill;
+
     background: $overlay-dark;
     border: none;
     cursor: pointer;
@@ -87,17 +91,20 @@
 
     &:focus-visible {
       opacity: 1;
+
       @include focus-ring(-2px);
     }
   }
 
   .bandcamp-player__fallback {
     @include absolute-fill;
+
     background: var(--color-border-subtle);
   }
 
   .bandcamp-player__loading {
     @include absolute-fill;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,6 +117,7 @@
 
   .release__spinner {
     @include absolute-fill;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,7 +150,9 @@
     &--bandcamp {
       &::after {
         content: '';
+
         @include absolute-fill;
+
         background: $overlay-dark;
         opacity: 0;
         transition: opacity $transition-base;
@@ -151,6 +161,7 @@
 
       &::before {
         @include play-triangle-centered;
+
         z-index: 1;
         opacity: 0;
         transition: opacity $transition-base;
@@ -172,6 +183,7 @@
 
   .release-cover__play {
     @include absolute-fill;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -189,6 +201,7 @@
 
     &:focus-visible {
       opacity: 1;
+
       @include focus-ring(-2px);
     }
   }
@@ -217,6 +230,7 @@
 
     .release-title-link {
       color: inherit;
+
       @include subtle-link-hover;
       @include focus-outline-subtle;
     }
@@ -354,6 +368,7 @@
 
   h2 {
     @include label-style;
+
     margin-top: 0;
     margin-bottom: $spacing-4;
   }
@@ -404,6 +419,7 @@
   &__label {
     display: block;
     margin-bottom: $spacing-2;
+
     @include label-style;
 
     abbr {
@@ -416,6 +432,7 @@
   &__input,
   &__textarea {
     @include form-input-base;
+
     padding: $spacing-3;
 
     &--invalid {
@@ -619,6 +636,7 @@
     display: flex;
     align-items: center;
     gap: $spacing-2;
+
     // The 44px tap targets centre a ~16px icon, adding ~14px of dead space above
     // the arrows; pull the row up so the visual gap matches the text lines above.
     margin-top: -$spacing-3;
@@ -638,6 +656,7 @@
     background: none;
     border: none;
     padding: $spacing-1;
+
     // Meet the WCAG 2.5.8 target-size minimum (24px); use a comfortable 44px.
     min-width: $touch-target-min;
     min-height: $touch-target-min;
@@ -745,6 +764,7 @@
 
 .accordion-section {
   margin-top: $spacing-2;
+
   @include scroll-margin-header;
 
   &:first-of-type {
@@ -775,6 +795,7 @@
   letter-spacing: $letter-spacing-wide;
   color: var(--color-text-muted);
   line-height: $line-height-snug;
+
   @include scroll-margin-header;
 
   @include respond-to(md) {
@@ -811,6 +832,7 @@
 .accordion-content {
   display: grid;
   grid-template-rows: 0fr;
+
   // Keep collapsed content out of layout — the 0fr grid hides it visually but its
   // rows still stack to full height and leak into the document's scroll otherwise.
   content-visibility: hidden;

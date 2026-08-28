@@ -10,9 +10,9 @@
   --color-link: #000;
   --color-link-hover: #595959; // WCAG AA compliant (7:1 on white)
   --color-error: #c44;
-  --overlay-lightbox: rgba(0, 0, 0, 0.95);
-  --text-overlay-muted: rgba(255, 255, 255, 0.5);
-  --overlay-panel-shadow: 0 16px 48px rgba(0, 0, 0, 0.24);
+  --overlay-lightbox: rgb(0 0 0 / 95%);
+  --text-overlay-muted: rgb(255 255 255 / 50%);
+  --overlay-panel-shadow: 0 16px 48px rgb(0 0 0 / 24%);
 }
 
 [data-theme="dark"] {
@@ -25,9 +25,9 @@
   --color-link: #fff;
   --color-link-hover: #a3a3a3; // WCAG AA compliant (4.58:1 on black)
   --color-error: #e55;
-  --overlay-lightbox: rgba(0, 0, 0, 0.98);
-  --text-overlay-muted: rgba(255, 255, 255, 0.4);
-  --overlay-panel-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --overlay-lightbox: rgb(0 0 0 / 98%);
+  --text-overlay-muted: rgb(255 255 255 / 40%);
+  --overlay-panel-shadow: 0 16px 48px rgb(0 0 0 / 55%), 0 0 0 1px rgb(255 255 255 / 6%);
 }
 
 *,

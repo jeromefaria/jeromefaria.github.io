@@ -7,9 +7,11 @@
     width: 100%;
     min-height: 50vh;
     position: relative;
+
     // Use 100vh (not 100dvh) to prevent resize when Safari UI changes
     // Subtract header, footer, and extra safe-area padding beyond footer base (24px), plus 3px for border alignment
     height: calc(100vh - #{$header-height-mobile} - #{$footer-height} - max(0px, env(safe-area-inset-bottom, 0px) - #{$footer-padding-y}) + 3px);
+
     // Image dimensions: 2560×1703 (3:2 aspect ratio)
     background-size: cover;
     background-position: center bottom;
@@ -21,7 +23,7 @@
       opacity: 1;
     }
 
-    @media (min-aspect-ratio: 3/2) {
+    @media (min-aspect-ratio: 3 / 2) {
       background-size: 100% auto;
     }
 
@@ -211,6 +213,7 @@
     margin: $spacing-8 0;
     padding-bottom: $spacing-8;
     border-bottom: 1px solid var(--color-border-subtle);
+
     @include scroll-margin-header;
 
     &:last-of-type {
@@ -233,6 +236,7 @@
 .page[data-page="live"] {
   .event {
     margin-bottom: $spacing-10;
+
     @include scroll-margin-header;
   }
 
@@ -292,6 +296,7 @@
 
   .event-title-link {
     color: inherit;
+
     @include subtle-link-hover;
     @include focus-outline-subtle;
   }
@@ -300,6 +305,7 @@
     margin-left: $spacing-1;
     color: var(--color-text-muted);
     font-size: 0.85em;
+
     @include subtle-link-hover;
     @include focus-outline-subtle;
   }
@@ -371,6 +377,7 @@
 
   &__heading {
     margin-bottom: $spacing-3;
+
     @include label-style;
   }
 
