@@ -3,8 +3,8 @@ import { computed, ref } from 'vue';
 
 import { useAccordionVisibility } from '@/composables/useAccordionContext';
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
-import { playRelease } from '@/composables/usePlayer';
-import { hasPlayableAudio } from '@/data/audio';
+import { play, playRelease, toggle, usePlayer } from '@/composables/usePlayer';
+import { getReleaseAudio, hasPlayableAudio } from '@/data/audio';
 import type { LightboxItem, Release } from '@/types';
 import { hasBandcampId, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
@@ -46,10 +46,35 @@ const isBandcampLink = computed(() =>
 
 const playable = computed(() => audioPlayerEnabled.value && hasPlayableAudio(props.release.id));
 
-const playThis = (): Promise<void> => playRelease(props.release.id, {
+const audioTracks = computed(() => getReleaseAudio(props.release.id));
+
+// Per-track play only when the display tracklist lines up 1:1 with the audio
+// (2504's five movements are one continuous file, so it keeps release-level play).
+const perTrackPlayable = computed(() =>
+  playable.value && audioTracks.value.length === (props.release.tracklist?.length ?? 0));
+
+const { currentTrack, status } = usePlayer();
+
+const releaseContext = () => ({
   album: props.release.title,
   ...(hasCoverImage(props.release) ? { artwork: props.release.coverImage } : {}),
 });
+
+const isCurrentTrack = (index: number): boolean =>
+  currentTrack.value?.key === audioTracks.value[index]?.key;
+
+const isTrackPlaying = (index: number): boolean =>
+  isCurrentTrack(index) && ['playing', 'loading', 'buffering'].includes(status.value);
+
+const playThis = (): Promise<void> => playRelease(props.release.id, releaseContext());
+
+const playTrack = (index: number): void => {
+  if (isCurrentTrack(index)) {
+    toggle();
+    return;
+  }
+  void play(audioTracks.value, index, releaseContext());
+};
 </script>
 
 <template>
@@ -105,7 +130,28 @@ const playThis = (): Promise<void> => playRelease(props.release.id, {
         <li
           v-for="(track, index) in release.tracklist"
           :key="index"
+          :class="{ 'track--playing': isCurrentTrack(index) }"
         >
+          <button
+            v-if="perTrackPlayable"
+            type="button"
+            class="track-play"
+            :aria-label="`${isTrackPlaying(index) ? 'Pause' : 'Play'} ${track.title}`"
+            @click="playTrack(index)"
+          >
+            <svg
+              v-if="isTrackPlaying(index)"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            ><path fill="currentColor" d="M6 5h4v14H6zm8 0h4v14h-4z" /></svg>
+            <svg
+              v-else
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            ><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
+          </button>
           <TrackListItem :track="track" />
         </li>
       </ol>
