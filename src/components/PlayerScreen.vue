@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
+import { useFocusTrap } from '@/composables/useFocusTrap';
 import { usePlayer } from '@/composables/usePlayer';
+import { useScrollLock } from '@/composables/useScrollLock';
 import type { AudioTrack } from '@/types/audio';
 import { formatTime } from '@/utils/formatTime';
 
@@ -11,35 +13,52 @@ const { status, currentTrack, queue, currentTime, duration, context, hasNext, ha
 const isPlaying = computed(() => status.value === 'playing');
 const currentIndex = computed(() => queue.value.findIndex(track => track.key === currentTrack.value?.key));
 
-const collapseButton = ref<HTMLButtonElement | null>(null);
-
 const onSeek = (event: Event): void => {
   seek(Number((event.target as HTMLInputElement).value));
 };
 
 const trackLabel = (track: AudioTrack): string => (track.artist ? `${track.artist} — ${track.title}` : track.title);
 
+// role="dialog" aria-modal: trap Tab within the screen, restore focus to the
+// trigger on close, and lock background scroll — matching the palette/lightbox.
+const dialog = ref<HTMLElement | null>(null);
+const { onKeydown: trapTab } = useFocusTrap(dialog);
+const { lock, unlock } = useScrollLock();
+
+let previouslyFocused: HTMLElement | null = null;
+
 const onKeydown = (event: KeyboardEvent): void => {
-  if (event.key === 'Escape') collapse();
+  if (event.key === 'Escape') {
+    collapse();
+    return;
+  }
+
+  trapTab(event);
 };
 
 onMounted(() => {
-  window.addEventListener('keydown', onKeydown);
-  collapseButton.value?.focus();
+  previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  lock();
+  dialog.value?.focus();
 });
 
-onUnmounted(() => window.removeEventListener('keydown', onKeydown));
+onBeforeUnmount(() => {
+  unlock();
+  previouslyFocused?.focus();
+});
 </script>
 
 <template>
   <div
+    ref="dialog"
     class="player-screen"
     role="dialog"
     aria-modal="true"
     aria-label="Now playing"
+    tabindex="-1"
+    @keydown="onKeydown"
   >
     <button
-      ref="collapseButton"
       type="button"
       class="player-screen__collapse"
       aria-label="Collapse player"

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref } from 'vue';
 
+import { useFocusTrap } from '@/composables/useFocusTrap';
 import type { LightboxItem } from '@/types';
 import { isLightboxImage, isLightboxVideo } from '@/types';
 import { toWebp } from '@/utils/responsiveImage';
@@ -51,38 +52,7 @@ const dialogLabel = computed(() => {
 // Move focus into the dialog on open and trap Tab within it, so keyboard users
 // can't reach the inert background behind the overlay.
 const dialogRef = ref<HTMLElement | null>(null);
-
-const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
-
-const getFocusable = (): HTMLElement[] =>
-  dialogRef.value ? Array.from(dialogRef.value.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)) : [];
-
-const handleKeydown = (event: KeyboardEvent): void => {
-  if (event.key !== 'Tab') return;
-
-  const focusable = getFocusable();
-  const first = focusable[0];
-  const last = focusable[focusable.length - 1];
-
-  if (!first || !last) {
-    event.preventDefault();
-    dialogRef.value?.focus();
-    return;
-  }
-
-  const active = document.activeElement;
-
-  if (event.shiftKey && (active === first || active === dialogRef.value)) {
-    event.preventDefault();
-    last.focus();
-    return;
-  }
-
-  if (!event.shiftKey && active === last) {
-    event.preventDefault();
-    first.focus();
-  }
-};
+const { onKeydown } = useFocusTrap(dialogRef);
 
 onMounted(async () => {
   await nextTick();
@@ -101,7 +71,7 @@ onMounted(async () => {
       :aria-label="dialogLabel"
       tabindex="-1"
       @click="handleClose"
-      @keydown="handleKeydown"
+      @keydown="onKeydown"
       @touchstart="handleTouchStart"
       @touchend="handleTouchEnd"
     >
