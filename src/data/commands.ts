@@ -5,7 +5,7 @@ import { matchSystemTheme, toggleTheme } from '@/composables/useTheme';
 import { liveEvents } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
-import type { Command } from '@/types/command';
+import type { ActionCommand, Command } from '@/types/command';
 import type { LiveEvent } from '@/types/live';
 import type { Release, ReleaseMeta } from '@/types/works';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
@@ -116,25 +116,24 @@ const pressCommands = (): Command[] =>
     to: `/press#${quote.id}`,
   }));
 
-// One "Open '<release>' on <platform>" action per release that carries the given
-// link. Shared by the Bandcamp and SoundCloud openers so a new platform is a line.
-const releaseLinkCommands = (platform: string, keyword: string, urlOf: (release: Release) => string | undefined): Command[] =>
-  Object.values(worksData)
-    .flatMap(section => section.items)
-    .flatMap(release => {
-      const url = urlOf(release);
-      if (!url) return [];
+const allReleases = (): Release[] => Object.values(worksData).flatMap(section => section.items);
 
-      return [{
-        kind: 'action',
-        id: `act:${keyword}:${release.id}`,
-        title: `Open '${release.title}' on ${platform}`,
-        keywords: [release.title, keyword, 'listen', 'play'],
-        group: 'Actions',
-        external: true,
-        run: () => openInNewTab(url),
-      } satisfies Command];
-    });
+// One "Open '<release>' on <platform>" action per release that carries that link.
+const releaseLinkCommands = (platform: string, keyword: string, urlOf: (release: Release) => string | undefined): Command[] =>
+  allReleases().flatMap(release => {
+    const url = urlOf(release);
+    if (!url) return [];
+
+    return [{
+      kind: 'action',
+      id: `act:${keyword}:${release.id}`,
+      title: `Open '${release.title}' on ${platform}`,
+      keywords: [release.title, keyword, 'listen', 'play'],
+      group: 'Actions',
+      external: true,
+      run: () => openInNewTab(url),
+    } satisfies Command];
+  });
 
 const actionCommands = (): Command[] => {
   const downloads: Command[] = [
@@ -182,53 +181,41 @@ const actionCommands = (): Command[] => {
   return [...downloads, help, ...appearance, contact, ...socials, ...bandcamp, ...soundcloud];
 };
 
-// Live transport controls that reflect the player's current state. Built inside a
-// computed (not part of the static registry) so they surface only while a track is
-// loaded and their labels track play/pause and expand/collapse.
+// Transport for the active track — merged reactively in useCommandPalette, so it is
+// kept out of the static registry and returns nothing when no track is loaded.
 export const playbackCommands = (): Command[] => {
   const { currentTrack, status, hasNext, hasPrevious, expanded, toggle, next, previous, expand, collapse, stop } = usePlayer();
   const track = currentTrack.value;
   if (!track) return [];
 
-  const commands: Command[] = [{
+  const control = (fields: Pick<ActionCommand, 'id' | 'title' | 'keywords' | 'run'> & { subtitle?: string }): Command => ({
     kind: 'action',
-    id: 'play:toggle',
-    title: isActiveStatus(status.value) ? 'Pause' : 'Play',
-    subtitle: track.title,
-    keywords: ['pause', 'play', 'resume', 'music', 'audio', 'playback'],
     group: 'Now Playing',
     transient: true,
-    run: () => toggle(),
-  }];
+    ...fields,
+  });
+
+  const commands: Command[] = [
+    control({ id: 'play:toggle', title: isActiveStatus(status.value) ? 'Pause' : 'Play', subtitle: track.title, keywords: ['pause', 'play', 'resume', 'music', 'audio', 'playback'], run: () => toggle() }),
+  ];
 
   if (hasNext.value) {
-    commands.push({ kind: 'action', id: 'play:next', title: 'Next track', keywords: ['next', 'skip', 'forward'], group: 'Now Playing', transient: true, run: () => void next() });
+    commands.push(control({ id: 'play:next', title: 'Next track', keywords: ['next', 'skip', 'forward'], run: () => void next() }));
   }
   if (hasPrevious.value) {
-    commands.push({ kind: 'action', id: 'play:previous', title: 'Previous track', keywords: ['previous', 'back', 'prev'], group: 'Now Playing', transient: true, run: () => void previous() });
+    commands.push(control({ id: 'play:previous', title: 'Previous track', keywords: ['previous', 'back', 'prev'], run: () => void previous() }));
   }
 
-  commands.push({
-    kind: 'action',
-    id: 'play:expand',
-    title: expanded.value ? 'Collapse player' : 'Expand player',
-    keywords: ['expand', 'collapse', 'now playing', 'minimise', 'minimize'],
-    group: 'Now Playing',
-    transient: true,
-    run: () => (expanded.value ? collapse() : expand()),
-  });
-  commands.push({ kind: 'action', id: 'play:stop', title: 'Stop playback', keywords: ['stop', 'close', 'dismiss', 'end'], group: 'Now Playing', transient: true, run: () => stop() });
+  commands.push(control({ id: 'play:expand', title: expanded.value ? 'Collapse player' : 'Expand player', keywords: ['expand', 'collapse', 'now playing', 'minimise', 'minimize'], run: () => (expanded.value ? collapse() : expand()) }));
+  commands.push(control({ id: 'play:stop', title: 'Stop playback', keywords: ['stop', 'close', 'dismiss', 'end'], run: () => stop() }));
 
   return commands;
 };
 
-// The native-audio counterpart to the Bandcamp openers: start any streamable
-// release from search. Gated on the flag so they vanish when the player is off.
 export const playReleaseCommands = (): Command[] => {
   if (!audioPlayerEnabled.value) return [];
 
-  return Object.values(worksData)
-    .flatMap(section => section.items)
+  return allReleases()
     .filter(release => canPlayRelease(release.id))
     .map((release): Command => ({
       kind: 'action',

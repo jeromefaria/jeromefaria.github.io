@@ -49,8 +49,7 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
   const commands = buildCommands();
   const byId = new Map(commands.map(command => [command.id, command]));
 
-  // Reactive slices layered over the static registry: transport reflects live
-  // player state; the searchable set adds every streamable release.
+  // Reactive slices over the static registry: transport, plus every streamable release.
   const transportCommands = computed<Command[]>(() => playbackCommands());
   const audioCommands = computed<Command[]>(() => [...transportCommands.value, ...playReleaseCommands()]);
 
@@ -88,7 +87,6 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
         .map(id => byId.get(id))
         .filter((command): command is Command => command !== undefined);
       const clear = recents.length ? [clearRecentsCommand] : [];
-      // Transport sits at the top while a track plays — the palette doubles as a remote.
       return [...transportCommands.value, ...recents, ...clear, ...navigation];
     }
 
@@ -131,7 +129,6 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     const command = results.value[index];
     if (!command) return;
 
-    // Ephemeral actions (transport, play-a-release) must not take a recents slot.
     if (!(command.kind === 'action' && command.transient)) remember(command.id);
     close();
 
