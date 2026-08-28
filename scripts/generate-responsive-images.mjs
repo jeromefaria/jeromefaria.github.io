@@ -52,11 +52,12 @@ for (const { src, widths } of targets) {
     generated += 1;
     savedKb += info.size / 1024;
   }
-  manifest[name] = produced;
+  manifest[name] = { widths: produced, width: meta.width, height: meta.height };
 }
 
-// Committed manifest of the widths actually generated per image, so the runtime
-// srcset only ever lists variants that exist.
+// Committed manifest of the widths actually generated per image (so the runtime
+// srcset only lists variants that exist) plus the intrinsic dimensions (so the
+// <img> can reserve load-time space and avoid layout shift).
 writeFileSync(
   join(root, 'src/data/responsiveImages.json'),
   `${JSON.stringify(manifest, null, 2)}\n`,

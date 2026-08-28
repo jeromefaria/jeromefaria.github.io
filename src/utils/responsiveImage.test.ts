@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { toWebp } from './responsiveImage';
+import { imageDimensions, toWebp } from './responsiveImage';
 
 describe('toWebp', () => {
   it('swaps a trailing .jpg for .webp', () => {
@@ -14,5 +14,18 @@ describe('toWebp', () => {
   it('leaves non-jpg sources unchanged', () => {
     expect(toWebp('/images/logo.png')).toBe('/images/logo.png');
     expect(toWebp('/images/hero.webp')).toBe('/images/hero.webp');
+  });
+});
+
+describe('imageDimensions', () => {
+  it('returns positive intrinsic dimensions for a manifest image', () => {
+    const dimensions = imageDimensions('/images/1714.jpg');
+
+    expect(dimensions?.width).toBeGreaterThan(0);
+    expect(dimensions?.height).toBeGreaterThan(0);
+  });
+
+  it('returns null for an image absent from the manifest', () => {
+    expect(imageDimensions('/images/not-a-real-image.jpg')).toBeNull();
   });
 });
