@@ -221,7 +221,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .player-bar__spinner {
+  .player-bar__spinner,
+  .release-cover__spinner {
     animation: none;
   }
 

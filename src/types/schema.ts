@@ -48,6 +48,7 @@ export interface SchemaMusicAlbum {
   '@type': 'MusicAlbum';
   name: string;
   url: string;
+  sameAs?: string[];
   image?: string;
   datePublished: string;
   numTracks?: number;

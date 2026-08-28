@@ -6,13 +6,15 @@ import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import { play, playRelease, toggle, usePlayer } from '@/composables/usePlayer';
 import { getReleaseAudio, hasPlayableAudio } from '@/data/audio';
 import type { LightboxItem, Release } from '@/types';
-import { hasBandcampId, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
+import { hasBandcampId, hasBandcampUrl, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasSoundcloudUrl, hasTracklist, hasVideos } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 import { renderCredits } from '@/utils/renderCredits';
 
 import BandcampPlayer from './BandcampPlayer.vue';
+import ExternalLink from './ExternalLink.vue';
 import MediaLinks from './MediaLinks.vue';
+import PlayableCover from './PlayableCover.vue';
 import ReleaseCover from './ReleaseCover.vue';
 import ReleaseMeta from './ReleaseMeta.vue';
 import TrackListItem from './TrackListItem.vue';
@@ -66,7 +68,28 @@ const isCurrentTrack = (index: number): boolean =>
 const isTrackPlaying = (index: number): boolean =>
   isCurrentTrack(index) && ['playing', 'loading', 'buffering'].includes(status.value);
 
+// True while any track from this release is the one loaded in the player.
+const releaseIsCurrent = computed(() =>
+  audioTracks.value.some(track => track.key === currentTrack.value?.key));
+
+const releaseActive = computed(() =>
+  releaseIsCurrent.value && ['playing', 'loading', 'buffering'].includes(status.value));
+
+const releaseBusy = computed(() =>
+  releaseIsCurrent.value && ['loading', 'buffering'].includes(status.value));
+
+const hasListenLinks = computed(() =>
+  playable.value && (hasBandcampUrl(props.release) || hasSoundcloudUrl(props.release)));
+
 const playThis = (): Promise<void> => playRelease(props.release.id, releaseContext());
+
+const toggleRelease = (): void => {
+  if (releaseIsCurrent.value) {
+    toggle();
+    return;
+  }
+  void playThis();
+};
 
 const playTrack = (index: number): void => {
   if (isCurrentTrack(index)) {
@@ -83,8 +106,19 @@ const playTrack = (index: number): void => {
     class="release"
     :class="{ 'release--text-only': textOnly || coverErrored }"
   >
+    <PlayableCover
+      v-if="coverVisible && playable && hasCoverImage(release) && !coverErrored"
+      :src="release.coverImage"
+      :alt="`${release.title} cover`"
+      :title="release.title"
+      :active="releaseActive"
+      :busy="releaseBusy"
+      @toggle="toggleRelease"
+      @error="coverErrored = true"
+    />
+
     <BandcampPlayer
-      v-if="coverVisible && hasBandcampId(release) && hasCoverImage(release)"
+      v-else-if="coverVisible && hasBandcampId(release) && hasCoverImage(release)"
       :album-id="release.bandcampId"
       :cover-image="release.coverImage"
       :album-title="release.title"
@@ -102,7 +136,7 @@ const playTrack = (index: number): void => {
     <div class="release-details">
       <p>
         <button
-          v-if="playable"
+          v-if="playable && !hasCoverImage(release)"
           type="button"
           class="release-play"
           :aria-label="`Play ${release.title}`"
@@ -120,6 +154,25 @@ const playTrack = (index: number): void => {
       </p>
       <p class="release-meta">
         <ReleaseMeta :meta="release.meta" />
+      </p>
+      <p
+        v-if="hasListenLinks"
+        class="release-listen"
+      >
+        Listen:
+        <ExternalLink
+          v-if="hasBandcampUrl(release)"
+          :href="release.bandcampUrl"
+        >
+          Bandcamp
+        </ExternalLink>
+        <span v-if="hasBandcampUrl(release) && hasSoundcloudUrl(release)"> · </span>
+        <ExternalLink
+          v-if="hasSoundcloudUrl(release)"
+          :href="release.soundcloudUrl"
+        >
+          SoundCloud
+        </ExternalLink>
       </p>
       <p
         v-if="hasDescription(release)"
