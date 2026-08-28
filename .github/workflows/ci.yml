@@ -286,7 +286,7 @@ jobs:
   summary:
     name: CI Summary
     runs-on: ubuntu-latest
-    needs: [quality-checks, build, lighthouse, e2e-tests, worker]
+    needs: [quality-checks, build, lighthouse, e2e-tests, visual-tests, worker]
     if: always()
 
     steps:
@@ -300,14 +300,18 @@ jobs:
           echo "| Build | ${{ needs.build.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Lighthouse | ${{ needs.lighthouse.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| E2E Tests | ${{ needs.e2e-tests.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Visual Regression | ${{ needs.visual-tests.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Worker | ${{ needs.worker.result }} |" >> $GITHUB_STEP_SUMMARY
 
-          # Fail if any job failed
+          # Fail if any job failed. Visual Regression is PR-only, so "skipped"
+          # (the deploy path) is acceptable — only a real failure blocks.
           if [ "${{ needs.quality-checks.result }}" != "success" ] || \
              [ "${{ needs.build.result }}" != "success" ] || \
              [ "${{ needs.lighthouse.result }}" != "success" ] || \
              [ "${{ needs.e2e-tests.result }}" != "success" ] || \
-             [ "${{ needs.worker.result }}" != "success" ]; then
+             [ "${{ needs.worker.result }}" != "success" ] || \
+             { [ "${{ needs.visual-tests.result }}" != "success" ] && \
+               [ "${{ needs.visual-tests.result }}" != "skipped" ]; }; then
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "❌ **CI Pipeline Failed**" >> $GITHUB_STEP_SUMMARY
             exit 1
