@@ -7,8 +7,8 @@
   left: 0;
   z-index: 900;
   display: flex;
-  flex-wrap: wrap;
-  gap: $spacing-2 $spacing-4;
+  flex-direction: column;
+  gap: $spacing-2;
   align-items: center;
   padding: $spacing-3 $spacing-5;
   color: var(--color-text);
@@ -16,11 +16,11 @@
   border-top: 1px solid var(--color-border);
 
   &__title {
-    flex: 1 1 auto;
-    min-width: 0;
+    align-self: stretch;
     margin: 0;
     overflow: hidden;
     font-weight: 500;
+    text-align: center;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
@@ -30,6 +30,7 @@
     flex: 0 0 auto;
     gap: $spacing-2;
     align-items: center;
+    justify-content: center;
   }
 
   &__button {
@@ -69,8 +70,7 @@
   // Full width so it wraps onto its own row on narrow screens; inline from md up.
   &__seek {
     display: flex;
-    flex: 1 1 100%;
-    order: 1;
+    width: 100%;
     gap: $spacing-3;
     align-items: center;
   }
@@ -101,14 +101,17 @@
   }
 
   @include respond-to(md) {
-    flex-wrap: nowrap;
+    flex-direction: row;
+    gap: $spacing-4;
 
     &__title {
       flex: 0 1 24ch;
+      text-align: left;
     }
 
     &__seek {
       flex: 1 1 auto;
+      width: auto;
     }
   }
 }
