@@ -12,6 +12,8 @@ export interface Image {
 export interface Track {
   title: string;
   artist?: Credit;
+  // Offset (seconds) of this movement within a single-file release, for chaptered seeking.
+  start?: number;
 }
 
 export type Medium = 'Digital' | 'Cassette' | 'MP3' | 'CD' | 'CDr';

@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 
 import { useAccordionVisibility } from '@/composables/useAccordionContext';
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
-import { play, playRelease, toggle, usePlayer } from '@/composables/usePlayer';
+import { play, playFrom, playRelease, toggle, usePlayer } from '@/composables/usePlayer';
 import { getReleaseAudio, hasPlayableAudio } from '@/data/audio';
 import type { LightboxItem, Release } from '@/types';
 import { hasBandcampId, hasBandcampUrl, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasSoundcloudUrl, hasTracklist, hasVideos } from '@/types';
@@ -55,7 +55,29 @@ const audioTracks = computed(() => getReleaseAudio(props.release.id));
 const perTrackPlayable = computed(() =>
   playable.value && audioTracks.value.length === (props.release.tracklist?.length ?? 0));
 
-const { currentTrack, status } = usePlayer();
+const { currentTrack, currentTime, status } = usePlayer();
+
+// A single audio file whose display tracklist is split into timed movements (2504).
+const chaptered = computed(() =>
+  playable.value
+  && audioTracks.value.length === 1
+  && (props.release.tracklist?.length ?? 0) > 1
+  && (props.release.tracklist ?? []).every(movement => typeof movement.start === 'number'));
+
+// The movement currently under the playhead — the last one whose offset has passed.
+const currentChapterIndex = computed(() => {
+  if (!chaptered.value || !releaseIsCurrent.value) return -1;
+
+  return (props.release.tracklist ?? []).reduce(
+    (current, movement, movementIndex) => ((movement.start ?? 0) <= currentTime.value ? movementIndex : current),
+    -1,
+  );
+});
+
+const isCurrentChapter = (index: number): boolean => chaptered.value && currentChapterIndex.value === index;
+
+const playChapter = (index: number): Promise<void> =>
+  playFrom(audioTracks.value, props.release.tracklist?.[index]?.start ?? 0, releaseContext());
 
 const releaseContext = () => ({
   album: props.release.title,
@@ -183,7 +205,7 @@ const playTrack = (index: number): void => {
         <li
           v-for="(track, index) in release.tracklist"
           :key="index"
-          :class="{ 'track--playing': isCurrentTrack(index) }"
+          :class="{ 'track--playing': isCurrentTrack(index) || isCurrentChapter(index) }"
         >
           <button
             v-if="perTrackPlayable"
@@ -204,6 +226,15 @@ const playTrack = (index: number): void => {
               aria-hidden="true"
               focusable="false"
             ><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
+          </button>
+          <button
+            v-else-if="chaptered"
+            type="button"
+            class="track-play"
+            :aria-label="`Play ${track.title}`"
+            @click="playChapter(index)"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
           </button>
           <TrackListItem :track="track" />
         </li>
