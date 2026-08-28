@@ -11,6 +11,7 @@ export const worksData: WorksData = {
         bandcampId: '219697804',
         coverImage: '/images/contraplacado.jpg',
         bandcampUrl: 'https://music.jeromefaria.com/album/contraplacado',
+        soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/contraplacado',
         meta: {
           kind: 'music',
           mediums: ['Digital'],
@@ -31,6 +32,7 @@ export const worksData: WorksData = {
         bandcampId: '310471498',
         coverImage: '/images/en-veille.jpg',
         bandcampUrl: 'https://music.jeromefaria.com/album/en-veille',
+        soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/en-veille',
         meta: {
           kind: 'music',
           mediums: ['Digital'],
@@ -48,6 +50,7 @@ export const worksData: WorksData = {
         bandcampId: '1275977827',
         coverImage: '/images/2504.jpg',
         bandcampUrl: 'https://music.jeromefaria.com/album/2504',
+        soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/april-25',
         meta: {
           kind: 'music',
           mediums: ['Digital'],
@@ -69,6 +72,7 @@ export const worksData: WorksData = {
         bandcampId: '2395712384',
         coverImage: '/images/caligari.jpg',
         bandcampUrl: 'https://music.jeromefaria.com/album/music-written-performed-for-the-cabinet-of-dr-caligari',
+        soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/music-written-performed-for-the-cabinet-of-dr-caligari',
         meta: {
           kind: 'music',
           mediums: ['Digital'],
@@ -90,6 +94,7 @@ export const worksData: WorksData = {
         bandcampId: '1643026936',
         coverImage: '/images/overlapse.jpg',
         bandcampUrl: 'https://music.jeromefaria.com/album/overlapse',
+        soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/overlapse',
         meta: {
           kind: 'music',
           mediums: ['Digital'],
@@ -113,6 +118,7 @@ export const worksData: WorksData = {
         bandcampId: '2845412685',
         coverImage: '/images/1714.jpg',
         bandcampUrl: 'https://music.jeromefaria.com/album/17-14',
+        soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/seventeen-fourteen',
         meta: {
           kind: 'music',
           mediums: ['Digital'],
@@ -257,6 +263,7 @@ export const worksData: WorksData = {
         bandcampId: '2661997682',
         coverImage: '/images/overlapse-xiii.jpg',
         bandcampUrl: 'https://music.jeromefaria.com/album/overlapse-xiii',
+        soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/overlapse-xiii',
         meta: {
           kind: 'music',
           mediums: ['Digital', 'Cassette'],
