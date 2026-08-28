@@ -5,6 +5,7 @@ import LightboxHost from '@/components/LightboxHost.vue';
 import PageShell from '@/components/PageShell.vue';
 import ResponsivePicture from '@/components/ResponsivePicture.vue';
 import { usePageHead } from '@/composables/usePageHead';
+import { useProseLinks } from '@/composables/useProseLinks';
 import { aboutSections } from '@/data/about';
 import { pageMeta } from '@/data/pageMeta';
 import { isImageSection } from '@/types';
@@ -13,6 +14,8 @@ import { getImageStyles } from '@/utils/imageStyles';
 import { toLightboxImage } from '@/utils/lightboxAdapters';
 
 usePageHead(pageMeta.about);
+
+const routeProseLink = useProseLinks();
 
 const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 
@@ -49,12 +52,14 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number =>
         <div
           v-if="section.type === 'short-bio'"
           class="short-bio"
+          @click="routeProseLink"
           v-html="externalizeLinks(section.content)"
         />
 
         <div
           v-else-if="!section.type"
           class="prose"
+          @click="routeProseLink"
           v-html="externalizeLinks(section.content)"
         />
 
