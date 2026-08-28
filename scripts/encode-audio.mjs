@@ -80,6 +80,20 @@ const RELEASES = [
       { file: '01 - Contraplacado (Se Deus nos der vida e saúde).wav', title: 'Contraplacado (Se Deus nos der vida e saúde)' },
     ],
   },
+  {
+    // Curated remix comp — each track credited to its remixer (album_artist stays Jerome Faria).
+    releaseId: 'overlapse-xiii', catalog: 'BRQN007', folder: '2025 - BRQN007 - Overlapse XIII', album: 'Overlapse XIII', year: 2025,
+    tracks: [
+      { file: '01 - CAVERNANCIA - Attack (Prelude).wav', title: 'Attack (Prelude)', artist: 'CAVERNANCIA' },
+      { file: '02 - Tren Go! Sound System - Sustain II (D00mRemix).wav', title: 'Sustain II (D00MRemix)', artist: 'Tren Go! Sound System' },
+      { file: '03 - Aires - Overlapse Supercut.wav', title: 'Overlapse Supercut', artist: 'Aires' },
+      { file: '04 - Fábio Fernandes - Release.wav', title: 'Release', artist: 'Fábio Fernandes' },
+      { file: '05 - João de Nóbrega Pupo - Decay III (Sound Kintsugi).wav', title: 'Decay III (Sound Kintsugi)', artist: 'João de Nóbrega Pupo' },
+      { file: '06 - João Vairinhos - Declínio.wav', title: 'Declínio', artist: 'João Vairinhos' },
+      { file: '07 - sol - Costa Norte.wav', title: 'Costa Norte', artist: 'sol' },
+      { file: '08 - W. R. Pyo - Release (Conclusion).wav', title: 'Release (Conclusion)', artist: 'W. R. Pyo' },
+    ],
+  },
 ];
 
 const ARTIST = 'Jerome Faria';
@@ -118,7 +132,8 @@ const encode = (wav, cover, out, meta) => {
   execFileSync('ffmpeg', [
     '-hide_banner', '-nostats', '-y', ...inputs, ...maps, '-af', TRUE_PEAK_LIMITER,
     '-c:a', 'aac', '-b:a', BITRATE, ...video, '-movflags', '+faststart',
-    '-metadata', `title=${meta.title}`, '-metadata', `artist=${ARTIST}`,
+    '-metadata', `title=${meta.title}`, '-metadata', `artist=${meta.artist ?? ARTIST}`,
+    '-metadata', `album_artist=${ARTIST}`,
     '-metadata', `album=${meta.album}`, '-metadata', `track=${meta.track}`,
     '-metadata', `date=${meta.year}`, out,
   ], { stdio: ['ignore', 'ignore', 'ignore'] });
@@ -129,7 +144,7 @@ const quote = value => (value.includes("'") ? JSON.stringify(value) : `'${value}
 
 const writeManifest = manifest => {
   const body = Object.entries(manifest).map(([releaseId, tracks]) => {
-    const rows = tracks.map(track => `    { key: '${track.key}', title: ${quote(track.title)}, duration: ${track.duration} },`).join('\n');
+    const rows = tracks.map(track => `    { key: '${track.key}', title: ${quote(track.title)}, duration: ${track.duration}${track.artist ? `, artist: ${quote(track.artist)}` : ''} },`).join('\n');
     return `  '${releaseId}': [\n${rows}\n  ],`;
   }).join('\n');
 
@@ -160,7 +175,7 @@ const run = () => {
 
       if (manifestOnly) {
         if (!existsSync(out)) throw new Error(`Missing encode (run without --manifest first): ${out}`);
-        manifest[release.releaseId].push({ key, title: track.title, duration: ffprobeDuration(out) });
+        manifest[release.releaseId].push({ key, title: track.title, duration: ffprobeDuration(out), artist: track.artist });
         return;
       }
 
@@ -171,10 +186,10 @@ const run = () => {
         return;
       }
 
-      encode(wav, cover, out, { title: track.title, album: release.album, year: release.year, track: `${index + 1}/${release.tracks.length}` });
+      encode(wav, cover, out, { title: track.title, album: release.album, year: release.year, track: `${index + 1}/${release.tracks.length}`, artist: track.artist });
 
       const duration = ffprobeDuration(out);
-      manifest[release.releaseId].push({ key, title: track.title, duration });
+      manifest[release.releaseId].push({ key, title: track.title, duration, artist: track.artist });
       count += 1;
       console.log(`  ${key}  ${duration}s  master ${inputPeak.toFixed(1).padStart(5)} dBTP → limited to -1 dBTP pre-encode`);
     });

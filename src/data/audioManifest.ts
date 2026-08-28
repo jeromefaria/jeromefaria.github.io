@@ -32,4 +32,14 @@ export const audioManifest: Record<string, AudioTrack[]> = {
   'contraplacado': [
     { key: 'BRQN009/01-contraplacado-se-deus-nos-der-vida-e-saude.m4a', title: 'Contraplacado (Se Deus nos der vida e saúde)', duration: 900 },
   ],
+  'overlapse-xiii': [
+    { key: 'BRQN007/01-attack-prelude.m4a', title: 'Attack (Prelude)', duration: 648, artist: 'CAVERNANCIA' },
+    { key: 'BRQN007/02-sustain-ii-d00mremix.m4a', title: 'Sustain II (D00MRemix)', duration: 338, artist: 'Tren Go! Sound System' },
+    { key: 'BRQN007/03-overlapse-supercut.m4a', title: 'Overlapse Supercut', duration: 328, artist: 'Aires' },
+    { key: 'BRQN007/04-release.m4a', title: 'Release', duration: 326, artist: 'Fábio Fernandes' },
+    { key: 'BRQN007/05-decay-iii-sound-kintsugi.m4a', title: 'Decay III (Sound Kintsugi)', duration: 541, artist: 'João de Nóbrega Pupo' },
+    { key: 'BRQN007/06-declinio.m4a', title: 'Declínio', duration: 476, artist: 'João Vairinhos' },
+    { key: 'BRQN007/07-costa-norte.m4a', title: 'Costa Norte', duration: 275, artist: 'sol' },
+    { key: 'BRQN007/08-release-conclusion.m4a', title: 'Release (Conclusion)', duration: 324, artist: 'W. R. Pyo' },
+  ],
 };

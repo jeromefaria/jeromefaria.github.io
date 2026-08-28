@@ -42,7 +42,7 @@ const setMediaSession = (track: AudioTrack): void => {
 
   navigator.mediaSession.metadata = new MediaMetadata({
     title: track.title,
-    artist: 'Jerome Faria',
+    artist: track.artist ?? 'Jerome Faria',
     album: nowPlaying.album ?? '',
     artwork,
   });
