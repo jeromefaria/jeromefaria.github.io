@@ -62,6 +62,10 @@
     }
   }
 
+  &__spinner {
+    animation: player-spin 0.8s linear infinite;
+  }
+
   // Full width so it wraps onto its own row on narrow screens; inline from md up.
   &__seek {
     display: flex;
@@ -132,5 +136,17 @@
 
   &:hover {
     border-color: var(--color-text);
+  }
+}
+
+@keyframes player-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .player-bar__spinner {
+    animation: none;
   }
 }

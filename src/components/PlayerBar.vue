@@ -62,7 +62,23 @@ const onSeek = (event: Event): void => {
         @click="toggle"
       >
         <svg
-          v-if="isPlaying"
+          v-if="isBusy"
+          class="player-bar__spinner"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          focusable="false"
+        ><circle
+          cx="12"
+          cy="12"
+          r="9"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-dasharray="44 20"
+          stroke-linecap="round"
+        /></svg>
+        <svg
+          v-else-if="isPlaying"
           viewBox="0 0 24 24"
           aria-hidden="true"
           focusable="false"
