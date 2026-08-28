@@ -4,7 +4,9 @@ import { defineComponent } from 'vue';
 import { createMemoryHistory, createRouter, type Router } from 'vue-router';
 
 import { useCommandPalette } from './useCommandPalette';
+import { audioPlayerEnabled } from './useFeatureFlags';
 import { paletteOpen } from './useOverlays';
+import { play, stop } from './usePlayer';
 
 type Api = ReturnType<typeof useCommandPalette>;
 
@@ -288,5 +290,49 @@ describe('useCommandPalette', () => {
     api.query.value = '';
 
     expect(api.results.value.filter(command => command.title === 'Privacy')).toHaveLength(1);
+  });
+
+  describe('audio commands', () => {
+    beforeEach(() => {
+      HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
+      HTMLMediaElement.prototype.pause = vi.fn();
+      HTMLMediaElement.prototype.load = vi.fn();
+      audioPlayerEnabled.value = true;
+      stop();
+    });
+
+    afterEach(() => stop());
+
+    it('surfaces transport at the top of the default view while a track plays', async () => {
+      const { api, wrapper } = await mountPalette();
+      active = wrapper;
+      paletteOpen.value = true;
+
+      expect(api.results.value.some(command => command.group === 'Now Playing')).toBe(false);
+
+      await play([{ key: 'a', title: 'A movement', duration: 100 }]);
+      expect(api.results.value[0]?.group).toBe('Now Playing');
+      expect(api.results.value[0]?.id).toBe('play:toggle');
+    });
+
+    it('finds a Play action for a streamable release by name', async () => {
+      const { api, wrapper } = await mountPalette();
+      active = wrapper;
+
+      api.query.value = 'play 2504';
+      expect(api.results.value.some(command => command.id === 'play:release:2504')).toBe(true);
+    });
+
+    it('does not record transient audio actions in recents', async () => {
+      const { api, wrapper } = await mountPalette();
+      active = wrapper;
+
+      await play([{ key: 'a', title: 'A movement', duration: 100 }]);
+      const stopIndex = api.results.value.findIndex(command => command.id === 'play:stop');
+      expect(stopIndex).toBeGreaterThanOrEqual(0);
+
+      await api.execute(stopIndex);
+      expect(localStorage.getItem('command-palette:recents') ?? '[]').not.toContain('play:');
+    });
   });
 });

@@ -1,13 +1,16 @@
+import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import { openKeyboardHelp } from '@/composables/useOverlays';
+import { isActiveStatus, usePlayer } from '@/composables/usePlayer';
 import { matchSystemTheme, toggleTheme } from '@/composables/useTheme';
 import { liveEvents } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
-import type { Command } from '@/types/command';
+import type { ActionCommand, Command } from '@/types/command';
 import type { LiveEvent } from '@/types/live';
-import type { ReleaseMeta } from '@/types/works';
+import type { Release, ReleaseMeta } from '@/types/works';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
 import { openInNewTab } from '@/utils/openInNewTab';
+import { canPlayRelease, playReleaseAt } from '@/utils/releasePermalink';
 import { plainCredits } from '@/utils/renderCredits';
 import { stripHtml } from '@/utils/stripHtml';
 
@@ -113,6 +116,25 @@ const pressCommands = (): Command[] =>
     to: `/press#${quote.id}`,
   }));
 
+const allReleases = (): Release[] => Object.values(worksData).flatMap(section => section.items);
+
+// One "Open '<release>' on <platform>" action per release that carries that link.
+const releaseLinkCommands = (platform: string, keyword: string, urlOf: (release: Release) => string | undefined): Command[] =>
+  allReleases().flatMap(release => {
+    const url = urlOf(release);
+    if (!url) return [];
+
+    return [{
+      kind: 'action',
+      id: `act:${keyword}:${release.id}`,
+      title: `Open '${release.title}' on ${platform}`,
+      keywords: [release.title, keyword, 'listen', 'play'],
+      group: 'Actions',
+      external: true,
+      run: () => openInNewTab(url),
+    } satisfies Command];
+  });
+
 const actionCommands = (): Command[] => {
   const downloads: Command[] = [
     { kind: 'action', id: 'act:press-kit-pdf', title: 'Download press kit (PDF)', keywords: ['epk', 'pdf', 'press'], group: 'Actions', external: true, run: () => openInNewTab(epkPdfHref) },
@@ -153,24 +175,57 @@ const actionCommands = (): Command[] => {
     run: () => openInNewTab(link.url),
   }));
 
-  const bandcamp: Command[] = Object.values(worksData)
-    .flatMap(section => section.items)
-    .flatMap(release => {
-      const url = release.bandcampUrl;
-      if (!url) return [];
+  const bandcamp = releaseLinkCommands('Bandcamp', 'bandcamp', release => release.bandcampUrl);
+  const soundcloud = releaseLinkCommands('SoundCloud', 'soundcloud', release => release.soundcloudUrl);
 
-      return [{
-        kind: 'action',
-        id: `act:bandcamp:${release.id}`,
-        title: `Open '${release.title}' on Bandcamp`,
-        keywords: [release.title, 'bandcamp', 'listen', 'play'],
-        group: 'Actions',
-        external: true,
-        run: () => openInNewTab(url),
-      } satisfies Command];
-    });
+  return [...downloads, help, ...appearance, contact, ...socials, ...bandcamp, ...soundcloud];
+};
 
-  return [...downloads, help, ...appearance, contact, ...socials, ...bandcamp];
+// Transport for the active track — merged reactively in useCommandPalette, so it is
+// kept out of the static registry and returns nothing when no track is loaded.
+export const playbackCommands = (): Command[] => {
+  const { currentTrack, status, hasNext, hasPrevious, expanded, toggle, next, previous, expand, collapse, stop } = usePlayer();
+  const track = currentTrack.value;
+  if (!track) return [];
+
+  const control = (fields: Pick<ActionCommand, 'id' | 'title' | 'keywords' | 'run'> & { subtitle?: string }): Command => ({
+    kind: 'action',
+    group: 'Now Playing',
+    transient: true,
+    ...fields,
+  });
+
+  const commands: Command[] = [
+    control({ id: 'play:toggle', title: isActiveStatus(status.value) ? 'Pause' : 'Play', subtitle: track.title, keywords: ['pause', 'play', 'resume', 'music', 'audio', 'playback'], run: () => toggle() }),
+  ];
+
+  if (hasNext.value) {
+    commands.push(control({ id: 'play:next', title: 'Next track', keywords: ['next', 'skip', 'forward'], run: () => void next() }));
+  }
+  if (hasPrevious.value) {
+    commands.push(control({ id: 'play:previous', title: 'Previous track', keywords: ['previous', 'back', 'prev'], run: () => void previous() }));
+  }
+
+  commands.push(control({ id: 'play:expand', title: expanded.value ? 'Collapse player' : 'Expand player', keywords: ['expand', 'collapse', 'now playing', 'minimise', 'minimize'], run: () => (expanded.value ? collapse() : expand()) }));
+  commands.push(control({ id: 'play:stop', title: 'Stop playback', keywords: ['stop', 'close', 'dismiss', 'end'], run: () => stop() }));
+
+  return commands;
+};
+
+export const playReleaseCommands = (): Command[] => {
+  if (!audioPlayerEnabled.value) return [];
+
+  return allReleases()
+    .filter(release => canPlayRelease(release.id))
+    .map((release): Command => ({
+      kind: 'action',
+      id: `play:release:${release.id}`,
+      title: `Play '${release.title}'`,
+      keywords: [release.title, 'play', 'listen', 'audio', 'music'],
+      group: 'Actions',
+      transient: true,
+      run: () => playReleaseAt(release),
+    }));
 };
 
 export const buildCommands = (): Command[] => [
