@@ -217,10 +217,12 @@ describe('usePlayer', () => {
       constructor(public init: unknown) {}
     });
 
-    await mod.play(TRACKS, 0, { album: 'Test Album', artwork: '/images/cover.jpg' });
+    await mod.play([{ key: 'r/1.m4a', title: 'Remix', duration: 60, artist: 'Some Remixer' }], 0,
+      { album: 'Test Album', artwork: '/images/cover.jpg' });
     const { metadata } = (navigator as unknown as {
-      mediaSession: { metadata: { init: { album: string; artwork: { src: string }[] } } };
+      mediaSession: { metadata: { init: { album: string; artist: string; artwork: { src: string }[] } } };
     }).mediaSession;
+    expect(metadata.init.artist).toBe('Some Remixer');
     expect(metadata.init.album).toBe('Test Album');
     expect(metadata.init.artwork[0].src).toContain('cover.jpg');
 
