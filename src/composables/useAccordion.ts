@@ -1,5 +1,5 @@
 import type { Ref } from 'vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import { ID_PREFIX } from '@/utils/constants';
 import { clearHash, updateHash } from '@/utils/navigation';
@@ -16,8 +16,17 @@ export const useAccordion = (
   initialSection: string,
   validSections: string[],
   findSectionForId: ((id: string) => string | null) | null = null,
+  focusId: string | null = null,
 ): UseAccordionReturn => {
-  const openSection = ref<string | null>(initialSection);
+  const resolveFocusSection = (): string | null => {
+    if (!focusId) return null;
+    if (validSections.includes(focusId)) return focusId;
+    return findSectionForId?.(focusId) ?? null;
+  };
+
+  // A path-param deep link (/works/:id) opens its parent section up-front so the
+  // pre-rendered HTML lands on the right section before hydration.
+  const openSection = ref<string | null>(resolveFocusSection() ?? initialSection);
 
   const scrollToHashTarget = (id: string): void => {
     afterAccordionAnimation(() => {
@@ -50,6 +59,10 @@ export const useAccordion = (
   };
 
   const { isInitialLoad } = useHashScroll(hash => processHash(hash, true), { immediate: true });
+
+  onMounted(() => {
+    if (focusId) processHash(focusId, true);
+  });
 
   const handleToggle = (sectionId: string, isOpen: boolean): void => {
     if (isOpen) {

@@ -9,6 +9,7 @@ describe('router routes', () => {
       '/',
       '/about',
       '/works',
+      '/works/:releaseId',
       '/live',
       '/press',
       '/contact',

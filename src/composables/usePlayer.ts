@@ -100,6 +100,12 @@ const start = async (gen: number): Promise<void> => {
     if (gen !== generation) return;
     // A src swap aborts the pending play() with AbortError — expected on rapid track changes.
     if (thrown instanceof DOMException && thrown.name === 'AbortError') return;
+    // Autoplay blocked (e.g. a shared link opened without a prior gesture): stay cued and
+    // paused so a single tap starts it, rather than churning through retries into an error.
+    if (thrown instanceof DOMException && thrown.name === 'NotAllowedError') {
+      status.value = 'paused';
+      return;
+    }
     scheduleRetry(gen);
   }
 };

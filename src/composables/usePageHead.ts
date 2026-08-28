@@ -10,6 +10,7 @@ interface UsePageHeadOptions {
   schema?: object | null;
   noIndex?: boolean;
   preloadImage?: string;
+  image?: string;
 }
 
 export const usePageHead = ({
@@ -19,6 +20,7 @@ export const usePageHead = ({
   schema = null,
   noIndex = false,
   preloadImage,
+  image,
 }: UsePageHeadOptions): void => {
   const route = useRoute();
   const fullTitle = title.includes(siteConfig.title)
@@ -26,7 +28,7 @@ export const usePageHead = ({
     : `${title} - ${siteConfig.title}`;
 
   const canonicalUrl = `${siteConfig.url}${route.path}`;
-  const imageUrl = `${siteConfig.url}${siteConfig.image}`;
+  const imageUrl = `${siteConfig.url}${image ?? siteConfig.image}`;
 
   const meta = [
     { name: 'description', content: description },

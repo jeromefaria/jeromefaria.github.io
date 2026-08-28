@@ -17,6 +17,11 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/WorksView.vue'),
   },
   {
+    path: '/works/:releaseId',
+    name: 'work-release',
+    component: () => import('@/views/WorksView.vue'),
+  },
+  {
     path: '/live',
     name: 'live',
     component: () => import('@/views/LiveView.vue'),

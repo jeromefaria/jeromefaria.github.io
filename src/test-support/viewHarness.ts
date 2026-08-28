@@ -11,7 +11,11 @@ export const mountView = async (component: Component, path = '/') => {
   const head = createHead();
   const router = createRouter({
     history: createMemoryHistory(),
-    routes: [{ path: '/:pathMatch(.*)*', component: { template: '<div />' } }],
+    routes: [
+      // Mirrors the real release permalink so `useRoute().params.releaseId` resolves in tests.
+      { path: '/works/:releaseId', component: { template: '<div />' } },
+      { path: '/:pathMatch(.*)*', component: { template: '<div />' } },
+    ],
   });
   router.push(path);
   await router.isReady();

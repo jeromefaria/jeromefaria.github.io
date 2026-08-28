@@ -29,6 +29,7 @@ describe('TrackListItem', () => {
     });
 
     expect(wrapper.find('a').exists()).toBe(false);
-    expect(wrapper.text()).toBe('sol — Costa Norte');
+    // textContent (not .text(), which trims at node boundaries) preserves the separator spacing.
+    expect(wrapper.element.textContent).toBe('sol — Costa Norte');
   });
 });

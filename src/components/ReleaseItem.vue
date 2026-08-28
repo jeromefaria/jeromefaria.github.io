@@ -6,13 +6,13 @@ import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import { play, playFrom, playRelease, toggle, usePlayer } from '@/composables/usePlayer';
 import { getReleaseAudio, hasPlayableAudio } from '@/data/audio';
 import type { LightboxItem, Release } from '@/types';
-import { hasBandcampId, hasBandcampUrl, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasSoundcloudUrl, hasTracklist, hasVideos } from '@/types';
+import { hasBandcampId, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
+import { buildReleaseContext, releasePath } from '@/utils/releasePermalink';
 import { renderCredits } from '@/utils/renderCredits';
 
 import BandcampPlayer from './BandcampPlayer.vue';
-import ExternalLink from './ExternalLink.vue';
 import MediaLinks from './MediaLinks.vue';
 import PlayableCover from './PlayableCover.vue';
 import ReleaseCover from './ReleaseCover.vue';
@@ -79,10 +79,22 @@ const isCurrentChapter = (index: number): boolean => chaptered.value && currentC
 const playChapter = (index: number): Promise<void> =>
   playFrom(audioTracks.value, props.release.tracklist?.[index]?.start ?? 0, releaseContext());
 
-const releaseContext = () => ({
-  album: props.release.title,
-  ...(hasCoverImage(props.release) ? { artwork: props.release.coverImage } : {}),
-});
+const releaseContext = () => buildReleaseContext(props.release);
+
+// The shareable path for a track: a 1-based index, or a time offset for chaptered single files.
+const trackHref = (index: number): string => {
+  if (perTrackPlayable.value) return releasePath(props.release.id, { track: index + 1 });
+  if (chaptered.value) return releasePath(props.release.id, { t: props.release.tracklist?.[index]?.start ?? 0 });
+  return '';
+};
+
+const activateTrack = (index: number): void => {
+  if (perTrackPlayable.value) {
+    playTrack(index);
+    return;
+  }
+  if (chaptered.value) void playChapter(index);
+};
 
 const isCurrentTrack = (index: number): boolean =>
   currentTrack.value?.key === audioTracks.value[index]?.key;
@@ -99,9 +111,6 @@ const releaseActive = computed(() =>
 
 const releaseBusy = computed(() =>
   releaseIsCurrent.value && ['loading', 'buffering'].includes(status.value));
-
-const hasListenLinks = computed(() =>
-  playable.value && (hasBandcampUrl(props.release) || hasSoundcloudUrl(props.release)));
 
 const playThis = (): Promise<void> => playRelease(props.release.id, releaseContext());
 
@@ -169,32 +178,13 @@ const playTrack = (index: number): void => {
         <strong>
           <a
             class="release-title-link"
-            :href="`#${release.id}`"
+            :href="releasePath(release.id)"
             @click.prevent="emit('update-hash', release.id)"
           >{{ release.title }}</a>
         </strong>
       </p>
       <p class="release-meta">
         <ReleaseMeta :meta="release.meta" />
-      </p>
-      <p
-        v-if="hasListenLinks"
-        class="release-listen"
-      >
-        Listen:
-        <ExternalLink
-          v-if="hasBandcampUrl(release)"
-          :href="release.bandcampUrl"
-        >
-          Bandcamp
-        </ExternalLink>
-        <span v-if="hasBandcampUrl(release) && hasSoundcloudUrl(release)"> · </span>
-        <ExternalLink
-          v-if="hasSoundcloudUrl(release)"
-          :href="release.soundcloudUrl"
-        >
-          SoundCloud
-        </ExternalLink>
       </p>
       <p
         v-if="hasDescription(release)"
@@ -236,7 +226,11 @@ const playTrack = (index: number): void => {
           >
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
           </button>
-          <TrackListItem :track="track" />
+          <TrackListItem
+            :track="track"
+            :href="trackHref(index)"
+            @play="activateTrack(index)"
+          />
         </li>
       </ol>
       <p

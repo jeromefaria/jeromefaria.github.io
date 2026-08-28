@@ -1,9 +1,12 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { flushPromises } from '@vue/test-utils';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { nextTick } from 'vue';
 
 import AccordionSection from '@/components/AccordionSection.vue';
 import LightboxOverlay from '@/components/LightboxOverlay.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
+import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
+import { stop, usePlayer } from '@/composables/usePlayer';
 import { worksData, worksSections } from '@/data/works';
 import { mountView } from '@/test-support/viewHarness';
 
@@ -13,6 +16,14 @@ const expandedSections = (wrapper: Awaited<ReturnType<typeof mountView>>): strin
   worksSections.filter(section => wrapper.get(`#trigger-${section}`).attributes('aria-expanded') === 'true');
 
 describe('WorksView', () => {
+  beforeEach(() => {
+    HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
+    HTMLMediaElement.prototype.pause = vi.fn();
+    HTMLMediaElement.prototype.load = vi.fn();
+    audioPlayerEnabled.value = true;
+    stop();
+  });
+
   afterEach(() => {
     window.history.replaceState(null, '', window.location.pathname);
   });
@@ -62,6 +73,43 @@ describe('WorksView', () => {
     const wrapper = await mountView(WorksView, '/works#overlapse-xiii');
     await nextTick();
     expect(expandedSections(wrapper)).toEqual(['collaborations']);
+  });
+
+  it('opens the owning section for a /works/:id release permalink', async () => {
+    const wrapper = await mountView(WorksView, '/works/overlapse-xiii');
+    await nextTick();
+    expect(expandedSections(wrapper)).toEqual(['collaborations']);
+  });
+
+  it('plays an audio-backed release opened via its permalink', async () => {
+    await mountView(WorksView, '/works/overlapse');
+    await flushPromises();
+    expect(usePlayer().currentTrack.value?.key).toContain('BRQN002');
+  });
+
+  it('starts at the track named by ?track=', async () => {
+    await mountView(WorksView, '/works/overlapse?track=2');
+    await flushPromises();
+    expect(usePlayer().currentTrack.value?.title).toBe('Sustain I');
+  });
+
+  it('cues a chaptered single file at the ?t= offset', async () => {
+    await mountView(WorksView, '/works/2504?t=572');
+    await flushPromises();
+    expect(usePlayer().currentTrack.value?.key).toContain('BRQN006');
+  });
+
+  it('does not play for an unknown release id', async () => {
+    await mountView(WorksView, '/works/does-not-exist');
+    await flushPromises();
+    expect(usePlayer().currentTrack.value).toBeNull();
+  });
+
+  it('does not play when the audio player is disabled', async () => {
+    audioPlayerEnabled.value = false;
+    await mountView(WorksView, '/works/overlapse');
+    await flushPromises();
+    expect(usePlayer().currentTrack.value).toBeNull();
   });
 
   it('switches the open section when another category trigger is activated', async () => {

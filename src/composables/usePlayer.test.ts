@@ -287,6 +287,25 @@ describe('usePlayer', () => {
     expect(mod.usePlayer().currentTime.value).toBe(0);
   });
 
+  it('applies a start offset immediately when metadata is already available', async () => {
+    Object.defineProperty(mod.getMediaElement(), 'readyState', { configurable: true, value: 1 });
+
+    await mod.playFrom([{ key: 'x/1.m4a', title: '2504', duration: 1504 }], 900);
+
+    expect(mod.usePlayer().currentTime.value).toBe(900);
+  });
+
+  it('cues and pauses when autoplay is blocked, without retrying into an error', async () => {
+    playMock.mockRejectedValueOnce(new DOMException('blocked', 'NotAllowedError'));
+
+    await mod.play(TRACKS);
+    const api = mod.usePlayer();
+
+    expect(api.status.value).toBe('paused');
+    expect(api.currentTrack.value?.title).toBe('One');
+    expect(api.error.value).toBeNull();
+  });
+
   it('exposes the play context', async () => {
     await mod.play(TRACKS, 0, { album: 'An Album', artwork: '/cover.jpg' });
     expect(mod.usePlayer().context.value.album).toBe('An Album');

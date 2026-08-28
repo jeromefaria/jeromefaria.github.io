@@ -23,6 +23,7 @@ const props = defineProps<{
   sectionData: Record<string, Section>;
   initialSection: string;
   head: Parameters<typeof usePageHead>[0];
+  focusId?: string;
 }>();
 
 defineSlots<{
@@ -38,7 +39,12 @@ usePageHead(props.head);
 const findSectionForId = (id: string): string | null =>
   findSectionContainingId(props.sections, props.sectionData, id);
 
-const { openSection, handleToggle } = useAccordion(props.initialSection, props.sections, findSectionForId);
+const { openSection, handleToggle } = useAccordion(
+  props.initialSection,
+  props.sections,
+  findSectionForId,
+  props.focusId ?? null,
+);
 const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 
 const openLightbox = (items: LightboxItem[], index: number): void => {
