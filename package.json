@@ -30,7 +30,12 @@
     "epk:bundle": "node scripts/generate-epk-bundle.mjs",
     "rider:pdf": "node scripts/generate-tech-rider.mjs",
     "downloads:build": "npm run epk:bundle && npm run rider:pdf",
-    "epk:kit": "npm run epk:photos && npm run downloads:build"
+    "epk:kit": "npm run epk:photos && npm run downloads:build",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,vue,js}": "eslint --fix",
+    "*.scss": "stylelint --fix"
   },
   "repository": {
     "type": "git",
@@ -70,7 +75,9 @@
     "exiftool-vendored": "^37.2.0",
     "fontkit": "^2.0.4",
     "happy-dom": "^20.11.6",
+    "husky": "^9.1.7",
     "jiti": "^2.6.1",
+    "lint-staged": "^17.4.1",
     "sass": "^1.103.1",
     "sharp": "^0.35.3",
     "stylelint": "^17.14.1",
