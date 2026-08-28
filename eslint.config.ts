@@ -81,6 +81,15 @@ const baseRules = {
     argsIgnorePattern: '^_',
     varsIgnorePattern: '^_',
   }],
+  '@typescript-eslint/no-non-null-assertion': 'error',
+  '@typescript-eslint/consistent-type-imports': ['error', { disallowTypeAnnotations: false }],
+  '@typescript-eslint/ban-ts-comment': 'error',
+
+  // Complexity ceilings — ratcheted just above today's real max so only growth
+  // trips them (source peaks at 19 in the palette key-dispatcher; a keymap
+  // refactor would let this ratchet back down).
+  complexity: ['error', 20],
+  'max-depth': ['error', 4],
 };
 
 const vueRules = {
@@ -98,6 +107,11 @@ const vueRules = {
   'vue/html-closing-bracket-newline': ['error', {
     singleline: 'never',
     multiline: 'always',
+  }],
+  'vue/max-lines-per-block': ['error', {
+    script: 120,
+    template: 160,
+    style: 200,
   }],
 };
 
@@ -169,12 +183,14 @@ export default [
     rules: typeAwareRules,
   },
   {
-    // vue/one-component-per-file (from flat/recommended, which also lints .ts)
-    // guards source SFCs. Tests legitimately define several throwaway
-    // components to exercise composables, so scope it off for them.
+    // Rules that guard source but are legitimate in tests: several throwaway
+    // components to exercise composables, non-null assertions on known-present
+    // fixtures/mocks, and complex arrange-heavy setup blocks.
     files: ['**/*.test.ts', '**/*.test.tsx'],
     rules: {
       'vue/one-component-per-file': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      complexity: 'off',
     },
   },
 ];
