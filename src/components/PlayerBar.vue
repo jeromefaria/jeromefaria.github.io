@@ -108,6 +108,7 @@ const onSeek = (event: Event): void => {
         step="1"
         :value="currentTime"
         :aria-label="`Seek within ${currentTrack.title}`"
+        :aria-valuetext="`${formatTime(currentTime)} of ${formatTime(duration)}`"
         @input="onSeek"
       >
       <span class="player-bar__time">{{ formatTime(duration) }}</span>

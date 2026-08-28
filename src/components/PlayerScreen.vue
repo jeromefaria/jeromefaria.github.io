@@ -81,6 +81,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown));
         step="1"
         :value="currentTime"
         aria-label="Seek"
+        :aria-valuetext="`${formatTime(currentTime)} of ${formatTime(duration)}`"
         @input="onSeek"
       >
       <span class="player-screen__time">{{ formatTime(duration) }}</span>
