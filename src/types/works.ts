@@ -80,14 +80,19 @@ export interface PublicationMeta {
   year: number;
 }
 
-export interface MasteringMeta {
-  kind: 'mastering';
-  artist: Credit;
+export type EngineeringRole = 'mixing' | 'mastering';
+
+// A mixing/mastering credit. `artist` is set for third-party work (the act whose release it is);
+// a generated credit for one of Jerome's own releases omits it and links back to the full entry.
+export interface EngineeringMeta {
+  kind: 'engineering';
+  artist?: Credit;
+  roles: EngineeringRole[];
   editions: Edition[];
   year: number;
 }
 
-export type ReleaseMeta = MusicMeta | CompilationMeta | CommissionMeta | PublicationMeta | MasteringMeta;
+export type ReleaseMeta = MusicMeta | CompilationMeta | CommissionMeta | PublicationMeta | EngineeringMeta;
 
 export interface Release {
   id: string;
@@ -104,6 +109,11 @@ export interface Release {
   contributors?: Contributor[];
   images?: Image[];
   videos?: Video[];
+  // Jerome's mixing/mastering roles on his OWN release — surfaces a generated credit in
+  // the Mixing & Mastering section without duplicating the release.
+  engineering?: EngineeringRole[];
+  // On a generated engineering credit: the id of the canonical release it links back to.
+  worksRef?: string;
 }
 
 export const hasBandcampId = (release: Release): release is Release & { bandcampId: string } =>
