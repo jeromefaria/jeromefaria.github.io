@@ -217,8 +217,12 @@ describe('usePlayer', () => {
       constructor(public init: unknown) {}
     });
 
-    await mod.play(TRACKS);
-    expect((navigator as unknown as { mediaSession: { metadata: unknown } }).mediaSession.metadata).toBeTruthy();
+    await mod.play(TRACKS, 0, { album: 'Test Album', artwork: '/images/cover.jpg' });
+    const { metadata } = (navigator as unknown as {
+      mediaSession: { metadata: { init: { album: string; artwork: { src: string }[] } } };
+    }).mediaSession;
+    expect(metadata.init.album).toBe('Test Album');
+    expect(metadata.init.artwork[0].src).toContain('cover.jpg');
 
     handlers.play();
     handlers.pause();
