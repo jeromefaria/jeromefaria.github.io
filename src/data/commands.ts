@@ -74,9 +74,10 @@ const eventPeople = (event: LiveEvent): string[] => {
 };
 
 // Each release deep-links to its entry; the accordion opens the owning section.
+// Engineering credits are skipped — they carry no in-page anchor (they link out or to a real entry).
 const releaseCommands = (): Command[] =>
   Object.values(worksData).flatMap(section =>
-    section.items.map((release): Command => ({
+    section.items.filter(release => release.meta.kind !== 'engineering').map((release): Command => ({
       kind: 'result',
       id: `works:${release.id}`,
       title: release.title,
