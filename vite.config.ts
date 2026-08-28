@@ -3,6 +3,12 @@ import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
+import { worksData } from './src/data/works';
+
+// One shareable, richly-unfurling page per release, pre-rendered alongside the static routes.
+const releasePaths = Object.values(worksData).flatMap(section =>
+  section.items.map(item => `/works/${item.id}`));
+
 export default defineConfig({
   plugins: [
     vue(),
@@ -48,8 +54,9 @@ export default defineConfig({
     script: 'async',
     formatting: 'minify',
     includedRoutes(paths: string[]) {
-      // Exclude the 404 catch-all from prerendering
-      return paths.filter(path => !path.includes(':'));
+      // Exclude dynamic routes (the 404 catch-all and /works/:releaseId), then add a
+      // concrete pre-render path for every release.
+      return [...paths.filter(path => !path.includes(':')), ...releasePaths];
     },
   },
 });

@@ -238,21 +238,6 @@
       }
     }
 
-    .release-listen {
-      font-size: $font-size-sm;
-      color: var(--color-text-muted);
-
-      a {
-        @include link-underline;
-        color: var(--color-text-secondary);
-
-        &:hover,
-        &:focus {
-          text-decoration-thickness: 2px;
-        }
-      }
-    }
-
     .release-description {
       font-size: $font-size-base;
       line-height: $line-height-relaxed;
@@ -269,6 +254,19 @@
       li {
         margin-bottom: $spacing-1;
         line-height: $line-height-base;
+      }
+
+      // A shareable track permalink that reads as plain text until hovered/focused.
+      .track-title-link {
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover,
+        &:focus-visible {
+          text-decoration: underline;
+          text-underline-offset: 0.15em;
+        }
       }
     }
 

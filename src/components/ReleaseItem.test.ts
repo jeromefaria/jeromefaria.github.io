@@ -2,7 +2,7 @@ import { flushPromises, mount } from '@vue/test-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
-import { getMediaElement } from '@/composables/usePlayer';
+import { getMediaElement, stop } from '@/composables/usePlayer';
 import type { Release } from '@/types';
 
 import BandcampPlayer from './BandcampPlayer.vue';
@@ -83,6 +83,7 @@ describe('ReleaseItem', () => {
     HTMLMediaElement.prototype.pause = vi.fn();
     HTMLMediaElement.prototype.load = vi.fn();
     audioPlayerEnabled.value = true;
+    stop();
   });
 
   it('renders a Bandcamp player for a non-audio release with a bandcampId', () => {
@@ -181,18 +182,6 @@ describe('ReleaseItem', () => {
 
     expect(wrapper.findComponent(BandcampPlayer).exists()).toBe(true);
     expect(wrapper.findComponent(PlayableCover).exists()).toBe(false);
-    expect(wrapper.find('.release-listen').exists()).toBe(false);
-  });
-
-  it('lists Bandcamp and SoundCloud listen links on an audio-backed release', () => {
-    const wrapper = mountRelease(audioBacked);
-    const links = wrapper.get('.release-listen').findAll('a');
-
-    expect(links).toHaveLength(2);
-    expect(links[0].text()).toContain('Bandcamp');
-    expect(links[0].attributes('href')).toBe('https://music.jeromefaria.com/album/overlapse');
-    expect(links[1].text()).toContain('SoundCloud');
-    expect(links[1].attributes('href')).toBe('https://soundcloud.com/jeromefaria/sets/overlapse');
   });
 
   it('renders a per-track play button when the tracklist aligns with the audio', async () => {
@@ -251,6 +240,58 @@ describe('ReleaseItem', () => {
     await flushPromises();
 
     expect(wrapper.findAll('ol li')[2].classes()).toContain('track--playing');
+  });
+
+  it('points the album title at its shareable permalink', () => {
+    expect(mountRelease(audioBacked).get('.release-title-link').attributes('href')).toBe('/works/overlapse');
+  });
+
+  it('links each 2504 movement to its time offset and seeks on click', async () => {
+    const wrapper = mountRelease(chaptered);
+    const links = wrapper.findAll('.track-title-link');
+
+    expect(links.map(link => link.attributes('href'))).toEqual([
+      '/works/2504?t=0',
+      '/works/2504?t=212',
+      '/works/2504?t=572',
+      '/works/2504?t=932',
+      '/works/2504?t=1292',
+    ]);
+
+    await links[3].trigger('click');
+    await flushPromises();
+    expect(HTMLMediaElement.prototype.play).toHaveBeenCalled();
+  });
+
+  it('toggles playback when the cover of the already-playing release is clicked', async () => {
+    const wrapper = mountRelease(audioBacked);
+    const cover = wrapper.get('.release-cover__play');
+
+    await cover.trigger('click');
+    await flushPromises();
+    await cover.trigger('click');
+    expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
+  });
+
+  it('links aligned tracks to their 1-based index and plays on click', async () => {
+    const release: Release = {
+      id: '1714',
+      title: '17:14',
+      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2010 },
+      tracklist: [{ title: '8:58' }, { title: '2:58' }, { title: '5:18' }],
+    };
+    const wrapper = mountRelease(release);
+    const links = wrapper.findAll('.track-title-link');
+
+    expect(links.map(link => link.attributes('href'))).toEqual([
+      '/works/1714?track=1',
+      '/works/1714?track=2',
+      '/works/1714?track=3',
+    ]);
+
+    await links[1].trigger('click');
+    await flushPromises();
+    expect(HTMLMediaElement.prototype.play).toHaveBeenCalled();
   });
 
   it('emits open-lightbox with converted images from the gallery button', async () => {
