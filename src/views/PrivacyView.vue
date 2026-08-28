@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import PageShell from '@/components/PageShell.vue';
+import { openCommandPalette } from '@/composables/useOverlays';
 import { usePageHead } from '@/composables/usePageHead';
 import { pageMeta } from '@/data/pageMeta';
 import { privacyContent } from '@/data/privacy';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 
 usePageHead(pageMeta.privacy);
+
+// The notice names the (otherwise hidden) command palette; reward the careful reader
+// who clicks it by actually opening it. The cue lives inside a v-html body, so it's
+// caught by delegation rather than a bound handler.
+const revealCommandPalette = (event: MouseEvent): void => {
+  if ((event.target as HTMLElement).closest('.palette-cue')) openCommandPalette();
+};
 </script>
 
 <template>
@@ -14,7 +22,10 @@ usePageHead(pageMeta.privacy);
       data-page="privacy"
       title="Privacy"
     >
-      <div class="privacy">
+      <div
+        class="privacy"
+        @click="revealCommandPalette"
+      >
         <p class="privacy__intro">
           {{ privacyContent.intro }}
         </p>
