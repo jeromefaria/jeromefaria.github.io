@@ -3,13 +3,15 @@
 [![CI/CD](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml)
 [![codecov](https://codecov.io/gh/jeromefaria/jeromefaria.github.io/branch/master/graph/badge.svg)](https://codecov.io/gh/jeromefaria/jeromefaria.github.io)
 
-A production-grade **Vue 3 + TypeScript** frontend for [www.jeromefaria.com](https://www.jeromefaria.com) — the portfolio of a composer and sound artist (discography, live history, press, and a downloadable press kit), statically generated and hydrated, built to professional standards: strict typing, CI-gated accessibility, performance budgets, and unit + cross-browser E2E + visual-regression tests. Owned end to end, down to the serverless backend behind the contact form.
+A production-grade **Vue 3 + TypeScript** frontend for [www.jeromefaria.com](https://www.jeromefaria.com) — the portfolio of a composer and sound artist (discography with a **built-in streaming audio player**, live history, press, and a downloadable press kit), statically generated and hydrated, built to professional standards: strict typing, CI-gated accessibility, performance budgets, and unit + cross-browser E2E + visual-regression tests. Owned end to end — from a from-scratch audio engine down to the serverless backend behind the contact form.
 
 > The sections below lead with *what the project demonstrates* and *why it's built this way*; the run-book follows.
 
 ## What this demonstrates
 
-- **Modern Vue 3 + strict TypeScript.** Composition API with `<script setup>`, a focused composable layer (accordion + hash routing, image loading, page head/schema), and content modelled as typed data with discriminated unions.
+- **Modern Vue 3 + strict TypeScript.** Composition API with `<script setup>`, a focused composable layer (accordion + hash routing, image loading, page head/schema, the audio player), and content modelled as typed data with discriminated unions.
+- **A from-scratch audio player.** A singleton state machine over one `HTMLAudioElement` — cover-as-play, per-track and *chaptered* (a single file presented as timed movements) playback, a docked bar that expands to a now-playing view, **Media Session** lock-screen integration (metadata, artwork, media-key handlers), a generation-token guard against the classic media race, and best-effort autoplay that degrades to *cued-and-paused* when the browser blocks it. Audio is AAC streamed from **Cloudflare R2** over HTTP range requests.
+- **Shareable, rich-preview deep-links.** Every release is pre-rendered at `/works/:id` with album-specific Open Graph (`music.album`, cover art, canonical) and *plays on open*; `?track=` / `?t=` refine the starting point, and release and track titles are right-click-copyable permalinks.
 - **Accessibility as a first-class concern.** WCAG 2.1 AA gated by `axe-core` in CI — plus keyboard and focus management (focus-trapped lightbox, skip link, hash-routed accordion), `prefers-reduced-motion`, per-link "opens in a new tab" cues, and a light/dark theme that keeps its contrast ratios.
 - **Performance engineering.** SSG pre-render + hydrate, Lighthouse budgets enforced in CI, responsive `<picture>`/WebP srcsets generated at build, subsetted self-hosted fonts, and non-render-blocking CSS.
 - **Testing rigor.** ~99% coverage behind a **ratcheting floor**, cross-browser E2E on three engines (Chromium, Firefox, WebKit), and per-route **visual-regression** snapshots.
@@ -29,7 +31,14 @@ Repository
 
 Build (static)
   data + views  ──▶  Vite-SSG (pre-render + hydrate)   ──▶  GitHub Pages
+                     · every route + one page per release (/works/:id, rich OG)
   data          ──▶  Headless-Chromium PDF generation  ──▶  GitHub Pages
+
+Audio (runtime)
+  Player (HTMLAudioElement)
+        │  HTTP range GET
+        ▼
+  Cloudflare R2  ──▶  AAC (.m4a) stream
 
 Contact (runtime)
   Contact form (invisible Turnstile)
@@ -42,15 +51,37 @@ Contact (runtime)
   GitHub Pages serves the contact form.
 ```
 
-- **Site:** no CMS, API, or database — static data is pre-rendered to every route and hydrated on GitHub Pages.
+- **Site:** no CMS, API, or database — static data is pre-rendered to every route (and to a shareable page per release) and hydrated on GitHub Pages.
+- **Audio:** encoded to AAC ahead of time and served from Cloudflare R2; the player streams it over HTTP range requests, so nothing large ships in the bundle.
 - **Contact:** the frontend posts already-labelled fields to the Worker, which verifies the Turnstile token server-side and relays the message through Resend — decoupled from the app.
 
 ## Key decisions & trade-offs
 
 - **SSG, not SPA or SSR.** Pre-rendering gives fast first paint, clean SEO, and free static hosting; hydration restores interactivity. The trade-off — no server runtime for the site — is deliberate, so the one genuinely dynamic need, the contact form, became a small serverless function.
 - **Own the contact backend.** A Cloudflare Worker + Turnstile + Resend keeps spam handling, delivery, and data under my control rather than a form-SaaS embed. (The invisible Turnstile challenge carries a disclosure obligation — hence the `/privacy` page.)
+- **A built-in player, not an embed.** Streaming the catalogue in-page — cover-as-play, lock-screen controls, deep-linkable — makes the *first listen* frictionless: a visitor clicks a release and hears music, no "open this / click there," and the experience stays on-brand rather than handed to a third-party iframe. The cost is real audio engineering (a media state machine, autoplay-policy handling, range-streamed R2 hosting), taken on deliberately.
 - **A coverage *floor* that only ratchets up.** CI enforces a minimum that rises as coverage climbs (`scripts/check-coverage.js`) — regression protection without chasing 100%.
 - **Typed content, no CMS.** The catalog is TypeScript with discriminated unions — a release is `music | compilation | commission | publication | mastering`, a live event has its own shape — versioned in git. The same data renders the site *and* generates the PDF press kit and technical rider that bookers and press ask for.
+
+## Audio player
+
+The catalogue plays in-page — a built-in player, not a third-party embed. Press a release cover (or any track title) and music starts within a click; a docked player bar appears, expands to a full now-playing view, and drives the OS lock screen.
+
+**What it does**
+
+- **Play from anywhere** — the cover art is the play/pause control, individual tracks play from the listing, and a release opened by permalink plays on arrival.
+- **Chaptered single files** — a continuous piece presented as movements (e.g. *2504*, one 25:04 file) seeks to any movement's exact offset; the current movement highlights as the playhead crosses it.
+- **OS integration** — the **Media Session API** wires the lock screen and media keys with title, artist, album, and artwork, plus play / pause / next / previous / seek handlers.
+- **Expand & dismiss** — tap the bar for a full now-playing view (large artwork, seek, queue); a close control stops playback and clears the bar.
+
+**Under the hood**
+
+- A singleton **state machine** over one `HTMLAudioElement` (`src/composables/usePlayer.ts`) with a **monotonic generation token** — a late event or retry from a track the user already skipped past is recognised as stale and ignored, the classic media race handled rather than hoped away.
+- **Best-effort autoplay that degrades gracefully:** a shared link opened without a prior user gesture can't legally autoplay, so a blocked `play()` leaves the player *cued and paused* (one tap starts it) instead of churning into an error.
+- Audio is **AAC (`.m4a`, faststart)** hosted on **Cloudflare R2** and streamed over **HTTP range requests**, so seeking fetches only the bytes it needs.
+- A per-release-item playback layer (`src/composables/useReleasePlayback.ts`) sits on top of the player, so the release/track/chaptered logic is testable without mounting a component. Shipped behind a feature flag during rollout — `?audioPlayer=0` still opts out.
+
+**Shareable permalinks.** Every release is pre-rendered at `/works/:id` with its own Open Graph (`music.album`, album art, canonical URL), so a shared link unfurls with the cover and plays on open. `?track=` (1-based) or `?t=` (seconds) pin the starting point — for a chaptered piece, `?t=572` opens straight into a movement — and album/track titles are anchors, so a right-click **Copy Link Address** shares the exact spot with no on-screen share button.
 
 ## Command palette
 
@@ -80,9 +111,9 @@ Desktop-only and strictly additive — the site is fully usable without it. Unde
 
 ```
 src/
-  components/    Reusable UI components
-  composables/   Reusable logic (accordion + hash routing, image loading, page head/schema, command palette + overlays)
-  data/          Typed content — works, live events, press, about (no CMS)
+  components/    Reusable UI components (incl. the player bar / now-playing view / playable cover)
+  composables/   Reusable logic (accordion + hash routing, image loading, page head/schema, the audio player, command palette + overlays)
+  data/          Typed content — works, live events, press, about, audio manifest (no CMS)
   router/        Vue Router route table
   styles/        Modular SCSS with design tokens (_variables.scss)
   types/         Shared TypeScript types (discriminated unions)
@@ -97,7 +128,8 @@ public/          Static assets
 ## Tech Stack
 
 - **Frontend:** Vue 3 (Composition API, `<script setup>`), TypeScript (strict mode)
-- **Build:** Vite with SSG (Static Site Generation) + hydration
+- **Build:** Vite with SSG (Static Site Generation) + hydration — every route plus a shareable page per release
+- **Audio:** `HTMLAudioElement` state machine + Media Session API; AAC (`.m4a`) hosted on Cloudflare R2, streamed over HTTP range requests
 - **Backend:** Cloudflare Worker (`wrangler`) — server-side Turnstile verification, Resend email relay
 - **Styling:** SCSS with BEM and design tokens
 - **Testing:** Vitest (unit — ~99% coverage across the whole `src` tree), Playwright E2E (Chromium, Firefox, WebKit), `axe-core` accessibility, per-route visual regression
@@ -163,6 +195,7 @@ npm run test:e2e:report
 **E2E Test Coverage**:
 - Navigation and routing
 - Accordion functionality with hash navigation
+- Command palette (⌘K) search, keybindings, and rendering
 - Form validation and submission
 - Lightbox open/close and keyboard navigation
 - Accessibility (WCAG 2.1 AA compliance, `axe-core`)
@@ -267,7 +300,7 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 ### E2E Tests
 - Cross-browser testing across all three engines (Chromium, Firefox, WebKit)
 - Accessibility testing with `@axe-core/playwright`
-- Specs: `accessibility`, `accordion`, `contact-form`, `lightbox`, `navigation`, `epk`, `home-hero`
+- Specs: `accessibility`, `accordion`, `command-palette`, `contact-form`, `lightbox`, `navigation`, `epk`, `home-hero`
 
 ### Visual Regression
 - Per-route screenshot snapshots, compared against committed Linux baselines
