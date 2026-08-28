@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { flushPromises, mount } from '@vue/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
@@ -140,6 +140,63 @@ describe('ReleaseItem', () => {
 
   it('hides the play control when the flag is off', () => {
     expect(mountRelease(bandcamp).find('.release-play').exists()).toBe(false);
+  });
+
+  it('renders a per-track play button when the tracklist aligns with the audio', async () => {
+    HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
+    audioPlayerEnabled.value = true;
+    const release: Release = {
+      id: '1714',
+      title: '17:14',
+      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2010 },
+      tracklist: [{ title: '8:58' }, { title: '2:58' }, { title: '5:18' }],
+    };
+
+    try {
+      const wrapper = mountRelease(release);
+      expect(wrapper.findAll('.track-play')).toHaveLength(3);
+      await wrapper.findAll('.track-play')[1].trigger('click');
+    } finally {
+      audioPlayerEnabled.value = false;
+    }
+  });
+
+  it('toggles playback when the already-playing track is clicked', async () => {
+    HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
+    const pause = (HTMLMediaElement.prototype.pause = vi.fn());
+    audioPlayerEnabled.value = true;
+    const release: Release = {
+      id: '1714',
+      title: '17:14',
+      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2010 },
+      tracklist: [{ title: '8:58' }, { title: '2:58' }, { title: '5:18' }],
+    };
+
+    try {
+      const wrapper = mountRelease(release);
+      await wrapper.findAll('.track-play')[0].trigger('click');
+      await flushPromises();
+      await wrapper.findAll('.track-play')[0].trigger('click');
+      expect(pause).toHaveBeenCalled();
+    } finally {
+      audioPlayerEnabled.value = false;
+    }
+  });
+
+  it('omits per-track buttons when the tracklist does not align with the audio', () => {
+    audioPlayerEnabled.value = true;
+    const release: Release = {
+      id: '2504',
+      title: '2504',
+      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2024 },
+      tracklist: [{ title: 'I' }, { title: 'II' }, { title: 'III' }, { title: 'IV' }, { title: 'V' }],
+    };
+
+    try {
+      expect(mountRelease(release).findAll('.track-play')).toHaveLength(0);
+    } finally {
+      audioPlayerEnabled.value = false;
+    }
   });
 
   it('emits open-lightbox with converted images from the gallery button', async () => {
