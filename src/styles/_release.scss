@@ -1,0 +1,321 @@
+@use "variables" as *;
+
+.release {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-4;
+  margin-bottom: $spacing-10;
+
+  @include scroll-margin-header;
+
+  @include respond-to(md) {
+    grid-template-columns: 1fr $release-media-width;
+    gap: $spacing-6;
+  }
+
+  &--text-only {
+    display: block;
+    margin-bottom: $spacing-6;
+  }
+
+  img,
+  iframe {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    display: block;
+    order: -1;
+    margin-bottom: $spacing-2;
+
+    @include respond-to(md) {
+      max-width: $release-media-width;
+      order: 1;
+      margin-bottom: 0;
+    }
+  }
+
+  iframe {
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+
+  .bandcamp-player {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    order: -1;
+    cursor: pointer;
+
+    @include respond-to(md) {
+      max-width: $release-media-width;
+      order: 1;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+
+      @include image-reveal;
+    }
+
+    iframe {
+      @include absolute-fill;
+
+      border: 0;
+    }
+
+    &:hover .bandcamp-player__button {
+      opacity: 1;
+    }
+
+    &--loading .bandcamp-player__button {
+      opacity: $opacity-50;
+      pointer-events: none;
+    }
+  }
+
+  .bandcamp-player__button {
+    @include absolute-fill;
+
+    background: $overlay-dark;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity $transition-base;
+
+    &::after {
+      @include play-triangle-centered;
+    }
+
+    &:focus-visible {
+      opacity: 1;
+
+      @include focus-ring(-2px);
+    }
+  }
+
+  .bandcamp-player__fallback {
+    @include absolute-fill;
+
+    background: var(--color-border-subtle);
+  }
+
+  .bandcamp-player__loading {
+    @include absolute-fill;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-border-subtle);
+    color: var(--color-text-muted);
+    font-size: $font-size-xs;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+  }
+
+  .release__spinner {
+    @include absolute-fill;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-2;
+    background: var(--color-border-subtle);
+  }
+
+  .release-cover {
+    position: relative;
+    display: block;
+    width: 100%;
+    order: -1;
+
+    @include respond-to(md) {
+      max-width: $release-media-width;
+      order: 1;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    &--bandcamp {
+      &::after {
+        content: '';
+
+        @include absolute-fill;
+
+        background: $overlay-dark;
+        opacity: 0;
+        transition: opacity $transition-base;
+        pointer-events: none;
+      }
+
+      &::before {
+        @include play-triangle-centered;
+
+        z-index: 1;
+        opacity: 0;
+        transition: opacity $transition-base;
+      }
+
+      &:hover::after,
+      &:hover::before,
+      &:focus-visible::after,
+      &:focus-visible::before {
+        opacity: 1;
+      }
+    }
+
+    &--playable:hover .release-cover__play,
+    &--playable.is-active .release-cover__play {
+      opacity: 1;
+    }
+  }
+
+  .release-cover__play {
+    @include absolute-fill;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: $overlay-dark;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity $transition-base;
+
+    svg {
+      width: $spacing-8;
+      height: $spacing-8;
+    }
+
+    &:focus-visible {
+      opacity: 1;
+
+      @include focus-ring(-2px);
+    }
+  }
+
+  .release-cover__spinner {
+    animation: player-spin 0.8s linear infinite;
+  }
+
+  .release-details {
+    order: 1;
+
+    @include respond-to(md) {
+      order: -1;
+    }
+
+    p {
+      margin-bottom: $spacing-2;
+    }
+
+    p:first-child {
+      strong {
+        font-size: $font-size-lg;
+        color: var(--color-text);
+      }
+    }
+
+    .release-title-link {
+      color: inherit;
+
+      @include subtle-link-hover;
+      @include focus-outline-subtle;
+    }
+
+    .release-meta {
+      font-size: $font-size-sm;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: $letter-spacing-wide;
+      margin-bottom: $spacing-3;
+
+      a {
+        @include link-underline;
+
+        &:hover,
+        &:focus {
+          text-decoration-thickness: 2px;
+        }
+      }
+    }
+
+    .release-description {
+      font-size: $font-size-base;
+      line-height: $line-height-relaxed;
+      color: var(--color-text-secondary);
+    }
+
+    ol {
+      margin-top: $spacing-4;
+      margin-bottom: 0;
+      padding-left: $spacing-5;
+      font-size: $font-size-sm;
+      color: var(--color-text-muted);
+
+      li {
+        margin-bottom: $spacing-1;
+        line-height: $line-height-base;
+      }
+
+      // A shareable track permalink that reads as plain text until hovered/focused.
+      .track-title-link {
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover,
+        &:focus-visible {
+          text-decoration: underline;
+          text-underline-offset: 0.15em;
+        }
+      }
+    }
+
+    .release-credits {
+      margin-top: $spacing-3;
+      font-size: $font-size-xs;
+      color: var(--color-text-muted);
+
+      // Ensure links are visually distinguishable (WCAG 2.1 Level A)
+      a {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.15em;
+
+        &:hover,
+        &:focus {
+          text-decoration-thickness: 2px;
+        }
+      }
+    }
+  }
+}
+
+.release--text-only .release-details {
+  p {
+    margin-bottom: $spacing-1;
+  }
+
+  .release-meta {
+    margin-bottom: $spacing-2;
+  }
+
+  .release-description {
+    font-size: $font-size-sm;
+    line-height: $line-height-base;
+  }
+}
+
