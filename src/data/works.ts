@@ -739,6 +739,11 @@ const ownEngineeringCredits: Release[] = Object.values(worksData).flatMap(sectio
       },
     })));
 
-worksData['mixing-and-mastering']?.items.push(...ownEngineeringCredits);
+const mixingAndMastering = worksData['mixing-and-mastering'];
+if (mixingAndMastering) {
+  // Credits read newest-first, unlike the hand-ordered release sections.
+  mixingAndMastering.items = [...mixingAndMastering.items, ...ownEngineeringCredits].sort(
+    (first, second) => second.meta.year - first.meta.year);
+}
 
 export const worksSections: string[] = Object.keys(worksData);
