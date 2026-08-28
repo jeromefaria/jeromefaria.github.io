@@ -1,4 +1,4 @@
-import type { WorksData } from '@/types/works';
+import type { EngineeringRole, Release, WorksData } from '@/types/works';
 
 export const worksData: WorksData = {
   solo: {
@@ -264,6 +264,7 @@ export const worksData: WorksData = {
         coverImage: '/images/overlapse-xiii.jpg',
         bandcampUrl: 'https://music.jeromefaria.com/album/overlapse-xiii',
         soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/overlapse-xiii',
+        engineering: ['mastering'],
         meta: {
           kind: 'music',
           mediums: ['Digital', 'Cassette'],
@@ -689,27 +690,17 @@ export const worksData: WorksData = {
       },
     ],
   },
-  mastering: {
-    title: 'Mastering',
-    id: 'mastering',
+  'mixing-and-mastering': {
+    title: 'Mixing & Mastering',
+    id: 'mixing-and-mastering',
     items: [
-      {
-        id: 'master-overlapse-xiii',
-        title: 'Overlapse XIII',
-        externalUrl: 'https://music.jeromefaria.com/album/overlapse-xiii',
-        meta: {
-          kind: 'mastering',
-          artist: { name: 'various artists' },
-          editions: [{ label: { text: 'BRØQN' }, catalog: 'BRQN007' }],
-          year: 2025,
-        },
-      },
       {
         id: 'master-open',
         title: 'Open',
         externalUrl: 'https://casaamarela.bandcamp.com/album/open',
         meta: {
-          kind: 'mastering',
+          kind: 'engineering',
+          roles: ['mastering'],
           artist: { name: 'Hugo Calcio' },
           editions: [{ label: { text: 'Colectivo Casa Amarela', url: 'https://casaamarela.bandcamp.com/' }, catalog: 'CCA#016' }],
           year: 2021,
@@ -720,7 +711,8 @@ export const worksData: WorksData = {
         title: 'Vessels',
         externalUrl: 'https://archive.org/details/brqn-004-rui-p.-andrade-01-what-hath-god-wrought',
         meta: {
-          kind: 'mastering',
+          kind: 'engineering',
+          roles: ['mastering'],
           artist: { name: 'Rui P. Andrade', url: 'https://canadian-rifles.bandcamp.com/' },
           editions: [{ label: { text: 'BRØQN' }, catalog: 'BRQN004' }],
           year: 2012,
@@ -729,5 +721,24 @@ export const worksData: WorksData = {
     ],
   },
 };
+
+// Generate a Mixing & Mastering credit for each of Jerome's own releases that carry an
+// `engineering` field — single source of truth, the credit links back to the full entry.
+const ownEngineeringCredits: Release[] = Object.values(worksData).flatMap(section =>
+  section.items
+    .filter((release): release is Release & { engineering: EngineeringRole[] } => Boolean(release.engineering?.length))
+    .map(release => ({
+      id: `engineering-${release.id}`,
+      worksRef: release.id,
+      title: release.title,
+      meta: {
+        kind: 'engineering' as const,
+        roles: release.engineering,
+        editions: 'editions' in release.meta ? release.meta.editions : [],
+        year: release.meta.year,
+      },
+    })));
+
+worksData['mixing-and-mastering']?.items.push(...ownEngineeringCredits);
 
 export const worksSections: string[] = Object.keys(worksData);

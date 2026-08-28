@@ -6,8 +6,9 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import { worksData } from './src/data/works';
 
 // One shareable, richly-unfurling page per release, pre-rendered alongside the static routes.
+// Engineering credits are excluded — they link out (third-party) or back to a real entry (own).
 const releasePaths = Object.values(worksData).flatMap(section =>
-  section.items.map(item => `/works/${item.id}`));
+  section.items.filter(item => item.meta.kind !== 'engineering').map(item => `/works/${item.id}`));
 
 export default defineConfig({
   plugins: [
