@@ -3,7 +3,7 @@ import type { StyleValue } from 'vue';
 import { computed } from 'vue';
 
 import { useImageLoader } from '@/composables/useImageLoader';
-import { responsiveSrcset } from '@/utils/responsiveImage';
+import { imageDimensions, responsiveSrcset } from '@/utils/responsiveImage';
 
 const props = defineProps<{
   src: string;
@@ -17,6 +17,7 @@ const emit = defineEmits<{ error: [] }>();
 const { setImageRef, imageLoaded, webpSrc, handleImageLoad, handleImageError } = useImageLoader(props.src);
 
 const srcset = computed(() => responsiveSrcset(props.src));
+const dimensions = computed(() => imageDimensions(props.src));
 
 const onError = (): void => {
   handleImageError();
@@ -40,6 +41,8 @@ const onError = (): void => {
       :ref="setImageRef"
       :src="src"
       :alt="alt"
+      :width="dimensions?.width"
+      :height="dimensions?.height"
       :style="imageStyle"
       loading="lazy"
       decoding="async"
