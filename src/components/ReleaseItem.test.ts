@@ -1,23 +1,37 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import type { Release } from '@/types';
 
 import BandcampPlayer from './BandcampPlayer.vue';
+import PlayableCover from './PlayableCover.vue';
 import ReleaseItem from './ReleaseItem.vue';
 
 const mountRelease = (release: Release, textOnly = false) =>
   mount(ReleaseItem, { props: { release, textOnly } });
 
+// A Bandcamp release with no native audio (collaboration/compilation) — keeps the embed.
 const bandcamp: Release = {
+  id: 'bandcamp-only',
+  title: 'ALTAR',
+  meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2012 },
+  bandcampId: '1643026936',
+  coverImage: '/images/altar.jpg',
+  bandcampUrl: 'https://music.jeromefaria.com/album/altar',
+  tracklist: [{ title: 'Attack' }, { title: 'Sustain' }],
+  credits: 'Music by Jerome Faria.',
+};
+
+// A solo/curated release with native audio in the manifest — gets the cover player + Listen links.
+const audioBacked: Release = {
   id: 'overlapse',
   title: 'Overlapse',
   meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2012 },
   bandcampId: '1643026936',
   coverImage: '/images/overlapse.jpg',
   bandcampUrl: 'https://music.jeromefaria.com/album/overlapse',
-  tracklist: [{ title: 'Attack' }, { title: 'Sustain' }],
+  soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/overlapse',
   credits: 'Music by Jerome Faria.',
 };
 
@@ -46,9 +60,17 @@ const textOnlyRelease: Release = {
 };
 
 describe('ReleaseItem', () => {
-  it('renders a Bandcamp player for a release with a bandcampId', () => {
+  beforeEach(() => {
+    HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
+    HTMLMediaElement.prototype.pause = vi.fn();
+    HTMLMediaElement.prototype.load = vi.fn();
+    audioPlayerEnabled.value = true;
+  });
+
+  it('renders a Bandcamp player for a non-audio release with a bandcampId', () => {
     const wrapper = mountRelease(bandcamp);
     expect(wrapper.findComponent(BandcampPlayer).exists()).toBe(true);
+    expect(wrapper.findComponent(PlayableCover).exists()).toBe(false);
   });
 
   it('renders an external-link cover for a release with an externalUrl', () => {
@@ -122,29 +144,40 @@ describe('ReleaseItem', () => {
     expect(wrapper.get('article').classes()).toContain('release--text-only');
   });
 
-  it('shows a play control for a release with audio when the flag is on', async () => {
-    HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
-    audioPlayerEnabled.value = true;
+  it('turns the cover into the play control for an audio-backed release', async () => {
+    const wrapper = mountRelease(audioBacked);
 
-    try {
-      const wrapper = mountRelease(bandcamp);
-      const play = wrapper.find('.release-play');
+    expect(wrapper.findComponent(PlayableCover).exists()).toBe(true);
+    expect(wrapper.findComponent(BandcampPlayer).exists()).toBe(false);
+    expect(wrapper.find('.release-play').exists()).toBe(false);
 
-      expect(play.exists()).toBe(true);
-      expect(play.attributes('aria-label')).toContain('Overlapse');
-      await play.trigger('click');
-    } finally {
-      audioPlayerEnabled.value = false;
-    }
+    const play = wrapper.get('.release-cover__play');
+    expect(play.attributes('aria-label')).toContain('Overlapse');
+    await play.trigger('click');
+    expect(HTMLMediaElement.prototype.play).toHaveBeenCalled();
   });
 
-  it('hides the play control when the flag is off', () => {
-    expect(mountRelease(bandcamp).find('.release-play').exists()).toBe(false);
+  it('reverts to the Bandcamp embed when the player is disabled', () => {
+    audioPlayerEnabled.value = false;
+    const wrapper = mountRelease(audioBacked);
+
+    expect(wrapper.findComponent(BandcampPlayer).exists()).toBe(true);
+    expect(wrapper.findComponent(PlayableCover).exists()).toBe(false);
+    expect(wrapper.find('.release-listen').exists()).toBe(false);
+  });
+
+  it('lists Bandcamp and SoundCloud listen links on an audio-backed release', () => {
+    const wrapper = mountRelease(audioBacked);
+    const links = wrapper.get('.release-listen').findAll('a');
+
+    expect(links).toHaveLength(2);
+    expect(links[0].text()).toContain('Bandcamp');
+    expect(links[0].attributes('href')).toBe('https://music.jeromefaria.com/album/overlapse');
+    expect(links[1].text()).toContain('SoundCloud');
+    expect(links[1].attributes('href')).toBe('https://soundcloud.com/jeromefaria/sets/overlapse');
   });
 
   it('renders a per-track play button when the tracklist aligns with the audio', async () => {
-    HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
-    audioPlayerEnabled.value = true;
     const release: Release = {
       id: '1714',
       title: '17:14',
@@ -152,19 +185,12 @@ describe('ReleaseItem', () => {
       tracklist: [{ title: '8:58' }, { title: '2:58' }, { title: '5:18' }],
     };
 
-    try {
-      const wrapper = mountRelease(release);
-      expect(wrapper.findAll('.track-play')).toHaveLength(3);
-      await wrapper.findAll('.track-play')[1].trigger('click');
-    } finally {
-      audioPlayerEnabled.value = false;
-    }
+    const wrapper = mountRelease(release);
+    expect(wrapper.findAll('.track-play')).toHaveLength(3);
+    await wrapper.findAll('.track-play')[1].trigger('click');
   });
 
   it('toggles playback when the already-playing track is clicked', async () => {
-    HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
-    const pause = (HTMLMediaElement.prototype.pause = vi.fn());
-    audioPlayerEnabled.value = true;
     const release: Release = {
       id: '1714',
       title: '17:14',
@@ -172,19 +198,14 @@ describe('ReleaseItem', () => {
       tracklist: [{ title: '8:58' }, { title: '2:58' }, { title: '5:18' }],
     };
 
-    try {
-      const wrapper = mountRelease(release);
-      await wrapper.findAll('.track-play')[0].trigger('click');
-      await flushPromises();
-      await wrapper.findAll('.track-play')[0].trigger('click');
-      expect(pause).toHaveBeenCalled();
-    } finally {
-      audioPlayerEnabled.value = false;
-    }
+    const wrapper = mountRelease(release);
+    await wrapper.findAll('.track-play')[0].trigger('click');
+    await flushPromises();
+    await wrapper.findAll('.track-play')[0].trigger('click');
+    expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
   });
 
   it('omits per-track buttons when the tracklist does not align with the audio', () => {
-    audioPlayerEnabled.value = true;
     const release: Release = {
       id: '2504',
       title: '2504',
@@ -192,11 +213,7 @@ describe('ReleaseItem', () => {
       tracklist: [{ title: 'I' }, { title: 'II' }, { title: 'III' }, { title: 'IV' }, { title: 'V' }],
     };
 
-    try {
-      expect(mountRelease(release).findAll('.track-play')).toHaveLength(0);
-    } finally {
-      audioPlayerEnabled.value = false;
-    }
+    expect(mountRelease(release).findAll('.track-play')).toHaveLength(0);
   });
 
   it('emits open-lightbox with converted images from the gallery button', async () => {

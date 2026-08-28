@@ -114,6 +114,19 @@ describe('createMusicAlbumSchema', () => {
     expect(schema.image).toBeUndefined();
   });
 
+  it('links the SoundCloud URL as sameAs when present', () => {
+    const schema = createMusicAlbumSchema(
+      { title: 'Overlapse', soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/overlapse' },
+      artist,
+      siteUrl,
+    );
+    expect(schema.sameAs).toEqual(['https://soundcloud.com/jeromefaria/sets/overlapse']);
+  });
+
+  it('omits sameAs when there is no SoundCloud URL', () => {
+    expect(createMusicAlbumSchema({ title: 'Overlapse' }, artist, siteUrl).sameAs).toBeUndefined();
+  });
+
   it('sets numTracks from a non-empty tracklist', () => {
     const schema = createMusicAlbumSchema({ title: 'Overlapse', tracklist: ['A', 'B', 'C'] }, artist, siteUrl);
     expect(schema.numTracks).toBe(3);

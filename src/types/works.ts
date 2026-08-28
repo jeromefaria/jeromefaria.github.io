@@ -93,6 +93,7 @@ export interface Release {
   meta: ReleaseMeta;
   bandcampId?: string;
   bandcampUrl?: string;
+  soundcloudUrl?: string;
   externalUrl?: string;
   coverImage?: string;
   tracklist?: Track[];
@@ -108,6 +109,9 @@ export const hasBandcampId = (release: Release): release is Release & { bandcamp
 
 export const hasBandcampUrl = (release: Release): release is Release & { bandcampUrl: string } =>
   Boolean(release.bandcampUrl);
+
+export const hasSoundcloudUrl = (release: Release): release is Release & { soundcloudUrl: string } =>
+  Boolean(release.soundcloudUrl);
 
 export const hasExternalUrl = (release: Release): release is Release & { externalUrl: string } =>
   Boolean(release.externalUrl);

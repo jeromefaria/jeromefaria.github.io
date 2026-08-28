@@ -6,44 +6,45 @@ describe('useFeatureFlags', () => {
   beforeEach(() => {
     localStorage.clear();
     window.history.replaceState(null, '', '/');
-    audioPlayerEnabled.value = false;
+    audioPlayerEnabled.value = true;
   });
 
-  it('is off by default', () => {
+  it('is on by default', () => {
     initFeatureFlags();
-    expect(audioPlayerEnabled.value).toBe(false);
-  });
-
-  it('turns on via ?audioPlayer=1 and persists it', () => {
-    window.history.replaceState(null, '', '/?audioPlayer=1');
-    initFeatureFlags();
-
     expect(audioPlayerEnabled.value).toBe(true);
-    expect(localStorage.getItem('flag:audioPlayer')).toBe('1');
   });
 
-  it('turns off via ?audioPlayer=0', () => {
-    localStorage.setItem('flag:audioPlayer', '1');
+  it('turns off via ?audioPlayer=0 and persists it', () => {
     window.history.replaceState(null, '', '/?audioPlayer=0');
     initFeatureFlags();
 
     expect(audioPlayerEnabled.value).toBe(false);
+    expect(localStorage.getItem('flag:audioPlayer')).toBe('0');
   });
 
-  it('reads a persisted flag when no param is present', () => {
-    localStorage.setItem('flag:audioPlayer', '1');
+  it('re-enables via ?audioPlayer=1', () => {
+    localStorage.setItem('flag:audioPlayer', '0');
+    window.history.replaceState(null, '', '/?audioPlayer=1');
     initFeatureFlags();
 
     expect(audioPlayerEnabled.value).toBe(true);
   });
 
-  it('falls back to off when storage throws', () => {
+  it('reads a persisted opt-out when no param is present', () => {
+    localStorage.setItem('flag:audioPlayer', '0');
+    initFeatureFlags();
+
+    expect(audioPlayerEnabled.value).toBe(false);
+  });
+
+  it('falls back to on when storage throws', () => {
+    audioPlayerEnabled.value = false;
     const spy = vi.spyOn(localStorage, 'getItem').mockImplementation(() => {
       throw new Error('unavailable');
     });
 
     initFeatureFlags();
-    expect(audioPlayerEnabled.value).toBe(false);
+    expect(audioPlayerEnabled.value).toBe(true);
 
     spy.mockRestore();
   });

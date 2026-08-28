@@ -5,6 +5,7 @@ import type { Track } from '@/types/works';
 interface ReleaseForSchema {
   title: string;
   bandcampUrl?: string;
+  soundcloudUrl?: string;
   coverImage?: string;
   datePublished?: string;
   tracklist?: Track[];
@@ -66,6 +67,10 @@ export const createMusicAlbumSchema = (
       name: artistName,
     },
   };
+
+  if (release.soundcloudUrl) {
+    schema.sameAs = [release.soundcloudUrl];
+  }
 
   if (release.coverImage) {
     schema.image = `${siteUrl}${release.coverImage}`;
