@@ -80,6 +80,14 @@ describe('buildCommands', () => {
     expect(bandcamp.every(command => command.title.includes('Bandcamp'))).toBe(true);
   });
 
+  it('adds a SoundCloud action for each release that has a SoundCloud URL', () => {
+    const soundcloud = commands.filter(command => command.id.startsWith('act:soundcloud:'));
+
+    expect(soundcloud.length).toBeGreaterThan(0);
+    expect(soundcloud.every(command => command.kind === 'action' && command.external)).toBe(true);
+    expect(soundcloud.every(command => command.title.includes('SoundCloud'))).toBe(true);
+  });
+
   it('gives every command a unique id', () => {
     const ids = commands.map(command => command.id);
     expect(new Set(ids).size).toBe(ids.length);

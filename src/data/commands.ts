@@ -7,7 +7,7 @@ import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
 import type { Command } from '@/types/command';
 import type { LiveEvent } from '@/types/live';
-import type { ReleaseMeta } from '@/types/works';
+import type { Release, ReleaseMeta } from '@/types/works';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
 import { openInNewTab } from '@/utils/openInNewTab';
 import { canPlayRelease, playReleaseAt } from '@/utils/releasePermalink';
@@ -116,6 +116,26 @@ const pressCommands = (): Command[] =>
     to: `/press#${quote.id}`,
   }));
 
+// One "Open '<release>' on <platform>" action per release that carries the given
+// link. Shared by the Bandcamp and SoundCloud openers so a new platform is a line.
+const releaseLinkCommands = (platform: string, keyword: string, urlOf: (release: Release) => string | undefined): Command[] =>
+  Object.values(worksData)
+    .flatMap(section => section.items)
+    .flatMap(release => {
+      const url = urlOf(release);
+      if (!url) return [];
+
+      return [{
+        kind: 'action',
+        id: `act:${keyword}:${release.id}`,
+        title: `Open '${release.title}' on ${platform}`,
+        keywords: [release.title, keyword, 'listen', 'play'],
+        group: 'Actions',
+        external: true,
+        run: () => openInNewTab(url),
+      } satisfies Command];
+    });
+
 const actionCommands = (): Command[] => {
   const downloads: Command[] = [
     { kind: 'action', id: 'act:press-kit-pdf', title: 'Download press kit (PDF)', keywords: ['epk', 'pdf', 'press'], group: 'Actions', external: true, run: () => openInNewTab(epkPdfHref) },
@@ -156,24 +176,10 @@ const actionCommands = (): Command[] => {
     run: () => openInNewTab(link.url),
   }));
 
-  const bandcamp: Command[] = Object.values(worksData)
-    .flatMap(section => section.items)
-    .flatMap(release => {
-      const url = release.bandcampUrl;
-      if (!url) return [];
+  const bandcamp = releaseLinkCommands('Bandcamp', 'bandcamp', release => release.bandcampUrl);
+  const soundcloud = releaseLinkCommands('SoundCloud', 'soundcloud', release => release.soundcloudUrl);
 
-      return [{
-        kind: 'action',
-        id: `act:bandcamp:${release.id}`,
-        title: `Open '${release.title}' on Bandcamp`,
-        keywords: [release.title, 'bandcamp', 'listen', 'play'],
-        group: 'Actions',
-        external: true,
-        run: () => openInNewTab(url),
-      } satisfies Command];
-    });
-
-  return [...downloads, help, ...appearance, contact, ...socials, ...bandcamp];
+  return [...downloads, help, ...appearance, contact, ...socials, ...bandcamp, ...soundcloud];
 };
 
 // Live transport controls that reflect the player's current state. Built inside a
