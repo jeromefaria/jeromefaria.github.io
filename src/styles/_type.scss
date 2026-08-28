@@ -96,6 +96,7 @@ blockquote {
   strong {
     display: block;
     margin-top: $spacing-3;
+
     @include label-style;
   }
 }
