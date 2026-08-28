@@ -95,7 +95,36 @@ describe('PlayerScreen', () => {
     expect(player.usePlayer().expanded.value).toBe(false);
 
     player.expand();
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    await wrapper.trigger('keydown', { key: 'Escape' });
     expect(player.usePlayer().expanded.value).toBe(false);
+  });
+
+  it('restores focus to the trigger when it closes', async () => {
+    await player.play(TRACKS);
+    const trigger = document.createElement('button');
+    document.body.appendChild(trigger);
+    trigger.focus();
+
+    const wrapper = await mounted();
+    expect(document.activeElement).not.toBe(trigger);
+
+    wrapper.unmount();
+    expect(document.activeElement).toBe(trigger);
+    trigger.remove();
+  });
+
+  it('traps Tab focus within the dialog', async () => {
+    await player.play(TRACKS);
+    const wrapper = await mounted();
+
+    const dialog = wrapper.get('.player-screen').element;
+    const focusable = dialog.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), input:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])');
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    first.focus();
+
+    await wrapper.trigger('keydown', { key: 'Tab', shiftKey: true });
+    expect(document.activeElement).toBe(last);
   });
 });
