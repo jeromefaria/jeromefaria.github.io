@@ -2,17 +2,24 @@
 import PageShell from '@/components/PageShell.vue';
 import { openCommandPalette } from '@/composables/useOverlays';
 import { usePageHead } from '@/composables/usePageHead';
+import { useProseLinks } from '@/composables/useProseLinks';
 import { pageMeta } from '@/data/pageMeta';
 import { privacyContent } from '@/data/privacy';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 
 usePageHead(pageMeta.privacy);
 
-// The notice names the (otherwise hidden) command palette; reward the careful reader
-// who clicks it by actually opening it. The cue lives inside a v-html body, so it's
-// caught by delegation rather than a bound handler.
-const revealCommandPalette = (event: MouseEvent): void => {
-  if ((event.target as HTMLElement).closest('.palette-cue')) openCommandPalette();
+const routeProseLink = useProseLinks();
+
+// The palette cue is a button inside the v-html body; a careful reader who clicks it
+// gets the hidden palette. Everything else falls through to internal-link routing.
+const onProseClick = (event: MouseEvent): void => {
+  if ((event.target as HTMLElement).closest('.palette-cue')) {
+    openCommandPalette();
+    return;
+  }
+
+  routeProseLink(event);
 };
 </script>
 
@@ -24,7 +31,7 @@ const revealCommandPalette = (event: MouseEvent): void => {
     >
       <div
         class="privacy"
-        @click="revealCommandPalette"
+        @click="onProseClick"
       >
         <p class="privacy__intro">
           {{ privacyContent.intro }}

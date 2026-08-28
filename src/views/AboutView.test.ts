@@ -48,4 +48,13 @@ describe('AboutView', () => {
     expect(lightbox.props('currentIndex')).toBe(targetIndex);
     expect(lightbox.props('currentItem')).toMatchObject({ type: 'image', src: expectedSrc });
   });
+
+  it('routes internal prose links through the router instead of reloading', async () => {
+    const wrapper = await mountView(AboutView, '/about');
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true });
+
+    wrapper.get('.prose a[href^="/"]').element.dispatchEvent(event);
+
+    expect(event.defaultPrevented).toBe(true);
+  });
 });

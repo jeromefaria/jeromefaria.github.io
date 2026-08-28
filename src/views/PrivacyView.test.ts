@@ -35,4 +35,13 @@ describe('PrivacyView', () => {
     expect(paletteOpen.value).toBe(true);
     paletteOpen.value = false;
   });
+
+  it('routes the internal contact link through the router instead of reloading', async () => {
+    const wrapper = await mountView(PrivacyView);
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true });
+
+    wrapper.get('a[href="/contact"]').element.dispatchEvent(event);
+
+    expect(event.defaultPrevented).toBe(true);
+  });
 });

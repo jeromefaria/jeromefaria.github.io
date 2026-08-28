@@ -66,6 +66,18 @@ test.describe('Navigation', () => {
     await expect(page.locator('[data-page="about"]')).toBeVisible();
   });
 
+  test('routes internal bio links via the SPA, without a full reload', async ({ page }) => {
+    await gotoHydrated(page, PAGES.ABOUT);
+    // Survives a client-side route but is wiped by a full page reload.
+    await page.evaluate(() => ((window as unknown as { __spa?: boolean }).__spa = true));
+
+    await page.locator('.prose a[href^="/works#"]').first().click();
+
+    await expect(page).toHaveURL(/\/works#/);
+    await expect(page.locator('[data-page="works"]')).toBeAttached();
+    expect(await page.evaluate(() => (window as unknown as { __spa?: boolean }).__spa)).toBe(true);
+  });
+
   test('should navigate to Contact page', async ({ page }) => {
     await page.goto(PAGES.HOME);
     await openMobileMenuIfNeeded(page);
