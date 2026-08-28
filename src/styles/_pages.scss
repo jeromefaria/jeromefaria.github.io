@@ -389,6 +389,22 @@
         border-color: var(--color-text);
       }
     }
+
+    // The command-palette cue reads as an ordinary link (a button, since it fires an action).
+    .palette-cue {
+      padding: 0;
+      font: inherit;
+      color: var(--color-text);
+      cursor: pointer;
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--color-border);
+      transition: border-color $transition-base;
+
+      &:hover {
+        border-color: var(--color-text);
+      }
+    }
   }
 
   &__updated {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { paletteOpen } from '@/composables/useOverlays';
 import { privacyContent } from '@/data/privacy';
 import { mountView } from '@/test-support/viewHarness';
 
@@ -23,5 +24,15 @@ describe('PrivacyView', () => {
   it('shows the last-updated date', async () => {
     const wrapper = await mountView(PrivacyView);
     expect(wrapper.get('.privacy__updated').text()).toContain(privacyContent.updated);
+  });
+
+  it('opens the hidden command palette from the cue in the notice', async () => {
+    paletteOpen.value = false;
+    const wrapper = await mountView(PrivacyView);
+
+    await wrapper.get('.palette-cue').trigger('click');
+
+    expect(paletteOpen.value).toBe(true);
+    paletteOpen.value = false;
   });
 });
