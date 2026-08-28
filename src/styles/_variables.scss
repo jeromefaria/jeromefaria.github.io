@@ -43,6 +43,15 @@ $footer-height: 160px;                   // Measured total height - update if fo
 $nav-max-height: 20rem;
 $release-media-width: 200px;
 $loading-dot-size: 6px;
+
+// Global stacking order, named so new layers slot in without a z-index war.
+// (Local, within-component stacking keeps small literal values.)
+$z-masthead: 100;
+$z-player: 900;
+$z-player-expanded: 950;
+$z-skip-link: 1000;
+$z-overlay: 10000; // palette, keyboard help, lightbox — full-screen modals
+
 $transition-fast: 120ms ease;
 $transition-base: 300ms ease;
 $opacity-20: 0.2;

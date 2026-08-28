@@ -5,7 +5,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 900;
+  z-index: $z-player;
   display: flex;
   flex-direction: column;
   gap: $spacing-2;
@@ -246,7 +246,7 @@
 .player-screen {
   position: fixed;
   inset: 0;
-  z-index: 950;
+  z-index: $z-player-expanded;
   display: flex;
   flex-direction: column;
   gap: $spacing-5;
