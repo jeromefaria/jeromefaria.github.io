@@ -18,7 +18,7 @@ export const pageMeta = {
   },
   works: {
     title: 'Works',
-    description: 'Discography and works by Jerome Faria — solo releases, film and theatre scores, collaborations, curation, and mixing and mastering.',
+    description: 'Discography and works by Jerome Faria — solo releases, film and theatre scores, collaborations, curation, mixing, and mastering.',
   },
   live: {
     title: 'Live',
