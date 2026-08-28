@@ -26,24 +26,25 @@ let generation = 0;
 let retries = 0;
 let element: HTMLAudioElement | null = null;
 
-interface PlayContext {
+export interface PlayContext {
   album?: string;
   artwork?: string;
 }
 
-let nowPlaying: PlayContext = {};
+const nowPlaying = ref<PlayContext>({});
+const expanded = ref(false);
 
 const setMediaSession = (track: AudioTrack): void => {
   if (!('mediaSession' in navigator) || typeof MediaMetadata === 'undefined') return;
 
-  const artwork = nowPlaying.artwork
-    ? [{ src: new URL(nowPlaying.artwork, location.href).href, sizes: '512x512', type: 'image/jpeg' }]
+  const artwork = nowPlaying.value.artwork
+    ? [{ src: new URL(nowPlaying.value.artwork, location.href).href, sizes: '512x512', type: 'image/jpeg' }]
     : [];
 
   navigator.mediaSession.metadata = new MediaMetadata({
     title: track.title,
     artist: track.artist ?? 'Jerome Faria',
-    album: nowPlaying.album ?? '',
+    album: nowPlaying.value.album ?? '',
     artwork,
   });
   navigator.mediaSession.setActionHandler('play', () => void resume());
@@ -122,10 +123,33 @@ const load = async (): Promise<void> => {
 export const play = async (tracks: AudioTrack[], startIndex = 0, context: PlayContext = {}): Promise<void> => {
   if (tracks.length === 0) return;
 
-  nowPlaying = context;
+  nowPlaying.value = context;
   queue.value = tracks;
   index.value = Math.min(Math.max(startIndex, 0), tracks.length - 1);
   await load();
+};
+
+export const select = async (targetIndex: number): Promise<void> => {
+  if (targetIndex < 0 || targetIndex >= queue.value.length) return;
+
+  index.value = targetIndex;
+  await load();
+};
+
+export const expand = (): void => { expanded.value = true; };
+export const collapse = (): void => { expanded.value = false; };
+
+// Clearing the queue empties currentTrack, which unmounts the bar.
+export const stop = (): void => {
+  generation += 1;
+  element?.pause();
+  queue.value = [];
+  index.value = -1;
+  currentTime.value = 0;
+  duration.value = 0;
+  error.value = null;
+  status.value = 'idle';
+  expanded.value = false;
 };
 
 export const playRelease = (releaseId: string, context?: PlayContext): Promise<void> =>
@@ -191,6 +215,8 @@ interface PlayerApi {
   error: Readonly<Ref<string | null>>;
   hasNext: ComputedRef<boolean>;
   hasPrevious: ComputedRef<boolean>;
+  context: Readonly<Ref<PlayContext>>;
+  expanded: Readonly<Ref<boolean>>;
   play: typeof play;
   playRelease: typeof playRelease;
   pause: typeof pause;
@@ -199,6 +225,10 @@ interface PlayerApi {
   next: typeof next;
   previous: typeof previous;
   seek: typeof seek;
+  select: typeof select;
+  expand: typeof expand;
+  collapse: typeof collapse;
+  stop: typeof stop;
 }
 
 export const usePlayer = (): PlayerApi => ({
@@ -210,6 +240,8 @@ export const usePlayer = (): PlayerApi => ({
   error: readonly(error),
   hasNext,
   hasPrevious,
+  context: readonly(nowPlaying),
+  expanded: readonly(expanded),
   play,
   playRelease,
   pause,
@@ -218,6 +250,10 @@ export const usePlayer = (): PlayerApi => ({
   next,
   previous,
   seek,
+  select,
+  expand,
+  collapse,
+  stop,
 });
 
 // Exposed for unit tests to drive media events on the singleton element.

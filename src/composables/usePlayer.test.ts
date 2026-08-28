@@ -205,6 +205,46 @@ describe('usePlayer', () => {
     expect(mod.usePlayer().currentTrack.value?.key).toContain('BRQN006');
   });
 
+  it('expands and collapses the full view', () => {
+    const api = mod.usePlayer();
+    expect(api.expanded.value).toBe(false);
+
+    mod.expand();
+    expect(api.expanded.value).toBe(true);
+
+    mod.collapse();
+    expect(api.expanded.value).toBe(false);
+  });
+
+  it('selects a track within the current queue and ignores out-of-range', async () => {
+    await mod.play(TRACKS);
+    const api = mod.usePlayer();
+
+    await mod.select(1);
+    expect(api.currentTrack.value?.title).toBe('Two');
+
+    await mod.select(99);
+    expect(api.currentTrack.value?.title).toBe('Two');
+  });
+
+  it('stops playback and clears the queue so the bar unmounts', async () => {
+    await mod.play(TRACKS);
+    const api = mod.usePlayer();
+    mod.expand();
+
+    mod.stop();
+
+    expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
+    expect(api.currentTrack.value).toBeNull();
+    expect(api.status.value).toBe('idle');
+    expect(api.expanded.value).toBe(false);
+  });
+
+  it('exposes the play context', async () => {
+    await mod.play(TRACKS, 0, { album: 'An Album', artwork: '/cover.jpg' });
+    expect(mod.usePlayer().context.value.album).toBe('An Album');
+  });
+
   it('wires the Media Session when the API is available', async () => {
     const handlers: Record<string, (event?: { seekTime?: number }) => void> = {};
     Object.assign(navigator, {

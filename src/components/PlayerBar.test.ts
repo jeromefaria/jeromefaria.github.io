@@ -97,6 +97,23 @@ describe('PlayerBar', () => {
     expect(previous.attributes('disabled')).toBeUndefined();
   });
 
+  it('expands to the full view when the title is tapped', async () => {
+    await player.play(TRACKS);
+    const wrapper = await mounted();
+
+    await wrapper.find('.player-bar__title').trigger('click');
+    expect(player.usePlayer().expanded.value).toBe(true);
+  });
+
+  it('dismisses the bar when the close button is pressed', async () => {
+    await player.play(TRACKS);
+    const wrapper = await mounted();
+
+    await wrapper.find('.player-bar__close').trigger('click');
+    await flushPromises();
+    expect(wrapper.find('.player-bar').exists()).toBe(false);
+  });
+
   it('surfaces an error in the live region', async () => {
     vi.useFakeTimers();
     await player.play(TRACKS);

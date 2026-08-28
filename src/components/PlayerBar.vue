@@ -2,22 +2,13 @@
 import { computed } from 'vue';
 
 import { usePlayer } from '@/composables/usePlayer';
+import { formatTime } from '@/utils/formatTime';
 
-const { status, currentTrack, currentTime, duration, error, hasNext, hasPrevious, toggle, next, previous, seek } =
+const { status, currentTrack, currentTime, duration, error, hasNext, hasPrevious, toggle, next, previous, seek, expand, stop } =
   usePlayer();
 
 const isPlaying = computed(() => status.value === 'playing');
 const isBusy = computed(() => status.value === 'loading' || status.value === 'buffering');
-
-const formatTime = (seconds: number): string => {
-  if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
-
-  const whole = Math.floor(seconds);
-  const minutes = Math.floor(whole / 60);
-  const remainder = whole % 60;
-
-  return `${minutes}:${remainder.toString().padStart(2, '0')}`;
-};
 
 const statusMessage = computed(() => {
   if (error.value) return error.value;
@@ -40,9 +31,14 @@ const onSeek = (event: Event): void => {
     role="region"
     aria-label="Audio player"
   >
-    <p class="player-bar__title">
+    <button
+      type="button"
+      class="player-bar__title"
+      aria-label="Expand player"
+      @click="expand"
+    >
       {{ currentTrack.title }}
-    </p>
+    </button>
 
     <div class="player-bar__controls">
       <button
@@ -116,6 +112,21 @@ const onSeek = (event: Event): void => {
       >
       <span class="player-bar__time">{{ formatTime(duration) }}</span>
     </div>
+
+    <button
+      type="button"
+      class="player-bar__close"
+      aria-label="Close player"
+      @click="stop"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        d="M6 6l12 12M18 6 6 18"
+      /></svg>
+    </button>
 
     <p
       class="player-bar__status"

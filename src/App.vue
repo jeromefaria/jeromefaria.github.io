@@ -6,6 +6,7 @@ import SiteFooter from '@/components/SiteFooter.vue';
 import SiteHeader from '@/components/SiteHeader.vue';
 import { audioPlayerEnabled, initFeatureFlags } from '@/composables/useFeatureFlags';
 import { helpMounted, paletteMounted, useOverlayHotkeys } from '@/composables/useOverlays';
+import { usePlayer } from '@/composables/usePlayer';
 import { initTheme } from '@/composables/useTheme';
 
 // Lazy-loaded so the palette's registry, fuzzy ranker, and the data it reads stay
@@ -13,6 +14,9 @@ import { initTheme } from '@/composables/useTheme';
 const CommandPalette = defineAsyncComponent(() => import('@/components/CommandPalette.vue'));
 const KeyboardHelp = defineAsyncComponent(() => import('@/components/KeyboardHelp.vue'));
 const PlayerBar = defineAsyncComponent(() => import('@/components/PlayerBar.vue'));
+const PlayerScreen = defineAsyncComponent(() => import('@/components/PlayerScreen.vue'));
+
+const { expanded: playerExpanded } = usePlayer();
 
 useOverlayHotkeys();
 
@@ -97,4 +101,7 @@ onMounted(() => {
   <CommandPalette v-if="paletteMounted" />
   <KeyboardHelp v-if="helpMounted" />
   <PlayerBar v-if="audioPlayerEnabled" />
+  <Transition name="player-slide">
+    <PlayerScreen v-if="audioPlayerEnabled && playerExpanded" />
+  </Transition>
 </template>
