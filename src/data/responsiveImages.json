@@ -1,171 +1,319 @@
 {
-  "1714": [
-    320,
-    640,
-    960
-  ],
-  "2504": [
-    320,
-    640,
-    960
-  ],
-  "contraplacado": [
-    320,
-    640,
-    960
-  ],
-  "en-veille": [
-    320,
-    640,
-    960
-  ],
-  "caligari": [
-    320,
-    640,
-    960
-  ],
-  "overlapse": [
-    320,
-    640,
-    960
-  ],
-  "nny": [
-    320,
-    640
-  ],
-  "coil": [
-    320,
-    640
-  ],
-  "readerror": [
-    320,
-    640
-  ],
-  "ect": [
-    320
-  ],
-  "offear": [
-    320,
-    640,
-    960
-  ],
-  "overlapse-xiii": [
-    320,
-    640,
-    960
-  ],
-  "altar": [
-    320,
-    640,
-    960
-  ],
-  "depolarized": [
-    320,
-    640
-  ],
-  "aragao": [
-    320,
-    640,
-    960
-  ],
-  "invisible-other": [
-    320,
-    640,
-    960
-  ],
-  "caligari-live": [
-    320,
-    640,
-    960
-  ],
-  "hyphema": [
-    320
-  ],
-  "glitch": [
-    320,
-    640,
-    960
-  ],
-  "about-2005-madeiradig": [
-    480,
-    960
-  ],
-  "about-2007-madeiradig": [
-    480,
-    960
-  ],
-  "about-2008-eme": [
-    480,
-    960,
-    1440
-  ],
-  "about-2009-madeiradig": [
-    480,
-    960,
-    1440
-  ],
-  "about-2007-stfu": [
-    480,
-    960,
-    1440
-  ],
-  "about-2008-storung": [
-    480,
-    960,
-    1440
-  ],
-  "about-2009-olhares": [
-    480,
-    960,
-    1440
-  ],
-  "about-2010-olhares": [
-    480,
-    960
-  ],
-  "about-2011-migractions": [
-    480,
-    960
-  ],
-  "about-2011-madeiradig": [
-    480,
-    960,
-    1440
-  ],
-  "about-2015-fica": [
-    480,
-    960
-  ],
-  "about-2015-heineken": [
-    480,
-    960,
-    1440
-  ],
-  "about-2021-nariz": [
-    480,
-    960,
-    1440
-  ],
-  "about-2022-jejum": [
-    480,
-    960,
-    1440
-  ],
-  "about-2022-amess-museu": [
-    480,
-    960
-  ],
-  "about-2022-amess-teatro": [
-    480,
-    960
-  ],
-  "about-2025-fim": [
-    480,
-    960,
-    1440
-  ],
-  "about-2025-showcase": [
-    480,
-    960
-  ]
+  "1714": {
+    "widths": [
+      320,
+      640,
+      960
+    ],
+    "width": 1200,
+    "height": 1200
+  },
+  "2504": {
+    "widths": [
+      320,
+      640,
+      960
+    ],
+    "width": 1200,
+    "height": 1200
+  },
+  "contraplacado": {
+    "widths": [
+      320,
+      640,
+      960
+    ],
+    "width": 1200,
+    "height": 1200
+  },
+  "en-veille": {
+    "widths": [
+      320,
+      640,
+      960
+    ],
+    "width": 1200,
+    "height": 1200
+  },
+  "caligari": {
+    "widths": [
+      320,
+      640,
+      960
+    ],
+    "width": 1200,
+    "height": 1200
+  },
+  "overlapse": {
+    "widths": [
+      320,
+      640,
+      960
+    ],
+    "width": 1200,
+    "height": 1200
+  },
+  "nny": {
+    "widths": [
+      320,
+      640
+    ],
+    "width": 733,
+    "height": 733
+  },
+  "coil": {
+    "widths": [
+      320,
+      640
+    ],
+    "width": 709,
+    "height": 709
+  },
+  "readerror": {
+    "widths": [
+      320,
+      640
+    ],
+    "width": 709,
+    "height": 709
+  },
+  "ect": {
+    "widths": [
+      320
+    ],
+    "width": 600,
+    "height": 600
+  },
+  "offear": {
+    "widths": [
+      320,
+      640,
+      960
+    ],
+    "width": 1200,
+    "height": 1200
+  },
+  "overlapse-xiii": {
+    "widths": [
+      320,
+      640,
+      960
+    ],
+    "width": 1200,
+    "height": 1200
+  },
+  "altar": {
+    "widths": [
+      320,
+      640,
+      960
+    ],
+    "width": 1200,
+    "height": 1200
+  },
+  "depolarized": {
+    "widths": [
+      320,
+      640
+    ],
+    "width": 800,
+    "height": 800
+  },
+  "aragao": {
+    "widths": [
+      320,
+      640,
+      960
+    ],
+    "width": 1448,
+    "height": 2048
+  },
+  "invisible-other": {
+    "widths": [
+      320,
+      640,
+      960
+    ],
+    "width": 1280,
+    "height": 720
+  },
+  "caligari-live": {
+    "widths": [
+      320,
+      640,
+      960
+    ],
+    "width": 1280,
+    "height": 853
+  },
+  "hyphema": {
+    "widths": [
+      320
+    ],
+    "width": 468,
+    "height": 674
+  },
+  "glitch": {
+    "widths": [
+      320,
+      640,
+      960
+    ],
+    "width": 1500,
+    "height": 1829
+  },
+  "about-2005-madeiradig": {
+    "widths": [
+      480,
+      960
+    ],
+    "width": 1280,
+    "height": 960
+  },
+  "about-2007-madeiradig": {
+    "widths": [
+      480,
+      960
+    ],
+    "width": 1283,
+    "height": 855
+  },
+  "about-2008-eme": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "width": 3872,
+    "height": 2592
+  },
+  "about-2009-madeiradig": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "width": 2592,
+    "height": 1944
+  },
+  "about-2007-stfu": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "width": 1536,
+    "height": 2048
+  },
+  "about-2008-storung": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "width": 1772,
+    "height": 1181
+  },
+  "about-2009-olhares": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "width": 1800,
+    "height": 1200
+  },
+  "about-2010-olhares": {
+    "widths": [
+      480,
+      960
+    ],
+    "width": 1024,
+    "height": 744
+  },
+  "about-2011-migractions": {
+    "widths": [
+      480,
+      960
+    ],
+    "width": 1000,
+    "height": 1504
+  },
+  "about-2011-madeiradig": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "width": 3888,
+    "height": 2592
+  },
+  "about-2015-fica": {
+    "widths": [
+      480,
+      960
+    ],
+    "width": 1082,
+    "height": 720
+  },
+  "about-2015-heineken": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "width": 2160,
+    "height": 1440
+  },
+  "about-2021-nariz": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "width": 3000,
+    "height": 2000
+  },
+  "about-2022-jejum": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "width": 2000,
+    "height": 1334
+  },
+  "about-2022-amess-museu": {
+    "widths": [
+      480,
+      960
+    ],
+    "width": 1363,
+    "height": 2048
+  },
+  "about-2022-amess-teatro": {
+    "widths": [
+      480,
+      960
+    ],
+    "width": 1334,
+    "height": 2000
+  },
+  "about-2025-fim": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "width": 1602,
+    "height": 2400
+  },
+  "about-2025-showcase": {
+    "widths": [
+      480,
+      960
+    ],
+    "width": 1365,
+    "height": 2048
+  }
 }

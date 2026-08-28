@@ -1,6 +1,12 @@
 import manifestData from '@/data/responsiveImages.json';
 
-const manifest: Record<string, number[]> = manifestData;
+interface ResponsiveImage {
+  widths: number[];
+  width: number;
+  height: number;
+}
+
+const manifest: Record<string, ResponsiveImage> = manifestData;
 
 const RESPONSIVE_DIR = '/images/responsive';
 
@@ -11,8 +17,14 @@ export const toWebp = (imagePath: string): string => imagePath.replace(/\.jpg$/,
 
 export const responsiveSrcset = (imagePath: string): string | null => {
   const name = baseName(imagePath);
-  const widths = manifest[name];
-  if (!widths || widths.length === 0) return null;
+  const entry = manifest[name];
+  if (!entry || entry.widths.length === 0) return null;
 
-  return widths.map(width => `${RESPONSIVE_DIR}/${name}-${width}w.webp ${width}w`).join(', ');
+  return entry.widths.map(width => `${RESPONSIVE_DIR}/${name}-${width}w.webp ${width}w`).join(', ');
+};
+
+// Intrinsic dimensions, so the <img> can reserve load-time space (no layout shift).
+export const imageDimensions = (imagePath: string): { width: number; height: number } | null => {
+  const entry = manifest[baseName(imagePath)];
+  return entry ? { width: entry.width, height: entry.height } : null;
 };
