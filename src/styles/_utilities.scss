@@ -15,7 +15,7 @@
   position: absolute;
   top: -100%;
   left: $spacing-4;
-  z-index: 1000;
+  z-index: $z-skip-link;
   padding: $spacing-2 $spacing-4;
   background: var(--color-bg);
   color: var(--color-text);
