@@ -739,11 +739,11 @@ const ownEngineeringCredits: Release[] = Object.values(worksData).flatMap(sectio
       },
     })));
 
-const mixingAndMastering = worksData['mixing-and-mastering'];
-if (mixingAndMastering) {
-  // Credits read newest-first, unlike the hand-ordered release sections.
-  mixingAndMastering.items = [...mixingAndMastering.items, ...ownEngineeringCredits].sort(
-    (first, second) => second.meta.year - first.meta.year);
+worksData['mixing-and-mastering']?.items.push(...ownEngineeringCredits);
+
+// Every section lists newest first — a derived invariant, so entries can be authored in any order.
+for (const section of Object.values(worksData)) {
+  section.items.sort((first, second) => second.meta.year - first.meta.year);
 }
 
 export const worksSections: string[] = Object.keys(worksData);

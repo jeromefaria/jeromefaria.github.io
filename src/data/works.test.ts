@@ -14,9 +14,11 @@ describe('worksData', () => {
     }
   });
 
-  it('lists mixing/mastering credits newest first', () => {
-    const years = (worksData['mixing-and-mastering']?.items ?? []).map(item => item.meta.year);
-    expect(years).toEqual([...years].sort((first, second) => second - first));
+  it('lists every section newest first', () => {
+    for (const section of Object.values(worksData)) {
+      const years = section.items.map(item => item.meta.year);
+      expect(years, section.title).toEqual([...years].sort((first, second) => second - first));
+    }
   });
 
   it('every mixing/mastering credit carries a role; third-party names the artist, own links back', () => {
