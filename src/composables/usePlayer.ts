@@ -5,6 +5,14 @@ import type { AudioTrack } from '@/types/audio';
 
 export type PlayerStatus = 'idle' | 'loading' | 'buffering' | 'playing' | 'paused' | 'ended' | 'error';
 
+// "Active" = the user has asked this track to play (already playing or on its way there);
+// "busy" narrows that to the not-yet-audible part, used for buffering affordances.
+const ACTIVE_STATUSES: PlayerStatus[] = ['playing', 'loading', 'buffering'];
+const BUSY_STATUSES: PlayerStatus[] = ['loading', 'buffering'];
+
+export const isActiveStatus = (playerStatus: PlayerStatus): boolean => ACTIVE_STATUSES.includes(playerStatus);
+export const isBusyStatus = (playerStatus: PlayerStatus): boolean => BUSY_STATUSES.includes(playerStatus);
+
 const RETRY_LIMIT = 2;
 const RETRY_BASE_MS = 500;
 const RESTART_THRESHOLD_SEC = 3;
@@ -159,7 +167,7 @@ export const playFrom = async (tracks: AudioTrack[], seconds: number, context: P
 
   if (tracks.length === 1 && currentTrack.value?.key === tracks[0]?.key) {
     seek(seconds);
-    if (status.value !== 'playing' && status.value !== 'loading' && status.value !== 'buffering') await resume();
+    if (!isActiveStatus(status.value)) await resume();
     return;
   }
 
@@ -203,7 +211,7 @@ export const resume = async (): Promise<void> => {
 };
 
 export const toggle = (): void => {
-  if (status.value === 'playing' || status.value === 'buffering' || status.value === 'loading') {
+  if (isActiveStatus(status.value)) {
     pause();
     return;
   }

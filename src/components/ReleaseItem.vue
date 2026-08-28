@@ -2,14 +2,12 @@
 import { computed, ref } from 'vue';
 
 import { useAccordionVisibility } from '@/composables/useAccordionContext';
-import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
-import { play, playFrom, playRelease, toggle, usePlayer } from '@/composables/usePlayer';
-import { getReleaseAudio, hasPlayableAudio } from '@/data/audio';
+import { useReleasePlayback } from '@/composables/useReleasePlayback';
 import type { LightboxItem, Release } from '@/types';
 import { hasBandcampId, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
-import { buildReleaseContext, releasePath } from '@/utils/releasePermalink';
+import { releasePath } from '@/utils/releasePermalink';
 import { renderCredits } from '@/utils/renderCredits';
 
 import BandcampPlayer from './BandcampPlayer.vue';
@@ -46,89 +44,22 @@ const videoLightboxItems = computed<LightboxItem[]>(() =>
 const isBandcampLink = computed(() =>
   hasExternalUrl(props.release) && props.release.externalUrl.includes('bandcamp.com'));
 
-const playable = computed(() => audioPlayerEnabled.value && hasPlayableAudio(props.release.id));
-
-const audioTracks = computed(() => getReleaseAudio(props.release.id));
-
-// Per-track play only when the display tracklist lines up 1:1 with the audio
-// (2504's five movements are one continuous file, so it keeps release-level play).
-const perTrackPlayable = computed(() =>
-  playable.value && audioTracks.value.length === (props.release.tracklist?.length ?? 0));
-
-const { currentTrack, currentTime, status } = usePlayer();
-
-// A single audio file whose display tracklist is split into timed movements (2504).
-const chaptered = computed(() =>
-  playable.value
-  && audioTracks.value.length === 1
-  && (props.release.tracklist?.length ?? 0) > 1
-  && (props.release.tracklist ?? []).every(movement => typeof movement.start === 'number'));
-
-// The movement currently under the playhead — the last one whose offset has passed.
-const currentChapterIndex = computed(() => {
-  if (!chaptered.value || !releaseIsCurrent.value) return -1;
-
-  return (props.release.tracklist ?? []).reduce(
-    (current, movement, movementIndex) => ((movement.start ?? 0) <= currentTime.value ? movementIndex : current),
-    -1,
-  );
-});
-
-const isCurrentChapter = (index: number): boolean => chaptered.value && currentChapterIndex.value === index;
-
-const playChapter = (index: number): Promise<void> =>
-  playFrom(audioTracks.value, props.release.tracklist?.[index]?.start ?? 0, releaseContext());
-
-const releaseContext = () => buildReleaseContext(props.release);
-
-// The shareable path for a track: a 1-based index, or a time offset for chaptered single files.
-const trackHref = (index: number): string => {
-  if (perTrackPlayable.value) return releasePath(props.release.id, { track: index + 1 });
-  if (chaptered.value) return releasePath(props.release.id, { t: props.release.tracklist?.[index]?.start ?? 0 });
-  return '';
-};
-
-const activateTrack = (index: number): void => {
-  if (perTrackPlayable.value) {
-    playTrack(index);
-    return;
-  }
-  if (chaptered.value) void playChapter(index);
-};
-
-const isCurrentTrack = (index: number): boolean =>
-  currentTrack.value?.key === audioTracks.value[index]?.key;
-
-const isTrackPlaying = (index: number): boolean =>
-  isCurrentTrack(index) && ['playing', 'loading', 'buffering'].includes(status.value);
-
-// True while any track from this release is the one loaded in the player.
-const releaseIsCurrent = computed(() =>
-  audioTracks.value.some(track => track.key === currentTrack.value?.key));
-
-const releaseActive = computed(() =>
-  releaseIsCurrent.value && ['playing', 'loading', 'buffering'].includes(status.value));
-
-const releaseBusy = computed(() =>
-  releaseIsCurrent.value && ['loading', 'buffering'].includes(status.value));
-
-const playThis = (): Promise<void> => playRelease(props.release.id, releaseContext());
-
-const toggleRelease = (): void => {
-  if (releaseIsCurrent.value) {
-    toggle();
-    return;
-  }
-  void playThis();
-};
-
-const playTrack = (index: number): void => {
-  if (isCurrentTrack(index)) {
-    toggle();
-    return;
-  }
-  void play(audioTracks.value, index, releaseContext());
-};
+const {
+  playable,
+  perTrackPlayable,
+  chaptered,
+  releaseActive,
+  releaseBusy,
+  isCurrentTrack,
+  isTrackPlaying,
+  isCurrentChapter,
+  trackHref,
+  activateTrack,
+  playThis,
+  toggleRelease,
+  playTrack,
+  playChapter,
+} = useReleasePlayback(() => props.release);
 </script>
 
 <template>

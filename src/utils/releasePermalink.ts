@@ -1,4 +1,6 @@
-import type { PlayContext } from '@/composables/usePlayer';
+import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
+import { play, type PlayContext, playFrom } from '@/composables/usePlayer';
+import { getReleaseAudio, hasPlayableAudio } from '@/data/audio';
 import { worksData } from '@/data/works';
 import type { Release } from '@/types';
 import { hasCoverImage } from '@/types';
@@ -22,6 +24,28 @@ export const buildReleaseContext = (release: Release): PlayContext => ({
   album: release.title,
   ...(hasCoverImage(release) ? { artwork: release.coverImage } : {}),
 });
+
+export const canPlayRelease = (releaseId: string): boolean =>
+  audioPlayerEnabled.value && hasPlayableAudio(releaseId);
+
+// The one place that turns a release + optional {track (1-based), t (seconds)} into a play call,
+// shared by the works view (URL params) and the release item (movement / track clicks).
+export const playReleaseAt = (release: Release, { track, t }: ReleasePermalinkOptions = {}): void => {
+  const tracks = getReleaseAudio(release.id);
+  if (tracks.length === 0) return;
+
+  const context = buildReleaseContext(release);
+
+  if (typeof t === 'number' && Number.isFinite(t) && t > 0) {
+    void playFrom(tracks, t, context);
+    return;
+  }
+  if (typeof track === 'number' && Number.isFinite(track) && track >= 1 && track <= tracks.length) {
+    void play(tracks, track - 1, context);
+    return;
+  }
+  void play(tracks, 0, context);
+};
 
 interface ReleaseHead {
   title: string;
