@@ -9,6 +9,7 @@ import type { ReleaseMeta } from '@/types/works';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
 import { openInNewTab } from '@/utils/openInNewTab';
 import { plainCredits } from '@/utils/renderCredits';
+import { stripHtml } from '@/utils/stripHtml';
 
 import { pressQuotes } from './press';
 
@@ -53,7 +54,6 @@ const metaText = (meta: ReleaseMeta): string[] => {
 
 // Every field is indexed word-by-word after stripping HTML, so a query matches a discrete
 // word rather than scattering across a passage or raw markup (e.g. URLs inside a note).
-const stripHtml = (html?: string): string => (html ?? '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 const words = (text: string): string[] => stripHtml(text).split(' ').filter(Boolean);
 
 // Everyone attached to a show — collaborators, the rest of the bill, photographers, poster artists.
