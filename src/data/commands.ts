@@ -1,4 +1,6 @@
+import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import { openKeyboardHelp } from '@/composables/useOverlays';
+import { isActiveStatus, usePlayer } from '@/composables/usePlayer';
 import { matchSystemTheme, toggleTheme } from '@/composables/useTheme';
 import { liveEvents } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
@@ -8,6 +10,7 @@ import type { LiveEvent } from '@/types/live';
 import type { ReleaseMeta } from '@/types/works';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
 import { openInNewTab } from '@/utils/openInNewTab';
+import { canPlayRelease, playReleaseAt } from '@/utils/releasePermalink';
 import { plainCredits } from '@/utils/renderCredits';
 import { stripHtml } from '@/utils/stripHtml';
 
@@ -171,6 +174,65 @@ const actionCommands = (): Command[] => {
     });
 
   return [...downloads, help, ...appearance, contact, ...socials, ...bandcamp];
+};
+
+// Live transport controls that reflect the player's current state. Built inside a
+// computed (not part of the static registry) so they surface only while a track is
+// loaded and their labels track play/pause and expand/collapse.
+export const playbackCommands = (): Command[] => {
+  const { currentTrack, status, hasNext, hasPrevious, expanded, toggle, next, previous, expand, collapse, stop } = usePlayer();
+  const track = currentTrack.value;
+  if (!track) return [];
+
+  const commands: Command[] = [{
+    kind: 'action',
+    id: 'play:toggle',
+    title: isActiveStatus(status.value) ? 'Pause' : 'Play',
+    subtitle: track.title,
+    keywords: ['pause', 'play', 'resume', 'music', 'audio', 'playback'],
+    group: 'Now Playing',
+    transient: true,
+    run: () => toggle(),
+  }];
+
+  if (hasNext.value) {
+    commands.push({ kind: 'action', id: 'play:next', title: 'Next track', keywords: ['next', 'skip', 'forward'], group: 'Now Playing', transient: true, run: () => void next() });
+  }
+  if (hasPrevious.value) {
+    commands.push({ kind: 'action', id: 'play:previous', title: 'Previous track', keywords: ['previous', 'back', 'prev'], group: 'Now Playing', transient: true, run: () => void previous() });
+  }
+
+  commands.push({
+    kind: 'action',
+    id: 'play:expand',
+    title: expanded.value ? 'Collapse player' : 'Expand player',
+    keywords: ['expand', 'collapse', 'now playing', 'minimise', 'minimize'],
+    group: 'Now Playing',
+    transient: true,
+    run: () => (expanded.value ? collapse() : expand()),
+  });
+  commands.push({ kind: 'action', id: 'play:stop', title: 'Stop playback', keywords: ['stop', 'close', 'dismiss', 'end'], group: 'Now Playing', transient: true, run: () => stop() });
+
+  return commands;
+};
+
+// The native-audio counterpart to the Bandcamp openers: start any streamable
+// release from search. Gated on the flag so they vanish when the player is off.
+export const playReleaseCommands = (): Command[] => {
+  if (!audioPlayerEnabled.value) return [];
+
+  return Object.values(worksData)
+    .flatMap(section => section.items)
+    .filter(release => canPlayRelease(release.id))
+    .map((release): Command => ({
+      kind: 'action',
+      id: `play:release:${release.id}`,
+      title: `Play '${release.title}'`,
+      keywords: [release.title, 'play', 'listen', 'audio', 'music'],
+      group: 'Actions',
+      transient: true,
+      run: () => playReleaseAt(release),
+    }));
 };
 
 export const buildCommands = (): Command[] => [

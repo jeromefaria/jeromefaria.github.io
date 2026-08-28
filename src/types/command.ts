@@ -1,4 +1,4 @@
-export type CommandGroup = 'Recent' | 'Navigate' | 'Works' | 'Live' | 'Press' | 'Actions';
+export type CommandGroup = 'Recent' | 'Now Playing' | 'Navigate' | 'Works' | 'Live' | 'Press' | 'Actions';
 
 interface CommandBase {
   id: string;
@@ -22,11 +22,14 @@ export interface ResultCommand extends CommandBase {
 }
 
 // Anything the palette *does* rather than navigates to. `external` links open in
-// a new tab; `run` may be async so the execute path can await it.
+// a new tab; `run` may be async so the execute path can await it. `transient`
+// marks an ephemeral action (transport, play-a-release) that must not take a
+// recents slot.
 export interface ActionCommand extends CommandBase {
   kind: 'action';
   run: () => void | Promise<void>;
   external?: boolean;
+  transient?: boolean;
 }
 
 export type Command = NavigateCommand | ResultCommand | ActionCommand;

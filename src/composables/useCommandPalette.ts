@@ -2,7 +2,7 @@ import type { ComputedRef, Ref } from 'vue';
 import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { buildCommands } from '@/data/commands';
+import { buildCommands, playbackCommands, playReleaseCommands } from '@/data/commands';
 import type { Command } from '@/types/command';
 import { fuzzyRank } from '@/utils/fuzzy';
 import { openInNewTab } from '@/utils/openInNewTab';
@@ -49,6 +49,11 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
   const commands = buildCommands();
   const byId = new Map(commands.map(command => [command.id, command]));
 
+  // Reactive slices layered over the static registry: transport reflects live
+  // player state; the searchable set adds every streamable release.
+  const transportCommands = computed<Command[]>(() => playbackCommands());
+  const audioCommands = computed<Command[]>(() => [...transportCommands.value, ...playReleaseCommands()]);
+
   const query = ref('');
   const activeIndex = ref(0);
   const recentIds = ref<string[]>(loadRecents());
@@ -83,11 +88,13 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
         .map(id => byId.get(id))
         .filter((command): command is Command => command !== undefined);
       const clear = recents.length ? [clearRecentsCommand] : [];
-      return [...recents, ...clear, ...navigation];
+      // Transport sits at the top while a track plays — the palette doubles as a remote.
+      return [...transportCommands.value, ...recents, ...clear, ...navigation];
     }
 
     // Cap the list: subsequence matching is permissive, so keep the best-ranked few.
-    const searchable = recentCommands.value.length ? [...commands, clearRecentsCommand] : commands;
+    const recentsTail = recentCommands.value.length ? [clearRecentsCommand] : [];
+    const searchable = [...commands, ...audioCommands.value, ...recentsTail];
     return fuzzyRank(query.value, searchable).slice(0, MAX_RESULTS);
   });
 
@@ -124,7 +131,8 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     const command = results.value[index];
     if (!command) return;
 
-    remember(command.id);
+    // Ephemeral actions (transport, play-a-release) must not take a recents slot.
+    if (!(command.kind === 'action' && command.transient)) remember(command.id);
     close();
 
     if (command.kind === 'action') {
