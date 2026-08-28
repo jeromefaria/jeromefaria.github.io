@@ -26,10 +26,26 @@ let generation = 0;
 let retries = 0;
 let element: HTMLAudioElement | null = null;
 
+interface PlayContext {
+  album?: string;
+  artwork?: string;
+}
+
+let nowPlaying: PlayContext = {};
+
 const setMediaSession = (track: AudioTrack): void => {
   if (!('mediaSession' in navigator) || typeof MediaMetadata === 'undefined') return;
 
-  navigator.mediaSession.metadata = new MediaMetadata({ title: track.title, artist: 'Jerome Faria' });
+  const artwork = nowPlaying.artwork
+    ? [{ src: new URL(nowPlaying.artwork, location.href).href, sizes: '512x512', type: 'image/jpeg' }]
+    : [];
+
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: track.title,
+    artist: 'Jerome Faria',
+    album: nowPlaying.album ?? '',
+    artwork,
+  });
   navigator.mediaSession.setActionHandler('play', () => void resume());
   navigator.mediaSession.setActionHandler('pause', pause);
   navigator.mediaSession.setActionHandler('nexttrack', () => void next());
@@ -103,16 +119,17 @@ const load = async (): Promise<void> => {
   await start(gen);
 };
 
-export const play = async (tracks: AudioTrack[], startIndex = 0): Promise<void> => {
+export const play = async (tracks: AudioTrack[], startIndex = 0, context: PlayContext = {}): Promise<void> => {
   if (tracks.length === 0) return;
 
+  nowPlaying = context;
   queue.value = tracks;
   index.value = Math.min(Math.max(startIndex, 0), tracks.length - 1);
   await load();
 };
 
-export const playRelease = (releaseId: string, startIndex = 0): Promise<void> =>
-  play(getReleaseAudio(releaseId), startIndex);
+export const playRelease = (releaseId: string, context?: PlayContext): Promise<void> =>
+  play(getReleaseAudio(releaseId), 0, context);
 
 export const pause = (): void => {
   element?.pause();

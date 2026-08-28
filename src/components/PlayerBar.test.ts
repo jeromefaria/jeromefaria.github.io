@@ -41,6 +41,16 @@ describe('PlayerBar', () => {
     expect(wrapper.findAll('.player-bar__time')[1].text()).toBe('1:40');
   });
 
+  it('shows a spinner while busy and hides it once playing', async () => {
+    await player.play(TRACKS);
+    const wrapper = await mounted();
+    expect(wrapper.find('.player-bar__spinner').exists()).toBe(true);
+
+    player.getMediaElement().dispatchEvent(new Event('playing'));
+    await flushPromises();
+    expect(wrapper.find('.player-bar__spinner').exists()).toBe(false);
+  });
+
   it('announces playback state in the live region', async () => {
     await player.play(TRACKS);
     const wrapper = await mounted();
