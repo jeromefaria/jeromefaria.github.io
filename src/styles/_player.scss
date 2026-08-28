@@ -7,7 +7,8 @@
   left: 0;
   z-index: 900;
   display: flex;
-  gap: $spacing-5;
+  flex-wrap: wrap;
+  gap: $spacing-2 $spacing-4;
   align-items: center;
   padding: $spacing-3 $spacing-5;
   color: var(--color-text);
@@ -15,8 +16,8 @@
   border-top: 1px solid var(--color-border);
 
   &__title {
-    flex: 0 0 auto;
-    max-width: 20ch;
+    flex: 1 1 auto;
+    min-width: 0;
     margin: 0;
     overflow: hidden;
     font-weight: 500;
@@ -61,9 +62,11 @@
     }
   }
 
+  // Full width so it wraps onto its own row on narrow screens; inline from md up.
   &__seek {
     display: flex;
-    flex: 1 1 auto;
+    flex: 1 1 100%;
+    order: 1;
     gap: $spacing-3;
     align-items: center;
   }
@@ -91,6 +94,18 @@
     overflow: hidden;
     clip: rect(0 0 0 0);
     white-space: nowrap;
+  }
+
+  @include respond-to(md) {
+    flex-wrap: nowrap;
+
+    &__title {
+      flex: 0 1 24ch;
+    }
+
+    &__seek {
+      flex: 1 1 auto;
+    }
   }
 }
 
