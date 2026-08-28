@@ -722,8 +722,7 @@ export const worksData: WorksData = {
   },
 };
 
-// Generate a Mixing & Mastering credit for each of Jerome's own releases that carry an
-// `engineering` field — single source of truth, the credit links back to the full entry.
+// Generate a Mixing & Mastering credit for each own release carrying an `engineering` field.
 const ownEngineeringCredits: Release[] = Object.values(worksData).flatMap(section =>
   section.items
     .filter((release): release is Release & { engineering: EngineeringRole[] } => Boolean(release.engineering?.length))

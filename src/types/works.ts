@@ -82,8 +82,7 @@ export interface PublicationMeta {
 
 export type EngineeringRole = 'mixing' | 'mastering';
 
-// A mixing/mastering credit. `artist` is set for third-party work (the act whose release it is);
-// a generated credit for one of Jerome's own releases omits it and links back to the full entry.
+// A mixing/mastering credit; `artist` names the third-party act, omitted on a generated own-release credit.
 export interface EngineeringMeta {
   kind: 'engineering';
   artist?: Credit;
@@ -109,10 +108,9 @@ export interface Release {
   contributors?: Contributor[];
   images?: Image[];
   videos?: Video[];
-  // Jerome's mixing/mastering roles on his OWN release — surfaces a generated credit in
-  // the Mixing & Mastering section without duplicating the release.
+  // Roles on one of Jerome's own releases — generates a Mixing & Mastering credit without duplicating it.
   engineering?: EngineeringRole[];
-  // On a generated engineering credit: the id of the canonical release it links back to.
+  // On a generated credit: the canonical release id it links back to.
   worksRef?: string;
 }
 

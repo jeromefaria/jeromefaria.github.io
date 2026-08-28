@@ -13,8 +13,6 @@ const props = defineProps<{ release: Release }>();
 
 const artist = computed(() => (props.release.meta.kind === 'engineering' ? props.release.meta.artist : undefined));
 
-// Third-party credits link out to the release; a credit for one of Jerome's own releases links
-// back to its full entry on the site.
 const external = computed(() => hasExternalUrl(props.release));
 const href = computed(() => props.release.externalUrl ?? releasePath(props.release.worksRef ?? props.release.id));
 </script>
