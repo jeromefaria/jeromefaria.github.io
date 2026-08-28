@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { worksData } from './works';
 
 const allReleases = Object.values(worksData).flatMap(section => section.items);
-const KINDS = ['music', 'compilation', 'commission', 'publication', 'mastering'];
+const KINDS = ['music', 'compilation', 'commission', 'publication', 'engineering'];
 
 describe('worksData', () => {
   it('every release has a known meta kind and a four-digit year', () => {
@@ -14,12 +14,28 @@ describe('worksData', () => {
     }
   });
 
-  it('every mastering entry names the mastered artist', () => {
-    for (const item of worksData.mastering.items) {
-      expect(item.meta.kind, `id="${item.id}"`).toBe('mastering');
+  it('lists every section newest first', () => {
+    for (const section of Object.values(worksData)) {
+      const years = section.items.map(item => item.meta.year);
+      expect(years, section.title).toEqual([...years].sort((first, second) => second - first));
+    }
+  });
 
-      if (item.meta.kind === 'mastering') {
-        expect(item.meta.artist.name.trim(), `id="${item.id}" artist`).toBeTruthy();
+  it('every mixing/mastering credit carries a role; third-party names the artist, own links back', () => {
+    const credits = worksData['mixing-and-mastering']?.items ?? [];
+    expect(credits.length).toBeGreaterThan(0);
+
+    for (const item of credits) {
+      expect(item.meta.kind, `id="${item.id}"`).toBe('engineering');
+
+      if (item.meta.kind === 'engineering') {
+        expect(item.meta.roles.length, `id="${item.id}" roles`).toBeGreaterThan(0);
+
+        if (item.externalUrl) {
+          expect(item.meta.artist?.name.trim(), `id="${item.id}" artist`).toBeTruthy();
+        } else {
+          expect(item.worksRef, `id="${item.id}" worksRef`).toBeTruthy();
+        }
       }
     }
   });

@@ -60,12 +60,19 @@ describe('buildMetaSegments', () => {
       .toBe('Book — Pub, 2009');
   });
 
-  it('renders a mastering credit leading with the artist', () => {
+  it('renders an engineering credit as its roles, editions and year', () => {
     expect(asText({
-      kind: 'mastering',
-      artist: { name: 'Artist' },
+      kind: 'engineering',
+      roles: ['mixing', 'mastering'],
       editions: [{ label: { text: 'Label' }, catalog: 'L1' }],
       year: 2025,
-    })).toBe('Artist — Label, L1, 2025');
+    })).toBe('Mixing & Mastering — Label, L1, 2025');
+
+    expect(asText({
+      kind: 'engineering',
+      roles: ['mastering'],
+      editions: [{ label: { text: 'Label' } }],
+      year: 2012,
+    })).toBe('Mastering — Label, 2012');
   });
 });

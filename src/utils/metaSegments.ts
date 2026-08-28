@@ -1,4 +1,11 @@
-import type { Edition, ReleaseMeta } from '@/types/works';
+import type { Edition, EngineeringRole, ReleaseMeta } from '@/types/works';
+
+// Canonical order (workflow order), so ['mastering','mixing'] still reads "Mixing & Mastering".
+export const engineeringRolesLabel = (roles: EngineeringRole[]): string =>
+  (['mixing', 'mastering'] as EngineeringRole[])
+    .filter(role => roles.includes(role))
+    .map(role => (role === 'mixing' ? 'Mixing' : 'Mastering'))
+    .join(' & ');
 
 export type MetaSegment =
   | { kind: 'text'; text: string }
@@ -75,16 +82,11 @@ export const buildMetaSegments = (meta: ReleaseMeta): MetaSegment[] => {
       return segments;
     }
 
-    case 'mastering': {
-      const artist = meta.artist.url
-        ? { text: meta.artist.name, url: meta.artist.url }
-        : { text: meta.artist.name };
+    case 'engineering':
       return [
-        { kind: 'link', link: artist },
-        text(' — '),
+        text(`${engineeringRolesLabel(meta.roles)} — `),
         ...editionSegments(meta.editions),
         text(`, ${meta.year}`),
       ];
-    }
   }
 };

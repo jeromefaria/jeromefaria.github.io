@@ -3,6 +3,7 @@ import { computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import AccordionPage from '@/components/AccordionPage.vue';
+import EngineeringCreditItem from '@/components/EngineeringCreditItem.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
 import { pageMeta } from '@/data/pageMeta';
 import { worksData, worksSections } from '@/data/works';
@@ -43,7 +44,12 @@ watch(() => [releaseId.value, route.query['track'], route.query['t']], playFromR
     :head="head"
   >
     <template #item="{ item, openLightbox, updateHash }">
+      <EngineeringCreditItem
+        v-if="item.meta.kind === 'engineering'"
+        :release="item"
+      />
       <ReleaseItem
+        v-else
         :release="item"
         :text-only="!('coverImage' in item && item.coverImage)"
         @update-hash="updateHash"

@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { nextTick } from 'vue';
 
 import AccordionSection from '@/components/AccordionSection.vue';
+import EngineeringCreditItem from '@/components/EngineeringCreditItem.vue';
 import LightboxOverlay from '@/components/LightboxOverlay.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
@@ -51,10 +52,14 @@ describe('WorksView', () => {
     expect(wrapper.findAllComponents(AccordionSection)).toHaveLength(worksSections.length);
   });
 
-  it('renders a release item for every release across all sections', async () => {
+  it('renders a release item for every non-credit release, and a credit for each engineering entry', async () => {
     const wrapper = await mountView(WorksView, '/works');
-    const totalReleases = Object.values(worksData).reduce((sum, section) => sum + section.items.length, 0);
-    expect(wrapper.findAllComponents(ReleaseItem)).toHaveLength(totalReleases);
+    const items = Object.values(worksData).flatMap(section => section.items);
+    const releases = items.filter(item => item.meta.kind !== 'engineering');
+    const credits = items.filter(item => item.meta.kind === 'engineering');
+
+    expect(wrapper.findAllComponents(ReleaseItem)).toHaveLength(releases.length);
+    expect(wrapper.findAllComponents(EngineeringCreditItem)).toHaveLength(credits.length);
   });
 
   it('has a page heading and wraps each accordion trigger in a heading', async () => {
