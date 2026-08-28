@@ -2,6 +2,7 @@ import { flushPromises, mount } from '@vue/test-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
+import { getMediaElement } from '@/composables/usePlayer';
 import type { Release } from '@/types';
 
 import BandcampPlayer from './BandcampPlayer.vue';
@@ -43,6 +44,23 @@ const external: Release = {
   externalUrl: 'https://example.com/ect',
   tracklist: [{ title: 'Play' }],
   credits: 'Music by Jerome Faria.',
+};
+
+// A single audio file whose display tracklist is split into timed movements.
+const chaptered: Release = {
+  id: '2504',
+  title: '2504',
+  meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2024 },
+  coverImage: '/images/2504.jpg',
+  bandcampUrl: 'https://music.jeromefaria.com/album/2504',
+  soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/april-25',
+  tracklist: [
+    { title: 'Prólogo', start: 0 },
+    { title: 'Fado', start: 212 },
+    { title: 'Fátima', start: 572 },
+    { title: 'Futebol', start: 932 },
+    { title: 'Epílogo', start: 1292 },
+  ],
 };
 
 const staticCover: Release = {
@@ -214,6 +232,25 @@ describe('ReleaseItem', () => {
     };
 
     expect(mountRelease(release).findAll('.track-play')).toHaveLength(0);
+  });
+
+  it('renders a play button per movement for a chaptered single-file release', () => {
+    expect(mountRelease(chaptered).findAll('.track-play')).toHaveLength(5);
+  });
+
+  it('seeks to a movement offset and highlights the one under the playhead', async () => {
+    const wrapper = mountRelease(chaptered);
+
+    await wrapper.findAll('.track-play')[2].trigger('click');
+    await flushPromises();
+    expect(HTMLMediaElement.prototype.play).toHaveBeenCalled();
+
+    const element = getMediaElement();
+    element.currentTime = 600;
+    element.dispatchEvent(new Event('timeupdate'));
+    await flushPromises();
+
+    expect(wrapper.findAll('ol li')[2].classes()).toContain('track--playing');
   });
 
   it('emits open-lightbox with converted images from the gallery button', async () => {
