@@ -1,6 +1,12 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { buildCommands } from './commands';
+import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
+import { getMediaElement, next, play, stop, usePlayer } from '@/composables/usePlayer';
+import type { AudioTrack } from '@/types/audio';
+
+import { buildCommands, playbackCommands, playReleaseCommands } from './commands';
+
+const idsOf = (commands: ReturnType<typeof playbackCommands>): string[] => commands.map(command => command.id);
 
 describe('buildCommands', () => {
   const commands = buildCommands();
@@ -77,5 +83,99 @@ describe('buildCommands', () => {
   it('gives every command a unique id', () => {
     const ids = commands.map(command => command.id);
     expect(new Set(ids).size).toBe(ids.length);
+  });
+});
+
+const twoTracks: AudioTrack[] = [
+  { key: 'a', title: 'First movement', duration: 120 },
+  { key: 'b', title: 'Second movement', duration: 90 },
+];
+
+describe('playbackCommands', () => {
+  beforeEach(() => {
+    HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
+    HTMLMediaElement.prototype.pause = vi.fn();
+    HTMLMediaElement.prototype.load = vi.fn();
+    stop();
+  });
+
+  afterEach(() => stop());
+
+  it('is empty until a track is loaded', () => {
+    expect(playbackCommands()).toEqual([]);
+  });
+
+  it('exposes transport that tracks the queue position and player state', async () => {
+    await play(twoTracks);
+
+    const atStart = playbackCommands();
+    expect(idsOf(atStart)).toEqual(['play:toggle', 'play:next', 'play:expand', 'play:stop']);
+    expect(atStart[0]?.subtitle).toBe('First movement');
+    expect(atStart.every(command => command.kind === 'action' && command.transient)).toBe(true);
+
+    getMediaElement().dispatchEvent(new Event('playing'));
+    const toggle = playbackCommands()[0];
+    if (toggle?.kind === 'action') await toggle.run();
+    expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
+
+    await next();
+    const atEnd = idsOf(playbackCommands());
+    expect(atEnd).toContain('play:previous');
+    expect(atEnd).not.toContain('play:next');
+  });
+
+  it('labels the toggle and expand controls from live state', async () => {
+    const { expanded } = usePlayer();
+    await play(twoTracks);
+    const media = getMediaElement();
+
+    const toggleTitle = (): string | undefined =>
+      playbackCommands().find(command => command.id === 'play:toggle')?.title;
+
+    media.dispatchEvent(new Event('playing'));
+    expect(toggleTitle()).toBe('Pause');
+
+    media.dispatchEvent(new Event('pause'));
+    expect(toggleTitle()).toBe('Play');
+
+    const expand = playbackCommands().find(command => command.id === 'play:expand');
+    if (expand?.kind === 'action') await expand.run();
+    expect(expanded.value).toBe(true);
+    expect(playbackCommands().find(command => command.id === 'play:expand')?.title).toBe('Collapse player');
+  });
+});
+
+describe('playReleaseCommands', () => {
+  beforeEach(() => {
+    HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
+    HTMLMediaElement.prototype.pause = vi.fn();
+    HTMLMediaElement.prototype.load = vi.fn();
+    audioPlayerEnabled.value = true;
+    stop();
+  });
+
+  afterEach(() => {
+    stop();
+    audioPlayerEnabled.value = true;
+  });
+
+  it('offers a Play action for every streamable release, gated on the flag', () => {
+    const commands = playReleaseCommands();
+
+    expect(commands.length).toBeGreaterThan(0);
+    expect(commands.every(command => command.id.startsWith('play:release:'))).toBe(true);
+    expect(commands.every(command => command.title.startsWith("Play '"))).toBe(true);
+    expect(commands.every(command => command.kind === 'action' && command.transient)).toBe(true);
+
+    audioPlayerEnabled.value = false;
+    expect(playReleaseCommands()).toEqual([]);
+  });
+
+  it('starts the chosen release when run', async () => {
+    const { currentTrack } = usePlayer();
+    const command = playReleaseCommands().find(entry => entry.id === 'play:release:2504');
+
+    if (command?.kind === 'action') await command.run();
+    expect(currentTrack.value).not.toBeNull();
   });
 });

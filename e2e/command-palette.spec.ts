@@ -64,6 +64,22 @@ test.describe('Command palette (⌘K)', () => {
     await expect(html).not.toHaveAttribute('data-theme', 'dark');
   });
 
+  test('plays a release from search, then exposes transport controls', async ({ page }) => {
+    await gotoHydrated(page, '/');
+
+    await page.keyboard.press('Control+k');
+    await page.locator(INPUT).fill('play 2504');
+    await expect(page.locator(OPTION).first()).toContainText("Play '2504'");
+
+    await page.keyboard.press('Enter');
+    await expect(page.locator(PALETTE)).toHaveCount(0);
+    await expect(page.locator('.player-bar')).toBeVisible();
+
+    await page.keyboard.press('Control+k');
+    await expect(page.locator('.command-palette__group').first()).toContainText('Now Playing');
+    await expect(page.locator(OPTION).first()).toContainText(/^(Pause|Play)/);
+  });
+
   test('matches its snapshot @visual', async ({ page }) => {
     await gotoHydrated(page, '/');
 
