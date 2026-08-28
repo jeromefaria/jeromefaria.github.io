@@ -240,6 +240,53 @@ describe('usePlayer', () => {
     expect(api.expanded.value).toBe(false);
   });
 
+  it('plays a new track and applies the start offset once metadata loads', async () => {
+    await mod.playFrom([{ key: 'x/1.m4a', title: '2504', duration: 1504 }], 1292);
+    const api = mod.usePlayer();
+    expect(playMock).toHaveBeenCalled();
+
+    fire(mod.getMediaElement(), 'loadedmetadata');
+    expect(api.currentTime.value).toBe(1292);
+  });
+
+  it('seeks in place when the same single-file track is already loaded', async () => {
+    const track = { key: 'x/1.m4a', title: '2504', duration: 1504 };
+    await mod.play([track]);
+    fire(mod.getMediaElement(), 'playing');
+    playMock.mockClear();
+
+    await mod.playFrom([track], 572);
+
+    expect(mod.usePlayer().currentTime.value).toBe(572);
+    expect(playMock).not.toHaveBeenCalled();
+  });
+
+  it('resumes a paused single-file track when a movement is picked', async () => {
+    const track = { key: 'x/1.m4a', title: '2504', duration: 1504 };
+    await mod.play([track]);
+    fire(mod.getMediaElement(), 'playing');
+    fire(mod.getMediaElement(), 'pause');
+    playMock.mockClear();
+
+    await mod.playFrom([track], 572);
+
+    expect(mod.usePlayer().currentTime.value).toBe(572);
+    expect(playMock).toHaveBeenCalled();
+  });
+
+  it('ignores playFrom with an empty track list', async () => {
+    await mod.playFrom([], 100);
+    expect(mod.usePlayer().currentTrack.value).toBeNull();
+  });
+
+  it('drops a pending start offset once a later track supersedes it', async () => {
+    await mod.playFrom([{ key: 'a.m4a', title: 'A', duration: 1000 }], 500);
+    await mod.play([{ key: 'b.m4a', title: 'B', duration: 200 }]);
+
+    fire(mod.getMediaElement(), 'loadedmetadata');
+    expect(mod.usePlayer().currentTime.value).toBe(0);
+  });
+
   it('exposes the play context', async () => {
     await mod.play(TRACKS, 0, { album: 'An Album', artwork: '/cover.jpg' });
     expect(mod.usePlayer().context.value.album).toBe('An Album');

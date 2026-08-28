@@ -8,6 +8,7 @@ export type PlayerStatus = 'idle' | 'loading' | 'buffering' | 'playing' | 'pause
 const RETRY_LIMIT = 2;
 const RETRY_BASE_MS = 500;
 const RESTART_THRESHOLD_SEC = 3;
+const HAVE_METADATA = 1;
 
 const status = ref<PlayerStatus>('idle');
 const queue = ref<AudioTrack[]>([]);
@@ -129,6 +130,37 @@ export const play = async (tracks: AudioTrack[], startIndex = 0, context: PlayCo
   await load();
 };
 
+// Seek once the media can report its duration; the generation guard drops the
+// offset if the user has since jumped elsewhere.
+const applyStartOffset = (gen: number, seconds: number): void => {
+  if (!element || gen !== generation) return;
+
+  if (element.readyState >= HAVE_METADATA) {
+    seek(seconds);
+    return;
+  }
+
+  const onReady = (): void => {
+    element?.removeEventListener('loadedmetadata', onReady);
+    if (gen === generation) seek(seconds);
+  };
+  element.addEventListener('loadedmetadata', onReady);
+};
+
+// Start (or seek within) a track at a given offset — used for chaptered single-file releases.
+export const playFrom = async (tracks: AudioTrack[], seconds: number, context: PlayContext = {}): Promise<void> => {
+  if (tracks.length === 0) return;
+
+  if (tracks.length === 1 && currentTrack.value?.key === tracks[0]?.key) {
+    seek(seconds);
+    if (status.value !== 'playing' && status.value !== 'loading' && status.value !== 'buffering') await resume();
+    return;
+  }
+
+  await play(tracks, 0, context);
+  applyStartOffset(generation, seconds);
+};
+
 export const select = async (targetIndex: number): Promise<void> => {
   if (targetIndex < 0 || targetIndex >= queue.value.length) return;
 
@@ -218,6 +250,7 @@ interface PlayerApi {
   context: Readonly<Ref<PlayContext>>;
   expanded: Readonly<Ref<boolean>>;
   play: typeof play;
+  playFrom: typeof playFrom;
   playRelease: typeof playRelease;
   pause: typeof pause;
   resume: typeof resume;
@@ -243,6 +276,7 @@ export const usePlayer = (): PlayerApi => ({
   context: readonly(nowPlaying),
   expanded: readonly(expanded),
   play,
+  playFrom,
   playRelease,
   pause,
   resume,
