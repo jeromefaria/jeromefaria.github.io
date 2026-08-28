@@ -1,0 +1,16 @@
+@use "variables" as *;
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-2;
+
+  @include respond-to(sm) {
+    gap: $spacing-4;
+  }
+
+  a {
+    @include hover-text;
+  }
+}
+
