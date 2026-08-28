@@ -142,6 +142,39 @@
   }
 }
 
+.track-play {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: $spacing-1;
+  padding: 0;
+  color: var(--color-text-muted);
+  vertical-align: -0.2em;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color $transition-fast;
+
+  svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  &:hover {
+    color: var(--color-text);
+  }
+}
+
+.track--playing {
+  color: var(--color-text);
+
+  .track-play {
+    color: var(--color-text);
+  }
+}
+
 @keyframes player-spin {
   to {
     transform: rotate(360deg);
