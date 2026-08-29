@@ -71,7 +71,7 @@
     "@vitest/coverage-v8": "^4.1.11",
     "@vitest/ui": "^4.0.16",
     "@vue/test-utils": "^2.4.6",
-    "archiver": "^7.0.1",
+    "archiver": "^8.0.0",
     "eslint": "^10.9.0",
     "eslint-plugin-simple-import-sort": "^14.0.0",
     "eslint-plugin-vue": "^10.6.2",
