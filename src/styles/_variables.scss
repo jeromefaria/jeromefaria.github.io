@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 $font-mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
 $font-size-xs: 0.6875rem;
@@ -64,6 +66,18 @@ $opacity-80: 0.8;
 $opacity-90: 0.9;
 $overlay-dark: rgb(0 0 0 / 40%);
 $overlay-scrim: rgb(0 0 0 / 50%);
+
+// Smoothly interpolate a rem value between two viewport widths, clamped to
+// [$min, $max] — replaces a hard breakpoint step with a fluid ramp. Reaches
+// $max at $to-vw (the desktop VR width), so wide layouts are unchanged.
+@function fluid($min, $max, $from-vw: $breakpoint-sm, $to-vw: $breakpoint-xl) {
+  $from-rem: math.div($from-vw, 16px) * 1rem;
+  $to-rem: math.div($to-vw, 16px) * 1rem;
+  $slope: math.div($max - $min, $to-rem - $from-rem);
+  $intercept: $min - $slope * $from-rem;
+
+  @return clamp(#{$min}, #{$intercept} + #{$slope * 100}vw, #{$max});
+}
 
 @mixin respond-to($breakpoint) {
   @if $breakpoint == sm {
