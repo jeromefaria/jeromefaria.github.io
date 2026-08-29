@@ -58,7 +58,7 @@ describe('PlayerScreen', () => {
   it('drives playback from the large controls and swaps to the pause icon while playing', async () => {
     await player.play(TRACKS, 0);
     const wrapper = await mounted();
-    const buttons = wrapper.findAll('.player-screen__button');
+    const buttons = wrapper.findAll('.transport-controls__button');
 
     await buttons[2].trigger('click');
     await flushPromises();
@@ -81,7 +81,7 @@ describe('PlayerScreen', () => {
     const wrapper = await mounted();
 
     expect(wrapper.find('.player-screen__queue').exists()).toBe(false);
-    const buttons = wrapper.findAll('.player-screen__button');
+    const buttons = wrapper.findAll('.transport-controls__button');
     expect(buttons[0].attributes('disabled')).toBeDefined();
     expect(buttons[2].attributes('disabled')).toBeDefined();
   });
