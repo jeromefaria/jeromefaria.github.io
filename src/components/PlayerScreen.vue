@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
+import { useFocusReturn } from '@/composables/useFocusReturn';
 import { useFocusTrap } from '@/composables/useFocusTrap';
 import { usePlayer } from '@/composables/usePlayer';
 import { useScrollLock } from '@/composables/useScrollLock';
@@ -22,8 +23,7 @@ const trackLabel = (track: AudioTrack): string => (track.artist ? `${track.artis
 const dialog = ref<HTMLElement | null>(null);
 const { onKeydown: trapTab } = useFocusTrap(dialog);
 const { lock, unlock } = useScrollLock();
-
-let previouslyFocused: HTMLElement | null = null;
+const { capture, restore } = useFocusReturn();
 
 const onKeydown = (event: KeyboardEvent): void => {
   if (event.key === 'Escape') {
@@ -35,14 +35,14 @@ const onKeydown = (event: KeyboardEvent): void => {
 };
 
 onMounted(() => {
-  previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  capture();
   lock();
   dialog.value?.focus();
 });
 
 onBeforeUnmount(() => {
   unlock();
-  previouslyFocused?.focus();
+  restore();
 });
 </script>
 

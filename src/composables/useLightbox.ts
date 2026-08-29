@@ -3,6 +3,7 @@ import { onMounted, onUnmounted, ref } from 'vue';
 
 import type { LightboxItem } from '@/types/lightbox';
 
+import { useFocusReturn } from './useFocusReturn';
 import { useScrollLock } from './useScrollLock';
 
 export interface UseLightboxReturn {
@@ -22,12 +23,11 @@ export const useLightbox = (): UseLightboxReturn => {
   const currentIndex = ref(0);
   const items = ref<LightboxItem[]>([]);
 
-  let previouslyFocused: HTMLElement | null = null;
-
   const { lock, unlock } = useScrollLock();
+  const { capture, restore } = useFocusReturn();
 
   const openLightbox = (allItems: LightboxItem[] = [], index = 0): void => {
-    previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    capture();
     items.value = allItems;
     currentIndex.value = index;
     updateCurrentItem(index);
@@ -41,8 +41,7 @@ export const useLightbox = (): UseLightboxReturn => {
     items.value = [];
     currentIndex.value = 0;
     unlock();
-    previouslyFocused?.focus();
-    previouslyFocused = null;
+    restore();
   };
 
   const updateCurrentItem = (index: number): void => {
