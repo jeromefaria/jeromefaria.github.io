@@ -125,7 +125,7 @@ jobs:
     name: Lighthouse
     runs-on: ubuntu-latest
     needs: build
-    timeout-minutes: 15
+    timeout-minutes: 20
 
     steps:
       - name: Checkout code
@@ -152,6 +152,14 @@ jobs:
       # image weight are advisory (warn) in .lighthouserc.json.
       - name: Run Lighthouse CI
         run: npm run lighthouse
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      # Mobile emulation (Moto G4 + slow 4G). CWV assertions are advisory (warn)
+      # so a variable CI runner never hard-fails on mobile timings; the desktop
+      # run keeps the deterministic gates (a11y, resource sizes, compression).
+      - name: Run Lighthouse CI (mobile)
+        run: npm run lighthouse:mobile
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
