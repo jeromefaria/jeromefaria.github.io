@@ -1,9 +1,6 @@
 import { useRouter } from 'vue-router';
 
-// Internal links inside v-html prose are raw anchors, so a click triggers a full
-// page reload — which flashes the theme and unstyled content on the SSG page.
-// This routes those clicks through the SPA router instead. External, download,
-// new-tab, hash-only, and modifier/middle clicks are left to the browser.
+// Internal links in v-html prose are raw anchors — a click full-reloads and flashes the SSG theme; route them through the SPA router instead.
 export const useProseLinks = (): ((event: MouseEvent) => void) => {
   const router = useRouter();
 

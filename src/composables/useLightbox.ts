@@ -22,7 +22,6 @@ export const useLightbox = (): UseLightboxReturn => {
   const currentIndex = ref(0);
   const items = ref<LightboxItem[]>([]);
 
-  // Element focused before opening, restored on close (WCAG 2.4.3)
   let previouslyFocused: HTMLElement | null = null;
 
   const { lock, unlock } = useScrollLock();

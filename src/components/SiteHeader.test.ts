@@ -94,7 +94,7 @@ describe('SiteHeader', () => {
   it('closes when a pointer interaction happens outside the menu', async () => {
     const { wrapper } = await mountHeader();
     await wrapper.get('.nav-toggle').trigger('click');
-    await nextTick();  // the outside-pointer listener binds on the next tick
+    await nextTick();
     expect(wrapper.find('.nav--open').exists()).toBe(true);
 
     document.body.dispatchEvent(new Event('pointerdown', { bubbles: true }));

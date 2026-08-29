@@ -29,8 +29,6 @@ const emit = defineEmits<{
   'open-lightbox': [items: LightboxItem[], index: number];
 }>();
 
-// Collapsed accordion sections sit at zero height, defeating native
-// lazy-loading; defer cover loading until the section is first opened.
 const coverVisible = useAccordionVisibility();
 
 const coverErrored = ref(false);

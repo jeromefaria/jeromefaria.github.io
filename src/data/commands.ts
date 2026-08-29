@@ -16,7 +16,6 @@ import { stripHtml } from '@/utils/stripHtml';
 
 import { pressQuotes } from './press';
 
-// Authored (not router-derived) so each has a title + keywords, incl. routes not in the nav.
 const routeCommands = (): Command[] => [
   { kind: 'navigate', id: 'nav:home', title: 'Home', keywords: ['start', 'index'], group: 'Navigate', to: '/' },
   { kind: 'navigate', id: 'nav:works', title: 'Works', keywords: ['discography', 'releases', 'music', 'albums'], group: 'Navigate', to: '/works' },
@@ -39,8 +38,6 @@ const sectionCommands = (): Command[] => [
   })),
 ];
 
-// Every named entity attached to a release's metadata — labels, catalog numbers,
-// collaborators, compilation, publisher, director, venue, mastered artist.
 const metaText = (meta: ReleaseMeta): string[] => {
   const out: string[] = [];
 
@@ -55,11 +52,9 @@ const metaText = (meta: ReleaseMeta): string[] => {
   return out.filter(Boolean);
 };
 
-// Every field is indexed word-by-word after stripping HTML, so a query matches a discrete
-// word rather than scattering across a passage or raw markup (e.g. URLs inside a note).
+// Indexed word-by-word after stripping HTML, so a query matches discrete words, not raw markup like URLs.
 const words = (text: string): string[] => stripHtml(text).split(' ').filter(Boolean);
 
-// Everyone attached to a show — collaborators, the rest of the bill, photographers, poster artists.
 const eventPeople = (event: LiveEvent): string[] => {
   const { setup } = event;
   const names: string[] = [];
@@ -76,7 +71,6 @@ const eventPeople = (event: LiveEvent): string[] => {
   return names.filter(Boolean);
 };
 
-// Each release deep-links to its entry; the accordion opens the owning section.
 // Engineering credits are skipped — they carry no in-page anchor (they link out or to a real entry).
 const releaseCommands = (): Command[] =>
   Object.values(worksData).flatMap(section =>
@@ -118,7 +112,6 @@ const pressCommands = (): Command[] =>
 
 const allReleases = (): Release[] => Object.values(worksData).flatMap(section => section.items);
 
-// One "Open '<release>' on <platform>" action per release that carries that link.
 const releaseLinkCommands = (platform: string, keyword: string, urlOf: (release: Release) => string | undefined): Command[] =>
   allReleases().flatMap(release => {
     const url = urlOf(release);
@@ -181,8 +174,7 @@ const actionCommands = (): Command[] => {
   return [...downloads, help, ...appearance, contact, ...socials, ...bandcamp, ...soundcloud];
 };
 
-// Transport for the active track — merged reactively in useCommandPalette, so it is
-// kept out of the static registry and returns nothing when no track is loaded.
+// Empty when no track is loaded; merged in reactively by useCommandPalette, not the static registry.
 export const playbackCommands = (): Command[] => {
   const { currentTrack, status, hasNext, hasPrevious, expanded, toggle, next, previous, expand, collapse, stop } = usePlayer();
   const track = currentTrack.value;

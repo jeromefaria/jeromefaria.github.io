@@ -19,8 +19,6 @@ const onSeek = (event: Event): void => {
 
 const trackLabel = (track: AudioTrack): string => (track.artist ? `${track.artist} — ${track.title}` : track.title);
 
-// role="dialog" aria-modal: trap Tab within the screen, restore focus to the
-// trigger on close, and lock background scroll — matching the palette/lightbox.
 const dialog = ref<HTMLElement | null>(null);
 const { onKeydown: trapTab } = useFocusTrap(dialog);
 const { lock, unlock } = useScrollLock();

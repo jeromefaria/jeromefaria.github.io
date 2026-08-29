@@ -12,7 +12,6 @@ import ReleaseItem from './ReleaseItem.vue';
 const mountRelease = (release: Release, textOnly = false) =>
   mount(ReleaseItem, { props: { release, textOnly } });
 
-// A Bandcamp release with no native audio (collaboration/compilation) — keeps the embed.
 const bandcamp: Release = {
   id: 'bandcamp-only',
   title: 'ALTAR',
@@ -24,7 +23,6 @@ const bandcamp: Release = {
   credits: 'Music by Jerome Faria.',
 };
 
-// A solo/curated release with native audio in the manifest — gets the cover player + Listen links.
 const audioBacked: Release = {
   id: 'overlapse',
   title: 'Overlapse',
@@ -46,7 +44,6 @@ const external: Release = {
   credits: 'Music by Jerome Faria.',
 };
 
-// A single audio file whose display tracklist is split into timed movements.
 const chaptered: Release = {
   id: '2504',
   title: '2504',
