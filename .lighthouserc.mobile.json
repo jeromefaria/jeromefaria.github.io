@@ -1,0 +1,29 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "./dist",
+      "url": [
+        "http://localhost/index.html",
+        "http://localhost/works.html",
+        "http://localhost/live.html",
+        "http://localhost/press.html",
+        "http://localhost/about.html",
+        "http://localhost/contact.html"
+      ],
+      "numberOfRuns": 3
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["warn", {"minScore": 0.85}],
+        "first-contentful-paint": ["warn", {"maxNumericValue": 3000}],
+        "largest-contentful-paint": ["warn", {"maxNumericValue": 4000}],
+        "cumulative-layout-shift": ["warn", {"maxNumericValue": 0.1}],
+        "total-blocking-time": ["warn", {"maxNumericValue": 600}],
+        "speed-index": ["warn", {"maxNumericValue": 5800}]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

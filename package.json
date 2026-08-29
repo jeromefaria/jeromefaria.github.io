@@ -23,6 +23,7 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",
     "lighthouse": "lhci autorun",
+    "lighthouse:mobile": "lhci autorun --config=.lighthouserc.mobile.json",
     "fonts:subset": "node scripts/subset-fonts.mjs",
     "test:e2e:visual": "playwright test --grep @visual",
     "test:e2e:visual:update": "playwright test --grep @visual --update-snapshots",
