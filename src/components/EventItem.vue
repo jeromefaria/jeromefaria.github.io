@@ -23,8 +23,6 @@ const emit = defineEmits<{
 
 const formattedDate = computed(() => formatEventDateRange(props.event.date, props.event.endDate));
 
-// Surfaced as a trailing icon link, not wrapping the title, since the title is
-// already a permalink anchor and anchors can't nest.
 const titleHref = computed(() => props.event.titleUrl ?? null);
 
 const titleHrefIsExternal = computed(() => /^https?:/i.test(titleHref.value ?? ''));

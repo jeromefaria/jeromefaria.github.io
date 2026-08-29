@@ -5,7 +5,6 @@ import { getReleaseAudio } from '@/data/audio';
 import type { Release } from '@/types';
 import { canPlayRelease, playReleaseAt, releasePath } from '@/utils/releasePermalink';
 
-// All of a release item's playback behaviour — release-level, per-track, and chaptered single-file.
 export const useReleasePlayback = (releaseGetter: () => Release) => {
   const release = computed(releaseGetter);
   const { currentTrack, currentTime, status } = usePlayer();
@@ -16,7 +15,6 @@ export const useReleasePlayback = (releaseGetter: () => Release) => {
   const perTrackPlayable = computed(() =>
     playable.value && audioTracks.value.length === (release.value.tracklist?.length ?? 0));
 
-  // A single audio file whose display tracklist is split into timed movements (2504).
   const chaptered = computed(() =>
     playable.value
     && audioTracks.value.length === 1
@@ -29,7 +27,6 @@ export const useReleasePlayback = (releaseGetter: () => Release) => {
   const releaseActive = computed(() => releaseIsCurrent.value && isActiveStatus(status.value));
   const releaseBusy = computed(() => releaseIsCurrent.value && isBusyStatus(status.value));
 
-  // The movement currently under the playhead — the last one whose offset has passed.
   const currentChapterIndex = computed(() => {
     if (!chaptered.value || !releaseIsCurrent.value) return -1;
 
@@ -46,7 +43,6 @@ export const useReleasePlayback = (releaseGetter: () => Release) => {
 
   const isCurrentChapter = (index: number): boolean => chaptered.value && currentChapterIndex.value === index;
 
-  // The shareable path for a track: a 1-based index, or a time offset for chaptered single files.
   const trackHref = (index: number): string => {
     if (perTrackPlayable.value) return releasePath(release.value.id, { track: index + 1 });
     if (chaptered.value) return releasePath(release.value.id, { t: release.value.tracklist?.[index]?.start ?? 0 });

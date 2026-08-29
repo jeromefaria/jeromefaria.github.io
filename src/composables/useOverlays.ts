@@ -3,7 +3,7 @@ import { onMounted, onUnmounted, ref } from 'vue';
 export const paletteOpen = ref(false);
 export const helpOpen = ref(false);
 
-// Latches true on first use so the async component stays mounted (instant re-open).
+// Latches true on first use so the async component stays mounted.
 export const paletteMounted = ref(false);
 export const helpMounted = ref(false);
 

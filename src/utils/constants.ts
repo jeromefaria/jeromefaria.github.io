@@ -6,10 +6,10 @@ export const TIMING = {
 
 // Keep in sync with _variables.scss
 export const LAYOUT = {
-  BREAKPOINT_MD: 768,           // $breakpoint-md
-  HEADER_HEIGHT_MOBILE: 57,     // $header-height-mobile
-  HEADER_HEIGHT_DESKTOP: 77,    // $header-height-desktop
-  SPACING_4: 16,                // $spacing-4
+  BREAKPOINT_MD: 768,
+  HEADER_HEIGHT_MOBILE: 57,
+  HEADER_HEIGHT_DESKTOP: 77,
+  SPACING_4: 16,
 } as const;
 
 export const ID_PREFIX = {

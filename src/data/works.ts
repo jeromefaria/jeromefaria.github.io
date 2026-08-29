@@ -722,7 +722,6 @@ export const worksData: WorksData = {
   },
 };
 
-// Generate a Mixing & Mastering credit for each own release carrying an `engineering` field.
 const ownEngineeringCredits: Release[] = Object.values(worksData).flatMap(section =>
   section.items
     .filter((release): release is Release & { engineering: EngineeringRole[] } => Boolean(release.engineering?.length))

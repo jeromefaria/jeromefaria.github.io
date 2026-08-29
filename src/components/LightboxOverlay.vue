@@ -49,8 +49,6 @@ const dialogLabel = computed(() => {
   return `${noun} viewer`;
 });
 
-// Move focus into the dialog on open and trap Tab within it, so keyboard users
-// can't reach the inert background behind the overlay.
 const dialogRef = ref<HTMLElement | null>(null);
 const { onKeydown } = useFocusTrap(dialogRef);
 

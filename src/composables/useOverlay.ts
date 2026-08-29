@@ -3,7 +3,6 @@ import { nextTick, onUnmounted, watch } from 'vue';
 
 import { useScrollLock } from './useScrollLock';
 
-// Focus capture/restore (WCAG 2.4.3) + scroll-lock shared by the keyboard overlays.
 export const useOverlay = (isOpen: Ref<boolean>, focusTarget: Ref<HTMLElement | null>): void => {
   const { lock, unlock } = useScrollLock();
 

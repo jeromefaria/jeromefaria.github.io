@@ -5,8 +5,7 @@ import type { AudioTrack } from '@/types/audio';
 
 export type PlayerStatus = 'idle' | 'loading' | 'buffering' | 'playing' | 'paused' | 'ended' | 'error';
 
-// "Active" = the user has asked this track to play (already playing or on its way there);
-// "busy" narrows that to the not-yet-audible part, used for buffering affordances.
+// "Busy" narrows "active" to the not-yet-audible part, used for buffering affordances.
 const ACTIVE_STATUSES: PlayerStatus[] = ['playing', 'loading', 'buffering'];
 const BUSY_STATUSES: PlayerStatus[] = ['loading', 'buffering'];
 
@@ -144,8 +143,7 @@ export const play = async (tracks: AudioTrack[], startIndex = 0, context: PlayCo
   await load();
 };
 
-// Seek once the media can report its duration; the generation guard drops the
-// offset if the user has since jumped elsewhere.
+// The generation guard drops this offset if the user has since jumped to another track.
 const applyStartOffset = (gen: number, seconds: number): void => {
   if (!element || gen !== generation) return;
 
@@ -161,7 +159,6 @@ const applyStartOffset = (gen: number, seconds: number): void => {
   element.addEventListener('loadedmetadata', onReady);
 };
 
-// Start (or seek within) a track at a given offset — used for chaptered single-file releases.
 export const playFrom = async (tracks: AudioTrack[], seconds: number, context: PlayContext = {}): Promise<void> => {
   if (tracks.length === 0) return;
 

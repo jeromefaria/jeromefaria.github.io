@@ -142,7 +142,7 @@ describe('useLightbox', () => {
       it('should not navigate past last item', () => {
         const wrapper = mount(createTestComponent());
 
-        wrapper.vm.openLightbox(mockImages, 2); // Last item
+        wrapper.vm.openLightbox(mockImages, 2);
         wrapper.vm.goToNext();
 
         expect(wrapper.vm.currentIndex).toBe(2);

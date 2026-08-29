@@ -49,7 +49,6 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
   const commands = buildCommands();
   const byId = new Map(commands.map(command => [command.id, command]));
 
-  // Reactive slices over the static registry: transport, plus every streamable release.
   const transportCommands = computed<Command[]>(() => playbackCommands());
   const audioCommands = computed<Command[]>(() => [...transportCommands.value, ...playReleaseCommands()]);
 
@@ -90,7 +89,6 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
       return [...transportCommands.value, ...recents, ...clear, ...navigation];
     }
 
-    // Cap the list: subsequence matching is permissive, so keep the best-ranked few.
     const recentsTail = recentCommands.value.length ? [clearRecentsCommand] : [];
     const searchable = [...commands, ...audioCommands.value, ...recentsTail];
     return fuzzyRank(query.value, searchable).slice(0, MAX_RESULTS);
@@ -118,7 +116,6 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
   };
 
   const remember = (id: string): void => {
-    // Main-nav routes always sit in Navigate, so they never take a Recent slot.
     if (PRIMARY_ROUTE_IDS.includes(id)) return;
 
     recentIds.value = [id, ...recentIds.value.filter(existing => existing !== id)].slice(0, RECENTS_MAX);
@@ -145,42 +142,27 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     await router.push(command.to);
   };
 
-  const handleKeydown = (event: KeyboardEvent): void => {
-    const ctrl = event.ctrlKey;
+  const keyActions: Record<string, (event: KeyboardEvent) => void> = {
+    Tab: () => {},
+    Escape: () => close(),
+    'ctrl+c': () => close(),
+    ArrowDown: () => move(1),
+    'ctrl+j': () => move(1),
+    'ctrl+n': () => move(1),
+    ArrowUp: () => move(-1),
+    'ctrl+k': () => move(-1),
+    'ctrl+p': () => move(-1),
+    'ctrl+d': () => move(PAGE),
+    'ctrl+u': () => move(-PAGE),
+    Enter: event => void execute(activeIndex.value, event.metaKey || event.ctrlKey),
+  };
 
-    if (event.key === 'Tab') {
-      event.preventDefault();
-      return;
-    }
-    if (event.key === 'Escape' || (ctrl && event.key === 'c')) {
-      event.preventDefault();
-      close();
-      return;
-    }
-    if (event.key === 'ArrowDown' || (ctrl && (event.key === 'j' || event.key === 'n'))) {
-      event.preventDefault();
-      move(1);
-      return;
-    }
-    if (event.key === 'ArrowUp' || (ctrl && (event.key === 'k' || event.key === 'p'))) {
-      event.preventDefault();
-      move(-1);
-      return;
-    }
-    if (ctrl && event.key === 'd') {
-      event.preventDefault();
-      move(PAGE);
-      return;
-    }
-    if (ctrl && event.key === 'u') {
-      event.preventDefault();
-      move(-PAGE);
-      return;
-    }
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      void execute(activeIndex.value, event.metaKey || event.ctrlKey);
-    }
+  const handleKeydown = (event: KeyboardEvent): void => {
+    const action = keyActions[event.ctrlKey ? `ctrl+${event.key}` : event.key] ?? keyActions[event.key];
+    if (!action) return;
+
+    event.preventDefault();
+    action(event);
   };
 
   return { isOpen: paletteOpen, query, activeIndex, results, close, handleKeydown, execute };
