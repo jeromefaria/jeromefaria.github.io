@@ -743,7 +743,7 @@ export const liveEvents: LiveEvent[] = [
         url: 'https://www.youtube-nocookie.com/embed/csZramO6QDM',
         platform: 'youtube',
         title: 'Jerome Faria and Hugo Olim at MADEIRADIG 2009',
-        author: { name: 'Vitor Joaquim', url: 'https://www.youtube.com/@vjoaquim' },
+        author: { name: 'Vítor Joaquim', url: 'https://www.youtube.com/@vjoaquim' },
       },
       {
         url: 'https://player.vimeo.com/video/8088317',
@@ -764,7 +764,7 @@ export const liveEvents: LiveEvent[] = [
       members: [
         { text: 'Scanner', url: 'https://scannerdot.bandcamp.com/' },
         { text: '@c', url: 'https://at-c.org/' },
-        { text: 'Vitor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
+        { text: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
         { text: 'Carlos Santos', url: 'https://carlossantos.bandcamp.com/' },
         { text: 'Miguel Carvalhais', url: 'https://www.carvalhais.org/' },
         { text: 'Pedro Tudela', url: 'http://pedrotudela.org/' },
@@ -879,7 +879,7 @@ export const liveEvents: LiveEvent[] = [
         url: 'https://www.youtube-nocookie.com/embed/d_0IXOpiZTE',
         platform: 'youtube',
         title: 'Jerome Faria at EME Festival 2008, Lisbon',
-        author: { name: 'Vitor Joaquim', url: 'https://www.youtube.com/@vjoaquim' },
+        author: { name: 'Vítor Joaquim', url: 'https://www.youtube.com/@vjoaquim' },
       },
     ],
   },

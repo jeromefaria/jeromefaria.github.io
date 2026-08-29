@@ -397,7 +397,7 @@ export const worksData: WorksData = {
           work: 'Live Score',
           year: 2013,
         },
-        description: 'Live score for <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a>\'s 1920 expressionist silent film. Working against Wiene\'s angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honoring the film\'s unease while exploring territories the original could never have envisioned.',
+        description: 'Live score for <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a>\'s 1920 expressionist silent film. Working against Wiene\'s angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honouring the film\'s unease while exploring territories the original could never have envisioned.',
         credits: 'Music by Jerome Faria. Performed by Jerome Faria and [[Nuno Filipe]].',
         contributors: [
           { name: 'Nuno Filipe', url: 'https://nunoandtheend.bandcamp.com/' },
@@ -656,7 +656,7 @@ export const worksData: WorksData = {
         images: [
           {
             src: '/images/publications/glitch-spread-01.jpg',
-            alt: 'Glitch: Designing Imperfection book spread showing colorful digital artifacts and glitch patterns',
+            alt: 'Glitch: Designing Imperfection book spread showing colourful digital artefacts and glitch patterns',
           },
           {
             src: '/images/publications/glitch-spread-02.jpg',
@@ -672,7 +672,7 @@ export const worksData: WorksData = {
           },
           {
             src: '/images/publications/glitch-spread-05.jpg',
-            alt: 'Glitch: Designing Imperfection book spread showing colorful glitch pattern variations by brineiktro',
+            alt: 'Glitch: Designing Imperfection book spread showing colourful glitch pattern variations by brineiktro',
           },
           {
             src: '/images/publications/glitch-spread-06.jpg',
