@@ -26,15 +26,21 @@ const openFirstGallery = async (page: Page): Promise<void> => {
 
   if (await trigger.getAttribute('aria-expanded') !== 'true') {
     await trigger.click();
+    // Wait for the accordion to finish opening — on the slower Firefox runner
+    // the section's content-visibility reveal lags the click, so a bare
+    // visibility check races it. Confirm the state, then bring the button in.
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
   }
 
-  await expect(page.locator(VISIBLE_GALLERY_BUTTON).first()).toBeVisible();
+  const button = owningSection.locator(GALLERY_BUTTON_SELECTOR).first();
+  await button.scrollIntoViewIfNeeded();
+  await expect(button).toBeVisible();
 };
 
 const openLightboxFromFirstGallery = async (page: Page): Promise<void> => {
   await openFirstGallery(page);
   await page.locator(VISIBLE_GALLERY_BUTTON).first().click();
-  await expect(page.locator(LIGHTBOX_SELECTOR)).toBeVisible();
+  await expect(page.locator(LIGHTBOX_SELECTOR)).toBeVisible({ timeout: 10000 });
 };
 
 // Live events label their gallery control "Photo(s)"; substring-match both.
@@ -50,10 +56,14 @@ const openLiveLightbox = async (page: Page): Promise<void> => {
 
   if (await trigger.getAttribute('aria-expanded') !== 'true') {
     await trigger.click();
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
   }
 
-  await page.locator(`${LIVE_GALLERY_BUTTON}:visible`).first().click();
-  await expect(page.locator(LIGHTBOX_SELECTOR)).toBeVisible();
+  const button = owningSection.locator(LIVE_GALLERY_BUTTON).first();
+  await button.scrollIntoViewIfNeeded();
+  await expect(button).toBeVisible();
+  await button.click();
+  await expect(page.locator(LIGHTBOX_SELECTOR)).toBeVisible({ timeout: 10000 });
 };
 
 test.describe('Lightbox', () => {
