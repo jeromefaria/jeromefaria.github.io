@@ -64,7 +64,7 @@ const baseRules = {
   '@typescript-eslint/ban-ts-comment': 'error',
 
   // Ceilings sit just above the current source peak so only new growth trips them.
-  complexity: ['error', 20],
+  complexity: ['error', 15],
   'max-depth': ['error', 4],
 };
 

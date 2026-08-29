@@ -14,9 +14,11 @@ const showHeaders = computed(() => query.value.trim() === '');
 const announcement = computed(() =>
   (isOpen.value ? `${results.value.length} result${results.value.length === 1 ? '' : 's'}` : ''));
 
+const optionId = (index: number): string => `command-palette-option-${index}`;
+
 watch(activeIndex, async () => {
   await nextTick();
-  document.getElementById(`command-palette-option-${activeIndex.value}`)?.scrollIntoView({ block: 'nearest' });
+  document.getElementById(optionId(activeIndex.value))?.scrollIntoView({ block: 'nearest' });
 });
 </script>
 
@@ -42,7 +44,7 @@ watch(activeIndex, async () => {
             role="combobox"
             aria-expanded="true"
             aria-controls="command-palette-listbox"
-            :aria-activedescendant="results.length ? `command-palette-option-${activeIndex}` : undefined"
+            :aria-activedescendant="results.length ? optionId(activeIndex) : undefined"
             aria-label="Search, navigate, or run a command"
             placeholder="Search, navigate, or run a command…"
             autocomplete="off"
@@ -68,7 +70,7 @@ watch(activeIndex, async () => {
                 {{ command.group }}
               </li>
               <li
-                :id="`command-palette-option-${index}`"
+                :id="optionId(index)"
                 class="command-palette__option"
                 :class="{ 'command-palette__option--active': index === activeIndex }"
                 role="option"
