@@ -131,7 +131,7 @@ public/          Static assets
 - **Build:** Vite with SSG (Static Site Generation) + hydration — every route plus a shareable page per release
 - **Audio:** `HTMLAudioElement` state machine + Media Session API; AAC (`.m4a`) hosted on Cloudflare R2, streamed over HTTP range requests
 - **Backend:** Cloudflare Worker (`wrangler`) — server-side Turnstile verification, Resend email relay
-- **Styling:** SCSS with BEM and design tokens
+- **Styling:** SCSS with BEM and design tokens, lint-enforced with stylelint (BEM selector pattern)
 - **Testing:** Vitest (unit — ~99% coverage across the whole `src` tree), Playwright E2E (Chromium, Firefox, WebKit), `axe-core` accessibility, per-route visual regression
 - **CI/CD:** GitHub Actions — one pipeline reused as the deploy gate
 - **Performance:** Lighthouse CI with performance budgets
@@ -205,8 +205,11 @@ npm run test:e2e:report
 ### Performance Testing
 
 ```bash
-# Run Lighthouse CI
+# Run Lighthouse CI (desktop profile)
 npm run lighthouse
+
+# Mobile profile (Moto G4 + slow-4G emulation)
+npm run lighthouse:mobile
 ```
 
 **Performance Budgets** (`.lighthouserc.json`). The **enforced** assertions fail CI:
@@ -218,6 +221,8 @@ The following are **advisory** (reported as warnings, not gating) because they v
 - Performance and SEO category scores
 - Timing metrics: FCP < 1.5s, LCP < 2.5s, CLS < 0.1, TBT < 300ms, Speed Index < 3s
 - Image and total transfer weight
+
+A second **mobile** profile (`.lighthouserc.mobile.json`) runs alongside the desktop one in CI; its Core Web Vitals are advisory so a variable runner never hard-fails on mobile timings, while it still surfaces regressions the desktop profile misses.
 
 ### Contact Worker
 
@@ -248,7 +253,7 @@ npm run lint
 npm run test:coverage
 node scripts/check-coverage.js
 
-# 2. Build (also runs scripts/check-anchors.js to validate internal hash anchors)
+# 2. Build (check-anchors validates internal hash anchors + [[credit]] markers; then generates sitemap.xml)
 npm run build
 
 # 3. Performance Audit
@@ -260,6 +265,12 @@ npm run test:e2e
 # 5. Worker checks
 cd worker && npm run type-check && npm test
 ```
+
+### Git hooks
+
+Husky enforces a subset of these automatically, so a broken commit never leaves the machine:
+- **pre-commit** runs `lint-staged` — ESLint + stylelint `--fix` on staged files only.
+- **pre-push** runs the type-check.
 
 ### Quick Pre-Commit Check
 
@@ -283,13 +294,14 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 
 ### Quality Checks
 - TypeScript type checking
-- ESLint code quality
+- ESLint (JS/TS) and stylelint (SCSS, BEM-enforced) code quality
 - Unit tests with coverage thresholds
 - Coverage reporting to Codecov
 
 ### Build
 - Production bundle build
 - Bundle size budget — **enforced**: fails CI if any JS file exceeds 200KB or CSS 50KB (uncompressed, per file)
+- `sitemap.xml` generated from the routes actually pre-rendered (never drifts from the site)
 - Build artifact generation (reused downstream — no rebuild)
 
 ### Lighthouse
