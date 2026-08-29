@@ -6,6 +6,14 @@ const TRACKS = [
   { key: 'x/2.m4a', title: 'Two', duration: 200 },
 ];
 
+const swipeTouch = (type: 'touchstart' | 'touchend', clientX: number, clientY: number): TouchEvent => {
+  const event = new Event(type) as TouchEvent;
+  Object.defineProperty(event, type === 'touchstart' ? 'touches' : 'changedTouches', {
+    value: [{ clientX, clientY, identifier: 0 } as Touch],
+  });
+  return event;
+};
+
 type PlayerModule = typeof import('@/composables/usePlayer');
 
 describe('PlayerScreen', () => {
@@ -97,6 +105,39 @@ describe('PlayerScreen', () => {
     player.expand();
     await wrapper.trigger('keydown', { key: 'Escape' });
     expect(player.usePlayer().expanded.value).toBe(false);
+  });
+
+  it('collapses on a fast downward swipe from the top of the sheet', async () => {
+    await player.play(TRACKS);
+    player.expand();
+    const wrapper = await mounted();
+    const root = wrapper.get('.player-screen').element;
+
+    const dateNow = vi.spyOn(Date, 'now');
+    dateNow.mockReturnValueOnce(1000);
+    root.dispatchEvent(swipeTouch('touchstart', 200, 100));
+    dateNow.mockReturnValueOnce(1200);
+    root.dispatchEvent(swipeTouch('touchend', 200, 220));
+    dateNow.mockRestore();
+
+    expect(player.usePlayer().expanded.value).toBe(false);
+  });
+
+  it('ignores the swipe when the sheet is scrolled down', async () => {
+    await player.play(TRACKS);
+    player.expand();
+    const wrapper = await mounted();
+    const root = wrapper.get('.player-screen').element;
+    Object.defineProperty(root, 'scrollTop', { configurable: true, value: 120 });
+
+    const dateNow = vi.spyOn(Date, 'now');
+    dateNow.mockReturnValueOnce(1000);
+    root.dispatchEvent(swipeTouch('touchstart', 200, 100));
+    dateNow.mockReturnValueOnce(1200);
+    root.dispatchEvent(swipeTouch('touchend', 200, 220));
+    dateNow.mockRestore();
+
+    expect(player.usePlayer().expanded.value).toBe(true);
   });
 
   it('restores focus to the trigger when it closes', async () => {

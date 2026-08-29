@@ -20,6 +20,7 @@ export const ID_PREFIX = {
 
 export const TOUCH = {
   MIN_SWIPE_DISTANCE: 50,
+  MIN_DISMISS_DISTANCE: 80,
   MAX_SWIPE_TIME: 300,
 } as const;
 

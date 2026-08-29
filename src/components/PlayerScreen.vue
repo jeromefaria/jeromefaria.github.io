@@ -7,6 +7,7 @@ import { useFocusReturn } from '@/composables/useFocusReturn';
 import { useFocusTrap } from '@/composables/useFocusTrap';
 import { usePlayer } from '@/composables/usePlayer';
 import { useScrollLock } from '@/composables/useScrollLock';
+import { useSwipeDismiss } from '@/composables/useSwipeDismiss';
 import type { AudioTrack } from '@/types/audio';
 
 const { status, currentTrack, queue, currentTime, duration, context, hasNext, hasPrevious, toggle, next, previous, seek, select, collapse } =
@@ -22,6 +23,7 @@ const dialog = ref<HTMLElement | null>(null);
 const { onKeydown: trapTab } = useFocusTrap(dialog);
 const { lock, unlock } = useScrollLock();
 const { capture, restore } = useFocusReturn();
+const { handleTouchStart, handleTouchEnd } = useSwipeDismiss(collapse, () => (dialog.value?.scrollTop ?? 0) <= 0);
 
 const onKeydown = (event: KeyboardEvent): void => {
   if (event.key === 'Escape') {
@@ -53,6 +55,8 @@ onBeforeUnmount(() => {
     aria-label="Now playing"
     tabindex="-1"
     @keydown="onKeydown"
+    @touchstart.passive="handleTouchStart"
+    @touchend.passive="handleTouchEnd"
   >
     <button
       type="button"
