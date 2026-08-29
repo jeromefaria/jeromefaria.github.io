@@ -36,19 +36,19 @@ describe('PlayerBar', () => {
     const wrapper = await mounted();
 
     expect(wrapper.find('.player-bar__title').text()).toBe('One');
-    expect(wrapper.findAll('.player-bar__button')).toHaveLength(3);
+    expect(wrapper.findAll('.transport-controls__button')).toHaveLength(3);
     expect(wrapper.find('input[type="range"]').attributes('aria-label')).toContain('One');
-    expect(wrapper.findAll('.player-bar__time')[1].text()).toBe('1:40');
+    expect(wrapper.findAll('.player-seek__time')[1].text()).toBe('1:40');
   });
 
   it('shows a spinner while busy and hides it once playing', async () => {
     await player.play(TRACKS);
     const wrapper = await mounted();
-    expect(wrapper.find('.player-bar__spinner').exists()).toBe(true);
+    expect(wrapper.find('.transport-controls__spinner').exists()).toBe(true);
 
     player.getMediaElement().dispatchEvent(new Event('playing'));
     await flushPromises();
-    expect(wrapper.find('.player-bar__spinner').exists()).toBe(false);
+    expect(wrapper.find('.transport-controls__spinner').exists()).toBe(false);
   });
 
   it('announces playback state in the live region', async () => {
@@ -67,7 +67,7 @@ describe('PlayerBar', () => {
     player.getMediaElement().dispatchEvent(new Event('playing'));
     await flushPromises();
 
-    await wrapper.findAll('.player-bar__button')[1].trigger('click');
+    await wrapper.findAll('.transport-controls__button')[1].trigger('click');
     expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
   });
 
@@ -75,7 +75,7 @@ describe('PlayerBar', () => {
     await player.play(TRACKS, 0);
     const wrapper = await mounted();
 
-    await wrapper.findAll('.player-bar__button')[2].trigger('click');
+    await wrapper.findAll('.transport-controls__button')[2].trigger('click');
     await flushPromises();
     expect(wrapper.find('.player-bar__title').text()).toBe('Two');
   });
@@ -85,13 +85,13 @@ describe('PlayerBar', () => {
     const wrapper = await mounted();
 
     await wrapper.find('input[type="range"]').setValue(50);
-    expect(wrapper.findAll('.player-bar__time')[0].text()).toBe('0:50');
+    expect(wrapper.findAll('.player-seek__time')[0].text()).toBe('0:50');
   });
 
   it('disables previous at the queue head and next at the tail', async () => {
     await player.play(TRACKS, 1);
     const wrapper = await mounted();
-    const [previous, , next] = wrapper.findAll('.player-bar__button');
+    const [previous, , next] = wrapper.findAll('.transport-controls__button');
 
     expect(next.attributes('disabled')).toBeDefined();
     expect(previous.attributes('disabled')).toBeUndefined();

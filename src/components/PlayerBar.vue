@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import PlayerSeek from '@/components/PlayerSeek.vue';
+import TransportControls from '@/components/TransportControls.vue';
 import { usePlayer } from '@/composables/usePlayer';
-import { formatTime } from '@/utils/formatTime';
 
 const { status, currentTrack, currentTime, duration, error, hasNext, hasPrevious, toggle, next, previous, seek, expand, stop } =
   usePlayer();
@@ -18,10 +19,6 @@ const statusMessage = computed(() => {
 
   return `${verb}: ${currentTrack.value.title}`;
 });
-
-const onSeek = (event: Event): void => {
-  seek(Number((event.target as HTMLInputElement).value));
-};
 </script>
 
 <template>
@@ -40,79 +37,23 @@ const onSeek = (event: Event): void => {
       {{ currentTrack.title }}
     </button>
 
-    <div class="player-bar__controls">
-      <button
-        type="button"
-        class="player-bar__button"
-        :disabled="!hasPrevious && currentTime < 3"
-        aria-label="Previous track"
-        @click="previous"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 6h2v12H6zm3.5 6 8.5 6V6z" /></svg>
-      </button>
+    <TransportControls
+      :playing="isPlaying"
+      :busy="isBusy"
+      :has-previous="hasPrevious"
+      :has-next="hasNext"
+      :current-time="currentTime"
+      @previous="previous"
+      @toggle="toggle"
+      @next="next"
+    />
 
-      <button
-        type="button"
-        class="player-bar__button player-bar__button--primary"
-        :aria-label="isPlaying ? 'Pause' : 'Play'"
-        @click="toggle"
-      >
-        <svg
-          v-if="isBusy"
-          class="player-bar__spinner"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-          focusable="false"
-        ><circle
-          cx="12"
-          cy="12"
-          r="9"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-dasharray="44 20"
-          stroke-linecap="round"
-        /></svg>
-        <svg
-          v-else-if="isPlaying"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-          focusable="false"
-        ><path fill="currentColor" d="M6 5h4v14H6zm8 0h4v14h-4z" /></svg>
-        <svg
-          v-else
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-          focusable="false"
-        ><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
-      </button>
-
-      <button
-        type="button"
-        class="player-bar__button"
-        :disabled="!hasNext"
-        aria-label="Next track"
-        @click="next"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16 6h2v12h-2zM6 18l8.5-6L6 6z" /></svg>
-      </button>
-    </div>
-
-    <div class="player-bar__seek">
-      <span class="player-bar__time">{{ formatTime(currentTime) }}</span>
-      <input
-        class="player-bar__slider"
-        type="range"
-        min="0"
-        :max="duration || 0"
-        step="1"
-        :value="currentTime"
-        :aria-label="`Seek within ${currentTrack.title}`"
-        :aria-valuetext="`${formatTime(currentTime)} of ${formatTime(duration)}`"
-        @input="onSeek"
-      >
-      <span class="player-bar__time">{{ formatTime(duration) }}</span>
-    </div>
+    <PlayerSeek
+      :current-time="currentTime"
+      :duration="duration"
+      :label="`Seek within ${currentTrack.title}`"
+      @seek="seek"
+    />
 
     <button
       type="button"

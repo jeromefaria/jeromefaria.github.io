@@ -1,22 +1,20 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
+import PlayerSeek from '@/components/PlayerSeek.vue';
+import TransportControls from '@/components/TransportControls.vue';
 import { useFocusReturn } from '@/composables/useFocusReturn';
 import { useFocusTrap } from '@/composables/useFocusTrap';
 import { usePlayer } from '@/composables/usePlayer';
 import { useScrollLock } from '@/composables/useScrollLock';
 import type { AudioTrack } from '@/types/audio';
-import { formatTime } from '@/utils/formatTime';
 
 const { status, currentTrack, queue, currentTime, duration, context, hasNext, hasPrevious, toggle, next, previous, seek, select, collapse } =
   usePlayer();
 
 const isPlaying = computed(() => status.value === 'playing');
+const isBusy = computed(() => status.value === 'loading' || status.value === 'buffering');
 const currentIndex = computed(() => queue.value.findIndex(track => track.key === currentTrack.value?.key));
-
-const onSeek = (event: Event): void => {
-  seek(Number((event.target as HTMLInputElement).value));
-};
 
 const trackLabel = (track: AudioTrack): string => (track.artist ? `${track.artist} — ${track.title}` : track.title);
 
@@ -88,63 +86,23 @@ onBeforeUnmount(() => {
       </p>
     </div>
 
-    <div class="player-screen__seek">
-      <span class="player-screen__time">{{ formatTime(currentTime) }}</span>
-      <input
-        class="player-screen__slider"
-        type="range"
-        min="0"
-        :max="duration || 0"
-        step="1"
-        :value="currentTime"
-        aria-label="Seek"
-        :aria-valuetext="`${formatTime(currentTime)} of ${formatTime(duration)}`"
-        @input="onSeek"
-      >
-      <span class="player-screen__time">{{ formatTime(duration) }}</span>
-    </div>
+    <PlayerSeek
+      :current-time="currentTime"
+      :duration="duration"
+      label="Seek"
+      @seek="seek"
+    />
 
-    <div class="player-screen__controls">
-      <button
-        type="button"
-        class="player-screen__button"
-        :disabled="!hasPrevious && currentTime < 3"
-        aria-label="Previous track"
-        @click="previous"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 6h2v12H6zm3.5 6 8.5 6V6z" /></svg>
-      </button>
-
-      <button
-        type="button"
-        class="player-screen__button player-screen__button--primary"
-        :aria-label="isPlaying ? 'Pause' : 'Play'"
-        @click="toggle"
-      >
-        <svg
-          v-if="isPlaying"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-          focusable="false"
-        ><path fill="currentColor" d="M6 5h4v14H6zm8 0h4v14h-4z" /></svg>
-        <svg
-          v-else
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-          focusable="false"
-        ><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
-      </button>
-
-      <button
-        type="button"
-        class="player-screen__button"
-        :disabled="!hasNext"
-        aria-label="Next track"
-        @click="next"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16 6h2v12h-2zM6 18l8.5-6L6 6z" /></svg>
-      </button>
-    </div>
+    <TransportControls
+      :playing="isPlaying"
+      :busy="isBusy"
+      :has-previous="hasPrevious"
+      :has-next="hasNext"
+      :current-time="currentTime"
+      @previous="previous"
+      @toggle="toggle"
+      @next="next"
+    />
 
     <ol
       v-if="queue.length > 1"
