@@ -1,29 +1,20 @@
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
-import pluginVue from 'eslint-plugin-vue';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import pluginVue from 'eslint-plugin-vue';
 import vueParser from 'vue-eslint-parser';
 
-// Shared across the TypeScript and Vue configs so the rule set lives in one place.
 const sharedPlugins = {
   '@typescript-eslint': tseslint,
   'simple-import-sort': simpleImportSort,
 };
 
 const baseRules = {
-  // Semicolons
   'semi': ['error', 'always'],
-
-  // Quotes
   'quotes': ['error', 'single', { avoidEscape: true }],
-
-  // Indentation
   'indent': ['error', 2, { SwitchCase: 1 }],
-
-  // Trailing commas in multiline
   'comma-dangle': ['error', 'always-multiline'],
 
-  // Spacing
   'object-curly-spacing': ['error', 'always'],
   'array-bracket-spacing': ['error', 'never'],
   'comma-spacing': ['error', { before: false, after: true }],
@@ -36,46 +27,33 @@ const baseRules = {
   'space-infix-ops': 'error',
   'keyword-spacing': ['error', { before: true, after: true }],
   'space-before-blocks': 'error',
-
-  // Arrow functions
   'arrow-spacing': ['error', { before: true, after: true }],
   'arrow-parens': ['error', 'as-needed'],
 
-  // Variable declarations
   'prefer-const': 'error',
   'no-var': 'error',
   'prefer-destructuring': ['error', {
     array: false,
     object: true,
   }],
-
-  // Template literals
   'prefer-template': 'error',
-
-  // Object shorthand
   'object-shorthand': ['error', 'always'],
-
-  // Modern JavaScript over legacy patterns
   'eqeqeq': ['error', 'always'],
   'prefer-object-spread': 'error',
   'no-array-constructor': 'error',
   'prefer-spread': 'error',
   'prefer-rest-params': 'error',
 
-  // Early returns
   'no-else-return': ['error', { allowElseIf: false }],
   'no-lonely-if': 'error',
 
-  // General formatting
   'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
   'eol-last': ['error', 'always'],
   'no-trailing-spaces': 'error',
 
-  // Import sorting
   'simple-import-sort/imports': 'error',
   'simple-import-sort/exports': 'error',
 
-  // TypeScript-specific rules (only rules that don't require type information)
   '@typescript-eslint/no-explicit-any': 'error',
   '@typescript-eslint/no-unused-vars': ['error', {
     argsIgnorePattern: '^_',
@@ -85,9 +63,7 @@ const baseRules = {
   '@typescript-eslint/consistent-type-imports': ['error', { disallowTypeAnnotations: false }],
   '@typescript-eslint/ban-ts-comment': 'error',
 
-  // Complexity ceilings — ratcheted just above today's real max so only growth
-  // trips them (source peaks at 19 in the palette key-dispatcher; a keymap
-  // refactor would let this ratchet back down).
+  // Ceilings sit just above the current source peak so only new growth trips them.
   complexity: ['error', 20],
   'max-depth': ['error', 4],
 };
@@ -115,8 +91,7 @@ const vueRules = {
   }],
 };
 
-// Rules that need type information. Scoped to the app source (src, excluding
-// tests), which is covered by tsconfig.json.
+// Scoped to src — co-located tests aren't in tsconfig.json, so type-aware rules would error there.
 const typeAwareRules = {
   '@typescript-eslint/prefer-nullish-coalescing': 'error',
   '@typescript-eslint/prefer-optional-chain': 'error',
@@ -152,8 +127,6 @@ export default [
     rules: baseRules,
   },
   {
-    // Type-aware rules for the app source (excludes co-located tests + helpers,
-    // which tsconfig.json does not include).
     files: ['src/**/*.ts'],
     ignores: ['src/**/*.test.ts', 'src/test-support/**', 'src/test-setup.ts'],
     languageOptions: {
@@ -183,9 +156,7 @@ export default [
     rules: typeAwareRules,
   },
   {
-    // Rules that guard source but are legitimate in tests: several throwaway
-    // components to exercise composables, non-null assertions on known-present
-    // fixtures/mocks, and complex arrange-heavy setup blocks.
+    // Relaxed for tests: throwaway components, non-null assertions on known fixtures, arrange-heavy setup.
     files: ['**/*.test.ts', '**/*.test.tsx'],
     rules: {
       'vue/one-component-per-file': 'off',

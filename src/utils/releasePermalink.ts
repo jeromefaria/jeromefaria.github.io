@@ -28,8 +28,6 @@ export const buildReleaseContext = (release: Release): PlayContext => ({
 export const canPlayRelease = (releaseId: string): boolean =>
   audioPlayerEnabled.value && hasPlayableAudio(releaseId);
 
-// The one place that turns a release + optional {track (1-based), t (seconds)} into a play call,
-// shared by the works view (URL params) and the release item (movement / track clicks).
 export const playReleaseAt = (release: Release, { track, t }: ReleasePermalinkOptions = {}): void => {
   const tracks = getReleaseAudio(release.id);
   if (tracks.length === 0) return;
@@ -63,7 +61,6 @@ export const releaseHead = (release: Release): ReleaseHead => ({
   ...(hasCoverImage(release) ? { image: release.coverImage } : {}),
 });
 
-// The shareable path for a release, optionally pinned to a track (1-based) or a time offset.
 export const releasePath = (releaseId: string, { track, t }: ReleasePermalinkOptions = {}): string => {
   const params = new URLSearchParams();
 

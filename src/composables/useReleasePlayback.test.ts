@@ -9,7 +9,6 @@ import { useReleasePlayback } from './useReleasePlayback';
 
 const music = { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2010 } as const;
 
-// '1714' has three audio tracks in the manifest — its display tracklist lines up 1:1.
 const aligned: Release = {
   id: '1714',
   title: '17:14',
@@ -17,7 +16,6 @@ const aligned: Release = {
   tracklist: [{ title: '8:58' }, { title: '2:58' }, { title: '5:18' }],
 };
 
-// '2504' is one audio file presented as five timed movements.
 const chaptered: Release = {
   id: '2504',
   title: '2504',

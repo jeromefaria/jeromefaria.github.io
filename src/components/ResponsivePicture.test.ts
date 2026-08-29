@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest';
 
 import ResponsivePicture from './ResponsivePicture.vue';
 
-// A src present in the responsive-image manifest, so the srcset source renders.
 const MANIFEST_SRC = '/images/contraplacado.jpg';
 
 const mountPicture = (props: Record<string, unknown> = {}) =>
