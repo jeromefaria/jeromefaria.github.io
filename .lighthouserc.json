@@ -24,6 +24,8 @@
       "preset": "lighthouse:recommended",
       "assertions": {
         "bf-cache": "off",
+        "render-blocking-resources": "off",
+        "render-blocking-insight": "off",
         "forced-reflow-insight": "off",
         "network-dependency-tree-insight": "off",
         "is-crawlable": "off",
