@@ -19,13 +19,11 @@ h2 {
   text-transform: uppercase;
   letter-spacing: $letter-spacing-wide;
   color: var(--color-text-muted);
-  margin-top: $spacing-8;
-  margin-bottom: $spacing-3;
+  margin-top: fluid($spacing-8, $spacing-12);
+  margin-bottom: fluid($spacing-3, $spacing-4);
 
   @include respond-to(md) {
     letter-spacing: $letter-spacing-wider;
-    margin-top: $spacing-12;
-    margin-bottom: $spacing-4;
   }
 }
 
@@ -117,11 +115,7 @@ blockquote {
 hr {
   border: 0;
   border-top: 1px solid var(--color-border);
-  margin: $spacing-8 0;
-
-  @include respond-to(md) {
-    margin: $spacing-12 0;
-  }
+  margin: fluid($spacing-8, $spacing-12) 0;
 }
 
 .prose {
