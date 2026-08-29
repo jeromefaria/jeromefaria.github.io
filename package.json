@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && node scripts/check-anchors.js && node scripts/check-epk-photos.mjs && vite-ssg build && node scripts/async-css.js && node scripts/generate-sitemap.mjs",
+    "build": "vue-tsc --noEmit && node scripts/check-anchors.js && node scripts/check-epk-photos.mjs && vite-ssg build && node scripts/generate-sitemap.mjs",
     "preview": "vite preview",
     "lint": "eslint src scripts e2e playwright.config.ts && stylelint \"src/styles/**/*.scss\"",
     "lint:fix": "eslint src scripts e2e playwright.config.ts --fix && stylelint \"src/styles/**/*.scss\" --fix",
