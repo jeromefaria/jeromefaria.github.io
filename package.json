@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Jerome Faria - Sound Artist & Composer",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && node scripts/check-anchors.js && node scripts/check-epk-photos.mjs && vite-ssg build && node scripts/async-css.js && node scripts/generate-sitemap.mjs",
