@@ -328,32 +328,104 @@ describe('useLightbox', () => {
   });
 });
 
-describe('useLightbox deep-link hash', () => {
+describe('useLightbox history integration', () => {
+  const source = { id: 'madeiradig-2011', kind: 'photo' as const };
+  const popState = (): void => window.dispatchEvent(new PopStateEvent('popstate'));
+
   afterEach(() => {
     window.history.replaceState(null, '', window.location.pathname);
   });
 
-  it('writes #id/kind/index on open and navigation, then restores the anchor on close', () => {
+  it('pushes #id/kind/index on open and replaces it on navigation', () => {
     window.history.replaceState(null, '', '#madeiradig-2011');
+    const push = vi.spyOn(window.history, 'pushState');
+    const replace = vi.spyOn(window.history, 'replaceState');
     const wrapper = mount(createTestComponent());
 
-    wrapper.vm.openLightbox(mockImages, 0, { id: 'madeiradig-2011', kind: 'photo' });
+    wrapper.vm.openLightbox(mockImages, 0, source);
     expect(window.location.hash).toBe('#madeiradig-2011/photo/1');
+    expect(push).toHaveBeenCalledWith({ lightbox: true }, '', '#madeiradig-2011/photo/1');
 
     wrapper.vm.goToNext();
     expect(window.location.hash).toBe('#madeiradig-2011/photo/2');
+    expect(replace).toHaveBeenCalledWith({ lightbox: true }, '', '#madeiradig-2011/photo/2');
 
-    wrapper.vm.closeLightbox();
-    expect(window.location.hash).toBe('#madeiradig-2011');
+    push.mockRestore();
+    replace.mockRestore();
     wrapper.unmount();
   });
 
-  it('leaves the URL untouched when opened without a source', () => {
+  it('pops the history entry when closed via the control (Escape/button)', () => {
+    window.history.replaceState({ lightbox: true }, '', '#madeiradig-2011');
+    const back = vi.spyOn(window.history, 'back').mockImplementation(() => undefined);
+    const wrapper = mount(createTestComponent());
+
+    wrapper.vm.openLightbox(mockImages, 0, source);
+    wrapper.vm.closeLightbox();
+
+    expect(back).toHaveBeenCalledOnce();
+    back.mockRestore();
+    wrapper.unmount();
+  });
+
+  it('resets state when a popstate leaves the open item (Back)', () => {
     window.history.replaceState(null, '', '#madeiradig-2011');
+    const wrapper = mount(createTestComponent());
+
+    wrapper.vm.openLightbox(mockImages, 0, source);
+    wrapper.vm.goToNext();
+    expect(wrapper.vm.isOpen).toBe(true);
+
+    // The browser pops back to the anchor and fires popstate.
+    window.history.replaceState(null, '', '#madeiradig-2011');
+    popState();
+
+    expect(wrapper.vm.isOpen).toBe(false);
+    wrapper.unmount();
+  });
+
+  it('synthesizes a closed entry when opened from a fresh load at the media URL', () => {
+    window.history.replaceState(null, '', '#madeiradig-2011/photo/2');
+    const replace = vi.spyOn(window.history, 'replaceState');
+    const push = vi.spyOn(window.history, 'pushState');
+    const wrapper = mount(createTestComponent());
+
+    wrapper.vm.openLightbox(mockImages, 1, source);
+
+    expect(replace).toHaveBeenCalledWith(null, '', '#madeiradig-2011');
+    expect(push).toHaveBeenCalledWith({ lightbox: true }, '', '#madeiradig-2011/photo/2');
+
+    replace.mockRestore();
+    push.mockRestore();
+    wrapper.unmount();
+  });
+
+  it('does not push a second entry when re-opening the item already shown', () => {
+    window.history.replaceState(null, '', '#madeiradig-2011');
+    const wrapper = mount(createTestComponent());
+
+    wrapper.vm.openLightbox(mockImages, 0, source);
+    const push = vi.spyOn(window.history, 'pushState');
+    wrapper.vm.openLightbox(mockImages, 0, source);
+
+    expect(push).not.toHaveBeenCalled();
+    expect(wrapper.vm.isOpen).toBe(true);
+    push.mockRestore();
+    wrapper.unmount();
+  });
+
+  it('closes directly, without touching history, when opened without a source', () => {
+    window.history.replaceState(null, '', '#madeiradig-2011');
+    const back = vi.spyOn(window.history, 'back');
     const wrapper = mount(createTestComponent());
 
     wrapper.vm.openLightbox(mockImages, 0);
     expect(window.location.hash).toBe('#madeiradig-2011');
+
+    wrapper.vm.closeLightbox();
+    expect(wrapper.vm.isOpen).toBe(false);
+    expect(back).not.toHaveBeenCalled();
+    back.mockRestore();
     wrapper.unmount();
   });
 });
