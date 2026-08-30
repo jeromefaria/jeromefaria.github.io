@@ -41,4 +41,8 @@ export const pageMeta = {
     title: 'Privacy',
     description: 'How this site handles the contact form, spam protection, and your data — no cookies, no analytics, no tracking.',
   },
+  colophon: {
+    title: 'Colophon',
+    description: 'The tech behind this site — Vue 3, Vite-SSG static rendering, TypeScript, and a keyboard-first, tested-to-the-pixel build.',
+  },
 } satisfies Record<string, PageMeta>;

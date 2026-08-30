@@ -33,7 +33,7 @@ describe('buildCommands', () => {
   it('includes every top-level route as a navigate command', () => {
     const navTitles = commands.filter(command => command.kind === 'navigate').map(command => command.title);
 
-    for (const title of ['Home', 'Works', 'Live', 'Press', 'About', 'Contact', 'Press Kit', 'Privacy']) {
+    for (const title of ['Home', 'Works', 'Live', 'Press', 'About', 'Contact', 'Press Kit', 'Privacy', 'Colophon']) {
       expect(navTitles).toContain(title);
     }
   });

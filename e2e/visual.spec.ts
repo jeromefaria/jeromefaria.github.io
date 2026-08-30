@@ -13,6 +13,7 @@ const PAGES = [
   ['/contact', 'contact'],
   ['/epk', 'epk'],
   ['/privacy', 'privacy'],
+  ['/colophon', 'colophon'],
 ] as const;
 
 // Absolute budget, not a ratio: a ratio scaled with page density, so a full

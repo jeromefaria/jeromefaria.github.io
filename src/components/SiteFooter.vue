@@ -42,6 +42,10 @@ const currentYear = new Date().getFullYear();
           <RouterLink to="/privacy">
             Privacy
           </RouterLink>
+          •
+          <RouterLink to="/colophon">
+            Colophon
+          </RouterLink>
         </p>
       </div>
     </div>
