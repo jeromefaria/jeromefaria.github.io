@@ -1,9 +1,11 @@
-import type { Act, Format, LiveEvent, Setup } from '@/types/live';
+import type { Act, BillEntry, Format, LiveEvent, Setup } from '@/types/live';
 
 const act = (entry: Act): string => {
   const named = entry.url ? `<a href="${entry.url}">${entry.text}</a>` : entry.text;
   return entry.suffix ? `${named} ${entry.suffix}` : named;
 };
+
+const billEntry = (entry: BillEntry): string => (Array.isArray(entry) ? entry.map(act).join(' & ') : act(entry));
 
 const setupLead = (setup: Setup): string => {
   switch (setup.kind) {
@@ -44,7 +46,7 @@ export const buildEventDescription = (event: LiveEvent): string => {
   const parts = [primary(event.setup, event.format)];
 
   if (event.note) parts.push(event.note);
-  if (event.bill?.length) parts.push(`Alongside ${event.bill.map(act).join(', ')}.`);
+  if (event.bill?.length) parts.push(`Alongside ${event.bill.map(billEntry).join(', ')}.`);
 
   return parts.join(' ');
 };
