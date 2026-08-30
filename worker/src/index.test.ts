@@ -167,4 +167,29 @@ describe('contact worker', () => {
 
     expect(response.headers.get('Access-Control-Allow-Origin')).toBe('https://jeromefaria.com');
   });
+
+  const ipRequest = (): Request =>
+    new Request('https://worker.example/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Origin': 'https://jeromefaria.com', 'CF-Connecting-IP': '1.2.3.4' },
+      body: JSON.stringify(VALID_BODY),
+    });
+
+  it('returns 429 without verifying when the rate limiter denies the IP', async () => {
+    const env: Env = { ...ENV, RATE_LIMITER: { limit: async () => ({ success: false }) } };
+
+    const response = await worker.fetch(ipRequest(), env);
+
+    expect(response.status).toBe(429);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('proceeds when the rate limiter allows the IP', async () => {
+    fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
+    const env: Env = { ...ENV, RATE_LIMITER: { limit: async () => ({ success: true }) } };
+
+    const response = await worker.fetch(ipRequest(), env);
+
+    expect(response.status).toBe(200);
+  });
 });

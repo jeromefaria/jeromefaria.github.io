@@ -1,9 +1,14 @@
+interface RateLimiter {
+  limit(options: { key: string }): Promise<{ success: boolean }>;
+}
+
 export interface Env {
   TURNSTILE_SECRET: string;
   RESEND_API_KEY: string;
   CONTACT_FROM: string;
   CONTACT_TO: string;
   ALLOWED_ORIGINS: string;
+  RATE_LIMITER?: RateLimiter;
 }
 
 interface ContactField {
@@ -156,6 +161,14 @@ export default {
     // don't stop the request reaching here. Origin-less (script) clients still face Turnstile.
     if (origin !== null && !allowedOrigins.includes(origin)) {
       return jsonResponse({ error: 'Origin not allowed' }, 403, cors);
+    }
+
+    const clientIp = request.headers.get('CF-Connecting-IP');
+    if (env.RATE_LIMITER && clientIp) {
+      const { success } = await env.RATE_LIMITER.limit({ key: clientIp });
+      if (!success) {
+        return jsonResponse({ error: 'Too many requests' }, 429, cors);
+      }
     }
 
     let payload: ContactPayload;
