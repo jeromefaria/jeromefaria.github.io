@@ -1,4 +1,4 @@
-import { flushPromises, mount } from '@vue/test-utils';
+import { enableAutoUnmount, flushPromises, mount } from '@vue/test-utils';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { defineComponent, ref } from 'vue';
 
@@ -24,6 +24,8 @@ const mountWith = (
   }));
 
 describe('useLightboxDeepLink', () => {
+  enableAutoUnmount(afterEach);
+
   afterEach(() => {
     window.location.hash = '';
   });
@@ -66,5 +68,18 @@ describe('useLightboxDeepLink', () => {
     await flushPromises();
 
     expect(open).not.toHaveBeenCalled();
+  });
+
+  it('opens on forward-navigation (popstate) to a matching media hash', async () => {
+    window.location.hash = '';
+    const open = vi.fn();
+    mountWith('ev', open);
+    await flushPromises();
+    expect(open).not.toHaveBeenCalled();
+
+    window.history.replaceState(null, '', '#ev/photo/2');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+
+    expect(open).toHaveBeenCalledWith(photos, 1, { id: 'ev', kind: 'photo' });
   });
 });

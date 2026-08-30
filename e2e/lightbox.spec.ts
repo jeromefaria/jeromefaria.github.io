@@ -191,5 +191,20 @@ test.describe('Lightbox', () => {
       await expect(fresh.locator(LIGHTBOX_IMAGE_SELECTOR)).toBeVisible();
       await fresh.close();
     });
+
+    test('the browser Back button closes the lightbox instead of leaving the page', async ({ page }) => {
+      await openLiveLightbox(page);
+      await expect(page).toHaveURL(/#.+\/photo\/1$/);
+
+      await page.goBack();
+      await expect(page.locator(LIGHTBOX_SELECTOR)).toHaveCount(0);
+      await expect(page).not.toHaveURL(/\/photo\//);
+      await expect(page.locator(LIVE_GALLERY_BUTTON).first()).toBeVisible();
+
+      // Forward navigates back into the open item.
+      await page.goForward();
+      await expect(page.locator(LIGHTBOX_SELECTOR)).toBeVisible({ timeout: 10000 });
+      await expect(page).toHaveURL(/#.+\/photo\/1$/);
+    });
   });
 });

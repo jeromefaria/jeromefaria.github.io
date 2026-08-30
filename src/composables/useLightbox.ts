@@ -3,7 +3,6 @@ import { onMounted, onUnmounted, ref } from 'vue';
 
 import type { LightboxItem } from '@/types/lightbox';
 import { baseFragment, type LightboxSource, mediaFragment } from '@/utils/lightboxPermalink';
-import { clearHash, updateHash } from '@/utils/navigation';
 
 import { useFocusReturn } from './useFocusReturn';
 import { useScrollLock } from './useScrollLock';
@@ -19,6 +18,17 @@ export interface UseLightboxReturn {
   goToPrev: () => void;
 }
 
+// Tags the history entry that represents an open lightbox, so a fresh page load
+// (state is null) is told apart from a forward-navigation back into an open item.
+interface LightboxHistoryState {
+  lightbox?: boolean;
+}
+
+const LIGHTBOX_STATE: LightboxHistoryState = { lightbox: true };
+
+const currentFragment = (): string => window.location.hash.slice(1);
+const isLightboxEntry = (): boolean => (window.history.state as LightboxHistoryState | null)?.lightbox === true;
+
 export const useLightbox = (): UseLightboxReturn => {
   const isOpen = ref(false);
   const currentItem = ref<LightboxItem | null>(null);
@@ -29,42 +39,6 @@ export const useLightbox = (): UseLightboxReturn => {
   const { capture, restore } = useFocusReturn();
 
   let source: LightboxSource | null = null;
-  let preOpenFragment = '';
-
-  const writeMediaHash = (index: number): void => {
-    if (source) updateHash(mediaFragment(source, index));
-  };
-
-  const openLightbox = (allItems: LightboxItem[] = [], index = 0, itemSource?: LightboxSource): void => {
-    capture();
-    preOpenFragment = window.location.hash.slice(1);
-    source = itemSource ?? null;
-    items.value = allItems;
-    currentIndex.value = index;
-    updateCurrentItem(index);
-    isOpen.value = true;
-    lock();
-    writeMediaHash(index);
-  };
-
-  const closeLightbox = (): void => {
-    isOpen.value = false;
-    currentItem.value = null;
-    items.value = [];
-    currentIndex.value = 0;
-    unlock();
-    restore();
-
-    if (source) {
-      const anchor = baseFragment(preOpenFragment);
-      if (anchor) {
-        updateHash(anchor);
-      } else {
-        clearHash();
-      }
-    }
-    source = null;
-  };
 
   const updateCurrentItem = (index: number): void => {
     const item = items.value[index];
@@ -73,12 +47,56 @@ export const useLightbox = (): UseLightboxReturn => {
     currentItem.value = item;
   };
 
+  const openLightbox = (allItems: LightboxItem[] = [], index = 0, itemSource?: LightboxSource): void => {
+    const media = itemSource ? mediaFragment(itemSource, index) : null;
+    if (isOpen.value && media && currentFragment() === media) return;
+
+    capture();
+    source = itemSource ?? null;
+    items.value = allItems;
+    currentIndex.value = index;
+    updateCurrentItem(index);
+    isOpen.value = true;
+    lock();
+
+    if (!media) return;
+
+    if (currentFragment() !== media) {
+      // In-page open: push the open entry over the current (closed) one, so Back closes it.
+      window.history.pushState(LIGHTBOX_STATE, '', `#${media}`);
+    } else if (!isLightboxEntry()) {
+      // Fresh load at the open URL: synthesize a closed entry beneath it to return to.
+      window.history.replaceState(null, '', `#${baseFragment(media)}`);
+      window.history.pushState(LIGHTBOX_STATE, '', `#${media}`);
+    }
+    // Otherwise we forward-navigated onto an entry we already own — leave history as is.
+  };
+
+  const resetState = (): void => {
+    isOpen.value = false;
+    currentItem.value = null;
+    items.value = [];
+    currentIndex.value = 0;
+    source = null;
+    unlock();
+    restore();
+  };
+
+  const closeLightbox = (): void => {
+    if (isOpen.value && source && isLightboxEntry()) {
+      // Pop the open entry; the resulting popstate restores the URL and resets state.
+      window.history.back();
+      return;
+    }
+    resetState();
+  };
+
   const goToNext = (): void => {
     if (currentIndex.value >= items.value.length - 1) return;
 
     currentIndex.value++;
     updateCurrentItem(currentIndex.value);
-    writeMediaHash(currentIndex.value);
+    if (source) window.history.replaceState(LIGHTBOX_STATE, '', `#${mediaFragment(source, currentIndex.value)}`);
   };
 
   const goToPrev = (): void => {
@@ -86,7 +104,14 @@ export const useLightbox = (): UseLightboxReturn => {
 
     currentIndex.value--;
     updateCurrentItem(currentIndex.value);
-    writeMediaHash(currentIndex.value);
+    if (source) window.history.replaceState(LIGHTBOX_STATE, '', `#${mediaFragment(source, currentIndex.value)}`);
+  };
+
+  const onPopState = (): void => {
+    if (!isOpen.value) return;
+
+    const openMedia = source ? mediaFragment(source, currentIndex.value) : '';
+    if (currentFragment() !== openMedia) resetState();
   };
 
   const keyHandlers: Record<string, () => void> = {
@@ -106,6 +131,7 @@ export const useLightbox = (): UseLightboxReturn => {
 
   onMounted(() => {
     document.addEventListener('keydown', handleKeydown, { signal: abortController.signal });
+    window.addEventListener('popstate', onPopState, { signal: abortController.signal });
   });
 
   onUnmounted(() => {
