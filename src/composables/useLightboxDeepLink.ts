@@ -13,7 +13,11 @@ export const useLightboxDeepLink = (
   galleries: Galleries,
   open: (items: LightboxItem[], index: number, source: LightboxSource) => void,
 ): void => {
+  const controller = new AbortController();
+
   const openIfTargeted = (): void => {
+    if (controller.signal.aborted) return;
+
     const parsed = parseMediaFragment(window.location.hash.slice(1));
     if (!parsed) return;
     if (parsed.id !== entityId) return;
@@ -24,9 +28,11 @@ export const useLightboxDeepLink = (
     open(items, parsed.index, { id: entityId, kind: parsed.kind });
   };
 
-  // Deferred a tick on load so the host lightbox is mounted before we open it.
-  onMounted(() => void nextTick(openIfTargeted));
+  onMounted(() => {
+    // Deferred a tick so the host lightbox is mounted before we open it.
+    void nextTick(openIfTargeted);
+    window.addEventListener('popstate', openIfTargeted, { signal: controller.signal });
+  });
 
-  onMounted(() => window.addEventListener('popstate', openIfTargeted));
-  onUnmounted(() => window.removeEventListener('popstate', openIfTargeted));
+  onUnmounted(() => controller.abort());
 };

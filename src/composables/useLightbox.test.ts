@@ -329,87 +329,94 @@ describe('useLightbox', () => {
 });
 
 describe('useLightbox history integration', () => {
-  const settle = (): Promise<void> => new Promise(resolve => setTimeout(resolve, 0));
+  const source = { id: 'madeiradig-2011', kind: 'photo' as const };
+  const popState = (): void => window.dispatchEvent(new PopStateEvent('popstate'));
 
   afterEach(() => {
     window.history.replaceState(null, '', window.location.pathname);
   });
 
-  it('writes #id/kind/index on open and navigation', () => {
+  it('pushes #id/kind/index on open and replaces it on navigation', () => {
     window.history.replaceState(null, '', '#madeiradig-2011');
+    const push = vi.spyOn(window.history, 'pushState');
+    const replace = vi.spyOn(window.history, 'replaceState');
     const wrapper = mount(createTestComponent());
 
-    wrapper.vm.openLightbox(mockImages, 0, { id: 'madeiradig-2011', kind: 'photo' });
+    wrapper.vm.openLightbox(mockImages, 0, source);
     expect(window.location.hash).toBe('#madeiradig-2011/photo/1');
+    expect(push).toHaveBeenCalledWith({ lightbox: true }, '', '#madeiradig-2011/photo/1');
 
     wrapper.vm.goToNext();
     expect(window.location.hash).toBe('#madeiradig-2011/photo/2');
+    expect(replace).toHaveBeenCalledWith({ lightbox: true }, '', '#madeiradig-2011/photo/2');
+
+    push.mockRestore();
+    replace.mockRestore();
     wrapper.unmount();
   });
 
-  it('closes on Back — restoring the anchor and resetting state — even after paging photos', async () => {
-    window.history.replaceState(null, '', '#madeiradig-2011');
+  it('pops the history entry when closed via the control (Escape/button)', () => {
+    window.history.replaceState({ lightbox: true }, '', '#madeiradig-2011');
+    const back = vi.spyOn(window.history, 'back').mockImplementation(() => undefined);
     const wrapper = mount(createTestComponent());
 
-    wrapper.vm.openLightbox(mockImages, 0, { id: 'madeiradig-2011', kind: 'photo' });
-    wrapper.vm.goToNext();
-    expect(wrapper.vm.isOpen).toBe(true);
-
+    wrapper.vm.openLightbox(mockImages, 0, source);
     wrapper.vm.closeLightbox();
-    await settle();
 
-    expect(window.location.hash).toBe('#madeiradig-2011');
-    expect(wrapper.vm.isOpen).toBe(false);
+    expect(back).toHaveBeenCalledOnce();
+    back.mockRestore();
     wrapper.unmount();
   });
 
-  it('closes when the browser Back button pops the open entry', async () => {
+  it('resets state when a popstate leaves the open item (Back)', () => {
     window.history.replaceState(null, '', '#madeiradig-2011');
     const wrapper = mount(createTestComponent());
 
-    wrapper.vm.openLightbox(mockImages, 0, { id: 'madeiradig-2011', kind: 'photo' });
+    wrapper.vm.openLightbox(mockImages, 0, source);
+    wrapper.vm.goToNext();
     expect(wrapper.vm.isOpen).toBe(true);
 
-    window.history.back();
-    await settle();
+    // The browser pops back to the anchor and fires popstate.
+    window.history.replaceState(null, '', '#madeiradig-2011');
+    popState();
 
     expect(wrapper.vm.isOpen).toBe(false);
     wrapper.unmount();
   });
 
-  it('synthesizes a closed entry when opened from a fresh load at the media URL', async () => {
+  it('synthesizes a closed entry when opened from a fresh load at the media URL', () => {
     window.history.replaceState(null, '', '#madeiradig-2011/photo/2');
+    const replace = vi.spyOn(window.history, 'replaceState');
+    const push = vi.spyOn(window.history, 'pushState');
     const wrapper = mount(createTestComponent());
 
-    wrapper.vm.openLightbox(mockImages, 1, { id: 'madeiradig-2011', kind: 'photo' });
-    expect(window.location.hash).toBe('#madeiradig-2011/photo/2');
+    wrapper.vm.openLightbox(mockImages, 1, source);
 
-    window.history.back();
-    await settle();
+    expect(replace).toHaveBeenCalledWith(null, '', '#madeiradig-2011');
+    expect(push).toHaveBeenCalledWith({ lightbox: true }, '', '#madeiradig-2011/photo/2');
 
-    expect(window.location.hash).toBe('#madeiradig-2011');
-    expect(wrapper.vm.isOpen).toBe(false);
+    replace.mockRestore();
+    push.mockRestore();
     wrapper.unmount();
   });
 
-  it('does not push a second history entry when re-opening the item already shown', async () => {
+  it('does not push a second entry when re-opening the item already shown', () => {
     window.history.replaceState(null, '', '#madeiradig-2011');
     const wrapper = mount(createTestComponent());
 
-    const source = { id: 'madeiradig-2011', kind: 'photo' as const };
     wrapper.vm.openLightbox(mockImages, 0, source);
+    const push = vi.spyOn(window.history, 'pushState');
     wrapper.vm.openLightbox(mockImages, 0, source);
 
-    window.history.back();
-    await settle();
-
-    expect(window.location.hash).toBe('#madeiradig-2011');
-    expect(wrapper.vm.isOpen).toBe(false);
+    expect(push).not.toHaveBeenCalled();
+    expect(wrapper.vm.isOpen).toBe(true);
+    push.mockRestore();
     wrapper.unmount();
   });
 
-  it('closes directly and leaves the URL untouched when opened without a source', () => {
+  it('closes directly, without touching history, when opened without a source', () => {
     window.history.replaceState(null, '', '#madeiradig-2011');
+    const back = vi.spyOn(window.history, 'back');
     const wrapper = mount(createTestComponent());
 
     wrapper.vm.openLightbox(mockImages, 0);
@@ -417,7 +424,8 @@ describe('useLightbox history integration', () => {
 
     wrapper.vm.closeLightbox();
     expect(wrapper.vm.isOpen).toBe(false);
-    expect(window.location.hash).toBe('#madeiradig-2011');
+    expect(back).not.toHaveBeenCalled();
+    back.mockRestore();
     wrapper.unmount();
   });
 });

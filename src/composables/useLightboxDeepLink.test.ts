@@ -1,4 +1,4 @@
-import { flushPromises, mount } from '@vue/test-utils';
+import { enableAutoUnmount, flushPromises, mount } from '@vue/test-utils';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { defineComponent, ref } from 'vue';
 
@@ -24,6 +24,8 @@ const mountWith = (
   }));
 
 describe('useLightboxDeepLink', () => {
+  enableAutoUnmount(afterEach);
+
   afterEach(() => {
     window.location.hash = '';
   });
