@@ -15,6 +15,7 @@ describe('router routes', () => {
       '/contact',
       '/epk',
       '/privacy',
+      '/colophon',
       '/:pathMatch(.*)*',
     ]);
   });

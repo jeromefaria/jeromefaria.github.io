@@ -47,6 +47,11 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/PrivacyView.vue'),
   },
   {
+    path: '/colophon',
+    name: 'colophon',
+    component: () => import('@/views/ColophonView.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import('@/views/NotFoundView.vue'),
