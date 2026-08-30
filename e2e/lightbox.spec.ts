@@ -170,6 +170,27 @@ test.describe('Lightbox', () => {
     });
   });
 
+  test.describe('Control visibility on the dark overlay', () => {
+    // The scrim is always dark, so the nav/close controls must stay light in
+    // both themes. A regression tying them to the page-background token (which
+    // flips to near-black in dark mode) rendered them invisible; assert the
+    // computed colour is light with the theme forced dark.
+    const channelAverage = (color: string): number => {
+      const parts = color.match(/\d+(\.\d+)?/g)?.slice(0, 3).map(Number) ?? [];
+      return parts.reduce((sum, value) => sum + value, 0) / (parts.length || 1);
+    };
+
+    test('close and next controls render light with dark theme forced', async ({ page }) => {
+      await openLiveLightbox(page);
+      await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
+
+      for (const selector of [LIGHTBOX_CLOSE_SELECTOR, LIGHTBOX_NEXT_SELECTOR]) {
+        const color = await page.locator(selector).evaluate(element => getComputedStyle(element).color);
+        expect(channelAverage(color), `${selector} colour "${color}" must be light on the dark scrim`).toBeGreaterThan(200);
+      }
+    });
+  });
+
   test.describe('Deep linking', () => {
     test('opening a photo writes a shareable URL that reopens it on a fresh visit', async ({ page }) => {
       await openLiveLightbox(page);

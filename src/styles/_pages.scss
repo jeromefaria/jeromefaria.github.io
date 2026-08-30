@@ -171,7 +171,7 @@
     p {
       font-size: $font-size-lg;
       line-height: $line-height-relaxed;
-      color: var(--color-text-primary);
+      color: var(--color-text);
       margin-bottom: 0;
 
       @include respond-to(md) {

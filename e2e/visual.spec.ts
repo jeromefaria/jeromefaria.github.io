@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, type Page, test } from '@playwright/test';
 
 import { gotoHydrated } from './helpers';
 
@@ -41,4 +41,33 @@ test.describe('Visual regression — light theme', () => {
       await expect(page).toHaveScreenshot(`${name}-light.png`, SNAPSHOT_OPTIONS);
     });
   }
+});
+
+// The open lightbox renders its controls directly on the scrim rather than in a
+// theme-flipping panel — the one place a theme-dependent colour turned invisible.
+// A deep link opens the same photo every run, so the overlay stays deterministic.
+const LIGHTBOX_DEEP_LINK = '/live#showcase-casa-amarela/photo/1';
+
+const openLightbox = async (page: Page): Promise<void> => {
+  await gotoHydrated(page, LIGHTBOX_DEEP_LINK);
+
+  const image = page.locator('.lightbox__image');
+  await expect(image).toBeVisible({ timeout: 10000 });
+  await image.evaluate((element: HTMLImageElement) =>
+    element.complete ? undefined : new Promise(resolve => { element.onload = resolve; }));
+};
+
+test.describe('Visual regression — overlays', () => {
+  test('open lightbox matches its snapshot', { tag: '@visual' }, async ({ page }) => {
+    await openLightbox(page);
+
+    await expect(page).toHaveScreenshot('lightbox.png', SNAPSHOT_OPTIONS);
+  });
+
+  test('open lightbox matches its light snapshot', { tag: '@visual' }, async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('theme', 'light'));
+    await openLightbox(page);
+
+    await expect(page).toHaveScreenshot('lightbox-light.png', SNAPSHOT_OPTIONS);
+  });
 });
