@@ -117,9 +117,9 @@ export const contactContent: ContactConfig = {
       },
       {
         id: 'mastering',
-        label: 'Mastering',
-        subjectPrefix: 'Mastering',
-        blurb: 'For mastering your release.',
+        label: 'Mixing & Mastering',
+        subjectPrefix: 'Mixing & Mastering',
+        blurb: 'For mixing and mastering your release.',
         fields: [
           {
             id: 'project',
