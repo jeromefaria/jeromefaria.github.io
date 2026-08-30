@@ -1,6 +1,7 @@
-import { defineConfig } from 'vitest/config';
-import vue from '@vitejs/plugin-vue';
 import { fileURLToPath } from 'node:url';
+
+import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [vue()],
@@ -12,6 +13,8 @@ export default defineConfig({
       '**/node_modules/**',
       '**/dist/**',
       '**/e2e/**',
+      // The Worker targets the Cloudflare Workers runtime, not happy-dom — it has its own vitest.
+      '**/worker/**',
       '**/.{idea,git,cache,output,temp}/**',
       '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build,playwright}.config.*',
     ],
