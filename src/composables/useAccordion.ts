@@ -2,6 +2,7 @@ import type { Ref } from 'vue';
 import { onMounted, ref } from 'vue';
 
 import { ID_PREFIX } from '@/utils/constants';
+import { baseFragment } from '@/utils/lightboxPermalink';
 import { clearHash, updateHash } from '@/utils/navigation';
 import { afterAccordionAnimation, prefersReducedMotion, scrollToElement } from '@/utils/scroll';
 
@@ -41,7 +42,7 @@ export const useAccordion = (
   const processHash = (hash: string, shouldScroll: boolean): void => {
     if (!hash) return;
 
-    const id = hash.replace(`#${ID_PREFIX.SECTION}`, '').replace('#', '');
+    const id = baseFragment(hash.replace(`#${ID_PREFIX.SECTION}`, '').replace('#', ''));
 
     if (validSections.includes(id)) {
       openSection.value = id;
