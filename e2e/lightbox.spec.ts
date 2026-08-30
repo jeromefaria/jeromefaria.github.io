@@ -1,6 +1,6 @@
 import { expect, type Page, test } from '@playwright/test';
 
-import { gotoHydrated } from './helpers';
+import { gotoHydrated, waitForHydration } from './helpers';
 
 const LIGHTBOX_SELECTOR = '.lightbox';
 const LIGHTBOX_CLOSE_SELECTOR = '.lightbox__hint--close';
@@ -167,6 +167,29 @@ test.describe('Lightbox', () => {
 
     test('lightbox contains focusable elements', async ({ page }) => {
       expect(await page.locator(`${LIGHTBOX_SELECTOR} button`).count()).toBeGreaterThan(0);
+    });
+  });
+
+  test.describe('Deep linking', () => {
+    test('opening a photo writes a shareable URL that reopens it on a fresh visit', async ({ page }) => {
+      await openLiveLightbox(page);
+
+      // Opening reflects the photo in the URL.
+      await expect(page).toHaveURL(/#.+\/photo\/1$/);
+      const shareUrl = page.url();
+
+      // Closing restores the plain event anchor (no media suffix).
+      await page.locator(LIGHTBOX_CLOSE_SELECTOR).click();
+      await expect(page.locator(LIGHTBOX_SELECTOR)).toHaveCount(0);
+      await expect(page).not.toHaveURL(/\/photo\//);
+
+      // A recipient opening the shared URL in a fresh tab lands on that photo.
+      const fresh = await page.context().newPage();
+      await fresh.goto(shareUrl);
+      await waitForHydration(fresh);
+      await expect(fresh.locator(LIGHTBOX_SELECTOR)).toBeVisible({ timeout: 10000 });
+      await expect(fresh.locator(LIGHTBOX_IMAGE_SELECTOR)).toBeVisible();
+      await fresh.close();
     });
   });
 });

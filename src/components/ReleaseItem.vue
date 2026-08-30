@@ -2,11 +2,13 @@
 import { computed, ref } from 'vue';
 
 import { useAccordionVisibility } from '@/composables/useAccordionContext';
+import { useLightboxDeepLink } from '@/composables/useLightboxDeepLink';
 import { useReleasePlayback } from '@/composables/useReleasePlayback';
 import type { LightboxItem, Release } from '@/types';
 import { hasBandcampId, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
+import type { LightboxSource } from '@/utils/lightboxPermalink';
 import { releasePath } from '@/utils/releasePermalink';
 import { renderCredits } from '@/utils/renderCredits';
 
@@ -26,7 +28,7 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{
   'update-hash': [id: string];
-  'open-lightbox': [items: LightboxItem[], index: number];
+  'open-lightbox': [items: LightboxItem[], index: number, source: LightboxSource];
 }>();
 
 const coverVisible = useAccordionVisibility();
@@ -38,6 +40,12 @@ const imageLightboxItems = computed<LightboxItem[]>(() =>
 
 const videoLightboxItems = computed<LightboxItem[]>(() =>
   hasVideos(props.release) ? props.release.videos.map(toLightboxVideo) : []);
+
+useLightboxDeepLink(
+  props.release.id,
+  { photo: imageLightboxItems, video: videoLightboxItems },
+  (items, index, source) => emit('open-lightbox', items, index, source),
+);
 
 const isBandcampLink = computed(() =>
   hasExternalUrl(props.release) && props.release.externalUrl.includes('bandcamp.com'));
@@ -171,7 +179,8 @@ const {
         :images="imageLightboxItems"
         :videos="videoLightboxItems"
         image-label="Gallery"
-        @open-lightbox="(items, index) => emit('open-lightbox', items, index)"
+        :source-id="release.id"
+        @open-lightbox="(items, index, source) => emit('open-lightbox', items, index, source)"
       />
     </div>
   </article>
