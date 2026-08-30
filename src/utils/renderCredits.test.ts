@@ -38,4 +38,25 @@ describe('renderCredits', () => {
   it('strips markers for indexing', () => {
     expect(plainCredits('Art by [[Lia]] and Dextro.')).toBe('Art by Lia and Dextro.');
   });
+
+  it('drops a non-http(s)/mailto url and renders the name plain', () => {
+    const credits = renderCredits('Art by [[X]].', [{ name: 'X', url: 'javascript:alert(1)' }]);
+
+    expect(credits).toBe('Art by X.');
+    expect(credits).not.toContain('<a');
+  });
+
+  it('escapes an attribute-breaking url so it cannot inject markup', () => {
+    const credits = renderCredits('Art by [[X]].', [{ name: 'X', url: 'https://x.test/"><img src=x onerror=alert(1)>' }]);
+
+    // No attribute breakout — the quote/brackets are escaped, so the payload stays inert text inside href.
+    expect(credits).not.toContain('"><img');
+    expect(credits).toContain('&quot;&gt;&lt;img');
+  });
+
+  it('escapes markup in the marker name', () => {
+    const credits = renderCredits('Art by [[<script>]].', [{ name: '<script>', url: 'https://x.test/' }]);
+
+    expect(credits).toBe('Art by <a href="https://x.test/">&lt;script&gt;</a>.');
+  });
 });
