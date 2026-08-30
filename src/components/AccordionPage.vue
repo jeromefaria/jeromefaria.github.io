@@ -4,6 +4,7 @@ import { useTemplateRef } from 'vue';
 import { useAccordion } from '@/composables/useAccordion';
 import { usePageHead } from '@/composables/usePageHead';
 import type { LightboxItem } from '@/types';
+import type { LightboxSource } from '@/utils/lightboxPermalink';
 import { findSectionContainingId, updateHash } from '@/utils/navigation';
 
 import AccordionSection from './AccordionSection.vue';
@@ -29,7 +30,7 @@ const props = defineProps<{
 defineSlots<{
   item(props: {
     item: T;
-    openLightbox: (items: LightboxItem[], index: number) => void;
+    openLightbox: (items: LightboxItem[], index: number, source?: LightboxSource) => void;
     updateHash: (id: string) => void;
   }): unknown;
 }>();
@@ -47,8 +48,8 @@ const { openSection, handleToggle } = useAccordion(
 );
 const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 
-const openLightbox = (items: LightboxItem[], index: number): void => {
-  lightbox.value?.openLightbox(items, index);
+const openLightbox = (items: LightboxItem[], index: number, source?: LightboxSource): void => {
+  lightbox.value?.openLightbox(items, index, source);
 };
 </script>
 

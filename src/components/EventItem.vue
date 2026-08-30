@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import { useLightboxDeepLink } from '@/composables/useLightboxDeepLink';
 import type { LightboxItem, LiveEvent } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { formatEventDateRange } from '@/utils/formatters';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
+import type { LightboxSource } from '@/utils/lightboxPermalink';
 import { buildEventDescription } from '@/utils/liveDescription';
 import { pluralize } from '@/utils/pluralize';
 
@@ -18,7 +20,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   'update-hash': [id: string];
-  'open-lightbox': [items: LightboxItem[], index: number];
+  'open-lightbox': [items: LightboxItem[], index: number, source: LightboxSource];
 }>();
 
 const formattedDate = computed(() => formatEventDateRange(props.event.date, props.event.endDate));
@@ -38,6 +40,12 @@ const imageLightboxItems = computed<LightboxItem[]>(() =>
 const posterLightboxItems = computed<LightboxItem[]>(() => props.event.posters?.map(toLightboxImage) ?? []);
 const videoLightboxItems = computed<LightboxItem[]>(() => props.event.videos?.map(toLightboxVideo) ?? []);
 const imageLabel = computed(() => pluralize(imageLightboxItems.value.length, 'Photo'));
+
+useLightboxDeepLink(
+  props.event.id,
+  { photo: imageLightboxItems, poster: posterLightboxItems, video: videoLightboxItems },
+  (items, index, source) => emit('open-lightbox', items, index, source),
+);
 </script>
 
 <template>
@@ -86,7 +94,8 @@ const imageLabel = computed(() => pluralize(imageLightboxItems.value.length, 'Ph
         :posters="posterLightboxItems"
         :videos="videoLightboxItems"
         :image-label="imageLabel"
-        @open-lightbox="(items, index) => emit('open-lightbox', items, index)"
+        :source-id="event.id"
+        @open-lightbox="(items, index, source) => emit('open-lightbox', items, index, source)"
       />
     </div>
   </article>

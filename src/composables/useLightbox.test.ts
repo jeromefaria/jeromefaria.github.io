@@ -327,3 +327,33 @@ describe('useLightbox', () => {
     });
   });
 });
+
+describe('useLightbox deep-link hash', () => {
+  afterEach(() => {
+    window.history.replaceState(null, '', window.location.pathname);
+  });
+
+  it('writes #id/kind/index on open and navigation, then restores the anchor on close', () => {
+    window.history.replaceState(null, '', '#madeiradig-2011');
+    const wrapper = mount(createTestComponent());
+
+    wrapper.vm.openLightbox(mockImages, 0, { id: 'madeiradig-2011', kind: 'photo' });
+    expect(window.location.hash).toBe('#madeiradig-2011/photo/1');
+
+    wrapper.vm.goToNext();
+    expect(window.location.hash).toBe('#madeiradig-2011/photo/2');
+
+    wrapper.vm.closeLightbox();
+    expect(window.location.hash).toBe('#madeiradig-2011');
+    wrapper.unmount();
+  });
+
+  it('leaves the URL untouched when opened without a source', () => {
+    window.history.replaceState(null, '', '#madeiradig-2011');
+    const wrapper = mount(createTestComponent());
+
+    wrapper.vm.openLightbox(mockImages, 0);
+    expect(window.location.hash).toBe('#madeiradig-2011');
+    wrapper.unmount();
+  });
+});

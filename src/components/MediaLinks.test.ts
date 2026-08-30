@@ -10,8 +10,8 @@ const poster: LightboxItem = { type: 'image', src: '/poster.jpg', alt: 'Poster' 
 const video: LightboxItem = { type: 'video', url: 'https://v', title: 'V', platform: 'youtube' };
 
 const mountLinks = (
-  props: Partial<{ images: LightboxItem[]; posters: LightboxItem[]; videos: LightboxItem[]; imageLabel: string }>,
-) => mount(MediaLinks, { props: { images: [], videos: [], imageLabel: 'Gallery', ...props } });
+  props: Partial<{ images: LightboxItem[]; posters: LightboxItem[]; videos: LightboxItem[]; imageLabel: string; sourceId: string }>,
+) => mount(MediaLinks, { props: { images: [], videos: [], imageLabel: 'Gallery', sourceId: 'ev-1', ...props } });
 
 describe('MediaLinks', () => {
   it('renders nothing when there are no images or videos', () => {
@@ -25,7 +25,7 @@ describe('MediaLinks', () => {
     expect(button.text()).toBe('Gallery');
     await button.trigger('click');
 
-    expect(wrapper.emitted('open-lightbox')?.[0]).toEqual([[image], 0]);
+    expect(wrapper.emitted('open-lightbox')?.[0]).toEqual([[image], 0, { id: 'ev-1', kind: 'photo' }]);
   });
 
   it('gives each terse label a descriptive "View …" aria-label for assistive tech', () => {
@@ -53,7 +53,7 @@ describe('MediaLinks', () => {
     expect(button.text()).toBe('Posters');
     await button.trigger('click');
 
-    expect(wrapper.emitted('open-lightbox')?.[0]).toEqual([[poster, poster], 0]);
+    expect(wrapper.emitted('open-lightbox')?.[0]).toEqual([[poster, poster], 0, { id: 'ev-1', kind: 'poster' }]);
   });
 
   it('orders the controls images, posters, then videos', () => {

@@ -205,6 +205,7 @@ describe('EventItem', () => {
           { type: 'image', src: '/images/live/a-poster-002.jpg', alt: 'Poster two' },
         ],
         0,
+        { id: 'fim-de-emissao-45', kind: 'poster' },
       ]);
     });
 
