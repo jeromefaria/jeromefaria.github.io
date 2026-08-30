@@ -84,6 +84,28 @@ describe('contact worker', () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it('rejects a request from a disallowed origin before doing anything', async () => {
+    const response = await worker.fetch(postRequest(VALID_BODY, 'https://evil.example'), ENV);
+
+    expect(response.status).toBe(403);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('rejects an over-long message before verifying', async () => {
+    const response = await worker.fetch(postRequest({ ...VALID_BODY, message: 'x'.repeat(5001) }), ENV);
+
+    expect(response.status).toBe(400);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('rejects too many extra fields', async () => {
+    const fields = Array.from({ length: 21 }, (_unused, index) => ({ label: `L${index}`, value: 'v' }));
+    const response = await worker.fetch(postRequest({ ...VALID_BODY, fields }), ENV);
+
+    expect(response.status).toBe(400);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it('rejects a failed Turnstile verification without sending', async () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(false));
 
