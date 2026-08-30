@@ -25,6 +25,7 @@ const routeCommands = (): Command[] => [
   { kind: 'navigate', id: 'nav:contact', title: 'Contact', keywords: ['email', 'message', 'reach', 'booking'], group: 'Navigate', to: '/contact' },
   { kind: 'navigate', id: 'nav:epk', title: 'Press Kit', keywords: ['epk', 'downloads', 'photos'], group: 'Navigate', to: '/epk' },
   { kind: 'navigate', id: 'nav:privacy', title: 'Privacy', keywords: ['policy', 'data'], group: 'Navigate', to: '/privacy' },
+  { kind: 'navigate', id: 'nav:colophon', title: 'Colophon', keywords: ['tech', 'stack', 'built', 'source', 'code'], group: 'Navigate', to: '/colophon' },
 ];
 
 const sectionCommands = (): Command[] => [
