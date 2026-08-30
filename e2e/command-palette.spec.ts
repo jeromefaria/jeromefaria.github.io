@@ -88,6 +88,37 @@ test.describe('Command palette (⌘K)', () => {
 
     await expect(page).toHaveScreenshot('command-palette.png');
   });
+
+  test('matches its light snapshot @visual', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('theme', 'light'));
+    await gotoHydrated(page, '/');
+
+    await page.keyboard.press('Control+k');
+    await expect(page.locator(INPUT)).toBeFocused();
+
+    await expect(page).toHaveScreenshot('command-palette-light.png');
+  });
+
+  test('keeps result text legible against the panel', async ({ page }) => {
+    await gotoHydrated(page, '/');
+    await page.keyboard.press('Control+k');
+    await page.locator(INPUT).fill('about');
+    await expect(page.locator(`${PALETTE}__title`).first()).toBeVisible();
+
+    const [text, panel] = await page.evaluate(palette => {
+      const title = document.querySelector(`${palette}__title`);
+      const panelElement = document.querySelector(`${palette}__panel`);
+      return [getComputedStyle(title).color, getComputedStyle(panelElement).backgroundColor];
+    }, PALETTE);
+
+    const channelAverage = (color: string): number => {
+      const parts = color.match(/\d+(\.\d+)?/g)?.slice(0, 3).map(Number) ?? [];
+      return parts.reduce((sum, value) => sum + value, 0) / (parts.length || 1);
+    };
+
+    expect(Math.abs(channelAverage(text) - channelAverage(panel)),
+      `title "${text}" must contrast with panel "${panel}"`).toBeGreaterThan(100);
+  });
 });
 
 test.describe('Keyboard help (?)', () => {
@@ -120,5 +151,15 @@ test.describe('Keyboard help (?)', () => {
     await expect(page.locator(`${HELP}__panel`)).toBeVisible();
 
     await expect(page).toHaveScreenshot('keyboard-help.png');
+  });
+
+  test('matches its light snapshot @visual', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('theme', 'light'));
+    await gotoHydrated(page, '/');
+
+    await page.keyboard.press('Shift+Slash');
+    await expect(page.locator(`${HELP}__panel`)).toBeVisible();
+
+    await expect(page).toHaveScreenshot('keyboard-help-light.png');
   });
 });
