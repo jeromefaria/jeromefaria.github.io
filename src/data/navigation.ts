@@ -22,6 +22,13 @@ export const navigation: NavItem[] = [
 ];
 
 export const social: SocialLink[] = [
-  { name: 'bandcamp', url: 'https://music.jeromefaria.com' },
-  { name: 'patreon', url: 'https://blog.jeromefaria.com' },
+  { name: 'bandcamp', url: 'https://jeromefaria.bandcamp.com' },
+  { name: 'bluesky', url: 'https://bsky.app/profile/jeromefaria.com' },
+  { name: 'github', url: 'https://github.com/jeromefaria' },
+  { name: 'linkedin', url: 'https://www.linkedin.com/in/jeromefaria' },
+  { name: 'patreon', url: 'https://www.patreon.com/jeromefaria' },
+  { name: 'soundcloud', url: 'https://soundcloud.com/jeromefaria' },
+  { name: 'substack', url: 'https://jeromefaria.substack.com' },
+  { name: 'twitch', url: 'https://www.twitch.tv/jeromefaria' },
+  { name: 'youtube', url: 'https://www.youtube.com/@jeromefaria' },
 ];

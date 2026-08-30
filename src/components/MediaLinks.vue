@@ -12,6 +12,7 @@ const props = withDefaults(
     imageLabel: string;
     sourceId: string;
     posters?: LightboxItem[];
+    purchaseUrl?: string | undefined;
   }>(),
   { posters: () => [] },
 );
@@ -31,7 +32,7 @@ const links = computed(() =>
 
 <template>
   <p
-    v-if="links.length"
+    v-if="links.length || purchaseUrl"
     class="media-links"
   >
     <template
@@ -47,5 +48,17 @@ const links = computed(() =>
         {{ link.label }}
       </button>
     </template>
+
+    <span v-if="purchaseUrl && links.length"> | </span>
+    <a
+      v-if="purchaseUrl"
+      class="link-discrete"
+      :href="purchaseUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Purchase this release on Bandcamp (opens in a new tab)"
+    >
+      Purchase
+    </a>
   </p>
 </template>

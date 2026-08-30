@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
 import { createMemoryHistory, createRouter } from 'vue-router';
 
-import { navigation, siteConfig, social } from '@/data/navigation';
+import { navigation, siteConfig } from '@/data/navigation';
 
 import SiteFooter from './SiteFooter.vue';
 
@@ -25,18 +25,9 @@ describe('SiteFooter', () => {
     expect(navLinks.map(link => link.text())).toEqual(navigation.map(item => item.title));
   });
 
-  it('renders social links as external, safely-relled anchors', async () => {
+  it('no longer renders the social links block', async () => {
     const wrapper = await mountFooter();
-    const links = wrapper.findAll('.social-links a');
-
-    expect(links).toHaveLength(social.length);
-    social.forEach((item, index) => {
-      const link = links[index];
-      expect(link?.attributes('href')).toBe(item.url);
-      expect(link?.attributes('target')).toBe('_blank');
-      expect(link?.attributes('rel')).toBe('noopener noreferrer');
-      expect(link?.attributes('aria-label')).toBe(`${siteConfig.author.name} on ${item.name} (opens in a new tab)`);
-    });
+    expect(wrapper.find('.social-links').exists()).toBe(false);
   });
 
   it('shows the current year and author in the copyright', async () => {
