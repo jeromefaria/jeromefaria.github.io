@@ -121,6 +121,7 @@ onBeforeUnmount(() => {
           type="button"
           class="player-screen__queue-item"
           :class="{ 'is-current': index === currentIndex }"
+          :aria-current="index === currentIndex ? 'true' : undefined"
           @click="select(index)"
         >
           <span class="player-screen__queue-num">{{ index + 1 }}</span>

@@ -80,6 +80,9 @@
 
     &--active {
       background: var(--color-border-subtle);
+
+      // Background alone is ~1.05:1; the accent bar is the WCAG 1.4.11 (3:1) selection indicator.
+      box-shadow: inset 3px 0 0 var(--color-text);
     }
   }
 
