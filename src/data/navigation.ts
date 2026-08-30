@@ -23,10 +23,10 @@ export const navigation: NavItem[] = [
 
 export const social: SocialLink[] = [
   { name: 'bandcamp', url: 'https://jeromefaria.bandcamp.com' },
-  { name: 'patreon', url: 'https://www.patreon.com/jeromefaria' },
-  { name: 'substack', url: 'https://jeromefaria.substack.com' },
   { name: 'bluesky', url: 'https://bsky.app/profile/jeromefaria.com' },
-  { name: 'youtube', url: 'https://www.youtube.com/@jeromefaria' },
-  { name: 'twitch', url: 'https://www.twitch.tv/jeromefaria' },
+  { name: 'patreon', url: 'https://www.patreon.com/jeromefaria' },
   { name: 'soundcloud', url: 'https://soundcloud.com/jeromefaria' },
+  { name: 'substack', url: 'https://jeromefaria.substack.com' },
+  { name: 'twitch', url: 'https://www.twitch.tv/jeromefaria' },
+  { name: 'youtube', url: 'https://www.youtube.com/@jeromefaria' },
 ];
