@@ -64,7 +64,7 @@ const eventPeople = (event: LiveEvent): string[] => {
   if (setup.kind === 'project') names.push(setup.name.text, ...(setup.members ?? []).map(member => member.text));
   if (setup.kind === 'ensemble') names.push(setup.name, ...(setup.members ?? []).map(member => member.text));
 
-  names.push(...(event.bill ?? []).map(act => act.text));
+  names.push(...(event.bill ?? []).flatMap(entry => (Array.isArray(entry) ? entry.map(member => member.text) : [entry.text])));
   names.push(...(event.images ?? []).map(image => image.photographer?.name ?? ''));
   names.push(...(event.posters ?? []).map(poster => poster.artist?.name ?? ''));
 
