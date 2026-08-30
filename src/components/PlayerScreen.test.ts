@@ -45,6 +45,8 @@ describe('PlayerScreen', () => {
     expect(wrapper.find('.player-screen__art img').attributes('src')).toBe('/cover.jpg');
     expect(wrapper.findAll('.player-screen__queue-item')).toHaveLength(2);
     expect(wrapper.find('.player-screen__queue-item.is-current').text()).toContain('One');
+    expect(wrapper.find('.player-screen__queue-item.is-current').attributes('aria-current')).toBe('true');
+    expect(wrapper.findAll('.player-screen__queue-item')[1].attributes('aria-current')).toBeUndefined();
   });
 
   it('falls back to Jerome Faria when a track has no artist', async () => {

@@ -43,6 +43,26 @@ describe('LightboxOverlay', () => {
     });
   });
 
+  describe('dismissal', () => {
+    it('closes when the backdrop is clicked', async () => {
+      const wrapper = mountOverlay();
+
+      await wrapper.get('.lightbox').trigger('click');
+
+      expect(wrapper.emitted('close')).toHaveLength(1);
+      wrapper.unmount();
+    });
+
+    it('does not close when the image itself is clicked', async () => {
+      const wrapper = mountOverlay();
+
+      await wrapper.get('.lightbox__image').trigger('click');
+
+      expect(wrapper.emitted('close')).toBeUndefined();
+      wrapper.unmount();
+    });
+  });
+
   describe('focus management', () => {
     it('moves focus into the dialog on open', async () => {
       const wrapper = mountOverlay();

@@ -119,6 +119,8 @@ describe('CommandPalette', () => {
     await nextTick();
 
     expect(document.querySelector('.command-palette__empty')?.textContent).toContain('No matches');
+    expect(input.getAttribute('aria-expanded')).toBe('false');
+    expect(input.getAttribute('aria-controls')).toBeNull();
   });
 
   it('moves the active option with ArrowDown', async () => {
