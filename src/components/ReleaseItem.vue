@@ -5,7 +5,7 @@ import { useAccordionVisibility } from '@/composables/useAccordionContext';
 import { useLightboxDeepLink } from '@/composables/useLightboxDeepLink';
 import { useReleasePlayback } from '@/composables/useReleasePlayback';
 import type { LightboxItem, Release } from '@/types';
-import { hasBandcampId, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
+import { hasBandcampId, hasBandcampUrl, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 import type { LightboxSource } from '@/utils/lightboxPermalink';
@@ -180,6 +180,7 @@ const {
         :videos="videoLightboxItems"
         image-label="Gallery"
         :source-id="release.id"
+        :purchase-url="hasBandcampUrl(release) ? release.bandcampUrl : undefined"
         @open-lightbox="(items, index, source) => emit('open-lightbox', items, index, source)"
       />
     </div>

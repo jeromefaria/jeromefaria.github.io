@@ -14,7 +14,7 @@ Modular SCSS, all wired through `@use` (no legacy `@import`), enforced by **styl
 | `_type` | typography |
 | `_layout` | footer, containers |
 | `_masthead` | header / nav |
-| `_release` · `_social-links` · `_pagination` · `_contact` · `_lightbox` · `_accordion` | one component each (split from the old `_components` grab-bag) |
+| `_release` · `_pagination` · `_contact` · `_lightbox` · `_accordion` | one component each (split from the old `_components` grab-bag) |
 | `_overlays` | command palette, keyboard help, scrims |
 | `_player` | audio player bar + expanded screen |
 | `_pages` | per-page styles (home, about, press, live, privacy, not-found) |

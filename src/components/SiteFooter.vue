@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 
-import { navigation, siteConfig, social } from '@/data/navigation';
-
-import ExternalLink from './ExternalLink.vue';
+import { navigation, siteConfig } from '@/data/navigation';
 
 const currentYear = new Date().getFullYear();
 </script>
@@ -24,16 +22,6 @@ const currentYear = new Date().getFullYear();
             {{ nav.title }}
           </RouterLink>
         </nav>
-        <div class="social-links">
-          <ExternalLink
-            v-for="item in social"
-            :key="item.name"
-            :href="item.url"
-            :aria-label="`${siteConfig.author.name} on ${item.name} (opens in a new tab)`"
-          >
-            {{ item.name }}
-          </ExternalLink>
-        </div>
         <p class="footer__copyright">
           &copy; {{ currentYear }} <RouterLink to="/contact">
             {{ siteConfig.author.name }}
