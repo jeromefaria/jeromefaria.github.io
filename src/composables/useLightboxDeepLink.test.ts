@@ -67,4 +67,17 @@ describe('useLightboxDeepLink', () => {
 
     expect(open).not.toHaveBeenCalled();
   });
+
+  it('opens on forward-navigation (popstate) to a matching media hash', async () => {
+    window.location.hash = '';
+    const open = vi.fn();
+    mountWith('ev', open);
+    await flushPromises();
+    expect(open).not.toHaveBeenCalled();
+
+    window.history.replaceState(null, '', '#ev/photo/2');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+
+    expect(open).toHaveBeenCalledWith(photos, 1, { id: 'ev', kind: 'photo' });
+  });
 });

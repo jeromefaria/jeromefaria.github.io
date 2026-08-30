@@ -328,12 +328,14 @@ describe('useLightbox', () => {
   });
 });
 
-describe('useLightbox deep-link hash', () => {
+describe('useLightbox history integration', () => {
+  const settle = (): Promise<void> => new Promise(resolve => setTimeout(resolve, 0));
+
   afterEach(() => {
     window.history.replaceState(null, '', window.location.pathname);
   });
 
-  it('writes #id/kind/index on open and navigation, then restores the anchor on close', () => {
+  it('writes #id/kind/index on open and navigation', () => {
     window.history.replaceState(null, '', '#madeiradig-2011');
     const wrapper = mount(createTestComponent());
 
@@ -342,17 +344,79 @@ describe('useLightbox deep-link hash', () => {
 
     wrapper.vm.goToNext();
     expect(window.location.hash).toBe('#madeiradig-2011/photo/2');
-
-    wrapper.vm.closeLightbox();
-    expect(window.location.hash).toBe('#madeiradig-2011');
     wrapper.unmount();
   });
 
-  it('leaves the URL untouched when opened without a source', () => {
+  it('closes on Back — restoring the anchor and resetting state — even after paging photos', async () => {
+    window.history.replaceState(null, '', '#madeiradig-2011');
+    const wrapper = mount(createTestComponent());
+
+    wrapper.vm.openLightbox(mockImages, 0, { id: 'madeiradig-2011', kind: 'photo' });
+    wrapper.vm.goToNext();
+    expect(wrapper.vm.isOpen).toBe(true);
+
+    wrapper.vm.closeLightbox();
+    await settle();
+
+    expect(window.location.hash).toBe('#madeiradig-2011');
+    expect(wrapper.vm.isOpen).toBe(false);
+    wrapper.unmount();
+  });
+
+  it('closes when the browser Back button pops the open entry', async () => {
+    window.history.replaceState(null, '', '#madeiradig-2011');
+    const wrapper = mount(createTestComponent());
+
+    wrapper.vm.openLightbox(mockImages, 0, { id: 'madeiradig-2011', kind: 'photo' });
+    expect(wrapper.vm.isOpen).toBe(true);
+
+    window.history.back();
+    await settle();
+
+    expect(wrapper.vm.isOpen).toBe(false);
+    wrapper.unmount();
+  });
+
+  it('synthesizes a closed entry when opened from a fresh load at the media URL', async () => {
+    window.history.replaceState(null, '', '#madeiradig-2011/photo/2');
+    const wrapper = mount(createTestComponent());
+
+    wrapper.vm.openLightbox(mockImages, 1, { id: 'madeiradig-2011', kind: 'photo' });
+    expect(window.location.hash).toBe('#madeiradig-2011/photo/2');
+
+    window.history.back();
+    await settle();
+
+    expect(window.location.hash).toBe('#madeiradig-2011');
+    expect(wrapper.vm.isOpen).toBe(false);
+    wrapper.unmount();
+  });
+
+  it('does not push a second history entry when re-opening the item already shown', async () => {
+    window.history.replaceState(null, '', '#madeiradig-2011');
+    const wrapper = mount(createTestComponent());
+
+    const source = { id: 'madeiradig-2011', kind: 'photo' as const };
+    wrapper.vm.openLightbox(mockImages, 0, source);
+    wrapper.vm.openLightbox(mockImages, 0, source);
+
+    window.history.back();
+    await settle();
+
+    expect(window.location.hash).toBe('#madeiradig-2011');
+    expect(wrapper.vm.isOpen).toBe(false);
+    wrapper.unmount();
+  });
+
+  it('closes directly and leaves the URL untouched when opened without a source', () => {
     window.history.replaceState(null, '', '#madeiradig-2011');
     const wrapper = mount(createTestComponent());
 
     wrapper.vm.openLightbox(mockImages, 0);
+    expect(window.location.hash).toBe('#madeiradig-2011');
+
+    wrapper.vm.closeLightbox();
+    expect(wrapper.vm.isOpen).toBe(false);
     expect(window.location.hash).toBe('#madeiradig-2011');
     wrapper.unmount();
   });
