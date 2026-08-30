@@ -6,11 +6,12 @@ export interface LiveImage {
 }
 
 export interface Act {
-  // Paired/nested acts keep both links inline in `text` (e.g. '@c & Lia').
   text: string;
   url?: string;
   suffix?: string;
 }
+
+export type BillEntry = Act | Act[];
 
 export type Setup =
   | { kind: 'solo' }
@@ -46,7 +47,7 @@ export interface LiveEvent {
   venue: EventVenue;
   setup: Setup;
   format?: Format;
-  bill?: Act[];
+  bill?: BillEntry[];
   note?: string;
   imageAlt?: string;
   images?: LiveImage[];
