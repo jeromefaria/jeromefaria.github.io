@@ -82,7 +82,7 @@
     min-width: $touch-target-min;
     min-height: $touch-target-min;
     font-size: $font-size-base;
-    color: var(--color-bg);
+    color: var(--text-overlay);
     opacity: $opacity-50;
     cursor: pointer;
     transition: opacity $transition-base, transform $transition-base;
