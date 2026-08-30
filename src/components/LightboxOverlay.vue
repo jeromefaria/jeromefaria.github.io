@@ -84,7 +84,10 @@ onMounted(async () => {
         @click.stop
       />
 
-      <picture v-else-if="isImage && currentItem && isLightboxImage(currentItem)">
+      <picture
+        v-else-if="isImage && currentItem && isLightboxImage(currentItem)"
+        @click.stop
+      >
         <source
           :srcset="toWebp(currentItem.src)"
           type="image/webp"
