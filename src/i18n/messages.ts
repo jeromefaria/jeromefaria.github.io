@@ -20,15 +20,15 @@ const en = {
 
 const pt: typeof en = {
   nav: {
-    about: 'Sobre',
+    about: 'Biografia',
     works: 'Obras',
-    live: 'Ao Vivo',
+    live: 'Concertos',
     press: 'Imprensa',
     contact: 'Contacto',
   },
   footer: {
     privacy: 'Privacidade',
-    colophon: 'Cólofon',
+    colophon: 'Colophon',
   },
 };
 

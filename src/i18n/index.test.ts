@@ -15,7 +15,7 @@ describe('createAppI18n', () => {
     const i18n = createAppI18n('pt');
 
     expect(i18n.global.locale.value).toBe('pt');
-    expect(i18n.global.t('footer.colophon')).toBe('Cólofon');
+    expect(i18n.global.t('nav.about')).toBe('Biografia');
   });
 
   it('falls back to en', () => {
