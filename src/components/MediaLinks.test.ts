@@ -10,7 +10,7 @@ const poster: LightboxItem = { type: 'image', src: '/poster.jpg', alt: 'Poster' 
 const video: LightboxItem = { type: 'video', url: 'https://v', title: 'V', platform: 'youtube' };
 
 const mountLinks = (
-  props: Partial<{ images: LightboxItem[]; posters: LightboxItem[]; videos: LightboxItem[]; imageLabel: string; sourceId: string; purchaseUrl: string }>,
+  props: Partial<{ images: LightboxItem[]; posters: LightboxItem[]; videos: LightboxItem[]; imageLabel: string; sourceId: string; downloadUrl: string }>,
 ) => mount(MediaLinks, { props: { images: [], videos: [], imageLabel: 'Gallery', sourceId: 'ev-1', ...props } });
 
 describe('MediaLinks', () => {
@@ -62,23 +62,23 @@ describe('MediaLinks', () => {
     expect(buttons.map(button => button.text())).toEqual(['Gallery', 'Poster', 'Video']);
   });
 
-  it('renders a purchase link as a new-tab external anchor when a URL is given', () => {
-    const link = mountLinks({ purchaseUrl: 'https://music.jeromefaria.com/album/altar' }).get('a');
+  it('renders a download link as a new-tab external anchor when a URL is given', () => {
+    const link = mountLinks({ downloadUrl: 'https://music.jeromefaria.com/album/altar' }).get('a');
 
-    expect(link.text()).toBe('Purchase');
+    expect(link.text()).toBe('Download');
     expect(link.attributes('href')).toBe('https://music.jeromefaria.com/album/altar');
     expect(link.attributes('target')).toBe('_blank');
     expect(link.attributes('rel')).toBe('noopener noreferrer');
   });
 
-  it('shows the purchase link alongside media controls, after them', () => {
-    const wrapper = mountLinks({ images: [image], purchaseUrl: 'https://music.jeromefaria.com/album/altar' });
+  it('shows the download link alongside media controls, after them', () => {
+    const wrapper = mountLinks({ images: [image], downloadUrl: 'https://music.jeromefaria.com/album/altar' });
 
     expect(wrapper.get('button').text()).toBe('Gallery');
-    expect(wrapper.get('a').text()).toBe('Purchase');
+    expect(wrapper.get('a').text()).toBe('Download');
   });
 
-  it('renders nothing when there are neither media nor a purchase URL', () => {
+  it('renders nothing when there are neither media nor a download URL', () => {
     expect(mountLinks({}).find('.media-links').exists()).toBe(false);
   });
 });
