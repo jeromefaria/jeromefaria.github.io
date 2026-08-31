@@ -47,6 +47,7 @@ describe('usePageHead', () => {
   beforeEach(() => {
     headConfig.length = 0;
     mockRoute.path = '/test';
+    vi.unstubAllEnvs();
   });
 
   describe('title', () => {
@@ -118,6 +119,57 @@ describe('usePageHead', () => {
       const links = config.link as Array<{ rel: string; href: string }>;
       const canonical = links.find(l => l.rel === 'canonical');
       expect(canonical?.href).toBe(`${siteConfig.url}/press`);
+    });
+  });
+
+  describe('hreflang alternates', () => {
+    type AltLink = { rel: string; hreflang?: string; href: string };
+
+    const alternates = (config: Record<string, unknown>): AltLink[] =>
+      (config.link as AltLink[]).filter(link => link.rel === 'alternate');
+
+    it('omits alternates when i18n is disabled', () => {
+      const config = mountWithPageHead({ title: 'Works', description: 'desc' });
+      expect(alternates(config)).toHaveLength(0);
+    });
+
+    it('emits en, pt and x-default alternates for an en route when i18n is enabled', () => {
+      vi.stubEnv('VITE_I18N', 'true');
+      mockRoute.path = '/works';
+
+      const config = mountWithPageHead({ title: 'Works', description: 'desc' });
+
+      expect(alternates(config)).toEqual([
+        { rel: 'alternate', hreflang: 'en', href: `${siteConfig.url}/works` },
+        { rel: 'alternate', hreflang: 'pt', href: `${siteConfig.url}/pt/works` },
+        { rel: 'alternate', hreflang: 'x-default', href: `${siteConfig.url}/works` },
+      ]);
+
+      vi.unstubAllEnvs();
+    });
+
+    it('derives the same cluster from a pt route by stripping the prefix', () => {
+      vi.stubEnv('VITE_I18N', 'true');
+      mockRoute.path = '/pt/works';
+
+      const config = mountWithPageHead({ title: 'Works', description: 'desc' });
+
+      expect(alternates(config)).toEqual([
+        { rel: 'alternate', hreflang: 'en', href: `${siteConfig.url}/works` },
+        { rel: 'alternate', hreflang: 'pt', href: `${siteConfig.url}/pt/works` },
+        { rel: 'alternate', hreflang: 'x-default', href: `${siteConfig.url}/works` },
+      ]);
+
+      vi.unstubAllEnvs();
+    });
+
+    it('omits alternates for noindex pages even when i18n is enabled', () => {
+      vi.stubEnv('VITE_I18N', 'true');
+
+      const config = mountWithPageHead({ title: 'Press Kit', description: 'desc', noIndex: true });
+      expect(alternates(config)).toHaveLength(0);
+
+      vi.unstubAllEnvs();
     });
   });
 

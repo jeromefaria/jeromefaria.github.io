@@ -14,6 +14,9 @@ export const localePath = (path: string, locale: Locale): string => {
   return path === '/' ? '/pt' : `/pt${path}`;
 };
 
+export const stripLocale = (path: string): string =>
+  path === '/pt' || path.startsWith('/pt/') ? path.slice(3) || '/' : path;
+
 const en = {
   nav: {
     about: 'About',
