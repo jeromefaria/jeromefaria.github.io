@@ -2,6 +2,7 @@ import { useHead } from '@unhead/vue';
 import { useRoute } from 'vue-router';
 
 import { siteConfig } from '@/data/navigation';
+import { localePath, stripLocale, SUPPORTED_LOCALES } from '@/i18n/messages';
 
 interface UsePageHeadOptions {
   title: string;
@@ -52,6 +53,19 @@ export const usePageHead = ({
   const link: Record<string, string>[] = [
     { rel: 'canonical', href: canonicalUrl },
   ];
+
+  const i18nEnabled = import.meta.env.VITE_I18N === 'true';
+
+  if (i18nEnabled && !noIndex) {
+    const basePath = stripLocale(route.path);
+    const hrefFor = (locale: (typeof SUPPORTED_LOCALES)[number]) => `${siteConfig.url}${localePath(basePath, locale)}`;
+
+    for (const locale of SUPPORTED_LOCALES) {
+      link.push({ rel: 'alternate', hreflang: locale, href: hrefFor(locale) });
+    }
+
+    link.push({ rel: 'alternate', hreflang: 'x-default', href: hrefFor('en') });
+  }
 
   if (preloadImage) {
     link.push({ rel: 'preload', as: 'image', type: 'image/webp', href: preloadImage, fetchpriority: 'high' });

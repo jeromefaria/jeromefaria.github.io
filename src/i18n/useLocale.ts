@@ -1,7 +1,7 @@
 import { computed, type ComputedRef } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { type Locale, localeFromMeta, localePath } from './messages';
+import { type Locale, localeFromMeta, localePath, stripLocale } from './messages';
 
 interface UseLocale {
   current: ComputedRef<Locale>;
@@ -9,8 +9,6 @@ interface UseLocale {
   toLocalePath: (path: string) => string;
   switchPath: ComputedRef<string>;
 }
-
-const stripPrefix = (path: string): string => (path.startsWith('/pt') ? path.slice(3) || '/' : path);
 
 export const useLocale = (): UseLocale => {
   const route = useRoute();
@@ -21,6 +19,6 @@ export const useLocale = (): UseLocale => {
     current,
     other,
     toLocalePath: path => localePath(path, current.value),
-    switchPath: computed(() => localePath(stripPrefix(route.path), other.value)),
+    switchPath: computed(() => localePath(stripLocale(route.path), other.value)),
   };
 };
