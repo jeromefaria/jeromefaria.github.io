@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
-import { worksData } from './src/data/works';
+import { worksData } from './src/data/works.ts';
 
 // One shareable, richly-unfurling page per release, pre-rendered alongside the static routes.
 // Engineering credits are excluded — they link out (third-party) or back to a real entry (own).
