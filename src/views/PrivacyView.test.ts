@@ -10,9 +10,18 @@ describe('PrivacyView', () => {
   it('renders the intro and every section heading', async () => {
     const wrapper = await mountView(PrivacyView);
 
-    expect(wrapper.get('.privacy__intro').text()).toBe(privacyContent.intro);
+    expect(wrapper.get('.privacy__intro').text()).toBe(privacyContent.intro.en);
     const headings = wrapper.findAll('.privacy__heading').map(heading => heading.text());
-    expect(headings).toEqual(privacyContent.sections.map(section => section.heading));
+    expect(headings).toEqual(privacyContent.sections.map(section => section.heading.en));
+  });
+
+  it('renders Portuguese prose and prefixes internal links under /pt on a pt route', async () => {
+    const wrapper = await mountView(PrivacyView, '/pt/privacy', { locale: 'pt' });
+
+    expect(wrapper.get('.privacy__intro').text()).toBe(privacyContent.intro.pt);
+    expect(wrapper.get('.privacy__updated').text()).toContain(privacyContent.updated.pt);
+    const links = wrapper.findAll('.privacy__body a').map(anchor => anchor.attributes('href'));
+    expect(links).toContain('/pt/contact');
   });
 
   it('references the Turnstile Privacy Addendum', async () => {
@@ -23,7 +32,7 @@ describe('PrivacyView', () => {
 
   it('shows the last-updated date', async () => {
     const wrapper = await mountView(PrivacyView);
-    expect(wrapper.get('.privacy__updated').text()).toContain(privacyContent.updated);
+    expect(wrapper.get('.privacy__updated').text()).toContain(privacyContent.updated.en);
   });
 
   it('opens the hidden command palette from the cue in the notice', async () => {

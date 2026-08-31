@@ -9,11 +9,13 @@ import { usePageHead } from '@/composables/usePageHead';
 import { useTurnstile } from '@/composables/useTurnstile';
 import { contactContent } from '@/data/contact';
 import { pageMeta } from '@/data/pageMeta';
+import { useLocalized } from '@/i18n/localized';
 import { useLocale } from '@/i18n/useLocale';
 import { useT } from '@/i18n/useT';
 import { createContactPageSchema } from '@/utils/pageSchemas';
 
 const t = useT();
+const localize = useLocalized();
 const { toLocalePath } = useLocale();
 
 usePageHead({
@@ -38,7 +40,7 @@ const inquiryOptions = computed(() =>
   <div class="container-wide">
     <PageShell
       data-page="contact"
-      title="Contact"
+      :title="localize(pageMeta.contact.title)"
     >
       <div
         v-if="showSuccess"

@@ -2,12 +2,16 @@
 import PageShell from '@/components/PageShell.vue';
 import { openCommandPalette } from '@/composables/useOverlays';
 import { usePageHead } from '@/composables/usePageHead';
+import { useProse } from '@/composables/useProse';
 import { useProseLinks } from '@/composables/useProseLinks';
 import { colophonContent } from '@/data/colophon';
 import { pageMeta } from '@/data/pageMeta';
-import { externalizeLinks } from '@/utils/externalizeLinks';
+import { useLocalized } from '@/i18n/localized';
 
 usePageHead(pageMeta.colophon);
+
+const localize = useLocalized();
+const renderProse = useProse();
 
 const routeProseLink = useProseLinks();
 
@@ -25,33 +29,33 @@ const onProseClick = (event: MouseEvent): void => {
   <div class="container-wide">
     <PageShell
       data-page="colophon"
-      title="Colophon"
+      :title="localize(pageMeta.colophon.title)"
     >
       <div
         class="colophon"
         @click="onProseClick"
       >
         <p class="colophon__intro">
-          {{ colophonContent.intro }}
+          {{ localize(colophonContent.intro) }}
         </p>
 
         <section
-          v-for="section in colophonContent.sections"
-          :key="section.heading"
+          v-for="(section, index) in colophonContent.sections"
+          :key="index"
           class="colophon__section"
         >
           <h2 class="colophon__heading">
-            {{ section.heading }}
+            {{ localize(section.heading) }}
           </h2>
           <p
             class="colophon__body"
-            v-html="externalizeLinks(section.body)"
+            v-html="renderProse(section.body)"
           />
         </section>
 
         <p
           class="colophon__body colophon__body--source"
-          v-html="externalizeLinks(colophonContent.source)"
+          v-html="renderProse(colophonContent.source)"
         />
       </div>
     </PageShell>

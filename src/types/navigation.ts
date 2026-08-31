@@ -1,7 +1,9 @@
+import type { Localized } from '@/i18n/localized';
+
 export interface SiteConfig {
   title: string;
-  tagline: string;
-  description: string;
+  tagline: Localized<string>;
+  description: Localized<string>;
   url: string;
   image: string;
   author: {

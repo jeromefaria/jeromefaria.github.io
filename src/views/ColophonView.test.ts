@@ -10,9 +10,17 @@ describe('ColophonView', () => {
   it('renders the intro and every section heading', async () => {
     const wrapper = await mountView(ColophonView);
 
-    expect(wrapper.get('.colophon__intro').text()).toBe(colophonContent.intro);
+    expect(wrapper.get('.colophon__intro').text()).toBe(colophonContent.intro.en);
     const headings = wrapper.findAll('.colophon__heading').map(heading => heading.text());
-    expect(headings).toEqual(colophonContent.sections.map(section => section.heading));
+    expect(headings).toEqual(colophonContent.sections.map(section => section.heading.en));
+  });
+
+  it('renders Portuguese and prefixes internal links under /pt on a pt route', async () => {
+    const wrapper = await mountView(ColophonView, '/pt/colophon', { locale: 'pt' });
+
+    expect(wrapper.get('.colophon__intro').text()).toBe(colophonContent.intro.pt);
+    const links = wrapper.findAll('.colophon__body a').map(anchor => anchor.attributes('href'));
+    expect(links).toContain('/pt/privacy');
   });
 
   it('links to the source repository', async () => {

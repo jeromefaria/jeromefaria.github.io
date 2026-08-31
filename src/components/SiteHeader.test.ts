@@ -32,7 +32,7 @@ describe('SiteHeader', () => {
   it('renders the site title and tagline', async () => {
     const { wrapper } = await mountHeader();
     expect(wrapper.get('.masthead-title').text()).toContain(siteConfig.title);
-    expect(wrapper.get('.masthead-tagline').text()).toBe(siteConfig.tagline);
+    expect(wrapper.get('.masthead-tagline').text()).toBe(siteConfig.tagline.en);
   });
 
   it('renders a link for every nav item', async () => {
