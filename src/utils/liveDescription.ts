@@ -45,6 +45,7 @@ const primary = (setup: Setup, format?: Format): string => {
 export const buildEventDescription = (event: LiveEvent): string => {
   const parts = [primary(event.setup, event.format)];
 
+  if (event.performedAs) parts.push(`Performed as ${event.performedAs}.`);
   if (event.note) parts.push(event.note);
   if (event.bill?.length) parts.push(`Alongside ${event.bill.map(billEntry).join(', ')}.`);
 
