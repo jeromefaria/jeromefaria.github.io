@@ -3,8 +3,12 @@ import { nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
 import { navigation, siteConfig } from '@/data/navigation';
+import { useLocale } from '@/i18n/useLocale';
+import { useT } from '@/i18n/useT';
 import { TIMING } from '@/utils/constants';
 
+const t = useT();
+const { toLocalePath } = useLocale();
 const route = useRoute();
 const navOpen = ref(false);
 const navClosing = ref(false);
@@ -70,7 +74,7 @@ onBeforeUnmount(() => {
   <header class="masthead">
     <div class="masthead-inner">
       <p class="masthead-title">
-        <RouterLink to="/">
+        <RouterLink :to="toLocalePath('/')">
           {{ siteConfig.title }}
         </RouterLink>
         <span class="masthead-tagline">{{ siteConfig.tagline }}</span>
@@ -125,10 +129,10 @@ onBeforeUnmount(() => {
           <RouterLink
             v-for="nav in navigation"
             :key="nav.url"
-            :to="nav.url"
+            :to="toLocalePath(nav.url)"
             class="nav__link"
           >
-            {{ nav.title }}
+            {{ t(nav.labelKey) }}
           </RouterLink>
         </div>
       </nav>

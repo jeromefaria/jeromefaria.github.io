@@ -2,8 +2,13 @@
 import { RouterLink } from 'vue-router';
 
 import { navigation, siteConfig } from '@/data/navigation';
+import { useLocale } from '@/i18n/useLocale';
+import { useT } from '@/i18n/useT';
 
+const t = useT();
+const { toLocalePath, switchPath } = useLocale();
 const currentYear = new Date().getFullYear();
+const i18nEnabled = import.meta.env.VITE_I18N === 'true';
 </script>
 
 <template>
@@ -17,23 +22,29 @@ const currentYear = new Date().getFullYear();
           <RouterLink
             v-for="nav in navigation"
             :key="nav.url"
-            :to="nav.url"
+            :to="toLocalePath(nav.url)"
           >
-            {{ nav.title }}
+            {{ t(nav.labelKey) }}
           </RouterLink>
         </nav>
         <p class="footer__copyright">
-          &copy; {{ currentYear }} <RouterLink to="/contact">
+          &copy; {{ currentYear }} <RouterLink :to="toLocalePath('/contact')">
             {{ siteConfig.author.name }}
           </RouterLink>
           •
-          <RouterLink to="/privacy">
-            Privacy
+          <RouterLink :to="toLocalePath('/privacy')">
+            {{ t('footer.privacy') }}
           </RouterLink>
           •
-          <RouterLink to="/colophon">
-            Colophon
+          <RouterLink :to="toLocalePath('/colophon')">
+            {{ t('footer.colophon') }}
           </RouterLink>
+          <template v-if="i18nEnabled">
+            •
+            <RouterLink :to="switchPath">
+              {{ t('common.switchLanguage') }}
+            </RouterLink>
+          </template>
         </p>
       </div>
     </div>
