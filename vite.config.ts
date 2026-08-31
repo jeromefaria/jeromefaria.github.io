@@ -56,8 +56,6 @@ export default defineConfig({
     script: 'async',
     formatting: 'minify',
     includedRoutes(paths: string[]) {
-      // Static routes (incl. the crawled /pt tree when the flag is on) minus dynamic
-      // ones, plus a concrete pre-render path per release — mirrored under /pt too.
       const releases = process.env.VITE_I18N === 'true'
         ? [...releasePaths, ...releasePaths.map(path => `/pt${path}`)]
         : releasePaths;
