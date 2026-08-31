@@ -3,6 +3,9 @@ import { RouterLink } from 'vue-router';
 
 import { usePageHead } from '@/composables/usePageHead';
 import { navigation } from '@/data/navigation';
+import { useT } from '@/i18n/useT';
+
+const t = useT();
 
 usePageHead({
   title: 'Page Not Found',
@@ -32,7 +35,7 @@ usePageHead({
             :key="nav.url"
           >
             <RouterLink :to="nav.url">
-              {{ nav.title }}
+              {{ t(nav.labelKey) }}
             </RouterLink>
           </li>
         </ul>

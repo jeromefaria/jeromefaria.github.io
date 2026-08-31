@@ -1,8 +1,18 @@
+import type { RouteMeta } from 'vue-router';
+
 export const SUPPORTED_LOCALES = ['en', 'pt'] as const;
 
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = 'en';
+
+export const localeFromMeta = (meta: RouteMeta): Locale =>
+  SUPPORTED_LOCALES.includes(meta['locale'] as Locale) ? (meta['locale'] as Locale) : DEFAULT_LOCALE;
+
+export const localePath = (path: string, locale: Locale): string => {
+  if (locale === DEFAULT_LOCALE) return path;
+  return path === '/' ? '/pt' : `/pt${path}`;
+};
 
 const en = {
   nav: {
@@ -16,11 +26,14 @@ const en = {
     privacy: 'Privacy',
     colophon: 'Colophon',
   },
+  common: {
+    switchLanguage: 'Português',
+  },
 };
 
 const pt: typeof en = {
   nav: {
-    about: 'Biografia',
+    about: 'Sobre',
     works: 'Obras',
     live: 'Concertos',
     press: 'Imprensa',
@@ -29,6 +42,9 @@ const pt: typeof en = {
   footer: {
     privacy: 'Privacidade',
     colophon: 'Colophon',
+  },
+  common: {
+    switchLanguage: 'English',
   },
 };
 

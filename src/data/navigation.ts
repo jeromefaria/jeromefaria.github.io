@@ -14,11 +14,11 @@ export const siteConfig: SiteConfig = {
 };
 
 export const navigation: NavItem[] = [
-  { title: 'About', url: '/about' },
-  { title: 'Works', url: '/works' },
-  { title: 'Live', url: '/live' },
-  { title: 'Press', url: '/press' },
-  { title: 'Contact', url: '/contact' },
+  { labelKey: 'nav.about', url: '/about' },
+  { labelKey: 'nav.works', url: '/works' },
+  { labelKey: 'nav.live', url: '/live' },
+  { labelKey: 'nav.press', url: '/press' },
+  { labelKey: 'nav.contact', url: '/contact' },
 ];
 
 export const social: SocialLink[] = [

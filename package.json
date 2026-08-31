@@ -8,6 +8,8 @@
   },
   "scripts": {
     "dev": "vite",
+    "dev:i18n": "VITE_I18N=true vite",
+    "build:i18n": "VITE_I18N=true npm run build",
     "build": "vue-tsc --noEmit && node scripts/check-anchors.js && node scripts/check-epk-photos.mjs && vite-ssg build && node scripts/generate-sitemap.mjs",
     "preview": "vite preview",
     "lint": "eslint src scripts e2e playwright.config.ts && stylelint \"src/styles/**/*.scss\" && node scripts/check-custom-properties.mjs",

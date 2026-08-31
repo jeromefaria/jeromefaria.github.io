@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { messages, SUPPORTED_LOCALES } from './messages';
+import { localePath, messages, SUPPORTED_LOCALES } from './messages';
 
 const flatten = (object: Record<string, unknown>, prefix = ''): Record<string, string> =>
   Object.entries(object).reduce<Record<string, string>>((accumulator, [key, value]) => {
@@ -30,5 +30,17 @@ describe('i18n message catalogs', () => {
 
       expect(blanks, `locale "${locale}"`).toEqual([]);
     }
+  });
+});
+
+describe('localePath', () => {
+  it('leaves en paths unchanged', () => {
+    expect(localePath('/about', 'en')).toBe('/about');
+    expect(localePath('/', 'en')).toBe('/');
+  });
+
+  it('prefixes pt paths, mapping the root to /pt', () => {
+    expect(localePath('/about', 'pt')).toBe('/pt/about');
+    expect(localePath('/', 'pt')).toBe('/pt');
   });
 });
