@@ -30,25 +30,49 @@ const toRoute = file =>
     .replace(/\/index\.html$/, '/')
     .replace(/\.html$/, '');
 
-const priority = route => {
-  if (route === '/') return '1.0';
-  if (route === '/works') return '0.9';
-  if (route.startsWith('/works/')) return '0.6';
+// Mirrors src/i18n/messages.ts — the /pt-prefix rules can't be imported into a
+// plain build script, so the two trivial forms are kept in sync by hand.
+const stripLocale = route => (route === '/pt' || route.startsWith('/pt/') ? route.slice(3) || '/' : route);
+const ptRoute = base => (base === '/' ? '/pt' : `/pt${base}`);
+
+const priority = base => {
+  if (base === '/') return '1.0';
+  if (base === '/works') return '0.9';
+  if (base.startsWith('/works/')) return '0.6';
   return '0.7';
 };
 
 walk(DIST);
 
 const routes = [...new Set(htmlFiles.map(toRoute))]
-  .filter(route => !EXCLUDE.has(route))
+  .filter(route => !EXCLUDE.has(stripLocale(route)))
   .sort((a, b) => (a === '/' ? -1 : b === '/' ? 1 : a.localeCompare(b)));
 
+const routeSet = new Set(routes);
+
+// hreflang alternates, emitted only when the /pt twin was actually pre-rendered.
+const alternates = base => {
+  if (!routeSet.has(ptRoute(base))) return '';
+
+  const en = `${ORIGIN}${base}`;
+  const pt = `${ORIGIN}${ptRoute(base)}`;
+
+  return [
+    `    <xhtml:link rel="alternate" hreflang="en" href="${en}" />`,
+    `    <xhtml:link rel="alternate" hreflang="pt" href="${pt}" />`,
+    `    <xhtml:link rel="alternate" hreflang="x-default" href="${en}" />`,
+  ].join('\n') + '\n';
+};
+
 const urls = routes
-  .map(route =>
-    `  <url>\n    <loc>${ORIGIN}${route}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>${priority(route)}</priority>\n  </url>`)
+  .map(route => {
+    const base = stripLocale(route);
+
+    return `  <url>\n    <loc>${ORIGIN}${route}</loc>\n${alternates(base)}    <changefreq>monthly</changefreq>\n    <priority>${priority(base)}</priority>\n  </url>`;
+  })
   .join('\n');
 
-const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`;
 
 writeFileSync(join(DIST, 'sitemap.xml'), xml);
 console.log(`✓ Generated sitemap.xml with ${routes.length} URLs`);

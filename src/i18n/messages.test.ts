@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { localePath, messages, SUPPORTED_LOCALES } from './messages';
+import { localePath, messages, stripLocale, SUPPORTED_LOCALES } from './messages';
 
 const flatten = (object: Record<string, unknown>, prefix = ''): Record<string, string> =>
   Object.entries(object).reduce<Record<string, string>>((accumulator, [key, value]) => {
@@ -42,5 +42,21 @@ describe('localePath', () => {
   it('prefixes pt paths, mapping the root to /pt', () => {
     expect(localePath('/about', 'pt')).toBe('/pt/about');
     expect(localePath('/', 'pt')).toBe('/pt');
+  });
+});
+
+describe('stripLocale', () => {
+  it('leaves en paths unchanged', () => {
+    expect(stripLocale('/about')).toBe('/about');
+    expect(stripLocale('/')).toBe('/');
+  });
+
+  it('drops the /pt prefix, mapping /pt to the root', () => {
+    expect(stripLocale('/pt/about')).toBe('/about');
+    expect(stripLocale('/pt')).toBe('/');
+  });
+
+  it('does not strip paths that merely start with the pt letters', () => {
+    expect(stripLocale('/ptolemy')).toBe('/ptolemy');
   });
 });
