@@ -2,7 +2,9 @@ import { inject, type InjectionKey } from 'vue';
 
 import { DEFAULT_LOCALE, messages } from './messages';
 
-export type TranslateFn = (key: string) => string;
+export type TranslateParams = Record<string, string>;
+
+export type TranslateFn = (key: string, params?: TranslateParams) => string;
 
 export const TRANSLATE_KEY: InjectionKey<TranslateFn> = Symbol('translate');
 
@@ -11,6 +13,9 @@ const resolve = (key: string, source: Record<string, unknown>): string => {
   return typeof value === 'string' ? value : key;
 };
 
-const fallbackTranslate: TranslateFn = key => resolve(key, messages[DEFAULT_LOCALE]);
+const interpolate = (template: string, params?: TranslateParams): string =>
+  params ? template.replace(/\{(\w+)\}/g, (_match, name: string) => params[name] ?? `{${name}}`) : template;
+
+const fallbackTranslate: TranslateFn = (key, params) => interpolate(resolve(key, messages[DEFAULT_LOCALE]), params);
 
 export const useT = (): TranslateFn => inject(TRANSLATE_KEY, fallbackTranslate);
