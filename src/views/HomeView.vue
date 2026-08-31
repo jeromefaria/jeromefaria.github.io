@@ -4,8 +4,10 @@ import { onMounted, ref } from 'vue';
 import { usePageHead } from '@/composables/usePageHead';
 import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
+import { useLocalized } from '@/i18n/localized';
 import { createPersonSchema } from '@/utils/pageSchemas';
 
+const localize = useLocalized();
 const heroImageSrc = '/images/performance.webp';
 
 usePageHead({
@@ -33,7 +35,7 @@ onMounted(() => {
   <div class="container-wide">
     <div class="home">
       <h1 class="visually-hidden">
-        {{ siteConfig.title }} — {{ siteConfig.tagline }}
+        {{ siteConfig.title }} — {{ localize(siteConfig.tagline) }}
       </h1>
       <section
         class="hero"

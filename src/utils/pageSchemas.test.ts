@@ -18,7 +18,7 @@ describe('createPersonSchema', () => {
     expect(schema['@type']).toBe('Person');
     expect(schema.name).toBe(siteConfig.author.name);
     expect(schema.url).toBe(siteConfig.url);
-    expect(schema.jobTitle).toBe(siteConfig.tagline);
+    expect(schema.jobTitle).toBe(siteConfig.tagline.en);
     expect(schema.image).toBe(`${siteConfig.url}${siteConfig.image}`);
     expect(schema.sameAs).toEqual(social.map(link => link.url));
   });
