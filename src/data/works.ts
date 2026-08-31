@@ -21,7 +21,13 @@ export const worksData: WorksData = {
         tracklist: [
           { title: 'Contraplacado (Se Deus nos der vida e saúde)' },
         ],
-        credits: 'Music by Jerome Faria, reinterpreting "Contraplacado" by [[Aires]]. Photography by NASA, ESA, CSA, STScI.',
+        credits: {
+          style: 'by',
+          clauses: [
+            { role: 'music', of: 'Jerome Faria', tail: ', reinterpreting "Contraplacado" by [[Aires]]' },
+            { role: 'photography', of: 'NASA, ESA, CSA, STScI' },
+          ],
+        },
         contributors: [
           { name: 'Aires', url: 'https://aires.bandcamp.com/' },
         ],
@@ -42,7 +48,14 @@ export const worksData: WorksData = {
         tracklist: [
           { title: 'En Veille' },
         ],
-        credits: 'Music by Jerome Faria. Photography by Else Siegel. Pour Éliane Radigue, 1932–2026.',
+        credits: {
+          style: 'by',
+          clauses: [
+            { role: 'music', of: 'Jerome Faria' },
+            { role: 'photography', of: 'Else Siegel' },
+          ],
+          note: 'Pour Éliane Radigue, 1932–2026',
+        },
       },
       {
         id: '2504',
@@ -64,7 +77,10 @@ export const worksData: WorksData = {
           { title: 'Futebol: Estados Capitalistas', start: 932 },
           { title: 'Epílogo: Estado a Que Chegamos', start: 1292 },
         ],
-        credits: 'Music by Jerome Faria.',
+        credits: {
+          style: 'by',
+          clauses: [{ role: 'music', of: 'Jerome Faria' }],
+        },
       },
       {
         id: 'caligari-album',
@@ -86,7 +102,11 @@ export const worksData: WorksData = {
           { title: "It Couldn't Have Been Cesare..." },
           { title: 'We Who Are Of Noble Blood May Not Follow The Wishes Of Our Hearts' },
         ],
-        credits: 'Music by Jerome Faria. Cover image from the film.',
+        credits: {
+          style: 'by',
+          clauses: [{ role: 'music', of: 'Jerome Faria' }],
+          note: 'Cover image from the film',
+        },
       },
       {
         id: 'overlapse',
@@ -110,7 +130,13 @@ export const worksData: WorksData = {
           { title: 'Decay III' },
           { title: 'Release (Conclusion)' },
         ],
-        credits: 'Music and artwork by Jerome Faria. Photography by Joana Marote.',
+        credits: {
+          style: 'by',
+          clauses: [
+            { role: 'musicAndArtwork', of: 'Jerome Faria' },
+            { role: 'photography', of: 'Joana Marote' },
+          ],
+        },
       },
       {
         id: '1714',
@@ -130,7 +156,10 @@ export const worksData: WorksData = {
           { title: '2:58' },
           { title: '5:18' },
         ],
-        credits: 'Music and artwork by Jerome Faria.',
+        credits: {
+          style: 'by',
+          clauses: [{ role: 'musicAndArtwork', of: 'Jerome Faria' }],
+        },
       },
     ],
   },
@@ -154,7 +183,13 @@ export const worksData: WorksData = {
           { title: '002' },
           { title: '003' },
         ],
-        credits: 'Music by Jerome Faria, Kazuya Mise, and Filipe Cruz. Artwork by [[Filipe Cruz]].',
+        credits: {
+          style: 'by',
+          clauses: [
+            { role: 'music', of: 'Jerome Faria, Kazuya Mise, and Filipe Cruz' },
+            { role: 'artwork', of: '[[Filipe Cruz]]' },
+          ],
+        },
         contributors: [
           { name: 'Filipe Cruz', url: 'https://webuser.scene.org/~ps/' },
         ],
@@ -174,7 +209,14 @@ export const worksData: WorksData = {
         tracklist: [
           { title: 'Dream Cycles In Perpetual Motion' },
         ],
-        credits: 'Music by Jerome Faria. Recorded, mixed, and mastered at Human Error Labs. Artwork by Louie de Bettencourt.',
+        credits: {
+          style: 'by',
+          clauses: [
+            { role: 'music', of: 'Jerome Faria' },
+            { role: 'recordedMixedMastered', of: 'Human Error Labs', connector: 'at' },
+            { role: 'artwork', of: 'Louie de Bettencourt' },
+          ],
+        },
       },
       {
         id: 'readerror',
@@ -198,7 +240,13 @@ export const worksData: WorksData = {
           { title: 'Hell Rendered' },
           { title: 'Mutnt' },
         ],
-        credits: 'Music by Jerome Faria. Artwork by [[Philip Baljeu]].',
+        credits: {
+          style: 'by',
+          clauses: [
+            { role: 'music', of: 'Jerome Faria' },
+            { role: 'artwork', of: '[[Philip Baljeu]]' },
+          ],
+        },
         contributors: [
           { name: 'Philip Baljeu', url: 'https://www.instagram.com/pbalpbal/' },
         ],
@@ -226,7 +274,13 @@ export const worksData: WorksData = {
           { title: 'Artria' },
           { title: '1noise (ps mix)' },
         ],
-        credits: 'Music by Jerome Faria. Artwork by Louie de Bettencourt.',
+        credits: {
+          style: 'by',
+          clauses: [
+            { role: 'music', of: 'Jerome Faria' },
+            { role: 'artwork', of: 'Louie de Bettencourt' },
+          ],
+        },
       },
       {
         id: 'offear',
@@ -246,7 +300,13 @@ export const worksData: WorksData = {
           { title: 'Exmatik' },
           { title: 'BL_P+' },
         ],
-        credits: 'Music by Jerome Faria. Artwork by [[Spiraljoe]].',
+        credits: {
+          style: 'by',
+          clauses: [
+            { role: 'music', of: 'Jerome Faria' },
+            { role: 'artwork', of: '[[Spiraljoe]]' },
+          ],
+        },
         contributors: [
           { name: 'Spiraljoe', url: 'https://www.deviantart.com/spiraljoe' },
         ],
@@ -281,7 +341,13 @@ export const worksData: WorksData = {
           { title: 'Costa Norte', artist: { name: 'sol' } },
           { title: 'Release (Conclusion)', artist: { name: 'W. R. Pyo', url: 'https://wrpyo.bandcamp.com/' } },
         ],
-        credits: 'Artwork by Jerome Faria. Photography by [[Pedro Jafuno]], [[Sue-Elie Andrade-Dé]], Joana Marote.',
+        credits: {
+          style: 'by',
+          clauses: [
+            { role: 'artwork', of: 'Jerome Faria' },
+            { role: 'photography', of: '[[Pedro Jafuno]], [[Sue-Elie Andrade-Dé]], Joana Marote' },
+          ],
+        },
         contributors: [
           { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
           { name: 'Sue-Elie Andrade-Dé', url: 'https://cargocollective.com/sueelieandradede' },
@@ -306,7 +372,13 @@ export const worksData: WorksData = {
           { title: 'A' },
           { title: 'R' },
         ],
-        credits: 'Music by Pedro Roque and Jerome Faria. Artwork by [[Mafalda Melim]].',
+        credits: {
+          style: 'by',
+          clauses: [
+            { role: 'music', of: 'Pedro Roque and Jerome Faria' },
+            { role: 'artwork', of: '[[Mafalda Melim]]' },
+          ],
+        },
         contributors: [
           { name: 'Mafalda Melim', url: 'https://www.instagram.com/mafaldappm/' },
         ],
@@ -333,7 +405,10 @@ export const worksData: WorksData = {
         tracklist: [
           { title: 'Depolarized' },
         ],
-        credits: 'Music and artwork by Jerome Faria and Nelson P. Ferreira.',
+        credits: {
+          style: 'by',
+          clauses: [{ role: 'musicAndArtwork', of: 'Jerome Faria and Nelson P. Ferreira' }],
+        },
       },
     ],
   },
@@ -352,7 +427,16 @@ export const worksData: WorksData = {
           year: 2021,
         },
         description: 'Theatre production celebrating the centenary of <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event. Faria provided both original music and live interpretation—embedding himself in a multidisciplinary creative team rather than delivering a score from a distance.',
-        credits: 'Direction: Sara Gonçalves. Text: [[Rui Zink]]. Set design: [[José Manuel Castanheira]]. Video: Filipe Ferraz. Music and live interpretation: Jerome Faria.',
+        credits: {
+          style: 'colon',
+          clauses: [
+            { role: 'direction', of: 'Sara Gonçalves' },
+            { role: 'text', of: '[[Rui Zink]]' },
+            { role: 'setDesign', of: '[[José Manuel Castanheira]]' },
+            { role: 'video', of: 'Filipe Ferraz' },
+            { role: 'musicAndLiveInterpretation', of: 'Jerome Faria' },
+          ],
+        },
         contributors: [
           { name: 'Rui Zink', url: 'https://pt.wikipedia.org/wiki/Rui_Zink' },
           { name: 'José Manuel Castanheira', url: 'https://pt.wikipedia.org/wiki/Jos%C3%A9_Manuel_Castanheira' },
@@ -377,7 +461,19 @@ export const worksData: WorksData = {
           year: 2016,
         },
         description: 'Original score for film by Portuguese-Norwegian visual artist Margarida Paiva. The film depicts a park as a closed world where anonymous characters drift past one another, bound only by gestures and glances.',
-        credits: 'Producer: Rune Sandnes. Cinematography: [[Diogo Castro]]. Music: Jerome Faria. Sound design: [[Duarte Ferreira]]. Sound editor: [[Pedro Anacleto]]. Editing: Margarida Paiva. Cast: [[Susana Chiocca]], Alexandre Osório, Helena Carneiro, [[João Pamplona]], [[Susana Madeira]], Mariana L. Ferreira. Shot at [[Jardim Botânico do Porto]].',
+        credits: {
+          style: 'colon',
+          clauses: [
+            { role: 'producer', of: 'Rune Sandnes' },
+            { role: 'cinematography', of: '[[Diogo Castro]]' },
+            { role: 'music', of: 'Jerome Faria' },
+            { role: 'soundDesign', of: '[[Duarte Ferreira]]' },
+            { role: 'soundEditor', of: '[[Pedro Anacleto]]' },
+            { role: 'editing', of: 'Margarida Paiva' },
+            { role: 'cast', of: '[[Susana Chiocca]], Alexandre Osório, Helena Carneiro, [[João Pamplona]], [[Susana Madeira]], Mariana L. Ferreira' },
+            { role: 'shot', of: '[[Jardim Botânico do Porto]]', connector: 'at' },
+          ],
+        },
         contributors: [
           { name: 'Diogo Castro', url: 'https://www.instagram.com/diogocastrofilm/' },
           { name: 'Duarte Ferreira', url: 'https://www.linkedin.com/in/dvarte/' },
@@ -398,7 +494,13 @@ export const worksData: WorksData = {
           year: 2013,
         },
         description: 'Live score for <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a>\'s 1920 expressionist silent film. Working against Wiene\'s angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honouring the film\'s unease while exploring territories the original could never have envisioned.',
-        credits: 'Music by Jerome Faria. Performed by Jerome Faria and [[Nuno Filipe]].',
+        credits: {
+          style: 'by',
+          clauses: [
+            { role: 'music', of: 'Jerome Faria' },
+            { role: 'performed', of: 'Jerome Faria and [[Nuno Filipe]]' },
+          ],
+        },
         contributors: [
           { name: 'Nuno Filipe', url: 'https://nunoandtheend.bandcamp.com/' },
         ],
@@ -422,7 +524,14 @@ export const worksData: WorksData = {
           { title: '0x04' },
           { title: '0xFF' },
         ],
-        credits: 'Music by Jerome Faria. Visuals by [[Victor Martins]]. Artwork by Frederico Cunha.',
+        credits: {
+          style: 'by',
+          clauses: [
+            { role: 'music', of: 'Jerome Faria' },
+            { role: 'visuals', of: '[[Victor Martins]]' },
+            { role: 'artwork', of: 'Frederico Cunha' },
+          ],
+        },
         contributors: [
           { name: 'Victor Martins', url: 'https://pixelnerve.com/' },
         ],
@@ -617,7 +726,15 @@ export const worksData: WorksData = {
           year: 2009,
         },
         description: 'A curated collection of over 200 glitch images grabbed, composed and, in some cases, provoked by artists exploring digital aesthetics and imperfection. Jerome Faria contributed work alongside notable artists from the international glitch art community.',
-        credits: 'Editing and curation by [[Iman Moradi]] and [[Ant Scott]]. Additional curation by [[Joe Gilmore]] and [[Christopher Murphy]]. Design by [[Qubik]] / Fehler. Contributing artists include [[JODI]], [[Kim Cascone]], [[Taylor Deupree]], [[Marius Watz]], [[Mario Klingemann]], [[Lia]], [[Dextro]], [[Jan Robert Leegte]], [[Curt Cloninger]], [[Michael Betancourt]], [[Billy Roisz]], [[Rainer Kohlberger]], [[Tina Frank]], [[Ralph Steinbrüchel]], [[Paul Prudence]], [[Scott Arford]], [[Alessandro Canova]], [[Miguel Carvalhais]], [[Nik Gaffney]], [[Iris Garrelfs]], [[Mathias Gmachl]], [[Jason Kahn]], [[LoVid]], [[Michael Norris]], [[O.K. Parking]], [[Norbert Pfaffenbichler]], [[Per Platou]], [[Andrea Polli]], and others.',
+        credits: {
+          style: 'by',
+          clauses: [
+            { role: 'editingAndCuration', of: '[[Iman Moradi]] and [[Ant Scott]]' },
+            { role: 'additionalCuration', of: '[[Joe Gilmore]] and [[Christopher Murphy]]' },
+            { role: 'design', of: '[[Qubik]] / Fehler' },
+          ],
+          note: 'Contributing artists include [[JODI]], [[Kim Cascone]], [[Taylor Deupree]], [[Marius Watz]], [[Mario Klingemann]], [[Lia]], [[Dextro]], [[Jan Robert Leegte]], [[Curt Cloninger]], [[Michael Betancourt]], [[Billy Roisz]], [[Rainer Kohlberger]], [[Tina Frank]], [[Ralph Steinbrüchel]], [[Paul Prudence]], [[Scott Arford]], [[Alessandro Canova]], [[Miguel Carvalhais]], [[Nik Gaffney]], [[Iris Garrelfs]], [[Mathias Gmachl]], [[Jason Kahn]], [[LoVid]], [[Michael Norris]], [[O.K. Parking]], [[Norbert Pfaffenbichler]], [[Per Platou]], [[Andrea Polli]], and others',
+        },
         contributors: [
           { name: 'Iman Moradi', url: 'https://organised.info/' },
           { name: 'Ant Scott', url: 'https://www.beflix.com/' },
