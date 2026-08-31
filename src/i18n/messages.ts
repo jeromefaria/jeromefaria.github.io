@@ -29,6 +29,17 @@ const en = {
   common: {
     switchLanguage: 'Português',
   },
+  keyboardHelp: {
+    title: 'Keyboard shortcuts',
+    openPalette: 'Open the command palette',
+    moveSelection: 'Move selection',
+    moveSelectionVim: 'Move selection (Vim / fzf)',
+    jumpHalfPage: 'Jump half a page',
+    openCommand: 'Open the selected command',
+    openNewTab: 'Open in a new tab',
+    close: 'Close',
+    showHelp: 'Show this help',
+  },
 };
 
 const pt: typeof en = {
@@ -45,6 +56,17 @@ const pt: typeof en = {
   },
   common: {
     switchLanguage: 'English',
+  },
+  keyboardHelp: {
+    title: 'Atalhos de teclado',
+    openPalette: 'Abrir a paleta de comandos',
+    moveSelection: 'Mover a selecção',
+    moveSelectionVim: 'Mover a selecção (Vim / fzf)',
+    jumpHalfPage: 'Saltar meia página',
+    openCommand: 'Abrir o comando seleccionado',
+    openNewTab: 'Abrir num novo separador',
+    close: 'Fechar',
+    showHelp: 'Mostrar esta ajuda',
   },
 };
 
