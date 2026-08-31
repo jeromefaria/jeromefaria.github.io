@@ -1,28 +1,41 @@
 import { describe, expect, it } from 'vitest';
 
 import { creditsGolden } from '@/data/__fixtures__/credits.golden';
+import { plainCreditsGolden } from '@/data/__fixtures__/plainCredits.golden';
 import { worksData } from '@/data/works';
 
 import { plainCredits, renderCredits } from './renderCredits';
 
-const releasesById = new Map(
-  Object.values(worksData)
-    .flatMap(section => section.items)
-    .map(release => [release.id, release]),
-);
+const creditedReleases = Object.values(worksData)
+  .flatMap(section => section.items)
+  .filter(release => release.credits);
 
 describe('renderCredits', () => {
-  it('reproduces every original credit line byte-for-byte', () => {
+  it('pins both goldens for every credited release, with no orphans', () => {
+    const ids = creditedReleases.map(release => release.id).sort();
+
+    expect(ids).toEqual(Object.keys(creditsGolden).sort());
+    expect(ids).toEqual(Object.keys(plainCreditsGolden).sort());
+  });
+
+  it('reproduces every rendered credit line byte-for-byte', () => {
     const rendered: Record<string, string> = {};
 
-    for (const id of Object.keys(creditsGolden)) {
-      const release = releasesById.get(id);
-      if (!release?.credits) throw new Error(`no credits for ${id}`);
-
-      rendered[id] = renderCredits(release.credits, release.contributors);
+    for (const release of creditedReleases) {
+      rendered[release.id] = renderCredits(release.credits!, release.contributors);
     }
 
     expect(rendered).toEqual(creditsGolden);
+  });
+
+  it('reproduces every plain (search-index) credit line byte-for-byte', () => {
+    const plain: Record<string, string> = {};
+
+    for (const release of creditedReleases) {
+      plain[release.id] = plainCredits(release.credits!);
+    }
+
+    expect(plain).toEqual(plainCreditsGolden);
   });
 
   it('links a marked name via its contributor url', () => {
