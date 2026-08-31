@@ -2,13 +2,13 @@
 import { computed } from 'vue';
 
 import { useLightboxDeepLink } from '@/composables/useLightboxDeepLink';
+import { useT } from '@/i18n/useT';
 import type { LightboxItem, LiveEvent } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { formatEventDateRange } from '@/utils/formatters';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 import type { LightboxSource } from '@/utils/lightboxPermalink';
 import { buildEventDescription } from '@/utils/liveDescription';
-import { pluralize } from '@/utils/pluralize';
 
 import ExternalLink from './ExternalLink.vue';
 import IconArrow from './IconArrow.vue';
@@ -39,7 +39,8 @@ const imageLightboxItems = computed<LightboxItem[]>(() =>
     toLightboxImage({ ...image, alt: props.event.imageAlt ?? '' })) ?? []);
 const posterLightboxItems = computed<LightboxItem[]>(() => props.event.posters?.map(toLightboxImage) ?? []);
 const videoLightboxItems = computed<LightboxItem[]>(() => props.event.videos?.map(toLightboxVideo) ?? []);
-const imageLabel = computed(() => pluralize(imageLightboxItems.value.length, 'Photo'));
+const t = useT();
+const imageLabel = computed(() => t(imageLightboxItems.value.length === 1 ? 'media.photo' : 'media.photos'));
 
 useLightboxDeepLink(
   props.event.id,

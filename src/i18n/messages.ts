@@ -29,6 +29,18 @@ const en = {
   common: {
     switchLanguage: 'Português',
   },
+  media: {
+    gallery: 'Gallery',
+    photo: 'Photo',
+    photos: 'Photos',
+    poster: 'Poster',
+    posters: 'Posters',
+    video: 'Video',
+    videos: 'Videos',
+    download: 'Download',
+    view: 'View {label}',
+    downloadAria: 'Download this release from Bandcamp (opens in a new tab)',
+  },
   keyboardHelp: {
     title: 'Keyboard shortcuts',
     openPalette: 'Open the command palette',
@@ -94,6 +106,18 @@ const pt: typeof en = {
   },
   common: {
     switchLanguage: 'English',
+  },
+  media: {
+    gallery: 'Galeria',
+    photo: 'Foto',
+    photos: 'Fotos',
+    poster: 'Cartaz',
+    posters: 'Cartazes',
+    video: 'Vídeo',
+    videos: 'Vídeos',
+    download: 'Descarregar',
+    view: 'Ver {label}',
+    downloadAria: 'Descarregar esta edição do Bandcamp (abre num novo separador)',
   },
   keyboardHelp: {
     title: 'Atalhos de teclado',
