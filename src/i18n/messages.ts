@@ -33,7 +33,7 @@ const en = {
 
 const pt: typeof en = {
   nav: {
-    about: 'Biografia',
+    about: 'Sobre',
     works: 'Obras',
     live: 'Concertos',
     press: 'Imprensa',
