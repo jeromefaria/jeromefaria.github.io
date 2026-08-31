@@ -57,3 +57,23 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/NotFoundView.vue'),
   },
 ];
+
+const PT_PREFIX = '/pt';
+
+const isCatchAll = (route: RouteRecordRaw): boolean => route.path.startsWith('/:pathMatch');
+
+const toPtRoute = (route: RouteRecordRaw): RouteRecordRaw => ({
+  ...route,
+  path: route.path === '/' ? PT_PREFIX : `${PT_PREFIX}${route.path}`,
+  name: route.name ? `pt-${String(route.name)}` : undefined,
+  meta: { ...route.meta, locale: 'pt' },
+});
+
+export const buildRoutes = (base: RouteRecordRaw[], i18nEnabled: boolean): RouteRecordRaw[] => {
+  if (!i18nEnabled) return base;
+
+  const pages = base.filter(route => !isCatchAll(route));
+  return [...pages, ...pages.map(toPtRoute), ...base.filter(isCatchAll)];
+};
+
+export const appRoutes = buildRoutes(routes, import.meta.env.VITE_I18N === 'true');

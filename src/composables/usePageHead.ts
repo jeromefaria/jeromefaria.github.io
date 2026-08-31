@@ -23,6 +23,7 @@ export const usePageHead = ({
   image,
 }: UsePageHeadOptions): void => {
   const route = useRoute();
+  const lang = typeof route.meta?.['locale'] === 'string' ? route.meta['locale'] : 'en';
   const fullTitle = title.includes(siteConfig.title)
     ? title
     : `${title} - ${siteConfig.title}`;
@@ -57,6 +58,7 @@ export const usePageHead = ({
   }
 
   useHead({
+    htmlAttrs: { lang },
     title: fullTitle,
     meta,
     link,

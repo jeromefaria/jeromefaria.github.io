@@ -1,5 +1,6 @@
-import vue from '@vitejs/plugin-vue';
 import { fileURLToPath, URL } from 'node:url';
+
+import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
@@ -35,7 +36,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/styles/variables" as *;`,
+        additionalData: '@use "@/styles/variables" as *;',
       },
     },
   },
@@ -55,9 +56,10 @@ export default defineConfig({
     script: 'async',
     formatting: 'minify',
     includedRoutes(paths: string[]) {
-      // Exclude dynamic routes (the 404 catch-all and /works/:releaseId), then add a
-      // concrete pre-render path for every release.
-      return [...paths.filter(path => !path.includes(':')), ...releasePaths];
+      const releases = process.env.VITE_I18N === 'true'
+        ? [...releasePaths, ...releasePaths.map(path => `/pt${path}`)]
+        : releasePaths;
+      return [...paths.filter(path => !path.includes(':')), ...releases];
     },
   },
 });
