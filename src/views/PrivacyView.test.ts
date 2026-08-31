@@ -15,6 +15,15 @@ describe('PrivacyView', () => {
     expect(headings).toEqual(privacyContent.sections.map(section => section.heading.en));
   });
 
+  it('renders Portuguese prose and prefixes internal links under /pt on a pt route', async () => {
+    const wrapper = await mountView(PrivacyView, '/pt/privacy', { locale: 'pt' });
+
+    expect(wrapper.get('.privacy__intro').text()).toBe(privacyContent.intro.pt);
+    expect(wrapper.get('.privacy__updated').text()).toContain(privacyContent.updated.pt);
+    const links = wrapper.findAll('.privacy__body a').map(anchor => anchor.attributes('href'));
+    expect(links).toContain('/pt/contact');
+  });
+
   it('references the Turnstile Privacy Addendum', async () => {
     const wrapper = await mountView(PrivacyView);
     const links = wrapper.findAll('.privacy__body a').map(anchor => anchor.attributes('href'));
