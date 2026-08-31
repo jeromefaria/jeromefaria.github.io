@@ -4,8 +4,12 @@ import { nextTick } from 'vue';
 import { createMemoryHistory, createRouter } from 'vue-router';
 
 import { navigation, siteConfig } from '@/data/navigation';
+import { messages } from '@/i18n/messages';
 
 import SiteHeader from './SiteHeader.vue';
+
+const enNavLabel = (labelKey: string): string =>
+  messages.en.nav[labelKey.slice(4) as keyof typeof messages.en.nav];
 
 const makeRouter = () =>
   createRouter({
@@ -34,7 +38,7 @@ describe('SiteHeader', () => {
   it('renders a link for every nav item', async () => {
     const { wrapper } = await mountHeader();
     const links = wrapper.findAll('.nav__link');
-    expect(links.map(link => link.text())).toEqual(navigation.map(item => item.title));
+    expect(links.map(link => link.text())).toEqual(navigation.map(item => enNavLabel(item.labelKey)));
   });
 
   it('toggles the menu open and closed, reflecting aria-expanded', async () => {

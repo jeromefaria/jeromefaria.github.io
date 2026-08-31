@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { createApp } from 'vue';
 import { createMemoryHistory, createRouter } from 'vue-router';
 
-import { createAppI18n, localeFromMeta, setupI18n } from './index';
+import { createAppI18n, setupI18n } from './index';
+import { localeFromMeta } from './messages';
 
 describe('createAppI18n', () => {
   it('resolves a key in the default (en) locale', () => {

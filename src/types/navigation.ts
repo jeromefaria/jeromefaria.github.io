@@ -12,7 +12,7 @@ export interface SiteConfig {
 }
 
 export interface NavItem {
-  title: string;
+  labelKey: string;
   url: string;
 }
 

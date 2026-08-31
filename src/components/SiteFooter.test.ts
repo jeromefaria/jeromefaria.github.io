@@ -3,8 +3,12 @@ import { describe, expect, it } from 'vitest';
 import { createMemoryHistory, createRouter } from 'vue-router';
 
 import { navigation, siteConfig } from '@/data/navigation';
+import { messages } from '@/i18n/messages';
 
 import SiteFooter from './SiteFooter.vue';
+
+const enNavLabel = (labelKey: string): string =>
+  messages.en.nav[labelKey.slice(4) as keyof typeof messages.en.nav];
 
 const router = createRouter({
   history: createMemoryHistory(),
@@ -22,7 +26,7 @@ describe('SiteFooter', () => {
     const wrapper = await mountFooter();
     const navLinks = wrapper.findAll('.footer__nav a');
     expect(navLinks).toHaveLength(navigation.length);
-    expect(navLinks.map(link => link.text())).toEqual(navigation.map(item => item.title));
+    expect(navLinks.map(link => link.text())).toEqual(navigation.map(item => enNavLabel(item.labelKey)));
   });
 
   it('no longer renders the social links block', async () => {
