@@ -17,8 +17,8 @@ export const createPersonSchema = (): SchemaProfilePerson => ({
   '@type': 'Person',
   name: siteConfig.author.name,
   url: siteConfig.url,
-  jobTitle: siteConfig.tagline,
-  description: siteConfig.description,
+  jobTitle: siteConfig.tagline.en,
+  description: siteConfig.description.en,
   image: `${siteConfig.url}${siteConfig.image}`,
   sameAs: social.map(link => link.url),
 });

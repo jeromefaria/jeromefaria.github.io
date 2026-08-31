@@ -17,6 +17,11 @@ export const localePath = (path: string, locale: Locale): string => {
 export const stripLocale = (path: string): string =>
   path === '/pt' || path.startsWith('/pt/') ? path.slice(3) || '/' : path;
 
+export const localizeInternalLinks = (html: string, locale: Locale): string => {
+  if (locale === DEFAULT_LOCALE) return html;
+  return html.replace(/href="(\/[^/"][^"]*)"/g, (_match, path: string) => `href="${localePath(path, locale)}"`);
+};
+
 const en = {
   nav: {
     about: 'About',
@@ -28,6 +33,9 @@ const en = {
   footer: {
     privacy: 'Privacy',
     colophon: 'Colophon',
+  },
+  privacy: {
+    lastUpdated: 'Last updated {date}.',
   },
   common: {
     switchLanguage: 'Português',
@@ -106,6 +114,9 @@ const pt: typeof en = {
   footer: {
     privacy: 'Privacidade',
     colophon: 'Colophon',
+  },
+  privacy: {
+    lastUpdated: 'Última actualização: {date}.',
   },
   common: {
     switchLanguage: 'English',

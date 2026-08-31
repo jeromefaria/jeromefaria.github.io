@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { localePath, messages, stripLocale, SUPPORTED_LOCALES } from './messages';
+import { localePath, localizeInternalLinks, messages, stripLocale, SUPPORTED_LOCALES } from './messages';
 
 const flatten = (object: Record<string, unknown>, prefix = ''): Record<string, string> =>
   Object.entries(object).reduce<Record<string, string>>((accumulator, [key, value]) => {
@@ -58,5 +58,16 @@ describe('stripLocale', () => {
 
   it('does not strip paths that merely start with the pt letters', () => {
     expect(stripLocale('/ptolemy')).toBe('/ptolemy');
+  });
+});
+
+describe('localizeInternalLinks', () => {
+  it('leaves markup untouched for the default locale', () => {
+    expect(localizeInternalLinks('<a href="/works">x</a>', 'en')).toBe('<a href="/works">x</a>');
+  });
+
+  it('prefixes internal hrefs under pt but leaves external and anchor links alone', () => {
+    const html = '<a href="/works#nny">A</a> <a href="https://x.com">B</a> <a href="#top">C</a>';
+    expect(localizeInternalLinks(html, 'pt')).toBe('<a href="/pt/works#nny">A</a> <a href="https://x.com">B</a> <a href="#top">C</a>');
   });
 });
