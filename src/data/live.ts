@@ -952,7 +952,7 @@ export const liveEvents: LiveEvent[] = [
     titleUrl: 'https://digitalinberlin.eu/',
     venue: { name: 'Casa das Mudas', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1', city: 'Calheta', country: 'Portugal' },
     setup: { kind: 'solo' },
-    note: 'Performed as NNY.',
+    performedAs: 'NNY',
     bill: [
       { text: 'Alog', url: 'https://alogmusic.bandcamp.com/' },
       [{ text: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' }, { text: 'Laetitia Morais', url: 'https://laetitiamorais.com/' }],
@@ -1010,7 +1010,7 @@ export const liveEvents: LiveEvent[] = [
     date: '2006-12-07',
     venue: { name: 'RDP Auditorium', url: 'https://madeira.rtp.pt/', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'solo' },
-    note: 'Performed as NNY.',
+    performedAs: 'NNY',
     bill: [
       [{ text: 'Phonophani', url: 'https://phonophani.bandcamp.com/' }, { text: 'Marius Watz', url: 'https://mariuswatz.com/' }],
       { text: 'Frank Bretschneider', url: 'https://frankbretschneider.bandcamp.com/' },
@@ -1023,7 +1023,7 @@ export const liveEvents: LiveEvent[] = [
     titleUrl: 'https://digitalinberlin.eu/',
     venue: { name: 'RDP Auditorium', url: 'https://madeira.rtp.pt/', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Hugo Olim', url: 'https://vimeo.com/hugoolim', suffix: '(visuals)' } },
-    note: 'Performed as NNY.',
+    performedAs: 'NNY',
     bill: [
       { text: 'Fennesz', url: 'https://www.fennesz.com/' },
       { text: 'Florian Hecker', url: 'https://florianhecker.blogspot.com/' },

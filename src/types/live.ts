@@ -47,6 +47,7 @@ export interface LiveEvent {
   venue: EventVenue;
   setup: Setup;
   format?: Format;
+  performedAs?: string;
   bill?: BillEntry[];
   note?: string;
   imageAlt?: string;
