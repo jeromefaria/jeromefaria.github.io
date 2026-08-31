@@ -155,13 +155,13 @@ describe('ReleaseItem', () => {
     expect(wrapper.get('.release-credits').text()).toContain('Jerome Faria');
   });
 
-  it('offers a purchase link for a release with a Bandcamp URL', () => {
-    const purchase = mountRelease(bandcamp).get('.media-links a');
-    expect(purchase.text()).toBe('Purchase');
-    expect(purchase.attributes('href')).toBe(bandcamp.bandcampUrl);
+  it('offers a download link for a release with a Bandcamp URL', () => {
+    const download = mountRelease(bandcamp).get('.media-links a');
+    expect(download.text()).toBe('Download');
+    expect(download.attributes('href')).toBe(bandcamp.bandcampUrl);
   });
 
-  it('omits the purchase link for a release without a Bandcamp URL', () => {
+  it('omits the download link for a release without a Bandcamp URL', () => {
     expect(mountRelease(external).find('.media-links a').exists()).toBe(false);
   });
 

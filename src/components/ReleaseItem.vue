@@ -4,6 +4,7 @@ import { computed, ref } from 'vue';
 import { useAccordionVisibility } from '@/composables/useAccordionContext';
 import { useLightboxDeepLink } from '@/composables/useLightboxDeepLink';
 import { useReleasePlayback } from '@/composables/useReleasePlayback';
+import { useT } from '@/i18n/useT';
 import type { LightboxItem, Release } from '@/types';
 import { hasBandcampId, hasBandcampUrl, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
@@ -33,6 +34,7 @@ const emit = defineEmits<{
 
 const coverVisible = useAccordionVisibility();
 
+const t = useT();
 const coverErrored = ref(false);
 
 const imageLightboxItems = computed<LightboxItem[]>(() =>
@@ -178,9 +180,9 @@ const {
       <MediaLinks
         :images="imageLightboxItems"
         :videos="videoLightboxItems"
-        image-label="Gallery"
+        :image-label="t('media.gallery')"
         :source-id="release.id"
-        :purchase-url="hasBandcampUrl(release) ? release.bandcampUrl : undefined"
+        :download-url="hasBandcampUrl(release) ? release.bandcampUrl : undefined"
         @open-lightbox="(items, index, source) => emit('open-lightbox', items, index, source)"
       />
     </div>

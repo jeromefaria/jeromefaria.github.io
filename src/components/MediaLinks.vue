@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import { useT } from '@/i18n/useT';
 import type { LightboxItem } from '@/types';
 import type { LightboxMediaKind, LightboxSource } from '@/utils/lightboxPermalink';
-import { pluralize } from '@/utils/pluralize';
 
 const props = withDefaults(
   defineProps<{
@@ -12,7 +12,7 @@ const props = withDefaults(
     imageLabel: string;
     sourceId: string;
     posters?: LightboxItem[];
-    purchaseUrl?: string | undefined;
+    downloadUrl?: string | undefined;
   }>(),
   { posters: () => [] },
 );
@@ -21,18 +21,19 @@ const emit = defineEmits<{
   'open-lightbox': [items: LightboxItem[], index: number, source: LightboxSource];
 }>();
 
-// The visible label is a bare noun; the 'View …' aria-label keeps the affordance for assistive tech.
+const t = useT();
+
 const links = computed(() =>
   [
     { items: props.images, label: props.imageLabel, kind: 'photo' as LightboxMediaKind },
-    { items: props.posters, label: pluralize(props.posters.length, 'Poster'), kind: 'poster' as LightboxMediaKind },
-    { items: props.videos, label: pluralize(props.videos.length, 'Video'), kind: 'video' as LightboxMediaKind },
+    { items: props.posters, label: t(props.posters.length === 1 ? 'media.poster' : 'media.posters'), kind: 'poster' as LightboxMediaKind },
+    { items: props.videos, label: t(props.videos.length === 1 ? 'media.video' : 'media.videos'), kind: 'video' as LightboxMediaKind },
   ].filter(link => link.items.length));
 </script>
 
 <template>
   <p
-    v-if="links.length || purchaseUrl"
+    v-if="links.length || downloadUrl"
     class="media-links"
   >
     <template
@@ -42,23 +43,23 @@ const links = computed(() =>
       <span v-if="index > 0"> | </span>
       <button
         class="link-discrete"
-        :aria-label="`View ${link.label.toLowerCase()}`"
+        :aria-label="t('media.view', { label: link.label.toLowerCase() })"
         @click="emit('open-lightbox', link.items, 0, { id: sourceId, kind: link.kind })"
       >
         {{ link.label }}
       </button>
     </template>
 
-    <span v-if="purchaseUrl && links.length"> | </span>
+    <span v-if="downloadUrl && links.length"> | </span>
     <a
-      v-if="purchaseUrl"
+      v-if="downloadUrl"
       class="link-discrete"
-      :href="purchaseUrl"
+      :href="downloadUrl"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Purchase this release on Bandcamp (opens in a new tab)"
+      :aria-label="t('media.downloadAria')"
     >
-      Purchase
+      {{ t('media.download') }}
     </a>
   </p>
 </template>
