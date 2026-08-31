@@ -18,6 +18,6 @@ export const plainCreditsGolden: Record<string, string> = {
   'nny-plus': 'Music by Jerome Faria, Kazuya Mise, and Filipe Cruz. Artwork by Filipe Cruz.',
   'offear': 'Music by Jerome Faria. Artwork by Spiraljoe.',
   'overlapse': 'Music and artwork by Jerome Faria. Photography by Joana Marote.',
-  'overlapse-xiii': 'Artwork by Jerome Faria. Photography by Pedro Jafuno, Sue-Elie Andrade-Dé, Joana Marote.',
+  'overlapse-xiii': 'Artwork by Jerome Faria. Photography by Pedro Jafuno, Sue-Elie Andrade-Dé, and Joana Marote.',
   'readerror': 'Music by Jerome Faria. Artwork by Philip Baljeu.',
 };

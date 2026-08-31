@@ -1,4 +1,5 @@
 import type { Contributor, MetaLink } from './common';
+import type { Credits } from './credits';
 import type { Credit, Video } from './media';
 
 export type { MetaLink };
@@ -104,7 +105,7 @@ export interface Release {
   coverImage?: string;
   tracklist?: Track[];
   description?: string;
-  credits?: string;
+  credits?: Credits;
   contributors?: Contributor[];
   images?: Image[];
   videos?: Video[];
