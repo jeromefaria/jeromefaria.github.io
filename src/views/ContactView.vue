@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
 import FormField from '@/components/FormField.vue';
@@ -9,7 +9,12 @@ import { usePageHead } from '@/composables/usePageHead';
 import { useTurnstile } from '@/composables/useTurnstile';
 import { contactContent } from '@/data/contact';
 import { pageMeta } from '@/data/pageMeta';
+import { useLocale } from '@/i18n/useLocale';
+import { useT } from '@/i18n/useT';
 import { createContactPageSchema } from '@/utils/pageSchemas';
+
+const t = useT();
+const { toLocalePath } = useLocale();
 
 usePageHead({
   ...pageMeta.contact,
@@ -25,7 +30,8 @@ const { execute } = useTurnstile(form.turnstileSiteKey, turnstileContainer);
 const { formData, botField, isSubmitting, showSuccess, errorMessage, selectedType, isFormValid, fieldInvalid, errors, handleBlur, handleInput, handleSubmit } =
   useContactForm(form, execute);
 
-const inquiryOptions = form.inquiryTypes.map(type => ({ value: type.id, label: type.label }));
+const inquiryOptions = computed(() =>
+  form.inquiryTypes.map(type => ({ value: type.id, label: t(`contact.types.${type.id}.label`) })));
 </script>
 
 <template>
@@ -39,8 +45,8 @@ const inquiryOptions = form.inquiryTypes.map(type => ({ value: type.id, label: t
         class="contact-success"
         role="alert"
       >
-        <h2>{{ contactContent.successMessage.title }}</h2>
-        <p>{{ contactContent.successMessage.text }}</p>
+        <h2>{{ t('contact.success.title') }}</h2>
+        <p>{{ t('contact.success.text') }}</p>
       </div>
 
       <form
@@ -63,8 +69,8 @@ const inquiryOptions = form.inquiryTypes.map(type => ({ value: type.id, label: t
           id="inquiry"
           type="select"
           :model-value="formData['inquiry'] ?? ''"
-          :label="form.inquiry.label"
-          :placeholder="form.inquiry.placeholder"
+          :label="t('contact.inquiryLabel')"
+          :placeholder="t('contact.inquiryPlaceholder')"
           :options="inquiryOptions"
           :required="form.inquiry.required"
           :invalid="fieldInvalid['inquiry']"
@@ -78,14 +84,14 @@ const inquiryOptions = form.inquiryTypes.map(type => ({ value: type.id, label: t
           v-if="selectedType"
           class="contact-form__blurb"
         >
-          {{ selectedType.blurb }}
+          {{ t(`contact.types.${selectedType.id}.blurb`) }}
         </p>
 
         <FormField
           id="name"
           :model-value="formData['name'] ?? ''"
           :name="form.baseFields.name.label"
-          :label="form.baseFields.name.label"
+          :label="t('contact.name')"
           :required="form.baseFields.name.required"
           :autocomplete="form.baseFields.name.autocomplete"
           :invalid="fieldInvalid['name']"
@@ -100,7 +106,7 @@ const inquiryOptions = form.inquiryTypes.map(type => ({ value: type.id, label: t
           type="email"
           :model-value="formData['email'] ?? ''"
           :name="form.baseFields.email.label"
-          :label="form.baseFields.email.label"
+          :label="t('contact.email')"
           :required="form.baseFields.email.required"
           :autocomplete="form.baseFields.email.autocomplete"
           :invalid="fieldInvalid['email']"
@@ -116,8 +122,8 @@ const inquiryOptions = form.inquiryTypes.map(type => ({ value: type.id, label: t
           :key="field.id"
           :model-value="formData[field.id] ?? ''"
           :name="field.label"
-          :label="field.label"
-          :placeholder="field.placeholder"
+          :label="t(`contact.fields.${field.id}.label`)"
+          :placeholder="t(`contact.fields.${field.id}.placeholder`)"
           :required="field.required"
           :invalid="fieldInvalid[field.id]"
           :error="errors[field.id]"
@@ -131,7 +137,7 @@ const inquiryOptions = form.inquiryTypes.map(type => ({ value: type.id, label: t
           type="textarea"
           :model-value="formData['message'] ?? ''"
           :name="form.baseFields.message.label"
-          :label="form.baseFields.message.label"
+          :label="t('contact.message')"
           :rows="form.baseFields.message.rows"
           :required="form.baseFields.message.required"
           :invalid="fieldInvalid['message']"
@@ -159,14 +165,14 @@ const inquiryOptions = form.inquiryTypes.map(type => ({ value: type.id, label: t
           :class="['contact-form__submit', { 'contact-form__submit--valid': isFormValid }]"
           :disabled="isSubmitting"
         >
-          {{ isSubmitting ? 'Sending...' : form.submitText }}
+          {{ isSubmitting ? t('contact.sending') : t('contact.submit') }}
         </button>
 
         <p class="contact-form__notice">
-          <span>Protected by Cloudflare Turnstile</span>
+          <span>{{ t('contact.turnstileNotice') }}</span>
           <span aria-hidden="true">·</span>
-          <RouterLink to="/privacy">
-            Privacy
+          <RouterLink :to="toLocalePath('/privacy')">
+            {{ t('footer.privacy') }}
           </RouterLink>
         </p>
       </form>

@@ -16,7 +16,7 @@ export const createAppI18n = (locale: Locale = DEFAULT_LOCALE) =>
 export const setupI18n = (app: App, router: Router): void => {
   const i18n = createAppI18n();
   app.use(i18n);
-  app.provide(TRANSLATE_KEY, (key: string) => i18n.global.t(key));
+  app.provide(TRANSLATE_KEY, (key: string, params?: Record<string, string>) => i18n.global.t(key, params ?? {}));
 
   router.beforeEach(to => {
     i18n.global.locale.value = localeFromMeta(to.meta);
