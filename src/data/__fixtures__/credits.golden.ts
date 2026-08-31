@@ -11,7 +11,7 @@ export const creditsGolden: Record<string, string> = {
   'readerror': 'Music by Jerome Faria. Artwork by <a href="https://www.instagram.com/pbalpbal/">Philip Baljeu</a>.',
   'ect': 'Music by Jerome Faria. Artwork by Louie de Bettencourt.',
   'offear': 'Music by Jerome Faria. Artwork by <a href="https://www.deviantart.com/spiraljoe">Spiraljoe</a>.',
-  'overlapse-xiii': 'Artwork by Jerome Faria. Photography by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>, <a href="https://cargocollective.com/sueelieandradede">Sue-Elie Andrade-Dé</a>, Joana Marote.',
+  'overlapse-xiii': 'Artwork by Jerome Faria. Photography by <a href="https://www.instagram.com/jafuno/">Pedro Jafuno</a>, <a href="https://cargocollective.com/sueelieandradede">Sue-Elie Andrade-Dé</a>, and Joana Marote.',
   'altar': 'Music by Pedro Roque and Jerome Faria. Artwork by <a href="https://www.instagram.com/mafaldappm/">Mafalda Melim</a>.',
   'depolarized': 'Music and artwork by Jerome Faria and Nelson P. Ferreira.',
   'aragao': 'Direction: Sara Gonçalves. Text: <a href="https://pt.wikipedia.org/wiki/Rui_Zink">Rui Zink</a>. Set design: <a href="https://pt.wikipedia.org/wiki/Jos%C3%A9_Manuel_Castanheira">José Manuel Castanheira</a>. Video: Filipe Ferraz. Music and live interpretation: Jerome Faria.',
