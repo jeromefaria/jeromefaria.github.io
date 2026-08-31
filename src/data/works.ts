@@ -345,7 +345,7 @@ export const worksData: WorksData = {
           style: 'by',
           clauses: [
             { role: 'artwork', of: 'Jerome Faria' },
-            { role: 'photography', of: '[[Pedro Jafuno]], [[Sue-Elie Andrade-Dé]], Joana Marote' },
+            { role: 'photography', of: '[[Pedro Jafuno]], [[Sue-Elie Andrade-Dé]], and Joana Marote' },
           ],
         },
         contributors: [
