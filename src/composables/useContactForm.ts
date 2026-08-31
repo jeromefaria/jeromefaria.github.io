@@ -1,13 +1,11 @@
 import type { ComputedRef, Ref } from 'vue';
 import { computed, reactive, ref } from 'vue';
 
+import { useT } from '@/i18n/useT';
 import type { ContactField, ContactFormConfig, InquiryType } from '@/types/contact';
 
 type StringMap = Record<string, string>;
 type FlagMap = Record<string, boolean>;
-
-const SUBMIT_ERROR = 'Something went wrong sending your message. Please try again.';
-const VERIFY_ERROR = 'Could not verify you are human. Please try again.';
 
 const collectFields = (form: ContactFormConfig): ContactField[] => [
   form.inquiry,
@@ -54,6 +52,7 @@ export const useContactForm = (
   form: ContactFormConfig,
   requestToken: () => Promise<string>,
 ): UseContactFormReturn => {
+  const t = useT();
   const fields = uniqueFields(collectFields(form));
   const labelById = new Map(fields.map(field => [field.id, field.label]));
 
@@ -95,7 +94,7 @@ export const useContactForm = (
 
   const errors = computed<StringMap>(() =>
     Object.fromEntries(
-      requiredIds.value.map(id => [id, fieldInvalid.value[id] ? `${labelById.get(id)} is required` : '']),
+      requiredIds.value.map(id => [id, fieldInvalid.value[id] ? t('contact.requiredError', { field: labelById.get(id) ?? '' }) : '']),
     ));
 
   const handleBlur = (id: string): void => {
@@ -148,10 +147,10 @@ export const useContactForm = (
         return;
       }
 
-      errorMessage.value = response.status === 403 ? VERIFY_ERROR : SUBMIT_ERROR;
+      errorMessage.value = t(response.status === 403 ? 'contact.verifyError' : 'contact.submitError');
     } catch (error) {
       console.error('Contact submission error:', error);
-      errorMessage.value = SUBMIT_ERROR;
+      errorMessage.value = t('contact.submitError');
     } finally {
       isSubmitting.value = false;
     }
