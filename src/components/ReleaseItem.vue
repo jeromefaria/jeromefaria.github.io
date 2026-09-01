@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 
 import { useAccordionVisibility } from '@/composables/useAccordionContext';
 import { useLightboxDeepLink } from '@/composables/useLightboxDeepLink';
+import { useProse } from '@/composables/useProse';
 import { useReleasePlayback } from '@/composables/useReleasePlayback';
 import { useT } from '@/i18n/useT';
 import type { LightboxItem, Release } from '@/types';
@@ -35,6 +36,7 @@ const emit = defineEmits<{
 const coverVisible = useAccordionVisibility();
 
 const t = useT();
+const renderProse = useProse();
 const coverErrored = ref(false);
 
 const imageLightboxItems = computed<LightboxItem[]>(() =>
@@ -128,7 +130,7 @@ const {
       <p
         v-if="hasDescription(release)"
         class="release-description"
-        v-html="externalizeLinks(release.description)"
+        v-html="renderProse(release.description)"
       />
       <ol v-if="hasTracklist(release) && release.tracklist.length">
         <li

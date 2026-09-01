@@ -1,3 +1,5 @@
+import type { Localized } from '@/i18n/localized';
+
 import type { Contributor, MetaLink } from './common';
 import type { Credits } from './credits';
 import type { Credit, Video } from './media';
@@ -104,7 +106,7 @@ export interface Release {
   externalUrl?: string;
   coverImage?: string;
   tracklist?: Track[];
-  description?: string;
+  description?: Localized<string>;
   credits?: Credits;
   contributors?: Contributor[];
   images?: Image[];
@@ -133,7 +135,7 @@ export const hasCoverImage = (release: Release): release is Release & { coverIma
 export const hasTracklist = (release: Release): release is Release & { tracklist: Track[] } =>
   Boolean(release.tracklist);
 
-export const hasDescription = (release: Release): release is Release & { description: string } =>
+export const hasDescription = (release: Release): release is Release & { description: Localized<string> } =>
   Boolean(release.description);
 
 export const hasCredits = (release: Release): release is Release & { credits: string } =>
@@ -146,7 +148,7 @@ export const hasVideos = (release: Release): release is Release & { videos: Vide
   Boolean(release.videos);
 
 export interface WorksSection {
-  title: string;
+  title: Localized<string>;
   id: string;
   items: Release[];
 }

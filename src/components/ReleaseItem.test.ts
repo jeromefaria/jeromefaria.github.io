@@ -1,5 +1,6 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { createMemoryHistory, createRouter } from 'vue-router';
 
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import { getMediaElement, stop } from '@/composables/usePlayer';
@@ -9,8 +10,13 @@ import BandcampPlayer from './BandcampPlayer.vue';
 import PlayableCover from './PlayableCover.vue';
 import ReleaseItem from './ReleaseItem.vue';
 
+const router = createRouter({
+  history: createMemoryHistory(),
+  routes: [{ path: '/:pathMatch(.*)*', component: { render: () => null } }],
+});
+
 const mountRelease = (release: Release, textOnly = false) =>
-  mount(ReleaseItem, { props: { release, textOnly } });
+  mount(ReleaseItem, { props: { release, textOnly }, global: { plugins: [router] } });
 
 const bandcamp: Release = {
   id: 'bandcamp-only',
