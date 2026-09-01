@@ -1,16 +1,23 @@
 @use "variables" as *;
 
 .home {
+  // Fill the space between header and footer via flexbox. `main` is flex:1 in
+  // the 100dvh `.site` column, so the hero adapts to the footer's real height —
+  // one line or two, EN or PT — instead of a hard-coded footer height. Using
+  // 100dvh (not 100vh) keeps the footer, and its language switcher, on-screen on
+  // mobile; it's resize-safe here because `overflow: hidden` means Safari's
+  // toolbar can't be scrolled away to change the viewport.
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
   .hero {
+    flex: 1;
     margin: 0;
     padding: 0;
     width: 100%;
     min-height: 50vh;
     position: relative;
-
-    // Use 100vh (not 100dvh) to prevent resize when Safari UI changes
-    // Subtract header, footer, and extra safe-area padding beyond footer base (24px), plus 3px for border alignment
-    height: calc(100vh - #{$header-height-mobile} - #{$footer-height} - max(0px, env(safe-area-inset-bottom, 0px) - #{$footer-padding-y}) + 3px);
 
     // Image dimensions: 2560×1703 (3:2 aspect ratio)
     background-size: cover;
@@ -25,10 +32,6 @@
 
     @media (min-aspect-ratio: 3 / 2) {
       background-size: 100% auto;
-    }
-
-    @include respond-to(md) {
-      height: calc(100vh - #{$header-height-desktop} - #{$footer-height} - max(0px, env(safe-area-inset-bottom, 0px) - #{$footer-padding-y}) + 3px);
     }
   }
 
