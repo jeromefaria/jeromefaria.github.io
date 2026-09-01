@@ -23,6 +23,7 @@ export interface SchemaPlace {
 export interface SchemaMusicEvent {
   '@type': 'MusicEvent';
   name: string;
+  inLanguage?: string;
   startDate: string;
   endDate?: string;
   location: SchemaPlace;
@@ -47,6 +48,7 @@ export interface SchemaItemList {
 export interface SchemaMusicAlbum {
   '@type': 'MusicAlbum';
   name: string;
+  inLanguage?: string;
   url: string;
   sameAs?: string[];
   image?: string;
@@ -58,6 +60,7 @@ export interface SchemaMusicAlbum {
 export interface SchemaBook {
   '@type': 'Book';
   name: string;
+  inLanguage: string;
   image: string;
   url: string;
   datePublished: string;
@@ -81,6 +84,7 @@ export interface SchemaProfilePerson {
 export interface SchemaContactPage {
   '@context': 'https://schema.org';
   '@type': 'ContactPage';
+  inLanguage: string;
   mainEntity: {
     '@type': 'Person';
     name: string;

@@ -106,6 +106,8 @@ export interface Release {
   externalUrl?: string;
   coverImage?: string;
   tracklist?: Track[];
+  // BCP-47 content language of the audio (e.g. 'pt-PT'); omitted for instrumental releases.
+  language?: string;
   description?: Localized<string>;
   credits?: Credits;
   contributors?: Contributor[];

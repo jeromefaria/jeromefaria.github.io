@@ -6,6 +6,8 @@ export type Locale = (typeof SUPPORTED_LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = 'en';
 
+export const BCP47_LOCALE: Record<Locale, string> = { en: 'en-US', pt: 'pt-PT' };
+
 export const localeFromMeta = (meta: RouteMeta): Locale =>
   SUPPORTED_LOCALES.includes(meta['locale'] as Locale) ? (meta['locale'] as Locale) : DEFAULT_LOCALE;
 

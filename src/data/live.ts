@@ -365,6 +365,7 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'aragao-cartaxo',
+    language: 'pt-PT',
     title: 'ARAGÃO',
     titleUrl: '/works#aragao',
     date: '2021-10-23',
@@ -411,6 +412,7 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'aragao-funchal',
+    language: 'pt-PT',
     title: 'ARAGÃO',
     titleUrl: '/works#aragao',
     date: '2021-09-22',
@@ -661,6 +663,7 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'olhares-de-outono-2010',
+    language: 'pt-PT',
     date: '2010-11-27',
     title: 'Olhares de Outono',
     venue: { name: 'Passos Manuel', url: 'https://passosmanuel.net/', city: 'Porto', country: 'Portugal' },

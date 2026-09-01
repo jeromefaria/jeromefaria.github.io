@@ -1,11 +1,12 @@
 import { localize } from '@/i18n/localized';
-import { DEFAULT_LOCALE } from '@/i18n/messages';
+import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { LiveEvent } from '@/types/live';
 import type { SchemaItemList, SchemaMusicAlbum, SchemaMusicEvent } from '@/types/schema';
 import type { Track } from '@/types/works';
 
 interface ReleaseForSchema {
   title: string;
+  language?: string;
   bandcampUrl?: string;
   soundcloudUrl?: string;
   coverImage?: string;
@@ -17,9 +18,11 @@ export const createMusicEventSchema = (
   event: LiveEvent,
   performerName: string,
   fallbackDate = '',
+  locale: Locale = DEFAULT_LOCALE,
 ): SchemaMusicEvent => ({
   '@type': 'MusicEvent',
-  name: localize(event.title, DEFAULT_LOCALE),
+  name: localize(event.title, locale),
+  ...(event.language && { inLanguage: event.language }),
   startDate: event.date || fallbackDate,
   ...(event.endDate && { endDate: event.endDate }),
   location: {
@@ -69,6 +72,10 @@ export const createMusicAlbumSchema = (
       name: artistName,
     },
   };
+
+  if (release.language) {
+    schema.inLanguage = release.language;
+  }
 
   if (release.soundcloudUrl) {
     schema.sameAs = [release.soundcloudUrl];

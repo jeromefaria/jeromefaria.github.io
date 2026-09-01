@@ -1,6 +1,4 @@
-import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
-
-const INTL_LOCALE: Record<Locale, string> = { en: 'en-US', pt: 'pt-PT' };
+import { BCP47_LOCALE, DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 
 // Local midnight, so an ISO date parses as a calendar day without timezone drift.
 const parseLocalDate = (isoDate: string): Date => new Date(`${isoDate}T00:00:00`);
@@ -10,7 +8,7 @@ export const formatEventDate = (isoDate: string, locale: Locale = DEFAULT_LOCALE
 
   const date = parseLocalDate(isoDate);
   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-  return date.toLocaleDateString(INTL_LOCALE[locale], options);
+  return date.toLocaleDateString(BCP47_LOCALE[locale], options);
 };
 
 export const formatEventDateRange = (isoStart: string, isoEnd?: string, locale: Locale = DEFAULT_LOCALE): string => {
@@ -21,7 +19,7 @@ export const formatEventDateRange = (isoStart: string, isoEnd?: string, locale: 
 
   if (locale !== DEFAULT_LOCALE) {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Intl.DateTimeFormat(INTL_LOCALE[locale], options).formatRange(start, end);
+    return new Intl.DateTimeFormat(BCP47_LOCALE[locale], options).formatRange(start, end);
   }
 
   if (start.getFullYear() !== end.getFullYear()) {
@@ -30,9 +28,9 @@ export const formatEventDateRange = (isoStart: string, isoEnd?: string, locale: 
 
   if (start.getMonth() !== end.getMonth()) {
     const dayAndMonth: Intl.DateTimeFormatOptions = { month: 'long', day: 'numeric' };
-    return `${start.toLocaleDateString(INTL_LOCALE[locale], dayAndMonth)} – ${end.toLocaleDateString(INTL_LOCALE[locale], dayAndMonth)}, ${start.getFullYear()}`;
+    return `${start.toLocaleDateString(BCP47_LOCALE[locale], dayAndMonth)} – ${end.toLocaleDateString(BCP47_LOCALE[locale], dayAndMonth)}, ${start.getFullYear()}`;
   }
 
-  const month = start.toLocaleDateString(INTL_LOCALE[locale], { month: 'long' });
+  const month = start.toLocaleDateString(BCP47_LOCALE[locale], { month: 'long' });
   return `${month} ${start.getDate()}–${end.getDate()}, ${start.getFullYear()}`;
 };

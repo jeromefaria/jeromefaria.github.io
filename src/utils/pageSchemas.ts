@@ -1,6 +1,8 @@
 import { liveYears, sortedLiveData } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
+import { localize } from '@/i18n/localized';
+import { BCP47_LOCALE, DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import { hasBandcampId, hasBandcampUrl } from '@/types';
 import type {
   SchemaBook,
@@ -12,20 +14,21 @@ import type {
 
 import { createItemListSchema, createMusicAlbumSchema, createMusicEventSchema } from './schemaHelpers';
 
-export const createPersonSchema = (): SchemaProfilePerson => ({
+export const createPersonSchema = (locale: Locale = DEFAULT_LOCALE): SchemaProfilePerson => ({
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: siteConfig.author.name,
   url: siteConfig.url,
-  jobTitle: siteConfig.tagline.en,
-  description: siteConfig.description.en,
+  jobTitle: localize(siteConfig.tagline, locale),
+  description: localize(siteConfig.description, locale),
   image: `${siteConfig.url}${siteConfig.image}`,
   sameAs: social.map(link => link.url),
 });
 
-export const createContactPageSchema = (): SchemaContactPage => ({
+export const createContactPageSchema = (locale: Locale = DEFAULT_LOCALE): SchemaContactPage => ({
   '@context': 'https://schema.org',
   '@type': 'ContactPage',
+  inLanguage: BCP47_LOCALE[locale],
   mainEntity: {
     '@type': 'Person',
     name: siteConfig.author.name,
@@ -44,6 +47,7 @@ const createGlitchBookSchema = (): SchemaBook => {
   return {
     '@type': 'Book',
     name: book.title,
+    inLanguage: BCP47_LOCALE.en,
     image: book.coverImage ? `${siteConfig.url}${book.coverImage}` : '',
     url: book.externalUrl ?? '',
     datePublished: String(meta.year),
@@ -89,16 +93,23 @@ export const createWorksPageSchema = (): SchemaWorksGraph => {
   };
 };
 
-export const createLiveEventsSchema = (): SchemaItemList => {
+export const createLiveEventsSchema = (locale: Locale = DEFAULT_LOCALE): SchemaItemList => {
   const events = liveYears.flatMap(year => {
     const yearData = sortedLiveData[year];
     return (yearData?.items ?? []).map(event =>
-      createMusicEventSchema(event, siteConfig.author.name, `${year}-01-01`));
+      createMusicEventSchema(event, siteConfig.author.name, `${year}-01-01`, locale));
   });
 
-  return createItemListSchema(
-    events,
-    `${siteConfig.author.name} Live Performances`,
-    'Live performance history from 2005 to present',
-  );
+  const listText = {
+    en: {
+      name: `${siteConfig.author.name} Live Performances`,
+      description: 'Live performance history from 2005 to present',
+    },
+    pt: {
+      name: `Actuações de ${siteConfig.author.name}`,
+      description: 'Histórico de actuações de 2005 até ao presente',
+    },
+  };
+
+  return createItemListSchema(events, listText[locale].name, listText[locale].description);
 };

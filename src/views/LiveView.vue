@@ -4,9 +4,11 @@ import EventItem from '@/components/EventItem.vue';
 import { liveYears, sortedLiveData } from '@/data/live';
 import { pageMeta } from '@/data/pageMeta';
 import { useLocalized } from '@/i18n/localized';
+import { useLocale } from '@/i18n/useLocale';
 import { createLiveEventsSchema } from '@/utils/pageSchemas';
 
 const localize = useLocalized();
+const { current } = useLocale();
 </script>
 
 <template>
@@ -16,7 +18,7 @@ const localize = useLocalized();
     :sections="liveYears"
     :section-data="sortedLiveData"
     :initial-section="liveYears[0] ?? ''"
-    :head="{ ...pageMeta.live, schema: createLiveEventsSchema() }"
+    :head="{ ...pageMeta.live, schema: createLiveEventsSchema(current) }"
   >
     <template #item="{ item, openLightbox, updateHash }">
       <EventItem
