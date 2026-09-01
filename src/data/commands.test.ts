@@ -2,14 +2,17 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import { getMediaElement, next, play, stop, usePlayer } from '@/composables/usePlayer';
+import { createTranslate } from '@/i18n/useT';
 import type { AudioTrack } from '@/types/audio';
 
 import { buildCommands, playbackCommands, playReleaseCommands } from './commands';
 
+const t = createTranslate('en');
+
 const idsOf = (commands: ReturnType<typeof playbackCommands>): string[] => commands.map(command => command.id);
 
 describe('buildCommands', () => {
-  const commands = buildCommands();
+  const commands = buildCommands(t, 'en');
 
   afterEach(() => {
     vi.restoreAllMocks();
@@ -92,6 +95,15 @@ describe('buildCommands', () => {
     const ids = commands.map(command => command.id);
     expect(new Set(ids).size).toBe(ids.length);
   });
+
+  it('localizes navigate titles and work sections to the requested locale', () => {
+    const portuguese = buildCommands(createTranslate('pt'), 'pt');
+    const navTitles = portuguese.filter(command => command.kind === 'navigate').map(command => command.title);
+
+    expect(navTitles).toContain('Início');
+    expect(navTitles).toContain('Obras');
+    expect(portuguese.some(command => command.id.startsWith('nav:works:') && command.title.startsWith('Obras — '))).toBe(true);
+  });
 });
 
 const twoTracks: AudioTrack[] = [
@@ -110,24 +122,24 @@ describe('playbackCommands', () => {
   afterEach(() => stop());
 
   it('is empty until a track is loaded', () => {
-    expect(playbackCommands()).toEqual([]);
+    expect(playbackCommands(t)).toEqual([]);
   });
 
   it('exposes transport that tracks the queue position and player state', async () => {
     await play(twoTracks);
 
-    const atStart = playbackCommands();
+    const atStart = playbackCommands(t);
     expect(idsOf(atStart)).toEqual(['play:toggle', 'play:next', 'play:expand', 'play:stop']);
     expect(atStart[0]?.subtitle).toBe('First movement');
     expect(atStart.every(command => command.kind === 'action' && command.transient)).toBe(true);
 
     getMediaElement().dispatchEvent(new Event('playing'));
-    const toggle = playbackCommands()[0];
+    const toggle = playbackCommands(t)[0];
     if (toggle?.kind === 'action') await toggle.run();
     expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
 
     await next();
-    const atEnd = idsOf(playbackCommands());
+    const atEnd = idsOf(playbackCommands(t));
     expect(atEnd).toContain('play:previous');
     expect(atEnd).not.toContain('play:next');
   });
@@ -138,7 +150,7 @@ describe('playbackCommands', () => {
     const media = getMediaElement();
 
     const toggleTitle = (): string | undefined =>
-      playbackCommands().find(command => command.id === 'play:toggle')?.title;
+      playbackCommands(t).find(command => command.id === 'play:toggle')?.title;
 
     media.dispatchEvent(new Event('playing'));
     expect(toggleTitle()).toBe('Pause');
@@ -146,10 +158,10 @@ describe('playbackCommands', () => {
     media.dispatchEvent(new Event('pause'));
     expect(toggleTitle()).toBe('Play');
 
-    const expand = playbackCommands().find(command => command.id === 'play:expand');
+    const expand = playbackCommands(t).find(command => command.id === 'play:expand');
     if (expand?.kind === 'action') await expand.run();
     expect(expanded.value).toBe(true);
-    expect(playbackCommands().find(command => command.id === 'play:expand')?.title).toBe('Collapse player');
+    expect(playbackCommands(t).find(command => command.id === 'play:expand')?.title).toBe('Collapse player');
   });
 });
 
@@ -168,7 +180,7 @@ describe('playReleaseCommands', () => {
   });
 
   it('offers a Play action for every streamable release, gated on the flag', () => {
-    const commands = playReleaseCommands();
+    const commands = playReleaseCommands(t);
 
     expect(commands.length).toBeGreaterThan(0);
     expect(commands.every(command => command.id.startsWith('play:release:'))).toBe(true);
@@ -176,12 +188,12 @@ describe('playReleaseCommands', () => {
     expect(commands.every(command => command.kind === 'action' && command.transient)).toBe(true);
 
     audioPlayerEnabled.value = false;
-    expect(playReleaseCommands()).toEqual([]);
+    expect(playReleaseCommands(t)).toEqual([]);
   });
 
   it('starts the chosen release when run', async () => {
     const { currentTrack } = usePlayer();
-    const command = playReleaseCommands().find(entry => entry.id === 'play:release:2504');
+    const command = playReleaseCommands(t).find(entry => entry.id === 'play:release:2504');
 
     if (command?.kind === 'action') await command.run();
     expect(currentTrack.value).not.toBeNull();

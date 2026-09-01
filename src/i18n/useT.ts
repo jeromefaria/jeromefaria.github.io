@@ -1,6 +1,6 @@
 import { inject, type InjectionKey } from 'vue';
 
-import { DEFAULT_LOCALE, messages } from './messages';
+import { DEFAULT_LOCALE, type Locale, messages } from './messages';
 
 export type TranslateParams = Record<string, string>;
 
@@ -16,6 +16,7 @@ const resolve = (key: string, source: Record<string, unknown>): string => {
 const interpolate = (template: string, params?: TranslateParams): string =>
   params ? template.replace(/\{(\w+)\}/g, (_match, name: string) => params[name] ?? `{${name}}`) : template;
 
-const fallbackTranslate: TranslateFn = (key, params) => interpolate(resolve(key, messages[DEFAULT_LOCALE]), params);
+export const createTranslate = (locale: Locale): TranslateFn =>
+  (key, params) => interpolate(resolve(key, messages[locale]), params);
 
-export const useT = (): TranslateFn => inject(TRANSLATE_KEY, fallbackTranslate);
+export const useT = (): TranslateFn => inject(TRANSLATE_KEY, createTranslate(DEFAULT_LOCALE));
