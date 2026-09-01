@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { bios } from '@/data/bios';
 import { colophonContent } from '@/data/colophon';
+import { liveEvents } from '@/data/live';
 import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
 import { privacyContent } from '@/data/privacy';
@@ -39,6 +40,7 @@ const sources: Record<string, unknown> = {
   privacyContent,
   bios: { short: bios.short, long: bios.long },
   worksData,
+  liveEvents,
 };
 
 const nodes: LeafNode[] = [];
