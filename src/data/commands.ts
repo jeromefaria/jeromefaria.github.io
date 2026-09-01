@@ -5,6 +5,8 @@ import { matchSystemTheme, toggleTheme } from '@/composables/useTheme';
 import { liveEvents } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
+import { localize } from '@/i18n/localized';
+import { DEFAULT_LOCALE } from '@/i18n/messages';
 import type { ActionCommand, Command } from '@/types/command';
 import type { LiveEvent } from '@/types/live';
 import type { Release, ReleaseMeta } from '@/types/works';
@@ -91,7 +93,7 @@ const liveCommands = (): Command[] =>
   liveEvents.map((event): Command => ({
     kind: 'result',
     id: `live:${event.id}`,
-    title: event.title,
+    title: localize(event.title, DEFAULT_LOCALE),
     subtitle: event.venue.name ?? event.venue.city ?? event.venue.country,
     keywords: words([event.venue.name ?? '', event.venue.city ?? '', event.venue.country, event.date.slice(0, 4), ...eventPeople(event)].join(' ')),
     text: words(event.note?.en ?? ''),

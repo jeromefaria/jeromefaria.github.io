@@ -42,7 +42,7 @@ export interface EventVenue {
 
 export interface LiveEvent {
   id: string;
-  title: string;
+  title: string | Localized<string>;
   titleUrl?: string;
   date: string;
   endDate?: string;
