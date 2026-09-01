@@ -2,7 +2,7 @@ import type { EngineeringRole, Release, WorksData } from '@/types/works';
 
 export const worksData: WorksData = {
   solo: {
-    title: 'Solo',
+    title: { en: 'Solo', pt: 'Solo' },
     id: 'solo',
     items: [
       {
@@ -164,7 +164,7 @@ export const worksData: WorksData = {
     ],
   },
   nny: {
-    title: 'NNY (2004–2009)',
+    title: { en: 'NNY (2004–2009)', pt: 'NNY (2004–2009)' },
     id: 'nny',
     items: [
       {
@@ -314,7 +314,7 @@ export const worksData: WorksData = {
     ],
   },
   collaborations: {
-    title: 'Collaborations',
+    title: { en: 'Collaborations', pt: 'Colaborações' },
     id: 'collaborations',
     items: [
       {
@@ -413,7 +413,7 @@ export const worksData: WorksData = {
     ],
   },
   film: {
-    title: 'Scores',
+    title: { en: 'Scores', pt: 'Bandas sonoras' },
     id: 'film',
     items: [
       {
@@ -426,7 +426,10 @@ export const worksData: WorksData = {
           venue: { text: 'Teatro Municipal Baltazar Dias', url: 'https://teatrobaltazardias.funchal.pt/' },
           year: 2021,
         },
-        description: 'Theatre production celebrating the centenary of <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event. Faria provided both original music and live interpretation—embedding himself in a multidisciplinary creative team rather than delivering a score from a distance.',
+        description: {
+          en: 'Theatre production celebrating the centenary of <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event. Faria provided both original music and live interpretation—embedding himself in a multidisciplinary creative team rather than delivering a score from a distance.',
+          pt: 'Produção teatral que celebra o centenário de <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, um dos fundadores da Poesia Experimental Portuguesa. Concebida como um evento performativo, sonoro e visual. Faria contribuiu com música original e interpretação ao vivo — integrando-se numa equipa criativa multidisciplinar em vez de entregar uma banda sonora à distância.',
+        },
         credits: {
           style: 'colon',
           clauses: [
@@ -460,7 +463,10 @@ export const worksData: WorksData = {
           director: { text: 'Margarida Paiva', url: 'https://margaridapaiva.net/' },
           year: 2016,
         },
-        description: 'Original score for film by Portuguese-Norwegian visual artist Margarida Paiva. The film depicts a park as a closed world where anonymous characters drift past one another, bound only by gestures and glances.',
+        description: {
+          en: 'Original score for film by Portuguese-Norwegian visual artist Margarida Paiva. The film depicts a park as a closed world where anonymous characters drift past one another, bound only by gestures and glances.',
+          pt: 'Banda sonora original para o filme da artista visual luso-norueguesa Margarida Paiva. O filme retrata um parque como um mundo fechado onde personagens anónimas deslizam umas pelas outras, ligadas apenas por gestos e olhares.',
+        },
         credits: {
           style: 'colon',
           clauses: [
@@ -493,7 +499,10 @@ export const worksData: WorksData = {
           work: 'Live Score',
           year: 2013,
         },
-        description: 'Live score for <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a>\'s 1920 expressionist silent film. Working against Wiene\'s angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honouring the film\'s unease while exploring territories the original could never have envisioned.',
+        description: {
+          en: 'Live score for <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a>\'s 1920 expressionist silent film. Working against Wiene\'s angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honouring the film\'s unease while exploring territories the original could never have envisioned.',
+          pt: 'Banda sonora ao vivo para o filme mudo expressionista de <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a> (1920). Ao trabalhar contra o pesadelo expressionista e angular de Wiene, a peça cria um diálogo que percorre um século de possibilidades sonoras — honrando a inquietação do filme enquanto explora territórios que o original nunca poderia ter vislumbrado.',
+        },
         credits: {
           style: 'by',
           clauses: [
@@ -515,7 +524,10 @@ export const worksData: WorksData = {
           publisher: { label: { text: 'Pixelnerve' }, catalog: 'PXN001' },
           year: 2008,
         },
-        description: 'A collaborative effort between sound artist Jerome Faria and programmer <a href="https://pixelnerve.com/">Victor Martins</a>, documenting experiments in audiovisual composition. The project was presented both as a live performance and as this DVD release.',
+        description: {
+          en: 'A collaborative effort between sound artist Jerome Faria and programmer <a href="https://pixelnerve.com/">Victor Martins</a>, documenting experiments in audiovisual composition. The project was presented both as a live performance and as this DVD release.',
+          pt: 'Uma colaboração entre o artista sonoro Jerome Faria e o programador <a href="https://pixelnerve.com/">Victor Martins</a>, que documenta experimentações de composição audiovisual. O projecto foi apresentado tanto ao vivo como nesta edição em DVD.',
+        },
         tracklist: [
           { title: '0x00' },
           { title: '0x01' },
@@ -539,7 +551,7 @@ export const worksData: WorksData = {
     ],
   },
   compilations: {
-    title: 'Compilations',
+    title: { en: 'Compilations', pt: 'Compilações' },
     id: 'compilations',
     items: [
       {
@@ -711,7 +723,7 @@ export const worksData: WorksData = {
     ],
   },
   publications: {
-    title: 'Publications',
+    title: { en: 'Publications', pt: 'Publicações' },
     id: 'publications',
     items: [
       {
@@ -725,7 +737,10 @@ export const worksData: WorksData = {
           isbn: { value: '978-0-9799666-6-8', url: 'https://www.google.com/books/edition/_/3r65PAAACAAJ?hl=en' },
           year: 2009,
         },
-        description: 'A curated collection of over 200 glitch images grabbed, composed and, in some cases, provoked by artists exploring digital aesthetics and imperfection. Jerome Faria contributed work alongside notable artists from the international glitch art community.',
+        description: {
+          en: 'A curated collection of over 200 glitch images grabbed, composed and, in some cases, provoked by artists exploring digital aesthetics and imperfection. Jerome Faria contributed work alongside notable artists from the international glitch art community.',
+          pt: 'Uma colectânea de mais de 200 imagens glitch captadas, compostas e, nalguns casos, provocadas por artistas que exploram a estética digital e a imperfeição. Jerome Faria contribuiu com trabalho ao lado de artistas de relevo da comunidade internacional de glitch art.',
+        },
         credits: {
           style: 'by',
           clauses: [
@@ -808,7 +823,7 @@ export const worksData: WorksData = {
     ],
   },
   'mixing-and-mastering': {
-    title: 'Mixing & Mastering',
+    title: { en: 'Mixing & Mastering', pt: 'Mistura & Masterização' },
     id: 'mixing-and-mastering',
     items: [
       {
