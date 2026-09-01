@@ -51,4 +51,24 @@ describe('formatters', () => {
       expect(formatEventDateRange('2021-12-31', '2022-01-02')).toBe('December 31, 2021 – January 2, 2022');
     });
   });
+
+  describe('pt-PT', () => {
+    it('formats a single date day-first with a lowercase month', () => {
+      expect(formatEventDate('2021-09-22', 'pt')).toBe('22 de setembro de 2021');
+    });
+
+    it('collapses a same-month run day-first', () => {
+      expect(formatEventDateRange('2021-09-22', '2021-09-25', 'pt')).toBe('22–25 de setembro de 2021');
+    });
+
+    it('spans months and years day-first in Portuguese', () => {
+      const acrossMonths = formatEventDateRange('2021-09-30', '2021-10-02', 'pt');
+      expect(acrossMonths).toContain('30 de setembro');
+      expect(acrossMonths).toContain('2 de outubro de 2021');
+
+      const acrossYears = formatEventDateRange('2021-12-31', '2022-01-02', 'pt');
+      expect(acrossYears).toContain('31 de dezembro de 2021');
+      expect(acrossYears).toContain('2 de janeiro de 2022');
+    });
+  });
 });
