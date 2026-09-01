@@ -1,15 +1,11 @@
 #!/usr/bin/env node
 
 import { existsSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 
-import { createJiti } from 'jiti';
+import { loadSrc, root } from './data-loader.mjs';
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const jiti = createJiti(import.meta.url, { alias: { '@': resolve(root, 'src') } });
-
-const { epkManifest } = await jiti.import(resolve(root, 'src/data/epk.ts'));
+const { epkManifest } = await loadSrc('data/epk.ts');
 
 const missing = epkManifest.photos.map(photo => photo.src).filter(src => !existsSync(join(root, 'public', src)));
 

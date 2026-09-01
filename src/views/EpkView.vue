@@ -4,6 +4,7 @@ import { RouterLink } from 'vue-router';
 
 import ExternalLink from '@/components/ExternalLink.vue';
 import PageShell from '@/components/PageShell.vue';
+import PressQuote from '@/components/PressQuote.vue';
 import ResponsivePicture from '@/components/ResponsivePicture.vue';
 import { usePageHead } from '@/composables/usePageHead';
 import { epkManifest } from '@/data/epk';
@@ -158,20 +159,14 @@ const epk = computed(() => resolveEpkContent(epkManifest, current.value));
         <h2 class="epk__heading">
           {{ t('epk.press') }}
         </h2>
-        <blockquote
+        <PressQuote
           v-for="quote in epk.quotes"
           :key="quote.id"
           class="epk__quote"
-        >
-          <p v-html="localize(quote.quote)" />
-          <strong>
-            <ExternalLink
-              v-if="quote.url"
-              :href="quote.url"
-            >{{ quote.source }}</ExternalLink>
-            <template v-else>{{ quote.source }}</template>
-          </strong>
-        </blockquote>
+          :quote="quote.quote"
+          :source="quote.source"
+          :url="quote.url"
+        />
       </section>
     </PageShell>
   </div>

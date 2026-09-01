@@ -3,24 +3,14 @@
 // Mirrors useAccordion resolution: a fragment resolves to a section/year key or an item id.
 // Keep in sync with that composable, or valid in-copy anchors will fail the build.
 
-import { createJiti } from 'jiti';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const srcDir = resolve(__dirname, '../src');
-
-const jiti = createJiti(import.meta.url, { alias: { '@': srcDir } });
-
-const load = relativePath => jiti.import(resolve(srcDir, relativePath));
+import { loadSrc } from './data-loader.mjs';
 
 const [{ worksData, worksSections }, { sortedLiveData, liveYears }, { pressQuotes }, { aboutSections }] =
   await Promise.all([
-    load('data/works.ts'),
-    load('data/live.ts'),
-    load('data/press.ts'),
-    load('data/about.ts'),
+    loadSrc('data/works.ts'),
+    loadSrc('data/live.ts'),
+    loadSrc('data/press.ts'),
+    loadSrc('data/about.ts'),
   ]);
 
 const itemIds = groups => Object.values(groups).flatMap(group => (group.items ?? []).map(item => item.id));
