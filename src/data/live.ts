@@ -247,7 +247,7 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'amess-teatro-baltazar-dias',
-    title: 'Performance with Amess',
+    title: { en: 'Performance with Amess', pt: 'Actuação com Amess' },
     date: '2022-07-02',
     venue: { name: 'Teatro Municipal Baltazar Dias', url: 'https://www.teatromunicipal.pt/', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'band', band: { text: 'Amess', url: 'https://www.instagram.com/amess.music/' } },
@@ -269,7 +269,7 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'amess-museu-franco',
-    title: 'Performance with Amess',
+    title: { en: 'Performance with Amess', pt: 'Actuação com Amess' },
     date: '2022-03-18',
     venue: { name: 'Museu Henrique e Francisco Franco', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=3', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'band', band: { text: 'Amess', url: 'https://www.instagram.com/amess.music/' } },

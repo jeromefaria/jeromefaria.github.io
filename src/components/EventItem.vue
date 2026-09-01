@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 
 import { useLightboxDeepLink } from '@/composables/useLightboxDeepLink';
+import { localize } from '@/i18n/localized';
 import { useLocale } from '@/i18n/useLocale';
 import { useT } from '@/i18n/useT';
 import type { LightboxItem, LiveEvent } from '@/types';
@@ -27,6 +28,8 @@ const emit = defineEmits<{
 const { current } = useLocale();
 
 const formattedDate = computed(() => formatEventDateRange(props.event.date, props.event.endDate, current.value));
+
+const title = computed(() => localize(props.event.title, current.value));
 
 const titleHref = computed(() => props.event.titleUrl ?? null);
 
@@ -64,18 +67,18 @@ useLightboxDeepLink(
             class="event-title-link"
             :href="`#${event.id}`"
             @click.prevent="emit('update-hash', event.id)"
-          >{{ event.title }}</a>
+          >{{ title }}</a>
           <ExternalLink
             v-if="titleHref && titleHrefIsExternal"
             class="event-title-ref"
             :href="titleHref"
-            :aria-label="`${event.title} website (opens in a new tab)`"
+            :aria-label="`${title} website (opens in a new tab)`"
           ><IconArrow direction="up-right" /></ExternalLink>
           <RouterLink
             v-else-if="titleHref"
             class="event-title-ref"
             :to="titleHref"
-            :aria-label="`View ${event.title}`"
+            :aria-label="`View ${title}`"
           ><IconArrow direction="up-right" /></RouterLink>
         </strong>
       </p>

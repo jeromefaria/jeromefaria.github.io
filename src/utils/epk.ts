@@ -53,10 +53,10 @@ export const eventLocation = (venue: EventVenue): string => {
   return parts.length > 0 ? parts.join(', ') : venue.country;
 };
 
-export const toLiveHighlight = (event: LiveEvent): EpkLiveHighlight => ({
+export const toLiveHighlight = (event: LiveEvent, locale: Locale = DEFAULT_LOCALE): EpkLiveHighlight => ({
   id: event.id,
   year: event.date.slice(0, 4),
-  title: event.title,
+  title: localize(event.title, locale),
   location: eventLocation(event.venue),
 });
 
@@ -77,7 +77,7 @@ export const resolveEpkContent = (manifest: EpkManifest, locale: Locale = DEFAUL
     liveHighlights: manifest.highlightLiveIds
       .map(id => findById(liveEvents, id))
       .sort((a, b) => b.date.localeCompare(a.date))
-      .map(toLiveHighlight),
+      .map(event => toLiveHighlight(event, locale)),
     workHighlights: manifest.highlightWorkIds
       .map(id => findById(works, id))
       .sort((a, b) => b.meta.year - a.meta.year)

@@ -106,6 +106,30 @@ describe('EventItem', () => {
       expect(routerLink.attributes('target')).toBeUndefined();
       expect(wrapper.find('a.event-title-ref[target="_blank"]').exists()).toBe(false);
     });
+
+    it('resolves a Localized title to the active locale', async () => {
+      const localizedEvent: LiveEvent = {
+        ...plainEvent,
+        id: 'amess',
+        title: { en: 'Performance with Amess', pt: 'Actuação com Amess' },
+      };
+
+      expect(mountEvent(localizedEvent).get('.event-title-link').text()).toBe('Performance with Amess');
+
+      const ptRouter = createRouter({
+        history: createMemoryHistory(),
+        routes: [{ path: '/:pathMatch(.*)*', component: { render: () => null }, meta: { locale: 'pt' } }],
+      });
+      ptRouter.push('/pt/live');
+      await ptRouter.isReady();
+
+      const ptWrapper = mount(EventItem, {
+        props: { event: localizedEvent },
+        global: { plugins: [ptRouter], stubs: { RouterLink: RouterLinkStub } },
+      });
+
+      expect(ptWrapper.get('.event-title-link').text()).toBe('Actuação com Amess');
+    });
   });
 
   describe('media links', () => {
