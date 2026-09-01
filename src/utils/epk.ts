@@ -36,11 +36,16 @@ export const photoDownloadHref = (photo: EpkPhoto, index: number): string =>
   `/epk/photos/${photoDownloadFilename(photo, index)}`;
 
 export const epkKitBasename = 'jerome-faria-press-kit';
-export const epkZipHref = `/epk/${epkKitBasename}.zip`;
-export const epkPdfHref = `/epk/${epkKitBasename}.pdf`;
-
 export const epkRiderBasename = 'jerome-faria-tech-rider';
-export const epkRiderHref = `/epk/${epkRiderBasename}.pdf`;
+
+export const localeSuffix = (locale: Locale): string => (locale === DEFAULT_LOCALE ? '' : `-${locale}`);
+
+export const epkKitFile = (locale: Locale = DEFAULT_LOCALE): string => `${epkKitBasename}${localeSuffix(locale)}`;
+export const epkRiderFile = (locale: Locale = DEFAULT_LOCALE): string => `${epkRiderBasename}${localeSuffix(locale)}`;
+
+export const epkZipHref = (locale: Locale = DEFAULT_LOCALE): string => `/epk/${epkKitFile(locale)}.zip`;
+export const epkPdfHref = (locale: Locale = DEFAULT_LOCALE): string => `/epk/${epkKitFile(locale)}.pdf`;
+export const epkRiderHref = (locale: Locale = DEFAULT_LOCALE): string => `/epk/${epkRiderFile(locale)}.pdf`;
 
 export const eventLocation = (venue: EventVenue): string => {
   const parts = [venue.name, venue.city].filter(Boolean);

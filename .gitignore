@@ -59,7 +59,7 @@ public/images/responsive/
 # EPK bundle — regenerated at build from committed data + photos (the photos themselves stay committed)
 public/epk/*.pdf
 public/epk/*.zip
-public/epk/CREDITS.txt
+public/epk/CREDITS*.txt
 
 # Local, private notes — planning docs kept alongside the code but never published
 .notes/

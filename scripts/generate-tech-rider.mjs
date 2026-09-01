@@ -1,15 +1,9 @@
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 
 import { chromium } from '@playwright/test';
-import { createJiti } from 'jiti';
 
+import { epkRiderFile, locales, localize, outDir, pdfChrome, root, siteConfig, techRider } from './epk-context.mjs';
 import { baseStyles } from './pdf-styles.mjs';
-
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const jiti = createJiti(import.meta.url, { alias: { '@': join(root, 'src') } });
-const { techRider } = await jiti.import(join(root, 'src/data/techRider.ts'));
-const { epkRiderBasename } = await jiti.import(join(root, 'src/utils/epk.ts'));
 
 const styles = await baseStyles(root);
 
@@ -18,26 +12,32 @@ const bullet = item =>
     ? `<div class="item">${item}</div>`
     : `<div class="item"><span class="lbl">${item.label}</span> — ${item.text}</div>`;
 
-const inputTable = table => `<table class="io">
-  <thead><tr><th>Input</th><th>Format</th><th>Notes</th></tr></thead>
-  <tbody>${table.rows.map(([input, format, notes]) => `<tr><td>${input}</td><td>${format}</td><td>${notes}</td></tr>`).join('')}</tbody>
+const inputTable = (rows, [inputHead, formatHead, notesHead]) => `<table class="io">
+  <thead><tr><th>${inputHead}</th><th>${formatHead}</th><th>${notesHead}</th></tr></thead>
+  <tbody>${rows.map(([input, format, notes]) => `<tr><td>${input}</td><td>${format}</td><td>${notes}</td></tr>`).join('')}</tbody>
 </table>`;
 
-const timingTable = table => `<table class="timing"><tbody>${table.rows
+const timingTable = rows => `<table class="timing"><tbody>${rows
   .map(([stage, duration]) => `<tr><td>${stage}</td><td>${duration}</td></tr>`)
   .join('')}</tbody></table>`;
 
-const table = t => (t.kind === 'input' ? inputTable(t) : timingTable(t));
+const renderTable = (table, locale, chrome) => {
+  const rows = localize(table.rows, locale);
+  return table.kind === 'input' ? inputTable(rows, chrome.inputHeaders) : timingTable(rows);
+};
 
-const section = s => `<section>
-  <h2>${s.title}</h2>
-  ${s.body ? `<p class="body">${s.body}</p>` : ''}
-  ${s.bullets ? s.bullets.map(bullet).join('') : ''}
-  ${s.table ? table(s.table) : ''}
-  ${s.footnote ? `<p class="footnote">${s.footnote}</p>` : ''}
+const section = (s, locale, chrome) => `<section>
+  <h2>${localize(s.title, locale)}</h2>
+  ${s.body ? `<p class="body">${localize(s.body, locale)}</p>` : ''}
+  ${s.bullets ? localize(s.bullets, locale).map(bullet).join('') : ''}
+  ${s.table ? renderTable(s.table, locale, chrome) : ''}
+  ${s.footnote ? `<p class="footnote">${localize(s.footnote, locale)}</p>` : ''}
 </section>`;
 
-const html = `<!doctype html><html><head><meta charset="utf-8"><style>
+const riderHtml = locale => {
+  const chrome = pdfChrome[locale];
+
+  return `<!doctype html><html><head><meta charset="utf-8"><style>
   ${styles}
   body { line-height: 1.45; }
   header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #ddd; padding-bottom: 12px; margin-bottom: 16px; }
@@ -67,21 +67,26 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><style>
   <header>
     <div>
       <h1>Jerome Faria</h1>
-      <div class="tagline">Sound Artist &amp; Composer — Technical Rider</div>
+      <div class="tagline">${localize(siteConfig.tagline, locale)} — ${chrome.riderLabel}</div>
     </div>
-    <div class="updated">Updated ${techRider.updated}</div>
+    <div class="updated">${chrome.updated} ${localize(techRider.updated, locale)}</div>
   </header>
-  <p class="overview">${techRider.overview}</p>
-  <div class="summary">${techRider.summary.map(item => `<div class="item">${item}</div>`).join('')}</div>
-  ${techRider.sections.map(section).join('')}
-  <div class="footer">Technical questions ahead of a booking — <a href="mailto:${techRider.contact}">${techRider.contact}</a></div>
+  <p class="overview">${localize(techRider.overview, locale)}</p>
+  <div class="summary">${localize(techRider.summary, locale).map(item => `<div class="item">${item}</div>`).join('')}</div>
+  ${techRider.sections.map(s => section(s, locale, chrome)).join('')}
+  <div class="footer">${chrome.riderFooter} — <a href="mailto:${techRider.contact}">${techRider.contact}</a></div>
 </body></html>`;
+};
 
-const outPath = join(root, 'public/epk', `${epkRiderBasename}.pdf`);
 const browser = await chromium.launch();
-const page = await browser.newPage();
-await page.setContent(html, { waitUntil: 'networkidle' });
-await page.pdf({ path: outPath, format: 'A4', printBackground: true, margin: { top: '13mm', bottom: '13mm', left: '16mm', right: '16mm' } });
-await browser.close();
 
-console.log(`Tech rider → public/epk/${epkRiderBasename}.pdf`);
+for (const locale of locales) {
+  const page = await browser.newPage();
+  await page.setContent(riderHtml(locale), { waitUntil: 'networkidle' });
+  const filename = `${epkRiderFile(locale)}.pdf`;
+  await page.pdf({ path: join(outDir, filename), format: 'A4', printBackground: true, margin: { top: '13mm', bottom: '13mm', left: '16mm', right: '16mm' } });
+  await page.close();
+  console.log(`Tech rider → public/epk/${filename}`);
+}
+
+await browser.close();
