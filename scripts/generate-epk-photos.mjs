@@ -5,12 +5,12 @@ import { basename, join } from 'node:path';
 import { exiftool } from 'exiftool-vendored';
 import sharp from 'sharp';
 
-import { content, mastersDir, photoDownloadFilename, photosDir } from './epk-context.mjs';
+import { mastersDir, photoDownloadFilename, photos, photosDir } from './epk-context.mjs';
 
 await rm(photosDir, { recursive: true, force: true });
 await mkdir(photosDir, { recursive: true });
 
-for (const [index, photo] of content.photos.entries()) {
+for (const [index, photo] of photos.entries()) {
   const outPath = join(photosDir, photoDownloadFilename(photo, index));
 
   await sharp(join(mastersDir, basename(photo.src)))
@@ -34,4 +34,4 @@ for (const [index, photo] of content.photos.entries()) {
 }
 
 await exiftool.end();
-console.log(`EPK photos: ${content.photos.length} → public/epk/photos/`);
+console.log(`EPK photos: ${photos.length} → public/epk/photos/`);
