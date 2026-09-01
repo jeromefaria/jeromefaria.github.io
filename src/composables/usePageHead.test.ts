@@ -20,6 +20,16 @@ vi.mock('vue-router', () => ({
   useRoute: () => mockRoute,
 }));
 
+// i18nEnabled is a build-time module const, so vi.stubEnv can't flip it at runtime;
+// mock the flag module with a mutable getter that usePageHead re-reads per call.
+const flagState = vi.hoisted(() => ({ enabled: false }));
+
+vi.mock('@/i18n/flag', () => ({
+  get i18nEnabled() {
+    return flagState.enabled;
+  },
+}));
+
 function mountWithPageHead(options: Parameters<typeof usePageHead>[0]) {
   headConfig.length = 0;
 
@@ -47,7 +57,7 @@ describe('usePageHead', () => {
   beforeEach(() => {
     headConfig.length = 0;
     mockRoute.path = '/test';
-    vi.unstubAllEnvs();
+    flagState.enabled = false;
   });
 
   describe('title', () => {
@@ -134,7 +144,7 @@ describe('usePageHead', () => {
     });
 
     it('emits en, pt and x-default alternates for an en route when i18n is enabled', () => {
-      vi.stubEnv('VITE_I18N', 'true');
+      flagState.enabled = true;
       mockRoute.path = '/works';
 
       const config = mountWithPageHead({ title: 'Works', description: 'desc' });
@@ -144,12 +154,10 @@ describe('usePageHead', () => {
         { rel: 'alternate', hreflang: 'pt', href: `${siteConfig.url}/pt/works` },
         { rel: 'alternate', hreflang: 'x-default', href: `${siteConfig.url}/works` },
       ]);
-
-      vi.unstubAllEnvs();
     });
 
     it('derives the same cluster from a pt route by stripping the prefix', () => {
-      vi.stubEnv('VITE_I18N', 'true');
+      flagState.enabled = true;
       mockRoute.path = '/pt/works';
 
       const config = mountWithPageHead({ title: 'Works', description: 'desc' });
@@ -159,17 +167,13 @@ describe('usePageHead', () => {
         { rel: 'alternate', hreflang: 'pt', href: `${siteConfig.url}/pt/works` },
         { rel: 'alternate', hreflang: 'x-default', href: `${siteConfig.url}/works` },
       ]);
-
-      vi.unstubAllEnvs();
     });
 
     it('omits alternates for noindex pages even when i18n is enabled', () => {
-      vi.stubEnv('VITE_I18N', 'true');
+      flagState.enabled = true;
 
       const config = mountWithPageHead({ title: 'Press Kit', description: 'desc', noIndex: true });
       expect(alternates(config)).toHaveLength(0);
-
-      vi.unstubAllEnvs();
     });
   });
 

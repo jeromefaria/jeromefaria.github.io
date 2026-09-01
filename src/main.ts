@@ -25,6 +25,9 @@ export const createApp = ViteSSG(
   },
   async ({ app, router, isClient }: ViteSSGContext) => {
     // Dynamic import so Rollup drops vue-i18n from the bundle when the flag is off.
+    // The literal env check must stay inline here: Rollup only dead-code-eliminates
+    // this import() gate — and drops vue-i18n — when it folds the comparison in place.
+    // An imported i18nEnabled const defeats that (verified), so this one is not shared.
     if (import.meta.env.VITE_I18N === 'true') {
       const { setupI18n } = await import('./i18n');
       setupI18n(app, router);
