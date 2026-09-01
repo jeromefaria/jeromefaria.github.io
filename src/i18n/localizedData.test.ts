@@ -53,6 +53,7 @@ const SAME_ACROSS_LOCALES = new Set([
   'pageMeta.colophon.title',
   'worksData.solo.title',
   'worksData.nny.title',
+  'worksData.solo.items[1].credits.note',
 ]);
 
 describe('localized data', () => {

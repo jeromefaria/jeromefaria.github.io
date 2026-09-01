@@ -1,3 +1,5 @@
+import type { Localized } from '@/i18n/localized';
+
 export type CreditRole =
   | 'music'
   | 'artwork'
@@ -26,13 +28,13 @@ export interface CreditClause {
   role: CreditRole;
   of: string;
   connector?: 'at';
-  tail?: string;
+  tail?: Localized<string>;
 }
 
 export interface StructuredCredits {
   style: 'by' | 'colon';
   clauses: CreditClause[];
-  note?: string;
+  note?: Localized<string>;
 }
 
 export type Credits = string | StructuredCredits;
