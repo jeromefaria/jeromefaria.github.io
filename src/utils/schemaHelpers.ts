@@ -1,3 +1,5 @@
+import { localize } from '@/i18n/localized';
+import { DEFAULT_LOCALE } from '@/i18n/messages';
 import type { LiveEvent } from '@/types/live';
 import type { SchemaItemList, SchemaMusicAlbum, SchemaMusicEvent } from '@/types/schema';
 import type { Track } from '@/types/works';
@@ -17,7 +19,7 @@ export const createMusicEventSchema = (
   fallbackDate = '',
 ): SchemaMusicEvent => ({
   '@type': 'MusicEvent',
-  name: event.title,
+  name: localize(event.title, DEFAULT_LOCALE),
   startDate: event.date || fallbackDate,
   ...(event.endDate && { endDate: event.endDate }),
   location: {
