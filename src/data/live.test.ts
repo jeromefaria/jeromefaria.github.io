@@ -11,12 +11,12 @@ const IMAGE_ALT: Record<string, string> = {
   'amess-teatro-baltazar-dias': 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022',
   'amess-museu-franco': 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
   'jejum-11': 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
-  'nariz-entupido': 'Jerome Faria and CAVERNANCIA performing at Nariz Entupido, SMUP, Parede, 2021',
+  'nariz-entupido': 'Jerome Faria and CAVERNANCIA performing at SMUP, Parede, 2021',
   'aragao-funchal': 'Aragão theatre production at Teatro Municipal Baltazar Dias, Funchal, 2021',
   'heineken-series': 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015',
   'fica-na-cidade': 'Jerome Faria performing at Fica na Cidade, Praça de Colombo, Funchal, 2015',
   'caligari-live-2': 'Jerome Faria performing The Cabinet of Dr. Caligari at Scat Music Club, Funchal, 2013',
-  'caligari-live': 'Jerome Faria performing at Cidades Eletrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013',
+  'caligari-live': 'Jerome Faria performing at Cidades Electrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013',
   'madeiradig-2011': 'Jerome Faria and Taylor Deupree performing at MADEIRADIG, Casa das Mudas, Calheta, 2011',
   'migractions-2011': 'Jerome Faria and Hugo Olim performing at Festival Migractions, Théâtre de L\'Opprimé, Paris, 2011',
   'olhares-de-outono-2010': 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010',
@@ -67,7 +67,7 @@ describe('liveData posters', () => {
     'nariz-entupido': [
       {
         src: '/images/live/nariz-entupido-poster-001.jpg',
-        alt: 'Nariz Entupido poster — 30 anos SPH / 20 anos Thisco anniversary, SMUP, Parede, 22 October 2021; CAVERNANCIA + Jerome Faria',
+        alt: 'Poster for 30 anos SPH / 20 anos Thisco — SMUP, Parede, 22–23 October 2021; CAVERNANCIA + Jerome Faria',
         artist: { name: 'André Lemos', url: 'https://www.chilicomcarne.com/index.php/autores/gallery/18' },
       },
     ],
