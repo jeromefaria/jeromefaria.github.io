@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import IconPause from './IconPause.vue';
+import IconPlay from './IconPlay.vue';
 import ResponsivePicture from './ResponsivePicture.vue';
 
 defineProps<{
@@ -48,18 +50,8 @@ defineEmits<{
         stroke-dasharray="44 20"
         stroke-linecap="round"
       /></svg>
-      <svg
-        v-else-if="active"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        focusable="false"
-      ><path fill="currentColor" d="M6 5h4v14H6zm8 0h4v14h-4z" /></svg>
-      <svg
-        v-else
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        focusable="false"
-      ><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
+      <IconPause v-else-if="active" />
+      <IconPlay v-else />
     </button>
   </div>
 </template>
