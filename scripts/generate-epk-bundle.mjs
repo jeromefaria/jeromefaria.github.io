@@ -5,21 +5,20 @@ import { join } from 'node:path';
 
 import { chromium } from '@playwright/test';
 
-import { contact, content, kitName, outDir, photoDownloadFilename, photosDir, root, siteConfig, siteUrl } from './epk-context.mjs';
+import { contact, contentFor, epkKitFile, localePath, localeSuffix, locales, localize, outDir, pdfChrome, photoDownloadFilename, photosDir, root, siteConfig, siteUrl } from './epk-context.mjs';
 import { baseStyles } from './pdf-styles.mjs';
 
 const archiver = createRequire(import.meta.url)('archiver');
 
 const styles = await baseStyles(root);
 
-const photoFiles = content.photos.map((photo, index) => {
-  const filename = photoDownloadFilename(photo, index);
-  return { path: join(photosDir, filename), filename, credit: photo.photographer?.name ?? 'Jerome Faria' };
-});
-
 const rows = items => items.map(item => `<div class="year">${item.year}</div><div>${item.body}</div>`).join('');
 
-const html = `<!doctype html><html><head><meta charset="utf-8"><style>
+const bundleHtml = (locale, content) => {
+  const chrome = pdfChrome[locale];
+  const link = path => `${siteUrl}${localePath(path, locale)}`;
+
+  return `<!doctype html><html><head><meta charset="utf-8"><style>
   ${styles}
   body { line-height: 1.48; }
   header { border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 16px; }
@@ -39,45 +38,60 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><style>
   .contact a { color: #1a1a1a; text-decoration: none; }
 </style></head><body>
   <header>
-    <h1>Jerome Faria</h1><div class="tagline">Sound Artist &amp; Composer</div>
+    <h1>Jerome Faria</h1><div class="tagline">${localize(siteConfig.tagline, locale)}</div>
   </header>
   <div class="prose">${content.longBio}</div>
   <div class="columns">
-    <div><h2>Selected performances</h2><div class="grid">${rows(content.liveHighlights.map(h => ({ year: h.year, body: `<a href="${siteUrl}/live#${h.id}">${h.title}</a> — ${h.location}` })))}</div></div>
-    <div><h2>Selected works</h2><div class="grid">${rows(content.workHighlights.map(w => ({ year: w.year, body: `<a href="${siteUrl}/works#${w.id}">${w.title}</a>` })))}</div></div>
+    <div><h2>${chrome.selectedPerformances}</h2><div class="grid">${rows(content.liveHighlights.map(h => ({ year: h.year, body: `<a href="${link(`/live#${h.id}`)}">${h.title}</a> — ${h.location}` })))}</div></div>
+    <div><h2>${chrome.selectedWorks}</h2><div class="grid">${rows(content.workHighlights.map(w => ({ year: w.year, body: `<a href="${link(`/works#${w.id}`)}">${w.title}</a>` })))}</div></div>
   </div>
   <div class="press">
-    <h2>Press</h2>
-    <div class="quotes">${content.quotes.map(q => `<blockquote>${q.quote}<cite>${q.source}</cite></blockquote>`).join('')}</div>
+    <h2>${chrome.press}</h2>
+    <div class="quotes">${content.quotes.map(q => `<blockquote>${localize(q.quote, locale)}<cite>${q.source}</cite></blockquote>`).join('')}</div>
   </div>
   <div class="contact"><a href="mailto:${contact.email}">${contact.email}</a> &nbsp;·&nbsp; <a href="${contact.website}">${contact.website.replace(/^https?:\/\//, '')}</a> &nbsp;·&nbsp; <a href="${contact.bandcamp}">${contact.bandcamp.replace(/^https?:\/\//, '')}</a></div>
 </body></html>`;
+};
 
-const pdfPath = join(outDir, `${kitName}.pdf`);
 const browser = await chromium.launch();
-const page = await browser.newPage();
-await page.setContent(html, { waitUntil: 'networkidle' });
-await page.pdf({ path: pdfPath, format: 'A4', printBackground: true, margin: { top: '12mm', bottom: '12mm', left: '14mm', right: '14mm' } });
+
+for (const locale of locales) {
+  const content = contentFor(locale);
+  const chrome = pdfChrome[locale];
+  const kitName = epkKitFile(locale);
+
+  const photoFiles = content.photos.map((photo, index) => {
+    const filename = photoDownloadFilename(photo, index);
+    return { path: join(photosDir, filename), filename, credit: photo.photographer?.name ?? 'Jerome Faria' };
+  });
+
+  const pdfPath = join(outDir, `${kitName}.pdf`);
+  const page = await browser.newPage();
+  await page.setContent(bundleHtml(locale, content), { waitUntil: 'networkidle' });
+  await page.pdf({ path: pdfPath, format: 'A4', printBackground: true, margin: { top: '12mm', bottom: '12mm', left: '14mm', right: '14mm' } });
+  await page.close();
+
+  const creditsText = `${chrome.creditsTitle}\n\n${chrome.creditsPhotography}\n${photoFiles.map(p => `  ${p.filename} — ${p.credit}`).join('\n')}\n\n${chrome.creditsCopyright(siteConfig.author.name)}\n`;
+  const creditsPath = join(outDir, `CREDITS${localeSuffix(locale)}.txt`);
+  await writeFile(creditsPath, creditsText);
+
+  const zipPath = join(outDir, `${kitName}.zip`);
+  await new Promise((resolvePromise, reject) => {
+    const output = createWriteStream(zipPath);
+    const archive = archiver('zip', { zlib: { level: 9 } });
+
+    output.on('close', resolvePromise);
+    archive.on('error', reject);
+    archive.pipe(output);
+    archive.file(pdfPath, { name: `${kitName}/${kitName}.pdf` });
+    archive.file(creditsPath, { name: `${kitName}/CREDITS.txt` });
+    for (const photo of photoFiles) {
+      archive.file(photo.path, { name: `${kitName}/photos/${photo.filename}` });
+    }
+    archive.finalize();
+  });
+
+  console.log(`EPK bundle (${locale}): PDF + zip → public/epk/`);
+}
+
 await browser.close();
-
-const creditsText = `Jerome Faria — press kit\n\nPhotography:\n${photoFiles.map(p => `  ${p.filename} — ${p.credit}`).join('\n')}\n\nSite content © ${siteConfig.author.name}. Photographs remain the property of their authors.\n`;
-const creditsPath = join(outDir, 'CREDITS.txt');
-await writeFile(creditsPath, creditsText);
-
-const zipPath = join(outDir, `${kitName}.zip`);
-await new Promise((resolvePromise, reject) => {
-  const output = createWriteStream(zipPath);
-  const archive = archiver('zip', { zlib: { level: 9 } });
-
-  output.on('close', resolvePromise);
-  archive.on('error', reject);
-  archive.pipe(output);
-  archive.file(pdfPath, { name: `${kitName}/${kitName}.pdf` });
-  archive.file(creditsPath, { name: `${kitName}/CREDITS.txt` });
-  for (const photo of photoFiles) {
-    archive.file(photo.path, { name: `${kitName}/photos/${photo.filename}` });
-  }
-  archive.finalize();
-});
-
-console.log(`EPK bundle: PDF + zip → public/epk/`);
