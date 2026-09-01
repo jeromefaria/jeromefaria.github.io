@@ -1,0 +1,115 @@
+@use "variables" as *;
+
+.media-links {
+  margin-top: $spacing-2;
+  margin-bottom: 0;
+}
+
+.not-found {
+  text-align: center;
+  padding: $spacing-12 0;
+
+  h1 {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-4;
+  }
+
+  > p {
+    color: var(--color-text-secondary);
+    margin-bottom: $spacing-8;
+  }
+}
+
+.not-found-nav {
+  p {
+    font-size: $font-size-sm;
+    color: var(--color-text-muted);
+    margin-bottom: $spacing-4;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $spacing-4;
+  }
+
+  a {
+    display: inline-block;
+    padding: $spacing-2 $spacing-4;
+    border: 1px solid var(--color-border);
+    transition: border-color $transition-base, color $transition-base;
+
+    &:hover {
+      border-color: var(--color-text);
+    }
+  }
+}
+
+.privacy,
+.colophon {
+  max-width: $max-width;
+  margin: 0 auto;
+
+  &__intro {
+    margin-bottom: $spacing-8;
+    font-size: $font-size-lg;
+    line-height: $line-height-relaxed;
+    color: var(--color-text);
+  }
+
+  &__section {
+    margin-bottom: $spacing-8;
+  }
+
+  &__heading {
+    margin-bottom: $spacing-3;
+
+    @include label-style;
+  }
+
+  &__body {
+    font-size: $font-size-base;
+    line-height: $line-height-relaxed;
+    color: var(--color-text-secondary);
+
+    a {
+      color: var(--color-text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--color-border);
+      transition: border-color $transition-base;
+
+      &:hover {
+        border-color: var(--color-text);
+      }
+    }
+
+    .palette-cue {
+      padding: 0;
+      font: inherit;
+      color: var(--color-text);
+      cursor: pointer;
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--color-border);
+      transition: border-color $transition-base;
+
+      &:hover {
+        border-color: var(--color-text);
+      }
+    }
+
+    &--source {
+      margin-top: $spacing-8;
+    }
+  }
+
+  &__updated {
+    margin-top: $spacing-8;
+    font-size: $font-size-xs;
+    color: var(--color-text-muted);
+  }
+}
