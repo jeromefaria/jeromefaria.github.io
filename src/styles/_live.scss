@@ -1,0 +1,79 @@
+@use "variables" as *;
+
+.page[data-page="live"] {
+  .event {
+    margin-bottom: $spacing-10;
+
+    @include scroll-margin-header;
+  }
+
+  .event--text-only .event-details {
+    p {
+      margin-bottom: $spacing-1;
+    }
+
+    .event-meta {
+      margin-bottom: $spacing-2;
+    }
+
+    .event-description {
+      font-size: $font-size-sm;
+      line-height: $line-height-base;
+      color: var(--color-text-secondary);
+    }
+  }
+
+  .event-details p:first-child strong {
+    font-size: $font-size-base;
+  }
+
+  .event-meta {
+    text-transform: none;
+    letter-spacing: normal;
+    font-style: italic;
+    font-size: $font-size-sm;
+    color: var(--color-text-muted);
+
+    a {
+      @include link-underline;
+
+      &:hover,
+      &:focus {
+        text-decoration-thickness: 2px;
+      }
+    }
+  }
+
+  .event-description {
+    a {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.15em;
+
+      &:hover,
+      &:focus {
+        text-decoration-thickness: 2px;
+      }
+    }
+  }
+
+  .event-date {
+    color: var(--color-text-muted);
+  }
+
+  .event-title-link {
+    color: inherit;
+
+    @include subtle-link-hover;
+    @include focus-outline-subtle;
+  }
+
+  .event-title-ref {
+    margin-left: $spacing-1;
+    color: var(--color-text-muted);
+    font-size: 0.85em;
+
+    @include subtle-link-hover;
+    @include focus-outline-subtle;
+  }
+}
