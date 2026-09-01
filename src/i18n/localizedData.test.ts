@@ -5,6 +5,7 @@ import { colophonContent } from '@/data/colophon';
 import { liveEvents } from '@/data/live';
 import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
+import { pressQuotes } from '@/data/press';
 import { privacyContent } from '@/data/privacy';
 import { worksData } from '@/data/works';
 
@@ -41,6 +42,7 @@ const sources: Record<string, unknown> = {
   bios: { short: bios.short, long: bios.long },
   worksData,
   liveEvents,
+  pressQuotes,
 };
 
 const nodes: LeafNode[] = [];
@@ -51,6 +53,7 @@ const SAME_ACROSS_LOCALES = new Set([
   'pageMeta.colophon.title',
   'worksData.solo.title',
   'worksData.nny.title',
+  'worksData.solo.items[1].credits.note',
 ]);
 
 describe('localized data', () => {

@@ -106,7 +106,7 @@ const pressCommands = (): Command[] =>
     title: quote.source,
     subtitle: 'Press',
     keywords: ['press', 'review', 'quote'],
-    text: words(quote.quote),
+    text: words(quote.quote.en),
     group: 'Press',
     to: `/press#${quote.id}`,
   }));

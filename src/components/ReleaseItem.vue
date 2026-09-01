@@ -5,6 +5,7 @@ import { useAccordionVisibility } from '@/composables/useAccordionContext';
 import { useLightboxDeepLink } from '@/composables/useLightboxDeepLink';
 import { useProse } from '@/composables/useProse';
 import { useReleasePlayback } from '@/composables/useReleasePlayback';
+import { useLocale } from '@/i18n/useLocale';
 import { useT } from '@/i18n/useT';
 import type { LightboxItem, Release } from '@/types';
 import { hasBandcampId, hasBandcampUrl, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
@@ -36,6 +37,7 @@ const emit = defineEmits<{
 const coverVisible = useAccordionVisibility();
 
 const t = useT();
+const { current } = useLocale();
 const renderProse = useProse();
 const coverErrored = ref(false);
 
@@ -177,7 +179,7 @@ const {
       <p
         v-if="hasCredits(release)"
         class="release-credits"
-        v-html="externalizeLinks(renderCredits(release.credits, release.contributors))"
+        v-html="externalizeLinks(renderCredits(release.credits, release.contributors, current))"
       />
       <MediaLinks
         :images="imageLightboxItems"
