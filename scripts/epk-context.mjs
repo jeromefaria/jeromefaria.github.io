@@ -20,6 +20,7 @@ export { epkKitFile, epkRiderFile, localePath, localeSuffix, localize, photoDown
 
 export const locales = SUPPORTED_LOCALES;
 export const contentFor = locale => resolveEpkContent(epkManifest, locale);
+export const photos = epkManifest.photos;
 export const outDir = join(root, 'public/epk');
 export const photosDir = join(outDir, 'photos');
 export const mastersDir = join(root, 'assets-source/press');
