@@ -29,7 +29,7 @@ export type Format =
 
 export interface Poster {
   src: string;
-  alt: string;
+  alt: string | Localized<string>;
   artist?: Credit;
 }
 
@@ -54,7 +54,7 @@ export interface LiveEvent {
   performedAs?: string;
   bill?: BillEntry[];
   note?: Localized<string>;
-  imageAlt?: string;
+  imageAlt?: string | Localized<string>;
   images?: LiveImage[];
   posters?: Poster[];
   videos?: Video[];

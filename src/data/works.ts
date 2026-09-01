@@ -449,7 +449,7 @@ export const worksData: WorksData = {
           {
             url: 'https://www.youtube-nocookie.com/embed/6LpRJBS7pzg',
             platform: 'youtube',
-            title: 'Aragão at Teatro Municipal Baltazar Dias, Funchal, 2021',
+            title: { en: 'Aragão at Teatro Municipal Baltazar Dias, Funchal, 2021', pt: 'Aragão no Teatro Municipal Baltazar Dias, Funchal, 2021' },
             author: { name: 'TRANSLOCAL Culturas Contemporâneas Locais e Urbanas', url: 'https://www.youtube.com/@translocalculturascontempo3938' },
           },
         ],
@@ -789,35 +789,35 @@ export const worksData: WorksData = {
         images: [
           {
             src: '/images/publications/glitch-spread-01.jpg',
-            alt: 'Glitch: Designing Imperfection book spread showing colourful digital artefacts and glitch patterns',
+            alt: { en: 'Glitch: Designing Imperfection book spread showing colourful digital artefacts and glitch patterns', pt: 'Página dupla do livro Glitch: Designing Imperfection com artefactos digitais coloridos e padrões de glitch' },
           },
           {
             src: '/images/publications/glitch-spread-02.jpg',
-            alt: 'Glitch: Designing Imperfection book spread featuring brineiktro\'s Untitled work with screenshots',
+            alt: { en: 'Glitch: Designing Imperfection book spread featuring brineiktro\'s Untitled work with screenshots', pt: 'Página dupla do livro Glitch: Designing Imperfection com a obra Untitled de brineiktro e capturas de ecrã' },
           },
           {
             src: '/images/publications/glitch-spread-03.jpg',
-            alt: 'Glitch: Designing Imperfection book spread showing Tim Fox and Steven H. Silberg\'s video still glitch works',
+            alt: { en: 'Glitch: Designing Imperfection book spread showing Tim Fox and Steven H. Silberg\'s video still glitch works', pt: 'Página dupla do livro Glitch: Designing Imperfection com trabalhos de glitch sobre fotogramas de Tim Fox e Steven H. Silberg' },
           },
           {
             src: '/images/publications/glitch-spread-04.jpg',
-            alt: 'Glitch: Designing Imperfection book spread featuring Will Hurt and Michael Norris\' glitch photography',
+            alt: { en: 'Glitch: Designing Imperfection book spread featuring Will Hurt and Michael Norris\' glitch photography', pt: 'Página dupla do livro Glitch: Designing Imperfection com fotografia de glitch de Will Hurt e Michael Norris' },
           },
           {
             src: '/images/publications/glitch-spread-05.jpg',
-            alt: 'Glitch: Designing Imperfection book spread showing colourful glitch pattern variations by brineiktro',
+            alt: { en: 'Glitch: Designing Imperfection book spread showing colourful glitch pattern variations by brineiktro', pt: 'Página dupla do livro Glitch: Designing Imperfection com variações coloridas de padrões de glitch de brineiktro' },
           },
           {
             src: '/images/publications/glitch-spread-06.jpg',
-            alt: 'Glitch: Designing Imperfection book spread with cyan and brown glitch patterns',
+            alt: { en: 'Glitch: Designing Imperfection book spread with cyan and brown glitch patterns', pt: 'Página dupla do livro Glitch: Designing Imperfection com padrões de glitch em ciano e castanho' },
           },
           {
             src: '/images/publications/glitch-spread-07.jpg',
-            alt: 'Glitch: Designing Imperfection book spread displaying blue video glitch effects',
+            alt: { en: 'Glitch: Designing Imperfection book spread displaying blue video glitch effects', pt: 'Página dupla do livro Glitch: Designing Imperfection com efeitos de glitch de vídeo em azul' },
           },
           {
             src: '/images/publications/glitch-spread-08.jpg',
-            alt: 'Glitch: Designing Imperfection book spread featuring screenshot glitch effects',
+            alt: { en: 'Glitch: Designing Imperfection book spread featuring screenshot glitch effects', pt: 'Página dupla do livro Glitch: Designing Imperfection com efeitos de glitch de capturas de ecrã' },
           },
         ],
       },

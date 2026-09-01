@@ -22,6 +22,13 @@ describe('toLightboxImage', () => {
       toLightboxImage({ src: '/poster.jpg', alt: 'Poster', artist }),
     ).toEqual({ type: 'image', src: '/poster.jpg', alt: 'Poster', credit: { role: 'poster', ...artist } });
   });
+
+  it('resolves a Localized alt to the requested locale', () => {
+    const image = { src: '/a.jpg', alt: { en: 'Performing at X', pt: 'A actuar em X' } };
+
+    expect(toLightboxImage(image, 'en').alt).toBe('Performing at X');
+    expect(toLightboxImage(image, 'pt').alt).toBe('A actuar em X');
+  });
 });
 
 describe('toLightboxVideo', () => {
@@ -44,5 +51,12 @@ describe('toLightboxVideo', () => {
       platform: 'vimeo',
       author,
     });
+  });
+
+  it('resolves a Localized title to the requested locale', () => {
+    const video = { url: 'https://v', title: { en: 'Live at X', pt: 'Ao vivo em X' }, platform: 'youtube' as const };
+
+    expect(toLightboxVideo(video, 'en').title).toBe('Live at X');
+    expect(toLightboxVideo(video, 'pt').title).toBe('Ao vivo em X');
   });
 });

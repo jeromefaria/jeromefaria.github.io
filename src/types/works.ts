@@ -8,7 +8,7 @@ export type { MetaLink };
 
 export interface Image {
   src: string;
-  alt: string;
+  alt: string | Localized<string>;
   photographer?: Credit;
 }
 

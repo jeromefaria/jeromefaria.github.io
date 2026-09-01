@@ -66,6 +66,9 @@ const en = {
     download: 'Download',
     view: 'View {label}',
     downloadAria: 'Download this release from Bandcamp (opens in a new tab)',
+    photoBy: 'Photo by',
+    posterBy: 'Poster by',
+    videoBy: 'Video by',
   },
   keyboardHelp: {
     title: 'Keyboard shortcuts',
@@ -160,6 +163,9 @@ const pt: typeof en = {
     download: 'Descarregar',
     view: 'Ver {label}',
     downloadAria: 'Descarregar esta edição do Bandcamp (abre num novo separador)',
+    photoBy: 'Foto de',
+    posterBy: 'Cartaz de',
+    videoBy: 'Vídeo de',
   },
   keyboardHelp: {
     title: 'Atalhos de teclado',

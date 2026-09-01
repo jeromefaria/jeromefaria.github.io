@@ -4,7 +4,7 @@ import type { Credit } from './media';
 
 export interface AboutImage {
   src: string;
-  alt: string;
+  alt: string | Localized<string>;
   position?: string;
   scale?: number;
   rotate?: number;
