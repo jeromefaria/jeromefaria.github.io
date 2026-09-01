@@ -74,16 +74,16 @@ export const pressQuotes: PressQuote[] = [
   {
     id: 'ponto-alternativo',
     quote: {
-      en: 'There is not a second to spare here, nor a moment to throw away, which is worth noting given the variety the musician achieves on this release.',
-      pt: 'Não há aqui nem um segundo para dispensar, nem um momento para se deitar fora, o que é de assinalar quando olhamos para a variedade que o músico consegue atingir neste lançamento.',
+      en: 'A different record; abstract, yes, of course, but perhaps even more human, of more varied colours […] not a second to spare here, nor a moment to throw away.',
+      pt: 'Um lançamento diferente; abstracto, sim, claro, mas talvez até mais humano, de cores mais variadas […] não há aqui nem um segundo para dispensar, nem um momento para se deitar fora.',
     },
     source: 'Ponto Alternativo',
   },
   {
     id: 'vital-weekly',
     quote: {
-      en: 'Repeating loops which form fine woven patterns… ambient glitch in its most pure form.',
-      pt: 'Loops que se repetem e formam padrões finamente entretecidos… glitch ambient na sua forma mais pura.',
+      en: 'Repeating loops which form fine woven patterns […] ambient glitch in its most pure form.',
+      pt: 'Loops que se repetem e formam padrões finamente entretecidos […] glitch ambient na sua forma mais pura.',
     },
     source: 'Vital Weekly',
     url: 'https://www.vitalweekly.net/number-670/',
