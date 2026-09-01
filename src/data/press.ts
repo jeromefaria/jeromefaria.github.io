@@ -63,6 +63,14 @@ export const pressQuotes: PressQuote[] = [
     url: 'https://thedevilsmouth.substack.com/p/video-premiere-nox-altar',
   },
   {
+    id: 'ponto-alternativo',
+    quote: {
+      en: 'A different record; abstract, yes, of course, but perhaps even more human, of more varied colours […] not a second to spare here, nor a moment to throw away.',
+      pt: 'Um lançamento diferente; abstracto, sim, claro, mas talvez até mais humano, de cores mais variadas […] não há aqui nem um segundo para dispensar, nem um momento para se deitar fora.',
+    },
+    source: 'Ponto Alternativo',
+  },
+  {
     id: 'textura',
     quote: {
       en: 'Out of a micro-textured haze of crackle, the first piece quietly asserts itself, its warm, glistening tones melting into one another as they coalesce into a state of peaceful drift.',
@@ -70,14 +78,6 @@ export const pressQuotes: PressQuote[] = [
     },
     source: 'Textura',
     url: 'https://www.textura.org/archives/n/nny.htm',
-  },
-  {
-    id: 'ponto-alternativo',
-    quote: {
-      en: 'A different record; abstract, yes, of course, but perhaps even more human, of more varied colours […] not a second to spare here, nor a moment to throw away.',
-      pt: 'Um lançamento diferente; abstracto, sim, claro, mas talvez até mais humano, de cores mais variadas […] não há aqui nem um segundo para dispensar, nem um momento para se deitar fora.',
-    },
-    source: 'Ponto Alternativo',
   },
   {
     id: 'vital-weekly',
