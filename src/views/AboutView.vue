@@ -5,16 +5,19 @@ import LightboxHost from '@/components/LightboxHost.vue';
 import PageShell from '@/components/PageShell.vue';
 import ResponsivePicture from '@/components/ResponsivePicture.vue';
 import { usePageHead } from '@/composables/usePageHead';
+import { useProse } from '@/composables/useProse';
 import { useProseLinks } from '@/composables/useProseLinks';
 import { aboutSections } from '@/data/about';
 import { pageMeta } from '@/data/pageMeta';
+import { useLocalized } from '@/i18n/localized';
 import { isImageSection } from '@/types';
-import { externalizeLinks } from '@/utils/externalizeLinks';
 import { getImageStyles } from '@/utils/imageStyles';
 import { toLightboxImage } from '@/utils/lightboxAdapters';
 
 usePageHead(pageMeta.about);
 
+const localize = useLocalized();
+const renderProse = useProse();
 const routeProseLink = useProseLinks();
 
 const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
@@ -43,7 +46,7 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number =>
   <div class="container-wide">
     <PageShell
       data-page="about"
-      title="About"
+      :title="localize(pageMeta.about.title)"
     >
       <template
         v-for="(section, sectionIndex) in aboutSections"
@@ -53,14 +56,14 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number =>
           v-if="section.type === 'short-bio'"
           class="short-bio"
           @click="routeProseLink"
-          v-html="externalizeLinks(section.content)"
+          v-html="renderProse(section.content)"
         />
 
         <div
           v-else-if="!section.type"
           class="prose"
           @click="routeProseLink"
-          v-html="externalizeLinks(section.content)"
+          v-html="renderProse(section.content)"
         />
 
         <div

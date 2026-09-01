@@ -2,6 +2,8 @@ import { bios } from '@/data/bios';
 import { liveEvents } from '@/data/live';
 import { pressQuotes } from '@/data/press';
 import { worksData } from '@/data/works';
+import { localize } from '@/i18n/localized';
+import { DEFAULT_LOCALE } from '@/i18n/messages';
 import type { EpkContent, EpkLiveHighlight, EpkManifest, EpkPhoto, EpkWorkHighlight } from '@/types/epk';
 import type { EventVenue, LiveEvent } from '@/types/live';
 import type { Release } from '@/types/works';
@@ -64,8 +66,8 @@ export const resolveEpkContent = (manifest: EpkManifest): EpkContent => {
 
   return {
     photos: manifest.photos,
-    shortBio: bios[manifest.shortBio],
-    longBio: bios[manifest.longBio],
+    shortBio: localize(bios[manifest.shortBio], DEFAULT_LOCALE),
+    longBio: localize(bios[manifest.longBio], DEFAULT_LOCALE),
     quotes: manifest.pressQuoteIds.map(id => findById(pressQuotes, id)),
     liveHighlights: manifest.highlightLiveIds
       .map(id => findById(liveEvents, id))

@@ -1,3 +1,5 @@
+import type { Localized } from '@/i18n/localized';
+
 import type { Credit } from './media';
 
 export interface AboutImage {
@@ -12,7 +14,7 @@ export interface AboutImage {
 export interface AboutTextSection {
   id: string;
   type?: 'short-bio';
-  content: string;
+  content: Localized<string>;
 }
 
 export interface AboutImageSection {
