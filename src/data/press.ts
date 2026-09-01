@@ -40,7 +40,7 @@ export const pressQuotes: PressQuote[] = [
     id: 'indierockmag-nny',
     quote: {
       en: 'A particular talent for atmospheric progressions, interweaving ethereal instrumentals into an organic and hypnotic movement with the allure of a waking dream.',
-      pt: 'Um talento muito particular para as progressões atmosféricas, entrelaçando os seus instrumentais etéreos num mesmo movimento orgânico e hipnótico com ares de sonho acordado.',
+      pt: 'Um talento muito particular para as progressões atmosféricas, que entrelaça os seus instrumentais etéreos num mesmo movimento orgânico e hipnótico com ares de sonho acordado.',
     },
     source: 'Indie Rock Mag',
     url: 'https://www.indierockmag.com/article19210.html',
