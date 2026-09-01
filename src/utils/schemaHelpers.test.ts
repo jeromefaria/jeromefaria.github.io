@@ -56,6 +56,18 @@ describe('createMusicEventSchema', () => {
     const schema = createMusicEventSchema(baseEvent, 'Jerome Faria');
     expect(schema.performer).toEqual({ '@type': 'Person', name: 'Jerome Faria' });
   });
+
+  it('resolves a Localized title to the requested locale', () => {
+    const localized: LiveEvent = { ...baseEvent, title: { en: 'Performance with Amess', pt: 'Actuação com Amess' } };
+
+    expect(createMusicEventSchema(localized, 'Jerome Faria', '', 'en').name).toBe('Performance with Amess');
+    expect(createMusicEventSchema(localized, 'Jerome Faria', '', 'pt').name).toBe('Actuação com Amess');
+  });
+
+  it('emits inLanguage only when the event declares a spoken language', () => {
+    expect(createMusicEventSchema(baseEvent, 'Jerome Faria').inLanguage).toBeUndefined();
+    expect(createMusicEventSchema({ ...baseEvent, language: 'pt-PT' }, 'Jerome Faria').inLanguage).toBe('pt-PT');
+  });
 });
 
 describe('createItemListSchema', () => {
@@ -102,6 +114,11 @@ describe('createMusicAlbumSchema', () => {
     const schema = createMusicAlbumSchema({ title: 'Untitled' }, artist, siteUrl);
     expect(schema.url).toBe('');
     expect(schema.datePublished).toBe('');
+  });
+
+  it('sets inLanguage from the release language, omitting it for instrumental works', () => {
+    expect(createMusicAlbumSchema({ title: '2504', language: 'pt-PT' }, artist, siteUrl).inLanguage).toBe('pt-PT');
+    expect(createMusicAlbumSchema({ title: 'Overlapse' }, artist, siteUrl).inLanguage).toBeUndefined();
   });
 
   it('prefixes the cover image with the site URL when present', () => {

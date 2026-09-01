@@ -64,6 +64,7 @@ export const worksData: WorksData = {
         coverImage: '/images/2504.jpg',
         bandcampUrl: 'https://music.jeromefaria.com/album/2504',
         soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/april-25',
+        language: 'pt-PT',
         meta: {
           kind: 'music',
           mediums: ['Digital'],

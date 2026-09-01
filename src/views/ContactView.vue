@@ -16,11 +16,11 @@ import { createContactPageSchema } from '@/utils/pageSchemas';
 
 const t = useT();
 const localize = useLocalized();
-const { toLocalePath } = useLocale();
+const { current, toLocalePath } = useLocale();
 
 usePageHead({
   ...pageMeta.contact,
-  schema: createContactPageSchema(),
+  schema: createContactPageSchema(current.value),
 });
 
 const { form } = contactContent;
