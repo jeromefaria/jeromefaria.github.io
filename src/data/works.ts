@@ -24,7 +24,7 @@ export const worksData: WorksData = {
         credits: {
           style: 'by',
           clauses: [
-            { role: 'music', of: 'Jerome Faria', tail: ', reinterpreting "Contraplacado" by [[Aires]]' },
+            { role: 'music', of: 'Jerome Faria', tail: { en: ', reinterpreting "Contraplacado" by [[Aires]]', pt: ', a reinterpretar "Contraplacado" de [[Aires]]' } },
             { role: 'photography', of: 'NASA, ESA, CSA, STScI' },
           ],
         },
@@ -54,7 +54,7 @@ export const worksData: WorksData = {
             { role: 'music', of: 'Jerome Faria' },
             { role: 'photography', of: 'Else Siegel' },
           ],
-          note: 'Pour Éliane Radigue, 1932–2026',
+          note: { en: 'Pour Éliane Radigue, 1932–2026', pt: 'Pour Éliane Radigue, 1932–2026' },
         },
       },
       {
@@ -105,7 +105,7 @@ export const worksData: WorksData = {
         credits: {
           style: 'by',
           clauses: [{ role: 'music', of: 'Jerome Faria' }],
-          note: 'Cover image from the film',
+          note: { en: 'Cover image from the film', pt: 'Imagem de capa retirada do filme' },
         },
       },
       {
@@ -748,7 +748,7 @@ export const worksData: WorksData = {
             { role: 'additionalCuration', of: '[[Joe Gilmore]] and [[Christopher Murphy]]' },
             { role: 'design', of: '[[Qubik]] / Fehler' },
           ],
-          note: 'Contributing artists include [[JODI]], [[Kim Cascone]], [[Taylor Deupree]], [[Marius Watz]], [[Mario Klingemann]], [[Lia]], [[Dextro]], [[Jan Robert Leegte]], [[Curt Cloninger]], [[Michael Betancourt]], [[Billy Roisz]], [[Rainer Kohlberger]], [[Tina Frank]], [[Ralph Steinbrüchel]], [[Paul Prudence]], [[Scott Arford]], [[Alessandro Canova]], [[Miguel Carvalhais]], [[Nik Gaffney]], [[Iris Garrelfs]], [[Mathias Gmachl]], [[Jason Kahn]], [[LoVid]], [[Michael Norris]], [[O.K. Parking]], [[Norbert Pfaffenbichler]], [[Per Platou]], [[Andrea Polli]], and others',
+          note: { en: 'Contributing artists include [[JODI]], [[Kim Cascone]], [[Taylor Deupree]], [[Marius Watz]], [[Mario Klingemann]], [[Lia]], [[Dextro]], [[Jan Robert Leegte]], [[Curt Cloninger]], [[Michael Betancourt]], [[Billy Roisz]], [[Rainer Kohlberger]], [[Tina Frank]], [[Ralph Steinbrüchel]], [[Paul Prudence]], [[Scott Arford]], [[Alessandro Canova]], [[Miguel Carvalhais]], [[Nik Gaffney]], [[Iris Garrelfs]], [[Mathias Gmachl]], [[Jason Kahn]], [[LoVid]], [[Michael Norris]], [[O.K. Parking]], [[Norbert Pfaffenbichler]], [[Per Platou]], [[Andrea Polli]], and others', pt: 'Artistas colaboradores incluem [[JODI]], [[Kim Cascone]], [[Taylor Deupree]], [[Marius Watz]], [[Mario Klingemann]], [[Lia]], [[Dextro]], [[Jan Robert Leegte]], [[Curt Cloninger]], [[Michael Betancourt]], [[Billy Roisz]], [[Rainer Kohlberger]], [[Tina Frank]], [[Ralph Steinbrüchel]], [[Paul Prudence]], [[Scott Arford]], [[Alessandro Canova]], [[Miguel Carvalhais]], [[Nik Gaffney]], [[Iris Garrelfs]], [[Mathias Gmachl]], [[Jason Kahn]], [[LoVid]], [[Michael Norris]], [[O.K. Parking]], [[Norbert Pfaffenbichler]], [[Per Platou]], [[Andrea Polli]], e outros' },
         },
         contributors: [
           { name: 'Iman Moradi', url: 'https://organised.info/' },
