@@ -74,13 +74,9 @@
       @media(min-width:768px){.home .hero{height:calc(100vh - 254px - max(0px,env(safe-area-inset-bottom,0px) - 1.5rem))}}
       .skip-link{position:absolute;top:-100%;left:1rem;z-index:1000;padding:.5rem 1rem;background:var(--color-bg);color:var(--color-text);border:1px solid var(--color-border);text-decoration:none;font-size:.75rem}
       .skip-link:focus{top:1rem}
-      .initial-loader{display:none}
     </style>
   </head>
   <body>
-    <div class="initial-loader" aria-label="Loading">
-      <div class="spinner"></div>
-    </div>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
