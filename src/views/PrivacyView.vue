@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import PageShell from '@/components/PageShell.vue';
-import { openCommandPalette } from '@/composables/useOverlays';
 import { usePageHead } from '@/composables/usePageHead';
 import { useProse } from '@/composables/useProse';
-import { useProseLinks } from '@/composables/useProseLinks';
+import { useProseClick } from '@/composables/useProseClick';
 import { pageMeta } from '@/data/pageMeta';
 import { privacyContent } from '@/data/privacy';
 import { useLocalized } from '@/i18n/localized';
@@ -14,18 +13,7 @@ usePageHead(pageMeta.privacy);
 const t = useT();
 const localize = useLocalized();
 const renderProse = useProse();
-const routeProseLink = useProseLinks();
-
-// The palette cue is a button inside the v-html body; a careful reader who clicks it
-// gets the hidden palette. Everything else falls through to internal-link routing.
-const onProseClick = (event: MouseEvent): void => {
-  if ((event.target as HTMLElement).closest('.palette-cue')) {
-    openCommandPalette();
-    return;
-  }
-
-  routeProseLink(event);
-};
+const onProseClick = useProseClick();
 </script>
 
 <template>

@@ -1,22 +1,17 @@
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 
-import { createJiti } from 'jiti';
+import { loadSrc, root } from './data-loader.mjs';
 
-export const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const src = join(root, 'src');
-
-const jiti = createJiti(import.meta.url, { alias: { '@': src } });
-const { epkManifest } = await jiti.import(join(src, 'data/epk.ts'));
-const { resolveEpkContent, photoDownloadFilename, epkKitFile, epkRiderFile, localeSuffix } = await jiti.import(join(src, 'utils/epk.ts'));
-const { techRider } = await jiti.import(join(src, 'data/techRider.ts'));
-const { localize } = await jiti.import(join(src, 'i18n/localized.ts'));
-const { SUPPORTED_LOCALES, localePath, messages } = await jiti.import(join(src, 'i18n/messages.ts'));
-const { siteConfig, social } = await jiti.import(join(src, 'data/navigation.ts'));
+const { epkManifest } = await loadSrc('data/epk.ts');
+const { resolveEpkContent, photoDownloadFilename, epkKitFile, epkRiderFile, localeSuffix } = await loadSrc('utils/epk.ts');
+const { techRider } = await loadSrc('data/techRider.ts');
+const { localize } = await loadSrc('i18n/localized.ts');
+const { SUPPORTED_LOCALES, localePath, messages } = await loadSrc('i18n/messages.ts');
+const { siteConfig, social } = await loadSrc('data/navigation.ts');
 
 const bandcamp = social.find(item => item.name === 'bandcamp');
 
-export { epkKitFile, epkRiderFile, localePath, localeSuffix, localize, photoDownloadFilename, siteConfig, techRider };
+export { epkKitFile, epkRiderFile, localePath, localeSuffix, localize, photoDownloadFilename, root, siteConfig, techRider };
 
 export const locales = SUPPORTED_LOCALES;
 export const contentFor = locale => resolveEpkContent(epkManifest, locale);
