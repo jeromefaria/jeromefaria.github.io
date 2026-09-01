@@ -5,9 +5,12 @@ import { useHashScroll } from '@/composables/useHashScroll';
 import { usePageHead } from '@/composables/usePageHead';
 import { pageMeta } from '@/data/pageMeta';
 import { pressQuotes } from '@/data/press';
+import { useLocalized } from '@/i18n/localized';
 import { prefersReducedMotion } from '@/utils/scroll';
 
 usePageHead(pageMeta.press);
+
+const localize = useLocalized();
 
 const scrollToHash = (hash: string) => {
   const element = document.getElementById(hash.replace('#', ''));
@@ -21,7 +24,7 @@ useHashScroll(scrollToHash);
   <div class="container-wide">
     <PageShell
       data-page="press"
-      title="Press"
+      :title="localize(pageMeta.press.title)"
     >
       <blockquote
         v-for="item in pressQuotes"

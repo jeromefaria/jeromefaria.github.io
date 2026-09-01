@@ -3,13 +3,16 @@ import AccordionPage from '@/components/AccordionPage.vue';
 import EventItem from '@/components/EventItem.vue';
 import { liveYears, sortedLiveData } from '@/data/live';
 import { pageMeta } from '@/data/pageMeta';
+import { useLocalized } from '@/i18n/localized';
 import { createLiveEventsSchema } from '@/utils/pageSchemas';
+
+const localize = useLocalized();
 </script>
 
 <template>
   <AccordionPage
     data-page="live"
-    title="Live"
+    :title="localize(pageMeta.live.title)"
     :sections="liveYears"
     :section-data="sortedLiveData"
     :initial-section="liveYears[0] ?? ''"

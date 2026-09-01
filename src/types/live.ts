@@ -1,3 +1,5 @@
+import type { Localized } from '@/i18n/localized';
+
 import type { Credit, Video } from './media';
 
 export interface LiveImage {
@@ -49,7 +51,7 @@ export interface LiveEvent {
   format?: Format;
   performedAs?: string;
   bill?: BillEntry[];
-  note?: string;
+  note?: Localized<string>;
   imageAlt?: string;
   images?: LiveImage[];
   posters?: Poster[];
