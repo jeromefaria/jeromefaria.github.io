@@ -111,7 +111,8 @@ export const renderCredits = (credits: Credits, contributors: Contributor[] = []
   }
 
   return toSource(credits, locale).replace(MARKER, (_match, name: string) => {
-    const href = linked.has(name) ? safeHref(linked.get(name) as string) : null;
+    const url = linked.get(name);
+    const href = url ? safeHref(url) : null;
     const safeName = escapeHtml(name);
     return href ? `<a href="${href}">${safeName}</a>` : safeName;
   });
