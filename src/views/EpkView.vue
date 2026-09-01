@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { RouterLink } from 'vue-router';
 
 import ExternalLink from '@/components/ExternalLink.vue';
@@ -7,23 +8,29 @@ import ResponsivePicture from '@/components/ResponsivePicture.vue';
 import { usePageHead } from '@/composables/usePageHead';
 import { epkManifest } from '@/data/epk';
 import { pageMeta } from '@/data/pageMeta';
+import { useLocalized } from '@/i18n/localized';
+import { useLocale } from '@/i18n/useLocale';
+import { useT } from '@/i18n/useT';
 import { epkPdfHref, epkRiderHref, epkZipHref, photoDownloadHref, resolveEpkContent } from '@/utils/epk';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 
 usePageHead({ ...pageMeta.epk, noIndex: true });
 
-const epk = resolveEpkContent(epkManifest);
+const t = useT();
+const localize = useLocalized();
+const { current, toLocalePath } = useLocale();
+const epk = computed(() => resolveEpkContent(epkManifest, current.value));
 </script>
 
 <template>
   <div class="container-wide">
     <PageShell
       data-page="epk"
-      title="Press Kit"
+      :title="localize(pageMeta.epk.title)"
     >
       <section class="epk__section">
         <h2 class="epk__heading">
-          Short bio
+          {{ t('epk.shortBio') }}
         </h2>
         <div
           class="prose"
@@ -33,32 +40,32 @@ const epk = resolveEpkContent(epkManifest);
 
       <section class="epk__section">
         <h2 class="epk__heading">
-          Download
+          {{ t('epk.download') }}
         </h2>
         <p class="media-links">
           <a
             class="link-discrete"
             :href="epkZipHref"
             download
-          >Full press kit (ZIP)</a>
+          >{{ t('epk.fullKit') }}</a>
           <span> | </span>
           <a
             class="link-discrete"
             :href="epkPdfHref"
             download
-          >One-sheet (PDF)</a>
+          >{{ t('epk.oneSheet') }}</a>
           <span> | </span>
           <a
             class="link-discrete"
             :href="epkRiderHref"
             download
-          >Technical rider (PDF)</a>
+          >{{ t('epk.rider') }}</a>
         </p>
       </section>
 
       <section class="epk__section">
         <h2 class="epk__heading">
-          Biography
+          {{ t('epk.biography') }}
         </h2>
         <div
           class="prose"
@@ -68,7 +75,7 @@ const epk = resolveEpkContent(epkManifest);
 
       <section class="epk__section">
         <h2 class="epk__heading">
-          Photography
+          {{ t('epk.photography') }}
         </h2>
         <div class="epk__photos">
           <figure
@@ -82,7 +89,7 @@ const epk = resolveEpkContent(epkManifest);
             />
             <figcaption>
               <template v-if="photo.photographer">
-                Photo:
+                {{ t('epk.photo') }}:
                 <ExternalLink
                   v-if="photo.photographer.url"
                   :href="photo.photographer.url"
@@ -98,7 +105,7 @@ const epk = resolveEpkContent(epkManifest);
                 :href="photoDownloadHref(photo, index)"
                 download
               >
-                Download
+                {{ t('epk.download') }}
               </a>
             </figcaption>
           </figure>
@@ -107,7 +114,7 @@ const epk = resolveEpkContent(epkManifest);
 
       <section class="epk__section">
         <h2 class="epk__heading">
-          Selected performances
+          {{ t('epk.selectedPerformances') }}
         </h2>
         <ul class="epk__list">
           <li
@@ -119,7 +126,7 @@ const epk = resolveEpkContent(epkManifest);
             <span>
               <RouterLink
                 class="epk__link"
-                :to="`/live#${highlight.id}`"
+                :to="toLocalePath(`/live#${highlight.id}`)"
               >{{ highlight.title }}</RouterLink> — {{ highlight.location }}
             </span>
           </li>
@@ -128,7 +135,7 @@ const epk = resolveEpkContent(epkManifest);
 
       <section class="epk__section">
         <h2 class="epk__heading">
-          Selected works
+          {{ t('epk.selectedWorks') }}
         </h2>
         <ul class="epk__list">
           <li
@@ -140,7 +147,7 @@ const epk = resolveEpkContent(epkManifest);
             <span>
               <RouterLink
                 class="epk__link"
-                :to="`/works#${work.id}`"
+                :to="toLocalePath(`/works#${work.id}`)"
               >{{ work.title }}</RouterLink>
             </span>
           </li>
@@ -149,14 +156,14 @@ const epk = resolveEpkContent(epkManifest);
 
       <section class="epk__section">
         <h2 class="epk__heading">
-          Press
+          {{ t('epk.press') }}
         </h2>
         <blockquote
           v-for="quote in epk.quotes"
           :key="quote.id"
           class="epk__quote"
         >
-          <p v-html="quote.quote" />
+          <p v-html="localize(quote.quote)" />
           <strong>
             <ExternalLink
               v-if="quote.url"
