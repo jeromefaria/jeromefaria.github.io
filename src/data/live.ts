@@ -378,7 +378,10 @@ export const liveEvents: LiveEvent[] = [
     date: '2021-10-22',
     venue: { name: 'SMUP', url: 'https://www.smup.pt/', city: 'Parede', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'CAVERNANCIA', url: 'https://cavernancia.bandcamp.com/' } },
-    note: '<a href="https://thisco.bandcamp.com/">THISCO</a> / SPH anniversary celebration.',
+    note: {
+      en: '<a href="https://thisco.bandcamp.com/">THISCO</a> / SPH anniversary celebration.',
+      pt: 'Celebração de aniversário da <a href="https://thisco.bandcamp.com/">THISCO</a> / SPH.',
+    },
     imageAlt: 'Jerome Faria and CAVERNANCIA performing at Nariz Entupido, SMUP, Parede, 2021',
     images: [
       {
@@ -532,7 +535,10 @@ export const liveEvents: LiveEvent[] = [
       { text: 'David Rowan', url: 'https://davidrowan.com/', suffix: '(Wired UK)' },
       { text: 'Gian Giudice', suffix: '(CERN)' },
     ],
-    note: 'Festival about creativity, technology and science.',
+    note: {
+      en: 'Festival about creativity, technology and science.',
+      pt: 'Festival sobre criatividade, tecnologia e ciência.',
+    },
   },
   {
     id: 'caligari-live-3',
@@ -578,7 +584,10 @@ export const liveEvents: LiveEvent[] = [
     title: 'Cine Qua Non',
     venue: { name: 'Estalagem da Ponta do Sol', url: 'https://www.pontadosol.com/', city: 'Ponta do Sol', country: 'Portugal' },
     setup: { kind: 'ensemble', name: 'Improvisation collective' },
-    note: 'Electronics, piano (<a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>), percussion (<a href="https://madeirajazzcollective.bandcamp.com/">Jorge Maggiore</a>) and visuals (Filipe Ferraz).',
+    note: {
+      en: 'Electronics, piano (<a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>), percussion (<a href="https://madeirajazzcollective.bandcamp.com/">Jorge Maggiore</a>) and visuals (Filipe Ferraz).',
+      pt: 'Electrónica, piano (<a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>), percussão (<a href="https://madeirajazzcollective.bandcamp.com/">Jorge Maggiore</a>) e visuais (Filipe Ferraz).',
+    },
     videos: [
       {
         url: 'https://www.youtube-nocookie.com/embed/41vx80KyONA',

@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 
 import { useLightboxDeepLink } from '@/composables/useLightboxDeepLink';
+import { useLocale } from '@/i18n/useLocale';
 import { useT } from '@/i18n/useT';
 import type { LightboxItem, LiveEvent } from '@/types';
 import { externalizeLinks } from '@/utils/externalizeLinks';
@@ -40,6 +41,7 @@ const imageLightboxItems = computed<LightboxItem[]>(() =>
 const posterLightboxItems = computed<LightboxItem[]>(() => props.event.posters?.map(toLightboxImage) ?? []);
 const videoLightboxItems = computed<LightboxItem[]>(() => props.event.videos?.map(toLightboxVideo) ?? []);
 const t = useT();
+const { current } = useLocale();
 const imageLabel = computed(() => t(imageLightboxItems.value.length === 1 ? 'media.photo' : 'media.photos'));
 
 useLightboxDeepLink(
@@ -88,7 +90,7 @@ useLightboxDeepLink(
       </p>
       <p
         class="event-description"
-        v-html="externalizeLinks(buildEventDescription(event))"
+        v-html="externalizeLinks(buildEventDescription(event, current))"
       />
       <MediaLinks
         :images="imageLightboxItems"

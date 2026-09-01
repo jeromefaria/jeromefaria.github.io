@@ -1,14 +1,20 @@
 import { mount, RouterLinkStub } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
+import { createMemoryHistory, createRouter } from 'vue-router';
 
 import type { LiveEvent } from '@/types';
 
 import EventItem from './EventItem.vue';
 
+const router = createRouter({
+  history: createMemoryHistory(),
+  routes: [{ path: '/:pathMatch(.*)*', component: { render: () => null } }],
+});
+
 const mountEvent = (event: LiveEvent) =>
   mount(EventItem, {
     props: { event },
-    global: { stubs: { RouterLink: RouterLinkStub } },
+    global: { plugins: [router], stubs: { RouterLink: RouterLinkStub } },
   });
 
 const plainEvent: LiveEvent = {

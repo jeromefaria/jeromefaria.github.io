@@ -94,7 +94,7 @@ const liveCommands = (): Command[] =>
     title: event.title,
     subtitle: event.venue.name ?? event.venue.city ?? event.venue.country,
     keywords: words([event.venue.name ?? '', event.venue.city ?? '', event.venue.country, event.date.slice(0, 4), ...eventPeople(event)].join(' ')),
-    text: words(event.note ?? ''),
+    text: words(event.note?.en ?? ''),
     group: 'Live',
     to: `/live#${event.id}`,
   }));
