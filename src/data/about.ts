@@ -127,7 +127,7 @@ export const aboutSections: AboutSection[] = [
     images: [
       {
         src: '/images/about-2021-nariz.jpg',
-        alt: { en: 'Jerome Faria performing at Nariz Entupido, 2021', pt: 'Jerome Faria a actuar no Nariz Entupido, 2021' },
+        alt: { en: 'Jerome Faria performing at SMUP, Parede, 2021', pt: 'Jerome Faria a actuar na SMUP, Parede, 2021' },
         position: '60% center',
         photographer: { name: 'Ricardo Nogueira', url: 'https://www.instagram.com/nogueirafoto/' },
       },

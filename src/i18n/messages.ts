@@ -336,7 +336,7 @@ const pt: typeof en = {
       downloadKitZip: 'epk zip fotos dossier',
       toggleTheme: 'escuro claro modo aparência cor',
       matchSystemTheme: 'sistema automático preferência tema aparência',
-      copyEmail: 'email área transferência contacto',
+      copyEmail: 'email área de transferência contacto',
       clearRecents: 'limpar apagar histórico recentes',
       social: 'social ligação',
       releaseLink: 'ouvir reproduzir',
