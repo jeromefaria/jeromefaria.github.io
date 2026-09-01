@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { aboutSections } from '@/data/about';
 import { bios } from '@/data/bios';
 import { colophonContent } from '@/data/colophon';
 import { liveEvents } from '@/data/live';
@@ -40,6 +41,7 @@ const sources: Record<string, unknown> = {
   pageMeta,
   colophonContent,
   privacyContent,
+  aboutSections,
   bios: { short: bios.short, long: bios.long, press: bios.press },
   worksData,
   liveEvents,

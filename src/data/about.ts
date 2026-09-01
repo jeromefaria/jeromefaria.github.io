@@ -18,26 +18,26 @@ export const aboutSections: AboutSection[] = [
     images: [
       {
         src: '/images/about-2005-madeiradig.jpg',
-        alt: 'Jerome Faria performing at MADEIRADIG 2005',
+        alt: { en: 'Jerome Faria performing at MADEIRADIG 2005', pt: 'Jerome Faria a actuar no MADEIRADIG 2005' },
         position: 'center center',
         photographer: { name: 'Louie de Bettencourt' },
       },
       {
         src: '/images/about-2007-madeiradig.jpg',
-        alt: 'Jerome Faria performing at MADEIRADIG 2007',
+        alt: { en: 'Jerome Faria performing at MADEIRADIG 2007', pt: 'Jerome Faria a actuar no MADEIRADIG 2007' },
         position: 'center 50%',
         scale: 1.4,
         photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
       },
       {
         src: '/images/about-2008-eme.jpg',
-        alt: 'Jerome Faria performing at EME, Teatro Ibérico, Lisbon, 2008',
+        alt: { en: 'Jerome Faria performing at EME, Teatro Ibérico, Lisbon, 2008', pt: 'Jerome Faria a actuar no EME, Teatro Ibérico, Lisboa, 2008' },
         position: 'center center',
         photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
       },
       {
         src: '/images/about-2009-madeiradig.jpg',
-        alt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG 2009',
+        alt: { en: 'Jerome Faria and Hugo Olim performing at MADEIRADIG 2009', pt: 'Jerome Faria e Hugo Olim a actuar no MADEIRADIG 2009' },
         position: 'center 40%',
         photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
       },
@@ -49,13 +49,13 @@ export const aboutSections: AboutSection[] = [
     images: [
       {
         src: '/images/about-2007-stfu.jpg',
-        alt: 'Jerome Faria performing at STFU Porto, 2007',
+        alt: { en: 'Jerome Faria performing at STFU Porto, 2007', pt: 'Jerome Faria a actuar no STFU Porto, 2007' },
         position: 'center 35%',
         photographer: { name: 'STFU Porto' },
       },
       {
         src: '/images/about-2008-storung.jpg',
-        alt: 'Jerome Faria performing at Störung, Barcelona, 2008',
+        alt: { en: 'Jerome Faria performing at Störung, Barcelona, 2008', pt: 'Jerome Faria a actuar no Störung, Barcelona, 2008' },
         position: 'center 35%',
         photographer: { name: 'Störung Festival', url: 'https://storung.com/' },
       },
@@ -71,14 +71,14 @@ export const aboutSections: AboutSection[] = [
     images: [
       {
         src: '/images/about-2009-olhares.jpg',
-        alt: 'Jerome Faria performing at EME.LL Olhares, Porto, 2009',
+        alt: { en: 'Jerome Faria performing at EME.LL Olhares, Porto, 2009', pt: 'Jerome Faria a actuar no EME.LL Olhares, Porto, 2009' },
         position: '100% center',
         scale: 1.3,
         photographer: { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
       },
       {
         src: '/images/about-2010-olhares.jpg',
-        alt: 'Jerome Faria performing at Olhares de Outono, 2010',
+        alt: { en: 'Jerome Faria performing at Olhares de Outono, 2010', pt: 'Jerome Faria a actuar no Olhares de Outono, 2010' },
         position: '70% 60%',
         photographer: { name: 'Olhares de Outono' },
       },
@@ -90,14 +90,14 @@ export const aboutSections: AboutSection[] = [
     images: [
       {
         src: '/images/about-2011-migractions.jpg',
-        alt: 'Jerome Faria performing at Festival Migractions, Paris, 2011',
+        alt: { en: 'Jerome Faria performing at Festival Migractions, Paris, 2011', pt: 'Jerome Faria a actuar no Festival Migractions, Paris, 2011' },
         position: 'center 50%',
         scale: 1.3,
         photographer: { name: 'Sue-Elie Andrade-Dé', url: 'https://cargocollective.com/sueelieandradede' },
       },
       {
         src: '/images/about-2011-madeiradig.jpg',
-        alt: 'Jerome Faria and Taylor Deupree performing at MADEIRADIG 2011',
+        alt: { en: 'Jerome Faria and Taylor Deupree performing at MADEIRADIG 2011', pt: 'Jerome Faria e Taylor Deupree a actuar no MADEIRADIG 2011' },
         position: '40% center',
         scale: 1.3,
         rotate: 1,
@@ -105,13 +105,13 @@ export const aboutSections: AboutSection[] = [
       },
       {
         src: '/images/about-2015-fica.jpg',
-        alt: 'Jerome Faria performing at Fica na Cidade, 2015',
+        alt: { en: 'Jerome Faria performing at Fica na Cidade, 2015', pt: 'Jerome Faria a actuar no Fica na Cidade, 2015' },
         position: 'center center',
         photographer: { name: 'Fica na Cidade' },
       },
       {
         src: '/images/about-2015-heineken.jpg',
-        alt: 'Jerome Faria opening for William Basinski at Heineken Series, Lisbon, 2015',
+        alt: { en: 'Jerome Faria opening for William Basinski at Heineken Series, Lisbon, 2015', pt: 'Jerome Faria a abrir para William Basinski na Heineken Series, Lisboa, 2015' },
         position: 'center 70%',
         photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
       },
@@ -127,13 +127,13 @@ export const aboutSections: AboutSection[] = [
     images: [
       {
         src: '/images/about-2021-nariz.jpg',
-        alt: 'Jerome Faria performing at Nariz Entupido, 2021',
+        alt: { en: 'Jerome Faria performing at Nariz Entupido, 2021', pt: 'Jerome Faria a actuar no Nariz Entupido, 2021' },
         position: '60% center',
         photographer: { name: 'Ricardo Nogueira', url: 'https://www.instagram.com/nogueirafoto/' },
       },
       {
         src: '/images/about-2022-jejum.jpg',
-        alt: 'Jerome Faria performing at Jejum #11, Lisbon, 2022',
+        alt: { en: 'Jerome Faria performing at Jejum #11, Lisbon, 2022', pt: 'Jerome Faria a actuar no Jejum #11, Lisboa, 2022' },
         position: 'center center',
         photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
       },
@@ -145,25 +145,25 @@ export const aboutSections: AboutSection[] = [
     images: [
       {
         src: '/images/about-2022-amess-museu.jpg',
-        alt: 'Jerome Faria with Amess at Museu Henrique e Francisco Franco, 2022',
+        alt: { en: 'Jerome Faria with Amess at Museu Henrique e Francisco Franco, 2022', pt: 'Jerome Faria com Amess no Museu Henrique e Francisco Franco, 2022' },
         position: 'center 45%',
         photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
       },
       {
         src: '/images/about-2022-amess-teatro.jpg',
-        alt: 'Jerome Faria performing at Teatro Municipal Baltazar Dias, 2022',
+        alt: { en: 'Jerome Faria performing at Teatro Municipal Baltazar Dias, 2022', pt: 'Jerome Faria a actuar no Teatro Municipal Baltazar Dias, 2022' },
         position: 'center 70%',
         photographer: { name: 'Óscar Silva', url: 'https://www.instagram.com/oscar_silva95/' },
       },
       {
         src: '/images/about-2025-fim.jpg',
-        alt: 'Jerome Faria performing at Fim de Emissão #45, 2025',
+        alt: { en: 'Jerome Faria performing at Fim de Emissão #45, 2025', pt: 'Jerome Faria a actuar no Fim de Emissão #45, 2025' },
         position: 'center 80%',
         photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
       },
       {
         src: '/images/about-2025-showcase.jpg',
-        alt: 'NOx (Jerome Faria and Pedro Roque) performing at Cooperativa Mula, Barreiro, 2025',
+        alt: { en: 'NOx (Jerome Faria and Pedro Roque) performing at Cooperativa Mula, Barreiro, 2025', pt: 'NOx (Jerome Faria e Pedro Roque) a actuar na Cooperativa Mula, Barreiro, 2025' },
         position: 'center 90%',
         photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
       },

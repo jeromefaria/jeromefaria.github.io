@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
+import { localize } from '@/i18n/localized';
+
 import { liveEvents, liveYears, sortedLiveData } from './live';
 
 const IMAGE_ALT: Record<string, string> = {
@@ -38,7 +40,7 @@ describe('liveData image alts', () => {
   it('preserves each event-level image alt after hoisting', () => {
     for (const event of events) {
       if (event.images?.length) {
-        expect(event.imageAlt, `id="${event.id}"`).toBe(IMAGE_ALT[event.id]);
+        expect(localize(event.imageAlt ?? '', 'en'), `id="${event.id}"`).toBe(IMAGE_ALT[event.id]);
       }
     }
   });
@@ -86,10 +88,15 @@ describe('liveData posters', () => {
     expect(withPosters).toEqual(Object.keys(POSTERS).sort());
   });
 
-  it('matches the golden src and alt for every poster', () => {
+  it('matches the golden src and English alt for every poster', () => {
     for (const event of events) {
       if (event.posters?.length) {
-        expect(event.posters, `id="${event.id}"`).toEqual(POSTERS[event.id]);
+        const normalized = event.posters.map(poster => ({
+          src: poster.src,
+          alt: localize(poster.alt, 'en'),
+          ...(poster.artist && { artist: poster.artist }),
+        }));
+        expect(normalized, `id="${event.id}"`).toEqual(POSTERS[event.id]);
       }
     }
   });
@@ -97,7 +104,7 @@ describe('liveData posters', () => {
   it('gives every poster a non-empty alt and a live-images source', () => {
     for (const event of events) {
       for (const poster of event.posters ?? []) {
-        expect(poster.alt.trim().length, `id="${event.id}"`).toBeGreaterThan(0);
+        expect(localize(poster.alt, 'en').trim().length, `id="${event.id}"`).toBeGreaterThan(0);
         expect(poster.src).toMatch(/^\/images\/live\/.+\.jpg$/);
       }
     }

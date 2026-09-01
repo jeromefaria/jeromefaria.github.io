@@ -2,6 +2,7 @@
 import { computed, nextTick, onMounted, ref } from 'vue';
 
 import { useFocusTrap } from '@/composables/useFocusTrap';
+import { useT } from '@/i18n/useT';
 import type { LightboxItem } from '@/types';
 import { isLightboxImage, isLightboxVideo } from '@/types';
 import { toWebp } from '@/utils/responsiveImage';
@@ -24,16 +25,18 @@ const emit = defineEmits<{
   touchend: [event: TouchEvent];
 }>();
 
+const t = useT();
+
 const isVideo = computed(() => props.currentItem !== null && isLightboxVideo(props.currentItem));
 const isImage = computed(() => props.currentItem !== null && isLightboxImage(props.currentItem));
 
 const credit = computed(() => {
   const item = props.currentItem;
   if (item && isLightboxImage(item) && item.credit) {
-    const prefix = item.credit.role === 'photo' ? 'Photo by' : 'Poster by';
+    const prefix = item.credit.role === 'photo' ? t('media.photoBy') : t('media.posterBy');
     return { prefix, name: item.credit.name, url: item.credit.url };
   }
-  if (item && isLightboxVideo(item) && item.author) return { prefix: 'Video by', ...item.author };
+  if (item && isLightboxVideo(item) && item.author) return { prefix: t('media.videoBy'), ...item.author };
   return null;
 });
 
@@ -77,7 +80,7 @@ onMounted(async () => {
         v-if="isVideo && currentItem && isLightboxVideo(currentItem)"
         :src="currentItem.url"
         class="lightbox__video"
-        :title="currentItem.title || 'Video'"
+        :title="currentItem.title || t('media.video')"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen

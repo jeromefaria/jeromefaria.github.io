@@ -42,10 +42,10 @@ const renderProse = useProse();
 const coverErrored = ref(false);
 
 const imageLightboxItems = computed<LightboxItem[]>(() =>
-  hasImages(props.release) ? props.release.images.map(toLightboxImage) : []);
+  hasImages(props.release) ? props.release.images.map(image => toLightboxImage(image, current.value)) : []);
 
 const videoLightboxItems = computed<LightboxItem[]>(() =>
-  hasVideos(props.release) ? props.release.videos.map(toLightboxVideo) : []);
+  hasVideos(props.release) ? props.release.videos.map(video => toLightboxVideo(video, current.value)) : []);
 
 useLightboxDeepLink(
   props.release.id,

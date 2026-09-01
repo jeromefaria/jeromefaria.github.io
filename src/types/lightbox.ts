@@ -11,8 +11,9 @@ export interface LightboxImage {
   credit?: LightboxCredit;
 }
 
-export interface LightboxVideo extends Video {
+export interface LightboxVideo extends Omit<Video, 'title'> {
   type: 'video';
+  title: string;
 }
 
 export type LightboxItem = LightboxImage | LightboxVideo;

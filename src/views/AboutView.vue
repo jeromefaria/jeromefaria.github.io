@@ -10,6 +10,7 @@ import { useProseLinks } from '@/composables/useProseLinks';
 import { aboutSections } from '@/data/about';
 import { pageMeta } from '@/data/pageMeta';
 import { useLocalized } from '@/i18n/localized';
+import { useLocale } from '@/i18n/useLocale';
 import { isImageSection } from '@/types';
 import { getImageStyles } from '@/utils/imageStyles';
 import { toLightboxImage } from '@/utils/lightboxAdapters';
@@ -17,6 +18,7 @@ import { toLightboxImage } from '@/utils/lightboxAdapters';
 usePageHead(pageMeta.about);
 
 const localize = useLocalized();
+const { current } = useLocale();
 const renderProse = useProse();
 const routeProseLink = useProseLinks();
 
@@ -25,7 +27,7 @@ const lightbox = useTemplateRef<InstanceType<typeof LightboxHost>>('lightbox');
 const allImages = computed(() =>
   aboutSections
     .filter(isImageSection)
-    .flatMap(section => section.images.map(toLightboxImage)));
+    .flatMap(section => section.images.map(image => toLightboxImage(image, current.value))));
 
 const sectionStartIndices = computed(() => {
   let currentIndex = 0;
@@ -78,7 +80,7 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number =>
           >
             <ResponsivePicture
               :src="image.src"
-              :alt="image.alt"
+              :alt="localize(image.alt)"
               sizes="(min-width: 768px) 45vw, 48vw"
               :image-style="getImageStyles(image)"
             />
