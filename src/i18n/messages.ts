@@ -53,7 +53,8 @@ const en = {
     press: 'Press',
   },
   common: {
-    switchLanguage: 'Português',
+    switchLanguage: 'PT',
+    switchLanguageLabel: 'Switch to Portuguese',
   },
   media: {
     gallery: 'Gallery',
@@ -216,7 +217,8 @@ const pt: typeof en = {
     press: 'Imprensa',
   },
   common: {
-    switchLanguage: 'English',
+    switchLanguage: 'EN',
+    switchLanguageLabel: 'Mudar para inglês',
   },
   media: {
     gallery: 'Galeria',
