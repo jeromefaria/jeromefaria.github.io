@@ -375,13 +375,26 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'nariz-entupido',
-    title: 'Nariz Entupido',
+    title: '30 anos SPH / 20 anos Thisco',
     date: '2021-10-22',
     venue: { name: 'SMUP', url: 'https://www.smup.pt/', city: 'Parede', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'CAVERNANCIA', url: 'https://cavernancia.bandcamp.com/' } },
+    bill: [
+      { text: 'António Caramelo', url: 'https://www.facebook.com/makearevolutione' },
+      { text: 'Ghent', url: 'https://ghentelectronica.bandcamp.com/' },
+      { text: 'Manuel Mota', url: 'https://manuelmota.bandcamp.com/' },
+      { text: 'Novo Major', suffix: '(DJ)' },
+      { text: 'OndaXoque', url: 'https://ondaxoque.bandcamp.com/' },
+      { text: 'shhh…', url: 'https://shhh-music.bandcamp.com/' },
+      [
+        { text: 'Violeta Lisboa', url: 'https://soundcloud.com/violeta-lisboa' },
+        { text: 'Miguel Sá', url: 'https://soundcloud.com/miguel-sa', suffix: '(DJ)' },
+      ],
+      { text: 'Whalt Thisney', url: 'https://walthisney.bandcamp.com/' },
+    ],
     note: {
-      en: '<a href="https://thisco.bandcamp.com/">THISCO</a> / SPH anniversary celebration.',
-      pt: 'Celebração de aniversário da <a href="https://thisco.bandcamp.com/">THISCO</a> / SPH.',
+      en: 'Organised by <a href="https://linktr.ee/narizentupido">Nariz Entupido</a> with <a href="https://thisco.bandcamp.com/">THISCO</a> and SPH.',
+      pt: 'Organizado pela <a href="https://linktr.ee/narizentupido">Nariz Entupido</a> com a <a href="https://thisco.bandcamp.com/">THISCO</a> e a SPH.',
     },
     imageAlt: { en: 'Jerome Faria and CAVERNANCIA performing at Nariz Entupido, SMUP, Parede, 2021', pt: 'Jerome Faria e CAVERNANCIA a actuar no Nariz Entupido, SMUP, Parede, 2021' },
     images: [

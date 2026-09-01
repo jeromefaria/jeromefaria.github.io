@@ -15,7 +15,7 @@ const DESCRIPTIONS: Record<string, string> = {
   'amess-museu-franco': 'As part of <a href="https://www.instagram.com/amess.music/">Amess</a>.',
   'jejum-11': 'Solo performance.',
   'aragao-cartaxo': 'Theatre production. Live music & interpretation.',
-  'nariz-entupido': 'Duo with <a href="https://cavernancia.bandcamp.com/">CAVERNANCIA</a>. <a href="https://thisco.bandcamp.com/">THISCO</a> / SPH anniversary celebration.',
+  'nariz-entupido': 'Duo with <a href="https://cavernancia.bandcamp.com/">CAVERNANCIA</a>. Organised by <a href="https://linktr.ee/narizentupido">Nariz Entupido</a> with <a href="https://thisco.bandcamp.com/">THISCO</a> and SPH. Alongside <a href="https://www.facebook.com/makearevolutione">António Caramelo</a>, <a href="https://ghentelectronica.bandcamp.com/">Ghent</a>, <a href="https://manuelmota.bandcamp.com/">Manuel Mota</a>, Novo Major (DJ), <a href="https://ondaxoque.bandcamp.com/">OndaXoque</a>, <a href="https://shhh-music.bandcamp.com/">shhh…</a>, <a href="https://soundcloud.com/violeta-lisboa">Violeta Lisboa</a> & <a href="https://soundcloud.com/miguel-sa">Miguel Sá</a> (DJ), <a href="https://walthisney.bandcamp.com/">Whalt Thisney</a>.',
   'aragao-funchal': 'Theatre production. Live music & interpretation.',
   'reviralho': 'As part of <a href="https://www.instagram.com/amess.music/">Amess</a>.',
   'heineken-series': 'Solo performance. Alongside <a href="https://www.mmlxii.com/">William Basinski</a>, <a href="https://zigurartists.bandcamp.com/album/forgetting-is-a-liability">Mr. Herbert Quain</a>, <a href="https://www.viberate.com/artist/cruz-767/">Cruz</a>.',
