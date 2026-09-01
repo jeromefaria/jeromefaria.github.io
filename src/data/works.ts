@@ -428,7 +428,7 @@ export const worksData: WorksData = {
         },
         description: {
           en: 'Theatre production celebrating the centenary of <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event. Faria provided both original music and live interpretation—embedding himself in a multidisciplinary creative team rather than delivering a score from a distance.',
-          pt: 'Produção teatral que celebra o centenário de <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, um dos fundadores da Poesia Experimental Portuguesa. Concebida como um evento performativo, sonoro e visual. Faria contribuiu com música original e interpretação ao vivo — integrando-se numa equipa criativa multidisciplinar em vez de entregar uma banda sonora à distância.',
+          pt: 'Produção teatral que celebra o centenário de <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, um dos fundadores da Poesia Experimental Portuguesa. Concebida como um evento performativo, sonoro e visual. Faria contribuiu com música original e interpretação ao vivo, integrado numa equipa criativa multidisciplinar, em vez de entregar uma banda sonora à distância.',
         },
         credits: {
           style: 'colon',
@@ -501,7 +501,7 @@ export const worksData: WorksData = {
         },
         description: {
           en: 'Live score for <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a>\'s 1920 expressionist silent film. Working against Wiene\'s angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honouring the film\'s unease while exploring territories the original could never have envisioned.',
-          pt: 'Banda sonora ao vivo para o filme mudo expressionista de <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a> (1920). Ao trabalhar contra o pesadelo expressionista e angular de Wiene, a peça cria um diálogo que percorre um século de possibilidades sonoras — honrando a inquietação do filme enquanto explora territórios que o original nunca poderia ter vislumbrado.',
+          pt: 'Banda sonora ao vivo para o filme mudo expressionista de <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a> (1920). Ao trabalhar contra o pesadelo expressionista e angular de Wiene, a peça cria um diálogo que percorre um século de possibilidades sonoras e honra a inquietação do filme enquanto explora territórios que o original nunca poderia ter vislumbrado.',
         },
         credits: {
           style: 'by',
