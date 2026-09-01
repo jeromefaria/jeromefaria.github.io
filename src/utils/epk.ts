@@ -3,7 +3,7 @@ import { liveEvents } from '@/data/live';
 import { pressQuotes } from '@/data/press';
 import { worksData } from '@/data/works';
 import { localize } from '@/i18n/localized';
-import { DEFAULT_LOCALE } from '@/i18n/messages';
+import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { EpkContent, EpkLiveHighlight, EpkManifest, EpkPhoto, EpkWorkHighlight } from '@/types/epk';
 import type { EventVenue, LiveEvent } from '@/types/live';
 import type { Release } from '@/types/works';
@@ -61,13 +61,13 @@ export const toWorkHighlight = (release: Release): EpkWorkHighlight => ({
   title: release.title,
 });
 
-export const resolveEpkContent = (manifest: EpkManifest): EpkContent => {
+export const resolveEpkContent = (manifest: EpkManifest, locale: Locale = DEFAULT_LOCALE): EpkContent => {
   const works = Object.values(worksData).flatMap(section => section.items);
 
   return {
     photos: manifest.photos,
-    shortBio: localize(bios[manifest.shortBio], DEFAULT_LOCALE),
-    longBio: localize(bios[manifest.longBio], DEFAULT_LOCALE),
+    shortBio: localize(bios[manifest.shortBio], locale),
+    longBio: localize(bios[manifest.longBio], locale),
     quotes: manifest.pressQuoteIds.map(id => findById(pressQuotes, id)),
     liveHighlights: manifest.highlightLiveIds
       .map(id => findById(liveEvents, id))

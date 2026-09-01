@@ -48,6 +48,17 @@ describe('EpkView', () => {
     expect(workHrefs).toEqual(epk.workHighlights.map(work => `/works#${work.id}`));
   });
 
+  it('renders the Portuguese bio and /pt-prefixed deep links on a pt route', async () => {
+    const wrapper = await mountView(EpkView, '/pt/epk', { locale: 'pt' });
+    const lists = wrapper.findAll('.epk__list');
+    const liveHrefs = lists[0].findAll('a.epk__link').map(link => link.attributes('href'));
+    const workHrefs = lists[1].findAll('a.epk__link').map(link => link.attributes('href'));
+
+    expect(wrapper.find('.prose').html()).toContain('artista sonoro português');
+    expect(liveHrefs).toEqual(epk.liveHighlights.map(highlight => `/pt/live#${highlight.id}`));
+    expect(workHrefs).toEqual(epk.workHighlights.map(work => `/pt/works#${work.id}`));
+  });
+
   it('renders a blockquote per press quote, linking the source only when a url exists', async () => {
     const wrapper = await mountView(EpkView);
     const quotes = wrapper.findAll('.epk__quote');

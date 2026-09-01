@@ -37,6 +37,19 @@ const en = {
   privacy: {
     lastUpdated: 'Last updated {date}.',
   },
+  epk: {
+    shortBio: 'Short bio',
+    download: 'Download',
+    fullKit: 'Full press kit (ZIP)',
+    oneSheet: 'One-sheet (PDF)',
+    rider: 'Technical rider (PDF)',
+    biography: 'Biography',
+    photography: 'Photography',
+    photo: 'Photo',
+    selectedPerformances: 'Selected performances',
+    selectedWorks: 'Selected works',
+    press: 'Press',
+  },
   common: {
     switchLanguage: 'Português',
   },
@@ -117,6 +130,19 @@ const pt: typeof en = {
   },
   privacy: {
     lastUpdated: 'Última actualização: {date}.',
+  },
+  epk: {
+    shortBio: 'Biografia curta',
+    download: 'Descarregar',
+    fullKit: 'Dossier completo (ZIP)',
+    oneSheet: 'One-sheet (PDF)',
+    rider: 'Rider técnico (PDF)',
+    biography: 'Biografia',
+    photography: 'Fotografia',
+    photo: 'Foto',
+    selectedPerformances: 'Actuações seleccionadas',
+    selectedWorks: 'Obras seleccionadas',
+    press: 'Imprensa',
   },
   common: {
     switchLanguage: 'English',

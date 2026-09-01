@@ -39,7 +39,7 @@ const sources: Record<string, unknown> = {
   pageMeta,
   colophonContent,
   privacyContent,
-  bios: { short: bios.short, long: bios.long },
+  bios: { short: bios.short, long: bios.long, press: bios.press },
   worksData,
   liveEvents,
   pressQuotes,

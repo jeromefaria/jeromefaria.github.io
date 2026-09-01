@@ -2,7 +2,7 @@ import type { Localized } from '@/i18n/localized';
 
 interface Bios {
   short: Localized<string>;
-  press: string;
+  press: Localized<string>;
   long: [Localized<string>, Localized<string>, Localized<string>];
 }
 
@@ -11,11 +11,18 @@ export const bios: Bios = {
     en: '<p>Jerome Faria (b. 1983) is a Portuguese composer and sound artist. Over two decades, his practice has moved between confrontational noise and patient drone, film scores and theatre, with performances at festivals including MADEIRADIG and Störung alongside artists such as Alva Noto, Fennesz, and Tim Hecker.</p>',
     pt: '<p>Jerome Faria (n. 1983) é um compositor e artista sonoro português. Ao longo de duas décadas, o seu trabalho tem oscilado entre o ruído confrontador e o drone paciente, das bandas sonoras ao teatro, com actuações em festivais como o MADEIRADIG e o Störung, ao lado de artistas como Alva Noto, Fennesz e Tim Hecker.</p>',
   },
-  press: `
+  press: {
+    en: `
       <p>Jerome Faria (b. 1983) is a Portuguese composer and sound artist whose two-decade practice moves between confrontational noise and patient drone, spanning solo records, collaborations, and scores for film and theatre.</p>
       <p>That trajectory runs from the abrasive digital music of his early NNY releases — which placed him in the 2009 survey <em>Glitch: Designing Imperfection</em>, alongside Kim Cascone and JODI — to the sustained, long-form pieces he records under his own name, and into composition for screen and stage, including a live score for Robert Wiene's <em>The Cabinet of Dr. Caligari</em>. After several quieter years he returned around 2020, his solo output leaner and more deliberate — from <em>2504</em> (2024), a musique-concrète meditation on Portugal's Carnation Revolution, through to <em>En Veille</em> and <em>Contraplacado</em> (2026) — with the improvising duo NOx as a noisier counterweight.</p>
       <p>A recurring presence at MADEIRADIG between 2005 and 2011, he shared bills there with Alva Noto, Fennesz, Tim Hecker, and Murcof, with further dates at Störung (Barcelona) and Festival Migractions (Paris); at MADEIRADIG 2011 he performed in duo with Taylor Deupree. Closer to home, he is rooted in Portugal's experimental community — sharing stages with @c, Vítor Joaquim, and David Maranha, and a long-running duo with Hugo Olim that Alva Noto singled out for praise. These days he works more selectively, centred on an ongoing collaboration with the Lisbon experimental label Colectivo Casa Amarela, where he performs, records, and masters.</p>
     `,
+    pt: `
+      <p>Jerome Faria (n. 1983) é um compositor e artista sonoro português cujo percurso de duas décadas oscila entre o ruído confrontador e o drone paciente, e abrange edições a solo, colaborações e bandas sonoras para cinema e teatro.</p>
+      <p>Essa trajectória vai da música digital abrasiva das suas primeiras edições como NNY — que o colocaram na antologia de 2009 <em>Glitch: Designing Imperfection</em>, ao lado de Kim Cascone e JODI — às peças longas e sustentadas que grava sob o seu próprio nome, e até à composição para ecrã e palco, com uma banda sonora ao vivo para <em>The Cabinet of Dr. Caligari</em>, de Robert Wiene. Após alguns anos mais recolhidos, regressou por volta de 2020, com uma produção a solo mais depurada e deliberada — de <em>2504</em> (2024), uma meditação em musique concrète sobre a Revolução dos Cravos, até <em>En Veille</em> e <em>Contraplacado</em> (2026) — com o duo de improvisação NOx como contrapeso mais ruidoso.</p>
+      <p>Presença recorrente no MADEIRADIG entre 2005 e 2011, partilhou aí cartaz com Alva Noto, Fennesz, Tim Hecker e Murcof, com outras datas no Störung (Barcelona) e no Festival Migractions (Paris); no MADEIRADIG 2011 actuou em duo com Taylor Deupree. Mais perto de casa, está enraizado na comunidade experimental portuguesa, onde partilha palcos com @c, Vítor Joaquim e David Maranha e mantém um duo de longa data com Hugo Olim que Alva Noto destacou com elogios. Actualmente trabalha de forma mais selectiva, centrado numa colaboração contínua com a editora experimental lisboeta Colectivo Casa Amarela, onde actua, grava e masteriza.</p>
+    `,
+  },
   long: [
     {
       en: `

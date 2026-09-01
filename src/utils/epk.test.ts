@@ -78,6 +78,16 @@ describe('resolveEpkContent', () => {
     expect(content.workHighlights).toHaveLength(epkManifest.highlightWorkIds.length);
   });
 
+  it('resolves the Portuguese bios when the pt locale is requested', () => {
+    const english = resolveEpkContent(epkManifest, 'en');
+    const portuguese = resolveEpkContent(epkManifest, 'pt');
+
+    expect(portuguese.shortBio).toContain('artista sonoro português');
+    expect(portuguese.longBio).toContain('percurso de duas décadas');
+    expect(portuguese.shortBio).not.toBe(english.shortBio);
+    expect(portuguese.longBio).not.toBe(english.longBio);
+  });
+
   it('throws when the manifest references data that no longer exists', () => {
     expect(() => resolveEpkContent({ ...epkManifest, highlightWorkIds: ['does-not-exist'] })).toThrow(/does-not-exist/);
   });
