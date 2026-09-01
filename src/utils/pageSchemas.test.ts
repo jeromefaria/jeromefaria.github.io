@@ -22,6 +22,13 @@ describe('createPersonSchema', () => {
     expect(schema.image).toBe(`${siteConfig.url}${siteConfig.image}`);
     expect(schema.sameAs).toEqual(social.map(link => link.url));
   });
+
+  it('localizes jobTitle and description to the requested locale', () => {
+    const schema = createPersonSchema('pt');
+
+    expect(schema.jobTitle).toBe(siteConfig.tagline.pt);
+    expect(schema.description).toBe(siteConfig.description.pt);
+  });
 });
 
 describe('createContactPageSchema', () => {
@@ -36,6 +43,11 @@ describe('createContactPageSchema', () => {
       url: siteConfig.url,
     });
   });
+
+  it('stamps the page inLanguage per locale', () => {
+    expect(createContactPageSchema('en').inLanguage).toBe('en-US');
+    expect(createContactPageSchema('pt').inLanguage).toBe('pt-PT');
+  });
 });
 
 describe('createWorksPageSchema', () => {
@@ -49,6 +61,15 @@ describe('createWorksPageSchema', () => {
     expect(musicGroup.name).toBe(siteConfig.author.name);
     expect(book['@type']).toBe('Book');
     expect(book.name).toBe('Glitch: Designing Imperfection');
+  });
+
+  it('marks the English book en-US and tags only language-bearing albums', () => {
+    const schema = createWorksPageSchema();
+    const [musicGroup, book] = schema['@graph'];
+
+    expect(book.inLanguage).toBe('en-US');
+    expect(musicGroup.album.find(album => album.name === '2504')?.inLanguage).toBe('pt-PT');
+    expect(musicGroup.album.find(album => album.name === 'Overlapse')?.inLanguage).toBeUndefined();
   });
 
   it('includes only solo releases that carry a Bandcamp reference', () => {
@@ -93,5 +114,22 @@ describe('createLiveEventsSchema', () => {
 
     expect(startDates.length).toBeGreaterThan(1);
     expect(startDates).toEqual([...startDates].sort((a, b) => b.localeCompare(a)));
+  });
+
+  it('localizes the list name, description, and event names on a pt build', () => {
+    const schema = createLiveEventsSchema('pt');
+
+    expect(schema.name).toBe(`Actuações de ${siteConfig.author.name}`);
+    expect(schema.description).toBe('Histórico de actuações de 2005 até ao presente');
+    expect(schema.itemListElement.some(element => element.item.name === 'Actuação com Amess')).toBe(true);
+  });
+
+  it('carries per-event inLanguage for language-bearing performances only', () => {
+    const schema = createLiveEventsSchema();
+    const aragao = schema.itemListElement.find(element => element.item.name === 'ARAGÃO');
+    const instrumentalGig = schema.itemListElement.find(element => element.item.name === 'MADEIRADIG');
+
+    expect(aragao?.item.inLanguage).toBe('pt-PT');
+    expect(instrumentalGig?.item.inLanguage).toBeUndefined();
   });
 });
