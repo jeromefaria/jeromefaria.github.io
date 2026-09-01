@@ -2,6 +2,7 @@ import { useHead } from '@unhead/vue';
 import { useRoute } from 'vue-router';
 
 import { siteConfig } from '@/data/navigation';
+import { i18nEnabled } from '@/i18n/flag';
 import { localize, type Localized } from '@/i18n/localized';
 import { DEFAULT_LOCALE, localeFromMeta, localePath, stripLocale, SUPPORTED_LOCALES } from '@/i18n/messages';
 
@@ -56,8 +57,6 @@ export const usePageHead = ({
   const link: Record<string, string>[] = [
     { rel: 'canonical', href: canonicalUrl },
   ];
-
-  const i18nEnabled = import.meta.env.VITE_I18N === 'true';
 
   if (i18nEnabled && !noIndex) {
     const basePath = stripLocale(route.path);
