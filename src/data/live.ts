@@ -31,11 +31,11 @@ export const liveEvents: LiveEvent[] = [
     posters: [
       {
         src: '/images/live/festival-multiplo-2026-poster-001.jpg',
-        alt: 'Festival Múltiplo 2026 poster listing the full three-day lineup, Zaratan, Lisbon',
+        alt: { en: 'Festival Múltiplo 2026 poster listing the full three-day lineup, Zaratan, Lisbon', pt: 'Cartaz do Festival Múltiplo 2026 com o alinhamento completo dos três dias, Zaratan, Lisboa' },
       },
       {
         src: '/images/live/festival-multiplo-2026-poster-002.jpg',
-        alt: 'Festival Múltiplo 2026 poster for 23 August at Zaratan, Lisbon — Jerome Faria, Formidolor, Joana de Sá, Double Double',
+        alt: { en: 'Festival Múltiplo 2026 poster for 23 August at Zaratan, Lisbon — Jerome Faria, Formidolor, Joana de Sá, Double Double', pt: 'Cartaz do Festival Múltiplo 2026 para 23 de Agosto no Zaratan, Lisboa — Jerome Faria, Formidolor, Joana de Sá, Double Double' },
       },
     ],
   },
@@ -51,7 +51,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'TiaAvô' },
       { text: 'Rebolation All-Stars' },
     ],
-    imageAlt: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
+    imageAlt: { en: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025', pt: 'NOx a actuar no Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025' },
     images: [
       {
         src: '/images/live/showcase-casa-amarela-001.jpg',
@@ -101,7 +101,7 @@ export const liveEvents: LiveEvent[] = [
     posters: [
       {
         src: '/images/live/showcase-casa-amarela-poster-001.jpg',
-        alt: 'Showcase Casa Amarela poster — Cooperativa Mula, Barreiro, 14 June 2025 — NOx, Copo d\'Água, TiaAvô, Rebolation All-Stars DJ set',
+        alt: { en: 'Showcase Casa Amarela poster — Cooperativa Mula, Barreiro, 14 June 2025 — NOx, Copo d\'Água, TiaAvô, Rebolation All-Stars DJ set', pt: 'Cartaz do Showcase Casa Amarela — Cooperativa Mula, Barreiro, 14 de Junho de 2025 — NOx, Copo d\'Água, TiaAvô, DJ set Rebolation All-Stars' },
       },
     ],
   },
@@ -115,7 +115,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Ai Feith' },
       { text: 'W.T.V.R' },
     ],
-    imageAlt: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025',
+    imageAlt: { en: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025', pt: 'Jerome Faria a actuar no Fim de Emissão #45, Desterro, Lisboa, 2025' },
     images: [
       {
         src: '/images/live/fim-de-emissao-45-001.jpg',
@@ -173,7 +173,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'DJ Privilégio', url: 'https://soundcloud.com/djprivilegio' },
       { text: "Gallo'84", url: 'https://casaamarela.bandcamp.com/album/shimano' },
     ],
-    imageAlt: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+    imageAlt: { en: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024', pt: 'NOx a actuar em CCA no Desterro, Desterro, Lisboa, 2024' },
     images: [
       {
         src: '/images/live/cca-no-desterro-001.jpg',
@@ -240,7 +240,7 @@ export const liveEvents: LiveEvent[] = [
       {
         url: 'https://www.youtube-nocookie.com/embed/ad8q90MI6Dc',
         platform: 'youtube',
-        title: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
+        title: { en: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024', pt: 'NOx a actuar em CCA no Desterro, Desterro, Lisboa, 2024' },
         author: { name: 'NOx', url: 'https://www.youtube.com/@noxexposure' },
       },
     ],
@@ -251,7 +251,7 @@ export const liveEvents: LiveEvent[] = [
     date: '2022-07-02',
     venue: { name: 'Teatro Municipal Baltazar Dias', url: 'https://www.teatromunicipal.pt/', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'band', band: { text: 'Amess', url: 'https://www.instagram.com/amess.music/' } },
-    imageAlt: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022',
+    imageAlt: { en: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022', pt: 'Jerome Faria a actuar com Amess no Teatro Municipal Baltazar Dias, Funchal, 2022' },
     images: [
       {
         src: '/images/live/amess-teatro-baltazar-dias-001.jpg',
@@ -273,7 +273,7 @@ export const liveEvents: LiveEvent[] = [
     date: '2022-03-18',
     venue: { name: 'Museu Henrique e Francisco Franco', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=3', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'band', band: { text: 'Amess', url: 'https://www.instagram.com/amess.music/' } },
-    imageAlt: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022',
+    imageAlt: { en: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022', pt: 'Jerome Faria a actuar com Amess no Museu Henrique e Francisco Franco, Funchal, 2022' },
     images: [
       {
         src: '/images/live/amess-museu-franco-001.jpg',
@@ -303,7 +303,7 @@ export const liveEvents: LiveEvent[] = [
     date: '2022-03-05',
     venue: { name: 'Rua das Gaivotas 6', url: 'https://ruadasgaivotas6.pt/', city: 'Lisbon', country: 'Portugal' },
     setup: { kind: 'solo' },
-    imageAlt: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022',
+    imageAlt: { en: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022', pt: 'Jerome Faria a actuar no Jejum #11, Rua das Gaivotas 6, Lisboa, 2022' },
     images: [
       {
         src: '/images/live/jejum-11-001.jpg',
@@ -383,7 +383,7 @@ export const liveEvents: LiveEvent[] = [
       en: '<a href="https://thisco.bandcamp.com/">THISCO</a> / SPH anniversary celebration.',
       pt: 'Celebração de aniversário da <a href="https://thisco.bandcamp.com/">THISCO</a> / SPH.',
     },
-    imageAlt: 'Jerome Faria and CAVERNANCIA performing at Nariz Entupido, SMUP, Parede, 2021',
+    imageAlt: { en: 'Jerome Faria and CAVERNANCIA performing at Nariz Entupido, SMUP, Parede, 2021', pt: 'Jerome Faria e CAVERNANCIA a actuar no Nariz Entupido, SMUP, Parede, 2021' },
     images: [
       {
         src: '/images/live/nariz-entupido-001.jpg',
@@ -405,7 +405,7 @@ export const liveEvents: LiveEvent[] = [
     posters: [
       {
         src: '/images/live/nariz-entupido-poster-001.jpg',
-        alt: 'Nariz Entupido poster — 30 anos SPH / 20 anos Thisco anniversary, SMUP, Parede, 22 October 2021; CAVERNANCIA + Jerome Faria',
+        alt: { en: 'Nariz Entupido poster — 30 anos SPH / 20 anos Thisco anniversary, SMUP, Parede, 22 October 2021; CAVERNANCIA + Jerome Faria', pt: 'Cartaz do Nariz Entupido — aniversário 30 anos SPH / 20 anos Thisco, SMUP, Parede, 22 de Outubro de 2021; CAVERNANCIA + Jerome Faria' },
         artist: { name: 'André Lemos', url: 'https://www.chilicomcarne.com/index.php/autores/gallery/18' },
       },
     ],
@@ -420,7 +420,7 @@ export const liveEvents: LiveEvent[] = [
     venue: { name: 'Teatro Municipal Baltazar Dias', url: 'https://www.teatromunicipal.pt/', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'solo' },
     format: { kind: 'theatre' },
-    imageAlt: 'Aragão theatre production at Teatro Municipal Baltazar Dias, Funchal, 2021',
+    imageAlt: { en: 'Aragão theatre production at Teatro Municipal Baltazar Dias, Funchal, 2021', pt: 'Produção teatral Aragão no Teatro Municipal Baltazar Dias, Funchal, 2021' },
     images: [
       {
         src: '/images/live/aragao-funchal-001.jpg',
@@ -430,18 +430,18 @@ export const liveEvents: LiveEvent[] = [
     posters: [
       {
         src: '/images/live/aragao-funchal-poster-001.jpg',
-        alt: 'Aragão poster — Teatro Municipal Baltazar Dias, Funchal, 22–25 September 2021; text by Rui Zink, staged by Sara Gonçalves',
+        alt: { en: 'Aragão poster — Teatro Municipal Baltazar Dias, Funchal, 22–25 September 2021; text by Rui Zink, staged by Sara Gonçalves', pt: 'Cartaz de Aragão — Teatro Municipal Baltazar Dias, Funchal, 22–25 de Setembro de 2021; texto de Rui Zink, encenação de Sara Gonçalves' },
       },
       {
         src: '/images/live/aragao-funchal-poster-002.jpg',
-        alt: 'Aragão programme spread — synopsis and technical credits, Teatro Municipal Baltazar Dias, Funchal, 2021',
+        alt: { en: 'Aragão programme spread — synopsis and technical credits, Teatro Municipal Baltazar Dias, Funchal, 2021', pt: 'Folha de sala de Aragão — sinopse e ficha técnica, Teatro Municipal Baltazar Dias, Funchal, 2021' },
       },
     ],
     videos: [
       {
         url: 'https://www.youtube-nocookie.com/embed/6LpRJBS7pzg',
         platform: 'youtube',
-        title: 'Aragão at Teatro Municipal Baltazar Dias, Funchal, 2021',
+        title: { en: 'Aragão at Teatro Municipal Baltazar Dias, Funchal, 2021', pt: 'Aragão no Teatro Municipal Baltazar Dias, Funchal, 2021' },
         author: { name: 'TRANSLOCAL Culturas Contemporâneas Locais e Urbanas', url: 'https://www.youtube.com/@translocalculturascontempo3938' },
       },
     ],
@@ -464,7 +464,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Mr. Herbert Quain', url: 'https://zigurartists.bandcamp.com/album/forgetting-is-a-liability' },
       { text: 'Cruz', url: 'https://www.viberate.com/artist/cruz-767/' },
     ],
-    imageAlt: 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015',
+    imageAlt: { en: 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015', pt: 'Jerome Faria a actuar na Heineken Series, Musicbox, Lisboa, 2015' },
     images: [
       {
         src: '/images/live/heineken-series-001.jpg',
@@ -518,7 +518,7 @@ export const liveEvents: LiveEvent[] = [
     bill: [
       { text: 'Tren Go! Sound System', url: 'https://trengosoundsystem.bandcamp.com/' },
     ],
-    imageAlt: 'Jerome Faria performing at Fica na Cidade, Praça de Colombo, Funchal, 2015',
+    imageAlt: { en: 'Jerome Faria performing at Fica na Cidade, Praça de Colombo, Funchal, 2015', pt: 'Jerome Faria a actuar no Fica na Cidade, Praça de Colombo, Funchal, 2015' },
     images: [
       {
         src: '/images/live/fica-na-cidade-001.jpg',
@@ -558,7 +558,7 @@ export const liveEvents: LiveEvent[] = [
     venue: { name: 'Scat Music Club', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Nuno Filipe', url: 'https://nunoandtheend.bandcamp.com/', suffix: '(piano)' } },
     format: { kind: 'filmScore', film: "Robert Wiene's 1920 expressionist silent film" },
-    imageAlt: 'Jerome Faria performing The Cabinet of Dr. Caligari at Scat Music Club, Funchal, 2013',
+    imageAlt: { en: 'Jerome Faria performing The Cabinet of Dr. Caligari at Scat Music Club, Funchal, 2013', pt: 'Jerome Faria a interpretar The Cabinet of Dr. Caligari no Scat Music Club, Funchal, 2013' },
     images: [
       {
         src: '/images/live/caligari-live-2-001.jpg',
@@ -573,7 +573,7 @@ export const liveEvents: LiveEvent[] = [
     venue: { name: 'Casa das Mudas', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1', city: 'Calheta', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Nuno Filipe', url: 'https://nunoandtheend.bandcamp.com/', suffix: '(piano)' } },
     format: { kind: 'filmScore', film: "Robert Wiene's 1920 expressionist silent film", premiere: true },
-    imageAlt: 'Jerome Faria performing at Cidades Eletrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013',
+    imageAlt: { en: 'Jerome Faria performing at Cidades Eletrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013', pt: 'Jerome Faria a actuar em Cidades Eletrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013' },
     images: [
       {
         src: '/images/live/caligari-cidades-2013-001.jpg',
@@ -594,7 +594,7 @@ export const liveEvents: LiveEvent[] = [
       {
         url: 'https://www.youtube-nocookie.com/embed/41vx80KyONA',
         platform: 'youtube',
-        title: 'Cine Qua Non performance at Estalagem da Ponta do Sol, 2012',
+        title: { en: 'Cine Qua Non performance at Estalagem da Ponta do Sol, 2012', pt: 'Cine Qua Non ao vivo na Estalagem da Ponta do Sol, 2012' },
         author: { name: 'The Noise Spot', url: 'https://www.youtube.com/@thenoisespot' },
       },
     ],
@@ -615,7 +615,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Nadja', url: 'https://nadja.bandcamp.com/' },
       { text: 'Aki Onda', url: 'https://akionda.net/' },
     ],
-    imageAlt: 'Jerome Faria and Taylor Deupree performing at MADEIRADIG, Casa das Mudas, Calheta, 2011',
+    imageAlt: { en: 'Jerome Faria and Taylor Deupree performing at MADEIRADIG, Casa das Mudas, Calheta, 2011', pt: 'Jerome Faria e Taylor Deupree a actuar no MADEIRADIG, Casa das Mudas, Calheta, 2011' },
     images: [
       {
         src: '/images/live/madeiradig-2011-001.jpg',
@@ -649,7 +649,7 @@ export const liveEvents: LiveEvent[] = [
     date: '2011-05-23',
     venue: { name: 'Théâtre de L\'Opprimé', url: 'https://www.theatredelopprime.com/', city: 'Paris', country: 'France' },
     setup: { kind: 'duo', with: { text: 'Hugo Olim', url: 'https://vimeo.com/hugoolim', suffix: '(visuals)' } },
-    imageAlt: 'Jerome Faria and Hugo Olim performing at Festival Migractions, Théâtre de L\'Opprimé, Paris, 2011',
+    imageAlt: { en: 'Jerome Faria and Hugo Olim performing at Festival Migractions, Théâtre de L\'Opprimé, Paris, 2011', pt: 'Jerome Faria e Hugo Olim a actuar no Festival Migractions, Théâtre de L\'Opprimé, Paris, 2011' },
     images: [
       {
         src: '/images/live/migractions-2011-001.jpg',
@@ -675,7 +675,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Paul Farrington' },
       { text: 'André Gonçalves' },
     ],
-    imageAlt: 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010',
+    imageAlt: { en: 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010', pt: 'Jerome Faria a actuar no Olhares de Outono, Passos Manuel, Porto, 2010' },
     images: [
       {
         src: '/images/live/olhares-de-outono-2010-001.jpg',
@@ -723,7 +723,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Gigantiq', url: 'https://gigantiq.bandcamp.com/' },
       { text: 'Jade', url: 'http://www.jade-enterprises.at/' },
     ],
-    imageAlt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, Casa das Mudas, Calheta, 2009',
+    imageAlt: { en: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, Casa das Mudas, Calheta, 2009', pt: 'Jerome Faria e Hugo Olim a actuar no MADEIRADIG, Casa das Mudas, Calheta, 2009' },
     images: [
       {
         src: '/images/live/madeiradig-2009-001.jpg',
@@ -754,13 +754,13 @@ export const liveEvents: LiveEvent[] = [
       {
         url: 'https://www.youtube-nocookie.com/embed/csZramO6QDM',
         platform: 'youtube',
-        title: 'Jerome Faria and Hugo Olim at MADEIRADIG 2009',
+        title: { en: 'Jerome Faria and Hugo Olim at MADEIRADIG 2009', pt: 'Jerome Faria e Hugo Olim no MADEIRADIG 2009' },
         author: { name: 'Vítor Joaquim', url: 'https://www.youtube.com/@vjoaquim' },
       },
       {
         url: 'https://player.vimeo.com/video/8088317',
         platform: 'vimeo',
-        title: 'Jerome Faria and Hugo Olim at MADEIRADIG 2009',
+        title: { en: 'Jerome Faria and Hugo Olim at MADEIRADIG 2009', pt: 'Jerome Faria e Hugo Olim no MADEIRADIG 2009' },
         author: { name: 'Hugo Olim', url: 'https://vimeo.com/hugoolim' },
       },
     ],
@@ -793,7 +793,7 @@ export const liveEvents: LiveEvent[] = [
         { text: 'Hugo Olim', url: 'https://vimeo.com/hugoolim' },
       ],
     },
-    imageAlt: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009',
+    imageAlt: { en: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009', pt: 'Encontro de laptops Resampling White Noise no EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009' },
     images: [
       {
         src: '/images/live/eme-olhares-2009-001.jpg',
@@ -851,7 +851,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Safe & Sound' },
       { text: 'The Beautiful Schizophonic', url: 'https://cronica.bandcamp.com/album/musicamorosa' },
     ],
-    imageAlt: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008',
+    imageAlt: { en: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008', pt: 'Jerome Faria a actuar no EME Festival, Teatro Ibérico, Lisboa, 2008' },
     images: [
       {
         src: '/images/live/eme-2008-001.jpg',
@@ -890,7 +890,7 @@ export const liveEvents: LiveEvent[] = [
       {
         url: 'https://www.youtube-nocookie.com/embed/d_0IXOpiZTE',
         platform: 'youtube',
-        title: 'Jerome Faria at EME Festival 2008, Lisbon',
+        title: { en: 'Jerome Faria at EME Festival 2008, Lisbon', pt: 'Jerome Faria no EME Festival 2008, Lisboa' },
         author: { name: 'Vítor Joaquim', url: 'https://www.youtube.com/@vjoaquim' },
       },
     ],
@@ -910,7 +910,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Sébastien Roux' },
       { text: 'Tonne' },
     ],
-    imageAlt: 'Jerome Faria performing at Störung Festival, La Farinera del Clot, Barcelona, 2008',
+    imageAlt: { en: 'Jerome Faria performing at Störung Festival, La Farinera del Clot, Barcelona, 2008', pt: 'Jerome Faria a actuar no Störung Festival, La Farinera del Clot, Barcelona, 2008' },
     images: [
       {
         src: '/images/live/storung-2008-001.jpg',
@@ -941,7 +941,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Aenedra' },
       { text: 'Unknown Forces Of Everyday Life' },
     ],
-    imageAlt: 'Jerome Faria performing at STFU Porto, Fábrica do Som, Porto, 2007',
+    imageAlt: { en: 'Jerome Faria performing at STFU Porto, Fábrica do Som, Porto, 2007', pt: 'Jerome Faria a actuar no STFU Porto, Fábrica do Som, Porto, 2007' },
     images: [
       {
         src: '/images/live/stfu-porto-001.jpg',
@@ -971,7 +971,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Vladislav Delay', url: 'https://vladislavdelay.bandcamp.com/' },
       { text: 'Ran Slavin', url: 'https://ranslavin.com/' },
     ],
-    imageAlt: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007',
+    imageAlt: { en: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007', pt: 'Jerome Faria a actuar no MADEIRADIG, Casa das Mudas, Calheta, 2007' },
     images: [
       {
         src: '/images/live/madeiradig-2007-001.jpg',
@@ -1041,7 +1041,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Florian Hecker', url: 'https://florianhecker.blogspot.com/' },
       [{ text: '@c', url: 'https://at-c.org/' }, { text: 'Lia', url: 'https://liaworks.com/' }],
     ],
-    imageAlt: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005',
+    imageAlt: { en: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005', pt: 'Jerome Faria e Hugo Olim a actuar no MADEIRADIG, Auditório da RDP, Funchal, 2005' },
     images: [
       {
         src: '/images/live/madeiradig-2005-001.jpg',
