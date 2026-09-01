@@ -24,7 +24,9 @@ const emit = defineEmits<{
   'open-lightbox': [items: LightboxItem[], index: number, source: LightboxSource];
 }>();
 
-const formattedDate = computed(() => formatEventDateRange(props.event.date, props.event.endDate));
+const { current } = useLocale();
+
+const formattedDate = computed(() => formatEventDateRange(props.event.date, props.event.endDate, current.value));
 
 const titleHref = computed(() => props.event.titleUrl ?? null);
 
@@ -41,7 +43,6 @@ const imageLightboxItems = computed<LightboxItem[]>(() =>
 const posterLightboxItems = computed<LightboxItem[]>(() => props.event.posters?.map(toLightboxImage) ?? []);
 const videoLightboxItems = computed<LightboxItem[]>(() => props.event.videos?.map(toLightboxVideo) ?? []);
 const t = useT();
-const { current } = useLocale();
 const imageLabel = computed(() => t(imageLightboxItems.value.length === 1 ? 'media.photo' : 'media.photos'));
 
 useLightboxDeepLink(
