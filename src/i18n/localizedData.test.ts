@@ -7,6 +7,7 @@ import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
 import { pressQuotes } from '@/data/press';
 import { privacyContent } from '@/data/privacy';
+import { techRider } from '@/data/techRider';
 import { worksData } from '@/data/works';
 
 interface LeafNode {
@@ -43,6 +44,7 @@ const sources: Record<string, unknown> = {
   worksData,
   liveEvents,
   pressQuotes,
+  techRider,
 };
 
 const nodes: LeafNode[] = [];
@@ -54,6 +56,7 @@ const SAME_ACROSS_LOCALES = new Set([
   'worksData.solo.title',
   'worksData.nny.title',
   'worksData.solo.items[1].credits.note',
+  'techRider.sections[5].title',
 ]);
 
 describe('localized data', () => {

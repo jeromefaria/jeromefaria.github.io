@@ -45,19 +45,19 @@ const epk = computed(() => resolveEpkContent(epkManifest, current.value));
         <p class="media-links">
           <a
             class="link-discrete"
-            :href="epkZipHref"
+            :href="epkZipHref(current)"
             download
           >{{ t('epk.fullKit') }}</a>
           <span> | </span>
           <a
             class="link-discrete"
-            :href="epkPdfHref"
+            :href="epkPdfHref(current)"
             download
           >{{ t('epk.oneSheet') }}</a>
           <span> | </span>
           <a
             class="link-discrete"
-            :href="epkRiderHref"
+            :href="epkRiderHref(current)"
             download
           >{{ t('epk.rider') }}</a>
         </p>
