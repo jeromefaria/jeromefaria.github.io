@@ -6,7 +6,8 @@ import { liveEvents } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
 import { localize } from '@/i18n/localized';
-import { DEFAULT_LOCALE } from '@/i18n/messages';
+import type { Locale } from '@/i18n/messages';
+import type { TranslateFn } from '@/i18n/useT';
 import type { ActionCommand, Command } from '@/types/command';
 import type { LiveEvent } from '@/types/live';
 import type { Release, ReleaseMeta } from '@/types/works';
@@ -18,28 +19,30 @@ import { stripHtml } from '@/utils/stripHtml';
 
 import { pressQuotes } from './press';
 
-const routeCommands = (): Command[] => [
-  { kind: 'navigate', id: 'nav:home', title: 'Home', keywords: ['start', 'index'], group: 'Navigate', to: '/' },
-  { kind: 'navigate', id: 'nav:works', title: 'Works', keywords: ['discography', 'releases', 'music', 'albums'], group: 'Navigate', to: '/works' },
-  { kind: 'navigate', id: 'nav:live', title: 'Live', keywords: ['shows', 'concerts', 'performances', 'gigs'], group: 'Navigate', to: '/live' },
-  { kind: 'navigate', id: 'nav:press', title: 'Press', keywords: ['quotes', 'reviews', 'reception'], group: 'Navigate', to: '/press' },
-  { kind: 'navigate', id: 'nav:about', title: 'About', keywords: ['bio', 'biography'], group: 'Navigate', to: '/about' },
-  { kind: 'navigate', id: 'nav:contact', title: 'Contact', keywords: ['email', 'message', 'reach', 'booking'], group: 'Navigate', to: '/contact' },
-  { kind: 'navigate', id: 'nav:epk', title: 'Press Kit', keywords: ['epk', 'downloads', 'photos'], group: 'Navigate', to: '/epk' },
-  { kind: 'navigate', id: 'nav:privacy', title: 'Privacy', keywords: ['policy', 'data'], group: 'Navigate', to: '/privacy' },
-  { kind: 'navigate', id: 'nav:colophon', title: 'Colophon', keywords: ['tech', 'stack', 'built', 'source', 'code'], group: 'Navigate', to: '/colophon' },
+// Indexed word-by-word after stripping HTML, so a query matches discrete words, not raw markup like URLs.
+const words = (text: string): string[] => stripHtml(text).split(' ').filter(Boolean);
+
+const routeCommands = (t: TranslateFn): Command[] => [
+  { kind: 'navigate', id: 'nav:home', title: t('palette.home'), keywords: words(t('palette.kw.home')), group: 'Navigate', to: '/' },
+  { kind: 'navigate', id: 'nav:works', title: t('nav.works'), keywords: words(t('palette.kw.works')), group: 'Navigate', to: '/works' },
+  { kind: 'navigate', id: 'nav:live', title: t('nav.live'), keywords: words(t('palette.kw.live')), group: 'Navigate', to: '/live' },
+  { kind: 'navigate', id: 'nav:press', title: t('nav.press'), keywords: words(t('palette.kw.press')), group: 'Navigate', to: '/press' },
+  { kind: 'navigate', id: 'nav:about', title: t('nav.about'), keywords: words(t('palette.kw.about')), group: 'Navigate', to: '/about' },
+  { kind: 'navigate', id: 'nav:contact', title: t('nav.contact'), keywords: words(t('palette.kw.contact')), group: 'Navigate', to: '/contact' },
+  { kind: 'navigate', id: 'nav:epk', title: t('palette.pressKit'), keywords: words(t('palette.kw.pressKit')), group: 'Navigate', to: '/epk' },
+  { kind: 'navigate', id: 'nav:privacy', title: t('footer.privacy'), keywords: words(t('palette.kw.privacy')), group: 'Navigate', to: '/privacy' },
+  { kind: 'navigate', id: 'nav:colophon', title: t('footer.colophon'), keywords: words(t('palette.kw.colophon')), group: 'Navigate', to: '/colophon' },
 ];
 
-const sectionCommands = (): Command[] => [
-  ...Object.entries(worksData).map(([key, section]): Command => ({
+const sectionCommands = (t: TranslateFn, locale: Locale): Command[] =>
+  Object.entries(worksData).map(([key, section]): Command => ({
     kind: 'navigate',
     id: `nav:works:${key}`,
-    title: `Works — ${section.title.en}`,
-    keywords: [section.title.en, 'works'],
+    title: t('palette.worksSection', { title: localize(section.title, locale) }),
+    keywords: [localize(section.title, locale), ...words(t('palette.kw.worksSection'))],
     group: 'Navigate',
     to: `/works#section-${section.id}`,
-  })),
-];
+  }));
 
 const metaText = (meta: ReleaseMeta): string[] => {
   const out: string[] = [];
@@ -54,9 +57,6 @@ const metaText = (meta: ReleaseMeta): string[] => {
 
   return out.filter(Boolean);
 };
-
-// Indexed word-by-word after stripping HTML, so a query matches discrete words, not raw markup like URLs.
-const words = (text: string): string[] => stripHtml(text).split(' ').filter(Boolean);
 
 const eventPeople = (event: LiveEvent): string[] => {
   const { setup } = event;
@@ -75,47 +75,47 @@ const eventPeople = (event: LiveEvent): string[] => {
 };
 
 // Engineering credits are skipped — they carry no in-page anchor (they link out or to a real entry).
-const releaseCommands = (): Command[] =>
+const releaseCommands = (locale: Locale): Command[] =>
   Object.values(worksData).flatMap(section =>
     section.items.filter(release => release.meta.kind !== 'engineering').map((release): Command => ({
       kind: 'result',
       id: `works:${release.id}`,
       title: release.title,
-      subtitle: section.title.en,
-      keywords: words([section.title.en, String(release.meta.year), ...metaText(release.meta), ...(release.tracklist ?? []).map(track => track.title), ...(release.images ?? []).map(image => image.photographer?.name ?? ''), ...(release.contributors ?? []).map(contributor => contributor.name)].join(' ')),
-      text: words([release.description?.en ?? '', plainCredits(release.credits ?? '')].join(' ')),
+      subtitle: localize(section.title, locale),
+      keywords: words([localize(section.title, locale), String(release.meta.year), ...metaText(release.meta), ...(release.tracklist ?? []).map(track => track.title), ...(release.images ?? []).map(image => image.photographer?.name ?? ''), ...(release.contributors ?? []).map(contributor => contributor.name)].join(' ')),
+      text: words([localize(release.description ?? '', locale), plainCredits(release.credits ?? '', locale)].join(' ')),
       group: 'Works',
       to: `/works#${release.id}`,
     })),
   );
 
-const liveCommands = (): Command[] =>
+const liveCommands = (locale: Locale): Command[] =>
   liveEvents.map((event): Command => ({
     kind: 'result',
     id: `live:${event.id}`,
-    title: localize(event.title, DEFAULT_LOCALE),
+    title: localize(event.title, locale),
     subtitle: event.venue.name ?? event.venue.city ?? event.venue.country,
     keywords: words([event.venue.name ?? '', event.venue.city ?? '', event.venue.country, event.date.slice(0, 4), ...eventPeople(event)].join(' ')),
-    text: words(event.note?.en ?? ''),
+    text: words(localize(event.note ?? '', locale)),
     group: 'Live',
     to: `/live#${event.id}`,
   }));
 
-const pressCommands = (): Command[] =>
+const pressCommands = (t: TranslateFn, locale: Locale): Command[] =>
   pressQuotes.map((quote): Command => ({
     kind: 'result',
     id: `press:${quote.id}`,
     title: quote.source,
-    subtitle: 'Press',
-    keywords: ['press', 'review', 'quote'],
-    text: words(quote.quote.en),
+    subtitle: t('nav.press'),
+    keywords: words(t('palette.kw.pressQuote')),
+    text: words(localize(quote.quote, locale)),
     group: 'Press',
     to: `/press#${quote.id}`,
   }));
 
 const allReleases = (): Release[] => Object.values(worksData).flatMap(section => section.items);
 
-const releaseLinkCommands = (platform: string, keyword: string, urlOf: (release: Release) => string | undefined): Command[] =>
+const releaseLinkCommands = (t: TranslateFn, platform: string, keyword: string, urlOf: (release: Release) => string | undefined): Command[] =>
   allReleases().flatMap(release => {
     const url = urlOf(release);
     if (!url) return [];
@@ -123,40 +123,40 @@ const releaseLinkCommands = (platform: string, keyword: string, urlOf: (release:
     return [{
       kind: 'action',
       id: `act:${keyword}:${release.id}`,
-      title: `Open '${release.title}' on ${platform}`,
-      keywords: [release.title, keyword, 'listen', 'play'],
+      title: t('palette.openOnPlatform', { title: release.title, platform }),
+      keywords: [release.title, keyword, ...words(t('palette.kw.releaseLink'))],
       group: 'Actions',
       external: true,
       run: () => openInNewTab(url),
     } satisfies Command];
   });
 
-const actionCommands = (): Command[] => {
+const actionCommands = (t: TranslateFn): Command[] => {
   const downloads: Command[] = [
-    { kind: 'action', id: 'act:press-kit-pdf', title: 'Download press kit (PDF)', keywords: ['epk', 'pdf', 'press'], group: 'Actions', external: true, run: () => openInNewTab(epkPdfHref()) },
-    { kind: 'action', id: 'act:rider-pdf', title: 'Download technical rider (PDF)', keywords: ['rider', 'tech', 'pdf', 'stage'], group: 'Actions', external: true, run: () => openInNewTab(epkRiderHref()) },
-    { kind: 'action', id: 'act:press-kit-zip', title: 'Download press kit (ZIP)', keywords: ['epk', 'zip', 'photos', 'assets'], group: 'Actions', external: true, run: () => openInNewTab(epkZipHref()) },
+    { kind: 'action', id: 'act:press-kit-pdf', title: t('palette.downloadKitPdf'), keywords: words(t('palette.kw.downloadKitPdf')), group: 'Actions', external: true, run: () => openInNewTab(epkPdfHref()) },
+    { kind: 'action', id: 'act:rider-pdf', title: t('palette.downloadRiderPdf'), keywords: words(t('palette.kw.downloadRiderPdf')), group: 'Actions', external: true, run: () => openInNewTab(epkRiderHref()) },
+    { kind: 'action', id: 'act:press-kit-zip', title: t('palette.downloadKitZip'), keywords: words(t('palette.kw.downloadKitZip')), group: 'Actions', external: true, run: () => openInNewTab(epkZipHref()) },
   ];
 
   const help: Command = {
     kind: 'action',
     id: 'act:shortcuts',
-    title: 'Keyboard shortcuts',
-    keywords: ['help', 'keys', 'bindings', 'cheatsheet'],
+    title: t('keyboardHelp.title'),
+    keywords: words(t('palette.kw.shortcuts')),
     group: 'Actions',
     run: () => openKeyboardHelp(),
   };
 
   const appearance: Command[] = [
-    { kind: 'action', id: 'act:theme', title: 'Toggle theme', keywords: ['dark', 'light', 'mode', 'appearance', 'colour', 'color'], group: 'Actions', run: () => toggleTheme() },
-    { kind: 'action', id: 'act:theme-system', title: 'Match system theme', keywords: ['system', 'os', 'auto', 'preference', 'appearance', 'theme'], group: 'Actions', run: () => matchSystemTheme() },
+    { kind: 'action', id: 'act:theme', title: t('palette.toggleTheme'), keywords: words(t('palette.kw.toggleTheme')), group: 'Actions', run: () => toggleTheme() },
+    { kind: 'action', id: 'act:theme-system', title: t('palette.matchSystemTheme'), keywords: words(t('palette.kw.matchSystemTheme')), group: 'Actions', run: () => matchSystemTheme() },
   ];
 
   const contact: Command = {
     kind: 'action',
     id: 'act:copy-email',
-    title: 'Copy contact email',
-    keywords: ['email', 'clipboard', 'contact'],
+    title: t('palette.copyEmail'),
+    keywords: words(t('palette.kw.copyEmail')),
     group: 'Actions',
     run: () => { void navigator.clipboard?.writeText(siteConfig.author.email); },
   };
@@ -164,21 +164,21 @@ const actionCommands = (): Command[] => {
   const socials: Command[] = social.map((link): Command => ({
     kind: 'action',
     id: `act:social:${link.name}`,
-    title: `Open ${link.name.charAt(0).toUpperCase()}${link.name.slice(1)}`,
-    keywords: [link.name, 'social', 'link'],
+    title: t('palette.openSocial', { name: `${link.name.charAt(0).toUpperCase()}${link.name.slice(1)}` }),
+    keywords: [link.name, ...words(t('palette.kw.social'))],
     group: 'Actions',
     external: true,
     run: () => openInNewTab(link.url),
   }));
 
-  const bandcamp = releaseLinkCommands('Bandcamp', 'bandcamp', release => release.bandcampUrl);
-  const soundcloud = releaseLinkCommands('SoundCloud', 'soundcloud', release => release.soundcloudUrl);
+  const bandcamp = releaseLinkCommands(t, 'Bandcamp', 'bandcamp', release => release.bandcampUrl);
+  const soundcloud = releaseLinkCommands(t, 'SoundCloud', 'soundcloud', release => release.soundcloudUrl);
 
   return [...downloads, help, ...appearance, contact, ...socials, ...bandcamp, ...soundcloud];
 };
 
 // Empty when no track is loaded; merged in reactively by useCommandPalette, not the static registry.
-export const playbackCommands = (): Command[] => {
+export const playbackCommands = (t: TranslateFn): Command[] => {
   const { currentTrack, status, hasNext, hasPrevious, expanded, toggle, next, previous, expand, collapse, stop } = usePlayer();
   const track = currentTrack.value;
   if (!track) return [];
@@ -191,23 +191,23 @@ export const playbackCommands = (): Command[] => {
   });
 
   const commands: Command[] = [
-    control({ id: 'play:toggle', title: isActiveStatus(status.value) ? 'Pause' : 'Play', subtitle: track.title, keywords: ['pause', 'play', 'resume', 'music', 'audio', 'playback'], run: () => toggle() }),
+    control({ id: 'play:toggle', title: isActiveStatus(status.value) ? t('palette.pause') : t('palette.play'), subtitle: track.title, keywords: words(t('palette.kw.playToggle')), run: () => toggle() }),
   ];
 
   if (hasNext.value) {
-    commands.push(control({ id: 'play:next', title: 'Next track', keywords: ['next', 'skip', 'forward'], run: () => void next() }));
+    commands.push(control({ id: 'play:next', title: t('palette.nextTrack'), keywords: words(t('palette.kw.nextTrack')), run: () => void next() }));
   }
   if (hasPrevious.value) {
-    commands.push(control({ id: 'play:previous', title: 'Previous track', keywords: ['previous', 'back', 'prev'], run: () => void previous() }));
+    commands.push(control({ id: 'play:previous', title: t('palette.previousTrack'), keywords: words(t('palette.kw.previousTrack')), run: () => void previous() }));
   }
 
-  commands.push(control({ id: 'play:expand', title: expanded.value ? 'Collapse player' : 'Expand player', keywords: ['expand', 'collapse', 'now playing', 'minimise', 'minimize'], run: () => (expanded.value ? collapse() : expand()) }));
-  commands.push(control({ id: 'play:stop', title: 'Stop playback', keywords: ['stop', 'close', 'dismiss', 'end'], run: () => stop() }));
+  commands.push(control({ id: 'play:expand', title: expanded.value ? t('palette.collapsePlayer') : t('palette.expandPlayer'), keywords: words(t('palette.kw.player')), run: () => (expanded.value ? collapse() : expand()) }));
+  commands.push(control({ id: 'play:stop', title: t('palette.stopPlayback'), keywords: words(t('palette.kw.stopPlayback')), run: () => stop() }));
 
   return commands;
 };
 
-export const playReleaseCommands = (): Command[] => {
+export const playReleaseCommands = (t: TranslateFn): Command[] => {
   if (!audioPlayerEnabled.value) return [];
 
   return allReleases()
@@ -215,19 +215,19 @@ export const playReleaseCommands = (): Command[] => {
     .map((release): Command => ({
       kind: 'action',
       id: `play:release:${release.id}`,
-      title: `Play '${release.title}'`,
-      keywords: [release.title, 'play', 'listen', 'audio', 'music'],
+      title: t('palette.playRelease', { title: release.title }),
+      keywords: [release.title, ...words(t('palette.kw.playRelease'))],
       group: 'Actions',
       transient: true,
       run: () => playReleaseAt(release),
     }));
 };
 
-export const buildCommands = (): Command[] => [
-  ...routeCommands(),
-  ...sectionCommands(),
-  ...releaseCommands(),
-  ...liveCommands(),
-  ...pressCommands(),
-  ...actionCommands(),
+export const buildCommands = (t: TranslateFn, locale: Locale): Command[] => [
+  ...routeCommands(t),
+  ...sectionCommands(t, locale),
+  ...releaseCommands(locale),
+  ...liveCommands(locale),
+  ...pressCommands(t, locale),
+  ...actionCommands(t),
 ];
