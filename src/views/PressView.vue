@@ -31,7 +31,7 @@ useHashScroll(scrollToHash);
         :id="item.id"
         :key="item.id"
       >
-        <p v-html="item.quote" />
+        <p v-html="localize(item.quote)" />
         <strong>
           <ExternalLink
             v-if="item.url"

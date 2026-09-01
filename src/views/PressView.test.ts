@@ -56,6 +56,12 @@ describe('PressView', () => {
     });
   });
 
+  it('renders Portuguese quotes on a pt route', async () => {
+    const wrapper = await mountView(PressView, '/pt/press', { locale: 'pt' });
+    expect(wrapper.text()).toContain('Não há aqui nem um segundo para dispensar');
+    expect(wrapper.text()).not.toContain('There is not a second to spare');
+  });
+
   it('links the source when a quote has a url, and shows plain text otherwise', async () => {
     const wrapper = await mountView(PressView);
 
