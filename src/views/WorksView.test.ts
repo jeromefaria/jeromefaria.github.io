@@ -52,6 +52,12 @@ describe('WorksView', () => {
     expect(wrapper.findAllComponents(AccordionSection)).toHaveLength(worksSections.length);
   });
 
+  it('renders Portuguese section headings on a pt route', async () => {
+    const wrapper = await mountView(WorksView, '/pt/works', { locale: 'pt' });
+    expect(wrapper.get('#trigger-film').text()).toContain('Bandas sonoras');
+    expect(wrapper.get('#trigger-collaborations').text()).toContain('Colaborações');
+  });
+
   it('renders a release item for every non-credit release, and a credit for each engineering entry', async () => {
     const wrapper = await mountView(WorksView, '/works');
     const items = Object.values(worksData).flatMap(section => section.items);

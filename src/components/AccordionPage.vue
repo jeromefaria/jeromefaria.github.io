@@ -3,6 +3,7 @@ import { useTemplateRef } from 'vue';
 
 import { useAccordion } from '@/composables/useAccordion';
 import { usePageHead } from '@/composables/usePageHead';
+import { type Localized, useLocalized } from '@/i18n/localized';
 import type { LightboxItem } from '@/types';
 import type { LightboxSource } from '@/utils/lightboxPermalink';
 import { findSectionContainingId, updateHash } from '@/utils/navigation';
@@ -12,10 +13,12 @@ import LightboxHost from './LightboxHost.vue';
 import PageShell from './PageShell.vue';
 
 interface Section {
-  title: string;
+  title: string | Localized<string>;
   id: string;
   items: T[];
 }
+
+const localize = useLocalized();
 
 const props = defineProps<{
   dataPage: string;
@@ -63,7 +66,7 @@ const openLightbox = (items: LightboxItem[], index: number, source?: LightboxSou
         v-for="sectionKey in sections"
         :id="sectionKey"
         :key="sectionKey"
-        :title="sectionData[sectionKey]?.title || sectionKey"
+        :title="localize(sectionData[sectionKey]?.title ?? sectionKey)"
         :model-value="openSection === sectionKey"
         @update:model-value="handleToggle(sectionKey, $event)"
       >

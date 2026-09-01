@@ -2,6 +2,8 @@ import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import { play, type PlayContext, playFrom } from '@/composables/usePlayer';
 import { getReleaseAudio, hasPlayableAudio } from '@/data/audio';
 import { worksData } from '@/data/works';
+import { localize } from '@/i18n/localized';
+import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { Release } from '@/types';
 import { hasCoverImage } from '@/types';
 
@@ -52,10 +54,10 @@ interface ReleaseHead {
   image?: string;
 }
 
-export const releaseHead = (release: Release): ReleaseHead => ({
+export const releaseHead = (release: Release, locale: Locale = DEFAULT_LOCALE): ReleaseHead => ({
   title: release.title,
   description: release.description
-    ? stripHtml(release.description)
+    ? stripHtml(localize(release.description, locale))
     : `${release.title} — a release by Jerome Faria.`,
   ogType: 'music.album',
   ...(hasCoverImage(release) ? { image: release.coverImage } : {}),

@@ -5,6 +5,7 @@ import { colophonContent } from '@/data/colophon';
 import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
 import { privacyContent } from '@/data/privacy';
+import { worksData } from '@/data/works';
 
 interface LeafNode {
   path: string;
@@ -37,13 +38,18 @@ const sources: Record<string, unknown> = {
   colophonContent,
   privacyContent,
   bios: { short: bios.short, long: bios.long },
+  worksData,
 };
 
 const nodes: LeafNode[] = [];
 for (const [name, source] of Object.entries(sources)) collect(source, name, nodes);
 
 // Values that are intentionally identical across locales (proper terms kept as-is).
-const SAME_ACROSS_LOCALES = new Set(['pageMeta.colophon.title']);
+const SAME_ACROSS_LOCALES = new Set([
+  'pageMeta.colophon.title',
+  'worksData.solo.title',
+  'worksData.nny.title',
+]);
 
 describe('localized data', () => {
   it('traverses the expected localized surface', () => {
