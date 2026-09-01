@@ -1,5 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
 
+import { i18nEnabled } from '@/i18n/flag';
+
 export const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -76,4 +78,4 @@ export const buildRoutes = (base: RouteRecordRaw[], i18nEnabled: boolean): Route
   return [...pages, ...pages.map(toPtRoute), ...base.filter(isCatchAll)];
 };
 
-export const appRoutes = buildRoutes(routes, import.meta.env.VITE_I18N === 'true');
+export const appRoutes = buildRoutes(routes, i18nEnabled);

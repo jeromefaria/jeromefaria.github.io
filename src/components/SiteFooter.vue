@@ -2,13 +2,13 @@
 import { RouterLink } from 'vue-router';
 
 import { navigation, siteConfig } from '@/data/navigation';
+import { i18nEnabled } from '@/i18n/flag';
 import { useLocale } from '@/i18n/useLocale';
 import { useT } from '@/i18n/useT';
 
 const t = useT();
 const { toLocalePath, switchPath } = useLocale();
 const currentYear = new Date().getFullYear();
-const i18nEnabled = import.meta.env.VITE_I18N === 'true';
 </script>
 
 <template>
