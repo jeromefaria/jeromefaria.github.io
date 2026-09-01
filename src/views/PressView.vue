@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ExternalLink from '@/components/ExternalLink.vue';
 import PageShell from '@/components/PageShell.vue';
+import PressQuote from '@/components/PressQuote.vue';
 import { useHashScroll } from '@/composables/useHashScroll';
 import { usePageHead } from '@/composables/usePageHead';
 import { pageMeta } from '@/data/pageMeta';
@@ -26,20 +26,14 @@ useHashScroll(scrollToHash);
       data-page="press"
       :title="localize(pageMeta.press.title)"
     >
-      <blockquote
+      <PressQuote
         v-for="item in pressQuotes"
         :id="item.id"
         :key="item.id"
-      >
-        <p v-html="localize(item.quote)" />
-        <strong>
-          <ExternalLink
-            v-if="item.url"
-            :href="item.url"
-          >{{ item.source }}</ExternalLink>
-          <template v-else>{{ item.source }}</template>
-        </strong>
-      </blockquote>
+        :quote="item.quote"
+        :source="item.source"
+        :url="item.url"
+      />
     </PageShell>
   </div>
 </template>
