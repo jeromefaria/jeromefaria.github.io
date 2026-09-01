@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { bios } from '@/data/bios';
 import { colophonContent } from '@/data/colophon';
 import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
@@ -35,6 +36,7 @@ const sources: Record<string, unknown> = {
   pageMeta,
   colophonContent,
   privacyContent,
+  bios: { short: bios.short, long: bios.long },
 };
 
 const nodes: LeafNode[] = [];

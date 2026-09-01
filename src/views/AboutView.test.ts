@@ -15,6 +15,15 @@ describe('AboutView', () => {
     expect(wrapper.findAll('.prose')).toHaveLength(proseCount);
   });
 
+  it('renders the Portuguese bio with /pt-prefixed internal links on a pt route', async () => {
+    const wrapper = await mountView(AboutView, '/pt/about', { locale: 'pt' });
+
+    expect(wrapper.get('.short-bio').text()).toContain('compositor e artista sonoro português');
+    const links = wrapper.findAll('.prose a').map(anchor => anchor.attributes('href'));
+    expect(links).toContain('/pt/works#nny');
+    expect(links).toContain('https://www.fennesz.com/');
+  });
+
   it('renders a figure for every image across the image groups', async () => {
     const wrapper = await mountView(AboutView, '/about');
 
