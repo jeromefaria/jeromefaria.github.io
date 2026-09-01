@@ -16,6 +16,8 @@ import { releasePath } from '@/utils/releasePermalink';
 import { renderCredits } from '@/utils/renderCredits';
 
 import BandcampPlayer from './BandcampPlayer.vue';
+import IconPause from './IconPause.vue';
+import IconPlay from './IconPlay.vue';
 import MediaLinks from './MediaLinks.vue';
 import PlayableCover from './PlayableCover.vue';
 import ReleaseCover from './ReleaseCover.vue';
@@ -116,7 +118,7 @@ const {
           :aria-label="`Play ${release.title}`"
           @click="playThis"
         >
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
+          <IconPlay />
         </button>
         <strong>
           <a
@@ -147,18 +149,8 @@ const {
             :aria-label="`${isTrackPlaying(index) ? 'Pause' : 'Play'} ${track.title}`"
             @click="playTrack(index)"
           >
-            <svg
-              v-if="isTrackPlaying(index)"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-            ><path fill="currentColor" d="M6 5h4v14H6zm8 0h4v14h-4z" /></svg>
-            <svg
-              v-else
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-            ><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
+            <IconPause v-if="isTrackPlaying(index)" />
+            <IconPlay v-else />
           </button>
           <button
             v-else-if="chaptered"
@@ -167,7 +159,7 @@ const {
             :aria-label="`Play ${track.title}`"
             @click="playChapter(index)"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
+            <IconPlay />
           </button>
           <TrackListItem
             :track="track"
