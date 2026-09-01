@@ -58,18 +58,12 @@ describe('App', () => {
   afterEach(() => {
     activeWrapper?.unmount();
     activeWrapper = null;
-    document.body.classList.remove('ready');
   });
 
   it('renders the skip link and the main content region', async () => {
     const { wrapper } = await mountApp();
     expect(wrapper.get('.skip-link').attributes('href')).toBe('#main-content');
     expect(wrapper.find('main#main-content').exists()).toBe(true);
-  });
-
-  it('marks the body ready on mount', async () => {
-    await mountApp();
-    expect(document.body.classList.contains('ready')).toBe(true);
   });
 
   it('marks a cross-origin link in the main content as a new-tab, safe link', async () => {

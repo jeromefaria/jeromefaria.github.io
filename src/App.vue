@@ -63,7 +63,6 @@ onMounted(() => {
   initTheme();
   initFeatureFlags();
   processExternalLinks();
-  document.body.classList.add('ready');
 });
 </script>
 
