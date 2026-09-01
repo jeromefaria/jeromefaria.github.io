@@ -3,6 +3,8 @@ import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { buildCommands, playbackCommands, playReleaseCommands } from '@/data/commands';
+import { useLocale } from '@/i18n/useLocale';
+import { useT } from '@/i18n/useT';
 import type { Command } from '@/types/command';
 import { fuzzyRank } from '@/utils/fuzzy';
 import { openInNewTab } from '@/utils/openInNewTab';
@@ -45,12 +47,14 @@ interface UseCommandPaletteReturn {
 
 export const useCommandPalette = (): UseCommandPaletteReturn => {
   const router = useRouter();
+  const t = useT();
+  const { current } = useLocale();
 
-  const commands = buildCommands();
-  const byId = new Map(commands.map(command => [command.id, command]));
+  const commands = computed<Command[]>(() => buildCommands(t, current.value));
+  const byId = computed(() => new Map(commands.value.map(command => [command.id, command])));
 
-  const transportCommands = computed<Command[]>(() => playbackCommands());
-  const audioCommands = computed<Command[]>(() => [...transportCommands.value, ...playReleaseCommands()]);
+  const transportCommands = computed<Command[]>(() => playbackCommands(t));
+  const audioCommands = computed<Command[]>(() => [...transportCommands.value, ...playReleaseCommands(t)]);
 
   const query = ref('');
   const activeIndex = ref(0);
@@ -58,7 +62,7 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
 
   const recentCommands = computed<Command[]>(() =>
     recentIds.value
-      .map(id => byId.get(id))
+      .map(id => byId.value.get(id))
       .filter((command): command is Command => command !== undefined)
       .map(command => ({ ...command, group: 'Recent' as const })));
 
@@ -67,14 +71,14 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     saveRecents(recentIds.value);
   };
 
-  const clearRecentsCommand: Command = {
+  const clearRecentsCommand = computed<Command>(() => ({
     kind: 'action',
     id: 'act:clear-recents',
-    title: 'Clear recents',
-    keywords: ['clear', 'reset', 'history', 'forget'],
+    title: t('palette.clearRecents'),
+    keywords: t('palette.kw.clearRecents').split(' '),
     group: 'Actions',
     run: () => clearRecents(),
-  };
+  }));
 
   const results = computed<Command[]>(() => {
     if (query.value.trim() === '') {
@@ -83,14 +87,14 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
         .filter(command => !PRIMARY_ROUTE_IDS.includes(command.id))
         .slice(0, CURATED_RECENTS_MAX);
       const navigation = PRIMARY_ROUTE_IDS
-        .map(id => byId.get(id))
+        .map(id => byId.value.get(id))
         .filter((command): command is Command => command !== undefined);
-      const clear = recents.length ? [clearRecentsCommand] : [];
+      const clear = recents.length ? [clearRecentsCommand.value] : [];
       return [...transportCommands.value, ...recents, ...clear, ...navigation];
     }
 
-    const recentsTail = recentCommands.value.length ? [clearRecentsCommand] : [];
-    const searchable = [...commands, ...audioCommands.value, ...recentsTail];
+    const recentsTail = recentCommands.value.length ? [clearRecentsCommand.value] : [];
+    const searchable = [...commands.value, ...audioCommands.value, ...recentsTail];
     return fuzzyRank(query.value, searchable).slice(0, MAX_RESULTS);
   });
 

@@ -3,6 +3,9 @@ import { computed, nextTick, ref, watch } from 'vue';
 
 import { useCommandPalette } from '@/composables/useCommandPalette';
 import { useOverlay } from '@/composables/useOverlay';
+import { useT } from '@/i18n/useT';
+
+const t = useT();
 
 const { isOpen, query, activeIndex, results, close, handleKeydown, execute } = useCommandPalette();
 
@@ -12,7 +15,7 @@ useOverlay(isOpen, inputRef);
 
 const showHeaders = computed(() => query.value.trim() === '');
 const announcement = computed(() =>
-  (isOpen.value ? `${results.value.length} result${results.value.length === 1 ? '' : 's'}` : ''));
+  (isOpen.value ? `${results.value.length} ${results.value.length === 1 ? t('palette.result') : t('palette.results')}` : ''));
 
 const optionId = (index: number): string => `command-palette-option-${index}`;
 
@@ -34,7 +37,7 @@ watch(activeIndex, async () => {
           class="command-palette__panel"
           role="dialog"
           aria-modal="true"
-          aria-label="Command palette"
+          :aria-label="t('palette.ariaLabel')"
         >
           <input
             ref="inputRef"
@@ -45,8 +48,8 @@ watch(activeIndex, async () => {
             :aria-expanded="results.length > 0"
             :aria-controls="results.length ? 'command-palette-listbox' : undefined"
             :aria-activedescendant="results.length ? optionId(activeIndex) : undefined"
-            aria-label="Search, navigate, or run a command"
-            placeholder="Search, navigate, or run a command…"
+            :aria-label="t('palette.searchLabel')"
+            :placeholder="`${t('palette.searchLabel')}…`"
             autocomplete="off"
             spellcheck="false"
             @keydown="handleKeydown"
@@ -67,7 +70,7 @@ watch(activeIndex, async () => {
                 class="command-palette__group"
                 role="presentation"
               >
-                {{ command.group }}
+                {{ t(`palette.groups.${command.group}`) }}
               </li>
               <li
                 :id="optionId(index)"
@@ -90,16 +93,16 @@ watch(activeIndex, async () => {
             v-else
             class="command-palette__empty"
           >
-            No matches
+            {{ t('palette.empty') }}
           </p>
 
           <div
             class="command-palette__hint"
             aria-hidden="true"
           >
-            <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
-            <span><kbd>↵</kbd> open</span>
-            <span><kbd>esc</kbd> close</span>
+            <span><kbd>↑</kbd><kbd>↓</kbd> {{ t('palette.hint.navigate') }}</span>
+            <span><kbd>↵</kbd> {{ t('palette.hint.open') }}</span>
+            <span><kbd>esc</kbd> {{ t('palette.hint.close') }}</span>
           </div>
         </div>
 
