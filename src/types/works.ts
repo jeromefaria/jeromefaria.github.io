@@ -125,9 +125,6 @@ export const hasBandcampId = (release: Release): release is Release & { bandcamp
 export const hasBandcampUrl = (release: Release): release is Release & { bandcampUrl: string } =>
   Boolean(release.bandcampUrl);
 
-export const hasSoundcloudUrl = (release: Release): release is Release & { soundcloudUrl: string } =>
-  Boolean(release.soundcloudUrl);
-
 export const hasExternalUrl = (release: Release): release is Release & { externalUrl: string } =>
   Boolean(release.externalUrl);
 
@@ -140,7 +137,7 @@ export const hasTracklist = (release: Release): release is Release & { tracklist
 export const hasDescription = (release: Release): release is Release & { description: Localized<string> } =>
   Boolean(release.description);
 
-export const hasCredits = (release: Release): release is Release & { credits: string } =>
+export const hasCredits = (release: Release): release is Release & { credits: Credits } =>
   Boolean(release.credits);
 
 export const hasImages = (release: Release): release is Release & { images: Image[] } =>
