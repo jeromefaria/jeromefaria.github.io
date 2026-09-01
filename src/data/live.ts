@@ -396,7 +396,7 @@ export const liveEvents: LiveEvent[] = [
       en: 'Organised by <a href="https://linktr.ee/narizentupido">Nariz Entupido</a> with <a href="https://thisco.bandcamp.com/">THISCO</a> and SPH.',
       pt: 'Organizado pela <a href="https://linktr.ee/narizentupido">Nariz Entupido</a> com a <a href="https://thisco.bandcamp.com/">THISCO</a> e a SPH.',
     },
-    imageAlt: { en: 'Jerome Faria and CAVERNANCIA performing at Nariz Entupido, SMUP, Parede, 2021', pt: 'Jerome Faria e CAVERNANCIA a actuar no Nariz Entupido, SMUP, Parede, 2021' },
+    imageAlt: { en: 'Jerome Faria and CAVERNANCIA performing at SMUP, Parede, 2021', pt: 'Jerome Faria e CAVERNANCIA a actuar na SMUP, Parede, 2021' },
     images: [
       {
         src: '/images/live/nariz-entupido-001.jpg',
@@ -418,7 +418,7 @@ export const liveEvents: LiveEvent[] = [
     posters: [
       {
         src: '/images/live/nariz-entupido-poster-001.jpg',
-        alt: { en: 'Nariz Entupido poster — 30 anos SPH / 20 anos Thisco anniversary, SMUP, Parede, 22 October 2021; CAVERNANCIA + Jerome Faria', pt: 'Cartaz do Nariz Entupido — aniversário 30 anos SPH / 20 anos Thisco, SMUP, Parede, 22 de Outubro de 2021; CAVERNANCIA + Jerome Faria' },
+        alt: { en: 'Poster for 30 anos SPH / 20 anos Thisco — SMUP, Parede, 22–23 October 2021; CAVERNANCIA + Jerome Faria', pt: 'Cartaz de 30 anos SPH / 20 anos Thisco — SMUP, Parede, 22–23 de Outubro de 2021; CAVERNANCIA + Jerome Faria' },
         artist: { name: 'André Lemos', url: 'https://www.chilicomcarne.com/index.php/autores/gallery/18' },
       },
     ],
@@ -581,12 +581,12 @@ export const liveEvents: LiveEvent[] = [
   },
   {
     id: 'caligari-live',
-    title: 'Cidades Eletrónicas: The Cabinet of Dr. Caligari',
+    title: 'Cidades Electrónicas: The Cabinet of Dr. Caligari',
     date: '2013-05-11',
     venue: { name: 'Casa das Mudas', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1', city: 'Calheta', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Nuno Filipe', url: 'https://nunoandtheend.bandcamp.com/', suffix: '(piano)' } },
     format: { kind: 'filmScore', film: "Robert Wiene's 1920 expressionist silent film", premiere: true },
-    imageAlt: { en: 'Jerome Faria performing at Cidades Eletrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013', pt: 'Jerome Faria a actuar em Cidades Eletrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013' },
+    imageAlt: { en: 'Jerome Faria performing at Cidades Electrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013', pt: 'Jerome Faria a actuar em Cidades Electrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013' },
     images: [
       {
         src: '/images/live/caligari-cidades-2013-001.jpg',
