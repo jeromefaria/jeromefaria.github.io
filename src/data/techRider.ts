@@ -33,7 +33,7 @@ export const techRider: TechRider = {
   contact: siteConfig.author.email,
   overview: {
     en: 'Solo electronic performance — analogue synthesiser, sampler, and effect pedals through a small-format mixer. No backline, no additional musicians, and no crew required beyond venue power and PA access.',
-    pt: 'Actuação electrónica a solo — sintetizador analógico, sampler e pedais de efeitos através de uma mesa de pequeno formato. Sem backline, sem músicos adicionais e sem necessidade de equipa além da energia da sala e do acesso ao PA.',
+    pt: 'Actuação electrónica a solo — sintetizador analógico, sampler e pedais de efeitos através de uma mesa de mistura de pequeno formato. Sem backline, sem músicos adicionais e sem necessidade de equipa além da energia da sala e do acesso ao PA.',
   },
   summary: {
     en: [
@@ -108,7 +108,7 @@ export const techRider: TechRider = {
       title: { en: 'Input list / PA connection', pt: 'Lista de entradas / ligação ao PA' },
       body: {
         en: 'One <strong>stereo pair</strong> from the performer\'s mixer to the house, <strong>balanced XLR</strong> at line level — a standard XLR run from the performance position to FOH.',
-        pt: 'Um <strong>par estéreo</strong> da mesa do artista para o sistema da sala, <strong>XLR balanceado</strong> a nível de linha — um cabo XLR comum da posição de actuação até FOH.',
+        pt: 'Um <strong>par estéreo</strong> da mesa de mistura do artista para o sistema da sala, <strong>XLR balanceado</strong> a nível de linha — um cabo XLR comum da posição de actuação até FOH.',
       },
       table: {
         kind: 'input',
@@ -132,7 +132,7 @@ export const techRider: TechRider = {
           'A stage monitor alongside IEMs for room reference can be discussed, but is never required.',
         ],
         pt: [
-          'Autónoma, por monitores in-ear, a partir da mesa do próprio artista — <strong>sem monitor de palco</strong>.',
+          'Autónoma, por monitores in-ear, a partir da mesa de mistura do próprio artista — <strong>sem monitor de palco</strong>.',
           'Um monitor de palco em conjunto com os IEMs, como referência de sala, pode ser discutido, mas nunca é necessário.',
         ],
       },
