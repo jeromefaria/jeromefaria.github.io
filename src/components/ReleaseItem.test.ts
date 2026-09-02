@@ -24,7 +24,7 @@ const bandcamp: Release = {
   meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2012 },
   bandcampId: '1643026936',
   coverImage: '/images/altar.jpg',
-  bandcampUrl: 'https://music.jeromefaria.com/album/altar',
+  bandcampUrl: 'https://jeromefaria.bandcamp.com/album/altar',
   tracklist: [{ title: 'Attack' }, { title: 'Sustain' }],
   credits: 'Music by Jerome Faria.',
 };
@@ -35,7 +35,7 @@ const audioBacked: Release = {
   meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2012 },
   bandcampId: '1643026936',
   coverImage: '/images/overlapse.jpg',
-  bandcampUrl: 'https://music.jeromefaria.com/album/overlapse',
+  bandcampUrl: 'https://jeromefaria.bandcamp.com/album/overlapse',
   soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/overlapse',
   credits: 'Music by Jerome Faria.',
 };
@@ -55,7 +55,7 @@ const chaptered: Release = {
   title: '2504',
   meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2024 },
   coverImage: '/images/2504.jpg',
-  bandcampUrl: 'https://music.jeromefaria.com/album/2504',
+  bandcampUrl: 'https://jeromefaria.bandcamp.com/album/2504',
   soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/april-25',
   tracklist: [
     { title: 'Prólogo', start: 0 },
@@ -152,6 +152,19 @@ describe('ReleaseItem', () => {
     const wrapper = mountRelease(textOnlyRelease);
     await wrapper.get('.release-title-link').trigger('click');
     expect(wrapper.emitted('update-hash')?.[0]).toEqual(['master-open']);
+  });
+
+  it('locale-prefixes the title permalink on a pt route', async () => {
+    const ptRouter = createRouter({
+      history: createMemoryHistory(),
+      routes: [{ path: '/:pathMatch(.*)*', component: { render: () => null }, meta: { locale: 'pt' } }],
+    });
+    ptRouter.push('/pt/works');
+    await ptRouter.isReady();
+
+    const wrapper = mount(ReleaseItem, { props: { release: textOnlyRelease, textOnly: true }, global: { plugins: [ptRouter] } });
+
+    expect(wrapper.get('.release-title-link').attributes('href')).toBe('/pt/works/master-open');
   });
 
   it('renders meta, tracklist and credits', () => {

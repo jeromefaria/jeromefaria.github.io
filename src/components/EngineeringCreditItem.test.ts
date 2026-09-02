@@ -49,4 +49,17 @@ describe('EngineeringCreditItem', () => {
     expect(title.attributes('target')).toBeUndefined();
     expect(wrapper.get('.release-meta').text()).toContain('Mixing and Mastering');
   });
+
+  it('locale-prefixes the own-release back-link on a pt route', async () => {
+    const ptRouter = createRouter({
+      history: createMemoryHistory(),
+      routes: [{ path: '/:pathMatch(.*)*', component: { template: '<div />' }, meta: { locale: 'pt' } }],
+    });
+    ptRouter.push('/pt/works');
+    await ptRouter.isReady();
+
+    const wrapper = mount(EngineeringCreditItem, { props: { release: ownRef }, global: { plugins: [ptRouter] } });
+
+    expect(wrapper.get('.release-title-link').attributes('href')).toBe('/pt/works/overlapse-xiii');
+  });
 });
