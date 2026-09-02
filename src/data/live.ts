@@ -655,6 +655,14 @@ export const liveEvents: LiveEvent[] = [
         photographer: { name: 'Valentina Araújo' },
       },
     ],
+    videos: [
+      {
+        url: 'https://www.youtube-nocookie.com/embed/ymAcKVDmAqg',
+        platform: 'youtube',
+        title: { en: 'MADEIRADIG 2011 festival lineup spot', pt: 'Spot do MADEIRADIG 2011, com o alinhamento do festival' },
+        author: { name: 'Die4filmsMadeira', url: 'https://www.youtube.com/@Die4filmsMadeira' },
+      },
+    ],
   },
   {
     id: 'migractions-2011',
@@ -839,6 +847,12 @@ export const liveEvents: LiveEvent[] = [
     bill: [
       { text: 'Hauschka', url: 'https://hauschka.bandcamp.com/' },
       { text: 'The Sight Below', url: 'https://thesightbelow.bandcamp.com/' },
+    ],
+    posters: [
+      {
+        src: '/images/live/eme-madeira-2008-poster-001.jpg',
+        alt: { en: 'EME 08 — Encontros de Música Experimental poster at Centro das Artes Casa das Mudas, Calheta — Hauschka (Germany), The Sight Below (USA), and NNY / Jerome Faria (Portugal), 4 October 2008', pt: 'Cartaz do EME 08 — Encontros de Música Experimental no Centro das Artes Casa das Mudas, Calheta — Hauschka (Alemanha), The Sight Below (E.U.A.) e NNY / Jerome Faria (Portugal), 4 de Outubro de 2008' },
+      },
     ],
   },
   {

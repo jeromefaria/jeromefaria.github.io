@@ -81,6 +81,12 @@ describe('liveData posters', () => {
         alt: 'Festival Múltiplo 2026 poster for 23 August at Zaratan, Lisbon — Jerome Faria, Formidolor, Joana de Sá, Double Double',
       },
     ],
+    'eme-madeira-2008': [
+      {
+        src: '/images/live/eme-madeira-2008-poster-001.jpg',
+        alt: 'EME 08 — Encontros de Música Experimental poster at Centro das Artes Casa das Mudas, Calheta — Hauschka (Germany), The Sight Below (USA), and NNY / Jerome Faria (Portugal), 4 October 2008',
+      },
+    ],
   };
 
   it('has a poster snapshot for exactly the poster-bearing events', () => {
