@@ -14,7 +14,7 @@ vi.mock('@unhead/vue', () => ({
   }),
 }));
 
-const mockRoute = reactive({ path: '/test' });
+const mockRoute = reactive<{ path: string; meta?: { locale: string } }>({ path: '/test' });
 
 vi.mock('vue-router', () => ({
   useRoute: () => mockRoute,
@@ -57,6 +57,7 @@ describe('usePageHead', () => {
   beforeEach(() => {
     headConfig.length = 0;
     mockRoute.path = '/test';
+    mockRoute.meta = undefined;
     flagState.enabled = false;
   });
 
@@ -174,6 +175,46 @@ describe('usePageHead', () => {
 
       const config = mountWithPageHead({ title: 'Press Kit', description: 'desc', noIndex: true });
       expect(alternates(config)).toHaveLength(0);
+    });
+  });
+
+  describe('og:locale', () => {
+    const ogLocales = (config: Record<string, unknown>): MetaTag[] =>
+      (config.meta as MetaTag[]).filter(m => m.property === 'og:locale' || m.property === 'og:locale:alternate');
+
+    it('sets og:locale to en_GB for the default en route', () => {
+      const config = mountWithPageHead({ title: 'About', description: 'desc' });
+      expect(getMeta(config, 'og:locale')?.content).toBe('en_GB');
+    });
+
+    it('omits og:locale:alternate when i18n is disabled', () => {
+      const config = mountWithPageHead({ title: 'About', description: 'desc' });
+      expect(ogLocales(config).map(m => m.property)).toEqual(['og:locale']);
+    });
+
+    it('adds a pt_PT alternate for an en route when i18n is enabled', () => {
+      flagState.enabled = true;
+      const config = mountWithPageHead({ title: 'Works', description: 'desc' });
+      expect(ogLocales(config)).toEqual([
+        { property: 'og:locale', content: 'en_GB' },
+        { property: 'og:locale:alternate', content: 'pt_PT' },
+      ]);
+    });
+
+    it('sets og:locale to pt_PT with an en_GB alternate for a pt route', () => {
+      flagState.enabled = true;
+      mockRoute.meta = { locale: 'pt' };
+      const config = mountWithPageHead({ title: 'Works', description: 'desc' });
+      expect(ogLocales(config)).toEqual([
+        { property: 'og:locale', content: 'pt_PT' },
+        { property: 'og:locale:alternate', content: 'en_GB' },
+      ]);
+    });
+
+    it('omits og:locale:alternate on a noindex page even when i18n is enabled', () => {
+      flagState.enabled = true;
+      const config = mountWithPageHead({ title: 'Press Kit', description: 'desc', noIndex: true });
+      expect(ogLocales(config).map(m => m.property)).toEqual(['og:locale']);
     });
   });
 
