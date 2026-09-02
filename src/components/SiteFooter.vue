@@ -41,7 +41,10 @@ const currentYear = new Date().getFullYear();
           </RouterLink>
           <template v-if="i18nEnabled">
             •
-            <RouterLink :to="switchPath">
+            <RouterLink
+              :to="switchPath"
+              :aria-label="t('common.switchLanguageLabel')"
+            >
               {{ t('common.switchLanguage') }}
             </RouterLink>
           </template>
