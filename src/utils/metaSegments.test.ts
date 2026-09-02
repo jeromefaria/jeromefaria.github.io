@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
+import type { Locale } from '@/i18n/messages';
 import type { ReleaseMeta } from '@/types/works';
 
 import { buildMetaSegments } from './metaSegments';
 
-const asText = (meta: ReleaseMeta) =>
-  buildMetaSegments(meta)
+const asText = (meta: ReleaseMeta, locale?: Locale) =>
+  buildMetaSegments(meta, locale)
     .map(segment => (segment.kind === 'text' ? segment.text : segment.link.text))
     .join('');
 
@@ -66,7 +67,7 @@ describe('buildMetaSegments', () => {
       roles: ['mixing', 'mastering'],
       editions: [{ label: { text: 'Label' }, catalog: 'L1' }],
       year: 2025,
-    })).toBe('Mixing & Mastering — Label, L1, 2025');
+    })).toBe('Mixing and Mastering — Label, L1, 2025');
 
     expect(asText({
       kind: 'engineering',
@@ -74,5 +75,41 @@ describe('buildMetaSegments', () => {
       editions: [{ label: { text: 'Label' } }],
       year: 2012,
     })).toBe('Mastering — Label, 2012');
+  });
+
+  it('localizes the meta line for Portuguese', () => {
+    expect(asText({
+      kind: 'compilation',
+      compilation: { text: 'Comp' },
+      mediums: ['CD'],
+      editions: [{ label: { text: 'Label' } }],
+      year: 2008,
+    }, 'pt')).toBe('em Comp — CD, Label, 2008');
+
+    expect(asText({
+      kind: 'compilation',
+      compilation: { text: 'Comp' },
+      collaborators: ['Structura'],
+      mediums: ['MP3'],
+      editions: [{ label: { text: 'Label' } }],
+      year: 2007,
+    }, 'pt')).toBe('com Structura em Comp — MP3, Label, 2007');
+
+    expect(asText({ kind: 'commission', work: 'Film', director: { text: 'Dir' }, year: 2016 }, 'pt'))
+      .toBe('Filme — realização de Dir, 2016');
+    expect(asText({ kind: 'commission', work: 'Theatre', venue: { text: 'Venue' }, year: 2021 }, 'pt'))
+      .toBe('Teatro — Venue, 2021');
+    expect(asText({ kind: 'commission', work: 'DVD', publisher: { label: { text: 'Pub' } }, year: 2008 }, 'pt'))
+      .toBe('DVD — Pub, 2008');
+    expect(asText({ kind: 'commission', work: 'Live Score', year: 2013 }, 'pt'))
+      .toBe('Filme-concerto — 2013');
+
+    expect(asText({ kind: 'publication', publisher: { text: 'Pub' }, year: 2009 }, 'pt'))
+      .toBe('Livro — Pub, 2009');
+
+    expect(asText({ kind: 'engineering', roles: ['mastering'], editions: [{ label: { text: 'Label' } }], year: 2012 }, 'pt'))
+      .toBe('Masterização — Label, 2012');
+    expect(asText({ kind: 'engineering', roles: ['mixing', 'mastering'], editions: [{ label: { text: 'Label' } }], year: 2025 }, 'pt'))
+      .toBe('Mistura e masterização — Label, 2025');
   });
 });
