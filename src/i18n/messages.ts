@@ -50,7 +50,7 @@ const en = {
     photo: 'Photo',
     selectedPerformances: 'Selected performances',
     selectedWorks: 'Selected works',
-    press: 'Press',
+    press: 'Selected press',
   },
   common: {
     switchLanguage: 'PT',
@@ -214,7 +214,7 @@ const pt: typeof en = {
     photo: 'Foto',
     selectedPerformances: 'Actuações seleccionadas',
     selectedWorks: 'Obras seleccionadas',
-    press: 'Imprensa',
+    press: 'Imprensa seleccionada',
   },
   common: {
     switchLanguage: 'EN',

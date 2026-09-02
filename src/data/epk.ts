@@ -35,7 +35,7 @@ export const epkManifest: EpkManifest = {
   ],
   shortBio: 'short',
   longBio: 'press',
-  pressQuoteIds: ['quietus-madeiradig', 'paralelo33-alvanoto', 'edicao-limitada', 'bodyspace-basinski'],
+  pressQuoteIds: ['quietus-madeiradig', 'bodyspace-basinski', 'acloserlisten', 'paralelo33-alvanoto'],
   highlightLiveIds: ['aragao-funchal', 'madeiradig-2011', 'eme-2008', 'olhares-de-outono-2010', 'storung-2008', 'migractions-2011'],
   highlightWorkIds: ['contraplacado', 'en-veille', '2504', 'caligari-album', 'overlapse', '1714'],
 };

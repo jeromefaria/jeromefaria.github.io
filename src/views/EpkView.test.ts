@@ -26,7 +26,7 @@ describe('EpkView', () => {
     const wrapper = await mountView(EpkView);
     const headings = wrapper.findAll('.epk__heading').map(heading => heading.text());
 
-    expect(headings).toEqual(['Short bio', 'Download', 'Biography', 'Photography', 'Selected performances', 'Selected works', 'Press']);
+    expect(headings).toEqual(['Short bio', 'Download', 'Biography', 'Photography', 'Selected performances', 'Selected works', 'Selected press']);
   });
 
   it('lists a row for each resolved live and work highlight', async () => {

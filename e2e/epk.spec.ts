@@ -11,7 +11,7 @@ test.describe('Press kit (EPK)', () => {
     await expect(page).toHaveTitle(/Press Kit/);
     await expect(page.locator('[data-page="epk"]')).toBeVisible();
 
-    for (const heading of ['Short bio', 'Download', 'Biography', 'Photography', 'Selected performances', 'Selected works', 'Press']) {
+    for (const heading of ['Short bio', 'Download', 'Biography', 'Photography', 'Selected performances', 'Selected works', 'Selected press']) {
       await expect(page.getByRole('heading', { name: heading, exact: true })).toBeVisible();
     }
   });
