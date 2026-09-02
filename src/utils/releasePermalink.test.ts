@@ -54,6 +54,10 @@ describe('releasePermalink', () => {
       expect(head.description).toBe('Y — a release by Jerome Faria.');
       expect(head.image).toBeUndefined();
     });
+
+    it('localizes the fallback description for Portuguese', () => {
+      expect(releaseHead(noCover, 'pt').description).toBe('Y — uma edição de Jerome Faria.');
+    });
   });
 
   describe('releasePath', () => {
