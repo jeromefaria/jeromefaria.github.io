@@ -283,5 +283,21 @@ describe('EventItem', () => {
       expect(venue.find('a').exists()).toBe(false);
       expect(venue.text()).toBe('Portugal');
     });
+
+    it('translates city exonyms for Portuguese (Lisbon → Lisboa)', async () => {
+      const ptRouter = createRouter({
+        history: createMemoryHistory(),
+        routes: [{ path: '/:pathMatch(.*)*', component: { render: () => null }, meta: { locale: 'pt' } }],
+      });
+      ptRouter.push('/pt/live');
+      await ptRouter.isReady();
+
+      const wrapper = mount(EventItem, {
+        props: { event: plainEvent },
+        global: { plugins: [ptRouter], stubs: { RouterLink: RouterLinkStub } },
+      });
+
+      expect(wrapper.get('.event-venue').text()).toBe('Desterro, Lisboa, Portugal');
+    });
   });
 });

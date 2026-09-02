@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 
 import { useLightboxDeepLink } from '@/composables/useLightboxDeepLink';
+import { localizePlace } from '@/i18n/exonyms';
 import { localize } from '@/i18n/localized';
 import { useLocale } from '@/i18n/useLocale';
 import { useT } from '@/i18n/useT';
@@ -36,7 +37,10 @@ const titleHref = computed(() => props.event.titleUrl ?? null);
 const titleHrefIsExternal = computed(() => /^https?:/i.test(titleHref.value ?? ''));
 
 const venueLocation = computed(() =>
-  [props.event.venue.city, props.event.venue.country].filter(Boolean).join(', '));
+  [props.event.venue.city, props.event.venue.country]
+    .filter((place): place is string => Boolean(place))
+    .map(place => localizePlace(place, current.value))
+    .join(', '));
 
 const venueSeparator = computed(() => (props.event.venue.name && venueLocation.value ? ', ' : ''));
 
