@@ -739,8 +739,8 @@ export const worksData: WorksData = {
           year: 2009,
         },
         description: {
-          en: 'A curated collection of over 200 glitch images grabbed, composed and, in some cases, provoked by artists exploring digital aesthetics and imperfection. Jerome Faria contributed work alongside notable artists from the international glitch art community.',
-          pt: 'Uma colectânea de mais de 200 imagens glitch captadas, compostas e, nalguns casos, provocadas por artistas que exploram a estética digital e a imperfeição. Jerome Faria contribuiu com trabalho ao lado de artistas de relevo da comunidade internacional de glitch art.',
+          en: 'A curated collection of over 200 glitch images grabbed, composed and, in some cases, provoked by artists exploring digital aesthetics and imperfection.',
+          pt: 'Uma colectânea de mais de 200 imagens glitch captadas, compostas e, nalguns casos, provocadas por artistas que exploram a estética digital e a imperfeição.',
         },
         credits: {
           style: 'by',
