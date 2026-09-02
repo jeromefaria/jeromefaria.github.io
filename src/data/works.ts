@@ -414,7 +414,7 @@ export const worksData: WorksData = {
     ],
   },
   film: {
-    title: { en: 'Scores', pt: 'Bandas sonoras' },
+    title: { en: 'Scores', pt: 'Composições' },
     id: 'film',
     items: [
       {

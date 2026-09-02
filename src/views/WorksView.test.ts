@@ -54,7 +54,7 @@ describe('WorksView', () => {
 
   it('renders Portuguese section headings on a pt route', async () => {
     const wrapper = await mountView(WorksView, '/pt/works', { locale: 'pt' });
-    expect(wrapper.get('#trigger-film').text()).toContain('Bandas sonoras');
+    expect(wrapper.get('#trigger-film').text()).toContain('Composições');
     expect(wrapper.get('#trigger-collaborations').text()).toContain('Colaborações');
   });
 
