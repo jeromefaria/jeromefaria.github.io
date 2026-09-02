@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import type { RouteRecordRaw } from 'vue-router';
 
 import { buildRoutes, routes } from './index';
 
@@ -55,5 +56,17 @@ describe('buildRoutes (i18n)', () => {
 
     expect(ptHome?.name).toBe('pt-home');
     expect(ptHome?.meta?.locale).toBe('pt');
+  });
+
+  it('leaves a nameless route unnamed under /pt', () => {
+    const base: RouteRecordRaw[] = [
+      { path: '/loose', component: { render: () => null } },
+      { path: '/:pathMatch(.*)*', name: 'not-found', component: { render: () => null } },
+    ];
+
+    const ptLoose = buildRoutes(base, true).find(route => route.path === '/pt/loose');
+
+    expect(ptLoose?.name).toBeUndefined();
+    expect(ptLoose?.meta?.locale).toBe('pt');
   });
 });
