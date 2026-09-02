@@ -14,9 +14,9 @@ const OUT = join(PUBLIC, 'images/responsive');
 const RESPONSIVE_IMAGE = /^\/images\/[a-z0-9-]+\.jpg$/;
 
 const DEFAULT_QUALITY = 78;
-// Smooth red/black gradients (e.g. hyphema) band badly at the default quality;
-// give specific covers more headroom. Keyed by image slug.
-const QUALITY_OVERRIDES = { hyphema: 92 };
+// The hyphema cover is uniquely detail- and gradient-heavy; the default quality
+// softens its shard detail, so it gets a per-image bump. Keyed by image slug.
+const QUALITY_OVERRIDES = { hyphema: 85 };
 
 const { worksData } = await loadData('src/data/works.ts');
 const { aboutSections } = await loadData('src/data/about.ts');
