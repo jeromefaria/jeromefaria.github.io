@@ -63,6 +63,40 @@ describe('LightboxOverlay', () => {
     });
   });
 
+  describe('navigation and gestures', () => {
+    it('emits prev and next from the hint controls', async () => {
+      const wrapper = mountOverlay({ totalItems: 3, currentIndex: 1 });
+
+      await wrapper.get('.lightbox__hint--prev').trigger('click');
+      await wrapper.get('.lightbox__hint--next').trigger('click');
+
+      expect(wrapper.emitted('prev')).toHaveLength(1);
+      expect(wrapper.emitted('next')).toHaveLength(1);
+      wrapper.unmount();
+    });
+
+    it('forwards touch start and end for swipe handling', async () => {
+      const wrapper = mountOverlay({ totalItems: 3 });
+      const dialog = wrapper.get('.lightbox');
+
+      await dialog.trigger('touchstart');
+      await dialog.trigger('touchend');
+
+      expect(wrapper.emitted('touchstart')).toHaveLength(1);
+      expect(wrapper.emitted('touchend')).toHaveLength(1);
+      wrapper.unmount();
+    });
+
+    it('does not close when the video iframe itself is clicked', async () => {
+      const wrapper = mountOverlay({ currentItem: video });
+
+      await wrapper.get('iframe.lightbox__video').trigger('click');
+
+      expect(wrapper.emitted('close')).toBeUndefined();
+      wrapper.unmount();
+    });
+  });
+
   describe('focus management', () => {
     it('moves focus into the dialog on open', async () => {
       const wrapper = mountOverlay();

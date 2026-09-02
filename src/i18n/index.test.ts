@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { createApp } from 'vue';
+import { createApp, inject } from 'vue';
 import { createMemoryHistory, createRouter } from 'vue-router';
 
 import { createAppI18n, setupI18n } from './index';
 import { localeFromMeta } from './messages';
+import { TRANSLATE_KEY } from './useT';
 
 describe('createAppI18n', () => {
   it('resolves a key in the default (en) locale', () => {
@@ -52,5 +53,20 @@ describe('setupI18n', () => {
 
     expect(() => setupI18n(app, router)).not.toThrow();
     await expect(router.push('/pt')).resolves.not.toThrow();
+  });
+
+  it('provides a translate fn that resolves keys with and without params', () => {
+    const app = createApp({ render: () => null });
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: [{ path: '/', component: { render: () => null } }],
+    });
+    setupI18n(app, router);
+
+    const translate = app.runWithContext(() => inject(TRANSLATE_KEY));
+
+    expect(translate).toBeTypeOf('function');
+    expect(translate?.('nav.about')).toBe('About');
+    expect(translate?.('privacy.lastUpdated', { date: '2026' })).toBe('Last updated 2026.');
   });
 });
