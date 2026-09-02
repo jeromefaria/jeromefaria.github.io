@@ -48,7 +48,7 @@ interface UseCommandPaletteReturn {
 export const useCommandPalette = (): UseCommandPaletteReturn => {
   const router = useRouter();
   const t = useT();
-  const { current } = useLocale();
+  const { current, toLocalePath } = useLocale();
 
   const commands = computed<Command[]>(() => buildCommands(t, current.value));
   const byId = computed(() => new Map(commands.value.map(command => [command.id, command])));
@@ -139,11 +139,11 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     }
 
     if (newTab) {
-      openInNewTab(router.resolve(command.to).href);
+      openInNewTab(router.resolve(toLocalePath(command.to)).href);
       return;
     }
 
-    await router.push(command.to);
+    await router.push(toLocalePath(command.to));
   };
 
   const keyActions: Record<string, (event: KeyboardEvent) => void> = {
