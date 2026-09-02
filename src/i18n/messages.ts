@@ -256,7 +256,7 @@ const pt: typeof en = {
     sending: 'A enviar...',
     turnstileNotice: 'Protegido por Cloudflare Turnstile',
     requiredError: 'Este campo é obrigatório',
-    verifyError: 'Não foi possível confirmar a verificação. Tente novamente.',
+    verifyError: 'Não foi possível confirmar que é humano. Tente novamente.',
     submitError: 'Ocorreu um erro ao enviar a mensagem. Tente novamente.',
     success: {
       title: 'Mensagem enviada',
