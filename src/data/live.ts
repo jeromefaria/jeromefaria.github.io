@@ -659,7 +659,7 @@ export const liveEvents: LiveEvent[] = [
       {
         url: 'https://www.youtube-nocookie.com/embed/ymAcKVDmAqg',
         platform: 'youtube',
-        title: { en: 'MADEIRADIG 2011 festival lineup spot', pt: 'Spot do MADEIRADIG 2011, com o alinhamento do festival' },
+        title: { en: 'MADEIRADIG 2011 festival lineup spot', pt: 'Vídeo promocional do MADEIRADIG 2011, com o alinhamento do festival' },
         author: { name: 'Die4filmsMadeira', url: 'https://www.youtube.com/@Die4filmsMadeira' },
       },
     ],

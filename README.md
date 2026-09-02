@@ -117,6 +117,7 @@ A complete bilingual architecture — English and Portuguese — built end to en
 
 - **Typed content, both languages.** Localizable strings are modelled as `Localized<{ en; pt }>` and resolved at render time, so the content model — not scattered template conditionals — carries the translation.
 - **Locale-routed.** Every route is mirrored under `/pt` (`buildRoutes` clones the table with a `locale` meta tag); a router guard sets the active locale and internal links rewrite to stay in-locale, with a footer control to switch language on the current page.
+- **Locale-correct previews.** Each `/pt` route is pre-rendered with its own `hreflang` alternates and `og:locale` (`pt_PT` / `en_GB`), so search engines pair the two language variants and a shared Portuguese link unfurls its social card in Portuguese — the same rich-preview treatment the English release pages get.
 - **A lightweight translate layer.** Components call a small `useT()` (`src/i18n/useT.ts`) — dotted-key lookup with `{param}` interpolation — provided via `inject` and backed by **vue-i18n** at runtime, with a standalone fallback that keeps it SSG-safe and trivial to unit-test.
 - **Zero cost when off.** The flag is an inline `import.meta.env` literal at the single `import('./i18n')` site, so with `VITE_I18N` unset the **entire i18n path — vue-i18n included — is dead-code-eliminated** from the bundle. Internationalization as opt-in infrastructure, not a tax on every byte shipped today.
 

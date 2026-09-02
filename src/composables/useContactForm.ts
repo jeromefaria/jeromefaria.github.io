@@ -54,12 +54,20 @@ export const useContactForm = (
 ): UseContactFormReturn => {
   const t = useT();
   const fields = uniqueFields(collectFields(form));
-  const labelById = new Map(fields.map(field => [field.id, field.label]));
 
   const inquiryId = form.inquiry.id;
   const nameId = form.baseFields.name.id;
   const emailId = form.baseFields.email.id;
   const messageId = form.baseFields.message.id;
+
+  // Match the error to the visible localized label via the template's i18n keys, not the English source in the data.
+  const requiredFieldLabelKey = (id: string): string => {
+    if (id === inquiryId) return 'contact.inquiryLabel';
+    if (id === nameId) return 'contact.name';
+    if (id === emailId) return 'contact.email';
+    if (id === messageId) return 'contact.message';
+    return `contact.fields.${id}.label`;
+  };
 
   const emptyState = <T>(value: T): Record<string, T> =>
     Object.fromEntries(fields.map(field => [field.id, value]));
@@ -94,7 +102,7 @@ export const useContactForm = (
 
   const errors = computed<StringMap>(() =>
     Object.fromEntries(
-      requiredIds.value.map(id => [id, fieldInvalid.value[id] ? t('contact.requiredError', { field: labelById.get(id) ?? '' }) : '']),
+      requiredIds.value.map(id => [id, fieldInvalid.value[id] ? t('contact.requiredError', { field: t(requiredFieldLabelKey(id)) }) : '']),
     ));
 
   const handleBlur = (id: string): void => {

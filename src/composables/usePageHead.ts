@@ -6,6 +6,8 @@ import { i18nEnabled } from '@/i18n/flag';
 import { localize, type Localized } from '@/i18n/localized';
 import { DEFAULT_LOCALE, localeFromMeta, localePath, stripLocale, SUPPORTED_LOCALES } from '@/i18n/messages';
 
+const OG_LOCALE: Record<(typeof SUPPORTED_LOCALES)[number], string> = { en: 'en_GB', pt: 'pt_PT' };
+
 interface UsePageHeadOptions {
   title: string | Localized<string>;
   description: string | Localized<string>;
@@ -43,6 +45,7 @@ export const usePageHead = ({
     { property: 'og:type', content: ogType },
     { property: 'og:url', content: canonicalUrl },
     { property: 'og:site_name', content: siteConfig.title },
+    { property: 'og:locale', content: OG_LOCALE[locale] },
     { property: 'og:image', content: imageUrl },
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: fullTitle },
@@ -59,6 +62,12 @@ export const usePageHead = ({
   ];
 
   if (i18nEnabled && !noIndex) {
+    for (const alternate of SUPPORTED_LOCALES) {
+      if (alternate !== locale) {
+        meta.push({ property: 'og:locale:alternate', content: OG_LOCALE[alternate] });
+      }
+    }
+
     const basePath = stripLocale(route.path);
     const hrefFor = (alternate: (typeof SUPPORTED_LOCALES)[number]) => `${siteConfig.url}${localePath(basePath, alternate)}`;
 
