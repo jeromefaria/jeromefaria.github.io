@@ -8,7 +8,7 @@ export const siteConfig: SiteConfig = {
   },
   description: {
     en: 'Portuguese composer and sound artist, moving between confrontational noise and patient drone, film scores and theatre.',
-    pt: 'Compositor e artista sonoro português, entre o ruído confrontador e o drone paciente, das bandas sonoras ao teatro.',
+    pt: 'Compositor e artista sonoro português, entre o ruído confrontacional e o drone paciente, das bandas sonoras ao teatro.',
   },
   url: 'https://jeromefaria.com',
   image: '/images/performance.jpg',

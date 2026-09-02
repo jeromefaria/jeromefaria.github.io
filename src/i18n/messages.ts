@@ -255,7 +255,7 @@ const pt: typeof en = {
     submit: 'Enviar mensagem',
     sending: 'A enviar...',
     turnstileNotice: 'Protegido por Cloudflare Turnstile',
-    requiredError: 'Este campo é obrigatório',
+    requiredError: '{field} é obrigatório',
     verifyError: 'Não foi possível confirmar que é humano. Tente novamente.',
     submitError: 'Ocorreu um erro ao enviar a mensagem. Tente novamente.',
     success: {
@@ -263,7 +263,7 @@ const pt: typeof en = {
       text: 'Obrigado pela mensagem. Responderei assim que possível.',
     },
     types: {
-      booking: { label: 'Actuações', blurb: 'Para festivais, salas e oportunidades de actuação.' },
+      booking: { label: 'Contratação', blurb: 'Para festivais, salas e oportunidades de actuação.' },
       commission: { label: 'Encomenda', blurb: 'Para bandas sonoras, teatro, instalações e composições originais.' },
       licensing: { label: 'Licenciamento', blurb: 'Para licenciar uma faixa existente para cinema, media ou edição.' },
       mastering: { label: 'Mistura & Masterização', blurb: 'Para mistura e masterização de edições.' },
