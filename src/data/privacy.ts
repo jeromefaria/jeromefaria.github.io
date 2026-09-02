@@ -28,7 +28,7 @@ export const privacyContent: PrivacyContent = {
       heading: { en: 'Spam protection', pt: 'Protecção contra spam' },
       body: {
         en: 'The contact form is protected by Cloudflare Turnstile, which runs invisibly to confirm you are a person rather than a bot. To do that it may read basic signals from your browser; Cloudflare states it is not used for advertising. Its use is subject to Cloudflare\'s <a href="https://www.cloudflare.com/privacypolicy/">Privacy Policy</a> and <a href="https://www.cloudflare.com/turnstile-privacy-policy/">Turnstile Privacy Addendum</a>.',
-        pt: 'O formulário de contacto é protegido pelo Cloudflare Turnstile, que funciona de forma invisível para confirmar que é uma pessoa e não um bot. Para isso, pode ler sinais básicos do seu navegador; a Cloudflare afirma que não os usa para publicidade. A sua utilização está sujeita à <a href="https://www.cloudflare.com/privacypolicy/">Política de Privacidade</a> e ao <a href="https://www.cloudflare.com/turnstile-privacy-policy/">Adendo de Privacidade do Turnstile</a> da Cloudflare.',
+        pt: 'O formulário de contacto é protegido pelo Cloudflare Turnstile, que funciona de forma invisível para confirmar que é uma pessoa e não um bot. Para isso, pode ler sinais básicos do seu navegador; a Cloudflare afirma que não os usa para publicidade. A sua utilização está sujeita à <a href="https://www.cloudflare.com/privacypolicy/">Política de Privacidade</a> e à <a href="https://www.cloudflare.com/turnstile-privacy-policy/">Adenda de Privacidade do Turnstile</a> da Cloudflare.',
       },
     },
     {

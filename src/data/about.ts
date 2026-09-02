@@ -111,7 +111,7 @@ export const aboutSections: AboutSection[] = [
       },
       {
         src: '/images/about-2015-heineken.jpg',
-        alt: { en: 'Jerome Faria opening for William Basinski at Heineken Series, Lisbon, 2015', pt: 'Jerome Faria a abrir para William Basinski na Heineken Series, Lisboa, 2015' },
+        alt: { en: 'Jerome Faria at Heineken Series, Lisbon, 2015', pt: 'Jerome Faria na Heineken Series, Lisboa, 2015' },
         position: 'center 70%',
         photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
       },

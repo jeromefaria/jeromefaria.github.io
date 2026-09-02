@@ -105,10 +105,10 @@ export const techRider: TechRider = {
       },
     },
     {
-      title: { en: 'Input list / PA connection', pt: 'Lista de canais / ligação ao PA' },
+      title: { en: 'Input list / PA connection', pt: 'Lista de entradas / ligação ao PA' },
       body: {
         en: 'One <strong>stereo pair</strong> from the performer\'s mixer to the house, <strong>balanced XLR</strong> at line level — a standard XLR run from the performance position to FOH.',
-        pt: 'Um <strong>par estéreo</strong> da mesa do artista para o sistema da sala, <strong>XLR balanceado</strong> a nível de linha — um cabo XLR standard da posição de actuação até FOH.',
+        pt: 'Um <strong>par estéreo</strong> da mesa do artista para o sistema da sala, <strong>XLR balanceado</strong> a nível de linha — um cabo XLR comum da posição de actuação até FOH.',
       },
       table: {
         kind: 'input',
@@ -150,7 +150,7 @@ export const techRider: TechRider = {
           'O sinal na mesa é uma <strong>mistura estéreo final</strong> — níveis, equilíbrio e dinâmica definidos e geridos pelo artista ao longo de toda a actuação. Depois do ajuste de ganho na verificação de linha, não é preciso mexer nos faders nem intervir nos níveis.',
           'EQ da sala / processamento do sistema para o espaço são bem-vindos.',
           { label: 'Low cut', text: 'se usado, <strong>não acima de 50 Hz</strong> — o conteúdo de baixas frequências é uma parte deliberada da actuação.' },
-          { label: 'Compressão', text: 'se aplicada, testar contra os picos da actuação na verificação de linha e confirmar com o artista — normalmente desnecessária, pois a dinâmica do artista já é controlada.' },
+          { label: 'Compressão', text: 'se aplicada, testar em relação aos picos da actuação na verificação de linha e confirmar com o artista — normalmente desnecessária, pois a dinâmica do artista já é controlada.' },
         ],
       },
     },

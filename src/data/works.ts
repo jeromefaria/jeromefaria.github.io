@@ -527,7 +527,7 @@ export const worksData: WorksData = {
         },
         description: {
           en: 'A collaborative effort between sound artist Jerome Faria and programmer <a href="https://pixelnerve.com/">Victor Martins</a>, documenting experiments in audiovisual composition. The project was presented both as a live performance and as this DVD release.',
-          pt: 'Uma colaboração entre o artista sonoro Jerome Faria e o programador <a href="https://pixelnerve.com/">Victor Martins</a>, que documenta experimentações de composição audiovisual. O projecto foi apresentado tanto ao vivo como nesta edição em DVD.',
+          pt: 'Uma colaboração entre o artista sonoro Jerome Faria e o programador <a href="https://pixelnerve.com/">Victor Martins</a>, que documenta experiências de composição audiovisual. O projecto foi apresentado tanto ao vivo como nesta edição em DVD.',
         },
         tracklist: [
           { title: '0x00' },
