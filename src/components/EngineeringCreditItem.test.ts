@@ -47,6 +47,6 @@ describe('EngineeringCreditItem', () => {
     expect(wrapper.get('strong').text()).toBe('Overlapse XIII');
     expect(title.attributes('href')).toBe('/works/overlapse-xiii');
     expect(title.attributes('target')).toBeUndefined();
-    expect(wrapper.get('.release-meta').text()).toContain('Mixing & Mastering');
+    expect(wrapper.get('.release-meta').text()).toContain('Mixing and Mastering');
   });
 });
