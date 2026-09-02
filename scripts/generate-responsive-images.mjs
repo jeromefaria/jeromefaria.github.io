@@ -13,6 +13,11 @@ const OUT = join(PUBLIC, 'images/responsive');
 // source) keeps this robust to formatting changes in the data files.
 const RESPONSIVE_IMAGE = /^\/images\/[a-z0-9-]+\.jpg$/;
 
+const DEFAULT_QUALITY = 78;
+// The hyphema cover is uniquely detail- and gradient-heavy; the default quality
+// softens its shard detail, so it gets a per-image bump. Keyed by image slug.
+const QUALITY_OVERRIDES = { hyphema: 85 };
+
 const { worksData } = await loadData('src/data/works.ts');
 const { aboutSections } = await loadData('src/data/about.ts');
 
@@ -38,6 +43,7 @@ const manifest = {};
 for (const { src, widths } of targets) {
   const input = join(PUBLIC, src);
   const name = basename(src, '.jpg');
+  const quality = QUALITY_OVERRIDES[name] ?? DEFAULT_QUALITY;
   const meta = await sharp(input).metadata();
 
   const produced = [];
@@ -48,7 +54,7 @@ for (const { src, widths } of targets) {
 
     if (existsSync(out) && statSync(out).mtimeMs >= statSync(input).mtimeMs) continue;
 
-    const info = await sharp(input).resize({ width }).webp({ quality: 78 }).toFile(out);
+    const info = await sharp(input).resize({ width }).webp({ quality }).toFile(out);
     generated += 1;
     savedKb += info.size / 1024;
   }

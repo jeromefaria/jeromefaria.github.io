@@ -148,10 +148,12 @@
   },
   "hyphema": {
     "widths": [
-      320
+      320,
+      640,
+      960
     ],
-    "width": 468,
-    "height": 674
+    "width": 1200,
+    "height": 1729
   },
   "glitch": {
     "widths": [
