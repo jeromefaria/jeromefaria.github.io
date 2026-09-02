@@ -32,8 +32,8 @@ export const techRider: TechRider = {
   updated: { en: 'August 2026', pt: 'Agosto de 2026' },
   contact: siteConfig.author.email,
   overview: {
-    en: 'Solo electronic performance — analogue instrument, sampler, and effects through a small-format mixer. No backline, no additional musicians, and no crew required beyond venue power and PA access.',
-    pt: 'Actuação electrónica a solo — instrumento analógico, sampler e efeitos através de uma mesa de pequeno formato. Sem backline, sem músicos adicionais e sem necessidade de equipa além da energia da sala e do acesso ao PA.',
+    en: 'Solo electronic performance — analogue synthesiser, sampler, and effects through a small-format mixer. No backline, no additional musicians, and no crew required beyond venue power and PA access.',
+    pt: 'Actuação electrónica a solo — sintetizador analógico, sampler e efeitos através de uma mesa de pequeno formato. Sem backline, sem músicos adicionais e sem necessidade de equipa além da energia da sala e do acesso ao PA.',
   },
   summary: {
     en: [
@@ -44,7 +44,7 @@ export const techRider: TechRider = {
     pt: [
       '<strong>1 par estéreo para FOH</strong> — XLR balanceado, nível de linha',
       '<strong>1 tomada de corrente</strong> — tudo o resto com alimentação própria',
-      '<strong>Monitorização própria por IEMs</strong> — sem monitor de palco',
+      '<strong>Monitorização autónoma por IEMs</strong> — sem monitor de palco',
     ],
   },
   sections: [
@@ -65,7 +65,7 @@ export const techRider: TechRider = {
             ['Load out', '15 min'],
           ],
           pt: [
-            ['Entrada', '15 min'],
+            ['Carga', '15 min'],
             ['Montagem', '20–30 min'],
             ['Soundcheck', '15 min (uma breve verificação de linha — o sinal é uma mistura estéreo final, não uma configuração multicanal)'],
             ['Actuação', 'conforme contratado'],
@@ -84,10 +84,10 @@ export const techRider: TechRider = {
           { label: 'Stability', text: 'the table must be stable and level. No folding tables with loose joints.' },
         ],
         pt: [
-          { label: 'Superfície', text: 'uma mesa, no mínimo <strong>100 × 60 cm</strong> (área do equipamento 70 × 40 cm).' },
-          { label: 'Altura', text: 'uma mesa fixa a uma altura padrão (~75 cm) com cadeira, ou uma superfície de altura ajustável — o artista toca de pé ou sentado consoante a montagem, pelo que qualquer uma serve.' },
-          { label: 'Assento', text: 'necessária uma cadeira se a mesa estiver fixa a uma altura padrão.' },
-          { label: 'Estabilidade', text: 'a mesa deve ser estável e nivelada. Sem mesas dobráveis com juntas soltas.' },
+          { label: 'Superfície', text: 'no mínimo <strong>100 × 60 cm</strong> (área do equipamento 70 × 40 cm).' },
+          { label: 'Altura', text: 'uma superfície fixa a uma altura padrão (~75 cm) com cadeira, ou uma de altura ajustável — o artista toca de pé ou sentado consoante a montagem, pelo que qualquer uma serve.' },
+          { label: 'Assento', text: 'necessária uma cadeira se a superfície estiver fixa a uma altura padrão.' },
+          { label: 'Estabilidade', text: 'a superfície deve ser estável e nivelada. Sem mesas dobráveis com juntas soltas.' },
         ],
       },
     },
@@ -150,7 +150,7 @@ export const techRider: TechRider = {
           'O sinal na mesa é uma <strong>mistura estéreo final</strong> — níveis, equilíbrio e dinâmica definidos e geridos pelo artista ao longo de toda a actuação. Depois do ajuste de ganho na verificação de linha, não é preciso mexer nos faders nem intervir nos níveis.',
           'EQ da sala / processamento do sistema para o espaço são bem-vindos.',
           { label: 'Low cut', text: 'se usado, <strong>não acima de 50 Hz</strong> — o conteúdo de baixas frequências é uma parte deliberada da actuação.' },
-          { label: 'Compressão', text: 'se aplicada, testar em relação aos picos da actuação na verificação de linha e confirmar com o artista — normalmente desnecessária, pois a dinâmica do artista já é controlada.' },
+          { label: 'Compressão', text: 'se aplicada, testar em relação aos picos da actuação na verificação de linha e confirmar com o artista — normalmente desnecessária, pois o artista já controla a sua dinâmica.' },
         ],
       },
     },
@@ -162,7 +162,7 @@ export const techRider: TechRider = {
           { label: 'Temperature', text: 'a cool room is preferred. If a cool temperature cannot be maintained, a quiet fan at the performance position.' },
         ],
         pt: [
-          { label: 'Luz', text: 'iluminação de palco/área ajustável e regulável, com preferência por tons mais escuros e frios em vez de predefinições quentes ou brilhantes. A luz de trabalho do próprio artista pode complementar se necessário.' },
+          { label: 'Luz', text: 'iluminação de palco/área ajustável e regulável em intensidade, com preferência por tons mais escuros e frios em vez de predefinições quentes ou brilhantes. A luz de trabalho do próprio artista pode complementar se necessário.' },
           { label: 'Temperatura', text: 'prefere-se uma sala fresca. Se não for possível manter uma temperatura fresca, uma ventoinha silenciosa na posição de actuação.' },
         ],
       },
@@ -189,7 +189,7 @@ export const techRider: TechRider = {
           'In the event of unavoidable cancellation on either side, please give as much notice as possible — the performer will do the same.',
         ],
         pt: [
-          'Comunique, por favor, o mais cedo possível qualquer alteração à entrada, ao soundcheck ou aos horários, para que o artista possa ajustar a viagem e a preparação.',
+          'Comunique, por favor, o mais cedo possível qualquer alteração à carga, ao soundcheck ou aos horários, para que o artista possa ajustar a viagem e a preparação.',
           'Em caso de cancelamento inevitável de qualquer das partes, agradece-se o máximo de antecedência possível — o artista fará o mesmo.',
         ],
       },
