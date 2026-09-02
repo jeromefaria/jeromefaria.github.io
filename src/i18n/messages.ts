@@ -206,7 +206,7 @@ const pt: typeof en = {
   epk: {
     shortBio: 'Biografia curta',
     download: 'Descarregar',
-    fullKit: 'Dossier completo (ZIP)',
+    fullKit: 'Dossier de imprensa completo (ZIP)',
     oneSheet: 'One-sheet (PDF)',
     rider: 'Rider técnico (PDF)',
     biography: 'Biografia',
@@ -256,7 +256,7 @@ const pt: typeof en = {
     sending: 'A enviar...',
     turnstileNotice: 'Protegido por Cloudflare Turnstile',
     requiredError: 'Este campo é obrigatório',
-    verifyError: 'Não foi possível confirmar a verificação. Tente novamente.',
+    verifyError: 'Não foi possível confirmar que é humano. Tente novamente.',
     submitError: 'Ocorreu um erro ao enviar a mensagem. Tente novamente.',
     success: {
       title: 'Mensagem enviada',
