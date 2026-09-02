@@ -54,7 +54,7 @@ const en = {
   },
   common: {
     switchLanguage: 'PT',
-    switchLanguageLabel: 'Switch to Portuguese',
+    switchLanguageLabel: 'Switch to Portuguese (PT)',
   },
   media: {
     gallery: 'Gallery',
@@ -218,7 +218,7 @@ const pt: typeof en = {
   },
   common: {
     switchLanguage: 'EN',
-    switchLanguageLabel: 'Mudar para inglês',
+    switchLanguageLabel: 'Mudar para inglês (EN)',
   },
   media: {
     gallery: 'Galeria',
