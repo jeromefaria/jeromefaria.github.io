@@ -1,0 +1,5 @@
+# This project is formatted by ESLint (single quotes, sorted imports, 2-space
+# indent, etc.) — see eslint.config.js. Prettier is intentionally not used here.
+# Ignore everything so a stray editor Prettier run (e.g. format-on-save) no-ops
+# instead of reformatting the repo against a conflicting style.
+**/*
