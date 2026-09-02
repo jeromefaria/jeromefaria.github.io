@@ -20,10 +20,9 @@ describe('SiteFooter with i18n enabled', () => {
     const wrapper = mount(SiteFooter, { global: { plugins: [router] } });
     await router.isReady();
 
-    const switcher = wrapper.findAll('.footer__copyright a').at(-1);
+    const switcher = wrapper.get(`[aria-label="${messages.en.common.switchLanguageLabel}"]`);
 
-    expect(switcher?.text()).toBe(messages.en.common.switchLanguage);
-    expect(switcher?.attributes('aria-label')).toBe(messages.en.common.switchLanguageLabel);
-    expect(switcher?.attributes('href')).toBe('/pt');
+    expect(switcher.text()).toBe(messages.en.common.switchLanguage);
+    expect(switcher.attributes('href')).toBe('/pt');
   });
 });
