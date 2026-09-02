@@ -1,8 +1,7 @@
 import { openCommandPalette } from '@/composables/useOverlays';
 import { useProseLinks } from '@/composables/useProseLinks';
 
-// Prose bodies embed a `.palette-cue` button that opens the command palette;
-// every other click falls through to internal-link routing.
+// Prose bodies embed a `.palette-cue` button that opens the command palette.
 export const useProseClick = (): ((event: MouseEvent) => void) => {
   const routeProseLink = useProseLinks();
 
