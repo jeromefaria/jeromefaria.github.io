@@ -206,7 +206,7 @@ const pt: typeof en = {
   epk: {
     shortBio: 'Biografia curta',
     download: 'Descarregar',
-    fullKit: 'Dossier completo (ZIP)',
+    fullKit: 'Dossier de imprensa completo (ZIP)',
     oneSheet: 'One-sheet (PDF)',
     rider: 'Rider técnico (PDF)',
     biography: 'Biografia',
