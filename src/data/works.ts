@@ -428,8 +428,8 @@ export const worksData: WorksData = {
           year: 2021,
         },
         description: {
-          en: 'Theatre production celebrating the centenary of <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event. Faria provided both original music and live interpretation—embedding himself in a multidisciplinary creative team rather than delivering a score from a distance.',
-          pt: 'Produção teatral que celebra o centenário de <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, um dos fundadores da Poesia Experimental Portuguesa. Concebida como um evento performativo, sonoro e visual. Faria contribuiu com música original e interpretação ao vivo, integrado numa equipa criativa multidisciplinar, em vez de entregar uma banda sonora à distância.',
+          en: 'Theatre production celebrating the centenary of <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event.',
+          pt: 'Produção teatral que celebra o centenário de <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, um dos fundadores da Poesia Experimental Portuguesa. Concebida como um evento performativo, sonoro e visual.',
         },
         credits: {
           style: 'colon',
