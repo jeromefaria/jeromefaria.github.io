@@ -32,8 +32,8 @@ export const techRider: TechRider = {
   updated: { en: 'August 2026', pt: 'Agosto de 2026' },
   contact: siteConfig.author.email,
   overview: {
-    en: 'Solo electronic performance — analogue synthesiser, sampler, and effects through a small-format mixer. No backline, no additional musicians, and no crew required beyond venue power and PA access.',
-    pt: 'Actuação electrónica a solo — sintetizador analógico, sampler e efeitos através de uma mesa de pequeno formato. Sem backline, sem músicos adicionais e sem necessidade de equipa além da energia da sala e do acesso ao PA.',
+    en: 'Solo electronic performance — analogue synthesiser, sampler, and effect pedals through a small-format mixer. No backline, no additional musicians, and no crew required beyond venue power and PA access.',
+    pt: 'Actuação electrónica a solo — sintetizador analógico, sampler e pedais de efeitos através de uma mesa de pequeno formato. Sem backline, sem músicos adicionais e sem necessidade de equipa além da energia da sala e do acesso ao PA.',
   },
   summary: {
     en: [
