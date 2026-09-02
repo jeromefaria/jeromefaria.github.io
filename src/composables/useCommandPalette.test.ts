@@ -13,7 +13,10 @@ type Api = ReturnType<typeof useCommandPalette>;
 const mountPalette = async (): Promise<{ api: Api; router: Router; wrapper: VueWrapper }> => {
   const router = createRouter({
     history: createMemoryHistory(),
-    routes: [{ path: '/:pathMatch(.*)*', component: { template: '<div />' } }],
+    routes: [
+      { path: '/pt/:pathMatch(.*)*', meta: { locale: 'pt' }, component: { template: '<div />' } },
+      { path: '/:pathMatch(.*)*', component: { template: '<div />' } },
+    ],
   });
   await router.push('/');
   await router.isReady();
@@ -135,6 +138,20 @@ describe('useCommandPalette', () => {
     await api.execute(0, true);
 
     expect(open).toHaveBeenCalledWith(expect.stringContaining('/privacy'), '_blank', 'noopener,noreferrer');
+  });
+
+  it('prefixes the active locale onto navigation from a PT route', async () => {
+    const { api, router, wrapper } = await mountPalette();
+    active = wrapper;
+    await router.push('/pt/about');
+    await flushPromises();
+    const push = vi.spyOn(router, 'push');
+
+    const index = api.results.value.findIndex(command => command.id === 'nav:works');
+    expect(index).toBeGreaterThanOrEqual(0);
+    await api.execute(index);
+
+    expect(push).toHaveBeenCalledWith('/pt/works');
   });
 
   it('executes the active command on Enter', async () => {
