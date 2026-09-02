@@ -11,23 +11,6 @@ export const pressQuotes: PressQuote[] = [
     url: 'https://thequietus.com/articles/07568-madeiradig-festival-review-ktl',
   },
   {
-    id: 'paralelo33-alvanoto',
-    quote: {
-      en: 'Jerome Faria is developing his language from his references with coherence. The performance was praised by Alva Noto, which says a great deal.',
-      pt: 'Jerome Faria está a desenvolver a sua linguagem a partir das suas referências com coerência. A actuação foi elogiada por Alva Noto, o que diz muito.',
-    },
-    source: 'Paralelo33',
-  },
-  {
-    id: 'devils-mouth-altar',
-    quote: {
-      en: 'Beautifully twisted chaos unfolding with no respite.',
-      pt: 'Um caos belamente retorcido que se desenrola sem tréguas.',
-    },
-    source: "The Devil's Mouth",
-    url: 'https://thedevilsmouth.substack.com/p/video-premiere-nox-altar',
-  },
-  {
     id: 'bodyspace-basinski',
     quote: {
       en: 'Faria oscillated skillfully between electronic doom and subtle ambient. As if embodying two faces of the same coin—at times liberating, at times punishing, at times meditative, at times abrupt.',
@@ -35,6 +18,31 @@ export const pressQuotes: PressQuote[] = [
     },
     source: 'Bodyspace',
     url: 'https://bodyspace.net/ao-vivo/1675-william-basinski-mr-herbert-quain-jerome-faria/',
+  },
+  {
+    id: 'acloserlisten',
+    quote: {
+      en: 'Is this the summary of a life, a last spurt of energy, a rise into the great unknown? As a swarm of drones descends upon the ivories, we can only wonder, and hope to find someone to supply us with such a sendoff.',
+      pt: 'Será este o resumo de uma vida, um derradeiro ímpeto de energia, uma ascensão rumo ao grande desconhecido? Enquanto um enxame de drones se abate sobre as teclas do piano, apenas nos resta interrogarmo-nos e esperar encontrar alguém que nos ofereça uma despedida assim.',
+    },
+    source: 'A Closer Listen',
+    url: 'https://acloserlisten.com/2012/08/25/jerome-faria-overlapse/',
+  },
+  {
+    id: 'paralelo33-alvanoto',
+    quote: {
+      en: 'Jerome Faria is developing his language from his references with coherence. The performance was praised by Alva Noto, which says a great deal.',
+      pt: 'Jerome Faria está a desenvolver a sua linguagem a partir das suas referências com coerência. A actuação foi elogiada por Alva Noto, o que diz muito.',
+    },
+    source: 'Paralelo 33',
+  },
+  {
+    id: 'edicao-limitada',
+    quote: {
+      en: "At no point here is extreme purity reached; everything appears clean or polished just right, never too much, never excessive. It's almost as if we were contemplating the machine, forced to escape its synthesised perfection, about to stumble upon itself at any moment.",
+      pt: 'Em momento algum aqui se atinge a pureza extrema, tudo se mostra limpo ou polido na medida certa, nunca a mais, nunca demais. É quase como se contemplássemos a máquina, forçada a fugir à sua própria e sintetizada perfeição, prestes a tropeçar em si mesma a qualquer momento.',
+    },
+    source: 'Edição Limitada',
   },
   {
     id: 'indierockmag-nny',
@@ -46,19 +54,38 @@ export const pressQuotes: PressQuote[] = [
     url: 'https://www.indierockmag.com/article19210.html',
   },
   {
-    id: 'edicao-limitada',
+    id: 'devils-mouth-altar',
     quote: {
-      en: "It's almost as if we were contemplating the machine, forced to escape its synthesised perfection, about to stumble upon itself at any moment.",
-      pt: 'É quase como se contemplássemos a máquina, forçada a fugir à sua própria e sintetizada perfeição, prestes a tropeçar em si mesma a qualquer momento.',
+      en: 'Once you get used to the storm around you, standing in its centre allows you to pick up on the beautifully twisted chaos unfolding with no respite.',
+      pt: 'Assim que nos habituamos à tempestade à nossa volta, ficar no seu centro permite-nos captar o caos belamente retorcido que se desenrola sem tréguas.',
     },
-    source: 'Edição Limitada',
+    source: "The Devil's Mouth",
+    url: 'https://thedevilsmouth.substack.com/p/video-premiere-nox-altar',
   },
   {
     id: 'ponto-alternativo',
     quote: {
-      en: 'There is not a second to spare here, nor a moment to throw away.',
-      pt: 'Não há aqui nem um segundo para dispensar, nem um momento para se deitar fora.',
+      en: 'A different record; abstract, yes, of course, but perhaps even more human, of more varied colours […] not a second to spare here, nor a moment to throw away.',
+      pt: 'Um lançamento diferente; abstracto, sim, claro, mas talvez até mais humano, de cores mais variadas […] não há aqui nem um segundo para dispensar, nem um momento para se deitar fora.',
     },
     source: 'Ponto Alternativo',
+  },
+  {
+    id: 'textura',
+    quote: {
+      en: 'Out of a micro-textured haze of crackle, the first piece quietly asserts itself, its warm, glistening tones melting into one another as they coalesce into a state of peaceful drift.',
+      pt: 'De uma bruma micro-texturada de crepitação, a primeira peça afirma-se em surdina, com os seus tons quentes e cintilantes a fundir-se uns nos outros à medida que convergem para um estado de deriva serena.',
+    },
+    source: 'Textura',
+    url: 'https://www.textura.org/archives/n/nny.htm',
+  },
+  {
+    id: 'vital-weekly',
+    quote: {
+      en: 'Repeating loops which form fine woven patterns […] ambient glitch in its most pure form.',
+      pt: 'Loops que se repetem e formam padrões finamente entretecidos […] glitch ambient na sua forma mais pura.',
+    },
+    source: 'Vital Weekly',
+    url: 'https://www.vitalweekly.net/number-670/',
   },
 ];
