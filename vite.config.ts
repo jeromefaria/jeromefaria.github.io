@@ -1,7 +1,7 @@
 import { fileURLToPath, URL } from 'node:url';
 
 import vue from '@vitejs/plugin-vue';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 import { worksData } from './src/data/works.ts';
@@ -59,7 +59,11 @@ export default defineConfig({
     script: 'async',
     formatting: 'minify',
     includedRoutes(paths: string[]) {
-      const releases = process.env.VITE_I18N === 'true'
+      // Runs only during the production SSG build, so read the flag from
+      // .env.production (or the shell env) here — process.env inside the config
+      // isn't populated from .env files the way import.meta.env is for app code.
+      const i18nEnabled = loadEnv('production', process.cwd()).VITE_I18N === 'true';
+      const releases = i18nEnabled
         ? [...releasePaths, ...releasePaths.map(path => `/pt${path}`)]
         : releasePaths;
       return [...paths.filter(path => !path.includes(':')), ...releases];
