@@ -128,6 +128,11 @@
   .release-cover {
     position: relative;
     display: block;
+
+    // Don't let the grid stretch the cover to the (taller) details column —
+    // otherwise the absolute-fill play/spinner overlay centers in the stretched
+    // cell and drops below the image's true middle.
+    align-self: start;
     width: 100%;
     order: -1;
 
