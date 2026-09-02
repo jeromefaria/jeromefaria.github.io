@@ -16,6 +16,7 @@ A production-grade **Vue 3 + TypeScript** frontend for [www.jeromefaria.com](htt
 - **Performance engineering.** SSG pre-render + hydrate, Lighthouse budgets (desktop + mobile) enforced in CI, responsive `<picture>`/WebP srcsets with intrinsic dimensions, subsetted self-hosted fonts, and a zero-CLS first paint verified across every route.
 - **Testing rigor.** ~99% coverage behind a **ratcheting floor**, cross-browser E2E on three engines (Chromium, Firefox, WebKit), and per-route **visual-regression** snapshots.
 - **Component & styling architecture.** Single-responsibility components, reusable composables, and SCSS design tokens driving a themable, BEM-structured stylesheet.
+- **A flag-gated bilingual layer (EN/PT).** Content typed as `Localized<{ en; pt }>`, every route mirrored under `/pt`, and a lightweight `useT` translate layer backed by vue-i18n — with the whole i18n path (vue-i18n included) **tree-shaken from the default bundle** by an inline build flag, so the English-only production build pays nothing for it. In the codebase and unit-tested; gated off in production pending Portuguese sign-off.
 - **A hidden ⌘K command palette.** Keyboard-summoned search, navigation, and actions across the whole site — a typed command registry, a hand-rolled fuzzy ranker, a full combobox/listbox ARIA contract, and fzf-style keybindings. No visible affordance; it's an easter egg for those who reach for `⌘K` / `Ctrl+K`.
 - **Full-stack when it's warranted.** Even the contact form is a real backend I own — a **Cloudflare Worker** doing server-side Turnstile verification + Resend, not a form-SaaS embed.
 
@@ -62,6 +63,7 @@ Contact (runtime)
 - **A built-in player, not an embed.** Streaming the catalogue in-page — cover-as-play, lock-screen controls, deep-linkable — makes the *first listen* frictionless: a visitor clicks a release and hears music, no "open this / click there," and the experience stays on-brand rather than handed to a third-party iframe. The cost is real audio engineering (a media state machine, autoplay-policy handling, range-streamed R2 hosting), taken on deliberately.
 - **A coverage *floor* that only ratchets up.** CI enforces a minimum that rises as coverage climbs (`scripts/check-coverage.js`) — regression protection without chasing 100%.
 - **Typed content, no CMS.** The catalog is TypeScript with discriminated unions — a release is `music | compilation | commission | publication | mastering`, a live event has its own shape — versioned in git. The same data renders the site *and* generates the PDF press kit and technical rider that bookers and press ask for.
+- **Bilingual as opt-in infrastructure.** The EN/PT layer is complete and tested, but shipping it half-translated would read worse than not shipping it — so it lives behind an inline build flag that tree-shakes the whole i18n path (vue-i18n included) out of the default bundle. English visitors download nothing extra; the day the Portuguese copy clears review it's one flag flip, not a rebuild-the-plumbing project.
 
 ## Audio player
 
@@ -107,6 +109,17 @@ An empty query surfaces recents (persisted in `localStorage`) followed by curate
 
 Desktop-only and strictly additive — the site is fully usable without it. Under the hood: a typed command registry (`src/data/commands.ts`) over a discriminated `navigate | result | action` union, a hand-rolled fuzzy ranker (`src/utils/fuzzy.ts`), a full combobox/listbox ARIA contract with a live region, and shared focus-trap + scroll-lock (`useOverlay`). The palette and its help modal are lazy-loaded behind a tiny always-on hotkey layer, so none of that code ships in the main bundle.
 
+## Internationalization (EN/PT)
+
+A complete bilingual architecture — English and Portuguese — built end to end and **gated behind a build flag** (`VITE_I18N`, off by default) while the Portuguese copy goes through EU-PT review. The site ships English-only today; the machinery is in place to switch on.
+
+**How it's built**
+
+- **Typed content, both languages.** Localizable strings are modelled as `Localized<{ en; pt }>` and resolved at render time, so the content model — not scattered template conditionals — carries the translation.
+- **Locale-routed.** Every route is mirrored under `/pt` (`buildRoutes` clones the table with a `locale` meta tag); a router guard sets the active locale and internal links rewrite to stay in-locale, with a footer control to switch language on the current page.
+- **A lightweight translate layer.** Components call a small `useT()` (`src/i18n/useT.ts`) — dotted-key lookup with `{param}` interpolation — provided via `inject` and backed by **vue-i18n** at runtime, with a standalone fallback that keeps it SSG-safe and trivial to unit-test.
+- **Zero cost when off.** The flag is an inline `import.meta.env` literal at the single `import('./i18n')` site, so with `VITE_I18N` unset the **entire i18n path — vue-i18n included — is dead-code-eliminated** from the bundle. Internationalization as opt-in infrastructure, not a tax on every byte shipped today.
+
 ## Project structure
 
 ```
@@ -114,6 +127,7 @@ src/
   components/    Reusable UI components (incl. the player bar / now-playing view / playable cover)
   composables/   Reusable logic (accordion + hash routing, image loading, page head/schema, the audio player, command palette + overlays)
   data/          Typed content — works, live events, press, about, audio manifest (no CMS)
+  i18n/          EN/PT messages, locale routing, and the useT translate layer
   router/        Vue Router route table
   styles/        Modular SCSS with design tokens (_variables.scss)
   types/         Shared TypeScript types (discriminated unions)
@@ -129,6 +143,7 @@ public/          Static assets
 
 - **Frontend:** Vue 3 (Composition API, `<script setup>`), TypeScript (strict mode)
 - **Build:** Vite with SSG (Static Site Generation) + hydration — every route plus a shareable page per release
+- **i18n:** vue-i18n behind a lightweight `useT` layer; EN/PT, routed under `/pt`, flag-gated (`VITE_I18N`) and tree-shaken from the default build
 - **Audio:** `HTMLAudioElement` state machine + Media Session API; AAC (`.m4a`) hosted on Cloudflare R2, streamed over HTTP range requests
 - **Backend:** Cloudflare Worker (`wrangler`) — server-side Turnstile verification, Resend email relay
 - **Styling:** SCSS with BEM and design tokens, lint-enforced with stylelint (BEM selector pattern)
