@@ -6,8 +6,7 @@ import { type LightboxMediaKind, type LightboxSource, parseMediaFragment } from 
 
 type Galleries = Partial<Record<LightboxMediaKind, Ref<LightboxItem[]>>>;
 
-// Opens the lightbox when the URL hash targets this entity's media
-// (#<id>/<kind>/<index>) — on load and on forward-navigation back into it.
+// Deep-links via the #<id>/<kind>/<index> hash — on load and on forward-nav back into it.
 export const useLightboxDeepLink = (
   entityId: string,
   galleries: Galleries,

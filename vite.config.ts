@@ -16,10 +16,9 @@ export default defineConfig({
     vue(),
     ViteImageOptimizer({
       // Skip assets that are already optimized upstream, so the build doesn't
-      // re-compress them a second time: epk/photos keep their embedded IPTC
-      // credits; the responsive srcset variants (and hyphema's full webp) are
-      // generated at the intended quality by generate-responsive-images.mjs and
-      // would only lose quality if re-encoded here.
+      // re-compress them: epk/photos keep their embedded IPTC credits, and the
+      // responsive variants + hyphema webp come from generate-responsive-images.mjs;
+      // a second pass here would only degrade them.
       exclude: /epk[/\\]photos|images[/\\]responsive|images[/\\]hyphema\.webp/,
       jpg: {
         quality: 65,
