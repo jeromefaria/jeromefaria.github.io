@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh; // dvh keeps the home hero + footer within the visible mobile viewport; 100vh fallback for older browsers
 
   // overflow-x: hidden is set on body, not here, because it would break position: sticky on masthead
 }
@@ -19,10 +20,19 @@ main {
 
 main:has(.home) {
   padding: 0;
+  display: flex;
+  flex-direction: column;
 
+  // Flex chain so the hero fills the space main leaves between header and footer.
+  // `margin: 0` resets the base `.container-wide` centering — auto cross-margins
+  // would otherwise disable flex stretch and collapse the column to zero width.
   .container-wide {
     max-width: none;
     padding: 0;
+    margin: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 }
 

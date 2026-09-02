@@ -37,11 +37,8 @@ $breakpoint-xl: 1280px;
 $header-height-mobile: 52px;
 $header-height-desktop: 68px;
 $touch-target-min: 2.75rem;
-
-// Derived from: padding (24px × 2) + nav row (44px) + social row (44px) + copyright (~18px) + gaps (16px × 2) + border (1px)
 $footer-padding-y: $spacing-6;
 $footer-content-gap: $spacing-4;
-$footer-height: 127px;                   // Measured total height - update if footer structure changes
 $nav-max-height: 20rem;
 $release-media-width: 200px;
 $loading-dot-size: 6px;

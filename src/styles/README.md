@@ -34,7 +34,7 @@ Muted/link-hover values are annotated with their WCAG contrast ratios — keep t
 
 **Spacing** — a rem scale keyed to a 0.25rem base: `$spacing-1` (0.25rem) → `$spacing-20` (5rem). Prefer these over literal rems.
 
-**Layout** — `$max-width` (33rem, prose) · `$max-width-wide` (72rem) · `$header-height-mobile/desktop` · `$footer-height` (measured — update if footer structure changes) · `$touch-target-min` (2.75rem, WCAG target size).
+**Layout** — `$max-width` (33rem, prose) · `$max-width-wide` (72rem) · `$header-height-mobile/desktop` · `$touch-target-min` (2.75rem, WCAG target size).
 
 **Breakpoints** — `$breakpoint-sm` 480 · `-md` 768 · `-lg` 1024 · `-xl` 1280. Use the `respond-to()` mixin, never a raw media query:
 
