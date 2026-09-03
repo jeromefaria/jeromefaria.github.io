@@ -138,6 +138,14 @@ export const worksData: WorksData = {
             { role: 'photography', of: 'Joana Marote' },
           ],
         },
+        videos: [
+          {
+            url: 'https://player.vimeo.com/video/45214774',
+            platform: 'vimeo',
+            title: 'Jerome Faria - Sustain I / Sequence#4 July 2012',
+            author: { name: 'Milena Skriabine', url: 'https://milenaskriabine.com' },
+          },
+        ],
       },
       {
         id: '1714',
@@ -542,11 +550,12 @@ export const worksData: WorksData = {
           clauses: [
             { role: 'music', of: 'Jerome Faria' },
             { role: 'visuals', of: '[[Victor Martins]]' },
-            { role: 'artwork', of: 'Frederico Cunha' },
+            { role: 'artwork', of: '[[Frederico Cunha]]' },
           ],
         },
         contributors: [
           { name: 'Victor Martins', url: 'https://pixelnerve.com/' },
+          { name: 'Frederico Cunha', url: 'https://fredericodiz.wixsite.com' },
         ],
       },
     ],
