@@ -71,7 +71,7 @@ onMounted(() => {
   <a
     href="#main-content"
     class="skip-link"
-  >Skip to main content</a>
+  >{{ t('common.skipToMain') }}</a>
   <div class="site">
     <SiteHeader />
     <main id="main-content">
@@ -85,7 +85,7 @@ onMounted(() => {
             <template #fallback>
               <div
                 class="page-loading"
-                aria-label="Loading page"
+                :aria-label="t('common.loadingPage')"
               >
                 <span class="page-loading__dot" />
                 <span class="page-loading__dot" />

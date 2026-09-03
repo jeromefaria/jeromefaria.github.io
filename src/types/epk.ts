@@ -1,9 +1,11 @@
+import type { Localizable } from '@/i18n/localized';
+
 import type { Credit } from './media';
 import type { PressQuote } from './press';
 
 export interface EpkPhoto {
   src: string;
-  alt: string;
+  alt: Localizable<string>;
   photographer?: Credit;
 }
 

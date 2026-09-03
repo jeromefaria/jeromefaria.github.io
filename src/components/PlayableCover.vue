@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useT } from '@/i18n/useT';
+
 import IconPause from './IconPause.vue';
 import IconPlay from './IconPlay.vue';
 import ResponsivePicture from './ResponsivePicture.vue';
@@ -15,6 +17,8 @@ defineEmits<{
   toggle: [];
   error: [];
 }>();
+
+const t = useT();
 </script>
 
 <template>
@@ -31,7 +35,7 @@ defineEmits<{
     <button
       type="button"
       class="release-cover__play"
-      :aria-label="`${active ? 'Pause' : 'Play'} ${title}`"
+      :aria-label="t(active ? 'player.pauseTitle' : 'player.playTitle', { title })"
       @click="$emit('toggle')"
     >
       <svg

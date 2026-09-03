@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 
 import { useImageLoader } from '@/composables/useImageLoader';
+import { useT } from '@/i18n/useT';
 
 const props = defineProps<{
   albumId: string;
@@ -17,6 +18,8 @@ const {
   handleImageLoad,
   handleImageError,
 } = useImageLoader(props.coverImage);
+
+const t = useT();
 
 const showPlayer = ref(false);
 const isLoaded = ref(false);
@@ -47,7 +50,7 @@ const handleIframeLoad = () => {
       <img
         :ref="setImageRef"
         :src="coverImage"
-        :alt="`${albumTitle} album cover`"
+        alt=""
         loading="lazy"
         decoding="async"
         width="200"
@@ -65,22 +68,22 @@ const handleIframeLoad = () => {
       v-if="!showPlayer"
       class="bandcamp-player__button"
       type="button"
-      :aria-label="`Play ${albumTitle}`"
+      :aria-label="t('player.playTitle', { title: albumTitle })"
       @click="loadPlayer"
     />
     <div
       v-if="showPlayer && !isLoaded"
       class="bandcamp-player__loading"
-      aria-label="Loading player"
+      :aria-label="t('player.loading')"
     >
-      Loading...
+      {{ t('player.loadingShort') }}
     </div>
     <iframe
       v-if="showPlayer"
       :src="embedUrl"
       seamless
       sandbox="allow-scripts allow-same-origin allow-popups"
-      :title="`${albumTitle} - Bandcamp player`"
+      :title="t('player.bandcampTitle', { title: albumTitle })"
       @load="handleIframeLoad"
     />
   </div>

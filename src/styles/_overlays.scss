@@ -49,11 +49,19 @@
     border-bottom: 1px solid var(--color-border-subtle);
     border-radius: 0;
 
-    // The shared input mixin brightens the border on hover/focus; the palette keeps
-    // its divider constant so nothing flickers as the overlay fades.
+    // The shared input mixin's focus ring sits offset from the box; the palette
+    // keeps its divider constant (so nothing flickers as the overlay fades) and
+    // shows keyboard focus with a high-contrast outline pulled tight to the box
+    // edge. An outline (not a box-shadow) survives forced-colors mode and is not
+    // clipped by the panel's overflow.
     &:hover,
     &:focus {
       border-bottom-color: var(--color-border-subtle);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-text);
+      outline-offset: -2px;
     }
   }
 
@@ -83,6 +91,12 @@
 
       // Background alone is ~1.05:1; the accent bar is the WCAG 1.4.11 (3:1) selection indicator.
       box-shadow: inset 3px 0 0 var(--color-text);
+
+      // Forced-colors mode strips background and box-shadow; an outline survives it.
+      @media (forced-colors: active) {
+        outline: 2px solid CanvasText;
+        outline-offset: -2px;
+      }
     }
   }
 

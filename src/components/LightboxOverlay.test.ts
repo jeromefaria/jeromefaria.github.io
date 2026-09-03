@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
-import { nextTick } from 'vue';
+import { defineComponent, nextTick, ref } from 'vue';
 
 import type { LightboxItem } from '@/types';
 
@@ -38,6 +38,14 @@ describe('LightboxOverlay', () => {
       const wrapper = mountOverlay({ currentIndex: 1, totalItems: 3 });
 
       expect(wrapper.get('.lightbox').attributes('aria-label')).toBe('Image 2 of 3');
+
+      wrapper.unmount();
+    });
+
+    it('announces the position and caption in a polite live region', () => {
+      const wrapper = mountOverlay({ currentIndex: 1, totalItems: 3 });
+
+      expect(wrapper.get('[aria-live="polite"]').text()).toBe('Image 2 of 3. Test image');
 
       wrapper.unmount();
     });
@@ -155,6 +163,35 @@ describe('LightboxOverlay', () => {
       await wrapper.get('.lightbox').trigger('keydown', { key: 'Enter' });
 
       expect(document.activeElement).toBe(dialog);
+
+      wrapper.unmount();
+    });
+
+    it('moves focus to the close button when navigation reaches the last item', async () => {
+      // Mirror the host: advancing past the tail disables Next, which would drop
+      // focus to <body>; the overlay must redirect it to the close button.
+      const Harness = defineComponent({
+        components: { LightboxOverlay },
+        setup() {
+          const currentIndex = ref(1);
+          return { currentIndex, onNext: () => (currentIndex.value += 1) };
+        },
+        template: `
+          <LightboxOverlay
+            :is-open="true"
+            :current-item="{ type: 'image', src: '/i.jpg', alt: 'A' }"
+            :current-index="currentIndex"
+            :total-items="3"
+            @next="onNext"
+          />`,
+      });
+      const wrapper = mount(Harness, { attachTo: document.body });
+      await nextTick();
+
+      await wrapper.get('.lightbox__hint--next').trigger('click');
+      await nextTick();
+
+      expect(document.activeElement).toBe(wrapper.get('.lightbox__hint--close').element);
 
       wrapper.unmount();
     });

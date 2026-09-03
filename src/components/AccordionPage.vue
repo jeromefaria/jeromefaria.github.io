@@ -70,17 +70,20 @@ const openLightbox = (items: LightboxItem[], index: number, source?: LightboxSou
         :model-value="openSection === sectionKey"
         @update:model-value="handleToggle(sectionKey, $event)"
       >
-        <template
-          v-for="item in sectionData[sectionKey]?.items || []"
-          :key="item.id"
-        >
-          <slot
-            name="item"
-            :item="item"
-            :open-lightbox="openLightbox"
-            :update-hash="updateHash"
-          />
-        </template>
+        <ul class="accordion-list">
+          <li
+            v-for="item in sectionData[sectionKey]?.items || []"
+            :key="item.id"
+            class="accordion-list__item"
+          >
+            <slot
+              name="item"
+              :item="item"
+              :open-lightbox="openLightbox"
+              :update-hash="updateHash"
+            />
+          </li>
+        </ul>
       </AccordionSection>
     </PageShell>
 

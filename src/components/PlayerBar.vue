@@ -4,9 +4,12 @@ import { computed } from 'vue';
 import PlayerSeek from '@/components/PlayerSeek.vue';
 import TransportControls from '@/components/TransportControls.vue';
 import { usePlayer } from '@/composables/usePlayer';
+import { useT } from '@/i18n/useT';
 
 const { status, currentTrack, currentTime, duration, error, hasNext, hasPrevious, toggle, next, previous, seek, expand, stop } =
   usePlayer();
+
+const t = useT();
 
 const isPlaying = computed(() => status.value === 'playing');
 const isBusy = computed(() => status.value === 'loading' || status.value === 'buffering');
@@ -15,9 +18,9 @@ const statusMessage = computed(() => {
   if (error.value) return error.value;
   if (!currentTrack.value) return '';
 
-  const verb = isPlaying.value ? 'Playing' : isBusy.value ? 'Loading' : 'Paused';
+  const key = isPlaying.value ? 'player.statusPlaying' : isBusy.value ? 'player.statusLoading' : 'player.statusPaused';
 
-  return `${verb}: ${currentTrack.value.title}`;
+  return t(key, { title: currentTrack.value.title });
 });
 </script>
 
@@ -26,12 +29,12 @@ const statusMessage = computed(() => {
     v-if="currentTrack"
     class="player-bar"
     role="region"
-    aria-label="Audio player"
+    :aria-label="t('player.label')"
   >
     <button
       type="button"
       class="player-bar__title"
-      aria-label="Expand player"
+      :aria-label="t('player.expand')"
       @click="expand"
     >
       {{ currentTrack.title }}
@@ -51,14 +54,14 @@ const statusMessage = computed(() => {
     <PlayerSeek
       :current-time="currentTime"
       :duration="duration"
-      :label="`Seek within ${currentTrack.title}`"
+      :label="t('player.seek', { title: currentTrack.title })"
       @seek="seek"
     />
 
     <button
       type="button"
       class="player-bar__close"
-      aria-label="Close player"
+      :aria-label="t('player.close')"
       @click="stop"
     >
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path

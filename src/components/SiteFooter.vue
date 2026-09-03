@@ -17,7 +17,7 @@ const currentYear = new Date().getFullYear();
       <div class="footer__content">
         <nav
           class="footer__nav"
-          aria-label="Footer navigation"
+          :aria-label="t('nav.footerLabel')"
         >
           <RouterLink
             v-for="nav in navigation"

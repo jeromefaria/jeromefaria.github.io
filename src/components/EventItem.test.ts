@@ -282,8 +282,11 @@ describe('EventItem', () => {
       const venue = wrapper.get('.event-venue');
       const link = venue.get('a');
       expect(link.attributes('href')).toBe('https://darc.pt');
-      expect(link.text()).toBe('Desterro');
-      expect(venue.text()).toBe('Desterro, Lisbon, Portugal');
+      expect(link.attributes('target')).toBe('_blank');
+      expect(link.attributes('rel')).toContain('noopener');
+      expect(link.text()).toContain('Desterro');
+      expect(venue.text()).toContain('Desterro');
+      expect(venue.text()).toContain('Lisbon, Portugal');
     });
 
     it('renders an unlinked venue name when there is no url', () => {
@@ -313,7 +316,7 @@ describe('EventItem', () => {
         global: { plugins: [ptRouter], stubs: { RouterLink: RouterLinkStub } },
       });
 
-      expect(wrapper.get('.event-venue').text()).toBe('Desterro, Lisboa, Portugal');
+      expect(wrapper.get('.event-venue').text()).toContain('Lisboa, Portugal');
     });
   });
 });
