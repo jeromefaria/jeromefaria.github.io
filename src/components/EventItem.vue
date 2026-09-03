@@ -78,7 +78,7 @@ useLightboxDeepLink(
             v-if="titleHref && titleHrefIsExternal"
             class="event-title-ref"
             :href="titleHref"
-            :aria-label="`${title} website (opens in a new tab)`"
+            :aria-label="t('common.externalSiteAria', { name: title })"
           ><IconArrow direction="up-right" /></ExternalLink>
           <RouterLink
             v-else-if="titleHref"

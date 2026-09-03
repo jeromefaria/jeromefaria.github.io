@@ -38,6 +38,13 @@ describe('eventLocation', () => {
   it('falls back to the country when neither name nor city is present', () => {
     expect(eventLocation({ country: 'Portugal' })).toBe('Portugal');
   });
+
+  it('localizes city and country exonyms for Portuguese', () => {
+    const venue: EventVenue = { name: 'Teatro Ibérico', city: 'Lisbon', country: 'Portugal' };
+
+    expect(eventLocation(venue, 'pt')).toBe('Teatro Ibérico, Lisboa');
+    expect(eventLocation({ country: 'Spain' }, 'pt')).toBe('Espanha');
+  });
 });
 
 describe('toLiveHighlight', () => {

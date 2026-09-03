@@ -20,7 +20,7 @@ export type Setup =
   | { kind: 'duo'; with: Act }
   | { kind: 'project'; name: Act; members?: Act[] }
   | { kind: 'band'; band: Act }
-  | { kind: 'ensemble'; name: string; members?: Act[] };
+  | { kind: 'ensemble'; name: string | Localized<string>; members?: Act[] };
 
 export type Format =
   | { kind: 'theatre' }
