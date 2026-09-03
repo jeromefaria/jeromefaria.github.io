@@ -1,6 +1,6 @@
 import { inject, type InjectionKey } from 'vue';
 
-import { DEFAULT_LOCALE, type Locale, messages } from './messages';
+import { messages, type MessageSchema } from './messages';
 
 export type TranslateParams = Record<string, string>;
 
@@ -16,7 +16,11 @@ const resolve = (key: string, source: Record<string, unknown>): string => {
 const interpolate = (template: string, params?: TranslateParams): string =>
   params ? template.replace(/\{(\w+)\}/g, (_match, name: string) => params[name] ?? `{${name}}`) : template;
 
-export const createTranslate = (locale: Locale): TranslateFn =>
-  (key, params) => interpolate(resolve(key, messages[locale]), params);
+// Provider-less fallback (used before the i18n provider is installed — e.g. in unit
+// tests). Defaults to the eager English catalog so the app path never imports the
+// lazy Portuguese one; a caller may pass another catalog explicitly. The live app
+// injects i18n.global.t, which carries the active locale.
+export const createTranslate = (catalog: MessageSchema = messages.en): TranslateFn =>
+  (key, params) => interpolate(resolve(key, catalog), params);
 
-export const useT = (): TranslateFn => inject(TRANSLATE_KEY, createTranslate(DEFAULT_LOCALE));
+export const useT = (): TranslateFn => inject(TRANSLATE_KEY, createTranslate());

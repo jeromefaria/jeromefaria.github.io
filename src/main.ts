@@ -30,7 +30,15 @@ export const createApp = ViteSSG(
     // An imported i18nEnabled const defeats that (verified), so this one is not shared.
     if (import.meta.env.VITE_I18N === 'true') {
       const { setupI18n } = await import('./i18n');
-      setupI18n(app, router);
+      const ensureLocale = setupI18n(app, router);
+
+      // Client hydration does not wait for router readiness, so a /pt page would
+      // otherwise hydrate with English before the guard swaps it. Preload the PT
+      // catalog and activate it here, before mount, when landing on a /pt URL.
+      if (isClient) {
+        const path = window.location.pathname;
+        if (path === '/pt' || path.startsWith('/pt/')) await ensureLocale('pt');
+      }
     }
 
     // Client-side only: SSG pre-render has no session storage or live DOM.

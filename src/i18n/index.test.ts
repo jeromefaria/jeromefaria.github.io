@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createApp, inject } from 'vue';
 import { createMemoryHistory, createRouter } from 'vue-router';
 
-import { createAppI18n, setupI18n } from './index';
+import { createAppI18n, ensureLocale, setupI18n } from './index';
 import { localeFromMeta } from './messages';
 import { TRANSLATE_KEY } from './useT';
 
@@ -14,9 +14,11 @@ describe('createAppI18n', () => {
     expect(i18n.global.t('nav.about')).toBe('About');
   });
 
-  it('resolves the same key in pt when the locale is set', () => {
-    const i18n = createAppI18n('pt');
+  it('loads and resolves pt on demand via ensureLocale', async () => {
+    const i18n = createAppI18n();
+    await ensureLocale(i18n, 'pt');
 
+    expect(i18n.global.availableLocales).toContain('pt');
     expect(i18n.global.locale.value).toBe('pt');
     expect(i18n.global.t('nav.about')).toBe('Sobre');
   });

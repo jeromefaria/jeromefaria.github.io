@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
 import { localePath, localizeInternalLinks, messages, stripLocale, SUPPORTED_LOCALES } from './messages';
+import { pt } from './messagesPt';
+
+// The PT catalog is lazy in the app; the parity guard reads it directly.
+const catalogs = { en: messages.en, pt } as const;
 
 const flatten = (object: Record<string, unknown>, prefix = ''): Record<string, string> =>
   Object.entries(object).reduce<Record<string, string>>((accumulator, [key, value]) => {
@@ -15,16 +19,16 @@ const flatten = (object: Record<string, unknown>, prefix = ''): Record<string, s
 
 describe('i18n message catalogs', () => {
   it('every locale defines exactly the same keys (no drift)', () => {
-    const reference = Object.keys(flatten(messages.en)).sort();
+    const reference = Object.keys(flatten(catalogs.en)).sort();
 
     for (const locale of SUPPORTED_LOCALES) {
-      expect(Object.keys(flatten(messages[locale])).sort(), `locale "${locale}"`).toEqual(reference);
+      expect(Object.keys(flatten(catalogs[locale])).sort(), `locale "${locale}"`).toEqual(reference);
     }
   });
 
   it('leaves no message blank', () => {
     for (const locale of SUPPORTED_LOCALES) {
-      const blanks = Object.entries(flatten(messages[locale]))
+      const blanks = Object.entries(flatten(catalogs[locale]))
         .filter(([, value]) => value.trim() === '')
         .map(([path]) => path);
 

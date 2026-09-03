@@ -2,12 +2,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import { getMediaElement, next, play, stop, usePlayer } from '@/composables/usePlayer';
+import { pt } from '@/i18n/messagesPt';
 import { createTranslate } from '@/i18n/useT';
 import type { AudioTrack } from '@/types/audio';
 
 import { buildCommands, playbackCommands, playReleaseCommands } from './commands';
 
-const t = createTranslate('en');
+const t = createTranslate();
 
 const idsOf = (commands: ReturnType<typeof playbackCommands>): string[] => commands.map(command => command.id);
 
@@ -97,7 +98,7 @@ describe('buildCommands', () => {
   });
 
   it('localizes navigate titles and work sections to the requested locale', () => {
-    const portuguese = buildCommands(createTranslate('pt'), 'pt');
+    const portuguese = buildCommands(createTranslate(pt), 'pt');
     const navTitles = portuguese.filter(command => command.kind === 'navigate').map(command => command.title);
 
     expect(navTitles).toContain('Início');
