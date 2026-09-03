@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { RouterLink } from 'vue-router';
 
+import { useLocale } from '@/i18n/useLocale';
 import type { Release } from '@/types';
 import { hasExternalUrl } from '@/types';
 import { releasePath } from '@/utils/releasePermalink';
@@ -13,8 +14,10 @@ const props = defineProps<{ release: Release }>();
 
 const artist = computed(() => (props.release.meta.kind === 'engineering' ? props.release.meta.artist : undefined));
 
+const { toLocalePath } = useLocale();
+
 const external = computed(() => hasExternalUrl(props.release));
-const href = computed(() => props.release.externalUrl ?? releasePath(props.release.worksRef ?? props.release.id));
+const href = computed(() => props.release.externalUrl ?? toLocalePath(releasePath(props.release.worksRef ?? props.release.id)));
 </script>
 
 <template>

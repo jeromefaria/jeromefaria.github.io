@@ -73,10 +73,10 @@ export const worksData: WorksData = {
         },
         tracklist: [
           { title: 'Prólogo: Estado Novo', start: 0 },
-          { title: 'Fado: Estados Socialistas', start: 212 },
-          { title: 'Fátima: Estados Ditos Comunistas', start: 572 },
-          { title: 'Futebol: Estados Capitalistas', start: 932 },
-          { title: 'Epílogo: Estado a Que Chegamos', start: 1292 },
+          { title: 'Fado: Estados Socialistas', start: 205.286 },
+          { title: 'Fátima: Estados Ditos Comunistas', start: 571.999 },
+          { title: 'Futebol: Estados Capitalistas', start: 930.55 },
+          { title: 'Epílogo: Estado a Que Chegamos', start: 1273.605 },
         ],
         credits: {
           style: 'by',
