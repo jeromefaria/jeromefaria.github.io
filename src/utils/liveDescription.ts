@@ -1,6 +1,7 @@
 import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { Act, BillEntry, Format, LiveEvent, Setup } from '@/types/live';
+import { safeHref } from '@/utils/html';
 
 interface Phrases {
   solo: string;
@@ -48,8 +49,12 @@ const PHRASES: Record<Locale, Phrases> = {
   },
 };
 
+// entry.text is trusted author HTML (some acts embed their own member links), so it
+// is not escaped — but entry.url lands in an href attribute, so scheme-allowlist and
+// escape it via safeHref (a javascript: or attribute-breaking url can never render).
 const act = (entry: Act): string => {
-  const named = entry.url ? `<a href="${entry.url}">${entry.text}</a>` : entry.text;
+  const href = entry.url ? safeHref(entry.url) : null;
+  const named = href ? `<a href="${href}">${entry.text}</a>` : entry.text;
   return entry.suffix ? `${named} ${entry.suffix}` : named;
 };
 

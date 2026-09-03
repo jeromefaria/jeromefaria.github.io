@@ -3,17 +3,9 @@ import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { CreditClause, CreditRole, Credits, StructuredCredits } from '@/types/credits';
 import { isStructuredCredits } from '@/types/credits';
 import type { Credit } from '@/types/media';
+import { escapeHtml, safeHref } from '@/utils/html';
 
 const MARKER = /\[\[([^\]]+)\]\]/g;
-const SAFE_SCHEME = /^(?:https?:|mailto:)/i;
-
-const HTML_ESCAPES: Record<string, string> = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  "'": '&#39;',
-};
 
 const ROLE_TEXT: Record<Locale, Record<CreditRole, string>> = {
   en: {
@@ -92,16 +84,6 @@ const compose = (credits: StructuredCredits, locale: Locale): string => {
 
 const toSource = (credits: Credits, locale: Locale): string =>
   (isStructuredCredits(credits) ? compose(credits, locale) : credits);
-
-const escapeHtml = (value: string): string =>
-  value.replace(/[&<>"']/g, character => HTML_ESCAPES[character] ?? character);
-
-// The data is author-controlled, but escape + scheme-allowlist so a stray
-// javascript:/attribute-breaking url can never render as a live link.
-const safeHref = (url: string): string | null => {
-  const trimmed = url.trim();
-  return SAFE_SCHEME.test(trimmed) ? escapeHtml(trimmed) : null;
-};
 
 export const renderCredits = (credits: Credits, contributors: Credit[] = [], locale: Locale = DEFAULT_LOCALE): string => {
   const linked = new Map<string, string>();
