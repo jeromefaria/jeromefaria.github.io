@@ -39,7 +39,7 @@ const emit = defineEmits<{
 const coverVisible = useAccordionVisibility();
 
 const t = useT();
-const { current } = useLocale();
+const { current, toLocalePath } = useLocale();
 const renderProse = useProse();
 const coverErrored = ref(false);
 
@@ -74,6 +74,12 @@ const {
   playTrack,
   playChapter,
 } = useReleasePlayback(() => props.release);
+
+// Keep copy-link/permalink hrefs in the active locale; trackHref is '' for non-linkable tracks.
+const localizedTrackHref = (index: number): string => {
+  const path = trackHref(index);
+  return path ? toLocalePath(path) : path;
+};
 </script>
 
 <template>
@@ -123,7 +129,7 @@ const {
         <strong>
           <a
             class="release-title-link"
-            :href="releasePath(release.id)"
+            :href="toLocalePath(releasePath(release.id))"
             @click.prevent="emit('update-hash', release.id)"
           >{{ release.title }}</a>
         </strong>
@@ -163,7 +169,7 @@ const {
           </button>
           <TrackListItem
             :track="track"
-            :href="trackHref(index)"
+            :href="localizedTrackHref(index)"
             @play="activateTrack(index)"
           />
         </li>

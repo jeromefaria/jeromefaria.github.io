@@ -63,16 +63,16 @@ describe('MediaLinks', () => {
   });
 
   it('renders a download link as a new-tab external anchor when a URL is given', () => {
-    const link = mountLinks({ downloadUrl: 'https://music.jeromefaria.com/album/altar' }).get('a');
+    const link = mountLinks({ downloadUrl: 'https://jeromefaria.bandcamp.com/album/altar' }).get('a');
 
     expect(link.text()).toBe('Download');
-    expect(link.attributes('href')).toBe('https://music.jeromefaria.com/album/altar');
+    expect(link.attributes('href')).toBe('https://jeromefaria.bandcamp.com/album/altar');
     expect(link.attributes('target')).toBe('_blank');
     expect(link.attributes('rel')).toBe('noopener noreferrer');
   });
 
   it('shows the download link alongside media controls, after them', () => {
-    const wrapper = mountLinks({ images: [image], downloadUrl: 'https://music.jeromefaria.com/album/altar' });
+    const wrapper = mountLinks({ images: [image], downloadUrl: 'https://jeromefaria.bandcamp.com/album/altar' });
 
     expect(wrapper.get('button').text()).toBe('Gallery');
     expect(wrapper.get('a').text()).toBe('Download');

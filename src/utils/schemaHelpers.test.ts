@@ -97,14 +97,14 @@ describe('createMusicAlbumSchema', () => {
 
   it('builds the core album fields', () => {
     const schema = createMusicAlbumSchema(
-      { title: 'Overlapse', bandcampUrl: 'https://music.jeromefaria.com/album/overlapse', datePublished: '2012' },
+      { title: 'Overlapse', bandcampUrl: 'https://jeromefaria.bandcamp.com/album/overlapse', datePublished: '2012' },
       artist,
       siteUrl,
     );
     expect(schema).toMatchObject({
       '@type': 'MusicAlbum',
       name: 'Overlapse',
-      url: 'https://music.jeromefaria.com/album/overlapse',
+      url: 'https://jeromefaria.bandcamp.com/album/overlapse',
       datePublished: '2012',
       byArtist: { '@type': 'Person', name: artist },
     });

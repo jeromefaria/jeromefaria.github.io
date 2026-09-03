@@ -54,11 +54,16 @@ interface ReleaseHead {
   image?: string;
 }
 
+const fallbackDescription = (title: string, locale: Locale): string =>
+  (locale === DEFAULT_LOCALE
+    ? `${title} — a release by Jerome Faria.`
+    : `${title} — uma edição de Jerome Faria.`);
+
 export const releaseHead = (release: Release, locale: Locale = DEFAULT_LOCALE): ReleaseHead => ({
   title: release.title,
   description: release.description
     ? stripHtml(localize(release.description, locale))
-    : `${release.title} — a release by Jerome Faria.`,
+    : fallbackDescription(release.title, locale),
   ogType: 'music.album',
   ...(hasCoverImage(release) ? { image: release.coverImage } : {}),
 });

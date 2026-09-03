@@ -107,6 +107,22 @@ describe('EventItem', () => {
       expect(wrapper.find('a.event-title-ref[target="_blank"]').exists()).toBe(false);
     });
 
+    it('locale-prefixes an internal title reference on a pt route', async () => {
+      const ptRouter = createRouter({
+        history: createMemoryHistory(),
+        routes: [{ path: '/:pathMatch(.*)*', component: { render: () => null }, meta: { locale: 'pt' } }],
+      });
+      ptRouter.push('/pt/live');
+      await ptRouter.isReady();
+
+      const wrapper = mount(EventItem, {
+        props: { event: internalRefEvent },
+        global: { plugins: [ptRouter], stubs: { RouterLink: RouterLinkStub } },
+      });
+
+      expect(wrapper.findComponent(RouterLinkStub).props('to')).toBe('/pt/works#aragao');
+    });
+
     it('resolves a Localized title to the active locale', async () => {
       const localizedEvent: LiveEvent = {
         ...plainEvent,

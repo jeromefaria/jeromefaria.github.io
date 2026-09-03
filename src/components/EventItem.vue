@@ -26,15 +26,15 @@ const emit = defineEmits<{
   'open-lightbox': [items: LightboxItem[], index: number, source: LightboxSource];
 }>();
 
-const { current } = useLocale();
+const { current, toLocalePath } = useLocale();
 
 const formattedDate = computed(() => formatEventDateRange(props.event.date, props.event.endDate, current.value));
 
 const title = computed(() => localize(props.event.title, current.value));
 
-const titleHref = computed(() => props.event.titleUrl ?? null);
+const titleHref = computed(() => props.event.titleUrl ?? '');
 
-const titleHrefIsExternal = computed(() => /^https?:/i.test(titleHref.value ?? ''));
+const titleHrefIsExternal = computed(() => /^https?:/i.test(titleHref.value));
 
 const venueLocation = computed(() =>
   [props.event.venue.city, props.event.venue.country]
@@ -83,7 +83,7 @@ useLightboxDeepLink(
           <RouterLink
             v-else-if="titleHref"
             class="event-title-ref"
-            :to="titleHref"
+            :to="toLocalePath(titleHref)"
             :aria-label="`View ${title}`"
           ><IconArrow direction="up-right" /></RouterLink>
         </strong>
