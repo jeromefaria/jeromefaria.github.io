@@ -43,7 +43,7 @@ vi.mock('@/data/works', () => ({
   },
 }));
 
-import { createWorksPageSchema } from './pageSchemas';
+import { createWorksPageSchema } from './worksSchema';
 
 describe('createWorksPageSchema — album filter', () => {
   it('includes releases with either Bandcamp id, excludes those with neither, and dates each from its year', () => {

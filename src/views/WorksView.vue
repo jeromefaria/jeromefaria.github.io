@@ -8,8 +8,8 @@ import ReleaseItem from '@/components/ReleaseItem.vue';
 import { pageMeta } from '@/data/pageMeta';
 import { worksData, worksSections } from '@/data/works';
 import { useLocalized } from '@/i18n/localized';
-import { createWorksPageSchema } from '@/utils/pageSchemas';
 import { canPlayRelease, findRelease, playReleaseAt, releaseHead } from '@/utils/releasePermalink';
+import { createWorksPageSchema } from '@/utils/worksSchema';
 
 const route = useRoute();
 const { localize, current } = useLocalized();
