@@ -67,6 +67,7 @@ const {
   isCurrentTrack,
   isTrackPlaying,
   isCurrentChapter,
+  isChapterPlaying,
   trackHref,
   activateTrack,
   playThis,
@@ -162,10 +163,11 @@ const localizedTrackHref = (index: number): string => {
             v-else-if="chaptered"
             type="button"
             class="track-play"
-            :aria-label="`Play ${track.title}`"
+            :aria-label="`${isChapterPlaying(index) ? 'Pause' : 'Play'} ${track.title}`"
             @click="playChapter(index)"
           >
-            <IconPlay />
+            <IconPause v-if="isChapterPlaying(index)" />
+            <IconPlay v-else />
           </button>
           <TrackListItem
             :track="track"
