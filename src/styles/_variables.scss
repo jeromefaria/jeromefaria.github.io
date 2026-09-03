@@ -142,8 +142,11 @@ $overlay-scrim: rgb(0 0 0 / 50%);
     }
   }
 
+  // Inset so the ring sits contiguous with the 1px border rather than floating
+  // outside it — a focused invalid field then reads as one thick coloured edge,
+  // not the border plus a second ring. Invalid states recolour it (see _contact).
   &:focus-visible {
-    @include focus-ring;
+    @include focus-ring(-1px);
   }
 
   @media (prefers-reduced-motion: reduce) {
