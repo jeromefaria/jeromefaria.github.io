@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-
 import { usePageHead } from '@/composables/usePageHead';
 import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
@@ -15,20 +13,6 @@ usePageHead({
   schema: createPersonSchema(current.value),
   preloadImage: heroImageSrc,
 });
-
-const heroImageLoaded = ref(false);
-
-onMounted(() => {
-  const heroImage = new Image();
-  heroImage.onload = () => {
-    heroImageLoaded.value = true;
-  };
-  // Reveal the hero even if the image fails, so the loader never spins forever.
-  heroImage.onerror = () => {
-    heroImageLoaded.value = true;
-  };
-  heroImage.src = heroImageSrc;
-});
 </script>
 
 <template>
@@ -37,20 +21,12 @@ onMounted(() => {
       <h1 class="visually-hidden">
         {{ siteConfig.title }} — {{ localize(siteConfig.tagline) }}
       </h1>
+      <!-- Painted at first paint: the background is in the SSR markup and preloaded
+           with fetchpriority=high, so it is the LCP element — no JS reveal gate. -->
       <section
         class="hero"
-        :class="{ 'hero--loaded': heroImageLoaded }"
         :style="{ backgroundImage: `url(${heroImageSrc})` }"
-      >
-        <div
-          v-if="!heroImageLoaded"
-          class="hero__loading"
-        >
-          <div class="hero__loading-dot" />
-          <div class="hero__loading-dot" />
-          <div class="hero__loading-dot" />
-        </div>
-      </section>
+      />
     </div>
   </div>
 </template>

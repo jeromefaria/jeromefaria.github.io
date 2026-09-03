@@ -23,28 +23,9 @@
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity $transition-base;
-
-    &--loaded {
-      opacity: 1;
-    }
 
     @media (min-aspect-ratio: 3 / 2) {
       background-size: 100% auto;
     }
-  }
-
-  .hero__loading {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    gap: $spacing-2;
-  }
-
-  .hero__loading-dot {
-    @include loading-dot;
   }
 }
