@@ -58,14 +58,14 @@ const metaText = (meta: ReleaseMeta): string[] => {
   return out.filter(Boolean);
 };
 
-const eventPeople = (event: LiveEvent): string[] => {
+const eventPeople = (event: LiveEvent, locale: Locale): string[] => {
   const { setup } = event;
   const names: string[] = [];
 
   if (setup.kind === 'duo') names.push(setup.with.text);
   if (setup.kind === 'band') names.push(setup.band.text);
   if (setup.kind === 'project') names.push(setup.name.text, ...(setup.members ?? []).map(member => member.text));
-  if (setup.kind === 'ensemble') names.push(setup.name, ...(setup.members ?? []).map(member => member.text));
+  if (setup.kind === 'ensemble') names.push(localize(setup.name, locale), ...(setup.members ?? []).map(member => member.text));
 
   names.push(...(event.bill ?? []).flatMap(entry => (Array.isArray(entry) ? entry.map(member => member.text) : [entry.text])));
   names.push(...(event.images ?? []).map(image => image.photographer?.name ?? ''));
@@ -95,7 +95,7 @@ const liveCommands = (locale: Locale): Command[] =>
     id: `live:${event.id}`,
     title: localize(event.title, locale),
     subtitle: event.venue.name ?? event.venue.city ?? event.venue.country,
-    keywords: words([event.venue.name ?? '', event.venue.city ?? '', event.venue.country, event.date.slice(0, 4), ...eventPeople(event)].join(' ')),
+    keywords: words([event.venue.name ?? '', event.venue.city ?? '', event.venue.country, event.date.slice(0, 4), ...eventPeople(event, locale)].join(' ')),
     text: words(localize(event.note ?? '', locale)),
     group: 'Live',
     to: `/live#${event.id}`,

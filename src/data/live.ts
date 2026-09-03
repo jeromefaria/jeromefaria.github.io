@@ -598,7 +598,7 @@ export const liveEvents: LiveEvent[] = [
     date: '2012-10-27',
     title: 'Cine Qua Non',
     venue: { name: 'Estalagem da Ponta do Sol', url: 'https://www.pontadosol.com/', city: 'Ponta do Sol', country: 'Portugal' },
-    setup: { kind: 'ensemble', name: 'Improvisation collective' },
+    setup: { kind: 'ensemble', name: { en: 'Improvisation collective', pt: 'colectivo de improvisação' } },
     note: {
       en: 'Electronics, piano (<a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>), percussion (<a href="https://madeirajazzcollective.bandcamp.com/">Jorge Maggiore</a>) and visuals (Filipe Ferraz).',
       pt: 'Electrónica, piano (<a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>), percussão (<a href="https://madeirajazzcollective.bandcamp.com/">Jorge Maggiore</a>) e visuais (Filipe Ferraz).',
@@ -793,7 +793,7 @@ export const liveEvents: LiveEvent[] = [
     venue: { name: 'Mosteiro São Bento da Vitória', url: 'https://www.tnsj.pt/en/edificios/mosteiro-de-sao-bento-da-vitoria/', city: 'Porto', country: 'Portugal' },
     setup: {
       kind: 'ensemble',
-      name: 'Resampling White Noise — 16-performer laptop meeting',
+      name: { en: 'Resampling White Noise — 16-performer laptop meeting', pt: 'Resampling White Noise — encontro de laptops com 16 intérpretes' },
       members: [
         { text: 'Scanner', url: 'https://scannerdot.bandcamp.com/' },
         { text: '@c', url: 'https://at-c.org/' },
