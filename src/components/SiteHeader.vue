@@ -85,7 +85,7 @@ onBeforeUnmount(() => {
           ref="navToggle"
           class="nav-toggle"
           type="button"
-          aria-label="Toggle menu"
+          :aria-label="t('nav.toggleMenu')"
           aria-controls="primary-nav"
           :aria-expanded="navOpen"
           @click="toggleNav"
@@ -121,7 +121,7 @@ onBeforeUnmount(() => {
         ref="navMenu"
         class="nav"
         :class="{ 'nav--open': navOpen, 'nav--closing': navClosing }"
-        aria-label="Main navigation"
+        :aria-label="t('nav.mainLabel')"
         tabindex="-1"
         @keydown="handleNavKeydown"
       >

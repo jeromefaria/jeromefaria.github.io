@@ -47,9 +47,11 @@ const handleTouchStart = (event: TouchEvent) => emit('touchstart', event);
 const handleTouchEnd = (event: TouchEvent) => emit('touchend', event);
 
 const dialogLabel = computed(() => {
-  const noun = isVideo.value ? 'Video' : 'Image';
-  if (props.totalItems > 1) return `${noun} ${props.currentIndex + 1} of ${props.totalItems}`;
-  return `${noun} viewer`;
+  if (props.totalItems > 1) {
+    const key = isVideo.value ? 'lightbox.videoLabel' : 'lightbox.imageLabel';
+    return t(key, { index: String(props.currentIndex + 1), total: String(props.totalItems) });
+  }
+  return t(isVideo.value ? 'lightbox.videoViewer' : 'lightbox.imageViewer');
 });
 
 const dialogRef = ref<HTMLElement | null>(null);
@@ -128,14 +130,14 @@ onMounted(async () => {
           <button
             class="lightbox__hint lightbox__hint--prev"
             :disabled="currentIndex === 0"
-            aria-label="Previous image"
+            :aria-label="t('lightbox.previous')"
             @click.stop="handlePrev"
           >
             <IconArrow direction="left" />
           </button>
           <button
             class="lightbox__hint lightbox__hint--close"
-            aria-label="Close lightbox"
+            :aria-label="t('lightbox.close')"
             @click.stop="handleClose"
           >
             ×
@@ -143,7 +145,7 @@ onMounted(async () => {
           <button
             class="lightbox__hint lightbox__hint--next"
             :disabled="currentIndex >= totalItems - 1"
-            aria-label="Next item"
+            :aria-label="t('lightbox.next')"
             @click.stop="handleNext"
           >
             <IconArrow direction="right" />

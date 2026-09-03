@@ -16,7 +16,7 @@ import { externalizeLinks } from '@/utils/externalizeLinks';
 const head = { ...pageMeta.epk, noIndex: true };
 
 const t = useT();
-const { current, toLocalePath } = useLocalized();
+const { localize, current, toLocalePath } = useLocalized();
 const epk = computed(() => resolveEpkContent(epkManifest, current.value));
 </script>
 
@@ -82,7 +82,7 @@ const epk = computed(() => resolveEpkContent(epkManifest, current.value));
         >
           <ResponsivePicture
             :src="photo.src"
-            :alt="photo.alt"
+            :alt="localize(photo.alt)"
           />
           <figcaption>
             <template v-if="photo.photographer">

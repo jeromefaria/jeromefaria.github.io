@@ -32,9 +32,9 @@ describe('BandcampPlayer', () => {
       expect(source.attributes('srcset')).toBe('/images/cover.webp');
     });
 
-    it('has a descriptive alt text on the cover image', () => {
+    it('leaves the cover image decorative — the play button already names the release', () => {
       const wrapper = mountPlayer();
-      expect(wrapper.find('img').attributes('alt')).toBe(`${DEFAULT_PROPS.albumTitle} album cover`);
+      expect(wrapper.find('img').attributes('alt')).toBe('');
     });
 
     it('does not render the iframe initially', () => {
