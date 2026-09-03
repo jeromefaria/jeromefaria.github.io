@@ -8,6 +8,7 @@ import { audioPlayerEnabled, initFeatureFlags } from '@/composables/useFeatureFl
 import { helpMounted, paletteMounted, useOverlayHotkeys } from '@/composables/useOverlays';
 import { usePlayer } from '@/composables/usePlayer';
 import { initTheme } from '@/composables/useTheme';
+import { useT } from '@/i18n/useT';
 
 // Lazy-loaded so the palette's registry, fuzzy ranker, and the data it reads stay
 // out of the main bundle — they ship only once the overlay is first summoned.
@@ -24,14 +25,14 @@ useOverlayHotkeys();
 // screen readers announce it. This is the single source of that cue: links that
 // already carry one (the ExternalLink component, or an aria-label that conveys
 // it) are left alone, so nothing is announced twice.
-const NEW_TAB_CUE = ' (opens in a new tab)';
+const t = useT();
 
 const addNewTabCue = (link: HTMLAnchorElement) => {
   if (link.hasAttribute('aria-label') || link.querySelector('.visually-hidden')) return;
 
   const cue = document.createElement('span');
   cue.className = 'visually-hidden';
-  cue.textContent = NEW_TAB_CUE;
+  cue.textContent = ` ${t('common.newTabCue')}`;
   link.appendChild(cue);
 };
 

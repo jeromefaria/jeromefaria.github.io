@@ -55,6 +55,8 @@ const en = {
   common: {
     switchLanguage: 'PT',
     switchLanguageLabel: 'Switch to Portuguese (PT)',
+    newTabCue: '(opens in a new tab)',
+    externalSiteAria: '{name} website (opens in a new tab)',
   },
   media: {
     gallery: 'Gallery',
@@ -219,6 +221,8 @@ const pt: typeof en = {
   common: {
     switchLanguage: 'EN',
     switchLanguageLabel: 'Mudar para inglês (EN)',
+    newTabCue: '(abre num novo separador)',
+    externalSiteAria: 'Site de {name} (abre num novo separador)',
   },
   media: {
     gallery: 'Galeria',
