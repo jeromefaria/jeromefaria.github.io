@@ -36,12 +36,20 @@ export const useReleasePlayback = (releaseGetter: () => Release) => {
     );
   });
 
-  const isCurrentTrack = (index: number): boolean =>
-    currentTrack.value?.key === audioTracks.value[index]?.key;
+  const isCurrentTrack = (index: number): boolean => {
+    // Chaptered releases are one audio file (the chapter highlight tracks the playhead);
+    // and an absent audio key must not match a null currentTrack via undefined === undefined.
+    if (chaptered.value) return false;
+
+    const key = audioTracks.value[index]?.key;
+    return key !== undefined && key === currentTrack.value?.key;
+  };
 
   const isTrackPlaying = (index: number): boolean => isCurrentTrack(index) && isActiveStatus(status.value);
 
   const isCurrentChapter = (index: number): boolean => chaptered.value && currentChapterIndex.value === index;
+
+  const isChapterPlaying = (index: number): boolean => isCurrentChapter(index) && releaseActive.value;
 
   const trackHref = (index: number): string => {
     if (perTrackPlayable.value) return releasePath(release.value.id, { track: index + 1 });
@@ -67,8 +75,13 @@ export const useReleasePlayback = (releaseGetter: () => Release) => {
     playReleaseAt(release.value, { track: index + 1 });
   };
 
-  const playChapter = (index: number): void =>
+  const playChapter = (index: number): void => {
+    if (isCurrentChapter(index)) {
+      toggle();
+      return;
+    }
     playReleaseAt(release.value, { t: release.value.tracklist?.[index]?.start ?? 0 });
+  };
 
   const activateTrack = (index: number): void => {
     if (perTrackPlayable.value) {
@@ -87,6 +100,7 @@ export const useReleasePlayback = (releaseGetter: () => Release) => {
     isCurrentTrack,
     isTrackPlaying,
     isCurrentChapter,
+    isChapterPlaying,
     trackHref,
     activateTrack,
     playThis,
