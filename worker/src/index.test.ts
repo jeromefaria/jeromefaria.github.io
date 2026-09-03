@@ -12,7 +12,7 @@ const ENV: Env = {
 
 const VALID_BODY = {
   token: 'tok',
-  inquiry: 'Booking',
+  inquiry: 'booking',
   name: 'Jane Roe',
   email: 'jane@example.com',
   message: 'Hello there.',
@@ -106,6 +106,70 @@ describe('contact worker', () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it('rejects a malformed (non-array) fields value without crashing', async () => {
+    const response = await worker.fetch(postRequest({ ...VALID_BODY, fields: 1 }), ENV);
+
+    expect(response.status).toBe(400);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('rejects an over-long field label', async () => {
+    const fields = [{ label: 'L'.repeat(101), value: 'v' }];
+    const response = await worker.fetch(postRequest({ ...VALID_BODY, fields }), ENV);
+
+    expect(response.status).toBe(400);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('rejects an invalid email address (reply-to spoofing) before verifying', async () => {
+    const response = await worker.fetch(postRequest({ ...VALID_BODY, email: 'Support <evil@attacker.example>' }), ENV);
+
+    expect(response.status).toBe(400);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('rejects control characters in a header-bound field', async () => {
+    const response = await worker.fetch(postRequest({ ...VALID_BODY, name: 'Jane\r\nBcc: evil@x' }), ENV);
+
+    expect(response.status).toBe(400);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('rejects an inquiry outside the slug taxonomy', async () => {
+    const response = await worker.fetch(postRequest({ ...VALID_BODY, inquiry: 'Anything I Want' }), ENV);
+
+    expect(response.status).toBe(400);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('rejects an over-large body before parsing', async () => {
+    const request = new Request('https://worker.example/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Origin': 'https://jeromefaria.com',
+        'Content-Length': String(64 * 1024 + 1),
+      },
+      body: JSON.stringify(VALID_BODY),
+    });
+
+    const response = await worker.fetch(request, ENV);
+
+    expect(response.status).toBe(413);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('rejects a Turnstile token minted for a different hostname', async () => {
+    fetchMock.mockResolvedValueOnce(
+      { ok: true, json: async () => ({ success: true, hostname: 'evil.example' }) } as unknown as Response,
+    );
+
+    const response = await worker.fetch(postRequest(VALID_BODY), ENV);
+
+    expect(response.status).toBe(403);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   it('rejects a failed Turnstile verification without sending', async () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(false));
 
@@ -128,7 +192,7 @@ describe('contact worker', () => {
     expect(sent.from).toBe(ENV.CONTACT_FROM);
     expect(sent.to).toBe(ENV.CONTACT_TO);
     expect(sent.reply_to).toBe('jane@example.com');
-    expect(sent.subject).toBe('[Booking] Jerome Faria — Jane Roe');
+    expect(sent.subject).toBe('[booking] Jerome Faria — Jane Roe');
     expect(sent.text).toContain('Location: Lisbon');
     expect(sent.html).toContain('<strong>Email:</strong>');
   });
