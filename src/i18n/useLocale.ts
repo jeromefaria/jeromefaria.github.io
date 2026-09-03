@@ -3,7 +3,7 @@ import { useRoute } from 'vue-router';
 
 import { type Locale, localeFromMeta, localePath, stripLocale } from './messages';
 
-interface UseLocale {
+export interface UseLocale {
   current: ComputedRef<Locale>;
   other: ComputedRef<Locale>;
   toLocalePath: (path: string) => string;
