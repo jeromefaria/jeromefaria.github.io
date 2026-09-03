@@ -54,6 +54,22 @@ export default defineConfig({
         drop_debugger: true,
       },
     },
+    rollupOptions: {
+      output: {
+        // Keep the framework in a stable chunk so an app-code change doesn't bust its
+        // hash across deploys. vue-i18n is left out so it stays its own lazy chunk.
+        manualChunks(id: string) {
+          if (
+            id.includes('/node_modules/vue/') ||
+            id.includes('/node_modules/vue-router/') ||
+            id.includes('/node_modules/@vue/')
+          ) {
+            return 'vendor';
+          }
+          return undefined;
+        },
+      },
+    },
   },
   ssgOptions: {
     script: 'async',

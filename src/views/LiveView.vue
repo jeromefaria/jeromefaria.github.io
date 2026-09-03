@@ -4,7 +4,7 @@ import EventItem from '@/components/EventItem.vue';
 import { liveYears, sortedLiveData } from '@/data/live';
 import { pageMeta } from '@/data/pageMeta';
 import { useLocalized } from '@/i18n/localized';
-import { createLiveEventsSchema } from '@/utils/pageSchemas';
+import { createLiveEventsSchema } from '@/utils/liveSchema';
 
 const { localize, current } = useLocalized();
 </script>

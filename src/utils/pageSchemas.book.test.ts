@@ -7,7 +7,7 @@ vi.mock('@/data/works', () => ({
   },
 }));
 
-import { createWorksPageSchema } from './pageSchemas';
+import { createWorksPageSchema } from './worksSchema';
 
 describe('createWorksPageSchema — book guard', () => {
   it('throws when the publications section has no publication release', () => {

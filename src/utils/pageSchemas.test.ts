@@ -4,12 +4,9 @@ import { liveEvents, liveYears } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
 
-import {
-  createContactPageSchema,
-  createLiveEventsSchema,
-  createPersonSchema,
-  createWorksPageSchema,
-} from './pageSchemas';
+import { createLiveEventsSchema } from './liveSchema';
+import { createContactPageSchema, createPersonSchema } from './pageSchemas';
+import { createWorksPageSchema } from './worksSchema';
 
 describe('createPersonSchema', () => {
   it('builds a Person from the site config and social links', () => {
