@@ -79,7 +79,8 @@
       .nav-toggle{display:flex;align-items:center;justify-content:center;width:2.75rem;height:2.75rem;margin:-.875rem;color:var(--color-text-muted);background:none;border:none;cursor:pointer}
       .nav-toggle__icon{width:1rem;height:1rem}
       .home{flex:1;display:flex;flex-direction:column}
-      .home .hero{margin:0;padding:0;width:100%;min-height:50vh;flex:1;background-size:cover;background-position:center bottom;background-repeat:no-repeat}
+      .home .hero{margin:0;padding:0;width:100%;min-height:50vh;flex:1;background-image:url(/images/performance.webp);background-size:cover;background-position:center bottom;background-repeat:no-repeat}
+      @media(max-width:640px){.home .hero{background-image:url(/images/responsive/performance-1280w.webp)}}
       @media(min-aspect-ratio:3/2){.home .hero{background-size:100% auto}}
       .skip-link{position:absolute;top:-100%;left:1rem;z-index:1000;padding:.5rem 1rem;background:var(--color-bg);color:var(--color-text);border:1px solid var(--color-border);text-decoration:none;font-size:.75rem}
       .skip-link:focus{top:1rem}

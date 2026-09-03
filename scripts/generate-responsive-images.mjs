@@ -33,7 +33,10 @@ const aboutSrcs = aboutSections
 
 const covers = [...new Set(coverSrcs)].map(src => ({ src, widths: [320, 640, 960] }));
 const aboutImages = [...new Set(aboutSrcs)].map(src => ({ src, widths: [480, 960, 1440] }));
-const targets = [...covers, ...aboutImages];
+// Home hero: a single phone-width variant. Larger screens keep the full-res webp
+// (see _home.scss), so desktop/tablet/retina render byte-identical.
+const heroImages = [{ src: '/images/performance.jpg', widths: [1280] }];
+const targets = [...covers, ...aboutImages, ...heroImages];
 
 mkdirSync(OUT, { recursive: true });
 

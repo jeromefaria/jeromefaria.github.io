@@ -317,5 +317,12 @@
     ],
     "width": 1365,
     "height": 2048
+  },
+  "performance": {
+    "widths": [
+      1280
+    ],
+    "width": 2560,
+    "height": 1703
   }
 }
