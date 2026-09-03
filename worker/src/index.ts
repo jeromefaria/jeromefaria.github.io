@@ -40,11 +40,9 @@ const MAX_LENGTHS = {
 const MAX_FIELDS = 20;
 const MAX_BODY_BYTES = 64 * 1024;
 
-// Bounded, backtracking-free patterns — the length caps above are the real DoS guard.
-// EMAIL_PATTERN also rejects the whitespace/angle-brackets used for reply-to spoofing;
-// INQUIRY_PATTERN pins the field to the frontend's slug taxonomy.
+// Bounded, backtracking-free pattern — the length caps above are the real DoS guard.
+// EMAIL_PATTERN also rejects the whitespace/angle-brackets used for reply-to spoofing.
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const INQUIRY_PATTERN = /^[a-z][a-z0-9-]*$/;
 const CONTROL_CHARS = /[\u0000-\u001f\u007f]/;
 
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
@@ -117,10 +115,13 @@ const hasValidFields = (fields: unknown): fields is ContactField[] | undefined =
       typeof (field as ContactField).label === 'string' &&
       typeof (field as ContactField).value === 'string'));
 
+// name and inquiry are free-text (inquiry is the human-readable type label, e.g.
+// "Mixing & Mastering"), so only reject control characters — they land in the email
+// subject / reply-to, where CR/LF would be the header-injection risk.
 const firstInvalidKey = (payload: ContactPayload): string | null => {
   if (CONTROL_CHARS.test(payload.name)) return 'name';
   if (CONTROL_CHARS.test(payload.email) || !EMAIL_PATTERN.test(payload.email)) return 'email';
-  if (!INQUIRY_PATTERN.test(payload.inquiry)) return 'inquiry';
+  if (CONTROL_CHARS.test(payload.inquiry)) return 'inquiry';
   return null;
 };
 
