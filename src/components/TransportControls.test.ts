@@ -32,6 +32,14 @@ describe('TransportControls', () => {
     expect(wrapper.findAll('.transport-controls__button')[1].findAll('path')).toHaveLength(0);
   });
 
+  it('marks the primary control busy for assistive tech while buffering', () => {
+    const idle = mount(TransportControls, { props });
+    expect(idle.findAll('.transport-controls__button')[1].attributes('aria-busy')).toBe('false');
+
+    const busy = mount(TransportControls, { props: { ...props, busy: true } });
+    expect(busy.findAll('.transport-controls__button')[1].attributes('aria-busy')).toBe('true');
+  });
+
   it('disables previous only at the queue head within the first three seconds', () => {
     const head = mount(TransportControls, { props: { ...props, hasPrevious: false, currentTime: 0 } });
     expect(head.findAll('.transport-controls__button')[0].attributes('disabled')).toBeDefined();

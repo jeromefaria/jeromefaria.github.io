@@ -40,9 +40,22 @@ const credit = computed(() => {
   return null;
 });
 
+const closeButton = ref<HTMLElement | null>(null);
+
 const handleClose = () => emit('close');
-const handlePrev = () => emit('prev');
-const handleNext = () => emit('next');
+
+// At a boundary the pressed arrow becomes disabled, which would drop focus to
+// <body>; move it to the always-present close button so it stays in the dialog.
+const handlePrev = async () => {
+  emit('prev');
+  await nextTick();
+  if (props.currentIndex === 0) closeButton.value?.focus();
+};
+const handleNext = async () => {
+  emit('next');
+  await nextTick();
+  if (props.currentIndex >= props.totalItems - 1) closeButton.value?.focus();
+};
 const handleTouchStart = (event: TouchEvent) => emit('touchstart', event);
 const handleTouchEnd = (event: TouchEvent) => emit('touchend', event);
 
@@ -52,6 +65,15 @@ const dialogLabel = computed(() => {
     return t(key, { index: String(props.currentIndex + 1), total: String(props.totalItems) });
   }
   return t(isVideo.value ? 'lightbox.videoViewer' : 'lightbox.imageViewer');
+});
+
+// Polite live region so navigating between items announces the new position and
+// caption — a label change on the already-focused dialog is not announced.
+const liveAnnouncement = computed(() => {
+  const item = props.currentItem;
+  if (!item) return '';
+  const detail = isLightboxImage(item) ? item.alt : item.title;
+  return detail ? `${dialogLabel.value}. ${detail}` : dialogLabel.value;
 });
 
 const dialogRef = ref<HTMLElement | null>(null);
@@ -106,6 +128,13 @@ onMounted(async () => {
 
       <div class="lightbox__controls">
         <p
+          class="visually-hidden"
+          aria-live="polite"
+        >
+          {{ liveAnnouncement }}
+        </p>
+
+        <p
           v-if="totalItems > 1"
           class="lightbox__counter"
           aria-hidden="true"
@@ -136,6 +165,7 @@ onMounted(async () => {
             <IconArrow direction="left" />
           </button>
           <button
+            ref="closeButton"
             class="lightbox__hint lightbox__hint--close"
             :aria-label="t('lightbox.close')"
             @click.stop="handleClose"

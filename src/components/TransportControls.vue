@@ -37,6 +37,7 @@ const t = useT();
       type="button"
       class="transport-controls__button transport-controls__button--primary"
       :aria-label="t(playing ? 'player.pause' : 'player.play')"
+      :aria-busy="busy"
       @click="$emit('toggle')"
     >
       <svg

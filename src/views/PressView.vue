@@ -19,13 +19,18 @@ useHashScroll(scrollToHash);
     :head="pageMeta.press"
     data-page="press"
   >
-    <PressQuote
-      v-for="item in pressQuotes"
-      :id="item.id"
-      :key="item.id"
-      :quote="item.quote"
-      :source="item.source"
-      :url="item.url"
-    />
+    <ul class="press-list">
+      <li
+        v-for="item in pressQuotes"
+        :key="item.id"
+      >
+        <PressQuote
+          :id="item.id"
+          :quote="item.quote"
+          :source="item.source"
+          :url="item.url"
+        />
+      </li>
+    </ul>
   </StaticPage>
 </template>

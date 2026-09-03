@@ -83,6 +83,12 @@
 
       // Background alone is ~1.05:1; the accent bar is the WCAG 1.4.11 (3:1) selection indicator.
       box-shadow: inset 3px 0 0 var(--color-text);
+
+      // Forced-colors mode strips background and box-shadow; an outline survives it.
+      @media (forced-colors: active) {
+        outline: 2px solid CanvasText;
+        outline-offset: -2px;
+      }
     }
   }
 
