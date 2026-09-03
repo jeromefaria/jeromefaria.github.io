@@ -100,6 +100,12 @@
       opacity: 1;
     }
 
+    &:focus-visible {
+      outline: 2px solid var(--text-overlay);
+      outline-offset: 2px;
+      opacity: 1;
+    }
+
     &:disabled {
       opacity: $opacity-20;
       cursor: not-allowed;
@@ -161,13 +167,18 @@
     }
 
     a {
-      color: var(--color-link);
-      text-decoration: none;
+      color: var(--text-overlay);
+      text-decoration: underline;
+      text-underline-offset: 2px;
       transition: color $transition-base;
 
-      &:hover,
+      &:hover {
+        color: var(--text-overlay-muted);
+      }
+
       &:focus-visible {
-        color: var(--color-link-hover);
+        outline: 2px solid var(--text-overlay);
+        outline-offset: 2px;
       }
     }
   }
