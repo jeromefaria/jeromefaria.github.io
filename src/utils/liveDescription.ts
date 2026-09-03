@@ -55,7 +55,7 @@ const act = (entry: Act): string => {
 
 const billEntry = (entry: BillEntry): string => (Array.isArray(entry) ? entry.map(act).join(' & ') : act(entry));
 
-const setupLead = (setup: Setup, phrases: Phrases): string => {
+const setupLead = (setup: Setup, phrases: Phrases, locale: Locale): string => {
   switch (setup.kind) {
     case 'solo':
       return phrases.solo;
@@ -69,19 +69,19 @@ const setupLead = (setup: Setup, phrases: Phrases): string => {
       return phrases.asPartOf(act(setup.band));
     case 'ensemble': {
       const members = setup.members?.length ? phrases.ensembleMembers(setup.members.map(act).join(', ')) : '';
-      return `${setup.name}.${members}`;
+      return `${localize(setup.name, locale)}.${members}`;
     }
   }
 };
 
-const primary = (setup: Setup, phrases: Phrases, format?: Format): string => {
-  if (!format) return setupLead(setup, phrases);
+const primary = (setup: Setup, phrases: Phrases, locale: Locale, format?: Format): string => {
+  if (!format) return setupLead(setup, phrases, locale);
 
   switch (format.kind) {
     case 'theatre':
       return phrases.theatre;
     case 'talk':
-      return `${setupLead(setup, phrases).replace(/\.$/, '')}${phrases.talkSuffix}`;
+      return `${setupLead(setup, phrases, locale).replace(/\.$/, '')}${phrases.talkSuffix}`;
     case 'filmScore': {
       const opener = format.premiere ? phrases.filmScorePremiere : phrases.filmScoreLive;
       const collaborator = setup.kind === 'duo' ? phrases.filmScoreWith(act(setup.with)) : '';
@@ -92,7 +92,7 @@ const primary = (setup: Setup, phrases: Phrases, format?: Format): string => {
 
 export const buildEventDescription = (event: LiveEvent, locale: Locale = DEFAULT_LOCALE): string => {
   const phrases = PHRASES[locale];
-  const parts = [primary(event.setup, phrases, event.format)];
+  const parts = [primary(event.setup, phrases, locale, event.format)];
 
   if (event.performedAs) parts.push(phrases.performedAs(event.performedAs));
   if (event.note) parts.push(localize(event.note, locale));
