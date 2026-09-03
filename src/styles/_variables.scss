@@ -126,16 +126,11 @@ $overlay-scrim: rgb(0 0 0 / 50%);
 
   &::placeholder {
     color: var(--color-text-muted);
-    opacity: $opacity-60;
     transition: opacity $transition-base;
   }
 
   &:hover {
     border-color: var(--color-text-muted);
-
-    &::placeholder {
-      opacity: $opacity-80;
-    }
   }
 
   &:focus {
@@ -145,6 +140,13 @@ $overlay-scrim: rgb(0 0 0 / 50%);
     &::placeholder {
       opacity: $opacity-40;
     }
+  }
+
+  // Inset so the ring sits contiguous with the 1px border rather than floating
+  // outside it — a focused invalid field then reads as one thick coloured edge,
+  // not the border plus a second ring. Invalid states recolour it (see _contact).
+  &:focus-visible {
+    @include focus-ring(-1px);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -204,8 +206,7 @@ $overlay-scrim: rgb(0 0 0 / 50%);
 
 @mixin focus-outline-subtle {
   &:focus-visible {
-    outline: 1px solid var(--color-border);
-    outline-offset: 2px;
+    @include focus-ring;
   }
 }
 

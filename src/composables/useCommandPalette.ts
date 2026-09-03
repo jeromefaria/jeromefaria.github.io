@@ -147,6 +147,9 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
   };
 
   const keyActions: Record<string, (event: KeyboardEvent) => void> = {
+    // The input is the palette's only focusable element (options are selected via
+    // aria-activedescendant, not the tab order), so swallowing Tab keeps focus
+    // trapped without a separate focus-trap — the modal cannot be tabbed out of.
     Tab: () => {},
     Escape: () => close(),
     'ctrl+c': () => close(),

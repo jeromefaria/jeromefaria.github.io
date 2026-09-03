@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useT } from '@/i18n/useT';
+
 import IconPause from './IconPause.vue';
 import IconPlay from './IconPlay.vue';
 
@@ -15,6 +17,8 @@ defineEmits<{
   toggle: [];
   next: [];
 }>();
+
+const t = useT();
 </script>
 
 <template>
@@ -23,7 +27,7 @@ defineEmits<{
       type="button"
       class="transport-controls__button"
       :disabled="!hasPrevious && currentTime < 3"
-      aria-label="Previous track"
+      :aria-label="t('player.previous')"
       @click="$emit('previous')"
     >
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 6h2v12H6zm3.5 6 8.5 6V6z" /></svg>
@@ -32,7 +36,8 @@ defineEmits<{
     <button
       type="button"
       class="transport-controls__button transport-controls__button--primary"
-      :aria-label="playing ? 'Pause' : 'Play'"
+      :aria-label="t(playing ? 'player.pause' : 'player.play')"
+      :aria-busy="busy"
       @click="$emit('toggle')"
     >
       <svg
@@ -59,7 +64,7 @@ defineEmits<{
       type="button"
       class="transport-controls__button"
       :disabled="!hasNext"
-      aria-label="Next track"
+      :aria-label="t('player.next')"
       @click="$emit('next')"
     >
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16 6h2v12h-2zM6 18l8.5-6L6 6z" /></svg>

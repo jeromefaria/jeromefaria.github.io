@@ -92,7 +92,7 @@ const localizedTrackHref = (index: number): string => {
     <PlayableCover
       v-if="coverVisible && playable && hasCoverImage(release) && !coverErrored"
       :src="release.coverImage"
-      :alt="`${release.title} cover`"
+      alt=""
       :title="release.title"
       :active="releaseActive"
       :busy="releaseBusy"
@@ -110,7 +110,7 @@ const localizedTrackHref = (index: number): string => {
     <ReleaseCover
       v-else-if="coverVisible && hasCoverImage(release) && !coverErrored"
       :src="release.coverImage"
-      :alt="`${release.title} cover`"
+      alt=""
       :href="hasExternalUrl(release) ? release.externalUrl : undefined"
       :bandcamp="isBandcampLink"
       @error="coverErrored = true"
@@ -122,7 +122,7 @@ const localizedTrackHref = (index: number): string => {
           v-if="playable && !hasCoverImage(release)"
           type="button"
           class="release-play"
-          :aria-label="`Play ${release.title}`"
+          :aria-label="t('player.playTitle', { title: release.title })"
           @click="playThis"
         >
           <IconPlay />
@@ -153,7 +153,7 @@ const localizedTrackHref = (index: number): string => {
             v-if="perTrackPlayable"
             type="button"
             class="track-play"
-            :aria-label="`${isTrackPlaying(index) ? 'Pause' : 'Play'} ${track.title}`"
+            :aria-label="t(isTrackPlaying(index) ? 'player.pauseTitle' : 'player.playTitle', { title: track.title })"
             @click="playTrack(index)"
           >
             <IconPause v-if="isTrackPlaying(index)" />
@@ -163,7 +163,7 @@ const localizedTrackHref = (index: number): string => {
             v-else-if="chaptered"
             type="button"
             class="track-play"
-            :aria-label="`${isChapterPlaying(index) ? 'Pause' : 'Play'} ${track.title}`"
+            :aria-label="t(isChapterPlaying(index) ? 'player.pauseTitle' : 'player.playTitle', { title: track.title })"
             @click="playChapter(index)"
           >
             <IconPause v-if="isChapterPlaying(index)" />

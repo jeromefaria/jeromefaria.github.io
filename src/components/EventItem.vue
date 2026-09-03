@@ -84,7 +84,7 @@ useLightboxDeepLink(
             v-else-if="titleHref"
             class="event-title-ref"
             :to="toLocalePath(titleHref)"
-            :aria-label="`View ${title}`"
+            :aria-label="t('media.view', { label: title })"
           ><IconArrow direction="up-right" /></RouterLink>
         </strong>
       </p>
@@ -93,10 +93,10 @@ useLightboxDeepLink(
           v-if="event.date"
           class="event-date"
         >{{ formattedDate }} · </span>
-        <span class="event-venue"><a
+        <span class="event-venue"><ExternalLink
           v-if="event.venue.name && event.venue.url"
           :href="event.venue.url"
-        >{{ event.venue.name }}</a><template v-else-if="event.venue.name">{{ event.venue.name }}</template>{{ venueSeparator }}{{ venueLocation }}</span>
+        >{{ event.venue.name }}</ExternalLink><template v-else-if="event.venue.name">{{ event.venue.name }}</template>{{ venueSeparator }}{{ venueLocation }}</span>
       </p>
       <p
         class="event-description"

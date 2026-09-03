@@ -8,6 +8,7 @@ import { useFocusTrap } from '@/composables/useFocusTrap';
 import { usePlayer } from '@/composables/usePlayer';
 import { useScrollLock } from '@/composables/useScrollLock';
 import { useSwipeDismiss } from '@/composables/useSwipeDismiss';
+import { useT } from '@/i18n/useT';
 import type { AudioTrack } from '@/types/audio';
 
 const { status, currentTrack, queue, currentTime, duration, context, hasNext, hasPrevious, toggle, next, previous, seek, select, collapse } =
@@ -16,6 +17,8 @@ const { status, currentTrack, queue, currentTime, duration, context, hasNext, ha
 const isPlaying = computed(() => status.value === 'playing');
 const isBusy = computed(() => status.value === 'loading' || status.value === 'buffering');
 const currentIndex = computed(() => queue.value.findIndex(track => track.key === currentTrack.value?.key));
+
+const t = useT();
 
 const trackLabel = (track: AudioTrack): string => (track.artist ? `${track.artist} — ${track.title}` : track.title);
 
@@ -52,7 +55,7 @@ onBeforeUnmount(() => {
     class="player-screen"
     role="dialog"
     aria-modal="true"
-    aria-label="Now playing"
+    :aria-label="t('player.nowPlaying')"
     tabindex="-1"
     @keydown="onKeydown"
     @touchstart.passive="handleTouchStart"
@@ -61,7 +64,7 @@ onBeforeUnmount(() => {
     <button
       type="button"
       class="player-screen__collapse"
-      aria-label="Collapse player"
+      :aria-label="t('player.collapse')"
       @click="collapse"
     >
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m7 10 5 5 5-5z" /></svg>
@@ -93,7 +96,7 @@ onBeforeUnmount(() => {
     <PlayerSeek
       :current-time="currentTime"
       :duration="duration"
-      label="Seek"
+      :label="t('player.seekGeneric')"
       @seek="seek"
     />
 
@@ -111,7 +114,7 @@ onBeforeUnmount(() => {
     <ol
       v-if="queue.length > 1"
       class="player-screen__queue"
-      aria-label="Queue"
+      :aria-label="t('player.queue')"
     >
       <li
         v-for="(track, index) in queue"
