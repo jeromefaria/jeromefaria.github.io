@@ -12,7 +12,7 @@ const ENV: Env = {
 
 const VALID_BODY = {
   token: 'tok',
-  inquiry: 'booking',
+  inquiry: 'Booking',
   name: 'Jane Roe',
   email: 'jane@example.com',
   message: 'Hello there.',
@@ -135,8 +135,16 @@ describe('contact worker', () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it('rejects an inquiry outside the slug taxonomy', async () => {
-    const response = await worker.fetch(postRequest({ ...VALID_BODY, inquiry: 'Anything I Want' }), ENV);
+  it('accepts a free-text inquiry label with spaces and punctuation', async () => {
+    fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
+
+    const response = await worker.fetch(postRequest({ ...VALID_BODY, inquiry: 'Mixing & Mastering' }), ENV);
+
+    expect(response.status).toBe(200);
+  });
+
+  it('rejects control characters in the inquiry label', async () => {
+    const response = await worker.fetch(postRequest({ ...VALID_BODY, inquiry: 'Booking\r\nBcc: evil@x' }), ENV);
 
     expect(response.status).toBe(400);
     expect(fetchMock).not.toHaveBeenCalled();
@@ -192,7 +200,7 @@ describe('contact worker', () => {
     expect(sent.from).toBe(ENV.CONTACT_FROM);
     expect(sent.to).toBe(ENV.CONTACT_TO);
     expect(sent.reply_to).toBe('jane@example.com');
-    expect(sent.subject).toBe('[booking] Jerome Faria — Jane Roe');
+    expect(sent.subject).toBe('[Booking] Jerome Faria — Jane Roe');
     expect(sent.text).toContain('Location: Lisbon');
     expect(sent.html).toContain('<strong>Email:</strong>');
   });
