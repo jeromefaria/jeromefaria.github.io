@@ -1,6 +1,6 @@
-import type { Localized } from '@/i18n/localized';
+import type { Localizable, Localized } from '@/i18n/localized';
 
-import type { Contributor, MetaLink } from './common';
+import type { MetaLink } from './common';
 import type { Credits } from './credits';
 import type { Credit, Video } from './media';
 
@@ -8,7 +8,7 @@ export type { MetaLink };
 
 export interface Image {
   src: string;
-  alt: string | Localized<string>;
+  alt: Localizable<string>;
   photographer?: Credit;
 }
 
@@ -110,7 +110,7 @@ export interface Release {
   language?: string;
   description?: Localized<string>;
   credits?: Credits;
-  contributors?: Contributor[];
+  contributors?: Credit[];
   images?: Image[];
   videos?: Video[];
   // Roles on one of Jerome's own releases — generates a Mixing & Mastering credit without duplicating it.

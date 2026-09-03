@@ -8,13 +8,11 @@ import ReleaseItem from '@/components/ReleaseItem.vue';
 import { pageMeta } from '@/data/pageMeta';
 import { worksData, worksSections } from '@/data/works';
 import { useLocalized } from '@/i18n/localized';
-import { useLocale } from '@/i18n/useLocale';
 import { createWorksPageSchema } from '@/utils/pageSchemas';
 import { canPlayRelease, findRelease, playReleaseAt, releaseHead } from '@/utils/releasePermalink';
 
 const route = useRoute();
-const { current } = useLocale();
-const localize = useLocalized();
+const { localize, current } = useLocalized();
 
 const releaseId = computed(() => (typeof route.params['releaseId'] === 'string' ? route.params['releaseId'] : ''));
 

@@ -1,4 +1,4 @@
-import type { Localized } from '@/i18n/localized';
+import type { Localizable } from '@/i18n/localized';
 
 export interface Credit {
   name: string;
@@ -7,7 +7,7 @@ export interface Credit {
 
 export interface Video {
   url: string;
-  title: string | Localized<string>;
+  title: Localizable<string>;
   platform: 'youtube' | 'vimeo';
   author?: Credit;
 }

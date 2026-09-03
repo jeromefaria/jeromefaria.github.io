@@ -39,7 +39,7 @@ describe('useLocalized', () => {
     let localizeFn: ((value: { en: string; pt: string }) => string) | undefined;
     const Probe = defineComponent({
       setup() {
-        localizeFn = useLocalized();
+        localizeFn = useLocalized().localize;
         return () => null;
       },
     });

@@ -5,11 +5,9 @@ import { usePageHead } from '@/composables/usePageHead';
 import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
 import { useLocalized } from '@/i18n/localized';
-import { useLocale } from '@/i18n/useLocale';
 import { createPersonSchema } from '@/utils/pageSchemas';
 
-const localize = useLocalized();
-const { current } = useLocale();
+const { localize, current } = useLocalized();
 const heroImageSrc = '/images/performance.webp';
 
 usePageHead({

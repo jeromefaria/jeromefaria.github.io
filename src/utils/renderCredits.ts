@@ -1,8 +1,8 @@
 import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
-import type { Contributor } from '@/types/common';
 import type { CreditClause, CreditRole, Credits, StructuredCredits } from '@/types/credits';
 import { isStructuredCredits } from '@/types/credits';
+import type { Credit } from '@/types/media';
 
 const MARKER = /\[\[([^\]]+)\]\]/g;
 const SAFE_SCHEME = /^(?:https?:|mailto:)/i;
@@ -103,7 +103,7 @@ const safeHref = (url: string): string | null => {
   return SAFE_SCHEME.test(trimmed) ? escapeHtml(trimmed) : null;
 };
 
-export const renderCredits = (credits: Credits, contributors: Contributor[] = [], locale: Locale = DEFAULT_LOCALE): string => {
+export const renderCredits = (credits: Credits, contributors: Credit[] = [], locale: Locale = DEFAULT_LOCALE): string => {
   const linked = new Map<string, string>();
 
   for (const contributor of contributors) {

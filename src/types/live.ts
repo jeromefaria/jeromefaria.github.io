@@ -1,4 +1,4 @@
-import type { Localized } from '@/i18n/localized';
+import type { Localizable, Localized } from '@/i18n/localized';
 
 import type { Credit, Video } from './media';
 
@@ -20,7 +20,7 @@ export type Setup =
   | { kind: 'duo'; with: Act }
   | { kind: 'project'; name: Act; members?: Act[] }
   | { kind: 'band'; band: Act }
-  | { kind: 'ensemble'; name: string | Localized<string>; members?: Act[] };
+  | { kind: 'ensemble'; name: Localizable<string>; members?: Act[] };
 
 export type Format =
   | { kind: 'theatre' }
@@ -29,7 +29,7 @@ export type Format =
 
 export interface Poster {
   src: string;
-  alt: string | Localized<string>;
+  alt: Localizable<string>;
   artist?: Credit;
 }
 
@@ -42,7 +42,7 @@ export interface EventVenue {
 
 export interface LiveEvent {
   id: string;
-  title: string | Localized<string>;
+  title: Localizable<string>;
   titleUrl?: string;
   // BCP-47 spoken language of the performance (e.g. 'pt-PT' for a theatre play or talk); omitted for instrumental sets.
   language?: string;
@@ -54,7 +54,7 @@ export interface LiveEvent {
   performedAs?: string;
   bill?: BillEntry[];
   note?: Localized<string>;
-  imageAlt?: string | Localized<string>;
+  imageAlt?: Localizable<string>;
   images?: LiveImage[];
   posters?: Poster[];
   videos?: Video[];

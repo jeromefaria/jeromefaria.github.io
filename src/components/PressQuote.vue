@@ -8,7 +8,7 @@ defineProps<{
   url?: string | undefined;
 }>();
 
-const localize = useLocalized();
+const { localize } = useLocalized();
 </script>
 
 <template>

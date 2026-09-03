@@ -18,7 +18,7 @@ interface Section {
   items: T[];
 }
 
-const localize = useLocalized();
+const { localize } = useLocalized();
 
 const props = defineProps<{
   dataPage: string;
