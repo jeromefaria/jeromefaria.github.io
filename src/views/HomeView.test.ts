@@ -5,10 +5,12 @@ import { mountView } from '@/test-support/viewHarness';
 import HomeView from './HomeView.vue';
 
 describe('HomeView', () => {
-  it('renders the hero with the background image', async () => {
+  it('renders the hero section (background applied via the critical CSS)', async () => {
     const wrapper = await mountView(HomeView);
-    const hero = wrapper.get('.hero');
-    expect(hero.attributes('style')).toContain('/images/performance.webp');
+    expect(wrapper.find('.hero').exists()).toBe(true);
+    // The background image is set in the critical CSS, not an inline style, so the
+    // media queries can swap resolutions — assert it is NOT inlined here.
+    expect(wrapper.get('.hero').attributes('style')).toBeUndefined();
   });
 
   it('paints the hero immediately — no JS reveal gate or loader', async () => {

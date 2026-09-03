@@ -15,8 +15,20 @@ interface UsePageHeadOptions {
   schema?: object | null;
   noIndex?: boolean;
   preloadImage?: string;
+  preloadImageSrcset?: string;
   image?: string;
 }
+
+const preloadImageLink = (href: string, srcset?: string): Record<string, string> => ({
+  rel: 'preload',
+  as: 'image',
+  type: 'image/webp',
+  href,
+  // Responsive preload: the browser fetches the variant matching the viewport,
+  // aligned with the media-query background in the critical CSS.
+  ...(srcset ? { imagesrcset: srcset, imagesizes: '100vw' } : {}),
+  fetchpriority: 'high',
+});
 
 export const usePageHead = ({
   title,
@@ -25,6 +37,7 @@ export const usePageHead = ({
   schema = null,
   noIndex = false,
   preloadImage,
+  preloadImageSrcset,
   image,
 }: UsePageHeadOptions): void => {
   const route = useRoute();
@@ -79,7 +92,7 @@ export const usePageHead = ({
   }
 
   if (preloadImage) {
-    link.push({ rel: 'preload', as: 'image', type: 'image/webp', href: preloadImage, fetchpriority: 'high' });
+    link.push(preloadImageLink(preloadImage, preloadImageSrcset));
   }
 
   useHead({
