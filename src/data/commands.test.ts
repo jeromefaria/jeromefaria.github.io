@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import { getMediaElement, next, play, stop, usePlayer } from '@/composables/usePlayer';
 import { createTranslate } from '@/i18n/useT';
+import { routes } from '@/router';
 import type { AudioTrack } from '@/types/audio';
 
 import { buildCommands, playbackCommands, playReleaseCommands } from './commands';
@@ -94,6 +95,20 @@ describe('buildCommands', () => {
   it('gives every command a unique id', () => {
     const ids = commands.map(command => command.id);
     expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  // Command targets and router routes are authored independently; a renamed or removed
+  // route would leave a navigate/result command pointing at a dead path. Guard the seam.
+  it('points every navigable command at a defined route', () => {
+    const routePaths = new Set(routes.map(route => route.path));
+    const targets = commands.flatMap(command =>
+      command.kind === 'navigate' || command.kind === 'result' ? [command.to] : []);
+    expect(targets.length).toBeGreaterThan(0);
+
+    for (const target of targets) {
+      const basePath = target.split('#')[0] || '/';
+      expect(routePaths.has(basePath), `command target "${target}"`).toBe(true);
+    }
   });
 
   it('localizes navigate titles and work sections to the requested locale', () => {
