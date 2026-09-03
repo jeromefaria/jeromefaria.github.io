@@ -88,7 +88,9 @@ export const usePageHead = ({
     meta,
     link,
     ...(schema && {
-      script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(schema) }],
+      // Escape `<` so a value can never break out of the <script> block (schema is
+      // static author data today; this is defence-in-depth).
+      script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(schema).replace(/</g, '\\u003c') }],
     }),
   });
 };

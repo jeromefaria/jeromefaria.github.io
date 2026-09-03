@@ -1,0 +1,3 @@
+# Default owner for everything in the repo. Requires review from the owner on
+# any change when branch protection has "Require review from Code Owners" enabled.
+* @jeromefaria

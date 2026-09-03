@@ -106,6 +106,7 @@ onMounted(async () => {
         class="lightbox__video"
         :title="currentItem.title || t('media.video')"
         frameborder="0"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-presentation"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
         @click.stop
