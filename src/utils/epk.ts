@@ -2,6 +2,7 @@ import { bios } from '@/data/bios';
 import { liveEvents } from '@/data/live';
 import { pressQuotes } from '@/data/press';
 import { worksData } from '@/data/works';
+import { localizePlace } from '@/i18n/exonyms';
 import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { EpkContent, EpkLiveHighlight, EpkManifest, EpkPhoto, EpkWorkHighlight } from '@/types/epk';
@@ -47,17 +48,18 @@ export const epkZipHref = (locale: Locale = DEFAULT_LOCALE): string => `/epk/${e
 export const epkPdfHref = (locale: Locale = DEFAULT_LOCALE): string => `/epk/${epkKitFile(locale)}.pdf`;
 export const epkRiderHref = (locale: Locale = DEFAULT_LOCALE): string => `/epk/${epkRiderFile(locale)}.pdf`;
 
-export const eventLocation = (venue: EventVenue): string => {
-  const parts = [venue.name, venue.city].filter(Boolean);
+export const eventLocation = (venue: EventVenue, locale: Locale = DEFAULT_LOCALE): string => {
+  const city = venue.city ? localizePlace(venue.city, locale) : undefined;
+  const parts = [venue.name, city].filter(Boolean);
 
-  return parts.length > 0 ? parts.join(', ') : venue.country;
+  return parts.length > 0 ? parts.join(', ') : localizePlace(venue.country, locale);
 };
 
 export const toLiveHighlight = (event: LiveEvent, locale: Locale = DEFAULT_LOCALE): EpkLiveHighlight => ({
   id: event.id,
   year: event.date.slice(0, 4),
   title: localize(event.title, locale),
-  location: eventLocation(event.venue),
+  location: eventLocation(event.venue, locale),
 });
 
 export const toWorkHighlight = (release: Release): EpkWorkHighlight => ({
