@@ -45,6 +45,12 @@ describe('useReleasePlayback', () => {
     expect(useReleasePlayback(() => chaptered).perTrackPlayable.value).toBe(false);
   });
 
+  it('never marks a track current while nothing is playing', () => {
+    expect(useReleasePlayback(() => aligned).isCurrentTrack(0)).toBe(false);
+    expect(useReleasePlayback(() => chaptered).isCurrentTrack(1)).toBe(false);
+    expect(useReleasePlayback(() => chaptered).isCurrentTrack(4)).toBe(false);
+  });
+
   it('builds track permalinks as a 1-based index or a time offset', () => {
     expect(useReleasePlayback(() => aligned).trackHref(0)).toBe('/works/1714?track=1');
     expect(useReleasePlayback(() => chaptered).trackHref(2)).toBe('/works/2504?t=572');
@@ -59,6 +65,20 @@ describe('useReleasePlayback', () => {
     expect(playback.releaseActive.value).toBe(true);
 
     playback.toggleRelease();
+    expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
+  });
+
+  it('marks the current chapter as playing and pauses it on re-click', async () => {
+    const playback = useReleasePlayback(() => chaptered);
+    expect(playback.isChapterPlaying(0)).toBe(false);
+
+    playback.playChapter(0);
+    await flushPromises();
+    expect(HTMLMediaElement.prototype.play).toHaveBeenCalled();
+    expect(playback.isChapterPlaying(0)).toBe(true);
+    expect(playback.isChapterPlaying(1)).toBe(false);
+
+    playback.playChapter(0);
     expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
   });
 
