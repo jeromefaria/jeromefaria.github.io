@@ -1,10 +1,10 @@
-import type { Localized } from '@/i18n/localized';
+import type { Localizable, Localized } from '@/i18n/localized';
 
 import type { Credit } from './media';
 
 export interface AboutImage {
   src: string;
-  alt: string | Localized<string>;
+  alt: Localizable<string>;
   position?: string;
   scale?: number;
   rotate?: number;

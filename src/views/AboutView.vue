@@ -10,15 +10,13 @@ import { useProseLinks } from '@/composables/useProseLinks';
 import { aboutSections } from '@/data/about';
 import { pageMeta } from '@/data/pageMeta';
 import { useLocalized } from '@/i18n/localized';
-import { useLocale } from '@/i18n/useLocale';
 import { isImageSection } from '@/types';
 import { getImageStyles } from '@/utils/imageStyles';
 import { toLightboxImage } from '@/utils/lightboxAdapters';
 
 usePageHead(pageMeta.about);
 
-const localize = useLocalized();
-const { current } = useLocale();
+const { localize, current } = useLocalized();
 const renderProse = useProse();
 const routeProseLink = useProseLinks();
 
