@@ -33,10 +33,19 @@ const MAX_LENGTHS = {
   email: 254,
   inquiry: 100,
   message: 5000,
+  fieldLabel: 100,
   fieldValue: 1000,
 } as const;
 
 const MAX_FIELDS = 20;
+const MAX_BODY_BYTES = 64 * 1024;
+
+// Bounded, backtracking-free patterns — the length caps above are the real DoS guard.
+// EMAIL_PATTERN also rejects the whitespace/angle-brackets used for reply-to spoofing;
+// INQUIRY_PATTERN pins the field to the frontend's slug taxonomy.
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const INQUIRY_PATTERN = /^[a-z][a-z0-9-]*$/;
+const CONTROL_CHARS = /[\u0000-\u001f\u007f]/;
 
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 const RESEND_SEND_URL = 'https://api.resend.com/emails';
@@ -69,8 +78,51 @@ const jsonResponse = (body: unknown, status: number, headers: Record<string, str
     headers: { 'Content-Type': 'application/json', ...headers },
   });
 
+const toHostname = (origin: string): string => {
+  try {
+    return new URL(origin).hostname;
+  } catch {
+    return '';
+  }
+};
+
+const isOriginAllowed = (origin: string | null, allowed: string[]): boolean =>
+  origin === null || allowed.includes(origin);
+
+const exceedsBodyLimit = (request: Request): boolean => {
+  const declaredLength = Number(request.headers.get('Content-Length') ?? '0');
+  return Number.isFinite(declaredLength) && declaredLength > MAX_BODY_BYTES;
+};
+
+const isRateLimited = async (env: Env, clientIp: string | null): Promise<boolean> => {
+  if (!env.RATE_LIMITER || !clientIp) return false;
+  const { success } = await env.RATE_LIMITER.limit({ key: clientIp });
+  return !success;
+};
+
 const firstMissingKey = (payload: ContactPayload): string | null =>
-  REQUIRED_KEYS.find(key => String(payload[key] ?? '').trim() === '') ?? null;
+  REQUIRED_KEYS.find(key => {
+    const value = payload[key];
+    return typeof value !== 'string' || value.trim() === '';
+  }) ?? null;
+
+// `fields` is untyped attacker JSON; confirm it is an array of {label,value} strings
+// before any code indexes into it (a non-array primitive would otherwise throw a 500).
+const hasValidFields = (fields: unknown): fields is ContactField[] | undefined =>
+  fields === undefined ||
+  (Array.isArray(fields) &&
+    fields.every(field =>
+      field !== null &&
+      typeof field === 'object' &&
+      typeof (field as ContactField).label === 'string' &&
+      typeof (field as ContactField).value === 'string'));
+
+const firstInvalidKey = (payload: ContactPayload): string | null => {
+  if (CONTROL_CHARS.test(payload.name)) return 'name';
+  if (CONTROL_CHARS.test(payload.email) || !EMAIL_PATTERN.test(payload.email)) return 'email';
+  if (!INQUIRY_PATTERN.test(payload.inquiry)) return 'inquiry';
+  return null;
+};
 
 const firstOversizedKey = (payload: ContactPayload): string | null => {
   if (payload.name.length > MAX_LENGTHS.name) return 'name';
@@ -78,7 +130,20 @@ const firstOversizedKey = (payload: ContactPayload): string | null => {
   if (payload.inquiry.length > MAX_LENGTHS.inquiry) return 'inquiry';
   if (payload.message.length > MAX_LENGTHS.message) return 'message';
   if ((payload.fields?.length ?? 0) > MAX_FIELDS) return 'fields';
-  if (payload.fields?.some(field => (field.value?.length ?? 0) > MAX_LENGTHS.fieldValue)) return 'fields';
+  if (payload.fields?.some(field => field.label.length > MAX_LENGTHS.fieldLabel || field.value.length > MAX_LENGTHS.fieldValue)) return 'fields';
+  return null;
+};
+
+// Runs the full validation ladder and returns the first failure (or null), keeping
+// the request handler flat.
+const validationError = (payload: ContactPayload): string | null => {
+  const missing = firstMissingKey(payload);
+  if (missing) return `Missing required field: ${missing}`;
+  if (!hasValidFields(payload.fields)) return 'Invalid field format';
+  const invalid = firstInvalidKey(payload);
+  if (invalid) return `Invalid field: ${invalid}`;
+  const oversized = firstOversizedKey(payload);
+  if (oversized) return `Field too long: ${oversized}`;
   return null;
 };
 
@@ -102,7 +167,7 @@ const emailHtml = (payload: ContactPayload): string => {
   return `${rows}<hr><p>${escapeHtml(payload.message).replace(/\n/g, '<br>')}</p>`;
 };
 
-const verifyTurnstile = async (token: string, secret: string, request: Request): Promise<boolean> => {
+const verifyTurnstile = async (token: string, secret: string, request: Request, allowedHosts: string[]): Promise<boolean> => {
   const form = new FormData();
   form.append('secret', secret);
   form.append('response', token);
@@ -113,9 +178,13 @@ const verifyTurnstile = async (token: string, secret: string, request: Request):
   }
 
   const response = await fetch(TURNSTILE_VERIFY_URL, { method: 'POST', body: form });
-  const result = (await response.json()) as { success?: boolean };
+  const result = (await response.json()) as { success?: boolean; hostname?: string };
 
-  return result.success === true;
+  if (result.success !== true) return false;
+
+  // Pin the token to the site's own hostname when Turnstile reports one, so a token
+  // minted for another site can't be replayed against this worker.
+  return !result.hostname || allowedHosts.includes(result.hostname);
 };
 
 const sendEmail = async (payload: ContactPayload, env: Env): Promise<boolean> => {
@@ -147,6 +216,7 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const origin = request.headers.get('Origin');
     const allowedOrigins = env.ALLOWED_ORIGINS.split(',').map(entry => entry.trim()).filter(Boolean);
+    const allowedHosts = allowedOrigins.map(toHostname).filter(Boolean);
     const cors = corsHeaders(origin, allowedOrigins);
 
     if (request.method === 'OPTIONS') {
@@ -159,16 +229,16 @@ export default {
 
     // A browser that sends a disallowed Origin is rejected outright; CORS headers alone
     // don't stop the request reaching here. Origin-less (script) clients still face Turnstile.
-    if (origin !== null && !allowedOrigins.includes(origin)) {
+    if (!isOriginAllowed(origin, allowedOrigins)) {
       return jsonResponse({ error: 'Origin not allowed' }, 403, cors);
     }
 
-    const clientIp = request.headers.get('CF-Connecting-IP');
-    if (env.RATE_LIMITER && clientIp) {
-      const { success } = await env.RATE_LIMITER.limit({ key: clientIp });
-      if (!success) {
-        return jsonResponse({ error: 'Too many requests' }, 429, cors);
-      }
+    if (await isRateLimited(env, request.headers.get('CF-Connecting-IP'))) {
+      return jsonResponse({ error: 'Too many requests' }, 429, cors);
+    }
+
+    if (exceedsBodyLimit(request)) {
+      return jsonResponse({ error: 'Payload too large' }, 413, cors);
     }
 
     let payload: ContactPayload;
@@ -182,18 +252,13 @@ export default {
       return jsonResponse({ ok: true }, 200, cors);
     }
 
-    const missing = firstMissingKey(payload);
-    if (missing) {
-      return jsonResponse({ error: `Missing required field: ${missing}` }, 400, cors);
-    }
-
-    const oversized = firstOversizedKey(payload);
-    if (oversized) {
-      return jsonResponse({ error: `Field too long: ${oversized}` }, 400, cors);
+    const invalidReason = validationError(payload);
+    if (invalidReason) {
+      return jsonResponse({ error: invalidReason }, 400, cors);
     }
 
     try {
-      const verified = await verifyTurnstile(payload.token, env.TURNSTILE_SECRET, request);
+      const verified = await verifyTurnstile(payload.token, env.TURNSTILE_SECRET, request, allowedHosts);
       if (!verified) {
         return jsonResponse({ error: 'Verification failed' }, 403, cors);
       }
