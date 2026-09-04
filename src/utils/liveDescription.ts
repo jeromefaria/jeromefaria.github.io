@@ -52,28 +52,29 @@ const PHRASES: Record<Locale, Phrases> = {
 // entry.text is trusted author HTML (some acts embed their own member links), so it
 // is not escaped — but entry.url lands in an href attribute, so scheme-allowlist and
 // escape it via safeHref (a javascript: or attribute-breaking url can never render).
-const act = (entry: Act): string => {
+const act = (entry: Act, locale: Locale): string => {
   const href = entry.url ? safeHref(entry.url) : null;
   const named = href ? `<a href="${href}">${entry.text}</a>` : entry.text;
-  return entry.suffix ? `${named} ${entry.suffix}` : named;
+  return entry.suffix ? `${named} ${localize(entry.suffix, locale)}` : named;
 };
 
-const billEntry = (entry: BillEntry): string => (Array.isArray(entry) ? entry.map(act).join(' & ') : act(entry));
+const billEntry = (entry: BillEntry, locale: Locale): string =>
+  (Array.isArray(entry) ? entry.map(item => act(item, locale)).join(' & ') : act(entry, locale));
 
 const setupLead = (setup: Setup, phrases: Phrases, locale: Locale): string => {
   switch (setup.kind) {
     case 'solo':
       return phrases.solo;
     case 'duo':
-      return phrases.duoWith(act(setup.with));
+      return phrases.duoWith(act(setup.with, locale));
     case 'project': {
-      const members = setup.members?.length ? phrases.projectMembers(setup.members.map(act).join(', ')) : '';
-      return `${act(setup.name)}${members}.`;
+      const members = setup.members?.length ? phrases.projectMembers(setup.members.map(member => act(member, locale)).join(', ')) : '';
+      return `${act(setup.name, locale)}${members}.`;
     }
     case 'band':
-      return phrases.asPartOf(act(setup.band));
+      return phrases.asPartOf(act(setup.band, locale));
     case 'ensemble': {
-      const members = setup.members?.length ? phrases.ensembleMembers(setup.members.map(act).join(', ')) : '';
+      const members = setup.members?.length ? phrases.ensembleMembers(setup.members.map(member => act(member, locale)).join(', ')) : '';
       return `${localize(setup.name, locale)}.${members}`;
     }
   }
@@ -89,8 +90,8 @@ const primary = (setup: Setup, phrases: Phrases, locale: Locale, format?: Format
       return `${setupLead(setup, phrases, locale).replace(/\.$/, '')}${phrases.talkSuffix}`;
     case 'filmScore': {
       const opener = format.premiere ? phrases.filmScorePremiere : phrases.filmScoreLive;
-      const collaborator = setup.kind === 'duo' ? phrases.filmScoreWith(act(setup.with)) : '';
-      return `${opener} ${format.film}${collaborator}.`;
+      const collaborator = setup.kind === 'duo' ? phrases.filmScoreWith(act(setup.with, locale)) : '';
+      return `${opener} ${localize(format.film, locale)}${collaborator}.`;
     }
   }
 };
@@ -101,7 +102,7 @@ export const buildEventDescription = (event: LiveEvent, locale: Locale = DEFAULT
 
   if (event.performedAs) parts.push(phrases.performedAs(event.performedAs));
   if (event.note) parts.push(localize(event.note, locale));
-  if (event.bill?.length) parts.push(phrases.alongside(event.bill.map(billEntry).join(', ')));
+  if (event.bill?.length) parts.push(phrases.alongside(event.bill.map(entry => billEntry(entry, locale)).join(', ')));
 
   return parts.join(' ');
 };

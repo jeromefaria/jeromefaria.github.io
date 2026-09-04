@@ -562,7 +562,7 @@ export const liveEvents: LiveEvent[] = [
     date: '2013-10-26',
     venue: { name: 'Estalagem da Ponta do Sol', url: 'https://www.pontadosol.com/', city: 'Ponta do Sol', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Nuno Filipe', url: 'https://nunoandtheend.bandcamp.com/', suffix: '(piano)' } },
-    format: { kind: 'filmScore', film: "Robert Wiene's 1920 expressionist silent film" },
+    format: { kind: 'filmScore', film: { en: "Robert Wiene's 1920 expressionist silent film", pt: 'o filme mudo expressionista de Robert Wiene (1920)' } },
   },
   {
     id: 'caligari-live-2',
@@ -570,7 +570,7 @@ export const liveEvents: LiveEvent[] = [
     date: '2013-09-13',
     venue: { name: 'Scat Music Club', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Nuno Filipe', url: 'https://nunoandtheend.bandcamp.com/', suffix: '(piano)' } },
-    format: { kind: 'filmScore', film: "Robert Wiene's 1920 expressionist silent film" },
+    format: { kind: 'filmScore', film: { en: "Robert Wiene's 1920 expressionist silent film", pt: 'o filme mudo expressionista de Robert Wiene (1920)' } },
     imageAlt: { en: 'Jerome Faria performing The Cabinet of Dr. Caligari at Scat Music Club, Funchal, 2013', pt: 'Jerome Faria a interpretar The Cabinet of Dr. Caligari no Scat Music Club, Funchal, 2013' },
     images: [
       {
@@ -585,7 +585,7 @@ export const liveEvents: LiveEvent[] = [
     date: '2013-05-11',
     venue: { name: 'Casa das Mudas', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1', city: 'Calheta', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Nuno Filipe', url: 'https://nunoandtheend.bandcamp.com/', suffix: '(piano)' } },
-    format: { kind: 'filmScore', film: "Robert Wiene's 1920 expressionist silent film", premiere: true },
+    format: { kind: 'filmScore', film: { en: "Robert Wiene's 1920 expressionist silent film", pt: 'o filme mudo expressionista de Robert Wiene (1920)' }, premiere: true },
     imageAlt: { en: 'Jerome Faria performing at Cidades Electrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013', pt: 'Jerome Faria a actuar em Cidades Electrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013' },
     images: [
       {
@@ -598,7 +598,7 @@ export const liveEvents: LiveEvent[] = [
     date: '2012-10-27',
     title: 'Cine Qua Non',
     venue: { name: 'Estalagem da Ponta do Sol', url: 'https://www.pontadosol.com/', city: 'Ponta do Sol', country: 'Portugal' },
-    setup: { kind: 'ensemble', name: { en: 'Improvisation collective', pt: 'colectivo de improvisação' } },
+    setup: { kind: 'ensemble', name: { en: 'Improvisation collective', pt: 'Colectivo de improvisação' } },
     note: {
       en: 'Electronics, piano (<a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>), percussion (<a href="https://madeirajazzcollective.bandcamp.com/">Jorge Maggiore</a>) and visuals (Filipe Ferraz).',
       pt: 'Electrónica, piano (<a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>), percussão (<a href="https://madeirajazzcollective.bandcamp.com/">Jorge Maggiore</a>) e visuais (Filipe Ferraz).',
@@ -669,7 +669,7 @@ export const liveEvents: LiveEvent[] = [
     title: 'Festival Migractions',
     date: '2011-05-23',
     venue: { name: 'Théâtre de L\'Opprimé', url: 'https://www.theatredelopprime.com/', city: 'Paris', country: 'France' },
-    setup: { kind: 'duo', with: { text: 'Hugo Olim', url: 'https://vimeo.com/hugoolim', suffix: '(visuals)' } },
+    setup: { kind: 'duo', with: { text: 'Hugo Olim', url: 'https://vimeo.com/hugoolim', suffix: { en: '(visuals)', pt: '(visuais)' } } },
     imageAlt: { en: 'Jerome Faria and Hugo Olim performing at Festival Migractions, Théâtre de L\'Opprimé, Paris, 2011', pt: 'Jerome Faria e Hugo Olim a actuar no Festival Migractions, Théâtre de L\'Opprimé, Paris, 2011' },
     images: [
       {
@@ -734,7 +734,7 @@ export const liveEvents: LiveEvent[] = [
     title: 'MADEIRADIG',
     titleUrl: 'https://digitalinberlin.eu/',
     venue: { name: 'Casa das Mudas', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1', city: 'Calheta', country: 'Portugal' },
-    setup: { kind: 'duo', with: { text: 'Hugo Olim', url: 'https://vimeo.com/hugoolim', suffix: '(visuals)' } },
+    setup: { kind: 'duo', with: { text: 'Hugo Olim', url: 'https://vimeo.com/hugoolim', suffix: { en: '(visuals)', pt: '(visuais)' } } },
     bill: [
       { text: 'Alva Noto', url: 'https://www.alvanoto.com/' },
       { text: 'Murcof', url: 'https://murcof.com/' },
@@ -1061,7 +1061,7 @@ export const liveEvents: LiveEvent[] = [
     title: 'MADEIRADIG',
     titleUrl: 'https://digitalinberlin.eu/',
     venue: { name: 'RDP Auditorium', url: 'https://madeira.rtp.pt/', city: 'Funchal', country: 'Portugal' },
-    setup: { kind: 'duo', with: { text: 'Hugo Olim', url: 'https://vimeo.com/hugoolim', suffix: '(visuals)' } },
+    setup: { kind: 'duo', with: { text: 'Hugo Olim', url: 'https://vimeo.com/hugoolim', suffix: { en: '(visuals)', pt: '(visuais)' } } },
     performedAs: 'NNY',
     bill: [
       { text: 'Fennesz', url: 'https://www.fennesz.com/' },
