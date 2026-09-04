@@ -8,6 +8,8 @@ import { DEFAULT_LOCALE, type Locale, localeFromMeta, localePath, stripLocale, S
 
 const OG_LOCALE: Record<(typeof SUPPORTED_LOCALES)[number], string> = { en: 'en_GB', pt: 'pt_PT' };
 
+const DEFAULT_IMAGE_META = { width: '2560', height: '1703', type: 'image/jpeg' };
+
 interface UsePageHeadOptions {
   title: string | Localized<string>;
   description: string | Localized<string>;
@@ -28,6 +30,7 @@ interface ResolvedHead {
   imageUrl: string;
   ogType: string;
   noIndex: boolean;
+  imageIsDefault: boolean;
   preloadImage: string | undefined;
   preloadImageSrcset: string | undefined;
 }
@@ -53,11 +56,21 @@ const buildMeta = (head: ResolvedHead): MetaTag[] => {
     { property: 'og:site_name', content: siteConfig.title },
     { property: 'og:locale', content: OG_LOCALE[head.locale] },
     { property: 'og:image', content: head.imageUrl },
+    { property: 'og:image:alt', content: head.fullTitle },
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: head.fullTitle },
     { name: 'twitter:description', content: head.description },
     { name: 'twitter:image', content: head.imageUrl },
+    { name: 'twitter:image:alt', content: head.fullTitle },
   ];
+
+  if (head.imageIsDefault) {
+    meta.push(
+      { property: 'og:image:width', content: DEFAULT_IMAGE_META.width },
+      { property: 'og:image:height', content: DEFAULT_IMAGE_META.height },
+      { property: 'og:image:type', content: DEFAULT_IMAGE_META.type },
+    );
+  }
 
   if (head.noIndex) {
     meta.push({ name: 'robots', content: 'noindex' });
@@ -117,6 +130,7 @@ export const usePageHead = (options: UsePageHeadOptions): void => {
       imageUrl: `${siteConfig.url}${options.image ?? siteConfig.image}`,
       ogType: options.ogType ?? 'website',
       noIndex: options.noIndex ?? false,
+      imageIsDefault: !options.image,
       preloadImage: options.preloadImage,
       preloadImageSrcset: options.preloadImageSrcset,
     };
