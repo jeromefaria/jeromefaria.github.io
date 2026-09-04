@@ -1,7 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
+# The press kit (/epk, /pt/epk) is kept out of the index via its noindex meta and
+# excluded from the sitemap — not disallowed here, so crawlers can reach the page to
+# see the noindex (a robots disallow would hide it and risk a bare-URL index entry).
 User-agent: *
 Allow: /
-Disallow: /epk
 
 # Sitemap location
 Sitemap: https://jeromefaria.com/sitemap.xml

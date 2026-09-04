@@ -75,7 +75,10 @@ export const buildRoutes = (base: RouteRecordRaw[], i18nEnabled: boolean): Route
   if (!i18nEnabled) return base;
 
   const pages = base.filter(route => !isCatchAll(route));
-  return [...pages, ...pages.map(toPtRoute), ...base.filter(isCatchAll)];
+  const catchAll = base.filter(isCatchAll);
+  // Mirror the catch-all under /pt (so /pt/<missing> renders in Portuguese) before the
+  // base catch-all, which stays last to absorb everything else.
+  return [...pages, ...pages.map(toPtRoute), ...catchAll.map(toPtRoute), ...catchAll];
 };
 
 export const appRoutes = buildRoutes(routes, i18nEnabled);
