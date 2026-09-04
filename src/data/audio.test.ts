@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
+import { findRelease } from '@/utils/releasePermalink';
+
 import { audioUrl, getReleaseAudio, hasPlayableAudio } from './audio';
+import { audioManifest } from './audioManifest';
 
 describe('audio helpers', () => {
   it('resolves a key against the base url', () => {
@@ -26,5 +29,16 @@ describe('audio helpers', () => {
   it('reports playability by release id', () => {
     expect(hasPlayableAudio('1714')).toBe(true);
     expect(hasPlayableAudio('does-not-exist')).toBe(false);
+  });
+
+  // The manifest is generated separately from works.ts; a renamed or dropped release
+  // would leave an orphan key that plays audio no page can permalink to. Guard the seam.
+  it('keys every manifest entry to a real release id', () => {
+    const releaseIds = Object.keys(audioManifest);
+    expect(releaseIds.length).toBeGreaterThan(0);
+
+    for (const releaseId of releaseIds) {
+      expect(findRelease(releaseId), `audio manifest key "${releaseId}"`).not.toBeNull();
+    }
   });
 });

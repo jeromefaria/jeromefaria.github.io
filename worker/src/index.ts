@@ -16,7 +16,7 @@ interface ContactField {
   value: string;
 }
 
-interface ContactPayload {
+export interface ContactPayload {
   token: string;
   inquiry: string;
   name: string;
@@ -137,7 +137,7 @@ const firstOversizedKey = (payload: ContactPayload): string | null => {
 
 // Runs the full validation ladder and returns the first failure (or null), keeping
 // the request handler flat.
-const validationError = (payload: ContactPayload): string | null => {
+export const validationError = (payload: ContactPayload): string | null => {
   const missing = firstMissingKey(payload);
   if (missing) return `Missing required field: ${missing}`;
   if (!hasValidFields(payload.fields)) return 'Invalid field format';
