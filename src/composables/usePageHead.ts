@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { siteConfig } from '@/data/navigation';
 import { i18nEnabled } from '@/i18n/flag';
 import { localize, type Localized } from '@/i18n/localized';
-import { DEFAULT_LOCALE, localeFromMeta, localePath, stripLocale, SUPPORTED_LOCALES } from '@/i18n/messages';
+import { DEFAULT_LOCALE, type Locale, localeFromMeta, localePath, stripLocale, SUPPORTED_LOCALES } from '@/i18n/messages';
 
 const OG_LOCALE: Record<(typeof SUPPORTED_LOCALES)[number], string> = { en: 'en_GB', pt: 'pt_PT' };
 
@@ -19,6 +19,22 @@ interface UsePageHeadOptions {
   image?: string;
 }
 
+// The head resolved for one locale on one path — the shape buildMeta/buildLinks consume.
+interface ResolvedHead {
+  locale: Locale;
+  path: string;
+  fullTitle: string;
+  description: string;
+  canonicalUrl: string;
+  imageUrl: string;
+  ogType: string;
+  noIndex: boolean;
+  preloadImage: string | undefined;
+  preloadImageSrcset: string | undefined;
+}
+
+type MetaTag = { name?: string; property?: string; content: string };
+
 const preloadImageLink = (href: string, srcset?: string): Record<string, string> => ({
   rel: 'preload',
   as: 'image',
@@ -30,59 +46,43 @@ const preloadImageLink = (href: string, srcset?: string): Record<string, string>
   fetchpriority: 'high',
 });
 
-export const usePageHead = ({
-  title,
-  description,
-  ogType = 'website',
-  schema = null,
-  noIndex = false,
-  preloadImage,
-  preloadImageSrcset,
-  image,
-}: UsePageHeadOptions): void => {
-  const route = useRoute();
-  const locale = route.meta ? localeFromMeta(route.meta) : DEFAULT_LOCALE;
-  const resolvedTitle = localize(title, locale);
-  const resolvedDescription = localize(description, locale);
-  const fullTitle = resolvedTitle.includes(siteConfig.title)
-    ? resolvedTitle
-    : `${resolvedTitle} - ${siteConfig.title}`;
-
-  const canonicalUrl = `${siteConfig.url}${route.path}`;
-  const imageUrl = `${siteConfig.url}${image ?? siteConfig.image}`;
-
-  const meta = [
-    { name: 'description', content: resolvedDescription },
-    { property: 'og:title', content: fullTitle },
-    { property: 'og:description', content: resolvedDescription },
-    { property: 'og:type', content: ogType },
-    { property: 'og:url', content: canonicalUrl },
+const buildMeta = (head: ResolvedHead): MetaTag[] => {
+  const meta: MetaTag[] = [
+    { name: 'description', content: head.description },
+    { property: 'og:title', content: head.fullTitle },
+    { property: 'og:description', content: head.description },
+    { property: 'og:type', content: head.ogType },
+    { property: 'og:url', content: head.canonicalUrl },
     { property: 'og:site_name', content: siteConfig.title },
-    { property: 'og:locale', content: OG_LOCALE[locale] },
-    { property: 'og:image', content: imageUrl },
+    { property: 'og:locale', content: OG_LOCALE[head.locale] },
+    { property: 'og:image', content: head.imageUrl },
     { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: fullTitle },
-    { name: 'twitter:description', content: resolvedDescription },
-    { name: 'twitter:image', content: imageUrl },
+    { name: 'twitter:title', content: head.fullTitle },
+    { name: 'twitter:description', content: head.description },
+    { name: 'twitter:image', content: head.imageUrl },
   ];
 
-  if (noIndex) {
+  if (head.noIndex) {
     meta.push({ name: 'robots', content: 'noindex' });
   }
 
-  const link: Record<string, string>[] = [
-    { rel: 'canonical', href: canonicalUrl },
-  ];
-
-  if (i18nEnabled && !noIndex) {
+  if (i18nEnabled && !head.noIndex) {
     for (const alternate of SUPPORTED_LOCALES) {
-      if (alternate !== locale) {
+      if (alternate !== head.locale) {
         meta.push({ property: 'og:locale:alternate', content: OG_LOCALE[alternate] });
       }
     }
+  }
 
-    const basePath = stripLocale(route.path);
-    const hrefFor = (alternate: (typeof SUPPORTED_LOCALES)[number]) => `${siteConfig.url}${localePath(basePath, alternate)}`;
+  return meta;
+};
+
+const buildLinks = (head: ResolvedHead): Record<string, string>[] => {
+  const link: Record<string, string>[] = [{ rel: 'canonical', href: head.canonicalUrl }];
+
+  if (i18nEnabled && !head.noIndex) {
+    const basePath = stripLocale(head.path);
+    const hrefFor = (alternate: Locale): string => `${siteConfig.url}${localePath(basePath, alternate)}`;
 
     for (const alternate of SUPPORTED_LOCALES) {
       link.push({ rel: 'alternate', hreflang: alternate, href: hrefFor(alternate) });
@@ -91,19 +91,52 @@ export const usePageHead = ({
     link.push({ rel: 'alternate', hreflang: 'x-default', href: hrefFor('en') });
   }
 
-  if (preloadImage) {
-    link.push(preloadImageLink(preloadImage, preloadImageSrcset));
+  if (head.preloadImage) {
+    link.push(preloadImageLink(head.preloadImage, head.preloadImageSrcset));
   }
 
-  useHead({
-    htmlAttrs: { lang: locale },
-    title: fullTitle,
-    meta,
-    link,
-    ...(schema && {
-      // Escape `<` so a value can never break out of the <script> block (schema is
-      // static author data today; this is defence-in-depth).
-      script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(schema).replace(/</g, '\\u003c') }],
-    }),
+  return link;
+};
+
+export const usePageHead = (options: UsePageHeadOptions): void => {
+  const route = useRoute();
+
+  // A reactive getter — NOT a resolved object — so the head recomputes on every
+  // navigation. Critical for the client-side locale switch: EN/PT routes reuse the
+  // same view component, so setup() (and this call) does not re-run; reading
+  // route.meta/route.path inside the getter is what keeps lang, title, canonical,
+  // og and twitter tags in sync with the active locale.
+  useHead(() => {
+    const locale = route.meta ? localeFromMeta(route.meta) : DEFAULT_LOCALE;
+    const resolvedTitle = localize(options.title, locale);
+    const description = localize(options.description, locale);
+    const fullTitle = resolvedTitle.includes(siteConfig.title)
+      ? resolvedTitle
+      : `${resolvedTitle} - ${siteConfig.title}`;
+
+    const head: ResolvedHead = {
+      locale,
+      path: route.path,
+      fullTitle,
+      description,
+      canonicalUrl: `${siteConfig.url}${route.path}`,
+      imageUrl: `${siteConfig.url}${options.image ?? siteConfig.image}`,
+      ogType: options.ogType ?? 'website',
+      noIndex: options.noIndex ?? false,
+      preloadImage: options.preloadImage,
+      preloadImageSrcset: options.preloadImageSrcset,
+    };
+
+    return {
+      htmlAttrs: { lang: locale },
+      title: fullTitle,
+      meta: buildMeta(head),
+      link: buildLinks(head),
+      ...(options.schema && {
+        // Escape `<` so a value can never break out of the <script> block (schema is
+        // static author data today; this is defence-in-depth).
+        script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(options.schema).replace(/</g, '\\u003c') }],
+      }),
+    };
   });
 };
