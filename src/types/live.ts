@@ -10,7 +10,7 @@ export interface LiveImage {
 export interface Act {
   text: string;
   url?: string;
-  suffix?: string;
+  suffix?: Localizable<string>;
 }
 
 export type BillEntry = Act | Act[];
@@ -25,7 +25,7 @@ export type Setup =
 export type Format =
   | { kind: 'theatre' }
   | { kind: 'talk' }
-  | { kind: 'filmScore'; film: string; premiere?: boolean };
+  | { kind: 'filmScore'; film: Localizable<string>; premiere?: boolean };
 
 export interface Poster {
   src: string;
