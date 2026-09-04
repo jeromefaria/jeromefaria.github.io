@@ -178,6 +178,19 @@ describe('contact worker', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
+  it('accepts a Turnstile token whose hostname matches an allowed host', async () => {
+    fetchMock
+      .mockResolvedValueOnce(
+        { ok: true, json: async () => ({ success: true, hostname: 'jeromefaria.com' }) } as unknown as Response,
+      )
+      .mockResolvedValueOnce(resendResult(true));
+
+    const response = await worker.fetch(postRequest(VALID_BODY), ENV);
+
+    expect(response.status).toBe(200);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
   it('rejects a failed Turnstile verification without sending', async () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(false));
 
