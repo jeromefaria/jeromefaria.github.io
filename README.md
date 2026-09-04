@@ -136,7 +136,7 @@ src/
   views/         One component per route
 worker/          Cloudflare Worker — Turnstile verification + Resend relay
 scripts/         Build tooling — PDF generation, responsive images, font subsetting, CI checks
-e2e/             Playwright specs (navigation, accordion, contact, lightbox, command palette, a11y, visual)
+e2e/             Playwright specs (navigation, accordion, contact, lightbox, command palette, audio player, language switch, a11y, visual)
 public/          Static assets
 ```
 
@@ -214,9 +214,12 @@ npm run test:e2e:report
 - Command palette (⌘K) search, keybindings, and rendering
 - Form validation and submission
 - Lightbox open/close and keyboard navigation
+- Audio player deep-link permalinks (`/works/:id?t=`) and transport controls
+- Language switch (EN ↔ PT) round trip and persistence
+- Trailing-slash URL normalization
 - Accessibility (WCAG 2.1 AA compliance, `axe-core`)
 - Keyboard navigation and mobile responsiveness
-- Visual regression — per-route screenshot snapshots (`@visual`)
+- Visual regression — per-route screenshot snapshots on desktop and a mobile Safari viewport (`@visual`)
 
 ### Performance Testing
 
@@ -328,16 +331,16 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 ### E2E Tests
 - Cross-browser testing across all three engines (Chromium, Firefox, WebKit)
 - Accessibility testing with `@axe-core/playwright`
-- Specs: `accessibility`, `accordion`, `command-palette`, `contact-form`, `lightbox`, `navigation`, `epk`, `home-hero`
+- Specs: `accessibility`, `accordion`, `audio-player`, `command-palette`, `contact-form`, `epk`, `home-hero`, `language-switch`, `lightbox`, `navigation`, `trailing-slash`
 
 ### Visual Regression
-- Per-route screenshot snapshots, compared against committed Linux baselines
+- Per-route screenshot snapshots across desktop Chromium/Firefox/WebKit plus a mobile Safari viewport, compared against committed Linux baselines
 - Runs on pull requests only (never blocks a deploy); baselines are regenerated via the **Update Visual Snapshots** workflow when a visual change is intended
 
 ### Worker
 - Type checking and unit tests for the Cloudflare Worker (`worker/`)
 
-**Quality gate:** the pull-request pipeline is green only when Quality Checks, Build, Lighthouse, E2E, Visual Regression, and Worker all pass.
+**Quality gate:** the pull-request pipeline is green only when Quality Checks, Build, Lighthouse, E2E, Visual Regression, and Worker all pass. `master` is branch-protected: Quality Checks, Build, E2E (all three engines), Visual Regression, and Worker are **required status checks** that must pass before a PR can merge.
 
 ## Deployment
 
