@@ -48,16 +48,18 @@ const CONTROL_CHARS = /[\u0000-\u001f\u007f]/;
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 const RESEND_SEND_URL = 'https://api.resend.com/emails';
 
-const HTML_ENTITIES: Record<string, string> = {
+const HTML_ENTITIES = {
   '&': '&amp;',
   '<': '&lt;',
   '>': '&gt;',
   '"': '&quot;',
   "'": '&#39;',
-};
+} as const;
+
+const HTML_ESCAPE_PATTERN = new RegExp(`[${Object.keys(HTML_ENTITIES).join('')}]`, 'g');
 
 const escapeHtml = (value: string): string =>
-  value.replace(/[&<>"']/g, character => HTML_ENTITIES[character] ?? character);
+  value.replace(HTML_ESCAPE_PATTERN, character => HTML_ENTITIES[character as keyof typeof HTML_ENTITIES]);
 
 const corsHeaders = (origin: string | null, allowed: string[]): Record<string, string> => {
   const allowOrigin = origin && allowed.includes(origin) ? origin : (allowed[0] ?? '');

@@ -13,4 +13,14 @@ describe('buildContactPayload', () => {
     expect(payload.name).toBe('');
     expect(payload.token).toBe('tok');
   });
+
+  it('defaults an adaptive field to empty when its value is absent from formData', () => {
+    const typeWithField = contactContent.form.inquiryTypes.find(type => (type.fields ?? []).length > 0);
+    expect(typeWithField).toBeDefined();
+
+    const payload = buildContactPayload(contactContent.form, {}, typeWithField!, 'tok', '');
+
+    expect(payload.inquiry).toBe(typeWithField!.label);
+    expect(payload.fields).toEqual([]);
+  });
 });
