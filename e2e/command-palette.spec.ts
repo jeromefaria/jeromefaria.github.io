@@ -22,6 +22,17 @@ test.describe('Command palette (⌘K)', () => {
     await expect(page.locator(PALETTE)).toHaveCount(0);
   });
 
+  test('shows an empty state for a query with no matches', async ({ page }) => {
+    await gotoHydrated(page, '/');
+
+    await page.keyboard.press('Control+k');
+    await expect(page.locator(INPUT)).toBeFocused();
+
+    await page.locator(INPUT).fill('zzzxyq no such command');
+    await expect(page.locator('.command-palette__empty')).toHaveText('No matches');
+    await expect(page.locator(OPTION)).toHaveCount(0);
+  });
+
   test('navigates the results with the keyboard', async ({ page }) => {
     await gotoHydrated(page, '/');
 

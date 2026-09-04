@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import { getMediaElement, next, play, stop, usePlayer } from '@/composables/usePlayer';
+import { siteConfig } from '@/data/navigation';
 import { createTranslate } from '@/i18n/useT';
 import { routes } from '@/router';
 import type { AudioTrack } from '@/types/audio';
@@ -31,7 +32,7 @@ describe('buildCommands', () => {
     }
 
     expect(open).toHaveBeenCalled();
-    expect(writeText).toHaveBeenCalledWith(expect.stringContaining('@'));
+    expect(writeText).toHaveBeenCalledWith(siteConfig.author.email);
   });
 
   it('includes every top-level route as a navigate command', () => {
@@ -211,6 +212,7 @@ describe('playReleaseCommands', () => {
     const command = playReleaseCommands(t).find(entry => entry.id === 'play:release:2504');
 
     if (command?.kind === 'action') await command.run();
-    expect(currentTrack.value).not.toBeNull();
+    // Not just "something loaded" — the chosen release's own track (2504 is a single piece).
+    expect(currentTrack.value?.key).toBe('BRQN006/01-2504.m4a');
   });
 });
