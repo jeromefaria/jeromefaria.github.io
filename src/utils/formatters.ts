@@ -15,21 +15,7 @@ export const formatEventDateRange = (isoStart: string, isoEnd?: string, locale: 
 
   const start = parseLocalDate(isoStart);
   const end = parseLocalDate(isoEnd);
+  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 
-  if (locale !== DEFAULT_LOCALE) {
-    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Intl.DateTimeFormat(BCP47_LOCALE[locale], options).formatRange(start, end);
-  }
-
-  if (start.getFullYear() !== end.getFullYear()) {
-    return `${formatEventDate(isoStart, locale)} – ${formatEventDate(isoEnd, locale)}`;
-  }
-
-  if (start.getMonth() !== end.getMonth()) {
-    const dayAndMonth: Intl.DateTimeFormatOptions = { month: 'long', day: 'numeric' };
-    return `${start.toLocaleDateString(BCP47_LOCALE[locale], dayAndMonth)} – ${end.toLocaleDateString(BCP47_LOCALE[locale], dayAndMonth)}, ${start.getFullYear()}`;
-  }
-
-  const month = start.toLocaleDateString(BCP47_LOCALE[locale], { month: 'long' });
-  return `${month} ${start.getDate()}–${end.getDate()}, ${start.getFullYear()}`;
+  return new Intl.DateTimeFormat(BCP47_LOCALE[locale], options).formatRange(start, end);
 };

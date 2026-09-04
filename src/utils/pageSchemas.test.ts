@@ -42,7 +42,7 @@ describe('createContactPageSchema', () => {
   });
 
   it('stamps the page inLanguage per locale', () => {
-    expect(createContactPageSchema('en').inLanguage).toBe('en-US');
+    expect(createContactPageSchema('en').inLanguage).toBe('en-GB');
     expect(createContactPageSchema('pt').inLanguage).toBe('pt-PT');
   });
 });
@@ -60,11 +60,11 @@ describe('createWorksPageSchema', () => {
     expect(book.name).toBe('Glitch: Designing Imperfection');
   });
 
-  it('marks the English book en-US and tags only language-bearing albums', () => {
+  it('marks the English book en-GB and tags only language-bearing albums', () => {
     const schema = createWorksPageSchema();
     const [musicGroup, book] = schema['@graph'];
 
-    expect(book.inLanguage).toBe('en-US');
+    expect(book.inLanguage).toBe('en-GB');
     expect(musicGroup.album.find(album => album.name === '2504')?.inLanguage).toBe('pt-PT');
     expect(musicGroup.album.find(album => album.name === 'Overlapse')?.inLanguage).toBeUndefined();
   });

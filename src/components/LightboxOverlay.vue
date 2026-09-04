@@ -5,7 +5,7 @@ import { useFocusTrap } from '@/composables/useFocusTrap';
 import { useT } from '@/i18n/useT';
 import type { LightboxItem } from '@/types';
 import { isLightboxImage, isLightboxVideo } from '@/types';
-import { toWebp } from '@/utils/responsiveImage';
+import { responsiveSrcset, toWebp } from '@/utils/responsiveImage';
 
 import ExternalLink from './ExternalLink.vue';
 import IconArrow from './IconArrow.vue';
@@ -29,6 +29,9 @@ const t = useT();
 
 const isVideo = computed(() => props.currentItem !== null && isLightboxVideo(props.currentItem));
 const isImage = computed(() => props.currentItem !== null && isLightboxImage(props.currentItem));
+
+const imageSrcset = computed(() =>
+  (props.currentItem && isLightboxImage(props.currentItem) ? responsiveSrcset(props.currentItem.src) : ''));
 
 const credit = computed(() => {
   const item = props.currentItem;
@@ -112,6 +115,12 @@ onMounted(async () => {
         v-else-if="isImage && currentItem && isLightboxImage(currentItem)"
         @click.stop
       >
+        <source
+          v-if="imageSrcset"
+          :srcset="imageSrcset"
+          sizes="100vw"
+          type="image/webp"
+        >
         <source
           :srcset="toWebp(currentItem.src)"
           type="image/webp"

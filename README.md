@@ -332,7 +332,7 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 ### E2E Tests
 - Cross-browser testing across all three engines (Chromium, Firefox, WebKit)
 - Accessibility testing with `@axe-core/playwright`
-- Specs: `accessibility`, `accordion`, `audio-player`, `command-palette`, `contact-form`, `epk`, `home-hero`, `language-switch`, `lightbox`, `navigation`, `trailing-slash`
+- Specs: `accessibility`, `accordion`, `audio-player`, `command-palette`, `contact-form`, `epk`, `home-hero`, `language-switch`, `lightbox`, `navigation`, `not-found`, `trailing-slash`
 
 ### Visual Regression
 - Per-route screenshot snapshots across desktop Chromium/Firefox/WebKit plus a mobile Safari viewport, compared against committed Linux baselines
