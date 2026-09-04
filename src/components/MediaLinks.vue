@@ -14,7 +14,7 @@ const props = withDefaults(
     posters?: LightboxItem[];
     downloadUrl?: string | undefined;
   }>(),
-  { posters: () => [] },
+  { posters: () => [], downloadUrl: undefined },
 );
 
 const emit = defineEmits<{
