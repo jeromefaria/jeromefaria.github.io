@@ -58,6 +58,15 @@ describe('buildRoutes (i18n)', () => {
     expect(ptHome?.meta?.locale).toBe('pt');
   });
 
+  it('mirrors the catch-all under /pt (so /pt/<missing> renders in Portuguese), base last', () => {
+    const built = buildRoutes(routes, true);
+    const ptCatchAll = built.find(route => route.path === '/pt/:pathMatch(.*)*');
+
+    expect(ptCatchAll?.name).toBe('pt-not-found');
+    expect(ptCatchAll?.meta?.locale).toBe('pt');
+    expect(built.at(-1)?.path).toBe('/:pathMatch(.*)*');
+  });
+
   it('leaves a nameless route unnamed under /pt', () => {
     const base: RouteRecordRaw[] = [
       { path: '/loose', component: { render: () => null } },

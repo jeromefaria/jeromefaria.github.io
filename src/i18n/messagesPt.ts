@@ -39,6 +39,12 @@ export const pt: MessageSchema = {
     skipToMain: 'Saltar para o conteúdo principal',
     loadingPage: 'A carregar página',
   },
+  notFound: {
+    heading: 'Página não encontrada',
+    body: 'A página que procura não existe ou pode ter sido movida.',
+    tryThese: 'Experimente uma destas páginas:',
+    navLabel: 'Navegação do site',
+  },
   media: {
     gallery: 'Galeria',
     photo: 'Foto',

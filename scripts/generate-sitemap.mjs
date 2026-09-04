@@ -8,8 +8,9 @@ import { join, relative } from 'node:path';
 const DIST = 'dist';
 const ORIGIN = 'https://jeromefaria.com';
 
-// Kept out of the sitemap: the error page and the noindex press kit (robots.txt
-// also disallows /epk).
+// Kept out of the sitemap: the error page and the noindex press kit (both locales,
+// via stripLocale below). The press kit relies on its noindex meta, not a robots
+// disallow, to stay de-indexed.
 const EXCLUDE = new Set(['/404', '/epk']);
 
 const htmlFiles = [];
