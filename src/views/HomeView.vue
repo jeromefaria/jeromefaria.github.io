@@ -7,14 +7,13 @@ import { createPersonSchema } from '@/utils/pageSchemas';
 
 const { localize, current } = useLocalized();
 
-const heroImageSrc = '/images/performance.webp';
-const heroImageSrcset = '/images/responsive/performance-1280w.webp 1280w, /images/performance.webp 2560w';
-
 usePageHead({
   ...pageMeta.home,
   schema: createPersonSchema(current.value),
-  preloadImage: heroImageSrc,
-  preloadImageSrcset: heroImageSrcset,
+  preloadImages: [
+    { href: '/images/responsive/performance-1280w.webp', media: '(max-width: 640px)' },
+    { href: '/images/performance.webp', media: '(min-width: 641px)' },
+  ],
 });
 </script>
 

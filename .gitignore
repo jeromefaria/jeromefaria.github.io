@@ -3,6 +3,7 @@ node_modules/
 
 # Build output
 dist/
+.vite-ssg-temp/
 
 # IDE
 .vscode/
@@ -25,6 +26,7 @@ npm-debug.log*
 .env
 .env.local
 .env.*.local
+worker/.dev.vars
 
 # Cache
 .cache/

@@ -1,0 +1,2 @@
+# Copy to .dev.vars for `wrangler dev` (gitignored). Overrides wrangler.toml [vars] locally.
+ALLOWED_ORIGINS="https://jeromefaria.com,http://localhost:5173"

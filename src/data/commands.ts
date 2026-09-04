@@ -10,7 +10,7 @@ import type { Locale } from '@/i18n/messages';
 import type { TranslateFn } from '@/i18n/useT';
 import type { ActionCommand, Command } from '@/types/command';
 import type { LiveEvent } from '@/types/live';
-import type { Release, ReleaseMeta } from '@/types/works';
+import type { CommissionMeta, Edition, Release, ReleaseMeta } from '@/types/works';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
 import { openInNewTab } from '@/utils/openInNewTab';
 import { canPlayRelease, playReleaseAt } from '@/utils/releasePermalink';
@@ -43,19 +43,38 @@ const sectionCommands = (t: TranslateFn, locale: Locale): Command[] =>
     to: `/works#section-${section.id}`,
   }));
 
-const metaText = (meta: ReleaseMeta): string[] => {
-  const out: string[] = [];
+const editionKeywords = (editions: Edition[]): string[] =>
+  editions.flatMap(edition => [edition.label.text, edition.catalog ?? '']);
 
-  if ('editions' in meta) for (const edition of meta.editions) out.push(edition.label.text, edition.catalog ?? '');
-  if ('collaborators' in meta && meta.collaborators) out.push(...meta.collaborators);
-  if ('compilation' in meta) out.push(meta.compilation.text);
-  if ('publisher' in meta) out.push('label' in meta.publisher ? meta.publisher.label.text : meta.publisher.text);
-  if ('director' in meta) out.push(meta.director.text);
-  if ('venue' in meta) out.push(meta.venue.text);
-  if ('artist' in meta) out.push(meta.artist.name);
-
-  return out.filter(Boolean);
+const commissionKeywords = (meta: CommissionMeta): string[] => {
+  switch (meta.work) {
+    case 'Film':
+      return [meta.director.text];
+    case 'Theatre':
+      return [meta.venue.text];
+    case 'DVD':
+      return [meta.publisher.label.text];
+    case 'Live Score':
+      return [];
+  }
 };
+
+const metaKeywords = (meta: ReleaseMeta): string[] => {
+  switch (meta.kind) {
+    case 'music':
+      return editionKeywords(meta.editions);
+    case 'compilation':
+      return [...(meta.collaborators ?? []), meta.compilation.text, ...editionKeywords(meta.editions)];
+    case 'engineering':
+      return [...editionKeywords(meta.editions), ...(meta.artist ? [meta.artist.name] : [])];
+    case 'commission':
+      return commissionKeywords(meta);
+    case 'publication':
+      return [meta.publisher.text];
+  }
+};
+
+const metaText = (meta: ReleaseMeta): string[] => metaKeywords(meta).filter(Boolean);
 
 const eventPeople = (event: LiveEvent, locale: Locale): string[] => {
   const { setup } = event;

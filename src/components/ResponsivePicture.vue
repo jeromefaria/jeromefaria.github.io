@@ -10,6 +10,7 @@ const props = defineProps<{
   alt: string;
   sizes?: string;
   imageStyle?: StyleValue;
+  priority?: boolean;
 }>();
 
 const emit = defineEmits<{ error: [] }>();
@@ -44,7 +45,8 @@ const onError = (): void => {
       :width="dimensions?.width"
       :height="dimensions?.height"
       :style="imageStyle"
-      loading="lazy"
+      :loading="priority ? 'eager' : 'lazy'"
+      :fetchpriority="priority ? 'high' : undefined"
       decoding="async"
       :class="{ 'is-loaded': imageLoaded }"
       @load="handleImageLoad"
