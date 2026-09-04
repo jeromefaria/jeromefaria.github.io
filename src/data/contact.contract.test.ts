@@ -1,23 +1,32 @@
 import { describe, expect, it } from 'vitest';
 
 import { type ContactPayload, validationError } from '../../worker/src/index';
+import { buildContactPayload } from '../utils/buildContactPayload';
 import { contactContent } from './contact';
 
-const { inquiryTypes } = contactContent.form;
+const { form } = contactContent;
+const { inquiryTypes } = form;
 
-const payloadFor = (inquiry: (typeof inquiryTypes)[number]): ContactPayload => ({
-  token: 'turnstile-token',
-  inquiry: inquiry.label,
-  name: 'Jane Roe',
-  email: 'jane@example.com',
-  message: 'Hello, I would like to get in touch.',
-  fields: (inquiry.fields ?? []).map(field => ({ label: field.label, value: 'sample value' })),
+const filledFormData = (inquiry: (typeof inquiryTypes)[number]): Record<string, string> => ({
+  [form.inquiry.id]: inquiry.id,
+  [form.baseFields.name.id]: 'Jane Roe',
+  [form.baseFields.email.id]: 'jane@example.com',
+  [form.baseFields.message.id]: 'Hello, I would like to get in touch.',
+  ...Object.fromEntries((inquiry.fields ?? []).map(field => [field.id, 'sample value'])),
 });
 
-describe('contact payload contract (frontend buildPayload ↔ worker validator)', () => {
-  it('accepts a payload for every inquiry type exactly as the form sends it', () => {
+describe('contact payload contract (frontend buildContactPayload ↔ worker validator)', () => {
+  it('produces a worker-valid payload for every inquiry type via the real serializer', () => {
     for (const inquiry of inquiryTypes) {
-      expect(validationError(payloadFor(inquiry)), `inquiry "${inquiry.label}"`).toBeNull();
+      const payload: ContactPayload = buildContactPayload(
+        form,
+        filledFormData(inquiry),
+        inquiry,
+        'turnstile-token',
+        '',
+      );
+
+      expect(validationError(payload), `inquiry "${inquiry.label}"`).toBeNull();
     }
   });
 
