@@ -28,6 +28,11 @@ export default defineConfig({
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
     { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    // Mobile visual coverage on WebKit — the site's mobile CSS is Safari-facing
+    // (100dvh, env(safe-area-inset-*), the overflow/toolbar trick). The project-level
+    // grep pins it to @mobile page snapshots, so it never runs the desktop E2E specs
+    // (which `npm run test:e2e` invokes with no --project filter).
+    { name: 'mobile-safari', use: { ...devices['iPhone 14'] }, grep: /@mobile/ },
   ],
 
   webServer: {
