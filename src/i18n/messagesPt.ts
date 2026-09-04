@@ -112,6 +112,7 @@ export const pt: MessageSchema = {
     sending: 'A enviar...',
     turnstileNotice: 'Protegido por Cloudflare Turnstile',
     requiredError: '{field} é obrigatório',
+    requiredMarker: 'Obrigatório',
     verifyError: 'Não foi possível confirmar que é humano. Tente novamente.',
     submitError: 'Ocorreu um erro ao enviar a mensagem. Tente novamente.',
     success: {

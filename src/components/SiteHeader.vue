@@ -96,6 +96,8 @@ onBeforeUnmount(() => {
             fill="none"
             stroke="currentColor"
             stroke-width="1.5"
+            aria-hidden="true"
+            focusable="false"
           >
             <line
               class="nav-toggle__line nav-toggle__line--top"

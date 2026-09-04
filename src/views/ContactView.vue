@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, nextTick, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
 import FormField from '@/components/FormField.vue';
@@ -31,6 +31,14 @@ const { formData, botField, isSubmitting, showSuccess, errorMessage, selectedTyp
 
 const inquiryOptions = computed(() =>
   form.inquiryTypes.map(type => ({ value: type.id, label: t(`contact.types.${type.id}.label`) })));
+
+const onSubmit = async (event: Event): Promise<void> => {
+  const invalidFieldId = await handleSubmit(event);
+  if (invalidFieldId) {
+    await nextTick();
+    document.getElementById(invalidFieldId)?.focus();
+  }
+};
 </script>
 
 <template>
@@ -51,7 +59,7 @@ const inquiryOptions = computed(() =>
       v-show="!showSuccess"
       class="contact-form"
       novalidate
-      @submit="handleSubmit"
+      @submit="onSubmit"
     >
       <input
         v-model="botField"

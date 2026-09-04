@@ -35,7 +35,7 @@ interface UseContactFormReturn {
   errors: ComputedRef<StringMap>;
   handleBlur: (id: string) => void;
   handleInput: () => void;
-  handleSubmit: (event: Event) => Promise<void>;
+  handleSubmit: (event: Event) => Promise<string | undefined>;
   resetForm: () => void;
 }
 
@@ -115,9 +115,17 @@ export const useContactForm = (
   const buildPayload = (token: string) =>
     buildContactPayload(form, formData, selectedType.value, token, botField.value);
 
-  const handleSubmit = async (event: Event): Promise<void> => {
+  const handleSubmit = async (event: Event): Promise<string | undefined> => {
     event.preventDefault();
-    if (!isFormValid.value || isSubmitting.value) return;
+    if (isSubmitting.value) return undefined;
+
+    if (!isFormValid.value) {
+      requiredIds.value.forEach(id => {
+        touched[id] = true;
+      });
+
+      return requiredIds.value.find(id => isEmpty(id));
+    }
 
     isSubmitting.value = true;
     errorMessage.value = '';
@@ -143,6 +151,8 @@ export const useContactForm = (
     } finally {
       isSubmitting.value = false;
     }
+
+    return undefined;
   };
 
   return {

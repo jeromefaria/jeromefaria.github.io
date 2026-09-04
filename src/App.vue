@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { defineAsyncComponent, nextTick, onMounted } from 'vue';
+import { computed, defineAsyncComponent, nextTick, onMounted } from 'vue';
 import { RouterView } from 'vue-router';
 
 import SiteFooter from '@/components/SiteFooter.vue';
 import SiteHeader from '@/components/SiteHeader.vue';
 import { audioPlayerEnabled, initFeatureFlags } from '@/composables/useFeatureFlags';
-import { helpMounted, paletteMounted, useOverlayHotkeys } from '@/composables/useOverlays';
+import { helpMounted, helpOpen, paletteMounted, paletteOpen, useOverlayHotkeys } from '@/composables/useOverlays';
 import { usePlayer } from '@/composables/usePlayer';
 import { initTheme } from '@/composables/useTheme';
 import { useT } from '@/i18n/useT';
@@ -16,6 +16,8 @@ const PlayerBar = defineAsyncComponent(() => import('@/components/PlayerBar.vue'
 const PlayerScreen = defineAsyncComponent(() => import('@/components/PlayerScreen.vue'));
 
 const { expanded: playerExpanded } = usePlayer();
+
+const overlayActive = computed(() => paletteOpen.value || helpOpen.value || playerExpanded.value);
 
 useOverlayHotkeys();
 
@@ -63,9 +65,15 @@ onMounted(() => {
     href="#main-content"
     class="skip-link"
   >{{ t('common.skipToMain') }}</a>
-  <div class="site">
+  <div
+    class="site"
+    :inert="overlayActive"
+  >
     <SiteHeader />
-    <main id="main-content">
+    <main
+      id="main-content"
+      tabindex="-1"
+    >
       <RouterView v-slot="{ Component }">
         <Transition
           name="page"

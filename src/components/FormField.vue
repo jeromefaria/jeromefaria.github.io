@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import { useT } from '@/i18n/useT';
 import type { ContactFieldOption } from '@/types/contact';
 
 const props = defineProps<{
@@ -24,6 +25,8 @@ const emit = defineEmits<{
   blur: [];
 }>();
 
+const t = useT();
+
 const fieldName = computed(() => props.name ?? props.id);
 const ariaInvalid = computed(() => (props.error === undefined ? undefined : props.invalid));
 const describedBy = computed(() => (props.invalid ? `${props.id}-error` : undefined));
@@ -43,7 +46,7 @@ const onInput = (event: Event): void => {
       {{ label }}
       <abbr
         v-if="required"
-        title="Required"
+        :title="t('contact.requiredMarker')"
       >*</abbr>
     </label>
 
