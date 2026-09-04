@@ -37,6 +37,12 @@ export const en = {
     skipToMain: 'Skip to main content',
     loadingPage: 'Loading page',
   },
+  notFound: {
+    heading: 'Page Not Found',
+    body: "The page you're looking for doesn't exist or may have been moved.",
+    tryThese: 'Try one of these pages:',
+    navLabel: 'Site navigation',
+  },
   media: {
     gallery: 'Gallery',
     photo: 'Photo',

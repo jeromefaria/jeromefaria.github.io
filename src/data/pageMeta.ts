@@ -16,6 +16,13 @@ export const pageMeta = {
     },
     description: siteConfig.description,
   },
+  notFound: {
+    title: { en: 'Page Not Found', pt: 'Página não encontrada' },
+    description: {
+      en: 'The page you are looking for does not exist.',
+      pt: 'A página que procura não existe.',
+    },
+  },
   about: {
     title: { en: 'About', pt: 'Sobre' },
     description: {
