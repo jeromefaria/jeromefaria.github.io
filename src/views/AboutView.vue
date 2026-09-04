@@ -82,6 +82,7 @@ const getGlobalIndex = (sectionIndex: number, imageIndex: number): number =>
               :alt="localize(image.alt)"
               sizes="(min-width: 768px) 45vw, 48vw"
               :image-style="getImageStyles(image)"
+              :priority="getGlobalIndex(sectionIndex, imageIndex) === 0"
             />
           </figure>
         </div>

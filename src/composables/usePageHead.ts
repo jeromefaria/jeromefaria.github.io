@@ -10,14 +10,18 @@ const OG_LOCALE: Record<(typeof SUPPORTED_LOCALES)[number], string> = { en: 'en_
 
 const DEFAULT_IMAGE_META = { width: '2560', height: '1703', type: 'image/jpeg' };
 
+interface HeroPreload {
+  href: string;
+  media?: string;
+}
+
 interface UsePageHeadOptions {
   title: string | Localized<string>;
   description: string | Localized<string>;
   ogType?: string;
   schema?: object | null;
   noIndex?: boolean;
-  preloadImage?: string;
-  preloadImageSrcset?: string;
+  preloadImages?: HeroPreload[];
   image?: string;
 }
 
@@ -31,18 +35,17 @@ interface ResolvedHead {
   ogType: string;
   noIndex: boolean;
   imageIsDefault: boolean;
-  preloadImage: string | undefined;
-  preloadImageSrcset: string | undefined;
+  preloadImages: HeroPreload[];
 }
 
 type MetaTag = { name?: string; property?: string; content: string };
 
-const preloadImageLink = (href: string, srcset?: string): Record<string, string> => ({
+const preloadImageLink = ({ href, media }: HeroPreload): Record<string, string> => ({
   rel: 'preload',
   as: 'image',
   type: 'image/webp',
   href,
-  ...(srcset ? { imagesrcset: srcset, imagesizes: '100vw' } : {}),
+  ...(media ? { media } : {}),
   fetchpriority: 'high',
 });
 
@@ -101,8 +104,8 @@ const buildLinks = (head: ResolvedHead): Record<string, string>[] => {
     link.push({ rel: 'alternate', hreflang: 'x-default', href: hrefFor('en') });
   }
 
-  if (head.preloadImage) {
-    link.push(preloadImageLink(head.preloadImage, head.preloadImageSrcset));
+  for (const preload of head.preloadImages) {
+    link.push(preloadImageLink(preload));
   }
 
   return link;
@@ -131,8 +134,7 @@ export const usePageHead = (options: UsePageHeadOptions): void => {
       ogType: options.ogType ?? 'website',
       noIndex: options.noIndex ?? false,
       imageIsDefault: !options.image,
-      preloadImage: options.preloadImage,
-      preloadImageSrcset: options.preloadImageSrcset,
+      preloadImages: options.preloadImages ?? [],
     };
 
     return {

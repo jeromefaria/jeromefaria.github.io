@@ -137,7 +137,7 @@ export default [
   {
     ignores: [
       'dist/**',
-      'coverage/**',
+      '**/coverage/**',
       'node_modules/**',
       'worker/node_modules/**',
       'playwright-report/**',
