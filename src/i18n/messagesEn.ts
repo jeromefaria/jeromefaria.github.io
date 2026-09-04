@@ -110,6 +110,7 @@ export const en = {
     sending: 'Sending...',
     turnstileNotice: 'Protected by Cloudflare Turnstile',
     requiredError: '{field} is required',
+    requiredMarker: 'Required',
     verifyError: 'Could not verify you are human. Please try again.',
     submitError: 'Something went wrong sending your message. Please try again.',
     success: {
