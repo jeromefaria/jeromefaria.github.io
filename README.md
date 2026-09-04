@@ -136,7 +136,7 @@ src/
   views/         One component per route
 worker/          Cloudflare Worker — Turnstile verification + Resend relay
 scripts/         Build tooling — PDF generation, responsive images, font subsetting, CI checks
-e2e/             Playwright specs (navigation, accordion, contact, lightbox, command palette, audio player, language switch, a11y, visual)
+e2e/             Playwright specs (navigation, accordion, contact, lightbox, command palette, audio player, language switch, trailing-slash, not-found, a11y, visual)
 public/          Static assets
 ```
 
@@ -217,6 +217,7 @@ npm run test:e2e:report
 - Audio player deep-link permalinks (`/works/:id?t=`) and transport controls
 - Language switch (EN ↔ PT) round trip and persistence
 - Trailing-slash URL normalization
+- Not-found (404) page handling and SPA fallback
 - Accessibility (WCAG 2.1 AA compliance, `axe-core`)
 - Keyboard navigation and mobile responsiveness
 - Visual regression — per-route screenshot snapshots on desktop and a mobile Safari viewport (`@visual`)

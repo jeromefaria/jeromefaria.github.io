@@ -5,7 +5,9 @@ compatibility_date = "2026-08-01"
 [vars]
 CONTACT_FROM = "contact@jeromefaria.com"
 CONTACT_TO = "jerome.faria@gmail.com"
-ALLOWED_ORIGINS = "https://jeromefaria.com,http://localhost:5173"
+# Production origins only. Local dev adds http://localhost:5173 via .dev.vars
+# (gitignored) so a Turnstile token minted on localhost can't pass the prod hostname pin.
+ALLOWED_ORIGINS = "https://jeromefaria.com"
 
 # Secrets (set with `wrangler secret put`, never committed):
 #   TURNSTILE_SECRET   — Cloudflare Turnstile secret key
