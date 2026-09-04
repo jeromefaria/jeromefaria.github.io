@@ -5,7 +5,7 @@ import type { App as VueApp } from 'vue';
 import type { Router } from 'vue-router';
 
 import App from './App.vue';
-import { appRoutes } from './router';
+import { appRoutes, normalizeTrailingSlash } from './router';
 
 interface ViteSSGContext {
   app: VueApp;
@@ -35,6 +35,10 @@ export const createApp = ViteSSG(
 
     // Client-side only: SSG pre-render has no session storage or live DOM.
     if (!isClient) return;
+
+    // Send /foo/ to its canonical /foo (see normalizeTrailingSlash) before the
+    // 404.html-restored path lands on the not-found route.
+    router.beforeEach(normalizeTrailingSlash);
 
     // SPA redirect from 404.html — replace after the initial navigation resolves,
     // or the startup route overrides it and the stored path is lost.
