@@ -157,13 +157,13 @@ $overlay-scrim: rgb(0 0 0 / 50%);
   font-family: inherit;
 }
 
-@mixin play-triangle($color: #fff) {
+@mixin play-triangle($color: var(--text-overlay)) {
   border-style: solid;
   border-width: 10px 0 10px 16px;
   border-color: transparent transparent transparent $color;
 }
 
-@mixin play-triangle-centered($color: #fff) {
+@mixin play-triangle-centered($color: var(--text-overlay)) {
   content: '';
   position: absolute;
   top: 50%;

@@ -178,6 +178,15 @@ describe('contact worker', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
+  it('ignores a malformed entry in ALLOWED_ORIGINS', async () => {
+    fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
+
+    const env: Env = { ...ENV, ALLOWED_ORIGINS: 'https://jeromefaria.com,://malformed' };
+    const response = await worker.fetch(postRequest(VALID_BODY), env);
+
+    expect(response.status).toBe(200);
+  });
+
   it('accepts a Turnstile token whose hostname matches an allowed host', async () => {
     fetchMock
       .mockResolvedValueOnce(

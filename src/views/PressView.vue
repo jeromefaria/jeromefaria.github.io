@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import PressQuote from '@/components/PressQuote.vue';
 import StaticPage from '@/components/StaticPage.vue';
 import { useHashScroll } from '@/composables/useHashScroll';
 import { pageMeta } from '@/data/pageMeta';
 import { pressQuotes } from '@/data/press';
+import { useLocalized } from '@/i18n/localized';
+import { createPressPageSchema } from '@/utils/pageSchemas';
 import { prefersReducedMotion } from '@/utils/scroll';
+
+const { current } = useLocalized();
+
+const head = computed(() => ({ ...pageMeta.press, schema: createPressPageSchema(current.value) }));
 
 const scrollToHash = (hash: string) => {
   const element = document.getElementById(hash.replace('#', ''));
@@ -16,7 +24,7 @@ useHashScroll(scrollToHash);
 
 <template>
   <StaticPage
-    :head="pageMeta.press"
+    :head="head"
     data-page="press"
   >
     <ul class="press-list">
