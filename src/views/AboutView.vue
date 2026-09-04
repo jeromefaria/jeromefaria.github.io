@@ -13,10 +13,11 @@ import { useLocalized } from '@/i18n/localized';
 import { isImageSection } from '@/types';
 import { getImageStyles } from '@/utils/imageStyles';
 import { toLightboxImage } from '@/utils/lightboxAdapters';
-
-usePageHead(pageMeta.about);
+import { createPersonSchema } from '@/utils/pageSchemas';
 
 const { localize, current } = useLocalized();
+
+usePageHead({ ...pageMeta.about, schema: createPersonSchema(current.value) });
 const renderProse = useProse();
 const routeProseLink = useProseLinks();
 

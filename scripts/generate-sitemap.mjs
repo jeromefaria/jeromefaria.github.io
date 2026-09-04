@@ -55,11 +55,13 @@ const alternates = base => {
   ].join('\n') + '\n';
 };
 
+const lastmod = new Date().toISOString().slice(0, 10);
+
 const urls = routes
   .map(route => {
     const base = stripLocale(route);
 
-    return `  <url>\n    <loc>${ORIGIN}${route}</loc>\n${alternates(base)}    <changefreq>monthly</changefreq>\n    <priority>${priority(base)}</priority>\n  </url>`;
+    return `  <url>\n    <loc>${ORIGIN}${route}</loc>\n${alternates(base)}    <lastmod>${lastmod}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>${priority(base)}</priority>\n  </url>`;
   })
   .join('\n');
 

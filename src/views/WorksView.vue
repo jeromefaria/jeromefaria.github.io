@@ -5,11 +5,12 @@ import { useRoute } from 'vue-router';
 import AccordionPage from '@/components/AccordionPage.vue';
 import EngineeringCreditItem from '@/components/EngineeringCreditItem.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
+import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
 import { worksData, worksSections } from '@/data/works';
 import { useLocalized } from '@/i18n/localized';
 import { canPlayRelease, findRelease, playReleaseAt, releaseHead } from '@/utils/releasePermalink';
-import { createWorksPageSchema } from '@/utils/worksSchema';
+import { createReleaseSchema, createWorksPageSchema } from '@/utils/worksSchema';
 
 const route = useRoute();
 const { localize, current } = useLocalized();
@@ -19,8 +20,15 @@ const releaseId = computed(() => (typeof route.params['releaseId'] === 'string' 
 const focusRelease = computed(() => (releaseId.value ? findRelease(releaseId.value) : null));
 
 const head = computed(() => {
-  const schema = createWorksPageSchema();
-  return focusRelease.value ? { ...releaseHead(focusRelease.value, current.value), schema } : { ...pageMeta.works, schema };
+  if (focusRelease.value) {
+    const canonicalUrl = `${siteConfig.url}${route.path}`;
+    return {
+      ...releaseHead(focusRelease.value, current.value),
+      schema: createReleaseSchema(focusRelease.value, current.value, canonicalUrl),
+    };
+  }
+
+  return { ...pageMeta.works, schema: createWorksPageSchema() };
 });
 
 const playFromRoute = (): void => {

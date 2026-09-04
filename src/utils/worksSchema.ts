@@ -1,10 +1,12 @@
 import { siteConfig } from '@/data/navigation';
 import { worksData } from '@/data/works';
-import { BCP47_LOCALE } from '@/i18n/messages';
-import { hasBandcampId, hasBandcampUrl } from '@/types';
-import type { SchemaBook, SchemaWorksGraph } from '@/types/schema';
+import { localize } from '@/i18n/localized';
+import { BCP47_LOCALE, type Locale } from '@/i18n/messages';
+import { hasBandcampId, hasBandcampUrl, hasCoverImage, type Release } from '@/types';
+import type { SchemaBook, SchemaRelease, SchemaWorksGraph } from '@/types/schema';
 
 import { createMusicAlbumSchema } from './schemaHelpers';
+import { stripHtml } from './stripHtml';
 
 const createGlitchBookSchema = (): SchemaBook => {
   const book = worksData['publications']?.items[0];
@@ -59,5 +61,33 @@ export const createWorksPageSchema = (): SchemaWorksGraph => {
       },
       createGlitchBookSchema(),
     ],
+  };
+};
+
+export const createReleaseSchema = (release: Release, locale: Locale, canonicalUrl: string): SchemaRelease => {
+  if (release.meta.kind === 'publication') {
+    return { '@context': 'https://schema.org', ...createGlitchBookSchema(), mainEntityOfPage: canonicalUrl };
+  }
+
+  if (hasBandcampId(release) || hasBandcampUrl(release)) {
+    const album = createMusicAlbumSchema(
+      { ...release, datePublished: String(release.meta.year) },
+      siteConfig.author.name,
+      siteConfig.url,
+    );
+
+    return { '@context': 'https://schema.org', ...album, mainEntityOfPage: canonicalUrl };
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: release.title,
+    ...(release.description ? { description: stripHtml(localize(release.description, locale)) } : {}),
+    url: canonicalUrl,
+    mainEntityOfPage: canonicalUrl,
+    dateCreated: String(release.meta.year),
+    ...(hasCoverImage(release) ? { image: `${siteConfig.url}${release.coverImage}` } : {}),
+    creator: { '@type': 'Person', name: siteConfig.author.name },
   };
 };
