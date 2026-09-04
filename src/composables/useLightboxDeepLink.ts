@@ -6,7 +6,6 @@ import { type LightboxMediaKind, type LightboxSource, parseMediaFragment } from 
 
 type Galleries = Partial<Record<LightboxMediaKind, Ref<LightboxItem[]>>>;
 
-// Deep-links via the #<id>/<kind>/<index> hash — on load and on forward-nav back into it.
 export const useLightboxDeepLink = (
   entityId: string,
   galleries: Galleries,
@@ -28,7 +27,6 @@ export const useLightboxDeepLink = (
   };
 
   onMounted(() => {
-    // Deferred a tick so the host lightbox is mounted before we open it.
     void nextTick(openIfTargeted);
     window.addEventListener('popstate', openIfTargeted, { signal: controller.signal });
   });

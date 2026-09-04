@@ -6,8 +6,6 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 import { worksData } from './src/data/works.ts';
 
-// One shareable, richly-unfurling page per release, pre-rendered alongside the static routes.
-// Engineering credits are excluded — they link out (third-party) or back to a real entry (own).
 const releasePaths = Object.values(worksData).flatMap(section =>
   section.items.filter(item => item.meta.kind !== 'engineering').map(item => `/works/${item.id}`));
 
@@ -15,10 +13,6 @@ export default defineConfig({
   plugins: [
     vue(),
     ViteImageOptimizer({
-      // Skip assets that are already optimized upstream, so the build doesn't
-      // re-compress them: epk/photos keep their embedded IPTC credits, and the
-      // responsive variants + hyphema webp come from generate-responsive-images.mjs;
-      // a second pass here would only degrade them.
       exclude: /epk[/\\]photos|images[/\\]responsive|images[/\\]hyphema\.webp/,
       jpg: {
         quality: 65,
@@ -56,8 +50,6 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        // Keep the framework in a stable chunk so an app-code change doesn't bust its
-        // hash across deploys. vue-i18n is left out so it stays its own lazy chunk.
         manualChunks(id: string) {
           if (
             id.includes('/node_modules/vue/') ||
@@ -75,9 +67,6 @@ export default defineConfig({
     script: 'async',
     formatting: 'minify',
     includedRoutes(paths: string[]) {
-      // Runs only during the production SSG build, so read the flag from
-      // .env.production (or the shell env) here — process.env inside the config
-      // isn't populated from .env files the way import.meta.env is for app code.
       const i18nEnabled = loadEnv('production', process.cwd()).VITE_I18N === 'true';
       const releases = i18nEnabled
         ? [...releasePaths, ...releasePaths.map(path => `/pt${path}`)]

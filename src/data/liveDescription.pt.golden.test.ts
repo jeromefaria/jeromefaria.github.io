@@ -4,8 +4,6 @@ import { buildEventDescription } from '@/utils/liveDescription';
 
 import { liveEvents } from './live';
 
-// Hand-verified EU-PT (pré-AO) renderings, mirroring liveDescription.golden.test.ts:
-// the golden catches a wrong derivation, not just a change. Regenerate intentionally.
 const DESCRIPTIONS_PT: Record<string, string> = {
   'tbc-2026-09-19': 'Actuação a solo.',
   'festival-multiplo-2026': 'Actuação a solo. Ao lado de Água Doce, Alga, <a href="https://canadian-rifles.bandcamp.com/">Canadian Rifles</a>, Caranguejos, Double Double, Formidolor, <a href="https://joanadesa.work/">Joana de Sá</a>, <a href="https://llamavirgem.bandcamp.com/">Llama Virgem</a>, Musgos, Open Source 3IO, Pedro PMDS.',

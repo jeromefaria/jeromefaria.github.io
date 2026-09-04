@@ -168,8 +168,6 @@ describe('LightboxOverlay', () => {
     });
 
     it('moves focus to the close button when navigation reaches the last item', async () => {
-      // Mirror the host: advancing past the tail disables Next, which would drop
-      // focus to <body>; the overlay must redirect it to the close button.
       const Harness = defineComponent({
         components: { LightboxOverlay },
         setup() {

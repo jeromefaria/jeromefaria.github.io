@@ -52,7 +52,6 @@ describe('LiveView', () => {
   });
 
   it('opens the year that owns a deep-linked event id from the URL hash', async () => {
-    // `showcase-casa-amarela` lives under 2025, not the default (most recent) year.
     const wrapper = await mountView(LiveView, '/live#showcase-casa-amarela');
     await nextTick();
     expect(expandedYears(wrapper)).toEqual(['2025']);

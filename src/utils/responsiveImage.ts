@@ -23,7 +23,6 @@ export const responsiveSrcset = (imagePath: string): string | null => {
   return entry.widths.map(width => `${RESPONSIVE_DIR}/${name}-${width}w.webp ${width}w`).join(', ');
 };
 
-// Intrinsic dimensions, so the <img> can reserve load-time space (no layout shift).
 export const imageDimensions = (imagePath: string): { width: number; height: number } | null => {
   const entry = manifest[baseName(imagePath)];
   return entry ? { width: entry.width, height: entry.height } : null;

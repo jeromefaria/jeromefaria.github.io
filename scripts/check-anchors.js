@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-// Mirrors useAccordion resolution: a fragment resolves to a section/year key or an item id.
-// Keep in sync with that composable, or valid in-copy anchors will fail the build.
-
 import { loadSrc } from './data-loader.mjs';
 
 const [{ worksData, worksSections }, { sortedLiveData, liveYears }, { pressQuotes }, { aboutSections }] =
@@ -41,9 +38,6 @@ for (const [source, data] of Object.entries(sources)) {
 
 const broken = anchors.filter(anchor => !validTargets[anchor.page].has(anchor.fragment));
 
-// Credit markers: every [[Name]] in a release's credits must resolve to a
-// contributor that has a URL — renderCredits silently renders an unresolved
-// marker as plain text, so a typo or missing contributor drops the link.
 const MARKER_PATTERN = /\[\[([^\]]+)\]\]/g;
 const unresolvedMarkers = [];
 

@@ -17,8 +17,6 @@ const CORS = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-// Stub the invisible Turnstile widget so execute() resolves a token without a
-// real network challenge. Runs before app scripts so useTurnstile picks it up.
 const stubTurnstile = (page: Page): Promise<void> =>
   page.addInitScript(() => {
     let onToken: ((token: string) => void) | undefined;

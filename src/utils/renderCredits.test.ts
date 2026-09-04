@@ -62,7 +62,6 @@ describe('renderCredits', () => {
   it('escapes an attribute-breaking url so it cannot inject markup', () => {
     const credits = renderCredits('Art by [[X]].', [{ name: 'X', url: 'https://x.test/"><img src=x onerror=alert(1)>' }]);
 
-    // No attribute breakout — the quote/brackets are escaped, so the payload stays inert text inside href.
     expect(credits).not.toContain('"><img');
     expect(credits).toContain('&quot;&gt;&lt;img');
   });

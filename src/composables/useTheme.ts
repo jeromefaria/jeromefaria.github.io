@@ -41,7 +41,6 @@ const persist = (value: ThemeChoice): void => {
   try {
     localStorage.setItem(STORAGE_KEY, value);
   } catch {
-    // Storage can be unavailable (private mode) — the in-memory choice still applies.
   }
 };
 

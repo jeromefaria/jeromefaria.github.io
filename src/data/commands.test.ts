@@ -98,8 +98,6 @@ describe('buildCommands', () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  // Command targets and router routes are authored independently; a renamed or removed
-  // route would leave a navigate/result command pointing at a dead path. Guard the seam.
   it('points every navigable command at a defined route', () => {
     const routePaths = new Set(routes.map(route => route.path));
     const targets = commands.flatMap(command =>
@@ -212,7 +210,6 @@ describe('playReleaseCommands', () => {
     const command = playReleaseCommands(t).find(entry => entry.id === 'play:release:2504');
 
     if (command?.kind === 'action') await command.run();
-    // Not just "something loaded" — the chosen release's own track (2504 is a single piece).
     expect(currentTrack.value?.key).toBe('BRQN006/01-2504.m4a');
   });
 });

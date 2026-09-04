@@ -5,7 +5,6 @@ import type { AudioTrack } from '@/types/audio';
 
 export type PlayerStatus = 'idle' | 'loading' | 'buffering' | 'playing' | 'paused' | 'ended' | 'error';
 
-// "Busy" narrows "active" to the not-yet-audible part, used for buffering affordances.
 const ACTIVE_STATUSES: PlayerStatus[] = ['playing', 'loading', 'buffering'];
 const BUSY_STATUSES: PlayerStatus[] = ['loading', 'buffering'];
 
@@ -28,8 +27,6 @@ const currentTrack = computed<AudioTrack | null>(() => queue.value[index.value] 
 const hasNext = computed(() => index.value < queue.value.length - 1);
 const hasPrevious = computed(() => index.value > 0);
 
-// A monotonic token: each load bumps it, so a late event or retry from a track the
-// user has already skipped past is recognised as stale and ignored (the classic race).
 let generation = 0;
 let retries = 0;
 let element: HTMLAudioElement | null = null;
@@ -105,10 +102,7 @@ const start = async (gen: number): Promise<void> => {
     await media.play();
   } catch (thrown) {
     if (gen !== generation) return;
-    // A src swap aborts the pending play() with AbortError — expected on rapid track changes.
     if (thrown instanceof DOMException && thrown.name === 'AbortError') return;
-    // Autoplay blocked (e.g. a shared link opened without a prior gesture): stay cued and
-    // paused so a single tap starts it, rather than churning through retries into an error.
     if (thrown instanceof DOMException && thrown.name === 'NotAllowedError') {
       status.value = 'paused';
       return;
@@ -143,7 +137,6 @@ export const play = async (tracks: AudioTrack[], startIndex = 0, context: PlayCo
   await load();
 };
 
-// The generation guard drops this offset if the user has since jumped to another track.
 const applyStartOffset = (gen: number, seconds: number): void => {
   if (!element || gen !== generation) return;
 
@@ -182,7 +175,6 @@ export const select = async (targetIndex: number): Promise<void> => {
 export const expand = (): void => { expanded.value = true; };
 export const collapse = (): void => { expanded.value = false; };
 
-// Clearing the queue empties currentTrack, which unmounts the bar.
 export const stop = (): void => {
   generation += 1;
   element?.pause();
@@ -301,5 +293,4 @@ export const usePlayer = (): PlayerApi => ({
   stop,
 });
 
-// Exposed for unit tests to drive media events on the singleton element.
 export const getMediaElement = (): HTMLAudioElement => ensureElement();

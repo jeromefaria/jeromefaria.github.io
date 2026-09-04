@@ -19,7 +19,6 @@ describe('TrackListItem', () => {
 
     expect(link.text()).toBe('CAVERNANCIA');
     expect(link.attributes('href')).toBe('https://cavernancia.bandcamp.com/');
-    // textContent (not .text(), which trims at node boundaries) preserves the separator spacing.
     expect(wrapper.element.textContent).toBe('CAVERNANCIA — Attack (Prelude)');
   });
 
@@ -29,7 +28,6 @@ describe('TrackListItem', () => {
     });
 
     expect(wrapper.find('a').exists()).toBe(false);
-    // textContent (not .text(), which trims at node boundaries) preserves the separator spacing.
     expect(wrapper.element.textContent).toBe('sol — Costa Norte');
   });
 });

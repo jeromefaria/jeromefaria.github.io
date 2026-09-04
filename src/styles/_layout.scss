@@ -4,9 +4,10 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  // stylelint-disable-next-line local/no-comments -- keep the 100vh fallback line above; dvh is progressive enhancement
   min-height: 100dvh; // dvh keeps the home hero + footer within the visible mobile viewport; 100vh fallback for older browsers
 
-  // overflow-x: hidden is set on body, not here, because it would break position: sticky on masthead
+  // stylelint-disable-next-line local/no-comments -- overflow-x:hidden belongs on body, not here — an overflow on the sticky ancestor would break position:sticky on the masthead
 }
 
 main {
@@ -23,9 +24,7 @@ main:has(.home) {
   display: flex;
   flex-direction: column;
 
-  // Flex chain so the hero fills the space main leaves between header and footer.
-  // `margin: 0` resets the base `.container-wide` centering — auto cross-margins
-  // would otherwise disable flex stretch and collapse the column to zero width.
+  // stylelint-disable-next-line local/no-comments -- the child margin:0 resets base .container-wide auto-centering; auto cross-margins would disable flex stretch and collapse the column to zero width
   .container-wide {
     max-width: none;
     padding: 0;
