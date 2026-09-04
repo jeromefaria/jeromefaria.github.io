@@ -120,7 +120,7 @@ describe('BandcampPlayer', () => {
     it('uses sandbox attribute for security', async () => {
       const wrapper = mountPlayer();
       await wrapper.find('.bandcamp-player__button').trigger('click');
-      expect(wrapper.find('iframe').attributes('sandbox')).toBeTruthy();
+      expect(wrapper.find('iframe').attributes('sandbox')).toBe('allow-scripts allow-same-origin allow-popups');
     });
   });
 

@@ -29,6 +29,9 @@ export default defineConfig({
         'node_modules/',
         'dist/',
         'e2e/',
+        // The Worker is a separate package with its own vitest + coverage; the contract
+        // test imports its validator, but its lines must not count against src coverage.
+        'worker/**',
         '**/*.d.ts',
         '**/*.config.ts',
         '**/*.test.ts',
