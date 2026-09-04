@@ -18,11 +18,20 @@ test.describe('Accessibility', () => {
   });
 
   test.describe('Keyboard Navigation', () => {
-    test('should allow tab navigation through interactive elements', async ({ page }) => {
+    test('advances focus through interactive elements on Tab', async ({ page }) => {
       await gotoHydrated(page, '/');
 
-      await page.locator(SKIP_LINK_SELECTOR).focus();
-      await expect(page.locator(SKIP_LINK_SELECTOR)).toBeFocused();
+      const focused: string[] = [];
+      for (let press = 0; press < 4; press += 1) {
+        await page.keyboard.press('Tab');
+        focused.push(await page.evaluate(() => {
+          const element = document.activeElement;
+          return !element || element === document.body ? '' : element.outerHTML;
+        }));
+      }
+
+      expect(focused.every(entry => entry !== '')).toBe(true);
+      expect(new Set(focused).size).toBeGreaterThan(1);
     });
 
     test('should skip to main content with skip link', async ({ page }) => {
@@ -41,13 +50,14 @@ test.describe('Accessibility', () => {
       expect(top).toBeLessThan(110);
     });
 
-    test('should navigate through form fields', async ({ page }) => {
-      await page.goto('/contact');
-      await expect(page.locator('form')).toBeAttached();
+    test('moves focus from the inquiry select to the next field on Tab', async ({ page }) => {
+      await gotoHydrated(page, '/contact');
 
-      const firstField = page.locator('input[type="text"], input[type="email"], textarea').first();
-      await firstField.focus();
-      await expect(firstField).toBeFocused();
+      await page.locator('#inquiry').focus();
+      await expect(page.locator('#inquiry')).toBeFocused();
+
+      await page.keyboard.press('Tab');
+      await expect(page.locator('#name')).toBeFocused();
     });
   });
 
@@ -65,12 +75,17 @@ test.describe('Accessibility', () => {
       expect(outline).not.toBe('none');
     });
 
-    test('should maintain focus order', async ({ page }) => {
+    test('moves focus to a new element on Tab', async ({ page }) => {
       await gotoHydrated(page, '/works');
 
-      const interactive = page.locator('a, button, input, textarea, [tabindex="0"]').first();
-      await interactive.focus();
-      await expect(interactive).toBeFocused();
+      const first = page.locator('a, button').first();
+      await first.focus();
+      const before = await page.evaluate(() => document.activeElement?.outerHTML ?? '');
+
+      await page.keyboard.press('Tab');
+      const after = await page.evaluate(() => document.activeElement?.outerHTML ?? '');
+
+      expect(after).not.toBe(before);
     });
   });
 
@@ -96,6 +111,7 @@ test.describe('Accessibility', () => {
 
       const inputs = page.locator('input:not([type="submit"]):not([type="hidden"]):not([aria-hidden="true"]), textarea');
       const count = await inputs.count();
+      expect(count).toBeGreaterThan(0);
 
       for (let index = 0; index < count; index += 1) {
         const hasAccessibleLabel = await inputs.nth(index).evaluate(node => {
@@ -115,26 +131,14 @@ test.describe('Accessibility', () => {
 
   test.describe('Images and Media', () => {
     test('should have alt text for all images', async ({ page }) => {
-      await page.goto('/');
+      await gotoHydrated(page, '/about');
 
       const images = page.locator('img');
       const count = await images.count();
+      expect(count).toBeGreaterThan(0);
 
       for (let index = 0; index < count; index += 1) {
         expect(await images.nth(index).getAttribute('alt')).not.toBeNull();
-      }
-    });
-
-    test('should have accessible video elements', async ({ page }) => {
-      await page.goto('/works');
-
-      const videos = page.locator('video, iframe[src*="youtube"], iframe[src*="vimeo"]');
-      const count = await videos.count();
-
-      for (let index = 0; index < count; index += 1) {
-        const title = await videos.nth(index).getAttribute('title');
-        const ariaLabel = await videos.nth(index).getAttribute('aria-label');
-        expect(Boolean(title || ariaLabel)).toBe(true);
       }
     });
   });
@@ -158,22 +162,15 @@ test.describe('Accessibility', () => {
       await checkA11y(page, { tags: ['wcag2a', 'wcag2aa'] });
     });
 
-    test('should use ARIA roles appropriately', async ({ page }) => {
-      await page.goto('/');
-
-      const roleElements = page.locator('[role]');
-      const count = await roleElements.count();
-
-      for (let index = 0; index < count; index += 1) {
-        expect(await roleElements.nth(index).getAttribute('role')).toBeTruthy();
-      }
-    });
   });
 
   test.describe('Responsive Accessibility', () => {
-    test('should be accessible on all viewports', async ({ page }) => {
-      await gotoHydrated(page, '/');
-      await checkA11y(page);
+    test('should be accessible across mobile, tablet, and desktop viewports', async ({ page }) => {
+      for (const size of [{ width: 375, height: 667 }, { width: 768, height: 1024 }, { width: 1280, height: 800 }]) {
+        await page.setViewportSize(size);
+        await gotoHydrated(page, '/');
+        await checkA11y(page);
+      }
     });
 
     test('should have touch-friendly targets on mobile', async ({ page }) => {

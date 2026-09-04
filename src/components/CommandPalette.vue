@@ -2,6 +2,7 @@
 import { computed, nextTick, ref, watch } from 'vue';
 
 import { useCommandPalette } from '@/composables/useCommandPalette';
+import { useFocusTrap } from '@/composables/useFocusTrap';
 import { useOverlay } from '@/composables/useOverlay';
 import { useT } from '@/i18n/useT';
 
@@ -10,8 +11,11 @@ const t = useT();
 const { isOpen, query, activeIndex, results, close, handleKeydown, execute } = useCommandPalette();
 
 const inputRef = ref<HTMLInputElement | null>(null);
+const panelRef = ref<HTMLElement | null>(null);
 
 useOverlay(isOpen, inputRef);
+
+const { onKeydown: trapTab } = useFocusTrap(panelRef);
 
 const showHeaders = computed(() => query.value.trim() === '');
 const announcement = computed(() =>
@@ -34,10 +38,12 @@ watch(activeIndex, async () => {
         @click.self="close"
       >
         <div
+          ref="panelRef"
           class="command-palette__panel"
           role="dialog"
           aria-modal="true"
           :aria-label="t('palette.ariaLabel')"
+          @keydown="trapTab"
         >
           <input
             ref="inputRef"

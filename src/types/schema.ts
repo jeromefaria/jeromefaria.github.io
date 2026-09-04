@@ -98,6 +98,28 @@ export interface SchemaProfilePerson {
   sameAs: string[];
 }
 
+export interface SchemaReview {
+  '@type': 'Review';
+  reviewBody: string;
+  author: SchemaOrganization;
+  itemReviewed: SchemaPerson;
+  url?: string;
+}
+
+export interface SchemaReviewListItem {
+  '@type': 'ListItem';
+  position: number;
+  item: SchemaReview;
+}
+
+export interface SchemaReviewList {
+  '@context': 'https://schema.org';
+  '@type': 'ItemList';
+  name: string;
+  numberOfItems: number;
+  itemListElement: SchemaReviewListItem[];
+}
+
 export interface SchemaContactPage {
   '@context': 'https://schema.org';
   '@type': 'ContactPage';
