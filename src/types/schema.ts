@@ -70,6 +70,23 @@ export interface SchemaBook {
   contributor: SchemaPerson;
 }
 
+export interface SchemaCreativeWork {
+  '@context': 'https://schema.org';
+  '@type': 'CreativeWork';
+  name: string;
+  description?: string;
+  url: string;
+  mainEntityOfPage: string;
+  dateCreated: string;
+  image?: string;
+  creator: SchemaPerson;
+}
+
+export type SchemaRelease =
+  | (SchemaMusicAlbum & { '@context': 'https://schema.org'; mainEntityOfPage: string })
+  | (SchemaBook & { '@context': 'https://schema.org'; mainEntityOfPage: string })
+  | SchemaCreativeWork;
+
 export interface SchemaProfilePerson {
   '@context': 'https://schema.org';
   '@type': 'Person';
