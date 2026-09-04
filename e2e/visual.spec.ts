@@ -21,9 +21,13 @@ const PAGES = [
 // anti-aliasing jitter while still catching any real layout or style shift.
 const SNAPSHOT_OPTIONS = { animations: 'disabled', maxDiffPixels: 500 } as const;
 
+// The page snapshots also carry @mobile, so the mobile-safari project (grep:/@mobile/)
+// captures them at an iPhone viewport — guarding the Safari-facing mobile layout.
+// Overlays (lightbox, palette, keyboard-help) stay desktop-only: they're keyboard/hover
+// affordances, so a mobile screenshot would bless a broken or irrelevant render.
 test.describe('Visual regression', () => {
   for (const [path, name] of PAGES) {
-    test(`${name} matches its snapshot`, { tag: '@visual' }, async ({ page }) => {
+    test(`${name} matches its snapshot`, { tag: ['@visual', '@mobile'] }, async ({ page }) => {
       await gotoHydrated(page, path);
 
       await expect(page).toHaveScreenshot(`${name}.png`, SNAPSHOT_OPTIONS);
@@ -35,7 +39,7 @@ test.describe('Visual regression', () => {
 // so it needs its own baselines to stay guarded against drift.
 test.describe('Visual regression — light theme', () => {
   for (const [path, name] of PAGES) {
-    test(`${name} matches its light snapshot`, { tag: '@visual' }, async ({ page }) => {
+    test(`${name} matches its light snapshot`, { tag: ['@visual', '@mobile'] }, async ({ page }) => {
       await page.addInitScript(() => localStorage.setItem('theme', 'light'));
       await gotoHydrated(page, path);
 
