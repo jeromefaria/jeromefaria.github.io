@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import worker, { type Env } from './index';
+import worker, { type ContactPayload, type Env, validationError } from './index';
 
 const ENV: Env = {
   TURNSTILE_SECRET: 'secret',
@@ -200,6 +200,25 @@ describe('contact worker', () => {
     expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
+  it('emits an empty allow-origin when no origins are configured', async () => {
+    const env: Env = { ...ENV, ALLOWED_ORIGINS: '' };
+    const request = new Request('https://worker.example/', { method: 'OPTIONS', headers: { 'Origin': 'https://x.com' } });
+
+    const response = await worker.fetch(request, env);
+
+    expect(response.status).toBe(204);
+    expect(response.headers.get('Access-Control-Allow-Origin')).toBe('');
+  });
+
+  it('sends successfully for a payload with no adaptive fields', async () => {
+    fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
+    const { fields: _fields, ...bodyWithoutFields } = VALID_BODY;
+
+    const response = await worker.fetch(postRequest(bodyWithoutFields), ENV);
+
+    expect(response.status).toBe(200);
+  });
+
   it('rejects a failed Turnstile verification without sending', async () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(false));
 
@@ -285,5 +304,33 @@ describe('contact worker', () => {
     const response = await worker.fetch(ipRequest(), env);
 
     expect(response.status).toBe(200);
+  });
+});
+
+describe('validationError — size guards', () => {
+  const base: ContactPayload = {
+    token: 'tok',
+    inquiry: 'Booking',
+    name: 'Jane Roe',
+    email: 'jane@example.com',
+    message: 'Hello there.',
+    fields: [],
+  };
+
+  it('rejects an oversized name', () => {
+    expect(validationError({ ...base, name: 'x'.repeat(201) })).toBe('Field too long: name');
+  });
+
+  it('rejects an oversized email', () => {
+    expect(validationError({ ...base, email: `${'x'.repeat(250)}@example.com` })).toBe('Field too long: email');
+  });
+
+  it('rejects an oversized inquiry', () => {
+    expect(validationError({ ...base, inquiry: 'x'.repeat(101) })).toBe('Field too long: inquiry');
+  });
+
+  it('rejects more than the maximum number of fields', () => {
+    const fields = Array.from({ length: 21 }, () => ({ label: 'L', value: 'v' }));
+    expect(validationError({ ...base, fields })).toBe('Field too long: fields');
   });
 });
