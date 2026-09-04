@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { RouteRecordRaw } from 'vue-router';
 
-import { buildRoutes, routes } from './index';
+import { buildRoutes, normalizeTrailingSlash, routes } from './index';
 
 describe('router routes', () => {
   it('defines every page path plus a catch-all', () => {
@@ -68,5 +68,24 @@ describe('buildRoutes (i18n)', () => {
 
     expect(ptLoose?.name).toBeUndefined();
     expect(ptLoose?.meta?.locale).toBe('pt');
+  });
+});
+
+describe('normalizeTrailingSlash', () => {
+  it('redirects a trailing-slash path to its canonical extension-less form', () => {
+    expect(normalizeTrailingSlash({ path: '/pt/', query: {}, hash: '' })).toEqual({ path: '/pt', query: {}, hash: '' });
+    expect(normalizeTrailingSlash({ path: '/works/', query: {}, hash: '' })).toEqual({ path: '/works', query: {}, hash: '' });
+    expect(normalizeTrailingSlash({ path: '/pt/works/', query: {}, hash: '' })).toEqual({ path: '/pt/works', query: {}, hash: '' });
+  });
+
+  it('preserves query and hash when normalizing', () => {
+    expect(normalizeTrailingSlash({ path: '/works/', query: { track: '1' }, hash: '#credits' }))
+      .toEqual({ path: '/works', query: { track: '1' }, hash: '#credits' });
+  });
+
+  it('leaves the root and slash-free paths untouched', () => {
+    expect(normalizeTrailingSlash({ path: '/', query: {}, hash: '' })).toBe(true);
+    expect(normalizeTrailingSlash({ path: '/works', query: {}, hash: '' })).toBe(true);
+    expect(normalizeTrailingSlash({ path: '/pt', query: {}, hash: '' })).toBe(true);
   });
 });
