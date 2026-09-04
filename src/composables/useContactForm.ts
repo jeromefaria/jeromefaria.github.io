@@ -3,6 +3,7 @@ import { computed, reactive, ref } from 'vue';
 
 import { useT } from '@/i18n/useT';
 import type { ContactField, ContactFormConfig, InquiryType } from '@/types/contact';
+import { buildContactPayload } from '@/utils/buildContactPayload';
 
 type StringMap = Record<string, string>;
 type FlagMap = Record<string, boolean>;
@@ -20,16 +21,6 @@ const uniqueFields = (fields: ContactField[]): ContactField[] => {
 
   return fields.filter(field => (seen.has(field.id) ? false : seen.add(field.id)));
 };
-
-interface ContactPayload {
-  token: string;
-  inquiry: string;
-  name: string;
-  email: string;
-  message: string;
-  fields: { label: string; value: string }[];
-  botField: string;
-}
 
 interface UseContactFormReturn {
   formData: StringMap;
@@ -121,17 +112,8 @@ export const useContactForm = (
     botField.value = '';
   };
 
-  const buildPayload = (token: string): ContactPayload => ({
-    token,
-    inquiry: selectedType.value?.label ?? '',
-    name: formData[nameId] ?? '',
-    email: formData[emailId] ?? '',
-    message: formData[messageId] ?? '',
-    fields: (selectedType.value?.fields ?? [])
-      .map(field => ({ label: field.label, value: formData[field.id] ?? '' }))
-      .filter(entry => entry.value.trim() !== ''),
-    botField: botField.value,
-  });
+  const buildPayload = (token: string) =>
+    buildContactPayload(form, formData, selectedType.value, token, botField.value);
 
   const handleSubmit = async (event: Event): Promise<void> => {
     event.preventDefault();

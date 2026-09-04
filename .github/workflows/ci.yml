@@ -292,8 +292,8 @@ jobs:
       - name: Type check
         run: npm run type-check
 
-      - name: Run unit tests
-        run: npm test
+      - name: Run unit tests with coverage
+        run: npm run test:coverage
 
   summary:
     name: CI Summary
