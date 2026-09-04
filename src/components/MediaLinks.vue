@@ -40,7 +40,10 @@ const links = computed(() =>
       v-for="(link, index) in links"
       :key="link.label"
     >
-      <span v-if="index > 0"> | </span>
+      <span
+        v-if="index > 0"
+        aria-hidden="true"
+      > | </span>
       <button
         class="link-discrete"
         :aria-label="t('media.view', { label: link.label.toLowerCase() })"
@@ -50,7 +53,10 @@ const links = computed(() =>
       </button>
     </template>
 
-    <span v-if="downloadUrl && links.length"> | </span>
+    <span
+      v-if="downloadUrl && links.length"
+      aria-hidden="true"
+    > | </span>
     <a
       v-if="downloadUrl"
       class="link-discrete"

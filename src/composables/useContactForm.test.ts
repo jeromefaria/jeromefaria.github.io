@@ -203,6 +203,17 @@ describe('useContactForm', () => {
       expect(fetchSpy).not.toHaveBeenCalled();
     });
 
+    it('reveals every required error and returns the first invalid id on an incomplete submit', async () => {
+      const wrapper = mount(createTestComponent());
+
+      const focusId = await wrapper.vm.handleSubmit(submitEvent());
+
+      expect(focusId).toBe('inquiry');
+      expect(wrapper.vm.touched.inquiry).toBe(true);
+      expect(wrapper.vm.touched.name).toBe(true);
+      expect(wrapper.vm.errors.inquiry).toContain('required');
+    });
+
     it('shows the verification error on a 403', async () => {
       const wrapper = mount(createTestComponent());
       fetchSpy.mockResolvedValueOnce({ ok: false, status: 403 } as Response);
