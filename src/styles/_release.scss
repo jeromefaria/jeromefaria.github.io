@@ -129,9 +129,7 @@
     position: relative;
     display: block;
 
-    // Don't let the grid stretch the cover to the (taller) details column —
-    // otherwise the absolute-fill play/spinner overlay centers in the stretched
-    // cell and drops below the image's true middle.
+    // stylelint-disable-next-line local/no-comments -- align-self:start stops the grid stretching the cover to the taller details column, else the absolute-fill play/spinner overlay centers below the image's true middle
     align-self: start;
     width: 100%;
     order: -1;
@@ -293,7 +291,6 @@
       font-size: $font-size-xs;
       color: var(--color-text-muted);
 
-      // Ensure links are visually distinguishable (WCAG 2.1 Level A)
       a {
         text-decoration: underline;
         text-decoration-thickness: 1px;

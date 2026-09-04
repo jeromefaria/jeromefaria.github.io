@@ -20,10 +20,6 @@ const SecondPage = {
   template: '<div><a href="https://second.example.com">second</a></div>',
 };
 
-// App wraps the router-view in <Suspense>, so the routed component commits to
-// the DOM a macrotask after mount — later than flushPromises (microtasks) can
-// wait for. Settle across a few macrotask + microtask rounds so onMounted's
-// processExternalLinks has run against the committed <main>.
 const settle = async () => {
   for (let round = 0; round < 3; round += 1) {
     await new Promise(resolve => setTimeout(resolve, 0));
@@ -32,9 +28,6 @@ const settle = async () => {
   }
 };
 
-// App resolves the active <main> with a document-wide query, so only one App
-// may be attached at a time — otherwise a stale, still-attached instance would
-// be scanned instead of the current one.
 let activeWrapper: VueWrapper | null = null;
 
 const mountApp = async () => {

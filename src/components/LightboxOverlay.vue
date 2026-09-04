@@ -44,8 +44,6 @@ const closeButton = ref<HTMLElement | null>(null);
 
 const handleClose = () => emit('close');
 
-// At a boundary the pressed arrow becomes disabled, which would drop focus to
-// <body>; move it to the always-present close button so it stays in the dialog.
 const handlePrev = async () => {
   emit('prev');
   await nextTick();
@@ -67,8 +65,6 @@ const dialogLabel = computed(() => {
   return t(isVideo.value ? 'lightbox.videoViewer' : 'lightbox.imageViewer');
 });
 
-// Polite live region so navigating between items announces the new position and
-// caption — a label change on the already-focused dialog is not announced.
 const liveAnnouncement = computed(() => {
   const item = props.currentItem;
   if (!item) return '';

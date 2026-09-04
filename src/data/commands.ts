@@ -19,7 +19,6 @@ import { stripHtml } from '@/utils/stripHtml';
 
 import { pressQuotes } from './press';
 
-// Indexed word-by-word after stripping HTML, so a query matches discrete words, not raw markup like URLs.
 const words = (text: string): string[] => stripHtml(text).split(' ').filter(Boolean);
 
 const routeCommands = (t: TranslateFn): Command[] => [
@@ -74,7 +73,6 @@ const eventPeople = (event: LiveEvent, locale: Locale): string[] => {
   return names.filter(Boolean);
 };
 
-// Engineering credits are skipped — they carry no in-page anchor (they link out or to a real entry).
 const releaseCommands = (locale: Locale): Command[] =>
   Object.values(worksData).flatMap(section =>
     section.items.filter(release => release.meta.kind !== 'engineering').map((release): Command => ({
@@ -177,7 +175,6 @@ const actionCommands = (t: TranslateFn): Command[] => {
   return [...downloads, help, ...appearance, contact, ...socials, ...bandcamp, ...soundcloud];
 };
 
-// Empty when no track is loaded; merged in reactively by useCommandPalette, not the static registry.
 export const playbackCommands = (t: TranslateFn): Command[] => {
   const { currentTrack, status, hasNext, hasPrevious, expanded, toggle, next, previous, expand, collapse, stop } = usePlayer();
   const track = currentTrack.value;

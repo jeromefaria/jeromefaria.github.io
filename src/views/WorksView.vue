@@ -23,7 +23,6 @@ const head = computed(() => {
   return focusRelease.value ? { ...releaseHead(focusRelease.value, current.value), schema } : { ...pageMeta.works, schema };
 });
 
-// Best-effort playback from a shared link; a blocked autoplay leaves the player cued and paused.
 const playFromRoute = (): void => {
   const release = focusRelease.value;
   if (!release || !canPlayRelease(release.id)) return;

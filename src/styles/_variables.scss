@@ -42,8 +42,6 @@ $footer-content-gap: $spacing-4;
 $nav-max-height: 20rem;
 $release-media-width: 200px;
 $loading-dot-size: 6px;
-
-// Global stacking order; local within-component stacking keeps small literal values.
 $z-masthead: 100;
 $z-player: 900;
 $z-player-expanded: 950;
@@ -62,9 +60,6 @@ $opacity-90: 0.9;
 $overlay-dark: rgb(0 0 0 / 40%);
 $overlay-scrim: rgb(0 0 0 / 50%);
 
-// Smoothly interpolate a rem value between two viewport widths, clamped to
-// [$min, $max] — replaces a hard breakpoint step with a fluid ramp. Reaches
-// $max at $to-vw (the desktop VR width), so wide layouts are unchanged.
 @function fluid($min, $max, $from-vw: $breakpoint-sm, $to-vw: $breakpoint-xl) {
   $from-rem: math.div($from-vw, 16px) * 1rem;
   $to-rem: math.div($to-vw, 16px) * 1rem;
@@ -117,7 +112,7 @@ $overlay-scrim: rgb(0 0 0 / 50%);
   border: 1px solid var(--color-border);
   font-family: $font-sans;
 
-  // 16px (1rem) keeps iOS Safari from auto-zooming the focused control
+  // stylelint-disable-next-line local/no-comments -- 16px (1rem) keeps iOS Safari from auto-zooming the focused control; smaller triggers zoom
   font-size: $font-size-lg;
   line-height: $line-height-base;
   color: var(--color-text);
@@ -142,9 +137,6 @@ $overlay-scrim: rgb(0 0 0 / 50%);
     }
   }
 
-  // Inset so the ring sits contiguous with the 1px border rather than floating
-  // outside it — a focused invalid field then reads as one thick coloured edge,
-  // not the border plus a second ring. Invalid states recolour it (see _contact).
   &:focus-visible {
     @include focus-ring(-1px);
   }
@@ -210,7 +202,6 @@ $overlay-scrim: rgb(0 0 0 / 50%);
   }
 }
 
-// Visible underline for links in prose (WCAG 2.1 Level A — distinguishable without colour)
 @mixin link-underline {
   text-decoration: underline !important;
   text-decoration-thickness: 1px;

@@ -44,7 +44,6 @@ export interface LiveEvent {
   id: string;
   title: Localizable<string>;
   titleUrl?: string;
-  // BCP-47 spoken language of the performance (e.g. 'pt-PT' for a theatre play or talk); omitted for instrumental sets.
   language?: string;
   date: string;
   endDate?: string;

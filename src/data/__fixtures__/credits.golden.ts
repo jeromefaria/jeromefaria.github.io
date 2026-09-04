@@ -1,4 +1,3 @@
-// Golden baseline that renderCredits must reproduce byte-for-byte.
 export const creditsGolden: Record<string, string> = {
   '1714': 'Music and artwork by Jerome Faria.',
   '2504': 'Music by Jerome Faria.',

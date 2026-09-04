@@ -4,10 +4,12 @@
   --color-bg: #fff;
   --color-text: #000;
   --color-text-secondary: #444;
+  // stylelint-disable-next-line local/no-comments -- guards the AA contrast budget of this exact value
   --color-text-muted: #767676; // WCAG AA compliant (4.54:1 on white)
   --color-border: #ddd;
   --color-border-subtle: #eee;
   --color-link: #000;
+  // stylelint-disable-next-line local/no-comments -- guards the AA contrast budget of this exact value
   --color-link-hover: #595959; // WCAG AA compliant (7:1 on white)
   --color-error: #c44;
   --overlay-lightbox: rgb(0 0 0 / 95%);
@@ -20,10 +22,12 @@
   --color-bg: #000;
   --color-text: #fff;
   --color-text-secondary: #bbb;
+  // stylelint-disable-next-line local/no-comments -- guards the AA contrast budget of this exact value
   --color-text-muted: #a3a3a3; // WCAG AA compliant (4.58:1 on black)
   --color-border: #333;
   --color-border-subtle: #222;
   --color-link: #fff;
+  // stylelint-disable-next-line local/no-comments -- guards the AA contrast budget of this exact value
   --color-link-hover: #a3a3a3; // WCAG AA compliant (4.58:1 on black)
   --color-error: #e55;
   --overlay-lightbox: rgb(0 0 0 / 98%);

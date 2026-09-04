@@ -8,9 +8,6 @@ import { usePageHead } from './usePageHead';
 
 const headConfig: Record<string, unknown>[] = [];
 
-// usePageHead now passes useHead a reactive getter (so the head recomputes on
-// navigation); resolve it to the head object the assertions inspect, and keep the
-// raw input so the reactivity test can re-invoke it after mutating the route.
 let lastHeadInput: Record<string, unknown> | (() => Record<string, unknown>) | undefined;
 
 vi.mock('@unhead/vue', () => ({
@@ -26,8 +23,6 @@ vi.mock('vue-router', () => ({
   useRoute: () => mockRoute,
 }));
 
-// i18nEnabled is a build-time module const, so vi.stubEnv can't flip it at runtime;
-// mock the flag module with a mutable getter that usePageHead re-reads per call.
 const flagState = vi.hoisted(() => ({ enabled: false }));
 
 vi.mock('@/i18n/flag', () => ({
@@ -73,7 +68,6 @@ describe('usePageHead', () => {
       mockRoute.meta = undefined;
       mountWithPageHead({ title: { en: 'Works', pt: 'Obras' }, description: { en: 'English', pt: 'Português' } });
 
-      // usePageHead handed useHead a getter, not a resolved object.
       expect(typeof lastHeadInput).toBe('function');
       const resolve = lastHeadInput as () => Record<string, unknown>;
 
@@ -81,8 +75,6 @@ describe('usePageHead', () => {
       expect((enHead.htmlAttrs as { lang: string }).lang).toBe('en');
       expect(enHead.title).toBe(`Works - ${siteConfig.title}`);
 
-      // A locale switch reuses the component (setup does not re-run), so the getter
-      // must pick up the new route.meta on its own.
       mockRoute.meta = { locale: 'pt' };
       const ptHead = resolve();
       expect((ptHead.htmlAttrs as { lang: string }).lang).toBe('pt');

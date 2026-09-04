@@ -1,7 +1,6 @@
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { Edition, EngineeringRole, ReleaseMeta } from '@/types/works';
 
-// Canonical order (workflow order), so ['mastering','mixing'] still reads "Mixing & Mastering".
 export const engineeringRolesLabel = (roles: EngineeringRole[], locale: Locale = DEFAULT_LOCALE): string => {
   const ordered = (['mixing', 'mastering'] as EngineeringRole[]).filter(role => roles.includes(role));
 

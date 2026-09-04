@@ -376,7 +376,6 @@ describe('useLightbox history integration', () => {
     wrapper.vm.goToNext();
     expect(wrapper.vm.isOpen).toBe(true);
 
-    // The browser pops back to the anchor and fires popstate.
     window.history.replaceState(null, '', '#madeiradig-2011');
     popState();
 

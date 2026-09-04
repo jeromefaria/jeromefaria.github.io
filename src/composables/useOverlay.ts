@@ -19,7 +19,6 @@ export const useOverlay = (isOpen: Ref<boolean>, focusTarget: Ref<HTMLElement | 
 
     unlock();
     restore();
-    // Immediate so a lazily-mounted overlay that is already open still initialises.
   }, { immediate: true });
 
   onUnmounted(unlock);

@@ -5,7 +5,7 @@ import { type Component, defineComponent, nextTick, reactive } from 'vue';
 import { useAccordion } from './useAccordion';
 
 const TEST_PATH = '/test';
-const ACCORDION_ANIMATION_TIMING = 350; // 320ms animation + buffer
+const ACCORDION_ANIMATION_TIMING = 350;
 const SCROLL_MARGIN_TOP = '20px';
 const ELEMENT_TOP_POSITION = 100;
 const VALID_SECTIONS = ['solo', 'collab'];

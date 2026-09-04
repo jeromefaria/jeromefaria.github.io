@@ -15,7 +15,6 @@ export interface Image {
 export interface Track {
   title: string;
   artist?: Credit;
-  // Offset (seconds) of this movement within a single-file release, for chaptered seeking.
   start?: number;
 }
 
@@ -85,7 +84,6 @@ export interface PublicationMeta {
 
 export type EngineeringRole = 'mixing' | 'mastering';
 
-// A mixing/mastering credit; `artist` names the third-party act, omitted on a generated own-release credit.
 export interface EngineeringMeta {
   kind: 'engineering';
   artist?: Credit;
@@ -106,16 +104,13 @@ export interface Release {
   externalUrl?: string;
   coverImage?: string;
   tracklist?: Track[];
-  // BCP-47 content language of the audio (e.g. 'pt-PT'); omitted for instrumental releases.
   language?: string;
   description?: Localized<string>;
   credits?: Credits;
   contributors?: Credit[];
   images?: Image[];
   videos?: Video[];
-  // Roles on one of Jerome's own releases — generates a Mixing & Mastering credit without duplicating it.
   engineering?: EngineeringRole[];
-  // On a generated credit: the canonical release id it links back to.
   worksRef?: string;
 }
 

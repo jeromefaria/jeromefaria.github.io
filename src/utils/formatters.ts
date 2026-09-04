@@ -1,6 +1,5 @@
 import { BCP47_LOCALE, DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 
-// Local midnight, so an ISO date parses as a calendar day without timezone drift.
 const parseLocalDate = (isoDate: string): Date => new Date(`${isoDate}T00:00:00`);
 
 export const formatEventDate = (isoDate: string, locale: Locale = DEFAULT_LOCALE): string => {

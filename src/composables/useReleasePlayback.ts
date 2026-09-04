@@ -37,8 +37,6 @@ export const useReleasePlayback = (releaseGetter: () => Release) => {
   });
 
   const isCurrentTrack = (index: number): boolean => {
-    // Chaptered releases are one audio file (the chapter highlight tracks the playhead);
-    // and an absent audio key must not match a null currentTrack via undefined === undefined.
     if (chaptered.value) return false;
 
     const key = audioTracks.value[index]?.key;

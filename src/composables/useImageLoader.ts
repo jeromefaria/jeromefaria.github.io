@@ -20,7 +20,6 @@ export const useImageLoader = (src: string): UseImageLoaderReturn => {
 
   const webpSrc = computed(() => (src ? toWebp(src) : src));
 
-  // A cached image may never re-fire `load` after hydration, so the composable owns the <img> and the onMounted `complete` check below is the fallback.
   const setImageRef = (element: Element | ComponentPublicInstance | null): void => {
     imageRef.value = element instanceof HTMLImageElement ? element : null;
   };

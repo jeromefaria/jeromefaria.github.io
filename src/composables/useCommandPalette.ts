@@ -31,7 +31,6 @@ const saveRecents = (ids: string[]): void => {
   try {
     localStorage.setItem(RECENTS_KEY, JSON.stringify(ids));
   } catch {
-    // Storage can be unavailable (private mode, SSR) — recents are best-effort.
   }
 };
 
@@ -82,7 +81,6 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
 
   const results = computed<Command[]>(() => {
     if (query.value.trim() === '') {
-      // Main routes always live under Navigate, never Recent.
       const recents = recentCommands.value
         .filter(command => !PRIMARY_ROUTE_IDS.includes(command.id))
         .slice(0, CURATED_RECENTS_MAX);
@@ -102,7 +100,6 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     activeIndex.value = 0;
   });
 
-  // Immediate so a freshly-mounted, already-open palette resets its query.
   watch(paletteOpen, open => {
     if (!open) return;
     query.value = '';
@@ -147,9 +144,8 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
   };
 
   const keyActions: Record<string, (event: KeyboardEvent) => void> = {
-    // The input is the palette's only focusable element (options are selected via
-    // aria-activedescendant, not the tab order), so swallowing Tab keeps focus
-    // trapped without a separate focus-trap — the modal cannot be tabbed out of.
+    // eslint-disable-next-line local/no-comments -- not a dead no-op
+    // Swallowing Tab is the palette's focus trap: the input is its only focusable element, so this keeps focus from tabbing out.
     Tab: () => {},
     Escape: () => close(),
     'ctrl+c': () => close(),

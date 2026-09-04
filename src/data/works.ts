@@ -9,9 +9,8 @@ import { nny } from './works/nny';
 import { publications } from './works/publications';
 import { solo } from './works/solo';
 
-// Section order here drives worksSections (and the /works page order); the raw section
-// data lives in ./works/*, and the derived engineering credits + newest-first sort below
-// operate on the assembled set.
+// eslint-disable-next-line local/no-comments -- object-key order defines the rendered /works section order; reordering silently changes the page
+// Object-key order sets worksSections and the rendered /works section order.
 export const worksData: WorksData = {
   solo,
   nny,
@@ -22,10 +21,8 @@ export const worksData: WorksData = {
   'mixing-and-mastering': mixingAndMastering,
 };
 
-// Fold the derived engineering credits into the mixing-and-mastering section.
 worksData['mixing-and-mastering']?.items.push(...deriveEngineeringCredits(worksData));
 
-// Every section lists newest first — a derived invariant, so entries can be authored in any order.
 for (const section of Object.values(worksData)) {
   section.items.sort((first, second) => second.meta.year - first.meta.year);
 }

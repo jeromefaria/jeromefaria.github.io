@@ -71,8 +71,7 @@
   display: grid;
   grid-template-rows: 0fr;
 
-  // Keep collapsed content out of layout — the 0fr grid hides it visually but its
-  // rows still stack to full height and leak into the document's scroll otherwise.
+  // stylelint-disable-next-line local/no-comments -- 0fr hides collapsed rows visually but they still stack full-height and leak page scroll; this pulls them from layout
   content-visibility: hidden;
   transition: grid-template-rows $transition-base;
 

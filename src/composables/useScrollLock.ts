@@ -12,7 +12,6 @@ const applyLock = (): void => {
   savedScrollY = window.scrollY;
 
   const { style } = document.body;
-  // position: fixed (not overflow: hidden alone) so iOS Safari actually holds still.
   style.position = 'fixed';
   style.top = `-${savedScrollY}px`;
   style.left = '0';
