@@ -1,5 +1,3 @@
-// Fidelity fixture: plainCredits() output per credited release, frozen at the current live
-// EN state. The credits normalization must reproduce these byte-for-byte (search-index source).
 export const plainCreditsGolden: Record<string, string> = {
   '1714': 'Music and artwork by Jerome Faria.',
   '2504': 'Music by Jerome Faria.',

@@ -102,7 +102,6 @@ describe('useTheme', () => {
   });
 
   it('falls back to dark when a stored choice cannot be read', async () => {
-    // Stored 'light' would win via the normal path — asserting 'dark' proves the catch fired.
     localStorage.setItem('theme', 'light');
     const getItem = vi.spyOn(localStorage, 'getItem').mockImplementation(() => {
       throw new Error('blocked');

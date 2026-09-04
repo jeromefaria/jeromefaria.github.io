@@ -1,12 +1,7 @@
 @use "variables" as *;
 
 .home {
-  // Fill the space between header and footer via flexbox. `main` is flex:1 in
-  // the 100dvh `.site` column, so the hero adapts to the footer's real height —
-  // one line or two, EN or PT — instead of a hard-coded footer height. Using
-  // 100dvh (not 100vh) keeps the footer, and its language switcher, on-screen on
-  // mobile; it's resize-safe here because `overflow: hidden` means Safari's
-  // toolbar can't be scrolled away to change the viewport.
+  // stylelint-disable-next-line local/no-comments -- ancestor 100dvh (not 100vh) + overflow:hidden keep footer/lang-switcher on-screen on mobile; toolbar can't scroll away to change the viewport
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -18,8 +13,6 @@
     width: 100%;
     min-height: 50vh;
     position: relative;
-
-    // Image dimensions: 2560×1703 (3:2 aspect ratio)
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;

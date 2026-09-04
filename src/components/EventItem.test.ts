@@ -83,7 +83,6 @@ describe('EventItem', () => {
       const permalink = wrapper.get('.event-title-link');
 
       expect(permalink.text()).toBe('MADEIRADIG');
-      // The invalid-HTML regression: the permalink anchor must not wrap another anchor.
       expect(permalink.element.querySelector('a')).toBeNull();
     });
 

@@ -177,18 +177,13 @@ test.describe('Accessibility', () => {
     });
 
     test('should have touch-friendly targets on mobile', async ({ page }) => {
-      // Force a mobile viewport so this runs on the desktop-only projects too: the
-      // nav toggle only renders below the md breakpoint, and skipping on desktop
-      // (every project) left the assertion permanently unexecuted.
       await page.setViewportSize({ width: 375, height: 667 });
       await gotoHydrated(page, '/');
 
       const box = await page.locator('.nav-toggle').boundingBox();
       expect(box).not.toBeNull();
-      // boundingBox returns fractional layout pixels: Firefox reports the 44px target
-      // as 43.999998 from a sub-pixel rem→px calc, where Chromium/WebKit return a clean
-      // 44. WCAG 2.5.5 is specified in whole CSS pixels, so round before comparing —
-      // this absorbs the rendering jitter while still failing a genuinely small target.
+      // eslint-disable-next-line local/no-comments -- engine-specific sub-pixel jitter
+      // Firefox reports the 44px target as 43.999998 from a rem→px calc, so round before comparing.
       expect(Math.round(box?.width ?? 0)).toBeGreaterThanOrEqual(MIN_TOUCH_TARGET_SIZE);
       expect(Math.round(box?.height ?? 0)).toBeGreaterThanOrEqual(MIN_TOUCH_TARGET_SIZE);
     });

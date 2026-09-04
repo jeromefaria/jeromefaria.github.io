@@ -1,16 +1,9 @@
-// Generates dist/sitemap.xml from the routes actually pre-rendered by vite-ssg,
-// so it can never drift from what exists (the previous hand-maintained file
-// omitted /contact, /privacy, and every /works/:id permalink). Runs at the end
-// of the build, after the HTML is on disk.
 import { readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const DIST = 'dist';
 const ORIGIN = 'https://jeromefaria.com';
 
-// Kept out of the sitemap: the error page and the noindex press kit (both locales,
-// via stripLocale below). The press kit relies on its noindex meta, not a robots
-// disallow, to stay de-indexed.
 const EXCLUDE = new Set(['/404', '/epk']);
 
 const htmlFiles = [];
@@ -31,8 +24,6 @@ const toRoute = file =>
     .replace(/\/index\.html$/, '/')
     .replace(/\.html$/, '');
 
-// Mirrors src/i18n/messages.ts — the /pt-prefix rules can't be imported into a
-// plain build script, so the two trivial forms are kept in sync by hand.
 const stripLocale = route => (route === '/pt' || route.startsWith('/pt/') ? route.slice(3) || '/' : route);
 const ptRoute = base => (base === '/' ? '/pt' : `/pt${base}`);
 
@@ -51,7 +42,6 @@ const routes = [...new Set(htmlFiles.map(toRoute))]
 
 const routeSet = new Set(routes);
 
-// hreflang alternates, emitted only when the /pt twin was actually pre-rendered.
 const alternates = base => {
   if (!routeSet.has(ptRoute(base))) return '';
 

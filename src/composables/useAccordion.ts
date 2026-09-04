@@ -25,8 +25,6 @@ export const useAccordion = (
     return findSectionForId?.(focusId) ?? null;
   };
 
-  // A path-param deep link (/works/:id) opens its parent section up-front so the
-  // pre-rendered HTML lands on the right section before hydration.
   const openSection = ref<string | null>(resolveFocusSection() ?? initialSection);
 
   const scrollToHashTarget = (id: string): void => {

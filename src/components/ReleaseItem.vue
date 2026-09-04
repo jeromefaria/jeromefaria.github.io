@@ -76,7 +76,6 @@ const {
   playChapter,
 } = useReleasePlayback(() => props.release);
 
-// Keep copy-link/permalink hrefs in the active locale; trackHref is '' for non-linkable tracks.
 const localizedTrackHref = (index: number): string => {
   const path = trackHref(index);
   return path ? toLocalePath(path) : path;

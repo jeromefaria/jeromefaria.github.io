@@ -49,9 +49,8 @@ const PHRASES: Record<Locale, Phrases> = {
   },
 };
 
-// entry.text is trusted author HTML (some acts embed their own member links), so it
-// is not escaped — but entry.url lands in an href attribute, so scheme-allowlist and
-// escape it via safeHref (a javascript: or attribute-breaking url can never render).
+// eslint-disable-next-line local/no-comments -- security asymmetry
+// entry.text is trusted author HTML (intentionally unescaped), but entry.url must stay wrapped in safeHref so a javascript:/attribute-breaking url can never render.
 const act = (entry: Act, locale: Locale): string => {
   const href = entry.url ? safeHref(entry.url) : null;
   const named = href ? `<a href="${href}">${entry.text}</a>` : entry.text;

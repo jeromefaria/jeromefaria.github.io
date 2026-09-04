@@ -25,8 +25,6 @@ const closeNav = () => {
 
 const openNav = () => {
   navOpen.value = true;
-  // Focus the tabindex="-1" container (not a link) so AT users land in the
-  // labelled nav without a touch focus ring; preventScroll keeps the page still.
   void nextTick(() => {
     navMenu.value?.focus({ preventScroll: true });
   });
@@ -59,6 +57,7 @@ watch(navOpen, open => {
     document.removeEventListener('pointerdown', handleOutsidePointer);
     return;
   }
+  // eslint-disable-next-line local/no-comments -- binding immediately lets the opening tap also fire this handler and close the menu
   // Bind on the next tick so the tap that opened the menu doesn't close it.
   void nextTick(() => {
     document.addEventListener('pointerdown', handleOutsidePointer);

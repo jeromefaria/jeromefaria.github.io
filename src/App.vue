@@ -10,8 +10,6 @@ import { usePlayer } from '@/composables/usePlayer';
 import { initTheme } from '@/composables/useTheme';
 import { useT } from '@/i18n/useT';
 
-// Lazy-loaded so the palette's registry, fuzzy ranker, and the data it reads stay
-// out of the main bundle — they ship only once the overlay is first summoned.
 const CommandPalette = defineAsyncComponent(() => import('@/components/CommandPalette.vue'));
 const KeyboardHelp = defineAsyncComponent(() => import('@/components/KeyboardHelp.vue'));
 const PlayerBar = defineAsyncComponent(() => import('@/components/PlayerBar.vue'));
@@ -21,10 +19,6 @@ const { expanded: playerExpanded } = usePlayer();
 
 useOverlayHotkeys();
 
-// Every external link opens in a new tab and gets a visually-hidden cue so
-// screen readers announce it. This is the single source of that cue: links that
-// already carry one (the ExternalLink component, or an aria-label that conveys
-// it) are left alone, so nothing is announced twice.
 const t = useT();
 
 const addNewTabCue = (link: HTMLAnchorElement) => {
@@ -53,9 +47,6 @@ const processExternalLinks = () => {
   });
 };
 
-// The routed view renders inside <Suspense>, committed asynchronously later than
-// a route watcher's nextTick; reprocessing on `resolve` guarantees the freshly
-// rendered page (including links in v-html) is in the DOM before we scan it.
 const handleContentResolved = () => {
   void nextTick(() => processExternalLinks());
 };

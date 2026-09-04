@@ -18,8 +18,6 @@ describe('deriveEngineeringCredits', () => {
   });
 
   it('derives from source releases, not from the synthesized engineering entries', () => {
-    // worksData already has the credits folded in; re-deriving must not pick those up
-    // (which would produce engineering-engineering-* ids), only the real releases.
     for (const credit of deriveEngineeringCredits(worksData)) {
       expect(credit.id.startsWith('engineering-engineering-')).toBe(false);
     }

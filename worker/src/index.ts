@@ -40,8 +40,8 @@ const MAX_LENGTHS = {
 const MAX_FIELDS = 20;
 const MAX_BODY_BYTES = 64 * 1024;
 
-// Bounded, backtracking-free pattern — the length caps above are the real DoS guard.
-// EMAIL_PATTERN also rejects the whitespace/angle-brackets used for reply-to spoofing.
+// eslint-disable-next-line local/no-comments -- security: DoS-cap + header-injection constraint
+// The MAX_LENGTHS caps are the real DoS guard; this pattern also rejects the whitespace/angle-brackets used for reply-to header spoofing.
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CONTROL_CHARS = /[\u0000-\u001f\u007f]/;
 
@@ -104,8 +104,6 @@ const firstMissingKey = (payload: ContactPayload): string | null =>
     return typeof value !== 'string' || value.trim() === '';
   }) ?? null;
 
-// `fields` is untyped attacker JSON; confirm it is an array of {label,value} strings
-// before any code indexes into it (a non-array primitive would otherwise throw a 500).
 const hasValidFields = (fields: unknown): fields is ContactField[] | undefined =>
   fields === undefined ||
   (Array.isArray(fields) &&
@@ -115,9 +113,8 @@ const hasValidFields = (fields: unknown): fields is ContactField[] | undefined =
       typeof (field as ContactField).label === 'string' &&
       typeof (field as ContactField).value === 'string'));
 
-// name and inquiry are free-text (inquiry is the human-readable type label, e.g.
-// "Mixing & Mastering"), so only reject control characters — they land in the email
-// subject / reply-to, where CR/LF would be the header-injection risk.
+// eslint-disable-next-line local/no-comments -- security: header-injection constraint
+// name/inquiry are free-text but land in the email subject/reply-to, so control chars (CR/LF) must stay rejected to prevent header injection.
 const firstInvalidKey = (payload: ContactPayload): string | null => {
   if (CONTROL_CHARS.test(payload.name)) return 'name';
   if (CONTROL_CHARS.test(payload.email) || !EMAIL_PATTERN.test(payload.email)) return 'email';
@@ -135,8 +132,6 @@ const firstOversizedKey = (payload: ContactPayload): string | null => {
   return null;
 };
 
-// Runs the full validation ladder and returns the first failure (or null), keeping
-// the request handler flat.
 export const validationError = (payload: ContactPayload): string | null => {
   const missing = firstMissingKey(payload);
   if (missing) return `Missing required field: ${missing}`;
@@ -183,8 +178,8 @@ const verifyTurnstile = async (token: string, secret: string, request: Request, 
 
   if (result.success !== true) return false;
 
-  // Pin the token to the site's own hostname when Turnstile reports one, so a token
-  // minted for another site can't be replayed against this worker.
+  // eslint-disable-next-line local/no-comments -- security: token hostname-pinning
+  // Pin the token to the site's own hostname so a token minted for another site can't be replayed against this worker.
   return !result.hostname || allowedHosts.includes(result.hostname);
 };
 
@@ -228,8 +223,6 @@ export default {
       return jsonResponse({ error: 'Method not allowed' }, 405, cors);
     }
 
-    // A browser that sends a disallowed Origin is rejected outright; CORS headers alone
-    // don't stop the request reaching here. Origin-less (script) clients still face Turnstile.
     if (!isOriginAllowed(origin, allowedOrigins)) {
       return jsonResponse({ error: 'Origin not allowed' }, 403, cors);
     }

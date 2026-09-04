@@ -3,28 +3,17 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--
-      Content-Security-Policy. GitHub Pages can't set HTTP headers, so this meta is
-      the only lever. script-src keeps 'unsafe-inline' because static hosting can't
-      mint per-request nonces and the pre-paint theme script is minified into this
-      file (hashing would break on any minifier change); the residual XSS risk is
-      low since every HTML sink renders static author data. The value is locking
-      down where scripts/frames/connections/objects may load from.
-    -->
+    <!-- keep: GitHub Pages can't set HTTP headers, so this CSP meta is the only lever; script-src needs 'unsafe-inline' because static hosting can't mint nonces and the pre-paint theme script is inlined here (hashing breaks on any minifier change) -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; media-src 'self' https:; connect-src 'self' https://contact.jeromefaria.workers.dev https://challenges.cloudflare.com; frame-src https://bandcamp.com https://challenges.cloudflare.com https://www.youtube-nocookie.com https://player.vimeo.com; object-src 'none'; base-uri 'self'; form-action 'self'">
     <meta name="google" content="notranslate">
     <title>Jerome Faria - Sound Artist & Composer</title>
-    <!-- Description, Open Graph, Twitter, and canonical are set per-route in usePageHead.ts. -->
     <meta name="author" content="Jerome Faria">
     <meta name="theme-color" content="#0a0a0a">
     <link rel="preconnect" href="https://bandcamp.com" crossorigin>
     <link rel="dns-prefetch" href="https://bandcamp.com">
-    <!-- Inter is self-hosted and subset (public/fonts/); preload the body
-         weight. The homepage preloads its hero image from within HomeView. -->
     <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
     <script>
-      // Resolve the stored theme before first paint to prevent a flash. Mirrors
-      // useTheme.ts: default dark; 'light' clears the attribute; 'system' follows the OS.
+      // keep: pre-paint theme resolve (mirrors useTheme.ts) prevents a flash of the wrong theme; don't remove as redundant
       try {
         let choice = localStorage.getItem('theme');
         if (choice !== 'light' && choice !== 'system') choice = 'dark';
@@ -36,9 +25,7 @@
       }
     </script>
     <style>
-      /* Critical CSS - prevents FOUC by styling initial render. The body (400)
-         @font-face is inlined so the preloaded, self-hosted font applies at
-         first paint; the 500/600 weights come from the bundled stylesheet. */
+      /* keep: only the 400 @font-face is inlined so the preloaded self-hosted font paints without FOUC; 500/600 load from the bundle */
       @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-400.woff2) format('woff2')}
       :root{--color-bg:#fff;--color-text:#000;--color-text-secondary:#444;--color-text-muted:#767676;--color-border:#ddd;--color-border-subtle:#eee;--color-link:#000;--color-link-hover:#595959}
       [data-theme=dark]{--color-bg:#000;--color-text:#fff;--color-text-secondary:#bbb;--color-text-muted:#a3a3a3;--color-border:#333;--color-border-subtle:#222;--color-link:#fff;--color-link-hover:#a3a3a3}

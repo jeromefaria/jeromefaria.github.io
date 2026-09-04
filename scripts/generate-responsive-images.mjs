@@ -8,14 +8,9 @@ import { loadData, root } from './data-loader.mjs';
 const PUBLIC = join(root, 'public');
 const OUT = join(PUBLIC, 'images/responsive');
 
-// Only flat, lowercase-slug JPEGs get responsive variants — the same set the
-// runtime srcset expects. Reading the typed data (rather than regex-scanning the
-// source) keeps this robust to formatting changes in the data files.
 const RESPONSIVE_IMAGE = /^\/images\/[a-z0-9-]+\.jpg$/;
 
 const DEFAULT_QUALITY = 78;
-// The hyphema cover is uniquely detail- and gradient-heavy; the default quality
-// softens its shard detail, so it gets a per-image bump. Keyed by image slug.
 const QUALITY_OVERRIDES = { hyphema: 85 };
 
 const { worksData } = await loadData('src/data/works.ts');
@@ -33,8 +28,6 @@ const aboutSrcs = aboutSections
 
 const covers = [...new Set(coverSrcs)].map(src => ({ src, widths: [320, 640, 960] }));
 const aboutImages = [...new Set(aboutSrcs)].map(src => ({ src, widths: [480, 960, 1440] }));
-// Home hero: a single phone-width variant. Larger screens keep the full-res webp
-// (see _home.scss), so desktop/tablet/retina render byte-identical.
 const heroImages = [{ src: '/images/performance.jpg', widths: [1280] }];
 const targets = [...covers, ...aboutImages, ...heroImages];
 
@@ -64,9 +57,6 @@ for (const { src, widths } of targets) {
   manifest[name] = { widths: produced, width: meta.width, height: meta.height };
 }
 
-// Committed manifest of the widths actually generated per image (so the runtime
-// srcset only lists variants that exist) plus the intrinsic dimensions (so the
-// <img> can reserve load-time space and avoid layout shift).
 writeFileSync(
   join(root, 'src/data/responsiveImages.json'),
   `${JSON.stringify(manifest, null, 2)}\n`,

@@ -1,14 +1,3 @@
-// Encodes the local WAV masters to streaming AAC and regenerates src/data/audioManifest.ts.
-//
-// SAFETY: the masters under SOURCE_ROOT are read-only. This script only ever reads from them
-// (ffmpeg -i / ffprobe) and writes exclusively under OUT_ROOT (off the Audio drive). It asserts
-// OUT_ROOT is not inside SOURCE_ROOT before doing anything.
-//
-// Loudness: masters are preserved as-is. True-peak is measured per track; a transparent -1 dBFS
-// limiter is applied ONLY to a track that would otherwise exceed -1 dBTP. Clean masters pass through.
-//
-// Usage: node scripts/encode-audio.mjs
-
 import { execFileSync, spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -21,14 +10,8 @@ const MANIFEST_FILE = join(REPO_ROOT, 'src', 'data', 'audioManifest.ts');
 const BITRATE = '256k';
 const TRUE_PEAK_CEILING_DB = -1;
 
-// True-peak limiter to a -1 dBTP ceiling (0.891 ≈ -1 dB): oversample 4x so inter-sample peaks become
-// catchable, limit without auto-levelling, then downsample. A no-op for tracks already under the
-// ceiling — applied uniformly, as streaming platforms do. Output is re-measured to confirm it holds.
 const TRUE_PEAK_LIMITER = 'aresample=192000,alimiter=limit=0.891:level=false,aresample=48000';
 
-// Explicit master → site mapping. Titles are the canonical site titles (not the filesystem-safe
-// filenames). 2504 is one continuous piece whose five movements are display-only, so it is a single
-// playable file. bonus/ and cassette/ extras are intentionally omitted.
 const RELEASES = [
   {
     releaseId: '1714', catalog: 'BRQN001', folder: '2010 - BRQN001 - 17_14', album: '17:14', year: 2010,
@@ -81,7 +64,6 @@ const RELEASES = [
     ],
   },
   {
-    // Curated remix comp — each track credited to its remixer (album_artist stays Jerome Faria).
     releaseId: 'overlapse-xiii', catalog: 'BRQN007', folder: '2025 - BRQN007 - Overlapse XIII', album: 'Overlapse XIII', year: 2025,
     tracks: [
       { file: '01 - CAVERNANCIA - Attack (Prelude).wav', title: 'Attack (Prelude)', artist: 'CAVERNANCIA' },
@@ -139,7 +121,6 @@ const encode = (wav, cover, out, meta) => {
   ], { stdio: ['ignore', 'ignore', 'ignore'] });
 };
 
-// Single quotes to match the lint style, doubles only when the title contains an apostrophe.
 const quote = value => (value.includes("'") ? JSON.stringify(value) : `'${value}'`);
 
 const writeManifest = manifest => {

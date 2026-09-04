@@ -2,9 +2,6 @@ import { expect, test } from '@playwright/test';
 
 import { gotoHydrated } from './helpers';
 
-// The catch-all is mirrored under /pt (normalizeTrailingSlash + the pt-not-found
-// route), so a missing PT URL renders the not-found page in Portuguese rather than
-// falling through to the English base catch-all.
 test.describe('Not-found page', () => {
   test('renders in English for a missing EN route', async ({ page }) => {
     await gotoHydrated(page, '/does-not-exist');

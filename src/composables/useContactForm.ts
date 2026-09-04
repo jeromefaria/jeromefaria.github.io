@@ -60,7 +60,6 @@ export const useContactForm = (
   const emailId = form.baseFields.email.id;
   const messageId = form.baseFields.message.id;
 
-  // Match the error to the visible localized label via the template's i18n keys, not the English source in the data.
   const requiredFieldLabelKey = (id: string): string => {
     if (id === inquiryId) return 'contact.inquiryLabel';
     if (id === nameId) return 'contact.name';

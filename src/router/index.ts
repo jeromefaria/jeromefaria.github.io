@@ -76,8 +76,6 @@ export const buildRoutes = (base: RouteRecordRaw[], i18nEnabled: boolean): Route
 
   const pages = base.filter(route => !isCatchAll(route));
   const catchAll = base.filter(isCatchAll);
-  // Mirror the catch-all under /pt (so /pt/<missing> renders in Portuguese) before the
-  // base catch-all, which stays last to absorb everything else.
   return [...pages, ...pages.map(toPtRoute), ...catchAll.map(toPtRoute), ...catchAll];
 };
 
@@ -85,11 +83,6 @@ export const appRoutes = buildRoutes(routes, i18nEnabled);
 
 type NavigationTarget = Pick<RouteLocationNormalized, 'path' | 'query' | 'hash'>;
 
-// Redirect a trailing-slash URL to its canonical extension-less form. The site is
-// pre-rendered as flat files (works.html, pt/works.html), so GitHub Pages hard-404s
-// /works/ and /pt/; the 404.html fallback restores that slashed path, and this guard
-// normalises it (/pt/ -> /pt) instead of dropping it on the not-found route. Root is
-// left untouched.
 export const normalizeTrailingSlash = (to: NavigationTarget): RouteLocationRaw | true => {
   if (to.path.length > 1 && to.path.endsWith('/')) {
     return { path: to.path.replace(/\/+$/, ''), query: to.query, hash: to.hash };

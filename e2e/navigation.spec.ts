@@ -68,7 +68,6 @@ test.describe('Navigation', () => {
 
   test('routes internal bio links via the SPA, without a full reload', async ({ page }) => {
     await gotoHydrated(page, PAGES.ABOUT);
-    // Survives a client-side route but is wiped by a full page reload.
     await page.evaluate(() => ((window as unknown as { __spa?: boolean }).__spa = true));
 
     await page.locator('.prose a[href^="/works#"]').first().click();
@@ -110,7 +109,6 @@ test.describe('Navigation', () => {
   });
 
   test('follows the 404.html SPA redirect through to the not-found page', async ({ page }) => {
-    // 404.html stores the unknown path and bounces to '/'; main.ts replaces to it.
     await page.addInitScript(() => sessionStorage.setItem('spa-redirect', '/deep/missing-page'));
     await page.goto(PAGES.HOME);
 
@@ -164,8 +162,6 @@ test.describe('Navigation', () => {
 
     await page.locator(NAV_TOGGLE_SELECTOR).click();
 
-    // Regression: focusing the sticky nav used to scroll to the top, which fired
-    // the dismiss-on-scroll handler and closed the menu the instant it opened.
     await expect(page.locator(NAV_OPEN_SELECTOR)).toBeVisible();
   });
 });

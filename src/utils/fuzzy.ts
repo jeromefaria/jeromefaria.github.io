@@ -68,7 +68,6 @@ const scoreItem = (tokens: string[], item: Fuzzable): number | null => {
   return total;
 };
 
-// An empty query returns the input unchanged, so callers can show a curated default set.
 export const fuzzyRank = <T extends Fuzzable>(query: string, items: T[]): T[] => {
   const tokens = query.trim().split(/\s+/).filter(Boolean);
   if (tokens.length === 0) return items;

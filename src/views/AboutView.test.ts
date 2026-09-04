@@ -45,8 +45,6 @@ describe('AboutView', () => {
   it('opens the lightbox at the global index of a figure in a later group', async () => {
     const wrapper = await mountView(AboutView, '/about');
     const figures = wrapper.findAll('.about-image-group__image');
-    // Figure 4 lives in the second image group, so its global index only
-    // resolves correctly if the per-section start offset is applied.
     const targetIndex = 4;
     const figure = figures[targetIndex];
     const expectedSrc = figure.get('img').attributes('src');

@@ -7,7 +7,6 @@ import { dirname, join } from 'node:path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Floor for the WHOLE instrumented codebase (all of src), not just files a test imports.
 const THRESHOLDS = {
   lines: 99,
   statements: 97,

@@ -1,4 +1,3 @@
-// Local-only: reads the gitignored masters in assets-source/press/, so CI can't run it. Commit the output.
 import { mkdir, rm } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 

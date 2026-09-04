@@ -1,12 +1,13 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, type Locator, type Page } from '@playwright/test';
 
-// Mirror of LAYOUT.BREAKPOINT_MD (src/utils/constants.ts) / $breakpoint-md
-// (src/styles/_variables.scss). e2e can't import from src, so keep in sync.
+// eslint-disable-next-line local/no-comments -- must track a src value e2e can't import
+// Mirror of LAYOUT.BREAKPOINT_MD (src/utils/constants.ts) / $breakpoint-md; keep in sync.
 export const MOBILE_BREAKPOINT = 768;
 export const MIN_TOUCH_TARGET_SIZE = 44;
 
-// document.fonts.ready is awaited on top of hydration so web-font FOUT doesn't flake axe colour-contrast checks.
+// eslint-disable-next-line local/no-comments -- non-obvious flake guard
+// Awaiting document.fonts.ready on top of hydration stops web-font FOUT from flaking axe colour-contrast checks.
 export const waitForHydration = async (page: Page): Promise<void> => {
   await expect(page.locator('body.ready')).toBeAttached();
   await page.evaluate(() => document.fonts.ready);

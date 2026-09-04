@@ -18,8 +18,6 @@ export interface UseLightboxReturn {
   goToPrev: () => void;
 }
 
-// Tags the history entry that represents an open lightbox, so a fresh page load
-// (state is null) is told apart from a forward-navigation back into an open item.
 interface LightboxHistoryState {
   lightbox?: boolean;
 }
@@ -62,14 +60,11 @@ export const useLightbox = (): UseLightboxReturn => {
     if (!media) return;
 
     if (currentFragment() !== media) {
-      // In-page open: push the open entry over the current (closed) one, so Back closes it.
       window.history.pushState(LIGHTBOX_STATE, '', `#${media}`);
     } else if (!isLightboxEntry()) {
-      // Fresh load at the open URL: synthesize a closed entry beneath it to return to.
       window.history.replaceState(null, '', `#${baseFragment(media)}`);
       window.history.pushState(LIGHTBOX_STATE, '', `#${media}`);
     }
-    // Otherwise we forward-navigated onto an entry we already own — leave history as is.
   };
 
   const resetState = (): void => {
@@ -84,7 +79,6 @@ export const useLightbox = (): UseLightboxReturn => {
 
   const closeLightbox = (): void => {
     if (isOpen.value && source && isLightboxEntry()) {
-      // Pop the open entry; the resulting popstate restores the URL and resets state.
       window.history.back();
       return;
     }

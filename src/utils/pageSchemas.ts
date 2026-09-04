@@ -3,10 +3,6 @@ import { localize } from '@/i18n/localized';
 import { BCP47_LOCALE, DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { SchemaContactPage, SchemaProfilePerson } from '@/types/schema';
 
-// Data-light page schemas — no works/live catalog imports, so the home and contact
-// routes don't pull those bundles. Catalog-backed schemas live in worksSchema.ts /
-// liveSchema.ts, loaded only by their routes.
-
 export const createPersonSchema = (locale: Locale = DEFAULT_LOCALE): SchemaProfilePerson => ({
   '@context': 'https://schema.org',
   '@type': 'Person',

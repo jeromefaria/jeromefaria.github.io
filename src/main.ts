@@ -24,33 +24,25 @@ export const createApp = ViteSSG(
     },
   },
   async ({ app, router, isClient }: ViteSSGContext) => {
-    // Dynamic import so Rollup drops vue-i18n from the bundle when the flag is off.
-    // The literal env check must stay inline here: Rollup only dead-code-eliminates
-    // this import() gate — and drops vue-i18n — when it folds the comparison in place.
-    // An imported i18nEnabled const defeats that (verified), so this one is not shared.
+    // eslint-disable-next-line local/no-comments -- irreducible build constraint
+    // Keep this env check inline: Rollup only dead-code-eliminates the import() gate (dropping vue-i18n) when the VITE_I18N literal is folded in place; an imported const defeats it.
     if (import.meta.env.VITE_I18N === 'true') {
       const { setupI18n } = await import('./i18n');
       setupI18n(app, router);
     }
 
-    // Client-side only: SSG pre-render has no session storage or live DOM.
     if (!isClient) return;
 
-    // Send /foo/ to its canonical /foo (see normalizeTrailingSlash) before the
-    // 404.html-restored path lands on the not-found route.
     router.beforeEach(normalizeTrailingSlash);
 
-    // SPA redirect from 404.html — replace after the initial navigation resolves,
-    // or the startup route overrides it and the stored path is lost.
     const redirect = sessionStorage.getItem('spa-redirect');
     if (redirect) {
       sessionStorage.removeItem('spa-redirect');
       void router.isReady().then(() => router.replace(redirect));
     }
 
-    // Fire-and-forget: awaiting router.isReady() in the setup callback would
-    // deadlock hydration (it resolves only after mount). The nested rAF waits
-    // until event handlers are attached before flagging the body ready.
+    // eslint-disable-next-line local/no-comments -- irreducible hydration footgun
+    // Must stay fire-and-forget: awaiting router.isReady() here deadlocks hydration (it resolves only after mount).
     void router.isReady().then(() => {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {

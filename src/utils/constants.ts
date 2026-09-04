@@ -1,10 +1,12 @@
-// Keep in sync with $transition-base in _variables.scss (300ms)
+// eslint-disable-next-line local/no-comments -- cross-file coupling
+// Keep in sync with $transition-base in _variables.scss; changing one side without the other desyncs the JS animation from the CSS.
 export const TIMING = {
   NAV_ANIMATION: 300,
   ACCORDION_ANIMATION: 320,
 } as const;
 
-// Keep in sync with _variables.scss
+// eslint-disable-next-line local/no-comments -- cross-file coupling
+// Keep in sync with _variables.scss; changing one side without the other desyncs the JS layout math from the CSS.
 export const LAYOUT = {
   BREAKPOINT_MD: 768,
   HEADER_HEIGHT_MOBILE: 57,

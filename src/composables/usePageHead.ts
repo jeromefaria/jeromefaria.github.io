@@ -19,7 +19,6 @@ interface UsePageHeadOptions {
   image?: string;
 }
 
-// The head resolved for one locale on one path — the shape buildMeta/buildLinks consume.
 interface ResolvedHead {
   locale: Locale;
   path: string;
@@ -40,8 +39,6 @@ const preloadImageLink = (href: string, srcset?: string): Record<string, string>
   as: 'image',
   type: 'image/webp',
   href,
-  // Responsive preload: the browser fetches the variant matching the viewport,
-  // aligned with the media-query background in the critical CSS.
   ...(srcset ? { imagesrcset: srcset, imagesizes: '100vw' } : {}),
   fetchpriority: 'high',
 });
@@ -101,11 +98,8 @@ const buildLinks = (head: ResolvedHead): Record<string, string>[] => {
 export const usePageHead = (options: UsePageHeadOptions): void => {
   const route = useRoute();
 
-  // A reactive getter — NOT a resolved object — so the head recomputes on every
-  // navigation. Critical for the client-side locale switch: EN/PT routes reuse the
-  // same view component, so setup() (and this call) does not re-run; reading
-  // route.meta/route.path inside the getter is what keeps lang, title, canonical,
-  // og and twitter tags in sync with the active locale.
+  // eslint-disable-next-line local/no-comments -- irreducible locale-switch footgun
+  // Must stay a getter, not a resolved object: EN/PT routes reuse the same view component so setup() never re-runs; reading route.meta/path inside the getter is what re-syncs the head on locale switch.
   useHead(() => {
     const locale = route.meta ? localeFromMeta(route.meta) : DEFAULT_LOCALE;
     const resolvedTitle = localize(options.title, locale);
@@ -133,8 +127,8 @@ export const usePageHead = (options: UsePageHeadOptions): void => {
       meta: buildMeta(head),
       link: buildLinks(head),
       ...(options.schema && {
-        // Escape `<` so a value can never break out of the <script> block (schema is
-        // static author data today; this is defence-in-depth).
+        // eslint-disable-next-line local/no-comments -- security constraint
+        // The `<` escape stops a value breaking out of the <script> block; do not remove.
         script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(options.schema).replace(/</g, '\\u003c') }],
       }),
     };

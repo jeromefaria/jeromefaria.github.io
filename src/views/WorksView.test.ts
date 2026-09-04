@@ -80,7 +80,6 @@ describe('WorksView', () => {
   });
 
   it('opens the section that owns a deep-linked release id from the URL hash', async () => {
-    // `overlapse-xiii` lives under collaborations, not the default solo section.
     const wrapper = await mountView(WorksView, '/works#overlapse-xiii');
     await nextTick();
     expect(expandedSections(wrapper)).toEqual(['collaborations']);

@@ -86,8 +86,6 @@
         border-color: var(--color-error);
       }
 
-      // Recolour the focus ring so a focused invalid field reads as one red edge,
-      // not a red border with a separate white ring around it.
       &:focus-visible {
         outline-color: var(--color-error);
       }
@@ -139,8 +137,6 @@
         border-color: var(--color-error);
       }
 
-      // Recolour the focus ring so a focused invalid field reads as one red edge,
-      // not a red border with a separate white ring around it.
       &:focus-visible {
         outline-color: var(--color-error);
       }

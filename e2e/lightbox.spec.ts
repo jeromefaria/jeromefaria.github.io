@@ -9,11 +9,7 @@ const LIGHTBOX_IMAGE_SELECTOR = '.lightbox__image';
 const LIGHTBOX_CREDIT_SELECTOR = '.lightbox__credit';
 const ACCORDION_SECTION_SELECTOR = '.accordion-section';
 const ACCORDION_TRIGGER_SELECTOR = '.accordion-trigger';
-// Works entries share `.link-discrete` between the "Gallery" (images) and
-// "Video" controls; scope to the gallery so the lightbox opens photos.
 const GALLERY_BUTTON_SELECTOR = '.link-discrete:has-text("Gallery")';
-// A gallery button is only actionable while its own accordion section is open —
-// collapsed sections are `inert`. Scope every interaction to a visible one.
 const VISIBLE_GALLERY_BUTTON = `${GALLERY_BUTTON_SELECTOR}:visible`;
 
 const openFirstGallery = async (page: Page): Promise<void> => {
@@ -26,9 +22,8 @@ const openFirstGallery = async (page: Page): Promise<void> => {
 
   if (await trigger.getAttribute('aria-expanded') !== 'true') {
     await trigger.click();
-    // Wait for the accordion to finish opening — on the slower Firefox runner
-    // the section's content-visibility reveal lags the click, so a bare
-    // visibility check races it. Confirm the state, then bring the button in.
+    // eslint-disable-next-line local/no-comments -- guards a Firefox-only reveal race
+    // On the slower Firefox runner the section's content-visibility reveal lags the click, so confirm state before acting.
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
   }
 
@@ -43,7 +38,6 @@ const openLightboxFromFirstGallery = async (page: Page): Promise<void> => {
   await expect(page.locator(LIGHTBOX_SELECTOR)).toBeVisible({ timeout: 10000 });
 };
 
-// Live events label their gallery control "Photo(s)"; substring-match both.
 const LIVE_GALLERY_BUTTON = '.link-discrete:has-text("Photo")';
 
 const openLiveLightbox = async (page: Page): Promise<void> => {
@@ -106,9 +100,6 @@ test.describe('Lightbox', () => {
   });
 
   test.describe('Navigation', () => {
-    // Open a guaranteed multi-image gallery (the live showcase carries many
-    // photos) so next/prev are always exercised rather than skipped on a lone
-    // image.
     test.beforeEach(async ({ page }) => {
       await openLiveLightbox(page);
     });
@@ -171,10 +162,6 @@ test.describe('Lightbox', () => {
   });
 
   test.describe('Control visibility on the dark overlay', () => {
-    // The scrim is always dark, so the nav/close controls must stay light in
-    // both themes. A regression tying them to the page-background token (which
-    // flips to near-black in dark mode) rendered them invisible; assert the
-    // computed colour is light with the theme forced dark.
     const channelAverage = (color: string): number => {
       const parts = color.match(/\d+(\.\d+)?/g)?.slice(0, 3).map(Number) ?? [];
       return parts.reduce((sum, value) => sum + value, 0) / (parts.length || 1);
@@ -195,16 +182,13 @@ test.describe('Lightbox', () => {
     test('opening a photo writes a shareable URL that reopens it on a fresh visit', async ({ page }) => {
       await openLiveLightbox(page);
 
-      // Opening reflects the photo in the URL.
       await expect(page).toHaveURL(/#.+\/photo\/1$/);
       const shareUrl = page.url();
 
-      // Closing restores the plain event anchor (no media suffix).
       await page.locator(LIGHTBOX_CLOSE_SELECTOR).click();
       await expect(page.locator(LIGHTBOX_SELECTOR)).toHaveCount(0);
       await expect(page).not.toHaveURL(/\/photo\//);
 
-      // A recipient opening the shared URL in a fresh tab lands on that photo.
       const fresh = await page.context().newPage();
       await fresh.goto(shareUrl);
       await waitForHydration(fresh);
@@ -222,7 +206,6 @@ test.describe('Lightbox', () => {
       await expect(page).not.toHaveURL(/\/photo\//);
       await expect(page.locator(LIVE_GALLERY_BUTTON).first()).toBeVisible();
 
-      // Forward navigates back into the open item.
       await page.goForward();
       await expect(page.locator(LIGHTBOX_SELECTOR)).toBeVisible({ timeout: 10000 });
       await expect(page).toHaveURL(/#.+\/photo\/1$/);

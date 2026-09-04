@@ -52,7 +52,6 @@ const sources: Record<string, unknown> = {
 const nodes: LeafNode[] = [];
 for (const [name, source] of Object.entries(sources)) collect(source, name, nodes);
 
-// Values that are intentionally identical across locales (proper terms kept as-is).
 const SAME_ACROSS_LOCALES = new Set([
   'pageMeta.colophon.title',
   'worksData.solo.title',

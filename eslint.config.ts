@@ -4,9 +4,43 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import pluginVue from 'eslint-plugin-vue';
 import vueParser from 'vue-eslint-parser';
 
+const COMMENT_DIRECTIVE = /^(eslint-|@ts-|@vue-|global\b|globals\b|exported\b|istanbul\b|c8\b|v8\b|prettier-|stylelint-|@generated|@preserve|@license|\/\s?<(reference|amd))/;
+
+const localPlugin = {
+  rules: {
+    'no-comments': {
+      meta: {
+        type: 'problem',
+        docs: { description: 'Code must be self-documenting; comments are disallowed except a justified, directive-suppressed exception.' },
+        schema: [],
+      },
+      create(context) {
+        const source = context.sourceCode ?? context.getSourceCode();
+        const report = comments => {
+          for (const comment of comments ?? []) {
+            if (comment.type === 'Shebang') continue;
+            if (COMMENT_DIRECTIVE.test(comment.value.trim())) continue;
+            context.report({
+              loc: comment.loc,
+              message: 'No comments: code must be self-documenting. If a comment is genuinely irreducible, keep it with `// eslint-disable-next-line local/no-comments -- <reason>`.',
+            });
+          }
+        };
+        return {
+          Program() {
+            report(source.getAllComments());
+            report(source.ast.templateBody?.comments);
+          },
+        };
+      },
+    },
+  },
+};
+
 const sharedPlugins = {
   '@typescript-eslint': tseslint,
   'simple-import-sort': simpleImportSort,
+  local: localPlugin,
 };
 
 const baseRules = {
@@ -63,14 +97,15 @@ const baseRules = {
   '@typescript-eslint/consistent-type-imports': ['error', { disallowTypeAnnotations: false }],
   '@typescript-eslint/ban-ts-comment': 'error',
 
-  // Ceilings sit just above the current source peak so only new growth trips them.
+  'local/no-comments': 'error',
+
   complexity: ['error', 15],
   'max-depth': ['error', 4],
 };
 
 const vueRules = {
   'vue/multi-word-component-names': 'off',
-  'vue/no-v-html': 'off', // Content is author-controlled, not user input
+  'vue/no-v-html': 'off',
   'vue/html-indent': ['error', 2],
   'vue/max-attributes-per-line': ['error', {
     singleline: 3,
@@ -91,7 +126,6 @@ const vueRules = {
   }],
 };
 
-// Scoped to src — co-located tests aren't in tsconfig.json, so type-aware rules would error there.
 const typeAwareRules = {
   '@typescript-eslint/prefer-nullish-coalescing': 'error',
   '@typescript-eslint/prefer-optional-chain': 'error',
@@ -100,6 +134,17 @@ const typeAwareRules = {
 };
 
 export default [
+  {
+    ignores: [
+      'dist/**',
+      'coverage/**',
+      'node_modules/**',
+      'worker/node_modules/**',
+      'playwright-report/**',
+      'test-results/**',
+      '**/*-snapshots/**',
+    ],
+  },
   ...pluginVue.configs['flat/recommended'],
   {
     files: ['**/*.vue'],
@@ -156,12 +201,16 @@ export default [
     rules: typeAwareRules,
   },
   {
-    // Relaxed for tests: throwaway components, non-null assertions on known fixtures, arrange-heavy setup.
     files: ['**/*.test.ts', '**/*.test.tsx'],
     rules: {
       'vue/one-component-per-file': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
       complexity: 'off',
     },
+  },
+  {
+    files: ['**/*.mjs', '**/*.js'],
+    plugins: { local: localPlugin },
+    rules: { 'local/no-comments': 'error' },
   },
 ];

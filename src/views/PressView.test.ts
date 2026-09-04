@@ -23,7 +23,7 @@ describe('PressView', () => {
     await router.push('/');
     await router.isReady();
     mount(PressView, { global: { plugins: [router, createHead()] }, attachTo: document.body });
-    await nextTick(); // useHashScroll clears isInitialLoad after the first tick
+    await nextTick();
 
     await router.push({ hash: `#${pressQuotes[0].id}` });
     await nextTick();

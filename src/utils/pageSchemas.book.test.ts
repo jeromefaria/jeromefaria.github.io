@@ -1,6 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
 
-// Isolated in its own file so this vi.mock doesn't replace real data in the main schema suite.
 vi.mock('@/data/works', () => ({
   worksData: {
     publications: { title: 'Publications', id: 'publications', items: [] },

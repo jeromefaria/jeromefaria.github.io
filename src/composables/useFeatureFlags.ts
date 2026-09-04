@@ -1,6 +1,5 @@
 import { ref } from 'vue';
 
-// The player ships on. `?audioPlayer=0` opts out and persists it; `=1` re-enables.
 const STORAGE_KEY = 'flag:audioPlayer';
 
 export const audioPlayerEnabled = ref(true);
