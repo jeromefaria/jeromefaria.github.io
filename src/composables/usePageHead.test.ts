@@ -246,6 +246,21 @@ describe('usePageHead', () => {
       expect(getMeta(config, 'og:image')?.content).toBe(expectedImage);
       expect(getMeta(config, 'twitter:image')?.content).toBe(expectedImage);
     });
+
+    it('includes the default image dimensions when no override is given', () => {
+      const config = mountWithPageHead({ title: 'About', description: 'desc' });
+      expect(getMeta(config, 'og:image:width')?.content).toBe('2560');
+      expect(getMeta(config, 'og:image:height')?.content).toBe('1703');
+    });
+
+    it('uses a per-page image override and drops the default dimensions', () => {
+      const config = mountWithPageHead({ title: 'CV', description: 'desc', image: '/og-cv.png' });
+      const expectedImage = `${siteConfig.url}/og-cv.png`;
+      expect(getMeta(config, 'og:image')?.content).toBe(expectedImage);
+      expect(getMeta(config, 'twitter:image')?.content).toBe(expectedImage);
+      expect(getMeta(config, 'og:image:width')).toBeUndefined();
+      expect(getMeta(config, 'og:image:height')).toBeUndefined();
+    });
   });
 
   describe('noIndex option', () => {
