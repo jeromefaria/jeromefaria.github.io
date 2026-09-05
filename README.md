@@ -3,7 +3,7 @@
 [![CI/CD](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml)
 [![codecov](https://codecov.io/gh/jeromefaria/jeromefaria.github.io/branch/master/graph/badge.svg)](https://codecov.io/gh/jeromefaria/jeromefaria.github.io)
 
-A production-grade **Vue 3 + TypeScript** frontend for [www.jeromefaria.com](https://www.jeromefaria.com) — the portfolio of a composer and sound artist (discography with a **built-in streaming audio player**, live history, press, and a downloadable press kit), statically generated and hydrated, built to professional standards: strict typing, CI-gated accessibility, performance budgets, and unit + cross-browser E2E + visual-regression tests. Owned end to end — from a from-scratch audio engine down to the serverless backend behind the contact form.
+**My portfolio site as a composer and sound artist — and a public engineering showcase I own end to end.** A production-grade **Vue 3 + TypeScript** frontend ([www.jeromefaria.com](https://www.jeromefaria.com)): discography with a **built-in streaming audio player**, live history, press, and a downloadable press kit — statically generated and hydrated, built to professional standards (strict typing, CI-gated accessibility, performance budgets, unit + cross-browser E2E + visual-regression tests), from a from-scratch audio engine down to the serverless backend behind the contact form.
 
 > The sections below lead with *what the project demonstrates* and *why it's built this way*; the run-book follows.
 
@@ -346,6 +346,14 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 ## Deployment
 
 On push to `master`, the deploy workflow (`deploy.yml`) runs the full CI pipeline as its gate, then publishes the **exact `dist` the E2E suite exercised** to GitHub Pages — so what ships is what was tested. The Cloudflare Worker deploys separately (`cd worker && npm run deploy`), only when its code changes.
+
+## About
+
+I'm Jerome Faria — a senior frontend engineer (15+ years, Vue / TypeScript) and a sound artist. I've built and owned greenfield products end to end across music tech ([Linkfire](https://www.linkfire.com/)), automotive ([Mercedes-Benz.io](https://www.mercedes-benz.io)), and energy ([Smart Energy Lab](https://www.smartenergylab.com/)). I work as an AI-augmented engineer — high velocity behind the enforced quality gates you can see in this repo's CI — and this repo is a public instance of that.
+
+- **Website** · [jeromefaria.com](https://jeromefaria.com)
+- **LinkedIn** · [linkedin.com/in/jeromefaria](https://www.linkedin.com/in/jeromefaria)
+- **Contact** · [the form](https://jeromefaria.com/contact) — yes, the one with the real backend
 
 ## License
 
