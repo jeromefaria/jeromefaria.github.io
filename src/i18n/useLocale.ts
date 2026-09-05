@@ -8,6 +8,7 @@ export interface UseLocale {
   other: ComputedRef<Locale>;
   toLocalePath: (path: string) => string;
   switchPath: ComputedRef<string>;
+  hasAlternate: ComputedRef<boolean>;
 }
 
 export const useLocale = (): UseLocale => {
@@ -20,5 +21,6 @@ export const useLocale = (): UseLocale => {
     other,
     toLocalePath: path => localePath(path, current.value),
     switchPath: computed(() => localePath(stripLocale(route.path), other.value)),
+    hasAlternate: computed(() => !route.meta['englishOnly']),
   };
 };
