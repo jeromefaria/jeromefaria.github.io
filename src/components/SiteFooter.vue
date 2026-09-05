@@ -7,7 +7,7 @@ import { useLocale } from '@/i18n/useLocale';
 import { useT } from '@/i18n/useT';
 
 const t = useT();
-const { toLocalePath, switchPath } = useLocale();
+const { toLocalePath, switchPath, hasAlternate } = useLocale();
 const currentYear = new Date().getFullYear();
 </script>
 
@@ -39,7 +39,7 @@ const currentYear = new Date().getFullYear();
           <RouterLink :to="toLocalePath('/colophon')">
             {{ t('footer.colophon') }}
           </RouterLink>
-          <template v-if="i18nEnabled">
+          <template v-if="i18nEnabled && hasAlternate">
             •
             <RouterLink
               :to="switchPath"

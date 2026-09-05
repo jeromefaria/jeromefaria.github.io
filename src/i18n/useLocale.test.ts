@@ -13,6 +13,7 @@ const mountAt = async (path: string): Promise<ReturnType<typeof useLocale>> => {
     routes: [
       { path: '/about', component: emptyComponent },
       { path: '/works', component: emptyComponent },
+      { path: '/cv', component: emptyComponent, meta: { englishOnly: true } },
       { path: '/pt/about', component: emptyComponent, meta: { locale: 'pt' } },
     ],
   });
@@ -48,5 +49,12 @@ describe('useLocale', () => {
     expect(en.current.value).toBe('en');
     expect(en.toLocalePath('/works')).toBe('/works');
     expect(en.switchPath.value).toBe('/pt/about');
+    expect(en.hasAlternate.value).toBe(true);
+  });
+
+  it('reports no alternate for an English-only route', async () => {
+    const cv = await mountAt('/cv');
+
+    expect(cv.hasAlternate.value).toBe(false);
   });
 });
