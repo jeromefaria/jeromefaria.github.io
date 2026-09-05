@@ -1,6 +1,6 @@
 # Jerome Faria
 
-**Senior Frontend Developer**
+**Senior Frontend Engineer**
 
 **Location:** Lisbon   
 **Email:** [jerome.faria@gmail.com](mailto:jerome.faria@gmail.com)   
@@ -12,7 +12,7 @@
 
 ## Profile
 
-Senior Frontend Developer with 15+ years owning web applications across music tech, automotive, and energy — most recently taking greenfield products from empty repo to production as sole engineer. Deep in Vue.js and TypeScript, design systems, accessibility, and the delivery process around them: quality gates, testing, and audit discipline. Works as an AI-augmented engineer — pairing agentic tooling with enforced quality gates to ship at pace without lowering the bar, and building the verification and audit infrastructure that keeps that velocity safe. Bridges technical rigour with a craftsman’s sensibility, shaped equally by software engineering and a twenty-year practice in experimental electronic music.
+Senior Frontend Engineer with 15+ years owning web applications across music tech, automotive, and energy — most recently taking greenfield products from empty repo to production as sole engineer. Deep in Vue.js and TypeScript, design systems, accessibility, and the delivery process around them: quality gates, testing, and audit discipline. Works as an AI-augmented engineer — pairing agentic tooling with enforced quality gates to ship at pace without lowering the bar, and building the verification and audit infrastructure that keeps that velocity safe. Bridges technical rigour with a craftsman’s sensibility, shaped equally by software engineering and a twenty-year practice in experimental electronic music.
 
 -----
 
@@ -39,7 +39,7 @@ A portfolio for my music practice that doubles as a public, verifiable engineeri
 
 ## Experience
 
-**Senior Frontend Developer** · Mar 2026 – Jul 2026
+**Senior Frontend Engineer** · Mar 2026 – Jul 2026
 act digital (Client: Smart Energy Lab) · Lisbon
 
 Sole frontend engineer on EDGE App 2026 — a greenfield Vue 3 rebuild of Smart Energy Lab’s EV-charging platform, taken from an empty repo to a deployed product serving condominium managers (billing/invoicing, consumption analytics, real-time charger oversight, authorisation control) and residents (self-service charging, statistics, payments). Owned architecture, delivery, testing, and CI/CD end-to-end — and the client extended the engagement by a month on the strength of the work.
@@ -55,7 +55,7 @@ Sole frontend engineer on EDGE App 2026 — a greenfield Vue 3 rebuild of Smart 
 
 -----
 
-**Senior Frontend Developer** · Oct 2025 – Mar 2026
+**Senior Frontend Engineer** · Oct 2025 – Mar 2026
 act digital (Client: Santander) · Lisbon
 
 - Sole frontend engineer on a greenfield internal workflow-management application — owned the frontend architecture and implementation decisions end-to-end, establishing the delivery standards (documentation, testing, refactoring) from the ground up
@@ -64,7 +64,7 @@ act digital (Client: Santander) · Lisbon
 
 -----
 
-**Senior Frontend Developer** · Jun 2024 – Aug 2025
+**Senior Frontend Engineer** · Jun 2024 – Aug 2025
 Aubay Portugal (Client: Mercedes-Benz.io) · Lisbon
 
 - Developed semantic, testable components within a micro frontend architecture for the Mercedes-Benz Rent product — a car rental journey piloting in the Swiss market on mercedes-benz.com — contributing to accessibility and performance improvements
@@ -75,7 +75,7 @@ Aubay Portugal (Client: Mercedes-Benz.io) · Lisbon
 
 -----
 
-**Senior Frontend Developer** · Nov 2023 – Apr 2024
+**Senior Frontend Engineer** · Nov 2023 – Apr 2024
 Decskill (Clients: Crédit Agricole, Santander) · Lisbon
 
 - Frontend consulting for Crédit Agricole and Santander, delivering within existing enterprise Angular architectures in the banking sector
@@ -90,7 +90,7 @@ Planned career break; returned to full-time frontend engineering in November 202
 
 -----
 
-**Senior Frontend Developer** · Dec 2019 – Jul 2022
+**Senior Frontend Engineer** · Dec 2019 – Jul 2022
 Linkfire A/S · Lisbon / Copenhagen
 
 - Led frontend architecture across a ~20-application Vue estate for the music industry’s leading smart link platform — trusted by every major label and over 50,000 artists worldwide
@@ -102,7 +102,7 @@ Linkfire A/S · Lisbon / Copenhagen
 
 -----
 
-**Senior Frontend Developer** · Sep 2016 – Oct 2019
+**Senior Frontend Engineer** · Sep 2016 – Oct 2019
 Helpr Tech · Lisbon / Copenhagen
 
 - Rebuilt and modularised white-label hybrid mobile apps for SOS International (the Nordic region’s leading roadside/travel assistance organisation), centralising the architecture across insurance and mobility partners in Denmark, Sweden, Norway and Finland
@@ -112,7 +112,7 @@ Helpr Tech · Lisbon / Copenhagen
 
 -----
 
-**Frontend Developer** · Jan 2016 – Aug 2016
+**Frontend Engineer** · Jan 2016 – Aug 2016
 Fractal Labs · London / Zurich
 
 - Built core UI components and business logic for Fractal Labs, an early-stage fintech building automated financial analysis tools — later relaunched as tomato pay, an FCA-approved Open Banking payments platform
@@ -121,7 +121,7 @@ Fractal Labs · London / Zurich
 
 -----
 
-**UI/UX Designer & Frontend Developer** · Jan 2015 – Dec 2015
+**UI/UX Designer & Frontend Engineer** · Jan 2015 – Dec 2015
 Artica CC · Lisbon
 
 - Designed and developed web applications for Artica CC, a Lisbon-based creative technology studio specialising in computer vision, interactive installations, and physical computing
