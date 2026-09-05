@@ -74,6 +74,13 @@ export const pageMeta = {
       pt: 'Como este site trata o formulário de contacto, a protecção contra spam e os seus dados — sem cookies, sem estatísticas, sem rastreio.',
     },
   },
+  cv: {
+    title: { en: 'CV — Jerome Faria', pt: 'CV — Jerome Faria' },
+    description: {
+      en: 'Curriculum vitae of Jerome Faria — senior frontend engineer (Vue / TypeScript).',
+      pt: 'Curriculum vitae de Jerome Faria — senior frontend engineer (Vue / TypeScript).',
+    },
+  },
   colophon: {
     title: { en: 'Colophon', pt: 'Colophon' },
     description: {

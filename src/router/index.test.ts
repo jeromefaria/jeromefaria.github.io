@@ -17,6 +17,7 @@ describe('router routes', () => {
       '/epk',
       '/privacy',
       '/colophon',
+      '/cv',
       '/:pathMatch(.*)*',
     ]);
   });

@@ -4,7 +4,7 @@ import { join, relative } from 'node:path';
 const DIST = 'dist';
 const ORIGIN = 'https://jeromefaria.com';
 
-const EXCLUDE = new Set(['/404', '/epk']);
+const EXCLUDE = new Set(['/404', '/epk', '/cv']);
 
 const htmlFiles = [];
 const walk = dir => {
