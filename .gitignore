@@ -63,6 +63,9 @@ public/epk/*.pdf
 public/epk/*.zip
 public/epk/CREDITS*.txt
 
+# CV PDF — regenerated at build from content/resume.md
+public/jerome-faria-cv.pdf
+
 # Local, private notes — planning docs kept alongside the code but never published
 .notes/
 

@@ -54,6 +54,7 @@ for (const [name, source] of Object.entries(sources)) collect(source, name, node
 
 const SAME_ACROSS_LOCALES = new Set([
   'pageMeta.colophon.title',
+  'pageMeta.cv.title',
   'worksData.solo.title',
   'worksData.nny.title',
   'worksData.solo.items[1].credits.note',

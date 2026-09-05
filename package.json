@@ -36,9 +36,10 @@
     "epk:photos": "node scripts/generate-epk-photos.mjs",
     "epk:bundle": "node scripts/generate-epk-bundle.mjs",
     "rider:pdf": "node scripts/generate-tech-rider.mjs",
-    "downloads:build": "npm run epk:bundle && npm run rider:pdf",
+    "downloads:build": "npm run epk:bundle && npm run rider:pdf && npm run resume:pdf",
     "epk:kit": "npm run epk:photos && npm run downloads:build",
-    "prepare": "husky"
+    "prepare": "husky",
+    "resume:pdf": "node scripts/generate-resume.mjs"
   },
   "lint-staged": {
     "*.{ts,tsx,vue,js,mjs,cjs}": "eslint --fix",
@@ -60,6 +61,7 @@
     "unhead": "^2.1.13"
   },
   "dependencies": {
+    "marked": "^18.0.11",
     "vue": "^3.5.42",
     "vue-i18n": "^11.4.10",
     "vue-router": "^5.3.0"
