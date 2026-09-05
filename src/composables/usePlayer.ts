@@ -87,7 +87,9 @@ const ensureElement = (): HTMLAudioElement => {
   media.addEventListener('waiting', () => { status.value = 'buffering'; });
   media.addEventListener('timeupdate', () => { currentTime.value = media.currentTime; });
   media.addEventListener('durationchange', () => {
-    if (Number.isFinite(media.duration) && media.duration > 0) duration.value = media.duration;
+    // eslint-disable-next-line local/no-comments -- non-obvious gotcha
+    // The manifest duration is the canonical master length; a browser's decoded AAC duration lands a fraction under it and floors down a second, so only fall back to it when no authored duration exists.
+    if (!duration.value && Number.isFinite(media.duration) && media.duration > 0) duration.value = media.duration;
   });
   media.addEventListener('ended', () => { void next(); });
   media.addEventListener('error', () => { scheduleRetry(generation); });

@@ -107,7 +107,7 @@ describe('usePlayer', () => {
     expect(api.currentTime.value).toBe(100);
   });
 
-  it('mirrors media time, buffering, and duration events', async () => {
+  it('mirrors media time and buffering events', async () => {
     await mod.play(TRACKS);
     const api = mod.usePlayer();
     const element = mod.getMediaElement();
@@ -118,9 +118,27 @@ describe('usePlayer', () => {
 
     fire(element, 'waiting');
     expect(api.status.value).toBe('buffering');
+  });
+
+  it('keeps the authored duration when the decoded value differs', async () => {
+    await mod.play(TRACKS);
+    const api = mod.usePlayer();
+    const element = mod.getMediaElement();
+
+    Object.defineProperty(element, 'duration', { configurable: true, value: 99.6 });
+    fire(element, 'durationchange');
+
+    expect(api.duration.value).toBe(100);
+  });
+
+  it('falls back to the decoded duration when the track has none', async () => {
+    await mod.play([{ key: 'x/3.m4a', title: 'Three', duration: 0 }]);
+    const api = mod.usePlayer();
+    const element = mod.getMediaElement();
 
     Object.defineProperty(element, 'duration', { configurable: true, value: 321 });
     fire(element, 'durationchange');
+
     expect(api.duration.value).toBe(321);
   });
 
@@ -169,13 +187,13 @@ describe('usePlayer', () => {
   });
 
   it('ignores a non-finite duration change', async () => {
-    await mod.play(TRACKS);
+    await mod.play([{ key: 'x/3.m4a', title: 'Three', duration: 0 }]);
     const element = mod.getMediaElement();
 
     Object.defineProperty(element, 'duration', { configurable: true, value: Number.NaN });
     fire(element, 'durationchange');
 
-    expect(mod.usePlayer().duration.value).toBe(100);
+    expect(mod.usePlayer().duration.value).toBe(0);
   });
 
   it('keeps ended status through the pause event at the queue tail', async () => {
