@@ -3,6 +3,7 @@ import { marked } from 'marked';
 
 import StaticPage from '@/components/StaticPage.vue';
 import { pageMeta } from '@/data/pageMeta';
+import { cvPdfHref } from '@/utils/cv';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 
 import resumeMarkdown from '../../content/resume.md?raw';
@@ -21,7 +22,7 @@ const resumeHtml = externalizeLinks(marked.parse(resumeMarkdown, { async: false 
     <p class="cv__download">
       <a
         class="link-discrete"
-        href="/jerome-faria-cv.pdf"
+        :href="cvPdfHref"
         download
       >Download PDF</a>
     </p>

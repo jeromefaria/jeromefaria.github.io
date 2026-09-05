@@ -154,6 +154,21 @@ describe('useCommandPalette', () => {
     expect(push).toHaveBeenCalledWith('/pt/works');
   });
 
+  it('keeps an English-only navigate command canonical from a PT route', async () => {
+    const { api, router, wrapper } = await mountPalette();
+    active = wrapper;
+    await router.push('/pt/about');
+    await flushPromises();
+    const push = vi.spyOn(router, 'push');
+
+    api.query.value = 'curriculum';
+    const index = api.results.value.findIndex(command => command.id === 'nav:cv');
+    expect(index).toBeGreaterThanOrEqual(0);
+    await api.execute(index);
+
+    expect(push).toHaveBeenCalledWith('/cv');
+  });
+
   it('executes the active command on Enter', async () => {
     const { api, router, wrapper } = await mountPalette();
     active = wrapper;
