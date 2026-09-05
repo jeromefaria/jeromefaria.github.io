@@ -12,6 +12,7 @@ interface CommandBase {
 export interface NavigateCommand extends CommandBase {
   kind: 'navigate';
   to: string;
+  englishOnly?: boolean;
 }
 
 export interface ResultCommand extends CommandBase {
