@@ -36,10 +36,11 @@
     "epk:photos": "node scripts/generate-epk-photos.mjs",
     "epk:bundle": "node scripts/generate-epk-bundle.mjs",
     "rider:pdf": "node scripts/generate-tech-rider.mjs",
-    "downloads:build": "npm run epk:bundle && npm run rider:pdf && npm run resume:pdf",
+    "downloads:build": "npm run epk:bundle && npm run rider:pdf && npm run resume:pdf && npm run og:cv",
     "epk:kit": "npm run epk:photos && npm run downloads:build",
     "prepare": "husky",
-    "resume:pdf": "node scripts/generate-resume.mjs"
+    "resume:pdf": "node scripts/generate-resume.mjs",
+    "og:cv": "node scripts/generate-og-cv.mjs"
   },
   "lint-staged": {
     "*.{ts,tsx,vue,js,mjs,cjs}": "eslint --fix",

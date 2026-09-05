@@ -9,7 +9,7 @@ import resumeMarkdown from '../../content/resume.md?raw';
 
 marked.setOptions({ gfm: true, breaks: true });
 
-const head = { ...pageMeta.cv, noIndex: true };
+const head = { ...pageMeta.cv, noIndex: true, image: '/og-cv.png' };
 const resumeHtml = externalizeLinks(marked.parse(resumeMarkdown, { async: false }));
 </script>
 
