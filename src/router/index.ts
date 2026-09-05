@@ -54,6 +54,12 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/ColophonView.vue'),
   },
   {
+    path: '/cv',
+    name: 'cv',
+    component: () => import('@/views/CvView.vue'),
+    meta: { englishOnly: true },
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import('@/views/NotFoundView.vue'),
@@ -75,8 +81,9 @@ export const buildRoutes = (base: RouteRecordRaw[], i18nEnabled: boolean): Route
   if (!i18nEnabled) return base;
 
   const pages = base.filter(route => !isCatchAll(route));
+  const mirrored = pages.filter(route => !route.meta?.['englishOnly']);
   const catchAll = base.filter(isCatchAll);
-  return [...pages, ...pages.map(toPtRoute), ...catchAll.map(toPtRoute), ...catchAll];
+  return [...pages, ...mirrored.map(toPtRoute), ...catchAll.map(toPtRoute), ...catchAll];
 };
 
 export const appRoutes = buildRoutes(routes, i18nEnabled);

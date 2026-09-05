@@ -1,13 +1,13 @@
 import type { WorksData } from '@/types/works';
 
-import { collaborations } from './works/collaborations';
-import { compilations } from './works/compilations';
-import { deriveEngineeringCredits } from './works/engineeringCredits';
-import { film } from './works/film';
-import { mixingAndMastering } from './works/mixingAndMastering';
-import { nny } from './works/nny';
-import { publications } from './works/publications';
-import { solo } from './works/solo';
+import { collaborations } from './works/collaborations.ts';
+import { compilations } from './works/compilations.ts';
+import { deriveEngineeringCredits } from './works/engineeringCredits.ts';
+import { film } from './works/film.ts';
+import { mixingAndMastering } from './works/mixingAndMastering.ts';
+import { nny } from './works/nny.ts';
+import { publications } from './works/publications.ts';
+import { solo } from './works/solo.ts';
 
 // eslint-disable-next-line local/no-comments -- object-key order defines the rendered /works section order; reordering silently changes the page
 // Object-key order sets worksSections and the rendered /works section order.
