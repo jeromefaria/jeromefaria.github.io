@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { createMemoryHistory, createRouter } from 'vue-router';
 
 import { navigation, siteConfig } from '@/data/navigation';
@@ -7,18 +7,26 @@ import { messages } from '@/i18n/messages';
 
 import SiteFooter from './SiteFooter.vue';
 
+vi.mock('@/i18n/flag', () => ({ i18nEnabled: true }));
+
 const enNavLabel = (labelKey: string): string =>
   messages.en.nav[labelKey.slice(4) as keyof typeof messages.en.nav];
 
+const switchLabel = messages.en.common.switchLanguageLabel;
+
 const router = createRouter({
   history: createMemoryHistory(),
-  routes: [{ path: '/:pathMatch(.*)*', component: { template: '<div />' } }],
+  routes: [
+    { path: '/', component: { template: '<div />' } },
+    { path: '/cv', meta: { englishOnly: true }, component: { template: '<div />' } },
+    { path: '/:pathMatch(.*)*', component: { template: '<div />' } },
+  ],
 });
 
-const mountFooter = async () => {
-  const wrapper = mount(SiteFooter, { global: { plugins: [router] } });
+const mountFooter = async (path = '/') => {
+  await router.push(path);
   await router.isReady();
-  return wrapper;
+  return mount(SiteFooter, { global: { plugins: [router] } });
 };
 
 describe('SiteFooter', () => {
@@ -39,5 +47,15 @@ describe('SiteFooter', () => {
     const copyright = wrapper.get('.footer__copyright');
     expect(copyright.text()).toContain(String(new Date().getFullYear()));
     expect(copyright.text()).toContain(siteConfig.author.name);
+  });
+
+  it('offers the language switch on a route that has an alternate', async () => {
+    const wrapper = await mountFooter('/');
+    expect(wrapper.find(`a[aria-label="${switchLabel}"]`).exists()).toBe(true);
+  });
+
+  it('hides the language switch on an English-only route', async () => {
+    const wrapper = await mountFooter('/cv');
+    expect(wrapper.find(`a[aria-label="${switchLabel}"]`).exists()).toBe(false);
   });
 });
