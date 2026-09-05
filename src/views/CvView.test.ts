@@ -10,7 +10,7 @@ describe('CvView', () => {
     const html = wrapper.html();
 
     expect(html).toContain('Jerome Faria');
-    expect(html).toContain('Senior Frontend Developer');
+    expect(html).toContain('Senior Frontend Engineer');
     expect(html).toContain('Selected Work');
   });
 
