@@ -135,12 +135,14 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
       return;
     }
 
+    const target = command.kind === 'navigate' && command.englishOnly ? command.to : toLocalePath(command.to);
+
     if (newTab) {
-      openInNewTab(router.resolve(toLocalePath(command.to)).href);
+      openInNewTab(router.resolve(target).href);
       return;
     }
 
-    await router.push(toLocalePath(command.to));
+    await router.push(target);
   };
 
   const keyActions: Record<string, (event: KeyboardEvent) => void> = {

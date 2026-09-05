@@ -11,6 +11,7 @@ import type { TranslateFn } from '@/i18n/useT';
 import type { ActionCommand, Command } from '@/types/command';
 import type { LiveEvent } from '@/types/live';
 import type { CommissionMeta, Edition, Release, ReleaseMeta } from '@/types/works';
+import { cvPdfHref } from '@/utils/cv';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
 import { openInNewTab } from '@/utils/openInNewTab';
 import { canPlayRelease, playReleaseAt } from '@/utils/releasePermalink';
@@ -31,6 +32,7 @@ const routeCommands = (t: TranslateFn): Command[] => [
   { kind: 'navigate', id: 'nav:epk', title: t('palette.pressKit'), keywords: words(t('palette.kw.pressKit')), group: 'Navigate', to: '/epk' },
   { kind: 'navigate', id: 'nav:privacy', title: t('footer.privacy'), keywords: words(t('palette.kw.privacy')), group: 'Navigate', to: '/privacy' },
   { kind: 'navigate', id: 'nav:colophon', title: t('footer.colophon'), keywords: words(t('palette.kw.colophon')), group: 'Navigate', to: '/colophon' },
+  { kind: 'navigate', id: 'nav:cv', title: t('palette.cv'), keywords: words(t('palette.kw.cv')), group: 'Navigate', to: '/cv', englishOnly: true },
 ];
 
 const sectionCommands = (t: TranslateFn, locale: Locale): Command[] =>
@@ -150,6 +152,7 @@ const releaseLinkCommands = (t: TranslateFn, platform: string, keyword: string, 
 
 const actionCommands = (t: TranslateFn): Command[] => {
   const downloads: Command[] = [
+    { kind: 'action', id: 'act:cv-pdf', title: t('palette.downloadCv'), keywords: words(t('palette.kw.downloadCv')), group: 'Actions', external: true, run: () => openInNewTab(cvPdfHref) },
     { kind: 'action', id: 'act:press-kit-pdf', title: t('palette.downloadKitPdf'), keywords: words(t('palette.kw.downloadKitPdf')), group: 'Actions', external: true, run: () => openInNewTab(epkPdfHref()) },
     { kind: 'action', id: 'act:rider-pdf', title: t('palette.downloadRiderPdf'), keywords: words(t('palette.kw.downloadRiderPdf')), group: 'Actions', external: true, run: () => openInNewTab(epkRiderHref()) },
     { kind: 'action', id: 'act:press-kit-zip', title: t('palette.downloadKitZip'), keywords: words(t('palette.kw.downloadKitZip')), group: 'Actions', external: true, run: () => openInNewTab(epkZipHref()) },

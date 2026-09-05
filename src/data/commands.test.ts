@@ -38,9 +38,18 @@ describe('buildCommands', () => {
   it('includes every top-level route as a navigate command', () => {
     const navTitles = commands.filter(command => command.kind === 'navigate').map(command => command.title);
 
-    for (const title of ['Home', 'Works', 'Live', 'Press', 'About', 'Contact', 'Press Kit', 'Privacy', 'Colophon']) {
+    for (const title of ['Home', 'Works', 'Live', 'Press', 'About', 'Contact', 'Press Kit', 'Privacy', 'Colophon', 'CV']) {
       expect(navTitles).toContain(title);
     }
+  });
+
+  it('surfaces the CV as an English-only navigate command plus a download action', () => {
+    const cv = commands.find(command => command.id === 'nav:cv');
+    expect(cv?.kind === 'navigate' ? cv.to : '').toBe('/cv');
+    expect(cv?.kind === 'navigate' ? cv.englishOnly : false).toBe(true);
+
+    const actionIds = commands.filter(command => command.kind === 'action').map(command => command.id);
+    expect(actionIds).toContain('act:cv-pdf');
   });
 
   it('deep-links works sections and individual releases', () => {
