@@ -38,6 +38,33 @@ export const liveEvents: LiveEvent[] = [
         alt: { en: 'Festival Múltiplo 2026 poster for 23 August at Zaratan, Lisbon — Jerome Faria, Formidolor, Joana de Sá, Double Double', pt: 'Cartaz do Festival Múltiplo 2026 para 23 de Agosto no Zaratan, Lisboa — Jerome Faria, Formidolor, Joana de Sá, Double Double' },
       },
     ],
+    imageAlt: { en: 'Jerome Faria performing at Festival Múltiplo, Zaratan, Lisbon, 2026', pt: 'Jerome Faria a actuar no Festival Múltiplo, Zaratan, Lisboa, 2026' },
+    images: [
+      {
+        src: '/images/live/festival-multiplo-2026-001.jpg',
+        photographer: { name: 'Nuno Martins', url: 'https://www.nmartins.com/' },
+      },
+      {
+        src: '/images/live/festival-multiplo-2026-002.jpg',
+        photographer: { name: 'Nuno Martins', url: 'https://www.nmartins.com/' },
+      },
+      {
+        src: '/images/live/festival-multiplo-2026-003.jpg',
+        photographer: { name: 'Nuno Martins', url: 'https://www.nmartins.com/' },
+      },
+      {
+        src: '/images/live/festival-multiplo-2026-004.jpg',
+        photographer: { name: 'Nuno Martins', url: 'https://www.nmartins.com/' },
+      },
+      {
+        src: '/images/live/festival-multiplo-2026-005.jpg',
+        photographer: { name: 'Nuno Martins', url: 'https://www.nmartins.com/' },
+      },
+      {
+        src: '/images/live/festival-multiplo-2026-006.jpg',
+        photographer: { name: 'Nuno Martins', url: 'https://www.nmartins.com/' },
+      },
+    ],
   },
   {
     id: 'showcase-casa-amarela',
