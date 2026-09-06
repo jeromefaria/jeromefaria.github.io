@@ -5,6 +5,7 @@ import { localize } from '@/i18n/localized';
 import { liveEvents, liveYears, sortedLiveData } from './live';
 
 const IMAGE_ALT: Record<string, string> = {
+  'festival-multiplo-2026': 'Jerome Faria performing at Festival Múltiplo, Zaratan, Lisbon, 2026',
   'showcase-casa-amarela': 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025',
   'fim-de-emissao-45': 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025',
   'cca-no-desterro': 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024',
