@@ -78,3 +78,72 @@ export const fuzzyRank = <T extends Fuzzable>(query: string, items: T[]): T[] =>
     .sort((a, b) => b.score - a.score)
     .map(entry => entry.item);
 };
+
+export interface MatchSegment {
+  text: string;
+  match: boolean;
+}
+
+const foldWithMap = (value: string): { text: string; map: number[] } => {
+  const folded: string[] = [];
+  const map: number[] = [];
+
+  [...value].forEach((char, index) => {
+    for (const unit of normalize(char)) {
+      folded.push(unit);
+      map.push(index);
+    }
+  });
+
+  return { text: folded.join(''), map };
+};
+
+const matchedIndices = (query: string, title: string): Set<number> => {
+  const { text, map } = foldWithMap(title);
+  const hits = new Set<number>();
+
+  for (const token of query.trim().split(/\s+/).filter(Boolean)) {
+    const found: number[] = [];
+    let cursor = 0;
+    let matched = true;
+
+    for (const char of normalize(token)) {
+      const index = text.indexOf(char, cursor);
+      const original = index === -1 ? undefined : map[index];
+      if (original === undefined) {
+        matched = false;
+        break;
+      }
+
+      found.push(original);
+      cursor = index + 1;
+    }
+
+    if (matched) for (const index of found) hits.add(index);
+  }
+
+  return hits;
+};
+
+export const matchSegments = (query: string, title: string): MatchSegment[] => {
+  const hits = query.trim() ? matchedIndices(query, title) : new Set<number>();
+  if (hits.size === 0) return [{ text: title, match: false }];
+
+  const segments: MatchSegment[] = [];
+  let buffer = '';
+  let bufferMatch = false;
+
+  [...title].forEach((char, index) => {
+    const isMatch = hits.has(index);
+    if (buffer && isMatch !== bufferMatch) {
+      segments.push({ text: buffer, match: bufferMatch });
+      buffer = '';
+    }
+
+    buffer += char;
+    bufferMatch = isMatch;
+  });
+
+  if (buffer) segments.push({ text: buffer, match: bufferMatch });
+  return segments;
+};

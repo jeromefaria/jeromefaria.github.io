@@ -100,6 +100,10 @@
     color: var(--color-text);
   }
 
+  &__match {
+    font-weight: $font-weight-semibold;
+  }
+
   &__subtitle {
     margin-left: auto;
     font-size: $font-size-sm;

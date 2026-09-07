@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { fuzzyRank } from './fuzzy';
+import { fuzzyRank, type MatchSegment, matchSegments } from './fuzzy';
 
 const item = (title: string, keywords?: string[]) => ({ title, keywords });
 
@@ -70,5 +70,45 @@ describe('fuzzyRank', () => {
     const narrowed = fuzzyRank('madeiradig 2009', items);
     expect(narrowed).toHaveLength(1);
     expect(narrowed[0].keywords).toEqual(['2009']);
+  });
+});
+
+describe('matchSegments', () => {
+  const joined = (segments: MatchSegment[]): string => segments.map(segment => segment.text).join('');
+  const highlighted = (segments: MatchSegment[]): string =>
+    segments.filter(segment => segment.match).map(segment => segment.text).join('');
+
+  it('returns a single unmatched segment for an empty query', () => {
+    expect(matchSegments('', 'Works')).toEqual([{ text: 'Works', match: false }]);
+    expect(matchSegments('   ', 'Works')).toEqual([{ text: 'Works', match: false }]);
+  });
+
+  it('marks a prefix match while preserving the whole title', () => {
+    const segments = matchSegments('priv', 'Privacy');
+    expect(joined(segments)).toBe('Privacy');
+    expect(highlighted(segments)).toBe('Priv');
+  });
+
+  it('marks scattered matched characters and leaves the rest plain', () => {
+    const segments = matchSegments('wk', 'Works');
+    expect(joined(segments)).toBe('Works');
+    expect(highlighted(segments)).toBe('Wk');
+  });
+
+  it('maps matches back through diacritics onto the original characters', () => {
+    const segments = matchSegments('saude', 'saúde');
+    expect(joined(segments)).toBe('saúde');
+    expect(highlighted(segments)).toBe('saúde');
+  });
+
+  it('leaves the title untouched when nothing matches', () => {
+    expect(matchSegments('xyz', 'Works')).toEqual([{ text: 'Works', match: false }]);
+  });
+
+  it('highlights every token of a multi-word query', () => {
+    const segments = matchSegments('play 2504', "Play '2504'");
+    expect(joined(segments)).toBe("Play '2504'");
+    expect(highlighted(segments)).toContain('Play');
+    expect(highlighted(segments)).toContain('2504');
   });
 });
