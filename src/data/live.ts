@@ -2,11 +2,14 @@ import type { LiveData, LiveEvent, LiveYearSection } from '@/types/live';
 
 export const liveEvents: LiveEvent[] = [
   {
-    id: 'tbc-2026-09-19',
-    title: 'TBC',
+    id: 'jejum-45',
+    title: 'Jejum #45',
     date: '2026-09-19',
-    venue: { country: 'Portugal' },
+    venue: { name: 'Fábrica da Criatividade', url: 'https://www.cm-castelobranco.pt/visitante/fabrica-da-criatividade/', city: 'Castelo Branco', country: 'Portugal' },
     setup: { kind: 'solo' },
+    bill: [
+      { text: 'Peak Bleak' },
+    ],
   },
   {
     id: 'festival-multiplo-2026',
