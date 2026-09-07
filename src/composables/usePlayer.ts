@@ -62,6 +62,16 @@ const setMediaSession = (track: AudioTrack): void => {
   });
 };
 
+const MEDIA_ACTIONS: MediaSessionAction[] = ['play', 'pause', 'nexttrack', 'previoustrack', 'seekto'];
+
+const clearMediaSession = (): void => {
+  if (!('mediaSession' in navigator)) return;
+
+  navigator.mediaSession.metadata = null;
+  navigator.mediaSession.playbackState = 'none';
+  for (const action of MEDIA_ACTIONS) navigator.mediaSession.setActionHandler(action, null);
+};
+
 const scheduleRetry = (gen: number): void => {
   if (retries >= RETRY_LIMIT) {
     status.value = 'error';
@@ -180,7 +190,12 @@ export const collapse = (): void => { expanded.value = false; };
 
 export const stop = (): void => {
   generation += 1;
-  element?.pause();
+  if (element) {
+    element.pause();
+    element.removeAttribute('src');
+    element.load();
+  }
+  clearMediaSession();
   queue.value = [];
   index.value = -1;
   currentTime.value = 0;
