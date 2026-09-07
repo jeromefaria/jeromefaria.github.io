@@ -258,6 +258,36 @@ describe('usePlayer', () => {
     expect(api.expanded.value).toBe(false);
   });
 
+  it('releases the Media Session and detaches the source when stopped', async () => {
+    const handlers: Record<string, unknown> = {};
+    Object.assign(navigator, {
+      mediaSession: {
+        metadata: {},
+        playbackState: 'playing',
+        setActionHandler: vi.fn((action: string, handler: unknown) => { handlers[action] = handler; }),
+      },
+    });
+    vi.stubGlobal('MediaMetadata', class {
+      constructor(public init: unknown) {}
+    });
+
+    await mod.play(TRACKS, 0, { album: 'A', artwork: '/cover.jpg' });
+    const media = mod.getMediaElement();
+    const session = (navigator as unknown as { mediaSession: { metadata: unknown; playbackState: string } }).mediaSession;
+    expect(session.metadata).not.toBeNull();
+    expect(media.getAttribute('src')).not.toBeNull();
+
+    mod.stop();
+
+    expect(session.metadata).toBeNull();
+    expect(session.playbackState).toBe('none');
+    expect(handlers.play).toBeNull();
+    expect(media.getAttribute('src')).toBeNull();
+
+    vi.unstubAllGlobals();
+    delete (navigator as unknown as { mediaSession?: unknown }).mediaSession;
+  });
+
   it('plays a new track and applies the start offset once metadata loads', async () => {
     await mod.playFrom([{ key: 'x/1.m4a', title: '2504', duration: 1504 }], 1292);
     const api = mod.usePlayer();
