@@ -67,4 +67,63 @@ describe('useFocusReturn', () => {
     restore();
     expect(document.activeElement).toBe(other);
   });
+
+  it('suppresses the focus ring on restore for a pointer-opened overlay, then clears it on the next keydown', () => {
+    const trigger = document.createElement('button');
+    document.body.appendChild(trigger);
+    trigger.focus();
+    vi.spyOn(trigger, 'matches').mockReturnValue(false);
+
+    const { capture, restore } = useFocusReturn();
+    capture();
+
+    const other = document.createElement('button');
+    document.body.appendChild(other);
+    other.focus();
+
+    restore();
+    expect(document.activeElement).toBe(trigger);
+    expect(trigger.style.outline).toContain('none');
+
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+    expect(trigger.style.outline).toBe('');
+  });
+
+  it('keeps the focus ring on restore for a keyboard-opened overlay', () => {
+    const trigger = document.createElement('button');
+    document.body.appendChild(trigger);
+    trigger.focus();
+    vi.spyOn(trigger, 'matches').mockReturnValue(true);
+
+    const { capture, restore } = useFocusReturn();
+    capture();
+
+    const other = document.createElement('button');
+    document.body.appendChild(other);
+    other.focus();
+
+    restore();
+    expect(document.activeElement).toBe(trigger);
+    expect(trigger.style.outline).toBe('');
+  });
+
+  it('clears ring suppression when the restored element loses focus', () => {
+    const trigger = document.createElement('button');
+    document.body.appendChild(trigger);
+    trigger.focus();
+    vi.spyOn(trigger, 'matches').mockReturnValue(false);
+
+    const { capture, restore } = useFocusReturn();
+    capture();
+
+    const other = document.createElement('button');
+    document.body.appendChild(other);
+    other.focus();
+
+    restore();
+    expect(trigger.style.outline).toContain('none');
+
+    trigger.dispatchEvent(new FocusEvent('blur'));
+    expect(trigger.style.outline).toBe('');
+  });
 });
