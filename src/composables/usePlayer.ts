@@ -194,6 +194,7 @@ export const stop = (): void => {
     element.pause();
     element.removeAttribute('src');
     element.load();
+    element = null;
   }
   clearMediaSession();
   queue.value = [];

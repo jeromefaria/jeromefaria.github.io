@@ -283,6 +283,7 @@ describe('usePlayer', () => {
     expect(session.playbackState).toBe('none');
     expect(handlers.play).toBeNull();
     expect(media.getAttribute('src')).toBeNull();
+    expect(mod.getMediaElement()).not.toBe(media);
 
     vi.unstubAllGlobals();
     delete (navigator as unknown as { mediaSession?: unknown }).mediaSession;
