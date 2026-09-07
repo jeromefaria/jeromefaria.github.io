@@ -27,9 +27,9 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Formidolor' },
       { text: 'Joana de Sá', url: 'https://joanadesa.work/' },
       { text: 'Llama Virgem', url: 'https://llamavirgem.bandcamp.com/' },
-      { text: 'Musgos' },
+      { text: 'Musgos', url: 'https://musgosband.com/' },
       { text: 'Open Source 3IO' },
-      { text: 'Pedro PMDS' },
+      { text: 'Pedro PMDS', url: 'https://pmds.bandcamp.com/' },
     ],
     posters: [
       {
@@ -78,7 +78,7 @@ export const liveEvents: LiveEvent[] = [
     setup: { kind: 'project', name: { text: 'NOx' }, members: [{ text: 'Pedro Roque', url: 'https://cavernancia.bandcamp.com/' }] },
     bill: [
       { text: "Copo d'Água", url: 'https://copodagua.bandcamp.com/' },
-      { text: 'TiaAvô' },
+      { text: 'TiaAvô', url: 'https://casaamarela.bandcamp.com/album/tiaav' },
       { text: 'Rebolation All-Stars' },
     ],
     imageAlt: { en: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025', pt: 'NOx a actuar no Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025' },
@@ -142,7 +142,7 @@ export const liveEvents: LiveEvent[] = [
     venue: { name: 'Desterro', url: 'https://darc.pt', city: 'Lisbon', country: 'Portugal' },
     setup: { kind: 'solo' },
     bill: [
-      { text: 'Ai Feith' },
+      { text: 'Ai Feith', url: 'https://aifeith.bandcamp.com/' },
       { text: 'W.T.V.R' },
     ],
     imageAlt: { en: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025', pt: 'Jerome Faria a actuar no Fim de Emissão #45, Desterro, Lisboa, 2025' },
@@ -723,8 +723,8 @@ export const liveEvents: LiveEvent[] = [
     bill: [
       { text: 'Oval', url: 'https://oval.bandcamp.com/' },
       { text: 'Simon Fisher Turner', url: 'https://simonfisherturner.bandcamp.com/' },
-      { text: 'Paul Farrington' },
-      { text: 'André Gonçalves' },
+      { text: 'Paul Farrington', url: 'https://www.paul-farrington-design.com/' },
+      { text: 'André Gonçalves', url: 'https://www.andregoncalves.info/' },
     ],
     imageAlt: { en: 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010', pt: 'Jerome Faria a actuar no Olhares de Outono, Passos Manuel, Porto, 2010' },
     images: [
@@ -965,7 +965,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Philippe Petit', url: 'https://philippepetit.bandcamp.com/' },
       { text: 'Ritornell', url: 'https://ritornell.bandcamp.com/' },
       { text: 'Sébastien Roux' },
-      { text: 'Tonne' },
+      { text: 'Tonne', url: 'https://www.paul-farrington-design.com/' },
     ],
     imageAlt: { en: 'Jerome Faria performing at Störung Festival, La Farinera del Clot, Barcelona, 2008', pt: 'Jerome Faria a actuar no Störung Festival, La Farinera del Clot, Barcelona, 2008' },
     images: [
@@ -995,7 +995,7 @@ export const liveEvents: LiveEvent[] = [
       { text: 'e:4c' },
       { text: 'CKZ' },
       { text: 'DeciBeats' },
-      { text: 'Aenedra' },
+      { text: 'Aenedra', url: 'https://freemusicarchive.org/music/Aenedra/' },
       { text: 'Unknown Forces Of Everyday Life' },
     ],
     imageAlt: { en: 'Jerome Faria performing at STFU Porto, Fábrica do Som, Porto, 2007', pt: 'Jerome Faria a actuar no STFU Porto, Fábrica do Som, Porto, 2007' },
@@ -1099,7 +1099,7 @@ export const liveEvents: LiveEvent[] = [
       [{ text: 'Florian Hecker', url: 'https://florianhecker.blogspot.com/' }, { text: 'Tina Frank', url: 'https://www.tinafrank.net/' }],
       [{ text: '@c', url: 'https://at-c.org/' }, { text: 'Lia', url: 'https://liaworks.com/' }],
       { text: 'Musiclab' },
-      { text: 'Pygar' },
+      { text: 'Pygar', url: 'https://hugoolim.com/pygar/' },
       { text: 'LB^LC', url: 'https://www.discogs.com/artist/385554-LBLC' },
       [{ text: 'Ruinman' }, { text: 'Redo' }],
     ],
