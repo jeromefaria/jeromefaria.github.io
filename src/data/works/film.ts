@@ -12,7 +12,7 @@ export const film: WorksSection = {
         kind: 'commission',
         work: 'Theatre',
         venue: { text: 'Teatro Municipal Baltazar Dias', url: 'https://teatrobaltazardias.funchal.pt/' },
-        year: 2021,
+        released: '2021',
       },
       description: {
         en: 'Theatre production celebrating the centenary of <a href="https://pt.wikipedia.org/wiki/Ant%C3%B3nio_Arag%C3%A3o">António Aragão</a>, a founder of Experimental Poetry in Portugal. Conceived as a performative-sonic-visual event.',
@@ -49,7 +49,7 @@ export const film: WorksSection = {
         kind: 'commission',
         work: 'Film',
         director: { text: 'Margarida Paiva', url: 'https://margaridapaiva.net/' },
-        year: 2016,
+        released: '2016',
       },
       description: {
         en: 'Original score for film by Portuguese-Norwegian visual artist Margarida Paiva. The film depicts a park as a closed world where anonymous characters drift past one another, bound only by gestures and glances.',
@@ -85,7 +85,7 @@ export const film: WorksSection = {
       meta: {
         kind: 'commission',
         work: 'Live Score',
-        year: 2013,
+        released: '2013',
       },
       description: {
         en: 'Live score for <a href="https://en.wikipedia.org/wiki/Robert_Wiene">Robert Wiene</a>\'s 1920 expressionist silent film. Working against Wiene\'s angular expressionist nightmare, the score creates a dialogue spanning a century of sonic possibility—honouring the film\'s unease while exploring territories the original could never have envisioned.',
@@ -110,7 +110,7 @@ export const film: WorksSection = {
         kind: 'commission',
         work: 'DVD',
         publisher: { label: { text: 'Pixelnerve' }, catalog: 'PXN001' },
-        year: 2008,
+        released: '2007-12-08',
       },
       description: {
         en: 'A collaborative effort between sound artist Jerome Faria and programmer <a href="https://pixelnerve.com/">Victor Martins</a>, documenting experiments in audiovisual composition. The project was presented both as a live performance and as this DVD release.',

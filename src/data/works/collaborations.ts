@@ -16,7 +16,7 @@ export const collaborations: WorksSection = {
         kind: 'music',
         mediums: ['Digital', 'Cassette'],
         editions: [{ label: { text: 'BRØQN' }, catalog: 'BRQN007' }],
-        year: 2025,
+        released: '2025',
       },
       tracklist: [
         { title: 'Attack (Prelude)', artist: { name: 'CAVERNANCIA', url: 'https://cavernancia.bandcamp.com/' } },
@@ -50,7 +50,7 @@ export const collaborations: WorksSection = {
         kind: 'music',
         mediums: ['Digital', 'Cassette'],
         editions: [{ label: { text: 'Colectivo Casa Amarela', url: 'https://casaamarela.bandcamp.com/' }, catalog: 'CCA#035' }],
-        year: 2024,
+        released: '2024',
       },
       tracklist: [
         { title: 'A' },
@@ -87,7 +87,7 @@ export const collaborations: WorksSection = {
         kind: 'music',
         mediums: ['Digital'],
         editions: [{ label: { text: 'BRØQN' }, catalog: 'BRQN003' }],
-        year: 2012,
+        released: '2012',
       },
       tracklist: [
         { title: 'Depolarized' },

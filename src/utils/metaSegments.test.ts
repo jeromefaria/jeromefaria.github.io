@@ -16,7 +16,7 @@ describe('buildMetaSegments', () => {
       kind: 'music',
       mediums: ['CD', 'MP3'],
       editions: [{ label: { text: 'A' }, catalog: 'A1' }, { label: { text: 'B' } }],
-      year: 2020,
+      released: '2020',
     })).toBe('CD/MP3 — A, A1 / B, 2020');
   });
 
@@ -27,7 +27,7 @@ describe('buildMetaSegments', () => {
       collaborators: ['Structura'],
       mediums: ['MP3'],
       editions: [{ label: { text: 'Label' }, catalog: 'L1' }],
-      year: 2007,
+      released: '2007',
     })).toBe('with Structura in Comp — MP3, Label, L1, 2007');
   });
 
@@ -37,27 +37,27 @@ describe('buildMetaSegments', () => {
       compilation: { text: 'Comp' },
       mediums: ['CD'],
       editions: [{ label: { text: 'Label' } }],
-      year: 2008,
+      released: '2008',
     })).toBe('in Comp — CD, Label, 2008');
   });
 
   it('renders each commission shape', () => {
-    expect(asText({ kind: 'commission', work: 'Film', director: { text: 'Dir' }, year: 2016 }))
+    expect(asText({ kind: 'commission', work: 'Film', director: { text: 'Dir' }, released: '2016' }))
       .toBe('Film — dir. Dir, 2016');
-    expect(asText({ kind: 'commission', work: 'Theatre', venue: { text: 'Venue' }, year: 2021 }))
+    expect(asText({ kind: 'commission', work: 'Theatre', venue: { text: 'Venue' }, released: '2021' }))
       .toBe('Theatre — Venue, 2021');
-    expect(asText({ kind: 'commission', work: 'DVD', publisher: { label: { text: 'Pub' }, catalog: 'P1' }, year: 2008 }))
+    expect(asText({ kind: 'commission', work: 'DVD', publisher: { label: { text: 'Pub' }, catalog: 'P1' }, released: '2008' }))
       .toBe('DVD — Pub, P1, 2008');
-    expect(asText({ kind: 'commission', work: 'DVD', publisher: { label: { text: 'Pub' } }, year: 2008 }))
+    expect(asText({ kind: 'commission', work: 'DVD', publisher: { label: { text: 'Pub' } }, released: '2008' }))
       .toBe('DVD — Pub, 2008');
-    expect(asText({ kind: 'commission', work: 'Live Score', year: 2013 }))
+    expect(asText({ kind: 'commission', work: 'Live Score', released: '2013' }))
       .toBe('Live Score — 2013');
   });
 
   it('renders a publication with and without an ISBN', () => {
-    expect(asText({ kind: 'publication', publisher: { text: 'Pub' }, isbn: { value: '123' }, year: 2009 }))
+    expect(asText({ kind: 'publication', publisher: { text: 'Pub' }, isbn: { value: '123' }, released: '2009' }))
       .toBe('Book — Pub, 2009 — ISBN 123');
-    expect(asText({ kind: 'publication', publisher: { text: 'Pub' }, year: 2009 }))
+    expect(asText({ kind: 'publication', publisher: { text: 'Pub' }, released: '2009' }))
       .toBe('Book — Pub, 2009');
   });
 
@@ -66,14 +66,14 @@ describe('buildMetaSegments', () => {
       kind: 'engineering',
       roles: ['mixing', 'mastering'],
       editions: [{ label: { text: 'Label' }, catalog: 'L1' }],
-      year: 2025,
+      released: '2025',
     })).toBe('Mixing and Mastering — Label, L1, 2025');
 
     expect(asText({
       kind: 'engineering',
       roles: ['mastering'],
       editions: [{ label: { text: 'Label' } }],
-      year: 2012,
+      released: '2012',
     })).toBe('Mastering — Label, 2012');
   });
 
@@ -83,7 +83,7 @@ describe('buildMetaSegments', () => {
       compilation: { text: 'Comp' },
       mediums: ['CD'],
       editions: [{ label: { text: 'Label' } }],
-      year: 2008,
+      released: '2008',
     }, 'pt')).toBe('em Comp — CD, Label, 2008');
 
     expect(asText({
@@ -92,24 +92,24 @@ describe('buildMetaSegments', () => {
       collaborators: ['Structura'],
       mediums: ['MP3'],
       editions: [{ label: { text: 'Label' } }],
-      year: 2007,
+      released: '2007',
     }, 'pt')).toBe('com Structura em Comp — MP3, Label, 2007');
 
-    expect(asText({ kind: 'commission', work: 'Film', director: { text: 'Dir' }, year: 2016 }, 'pt'))
+    expect(asText({ kind: 'commission', work: 'Film', director: { text: 'Dir' }, released: '2016' }, 'pt'))
       .toBe('Filme — realização de Dir, 2016');
-    expect(asText({ kind: 'commission', work: 'Theatre', venue: { text: 'Venue' }, year: 2021 }, 'pt'))
+    expect(asText({ kind: 'commission', work: 'Theatre', venue: { text: 'Venue' }, released: '2021' }, 'pt'))
       .toBe('Teatro — Venue, 2021');
-    expect(asText({ kind: 'commission', work: 'DVD', publisher: { label: { text: 'Pub' } }, year: 2008 }, 'pt'))
+    expect(asText({ kind: 'commission', work: 'DVD', publisher: { label: { text: 'Pub' } }, released: '2008' }, 'pt'))
       .toBe('DVD — Pub, 2008');
-    expect(asText({ kind: 'commission', work: 'Live Score', year: 2013 }, 'pt'))
+    expect(asText({ kind: 'commission', work: 'Live Score', released: '2013' }, 'pt'))
       .toBe('Filme-concerto — 2013');
 
-    expect(asText({ kind: 'publication', publisher: { text: 'Pub' }, year: 2009 }, 'pt'))
+    expect(asText({ kind: 'publication', publisher: { text: 'Pub' }, released: '2009' }, 'pt'))
       .toBe('Livro — Pub, 2009');
 
-    expect(asText({ kind: 'engineering', roles: ['mastering'], editions: [{ label: { text: 'Label' } }], year: 2012 }, 'pt'))
+    expect(asText({ kind: 'engineering', roles: ['mastering'], editions: [{ label: { text: 'Label' } }], released: '2012' }, 'pt'))
       .toBe('Masterização — Label, 2012');
-    expect(asText({ kind: 'engineering', roles: ['mixing', 'mastering'], editions: [{ label: { text: 'Label' } }], year: 2025 }, 'pt'))
+    expect(asText({ kind: 'engineering', roles: ['mixing', 'mastering'], editions: [{ label: { text: 'Label' } }], released: '2025' }, 'pt'))
       .toBe('Mistura e masterização — Label, 2025');
   });
 });

@@ -7,7 +7,7 @@ import { buildReleaseContext, findRelease, releaseHead, releasePath } from './re
 const withCover: Release = {
   id: 'x',
   title: 'X',
-  meta: { kind: 'music', mediums: ['Digital'], editions: [], year: 2020 },
+  meta: { kind: 'music', mediums: ['Digital'], editions: [], released: '2020' },
   coverImage: '/images/x.jpg',
   description: 'A <a href="#">linked</a> note.',
 };
@@ -15,7 +15,7 @@ const withCover: Release = {
 const noCover: Release = {
   id: 'y',
   title: 'Y',
-  meta: { kind: 'music', mediums: ['Digital'], editions: [], year: 2020 },
+  meta: { kind: 'music', mediums: ['Digital'], editions: [], released: '2020' },
 };
 
 describe('releasePermalink', () => {
