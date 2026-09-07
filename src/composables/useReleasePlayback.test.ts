@@ -7,7 +7,7 @@ import { audioPlayerEnabled } from './useFeatureFlags';
 import { stop } from './usePlayer';
 import { useReleasePlayback } from './useReleasePlayback';
 
-const music = { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2010 } as const;
+const music = { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], released: '2010' } as const;
 
 const aligned: Release = {
   id: '1714',

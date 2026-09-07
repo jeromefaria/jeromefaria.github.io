@@ -8,6 +8,7 @@ import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { EpkContent, EpkLiveHighlight, EpkManifest, EpkPhoto, EpkWorkHighlight } from '@/types/epk';
 import type { EventVenue, LiveEvent } from '@/types/live';
 import type { Release } from '@/types/works';
+import { releaseYear } from '@/utils/releaseDate';
 
 const findById = <T extends { id: string }>(items: T[], id: string): T => {
   const match = items.find(item => item.id === id);
@@ -64,7 +65,7 @@ export const toLiveHighlight = (event: LiveEvent, locale: Locale = DEFAULT_LOCAL
 
 export const toWorkHighlight = (release: Release): EpkWorkHighlight => ({
   id: release.id,
-  year: release.meta.year,
+  year: releaseYear(release.meta.released),
   title: release.title,
 });
 
@@ -82,7 +83,7 @@ export const resolveEpkContent = (manifest: EpkManifest, locale: Locale = DEFAUL
       .map(event => toLiveHighlight(event, locale)),
     workHighlights: manifest.highlightWorkIds
       .map(id => findById(works, id))
-      .sort((a, b) => b.meta.year - a.meta.year)
+      .sort((a, b) => releaseYear(b.meta.released) - releaseYear(a.meta.released))
       .map(toWorkHighlight),
   };
 };

@@ -34,7 +34,7 @@ export interface MusicMeta {
   kind: 'music';
   mediums: Medium[];
   editions: Edition[];
-  year: number;
+  released: string;
 }
 
 export interface CompilationMeta {
@@ -43,34 +43,34 @@ export interface CompilationMeta {
   collaborators?: string[];
   mediums: Medium[];
   editions: Edition[];
-  year: number;
+  released: string;
 }
 
 interface FilmCommission {
   kind: 'commission';
   work: 'Film';
   director: MetaLink;
-  year: number;
+  released: string;
 }
 
 interface TheatreCommission {
   kind: 'commission';
   work: 'Theatre';
   venue: MetaLink;
-  year: number;
+  released: string;
 }
 
 interface DvdCommission {
   kind: 'commission';
   work: 'DVD';
   publisher: Edition;
-  year: number;
+  released: string;
 }
 
 interface LiveScoreCommission {
   kind: 'commission';
   work: 'Live Score';
-  year: number;
+  released: string;
 }
 
 export type CommissionMeta = FilmCommission | TheatreCommission | DvdCommission | LiveScoreCommission;
@@ -79,7 +79,7 @@ export interface PublicationMeta {
   kind: 'publication';
   publisher: MetaLink;
   isbn?: Isbn;
-  year: number;
+  released: string;
 }
 
 export type EngineeringRole = 'mixing' | 'mastering';
@@ -89,7 +89,7 @@ export interface EngineeringMeta {
   artist?: Credit;
   roles: EngineeringRole[];
   editions: Edition[];
-  year: number;
+  released: string;
 }
 
 export type ReleaseMeta = MusicMeta | CompilationMeta | CommissionMeta | PublicationMeta | EngineeringMeta;

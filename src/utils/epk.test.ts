@@ -66,7 +66,7 @@ describe('toWorkHighlight', () => {
     const release: Release = {
       id: '2504',
       title: '2504',
-      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'self-released' } }], year: 2024 },
+      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'self-released' } }], released: '2024' },
     };
 
     expect(toWorkHighlight(release)).toEqual({ id: '2504', year: 2024, title: '2504' });

@@ -1,5 +1,6 @@
 import type { WorksData } from '@/types/works';
 
+import { releaseYear } from '../utils/releaseDate';
 import { collaborations } from './works/collaborations.ts';
 import { compilations } from './works/compilations.ts';
 import { deriveEngineeringCredits } from './works/engineeringCredits.ts';
@@ -24,7 +25,7 @@ export const worksData: WorksData = {
 worksData['mixing-and-mastering']?.items.push(...deriveEngineeringCredits(worksData));
 
 for (const section of Object.values(worksData)) {
-  section.items.sort((first, second) => second.meta.year - first.meta.year);
+  section.items.sort((first, second) => releaseYear(second.meta.released) - releaseYear(first.meta.released));
 }
 
 export const worksSections: string[] = Object.keys(worksData);
