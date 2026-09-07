@@ -49,6 +49,22 @@ describe('PlayerScreen', () => {
     expect(wrapper.findAll('.player-screen__queue-item')[1].attributes('aria-current')).toBeUndefined();
   });
 
+  it('prefers per-track artwork over the release cover and falls back when a track has none', async () => {
+    await player.play(
+      [{ key: 'x/1.m4a', title: 'One', duration: 100, artwork: '/images/tracks/a.jpg' }, TRACKS[1]],
+      0,
+      { album: 'The Album', artwork: '/cover.jpg' },
+    );
+    const wrapper = await mounted();
+
+    expect(wrapper.find('.player-screen__art img').attributes('src')).toBe('/images/tracks/a.jpg');
+    expect(wrapper.find('.player-screen__art source').attributes('srcset')).toBe('/images/tracks/a.webp');
+
+    await wrapper.findAll('.player-screen__queue-item')[1].trigger('click');
+    await flushPromises();
+    expect(wrapper.find('.player-screen__art img').attributes('src')).toBe('/cover.jpg');
+  });
+
   it('falls back to Jerome Faria when a track has no artist', async () => {
     await player.play(TRACKS, 1);
     const wrapper = await mounted();

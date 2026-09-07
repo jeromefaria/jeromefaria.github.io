@@ -3,4 +3,5 @@ export interface AudioTrack {
   title: string;
   duration: number;
   artist?: string;
+  artwork?: string;
 }
