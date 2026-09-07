@@ -88,4 +88,20 @@ export const pressQuotes: PressQuote[] = [
     source: 'Vital Weekly',
     url: 'https://www.vitalweekly.net/number-670/',
   },
+  {
+    id: 'morfina-coil',
+    quote: {
+      en: 'Slowly-evolving amorphous compositions filled with sculpted textures and disembodied droning resonances demonstrate a great care for detail.',
+      pt: 'Composições amorfas de evolução lenta, repletas de texturas esculpidas e ressonâncias graves e desencarnadas, revelam um grande cuidado com o detalhe.',
+    },
+    source: 'Morfina',
+  },
+  {
+    id: 'lafresto-ect',
+    quote: {
+      en: "The machines are happy in NNY's world […] an intelligent panorama of electronic music.",
+      pt: 'As máquinas estão felizes no mundo de NNY […] um panorama inteligente de música electrónica.',
+    },
+    source: 'LaFresto',
+  },
 ];
