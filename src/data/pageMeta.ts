@@ -88,4 +88,11 @@ export const pageMeta = {
       pt: 'A tecnologia por detrás deste site — Vue 3, renderização estática com Vite-SSG, TypeScript e uma construção pensada para o teclado e testada ao pormenor.',
     },
   },
+  writing: {
+    title: { en: 'Writing', pt: 'Writing' },
+    description: {
+      en: 'Essays by Jerome Faria — on music, engineering, and the craft in between.',
+      pt: 'Ensaios de Jerome Faria — sobre música, engenharia e o ofício que as une.',
+    },
+  },
 } satisfies Record<string, PageMeta>;

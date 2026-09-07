@@ -26,7 +26,7 @@ const cardHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
   }
   .eyebrow { text-transform: uppercase; letter-spacing: 0.28em; font-size: 20px; font-weight: 600; color: #a3a3a3; }
   .name { font-size: 92px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; margin-top: 26px; }
-  .role { font-size: 40px; font-weight: 500; color: #fff; margin-top: 22px; }
+  .role { font-size: 40px; font-weight: 500; color: #a3a3a3; margin-top: 22px; }
   .footer { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid #2a2a2a; padding-top: 26px; }
   .footer span { font-size: 24px; color: #a3a3a3; }
   .footer .url { color: #fff; font-weight: 500; }
