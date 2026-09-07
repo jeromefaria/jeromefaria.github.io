@@ -360,4 +360,22 @@ describe('usePlayer', () => {
     vi.unstubAllGlobals();
     delete (navigator as unknown as { mediaSession?: unknown }).mediaSession;
   });
+
+  it('uses per-track artwork in the Media Session, overriding the release cover', async () => {
+    Object.assign(navigator, { mediaSession: { metadata: null, setActionHandler: vi.fn() } });
+    vi.stubGlobal('MediaMetadata', class {
+      constructor(public init: unknown) {}
+    });
+
+    await mod.play([{ key: 'o/1.m4a', title: 'Attack', duration: 60, artwork: '/images/tracks/overlapse-01.jpg' }], 0,
+      { album: 'Overlapse', artwork: '/images/cover.jpg' });
+    const { metadata } = (navigator as unknown as {
+      mediaSession: { metadata: { init: { artwork: { src: string }[] } } };
+    }).mediaSession;
+    expect(metadata.init.artwork[0].src).toContain('overlapse-01.jpg');
+    expect(metadata.init.artwork[0].src).not.toContain('cover.jpg');
+
+    vi.unstubAllGlobals();
+    delete (navigator as unknown as { mediaSession?: unknown }).mediaSession;
+  });
 });

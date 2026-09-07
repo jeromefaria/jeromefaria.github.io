@@ -42,8 +42,9 @@ const expanded = ref(false);
 const setMediaSession = (track: AudioTrack): void => {
   if (!('mediaSession' in navigator) || typeof MediaMetadata === 'undefined') return;
 
-  const artwork = nowPlaying.value.artwork
-    ? [{ src: new URL(nowPlaying.value.artwork, location.href).href, sizes: '512x512', type: 'image/jpeg' }]
+  const artworkSrc = track.artwork ?? nowPlaying.value.artwork;
+  const artwork = artworkSrc
+    ? [{ src: new URL(artworkSrc, location.href).href, sizes: '512x512', type: 'image/jpeg' }]
     : [];
 
   navigator.mediaSession.metadata = new MediaMetadata({

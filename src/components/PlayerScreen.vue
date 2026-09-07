@@ -18,6 +18,7 @@ const { status, currentTrack, queue, currentTime, duration, context, hasNext, ha
 const isPlaying = computed(() => status.value === 'playing');
 const isBusy = computed(() => status.value === 'loading' || status.value === 'buffering');
 const currentIndex = computed(() => queue.value.findIndex(track => track.key === currentTrack.value?.key));
+const artwork = computed(() => currentTrack.value?.artwork ?? context.value.artwork);
 
 const t = useT();
 
@@ -72,16 +73,21 @@ onBeforeUnmount(() => {
     </button>
 
     <div class="player-screen__art">
-      <picture v-if="context.artwork">
-        <source
-          :srcset="toWebp(context.artwork)"
-          type="image/webp"
+      <Transition name="player-art">
+        <picture
+          v-if="artwork"
+          :key="artwork"
         >
-        <img
-          :src="context.artwork"
-          alt=""
-        >
-      </picture>
+          <source
+            :srcset="toWebp(artwork)"
+            type="image/webp"
+          >
+          <img
+            :src="artwork"
+            alt=""
+          >
+        </picture>
+      </Transition>
     </div>
 
     <div class="player-screen__meta">
