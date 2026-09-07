@@ -19,6 +19,7 @@ import { plainCredits } from '@/utils/renderCredits';
 import { stripHtml } from '@/utils/stripHtml';
 
 import { pressQuotes } from './press';
+import { essays } from './writing';
 
 const words = (text: string): string[] => stripHtml(text).split(' ').filter(Boolean);
 
@@ -33,6 +34,19 @@ const routeCommands = (t: TranslateFn): Command[] => [
   { kind: 'navigate', id: 'nav:privacy', title: t('footer.privacy'), keywords: words(t('palette.kw.privacy')), group: 'Navigate', to: '/privacy' },
   { kind: 'navigate', id: 'nav:colophon', title: t('footer.colophon'), keywords: words(t('palette.kw.colophon')), group: 'Navigate', to: '/colophon' },
   { kind: 'navigate', id: 'nav:cv', title: t('palette.cv'), keywords: words(t('palette.kw.cv')), group: 'Navigate', to: '/cv', englishOnly: true },
+];
+
+const writingCommands = (t: TranslateFn): Command[] => [
+  { kind: 'navigate', id: 'nav:writing', title: t('palette.writing'), keywords: words(t('palette.kw.writing')), group: 'Navigate', to: '/writing', englishOnly: true },
+  ...essays.map((essay): Command => ({
+    kind: 'navigate',
+    id: `nav:writing:${essay.slug}`,
+    title: essay.title,
+    keywords: [essay.title, ...words(t('palette.kw.writing'))],
+    group: 'Navigate',
+    to: `/writing/${essay.slug}`,
+    englishOnly: true,
+  })),
 ];
 
 const sectionCommands = (t: TranslateFn, locale: Locale): Command[] =>
@@ -244,6 +258,7 @@ export const playReleaseCommands = (t: TranslateFn): Command[] => {
 
 export const buildCommands = (t: TranslateFn, locale: Locale): Command[] => [
   ...routeCommands(t),
+  ...writingCommands(t),
   ...sectionCommands(t, locale),
   ...releaseCommands(locale),
   ...liveCommands(locale),

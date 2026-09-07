@@ -108,15 +108,29 @@ describe('buildCommands', () => {
   });
 
   it('points every navigable command at a defined route', () => {
-    const routePaths = new Set(routes.map(route => route.path));
+    const matchesRoute = (path: string): boolean =>
+      routes
+        .filter(route => !route.path.includes(':pathMatch'))
+        .some(route => new RegExp(`^${route.path.replace(/:[^/]+/g, '[^/]+')}$`).test(path));
     const targets = commands.flatMap(command =>
       command.kind === 'navigate' || command.kind === 'result' ? [command.to] : []);
     expect(targets.length).toBeGreaterThan(0);
 
     for (const target of targets) {
       const basePath = target.split('#')[0] || '/';
-      expect(routePaths.has(basePath), `command target "${target}"`).toBe(true);
+      expect(matchesRoute(basePath), `command target "${target}"`).toBe(true);
     }
+  });
+
+  it('surfaces the writing section and each essay as English-only navigate commands', () => {
+    const section = commands.find(command => command.id === 'nav:writing');
+    expect(section?.kind === 'navigate' ? section.to : '').toBe('/writing');
+    expect(section?.kind === 'navigate' ? section.englishOnly : false).toBe(true);
+
+    const essay = commands.find(command => command.id === 'nav:writing:orchestration');
+    expect(essay?.kind === 'navigate' ? essay.to : '').toBe('/writing/orchestration');
+    expect(essay?.title).toBe('Orchestration');
+    expect(essay?.kind === 'navigate' ? essay.englishOnly : false).toBe(true);
   });
 
   it('localizes navigate titles and work sections to the requested locale', () => {
