@@ -319,6 +319,10 @@
     }
   }
 
+  &__panel {
+    display: contents;
+  }
+
   &__meta {
     width: 100%;
     max-width: 30rem;
@@ -389,8 +393,14 @@
   }
 
   @include respond-to(md) {
-    justify-content: safe center;
-    padding: $spacing-10 $spacing-5;
+    flex-direction: row;
+    gap: $spacing-10;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-10;
+    overflow: hidden;
+
+    --player-seek-max-width: none;
 
     &__collapse {
       position: absolute;
@@ -399,7 +409,32 @@
     }
 
     &__art {
-      max-width: min(52rem, 70vh);
+      flex: 0 0 auto;
+      width: min(52rem, 70vh);
+      max-width: 45vw;
+    }
+
+    &__panel {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-6;
+      align-items: stretch;
+      width: min(34rem, 38vw);
+      max-height: calc(100dvh - #{$spacing-10} * 2);
+      overflow-y: auto;
+    }
+
+    &__meta {
+      max-width: none;
+      text-align: left;
+    }
+
+    &__queue {
+      max-width: none;
+    }
+
+    .transport-controls {
+      justify-content: flex-start;
     }
   }
 }
