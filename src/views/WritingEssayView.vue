@@ -4,19 +4,16 @@ import { useRoute } from 'vue-router';
 
 import StaticPage from '@/components/StaticPage.vue';
 import { siteConfig } from '@/data/navigation';
-import { essayBySlug } from '@/data/writing';
+import { draftSlugs, essayBodyBySlug, essayMetaBySlug } from '@/data/writingContent';
 import { externalizeLinks } from '@/utils/externalizeLinks';
-
-import orchestration from '../../content/writing/orchestration.md?raw';
 
 marked.setOptions({ gfm: true, breaks: true });
 
-const essayContent: Record<string, string> = { orchestration };
-
 const route = useRoute();
 const slug = String(route.params['slug']);
-const essay = essayBySlug(slug);
-const markdown = essayContent[slug];
+const essay = essayMetaBySlug(slug);
+const markdown = essayBodyBySlug(slug);
+const isDraft = draftSlugs.has(slug);
 
 const canonical = essay ? `${siteConfig.url}/writing/${essay.slug}` : `${siteConfig.url}/writing`;
 
@@ -26,6 +23,7 @@ const head = essay && markdown
     description: { en: essay.description, pt: essay.description },
     ogType: 'article',
     image: `/og-writing-${essay.slug}.png`,
+    ...(isDraft ? { noIndex: true } : {}),
     schema: {
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',
