@@ -195,6 +195,25 @@ describe('useCommandPalette', () => {
     expect(api.activeIndex.value).toBe(0);
   });
 
+  it('clamps half-paging at the ends instead of wrapping', async () => {
+    const { api, wrapper } = await mountPalette();
+    active = wrapper;
+
+    api.query.value = 'e';
+    const last = api.results.value.length - 1;
+    expect(last).toBeGreaterThan(5);
+
+    api.handleKeydown(press('ArrowUp'));
+    expect(api.activeIndex.value).toBe(last);
+    api.handleKeydown(press('d', { ctrlKey: true }));
+    expect(api.activeIndex.value).toBe(last);
+
+    api.handleKeydown(press('ArrowDown'));
+    expect(api.activeIndex.value).toBe(0);
+    api.handleKeydown(press('u', { ctrlKey: true }));
+    expect(api.activeIndex.value).toBe(0);
+  });
+
   it('closes on Ctrl-c and traps Tab', async () => {
     const { api, wrapper } = await mountPalette();
     active = wrapper;

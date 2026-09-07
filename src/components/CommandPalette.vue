@@ -2,20 +2,17 @@
 import { computed, nextTick, ref, watch } from 'vue';
 
 import { useCommandPalette } from '@/composables/useCommandPalette';
-import { useFocusTrap } from '@/composables/useFocusTrap';
 import { useOverlay } from '@/composables/useOverlay';
 import { useT } from '@/i18n/useT';
+import { matchSegments } from '@/utils/fuzzy';
 
 const t = useT();
 
 const { isOpen, query, activeIndex, results, close, handleKeydown, execute } = useCommandPalette();
 
 const inputRef = ref<HTMLInputElement | null>(null);
-const panelRef = ref<HTMLElement | null>(null);
 
 useOverlay(isOpen, inputRef);
-
-const { onKeydown: trapTab } = useFocusTrap(panelRef);
 
 const showHeaders = computed(() => query.value.trim() === '');
 const announcement = computed(() =>
@@ -38,12 +35,10 @@ watch(activeIndex, async () => {
         @click.self="close"
       >
         <div
-          ref="panelRef"
           class="command-palette__panel"
           role="dialog"
           aria-modal="true"
           :aria-label="t('palette.ariaLabel')"
-          @keydown="trapTab"
         >
           <input
             ref="inputRef"
@@ -87,7 +82,11 @@ watch(activeIndex, async () => {
                 @click="execute(index, $event.metaKey || $event.ctrlKey)"
                 @mousemove="activeIndex = index"
               >
-                <span class="command-palette__title">{{ command.title }}</span>
+                <span class="command-palette__title"><span
+                  v-for="(segment, segmentIndex) in matchSegments(query, command.title)"
+                  :key="segmentIndex"
+                  :class="{ 'command-palette__match': segment.match }"
+                >{{ segment.text }}</span></span>
                 <span
                   v-if="command.subtitle"
                   class="command-palette__subtitle"

@@ -116,6 +116,12 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     activeIndex.value = (activeIndex.value + delta + count) % count;
   };
 
+  const page = (delta: number): void => {
+    const count = results.value.length;
+    if (count === 0) return;
+    activeIndex.value = Math.min(count - 1, Math.max(0, activeIndex.value + delta));
+  };
+
   const remember = (id: string): void => {
     if (PRIMARY_ROUTE_IDS.includes(id)) return;
 
@@ -157,8 +163,8 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     ArrowUp: () => move(-1),
     'ctrl+k': () => move(-1),
     'ctrl+p': () => move(-1),
-    'ctrl+d': () => move(PAGE),
-    'ctrl+u': () => move(-PAGE),
+    'ctrl+d': () => page(PAGE),
+    'ctrl+u': () => page(-PAGE),
     Enter: event => void execute(activeIndex.value, event.metaKey || event.ctrlKey),
   };
 
