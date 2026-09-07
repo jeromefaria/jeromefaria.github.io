@@ -715,7 +715,7 @@ export const liveEvents: LiveEvent[] = [
   {
     id: 'olhares-de-outono-2010',
     language: 'pt-PT',
-    date: '2010-11-27',
+    date: '2010-11-26',
     title: 'Olhares de Outono',
     venue: { name: 'Passos Manuel', url: 'https://passosmanuel.net/', city: 'Porto', country: 'Portugal' },
     setup: { kind: 'solo' },
@@ -1081,6 +1081,7 @@ export const liveEvents: LiveEvent[] = [
     setup: { kind: 'solo' },
     performedAs: 'NNY',
     bill: [
+      [{ text: 'Emi Maeda', url: 'https://lampo.org/archive/emi-maeda-2-2004/' }, { text: 'Lia', url: 'https://liaworks.com/' }],
       [{ text: 'Phonophani', url: 'https://phonophani.bandcamp.com/' }, { text: 'Marius Watz', url: 'https://mariuswatz.com/' }],
       { text: 'Frank Bretschneider', url: 'https://frankbretschneider.bandcamp.com/' },
     ],
@@ -1095,8 +1096,12 @@ export const liveEvents: LiveEvent[] = [
     performedAs: 'NNY',
     bill: [
       { text: 'Fennesz', url: 'https://www.fennesz.com/' },
-      { text: 'Florian Hecker', url: 'https://florianhecker.blogspot.com/' },
+      [{ text: 'Florian Hecker', url: 'https://florianhecker.blogspot.com/' }, { text: 'Tina Frank', url: 'https://www.tinafrank.net/' }],
       [{ text: '@c', url: 'https://at-c.org/' }, { text: 'Lia', url: 'https://liaworks.com/' }],
+      { text: 'Musiclab' },
+      { text: 'Pygar' },
+      { text: 'LB^LC', url: 'https://www.discogs.com/artist/385554-LBLC' },
+      [{ text: 'Ruinman' }, { text: 'Redo' }],
     ],
     imageAlt: { en: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005', pt: 'Jerome Faria e Hugo Olim a actuar no MADEIRADIG, Auditório da RDP, Funchal, 2005' },
     images: [
