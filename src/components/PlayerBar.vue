@@ -6,13 +6,10 @@ import TransportControls from '@/components/TransportControls.vue';
 import { usePlayer } from '@/composables/usePlayer';
 import { useT } from '@/i18n/useT';
 
-const { status, currentTrack, currentTime, duration, error, hasNext, hasPrevious, toggle, next, previous, seek, expand, stop } =
+const { currentTrack, currentTime, duration, error, hasNext, hasPrevious, isPlaying, isBusy, toggle, next, previous, seek, expand, stop } =
   usePlayer();
 
 const t = useT();
-
-const isPlaying = computed(() => status.value === 'playing');
-const isBusy = computed(() => status.value === 'loading' || status.value === 'buffering');
 
 const statusMessage = computed(() => {
   if (error.value) return error.value;

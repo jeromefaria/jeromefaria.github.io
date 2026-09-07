@@ -57,29 +57,21 @@ export const useReleasePlayback = (releaseGetter: () => Release) => {
 
   const playThis = (): void => playReleaseAt(release.value);
 
-  const toggleRelease = (): void => {
-    if (releaseIsCurrent.value) {
+  const toggleOrPlay = (isCurrent: boolean, play: () => void): void => {
+    if (isCurrent) {
       toggle();
       return;
     }
-    playThis();
+    play();
   };
 
-  const playTrack = (index: number): void => {
-    if (isCurrentTrack(index)) {
-      toggle();
-      return;
-    }
-    playReleaseAt(release.value, { track: index + 1 });
-  };
+  const toggleRelease = (): void => toggleOrPlay(releaseIsCurrent.value, playThis);
 
-  const playChapter = (index: number): void => {
-    if (isCurrentChapter(index)) {
-      toggle();
-      return;
-    }
-    playReleaseAt(release.value, { t: release.value.tracklist?.[index]?.start ?? 0 });
-  };
+  const playTrack = (index: number): void =>
+    toggleOrPlay(isCurrentTrack(index), () => playReleaseAt(release.value, { track: index + 1 }));
+
+  const playChapter = (index: number): void =>
+    toggleOrPlay(isCurrentChapter(index), () => playReleaseAt(release.value, { t: release.value.tracklist?.[index]?.start ?? 0 }));
 
   const activateTrack = (index: number): void => {
     if (perTrackPlayable.value) {

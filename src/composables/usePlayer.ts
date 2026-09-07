@@ -26,6 +26,8 @@ const error = ref<string | null>(null);
 const currentTrack = computed<AudioTrack | null>(() => queue.value[index.value] ?? null);
 const hasNext = computed(() => index.value < queue.value.length - 1);
 const hasPrevious = computed(() => index.value > 0);
+const isPlaying = computed(() => status.value === 'playing');
+const isBusy = computed(() => isBusyStatus(status.value));
 
 let generation = 0;
 let retries = 0;
@@ -39,7 +41,23 @@ export interface PlayContext {
 const nowPlaying = ref<PlayContext>({});
 const expanded = ref(false);
 
-const setMediaSession = (track: AudioTrack): void => {
+const MEDIA_HANDLERS: [MediaSessionAction, MediaSessionActionHandler][] = [
+  ['play', () => void resume()],
+  ['pause', () => pause()],
+  ['nexttrack', () => void next()],
+  ['previoustrack', () => void previous()],
+  ['seekto', event => {
+    if (typeof event.seekTime === 'number') seek(event.seekTime);
+  }],
+];
+
+const registerMediaHandlers = (): void => {
+  if (!('mediaSession' in navigator)) return;
+
+  for (const [action, handler] of MEDIA_HANDLERS) navigator.mediaSession.setActionHandler(action, handler);
+};
+
+const updateMediaMetadata = (track: AudioTrack): void => {
   if (!('mediaSession' in navigator) || typeof MediaMetadata === 'undefined') return;
 
   const artworkSrc = track.artwork ?? nowPlaying.value.artwork;
@@ -53,23 +71,14 @@ const setMediaSession = (track: AudioTrack): void => {
     album: nowPlaying.value.album ?? '',
     artwork,
   });
-  navigator.mediaSession.setActionHandler('play', () => void resume());
-  navigator.mediaSession.setActionHandler('pause', pause);
-  navigator.mediaSession.setActionHandler('nexttrack', () => void next());
-  navigator.mediaSession.setActionHandler('previoustrack', () => void previous());
-  navigator.mediaSession.setActionHandler('seekto', event => {
-    if (typeof event.seekTime === 'number') seek(event.seekTime);
-  });
 };
-
-const MEDIA_ACTIONS: MediaSessionAction[] = ['play', 'pause', 'nexttrack', 'previoustrack', 'seekto'];
 
 const clearMediaSession = (): void => {
   if (!('mediaSession' in navigator)) return;
 
   navigator.mediaSession.metadata = null;
   navigator.mediaSession.playbackState = 'none';
-  for (const action of MEDIA_ACTIONS) navigator.mediaSession.setActionHandler(action, null);
+  for (const [action] of MEDIA_HANDLERS) navigator.mediaSession.setActionHandler(action, null);
 };
 
 const scheduleRetry = (gen: number): void => {
@@ -105,6 +114,7 @@ const ensureElement = (): HTMLAudioElement => {
   media.addEventListener('ended', () => { void next(); });
   media.addEventListener('error', () => { scheduleRetry(generation); });
   element = media;
+  registerMediaHandlers();
 
   return media;
 };
@@ -137,7 +147,7 @@ const load = async (): Promise<void> => {
 
   const media = ensureElement();
   media.src = audioUrl(track.key);
-  setMediaSession(track);
+  updateMediaMetadata(track);
   await start(gen);
 };
 
@@ -269,6 +279,8 @@ interface PlayerApi {
   error: Readonly<Ref<string | null>>;
   hasNext: ComputedRef<boolean>;
   hasPrevious: ComputedRef<boolean>;
+  isPlaying: ComputedRef<boolean>;
+  isBusy: ComputedRef<boolean>;
   context: Readonly<Ref<PlayContext>>;
   expanded: Readonly<Ref<boolean>>;
   play: typeof play;
@@ -295,6 +307,8 @@ export const usePlayer = (): PlayerApi => ({
   error: readonly(error),
   hasNext,
   hasPrevious,
+  isPlaying,
+  isBusy,
   context: readonly(nowPlaying),
   expanded: readonly(expanded),
   play,

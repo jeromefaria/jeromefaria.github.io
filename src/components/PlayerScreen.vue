@@ -12,11 +12,9 @@ import { useT } from '@/i18n/useT';
 import type { AudioTrack } from '@/types/audio';
 import { toWebp } from '@/utils/responsiveImage';
 
-const { status, currentTrack, queue, currentTime, duration, context, hasNext, hasPrevious, toggle, next, previous, seek, select, collapse } =
+const { currentTrack, queue, currentTime, duration, context, hasNext, hasPrevious, isPlaying, isBusy, toggle, next, previous, seek, select, collapse } =
   usePlayer();
 
-const isPlaying = computed(() => status.value === 'playing');
-const isBusy = computed(() => status.value === 'loading' || status.value === 'buffering');
 const currentIndex = computed(() => queue.value.findIndex(track => track.key === currentTrack.value?.key));
 const artwork = computed(() => currentTrack.value?.artwork ?? context.value.artwork);
 

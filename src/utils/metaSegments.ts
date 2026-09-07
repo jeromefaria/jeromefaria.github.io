@@ -35,33 +35,34 @@ const editionSegments = (editions: Edition[]): MetaSegment[] =>
     return segments;
   });
 
-const commissionSegments = (meta: Extract<ReleaseMeta, { kind: 'commission' }>, isEn: boolean): MetaSegment[] => {
+const commissionSegments = (meta: Extract<ReleaseMeta, { kind: 'commission' }>, isEn: boolean, year: number): MetaSegment[] => {
   switch (meta.work) {
     case 'Film':
-      return [text(isEn ? 'Film — dir. ' : 'Filme — realização de '), { kind: 'link', link: meta.director }, text(`, ${releaseYear(meta.released)}`)];
+      return [text(isEn ? 'Film — dir. ' : 'Filme — realização de '), { kind: 'link', link: meta.director }, text(`, ${year}`)];
 
     case 'Theatre':
-      return [text(`${isEn ? 'Theatre' : 'Teatro'} — `), { kind: 'link', link: meta.venue }, text(`, ${releaseYear(meta.released)}`)];
+      return [text(`${isEn ? 'Theatre' : 'Teatro'} — `), { kind: 'link', link: meta.venue }, text(`, ${year}`)];
 
     case 'DVD': {
       const catalog = meta.publisher.catalog ? `, ${meta.publisher.catalog}` : '';
-      return [text('DVD — '), { kind: 'link', link: meta.publisher.label }, text(`${catalog}, ${releaseYear(meta.released)}`)];
+      return [text('DVD — '), { kind: 'link', link: meta.publisher.label }, text(`${catalog}, ${year}`)];
     }
 
     case 'Live Score':
-      return [text(`${isEn ? 'Live Score' : 'Filme-concerto'} — ${releaseYear(meta.released)}`)];
+      return [text(`${isEn ? 'Live Score' : 'Filme-concerto'} — ${year}`)];
   }
 };
 
 export const buildMetaSegments = (meta: ReleaseMeta, locale: Locale = DEFAULT_LOCALE): MetaSegment[] => {
   const isEn = locale === DEFAULT_LOCALE;
+  const year = releaseYear(meta.released);
 
   switch (meta.kind) {
     case 'music':
       return [
         text(`${meta.mediums.join('/')} — `),
         ...editionSegments(meta.editions),
-        text(`, ${releaseYear(meta.released)}`),
+        text(`, ${year}`),
       ];
 
     case 'compilation': {
@@ -73,18 +74,18 @@ export const buildMetaSegments = (meta: ReleaseMeta, locale: Locale = DEFAULT_LO
         { kind: 'em', link: meta.compilation },
         text(` — ${meta.mediums.join('/')}, `),
         ...editionSegments(meta.editions),
-        text(`, ${releaseYear(meta.released)}`),
+        text(`, ${year}`),
       ];
     }
 
     case 'commission':
-      return commissionSegments(meta, isEn);
+      return commissionSegments(meta, isEn, year);
 
     case 'publication': {
       const segments: MetaSegment[] = [
         text(`${isEn ? 'Book' : 'Livro'} — `),
         { kind: 'link', link: meta.publisher },
-        text(`, ${releaseYear(meta.released)}`),
+        text(`, ${year}`),
       ];
 
       if (meta.isbn) {
@@ -100,7 +101,7 @@ export const buildMetaSegments = (meta: ReleaseMeta, locale: Locale = DEFAULT_LO
       return [
         text(`${engineeringRolesLabel(meta.roles, locale)} — `),
         ...editionSegments(meta.editions),
-        text(`, ${releaseYear(meta.released)}`),
+        text(`, ${year}`),
       ];
   }
 };
