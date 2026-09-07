@@ -66,6 +66,7 @@ public/epk/CREDITS*.txt
 # CV PDF and social card — regenerated at build from content/resume.md
 public/jerome-faria-cv.pdf
 public/og-cv.png
+public/og-writing-*.png
 
 # Local, private notes — planning docs kept alongside the code but never published
 .notes/

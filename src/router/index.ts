@@ -60,6 +60,18 @@ export const routes: RouteRecordRaw[] = [
     meta: { englishOnly: true },
   },
   {
+    path: '/writing',
+    name: 'writing',
+    component: () => import('@/views/WritingView.vue'),
+    meta: { englishOnly: true },
+  },
+  {
+    path: '/writing/:slug',
+    name: 'writing-essay',
+    component: () => import('@/views/WritingEssayView.vue'),
+    meta: { englishOnly: true },
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import('@/views/NotFoundView.vue'),

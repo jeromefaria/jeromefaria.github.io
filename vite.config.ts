@@ -5,9 +5,12 @@ import { defineConfig, loadEnv } from 'vite';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 import { worksData } from './src/data/works.ts';
+import { essays } from './src/data/writing.ts';
 
 const releasePaths = Object.values(worksData).flatMap(section =>
   section.items.filter(item => item.meta.kind !== 'engineering').map(item => `/works/${item.id}`));
+
+const writingPaths = essays.map(essay => `/writing/${essay.slug}`);
 
 export default defineConfig({
   plugins: [
@@ -71,7 +74,7 @@ export default defineConfig({
       const releases = i18nEnabled
         ? [...releasePaths, ...releasePaths.map(path => `/pt${path}`)]
         : releasePaths;
-      return [...paths.filter(path => !path.includes(':')), ...releases];
+      return [...paths.filter(path => !path.includes(':')), ...releases, ...writingPaths];
     },
   },
 });

@@ -18,6 +18,8 @@ describe('router routes', () => {
       '/privacy',
       '/colophon',
       '/cv',
+      '/writing',
+      '/writing/:slug',
       '/:pathMatch(.*)*',
     ]);
   });
