@@ -18,14 +18,14 @@ const thirdParty: Release = {
   id: 'master-open',
   title: 'Open',
   externalUrl: 'https://casaamarela.bandcamp.com/album/open',
-  meta: { kind: 'engineering', roles: ['mastering'], artist: { name: 'Hugo Calcio' }, editions: [], year: 2021 },
+  meta: { kind: 'engineering', roles: ['mastering'], artist: { name: 'Hugo Calcio' }, editions: [], released: '2021' },
 };
 
 const ownRef: Release = {
   id: 'engineering-overlapse-xiii',
   worksRef: 'overlapse-xiii',
   title: 'Overlapse XIII',
-  meta: { kind: 'engineering', roles: ['mixing', 'mastering'], editions: [{ label: { text: 'BRØQN' } }], year: 2025 },
+  meta: { kind: 'engineering', roles: ['mixing', 'mastering'], editions: [{ label: { text: 'BRØQN' } }], released: '2025' },
 };
 
 describe('EngineeringCreditItem', () => {

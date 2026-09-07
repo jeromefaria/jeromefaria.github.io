@@ -12,6 +12,6 @@ export const deriveEngineeringCredits = (worksData: WorksData): Release[] =>
           kind: 'engineering' as const,
           roles: release.engineering,
           editions: 'editions' in release.meta ? release.meta.editions : [],
-          year: release.meta.year,
+          released: release.meta.released,
         },
       })));

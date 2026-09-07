@@ -21,7 +21,7 @@ const mountRelease = (release: Release, textOnly = false) =>
 const bandcamp: Release = {
   id: 'bandcamp-only',
   title: 'ALTAR',
-  meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2012 },
+  meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], released: '2012' },
   bandcampId: '1643026936',
   coverImage: '/images/altar.jpg',
   bandcampUrl: 'https://jeromefaria.bandcamp.com/album/altar',
@@ -32,7 +32,7 @@ const bandcamp: Release = {
 const audioBacked: Release = {
   id: 'overlapse',
   title: 'Overlapse',
-  meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2012 },
+  meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], released: '2012' },
   bandcampId: '1643026936',
   coverImage: '/images/overlapse.jpg',
   bandcampUrl: 'https://jeromefaria.bandcamp.com/album/overlapse',
@@ -43,7 +43,7 @@ const audioBacked: Release = {
 const external: Release = {
   id: 'ect',
   title: 'ECT',
-  meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'Test Tube' } }], year: 2005 },
+  meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'Test Tube' } }], released: '2005' },
   coverImage: '/images/ect.jpg',
   externalUrl: 'https://example.com/ect',
   tracklist: [{ title: 'Play' }],
@@ -53,7 +53,7 @@ const external: Release = {
 const chaptered: Release = {
   id: '2504',
   title: '2504',
-  meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2024 },
+  meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], released: '2024' },
   coverImage: '/images/2504.jpg',
   bandcampUrl: 'https://jeromefaria.bandcamp.com/album/2504',
   soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/april-25',
@@ -69,7 +69,7 @@ const chaptered: Release = {
 const staticCover: Release = {
   id: 'depolarized',
   title: 'Depolarized',
-  meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2012 },
+  meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], released: '2012' },
   coverImage: '/images/depolarized.jpg',
   credits: 'Music by Jerome Faria and Nelson P. Ferreira.',
 };
@@ -77,7 +77,7 @@ const staticCover: Release = {
 const textOnlyRelease: Release = {
   id: 'master-open',
   title: 'Open',
-  meta: { kind: 'engineering', roles: ['mastering'], artist: { name: 'Hugo Calcio' }, editions: [], year: 2021 },
+  meta: { kind: 'engineering', roles: ['mastering'], artist: { name: 'Hugo Calcio' }, editions: [], released: '2021' },
 };
 
 describe('ReleaseItem', () => {
@@ -108,7 +108,7 @@ describe('ReleaseItem', () => {
     const bandcampExternal: Release = {
       id: 'bc-ext',
       title: 'BC External',
-      meta: { kind: 'music', mediums: ['Digital'], editions: [], year: 2020 },
+      meta: { kind: 'music', mediums: ['Digital'], editions: [], released: '2020' },
       coverImage: '/images/bc.jpg',
       externalUrl: 'https://artist.bandcamp.com/album/bc-external',
     };
@@ -214,7 +214,7 @@ describe('ReleaseItem', () => {
     const release: Release = {
       id: '1714',
       title: '17:14',
-      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2010 },
+      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], released: '2010' },
       tracklist: [{ title: '8:58' }, { title: '2:58' }, { title: '5:18' }],
     };
 
@@ -227,7 +227,7 @@ describe('ReleaseItem', () => {
     const release: Release = {
       id: '1714',
       title: '17:14',
-      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2010 },
+      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], released: '2010' },
       tracklist: [{ title: '8:58' }, { title: '2:58' }, { title: '5:18' }],
     };
 
@@ -242,7 +242,7 @@ describe('ReleaseItem', () => {
     const release: Release = {
       id: '2504',
       title: '2504',
-      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2024 },
+      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], released: '2024' },
       tracklist: [{ title: 'I' }, { title: 'II' }, { title: 'III' }, { title: 'IV' }, { title: 'V' }],
     };
 
@@ -303,7 +303,7 @@ describe('ReleaseItem', () => {
     const release: Release = {
       id: '1714',
       title: '17:14',
-      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2010 },
+      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], released: '2010' },
       tracklist: [{ title: '8:58' }, { title: '2:58' }, { title: '5:18' }],
     };
     const wrapper = mountRelease(release);
@@ -324,7 +324,7 @@ describe('ReleaseItem', () => {
     const publication: Release = {
       id: 'glitch',
       title: 'Glitch',
-      meta: { kind: 'music', mediums: ['Digital'], editions: [], year: 2009 },
+      meta: { kind: 'music', mediums: ['Digital'], editions: [], released: '2009' },
       coverImage: '/images/glitch.jpg',
       externalUrl: 'https://example.com/glitch',
       description: 'A book.',
@@ -348,7 +348,7 @@ describe('ReleaseItem', () => {
     const withVideo: Release = {
       id: 'altar',
       title: 'ALTAR',
-      meta: { kind: 'music', mediums: ['Digital', 'Cassette'], editions: [], year: 2024 },
+      meta: { kind: 'music', mediums: ['Digital', 'Cassette'], editions: [], released: '2024' },
       credits: 'Music by Pedro Roque and Jerome Faria.',
       videos: [
         {
@@ -381,7 +381,7 @@ describe('ReleaseItem', () => {
     const withBoth: Release = {
       id: 'glitch',
       title: 'Glitch',
-      meta: { kind: 'music', mediums: ['Digital'], editions: [], year: 2009 },
+      meta: { kind: 'music', mediums: ['Digital'], editions: [], released: '2009' },
       coverImage: '/images/glitch.jpg',
       externalUrl: 'https://example.com/glitch',
       description: 'A book.',

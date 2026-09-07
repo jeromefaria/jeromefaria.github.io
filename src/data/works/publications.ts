@@ -13,7 +13,7 @@ export const publications: WorksSection = {
         kind: 'publication',
         publisher: { text: 'Mark Batty Publisher' },
         isbn: { value: '978-0-9799666-6-8', url: 'https://www.google.com/books/edition/_/3r65PAAACAAJ?hl=en' },
-        year: 2009,
+        released: '2009',
       },
       description: {
         en: 'A curated collection of over 200 glitch images grabbed, composed and, in some cases, provoked by artists exploring digital aesthetics and imperfection.',

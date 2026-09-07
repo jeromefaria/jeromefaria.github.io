@@ -13,7 +13,7 @@ export const mixingAndMastering: WorksSection = {
         roles: ['mastering'],
         artist: { name: 'Hugo Calcio' },
         editions: [{ label: { text: 'Colectivo Casa Amarela', url: 'https://casaamarela.bandcamp.com/' }, catalog: 'CCA#016' }],
-        year: 2021,
+        released: '2021',
       },
     },
     {
@@ -25,7 +25,7 @@ export const mixingAndMastering: WorksSection = {
         roles: ['mastering'],
         artist: { name: 'Rui P. Andrade', url: 'https://canadian-rifles.bandcamp.com/' },
         editions: [{ label: { text: 'BRØQN' }, catalog: 'BRQN004' }],
-        year: 2012,
+        released: '2012',
       },
     },
   ],

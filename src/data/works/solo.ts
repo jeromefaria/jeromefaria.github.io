@@ -15,7 +15,7 @@ export const solo: WorksSection = {
         kind: 'music',
         mediums: ['Digital'],
         editions: [{ label: { text: 'BRØQN' }, catalog: 'BRQN009' }],
-        year: 2026,
+        released: '2026-05-01',
       },
       tracklist: [
         { title: 'Contraplacado (Se Deus nos der vida e saúde)' },
@@ -42,7 +42,7 @@ export const solo: WorksSection = {
         kind: 'music',
         mediums: ['Digital'],
         editions: [{ label: { text: 'BRØQN' }, catalog: 'BRQN008' }],
-        year: 2026,
+        released: '2026-02-25',
       },
       tracklist: [
         { title: 'En Veille' },
@@ -68,7 +68,7 @@ export const solo: WorksSection = {
         kind: 'music',
         mediums: ['Digital'],
         editions: [{ label: { text: 'BRØQN' }, catalog: 'BRQN006' }],
-        year: 2024,
+        released: '2024-04-25',
       },
       tracklist: [
         { title: 'Prólogo: Estado Novo', start: 0 },
@@ -93,7 +93,7 @@ export const solo: WorksSection = {
         kind: 'music',
         mediums: ['Digital'],
         editions: [{ label: { text: 'BRØQN' }, catalog: 'BRQN005' }],
-        year: 2023,
+        released: '2023-07-07',
       },
       tracklist: [
         { title: 'Spirits Surround Us On Every Side' },
@@ -119,7 +119,7 @@ export const solo: WorksSection = {
         kind: 'music',
         mediums: ['Digital'],
         editions: [{ label: { text: 'BRØQN' }, catalog: 'BRQN002' }, { label: { text: 'Enough Records' }, catalog: 'ENRMP296' }],
-        year: 2012,
+        released: '2012-04-19',
       },
       tracklist: [
         { title: 'Attack (Prelude)' },
@@ -157,7 +157,7 @@ export const solo: WorksSection = {
         kind: 'music',
         mediums: ['Digital'],
         editions: [{ label: { text: 'BRØQN' }, catalog: 'BRQN001' }],
-        year: 2010,
+        released: '2010-02-02',
       },
       tracklist: [
         { title: '8:58' },

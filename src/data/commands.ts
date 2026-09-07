@@ -14,6 +14,7 @@ import type { CommissionMeta, Edition, Release, ReleaseMeta } from '@/types/work
 import { cvPdfHref } from '@/utils/cv';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
 import { openInNewTab } from '@/utils/openInNewTab';
+import { releaseYear } from '@/utils/releaseDate';
 import { canPlayRelease, playReleaseAt } from '@/utils/releasePermalink';
 import { plainCredits } from '@/utils/renderCredits';
 import { stripHtml } from '@/utils/stripHtml';
@@ -115,7 +116,7 @@ const releaseCommands = (locale: Locale): Command[] =>
       id: `works:${release.id}`,
       title: release.title,
       subtitle: localize(section.title, locale),
-      keywords: words([localize(section.title, locale), String(release.meta.year), ...metaText(release.meta), ...(release.tracklist ?? []).map(track => track.title), ...(release.images ?? []).map(image => image.photographer?.name ?? ''), ...(release.contributors ?? []).map(contributor => contributor.name)].join(' ')),
+      keywords: words([localize(section.title, locale), String(releaseYear(release.meta.released)), ...metaText(release.meta), ...(release.tracklist ?? []).map(track => track.title), ...(release.images ?? []).map(image => image.photographer?.name ?? ''), ...(release.contributors ?? []).map(contributor => contributor.name)].join(' ')),
       text: words([localize(release.description ?? '', locale), plainCredits(release.credits ?? '', locale)].join(' ')),
       group: 'Works',
       to: `/works#${release.id}`,

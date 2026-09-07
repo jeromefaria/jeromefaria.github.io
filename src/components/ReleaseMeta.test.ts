@@ -20,7 +20,7 @@ describe('ReleaseMeta', () => {
       kind: 'music',
       mediums: ['Digital'],
       editions: [{ label: { text: 'Enough Records', url: 'https://enoughrecords.scene.org/' } }],
-      year: 2004,
+      released: '2004',
     });
     const anchor = wrapper.get('a');
 
@@ -30,7 +30,7 @@ describe('ReleaseMeta', () => {
   });
 
   it('renders a plain-text label without an anchor', () => {
-    const wrapper = mountMeta({ kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], year: 2012 });
+    const wrapper = mountMeta({ kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], released: '2012' });
 
     expect(wrapper.find('a').exists()).toBe(false);
     expect(wrapper.text()).toContain('BRØQN');
@@ -42,7 +42,7 @@ describe('ReleaseMeta', () => {
       compilation: { text: 'Dark Vault', url: 'https://example.com/dv' },
       mediums: ['MP3'],
       editions: [{ label: { text: 'Enough Records' } }],
-      year: 2004,
+      released: '2004',
     });
 
     expect(wrapper.get('em a').attributes('href')).toBe('https://example.com/dv');

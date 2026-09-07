@@ -1,22 +1,25 @@
 import { describe, expect, it } from 'vitest';
 
+import { releaseYear } from '@/utils/releaseDate';
+
 import { worksData } from './works';
 
 const allReleases = Object.values(worksData).flatMap(section => section.items);
 const KINDS = ['music', 'compilation', 'commission', 'publication', 'engineering'];
 
 describe('worksData', () => {
-  it('every release has a known meta kind and a four-digit year', () => {
+  it('every release has a known meta kind and a valid released date', () => {
     for (const release of allReleases) {
       expect(KINDS, `id="${release.id}" kind`).toContain(release.meta.kind);
-      expect(release.meta.year, `id="${release.id}" year`).toBeGreaterThanOrEqual(1900);
-      expect(release.meta.year, `id="${release.id}" year`).toBeLessThan(2100);
+      expect(release.meta.released, `id="${release.id}" released`).toMatch(/^\d{4}(-\d{2}(-\d{2})?)?$/);
+      expect(releaseYear(release.meta.released), `id="${release.id}" year`).toBeGreaterThanOrEqual(1900);
+      expect(releaseYear(release.meta.released), `id="${release.id}" year`).toBeLessThan(2100);
     }
   });
 
   it('lists every section newest first', () => {
     for (const section of Object.values(worksData)) {
-      const years = section.items.map(item => item.meta.year);
+      const years = section.items.map(item => releaseYear(item.meta.released));
       expect(years, section.title).toEqual([...years].sort((first, second) => second - first));
     }
   });

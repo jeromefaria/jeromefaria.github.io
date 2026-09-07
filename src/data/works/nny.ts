@@ -13,7 +13,7 @@ export const nny: WorksSection = {
         kind: 'music',
         mediums: ['CDr'],
         editions: [{ label: { text: 'Almasud Records', url: 'https://www.discogs.com/label/84424-Almasud-Records' }, catalog: 'CDRASUD015' }],
-        year: 2007,
+        released: '2007-03-18',
       },
       tracklist: [
         { title: '001' },
@@ -41,7 +41,7 @@ export const nny: WorksSection = {
         kind: 'music',
         mediums: ['Digital'],
         editions: [{ label: { text: 'MiMi Records', url: 'https://mimirecords.bandcamp.com/' }, catalog: 'MI056' }],
-        year: 2006,
+        released: '2006-06-06',
       },
       tracklist: [
         { title: 'Dream Cycles In Perpetual Motion' },
@@ -65,7 +65,7 @@ export const nny: WorksSection = {
         kind: 'music',
         mediums: ['Digital'],
         editions: [{ label: { text: 'MiMi Records', url: 'https://mimirecords.bandcamp.com/' }, catalog: 'MI031' }],
-        year: 2005,
+        released: '2005-01-05',
       },
       tracklist: [
         { title: 'God Grnlzer' },
@@ -97,7 +97,7 @@ export const nny: WorksSection = {
         kind: 'music',
         mediums: ['Digital'],
         editions: [{ label: { text: 'Test Tube', url: 'https://www.monocromatica.com/netlabel/' }, catalog: 'TUBE026' }],
-        year: 2005,
+        released: '2005-10-21',
       },
       tracklist: [
         { title: 'Play' },
@@ -128,7 +128,7 @@ export const nny: WorksSection = {
         kind: 'music',
         mediums: ['Digital'],
         editions: [{ label: { text: 'Enough Records', url: 'https://enoughrecords.scene.org/' }, catalog: 'ENRMP040' }],
-        year: 2004,
+        released: '2004-07-04',
       },
       tracklist: [
         { title: 'Ve.Fe.Re' },
