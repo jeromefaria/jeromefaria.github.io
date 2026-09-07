@@ -10,6 +10,7 @@ import { useScrollLock } from '@/composables/useScrollLock';
 import { useSwipeDismiss } from '@/composables/useSwipeDismiss';
 import { useT } from '@/i18n/useT';
 import type { AudioTrack } from '@/types/audio';
+import { toWebp } from '@/utils/responsiveImage';
 
 const { status, currentTrack, queue, currentTime, duration, context, hasNext, hasPrevious, toggle, next, previous, seek, select, collapse } =
   usePlayer();
@@ -71,11 +72,16 @@ onBeforeUnmount(() => {
     </button>
 
     <div class="player-screen__art">
-      <img
-        v-if="context.artwork"
-        :src="context.artwork"
-        alt=""
-      >
+      <picture v-if="context.artwork">
+        <source
+          :srcset="toWebp(context.artwork)"
+          type="image/webp"
+        >
+        <img
+          :src="context.artwork"
+          alt=""
+        >
+      </picture>
     </div>
 
     <div class="player-screen__meta">
