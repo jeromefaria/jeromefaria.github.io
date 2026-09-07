@@ -4,7 +4,7 @@ import { localize } from '@/i18n/localized';
 import { BCP47_LOCALE, type Locale } from '@/i18n/messages';
 import { hasBandcampId, hasBandcampUrl, hasCoverImage, type Release } from '@/types';
 import type { SchemaBook, SchemaRelease, SchemaWorksGraph } from '@/types/schema';
-import { releaseYear } from '@/utils/releaseDate';
+import { releaseYearString } from '@/utils/releaseDate';
 
 import { createMusicAlbumSchema } from './schemaHelpers';
 import { stripHtml } from './stripHtml';
@@ -22,7 +22,7 @@ const createGlitchBookSchema = (): SchemaBook => {
     inLanguage: BCP47_LOCALE.en,
     image: book.coverImage ? `${siteConfig.url}${book.coverImage}` : '',
     url: book.externalUrl ?? '',
-    datePublished: String(releaseYear(meta.released)),
+    datePublished: releaseYearString(meta.released),
     isbn: meta.isbn?.value ?? '',
     publisher: {
       '@type': 'Organization',
@@ -46,7 +46,7 @@ export const createWorksPageSchema = (): SchemaWorksGraph => {
   const albums = (soloSection?.items ?? [])
     .filter(release => hasBandcampId(release) || hasBandcampUrl(release))
     .map(release => {
-      const withDate = { ...release, datePublished: String(releaseYear(release.meta.released)) };
+      const withDate = { ...release, datePublished: releaseYearString(release.meta.released) };
       return createMusicAlbumSchema(withDate, siteConfig.author.name, siteConfig.url);
     });
 
@@ -72,7 +72,7 @@ export const createReleaseSchema = (release: Release, locale: Locale, canonicalU
 
   if (hasBandcampId(release) || hasBandcampUrl(release)) {
     const album = createMusicAlbumSchema(
-      { ...release, datePublished: String(releaseYear(release.meta.released)) },
+      { ...release, datePublished: releaseYearString(release.meta.released) },
       siteConfig.author.name,
       siteConfig.url,
     );
@@ -87,7 +87,7 @@ export const createReleaseSchema = (release: Release, locale: Locale, canonicalU
     ...(release.description ? { description: stripHtml(localize(release.description, locale)) } : {}),
     url: canonicalUrl,
     mainEntityOfPage: canonicalUrl,
-    dateCreated: String(releaseYear(release.meta.released)),
+    dateCreated: releaseYearString(release.meta.released),
     ...(hasCoverImage(release) ? { image: `${siteConfig.url}${release.coverImage}` } : {}),
     creator: { '@type': 'Person', name: siteConfig.author.name },
   };
