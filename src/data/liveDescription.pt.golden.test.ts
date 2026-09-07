@@ -5,7 +5,7 @@ import { buildEventDescription } from '@/utils/liveDescription';
 import { liveEvents } from './live';
 
 const DESCRIPTIONS_PT: Record<string, string> = {
-  'tbc-2026-09-19': 'Actuação a solo.',
+  'jejum-45': 'Actuação a solo. Ao lado de Peak Bleak.',
   'festival-multiplo-2026': 'Actuação a solo. Ao lado de Água Doce, Alga, <a href="https://canadian-rifles.bandcamp.com/">Canadian Rifles</a>, Caranguejos, Double Double, Formidolor, <a href="https://joanadesa.work/">Joana de Sá</a>, <a href="https://llamavirgem.bandcamp.com/">Llama Virgem</a>, Musgos, Open Source 3IO, Pedro PMDS.',
   'showcase-casa-amarela': "NOx (com <a href=\"https://cavernancia.bandcamp.com/\">Pedro Roque</a>). Ao lado de <a href=\"https://copodagua.bandcamp.com/\">Copo d'Água</a>, TiaAvô, Rebolation All-Stars.",
   'fim-de-emissao-45': 'Actuação a solo. Ao lado de Ai Feith, W.T.V.R.',
