@@ -110,7 +110,7 @@ export const film: WorksSection = {
         kind: 'commission',
         work: 'DVD',
         publisher: { label: { text: 'Pixelnerve' }, catalog: 'PXN001' },
-        released: '2008',
+        released: '2007-12-08',
       },
       description: {
         en: 'A collaborative effort between sound artist Jerome Faria and programmer <a href="https://pixelnerve.com/">Victor Martins</a>, documenting experiments in audiovisual composition. The project was presented both as a live performance and as this DVD release.',
