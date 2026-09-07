@@ -90,59 +90,61 @@ onBeforeUnmount(() => {
       </Transition>
     </div>
 
-    <div class="player-screen__meta">
-      <p class="player-screen__title">
-        {{ currentTrack?.title }}
-      </p>
-      <p class="player-screen__artist">
-        {{ currentTrack?.artist ?? 'Jerome Faria' }}
-      </p>
-      <p
-        v-if="context.album"
-        class="player-screen__album"
-      >
-        {{ context.album }}
-      </p>
-    </div>
-
-    <PlayerSeek
-      :current-time="currentTime"
-      :duration="duration"
-      :label="t('player.seekGeneric')"
-      @seek="seek"
-    />
-
-    <TransportControls
-      :playing="isPlaying"
-      :busy="isBusy"
-      :has-previous="hasPrevious"
-      :has-next="hasNext"
-      :current-time="currentTime"
-      @previous="previous"
-      @toggle="toggle"
-      @next="next"
-    />
-
-    <ol
-      v-if="queue.length > 1"
-      class="player-screen__queue"
-      :aria-label="t('player.queue')"
-    >
-      <li
-        v-for="(track, index) in queue"
-        :key="track.key"
-      >
-        <button
-          type="button"
-          class="player-screen__queue-item"
-          :class="{ 'is-current': index === currentIndex }"
-          :aria-current="index === currentIndex ? 'true' : undefined"
-          @click="select(index)"
+    <div class="player-screen__panel">
+      <div class="player-screen__meta">
+        <p class="player-screen__title">
+          {{ currentTrack?.title }}
+        </p>
+        <p class="player-screen__artist">
+          {{ currentTrack?.artist ?? 'Jerome Faria' }}
+        </p>
+        <p
+          v-if="context.album"
+          class="player-screen__album"
         >
-          <span class="player-screen__queue-num">{{ index + 1 }}</span>
-          <span class="player-screen__queue-title">{{ trackLabel(track) }}</span>
-        </button>
-      </li>
-    </ol>
+          {{ context.album }}
+        </p>
+      </div>
+
+      <PlayerSeek
+        :current-time="currentTime"
+        :duration="duration"
+        :label="t('player.seekGeneric')"
+        @seek="seek"
+      />
+
+      <TransportControls
+        :playing="isPlaying"
+        :busy="isBusy"
+        :has-previous="hasPrevious"
+        :has-next="hasNext"
+        :current-time="currentTime"
+        @previous="previous"
+        @toggle="toggle"
+        @next="next"
+      />
+
+      <ol
+        v-if="queue.length > 1"
+        class="player-screen__queue"
+        :aria-label="t('player.queue')"
+      >
+        <li
+          v-for="(track, index) in queue"
+          :key="track.key"
+        >
+          <button
+            type="button"
+            class="player-screen__queue-item"
+            :class="{ 'is-current': index === currentIndex }"
+            :aria-current="index === currentIndex ? 'true' : undefined"
+            @click="select(index)"
+          >
+            <span class="player-screen__queue-num">{{ index + 1 }}</span>
+            <span class="player-screen__queue-title">{{ trackLabel(track) }}</span>
+          </button>
+        </li>
+      </ol>
+    </div>
   </div>
 </template>
