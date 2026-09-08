@@ -154,6 +154,8 @@ public/          Static assets
 
 ## Development
 
+**Prerequisites:** Node.js **≥ 20** — pinned in `.nvmrc` (`nvm use`) and enforced by `package.json` `engines`.
+
 ```bash
 # Install dependencies
 npm install
@@ -174,6 +176,8 @@ npm run type-check
 npm run lint
 npm run lint:fix
 ```
+
+No environment setup is required to run locally — audio falls back to same-origin assets and the site builds English-only by default. To stream audio from Cloudflare R2 or preview the Portuguese locale, copy `.env.example` to `.env` and set the optional `VITE_` variables it documents.
 
 ## Testing
 
@@ -208,6 +212,10 @@ npm run test:e2e:ui
 npm run test:e2e:report
 ```
 
+First run only: `npx playwright install` to fetch the browser binaries.
+
+> **macOS + WebKit:** the keyboard-focus spec (`accessibility.spec.ts`) needs Tab to move focus to links, which macOS gates behind **System Settings → Keyboard → Keyboard navigation** (Full Keyboard Access). Enable it before running the WebKit suite locally, or lean on CI (Linux) for those checks — everything else runs unchanged.
+
 **E2E Test Coverage**:
 - Navigation and routing
 - Accordion functionality with hash navigation
@@ -231,6 +239,8 @@ npm run lighthouse
 # Mobile profile (Moto G4 + slow-4G emulation)
 npm run lighthouse:mobile
 ```
+
+> **Apple Silicon:** run Lighthouse under an **arm64** Node build — launching Chrome from an x64 Node (often via Rosetta) aborts the run. Confirm with `node -p process.arch` (should print `arm64`).
 
 **Performance Budgets** (`.lighthouserc.json`). The **enforced** assertions fail CI:
 - Accessibility ≥ 95 and Best Practices ≥ 90
