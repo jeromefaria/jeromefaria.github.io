@@ -132,6 +132,18 @@ describe('usePlayerHotkeys', () => {
     expect(time()).toBe(0);
   });
 
+  it('jumps to the first and last chapter with gg and G for a chaptered release', async () => {
+    const chapters = [{ title: 'A', start: 0 }, { title: 'B', start: 120 }, { title: 'C', start: 240 }];
+    await player.play([{ key: 'c/1.m4a', title: 'Whole', duration: 300 }], 0, { chapters });
+
+    dispatch('G');
+    expect(time()).toBe(240);
+
+    dispatch('g');
+    dispatch('g');
+    expect(time()).toBe(0);
+  });
+
   it('does nothing without a loaded track', () => {
     dispatch('l');
     expect(time()).toBe(0);
