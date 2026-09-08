@@ -400,4 +400,22 @@ describe('ReleaseItem', () => {
     expect(buttons[1].text()).toBe('Videos');
     expect(wrapper.get('.media-links').text()).toContain('|');
   });
+
+  it('links a mapped release to its essay as a Notes link', () => {
+    const notes = mountRelease(chaptered).findAll('.media-links a').find(link => link.text() === 'Notes');
+
+    expect(notes?.attributes('href')).toBe('/writing/2504');
+  });
+
+  it('omits the essay Notes link on the Portuguese locale', async () => {
+    const ptRouter = createRouter({
+      history: createMemoryHistory(),
+      routes: [{ path: '/:pathMatch(.*)*', meta: { locale: 'pt' }, component: { render: () => null } }],
+    });
+    ptRouter.push('/pt/works');
+    await ptRouter.isReady();
+    const wrapper = mount(ReleaseItem, { props: { release: chaptered }, global: { plugins: [ptRouter] } });
+
+    expect(wrapper.findAll('.media-links a').some(link => link.text() === 'Notes')).toBe(false);
+  });
 });

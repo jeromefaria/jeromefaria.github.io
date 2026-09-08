@@ -54,6 +54,7 @@ export const pt: MessageSchema = {
     video: 'Vídeo',
     videos: 'Vídeos',
     download: 'Descarregar',
+    notes: 'Notas',
     view: 'Ver {label}',
     downloadAria: 'Descarregar esta edição do Bandcamp (abre num novo separador)',
     photoBy: 'Foto de',

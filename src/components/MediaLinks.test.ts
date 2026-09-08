@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { mount, RouterLinkStub } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
 
 import type { LightboxItem } from '@/types';
@@ -10,8 +10,11 @@ const poster: LightboxItem = { type: 'image', src: '/poster.jpg', alt: 'Poster' 
 const video: LightboxItem = { type: 'video', url: 'https://v', title: 'V', platform: 'youtube' };
 
 const mountLinks = (
-  props: Partial<{ images: LightboxItem[]; posters: LightboxItem[]; videos: LightboxItem[]; imageLabel: string; sourceId: string; downloadUrl: string }>,
-) => mount(MediaLinks, { props: { images: [], videos: [], imageLabel: 'Gallery', sourceId: 'ev-1', ...props } });
+  props: Partial<{ images: LightboxItem[]; posters: LightboxItem[]; videos: LightboxItem[]; imageLabel: string; sourceId: string; downloadUrl: string; notesHref: string }>,
+) => mount(MediaLinks, {
+  props: { images: [], videos: [], imageLabel: 'Gallery', sourceId: 'ev-1', ...props },
+  global: { stubs: { RouterLink: RouterLinkStub } },
+});
 
 describe('MediaLinks', () => {
   it('renders nothing when there are no images or videos', () => {
@@ -56,10 +59,16 @@ describe('MediaLinks', () => {
     expect(wrapper.emitted('open-lightbox')?.[0]).toEqual([[poster, poster], 0, { id: 'ev-1', kind: 'poster' }]);
   });
 
-  it('orders the controls images, posters, then videos', () => {
-    const buttons = mountLinks({ images: [image], posters: [poster], videos: [video] }).findAll('button');
+  it('orders every control alphabetically by label', () => {
+    const labels = mountLinks({
+      images: [image],
+      posters: [poster],
+      videos: [video],
+      downloadUrl: 'https://jeromefaria.bandcamp.com/album/altar',
+      notesHref: '/writing/2504',
+    }).findAll('button, a').map(control => control.text());
 
-    expect(buttons.map(button => button.text())).toEqual(['Gallery', 'Poster', 'Video']);
+    expect(labels).toEqual(['Download', 'Gallery', 'Notes', 'Poster', 'Video']);
   });
 
   it('renders a download link as a new-tab external anchor when a URL is given', () => {
@@ -71,14 +80,21 @@ describe('MediaLinks', () => {
     expect(link.attributes('rel')).toBe('noopener noreferrer');
   });
 
-  it('shows the download link alongside media controls, after them', () => {
-    const wrapper = mountLinks({ images: [image], downloadUrl: 'https://jeromefaria.bandcamp.com/album/altar' });
+  it('places the download link in alphabetical order among the controls', () => {
+    const labels = mountLinks({ images: [image], downloadUrl: 'https://jeromefaria.bandcamp.com/album/altar' })
+      .findAll('button, a').map(control => control.text());
 
-    expect(wrapper.get('button').text()).toBe('Gallery');
-    expect(wrapper.get('a').text()).toBe('Download');
+    expect(labels).toEqual(['Download', 'Gallery']);
   });
 
-  it('renders nothing when there are neither media nor a download URL', () => {
+  it('renders a Notes link to the essay as an internal RouterLink', () => {
+    const link = mountLinks({ notesHref: '/writing/2504' }).findComponent(RouterLinkStub);
+
+    expect(link.text()).toBe('Notes');
+    expect(link.props('to')).toBe('/writing/2504');
+  });
+
+  it('renders nothing when there are neither media, a download URL, nor notes', () => {
     expect(mountLinks({}).find('.media-links').exists()).toBe(false);
   });
 });
