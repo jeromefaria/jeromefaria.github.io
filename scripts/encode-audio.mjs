@@ -3,6 +3,8 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { loadData } from './data-loader.mjs';
+
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SOURCE_ROOT = '/Volumes/Audio/Audio/Releases';
 const OUT_ROOT = join(REPO_ROOT, 'audio-dist');
@@ -76,6 +78,28 @@ const RELEASES = [
       { file: '08 - W. R. Pyo - Release (Conclusion).wav', title: 'Release (Conclusion)', artist: 'W. R. Pyo' },
     ],
   },
+  {
+    releaseId: 'depolarized', catalog: 'BRQN003',
+    root: '/Volumes/Audio/Audio/Documents/Label/Releases',
+    folder: '2012 - BRQN003 - Jerome Faria + Nelson P. Ferreira - Depolarized',
+    album: 'Depolarized', year: 2012,
+    tracks: [
+      { file: '01 - Depolarized.wav', title: 'Depolarized', artist: 'Jerome Faria + Nelson P. Ferreira' },
+    ],
+  },
+  {
+    releaseId: 'altar', catalog: 'CCA035',
+    root: '/Volumes/Audio/Audio/Projects/Collaborations',
+    folder: 'NOx/ALTAR',
+    album: 'ALTAR', year: 2024,
+    tracks: [
+      { file: 'NOx - ALTAR - 01 A.aiff', title: 'A', artist: 'NOx', artwork: '/images/tracks/altar.jpg' },
+      { file: 'NOx - ALTAR - 02 L.aiff', title: 'L', artist: 'NOx', artwork: '/images/tracks/altar.jpg' },
+      { file: 'NOx - ALTAR - 03 T.aiff', title: 'T', artist: 'NOx', artwork: '/images/tracks/altar.jpg' },
+      { file: 'NOx - ALTAR - 04 A.aiff', title: 'A', artist: 'NOx', artwork: '/images/tracks/altar.jpg' },
+      { file: 'NOx - ALTAR - 05 R.aiff', title: 'R', artist: 'NOx', artwork: '/images/tracks/altar.jpg' },
+    ],
+  },
 ];
 
 const ARTIST = 'Jerome Faria';
@@ -133,17 +157,25 @@ const writeManifest = manifest => {
   writeFileSync(MANIFEST_FILE, content);
 };
 
-const run = () => {
+const run = async () => {
   assertSafePaths();
 
   const measureOnly = process.argv.includes('--measure');
   const manifestOnly = process.argv.includes('--manifest');
+  const onlyIndex = process.argv.indexOf('--only');
+  const onlyIds = onlyIndex >= 0 ? process.argv[onlyIndex + 1]?.split(',').map(id => id.trim()) : null;
+  const releases = onlyIds ? RELEASES.filter(release => onlyIds.includes(release.releaseId)) : RELEASES;
+
   const manifest = {};
+  if (onlyIds && !measureOnly) {
+    const { audioManifest: existing } = await loadData('src/data/audioManifest.ts');
+    Object.assign(manifest, existing);
+  }
   let count = 0;
 
-  for (const release of RELEASES) {
-    const folder = join(SOURCE_ROOT, release.folder);
-    const cover = existsSync(join(folder, 'cover.jpg')) ? join(folder, 'cover.jpg') : null;
+  for (const release of releases) {
+    const folder = join(release.root ?? SOURCE_ROOT, release.folder);
+    const cover = ['cover.jpg', 'cover.png'].map(name => join(folder, name)).find(existsSync) ?? null;
     manifest[release.releaseId] = [];
 
     release.tracks.forEach((track, index) => {
@@ -183,8 +215,8 @@ const run = () => {
     console.log(`Manifest regenerated from existing encodes → ${MANIFEST_FILE}`);
     return;
   }
-  console.log(`\nEncoded ${count} tracks across ${RELEASES.length} releases. All masters true-peak limited to -1 dBTP;`);
+  console.log(`\nEncoded ${count} tracks across ${releases.length} releases. All masters true-peak limited to -1 dBTP;`);
   console.log(`AAC decode overshoot is expected and handled by output headroom in the player. Manifest → ${MANIFEST_FILE}`);
 };
 
-run();
+await run();
