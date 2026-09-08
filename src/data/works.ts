@@ -2,7 +2,7 @@ import type { WorksData } from '@/types/works';
 
 // eslint-disable-next-line local/no-comments -- non-obvious gotcha
 // vite.config.ts imports this file in Node, where the '@/' alias is unset, so value imports must stay relative; type-only '@/' imports (line 1) are erased by esbuild and are safe.
-import { releaseYear } from '../utils/releaseDate';
+import { releaseYear } from '../utils/releaseDate.ts';
 import { collaborations } from './works/collaborations.ts';
 import { compilations } from './works/compilations.ts';
 import { deriveEngineeringCredits } from './works/engineeringCredits.ts';
