@@ -20,9 +20,8 @@
   }
 
   &__image {
-    width: 90vw;
-    height: 90vh;
-    object-fit: contain;
+    max-width: 90vw;
+    max-height: 90vh;
     cursor: default;
   }
 
@@ -103,7 +102,7 @@
 
     &:disabled {
       opacity: $opacity-20;
-      cursor: not-allowed;
+      cursor: default;
     }
 
     @media (prefers-reduced-motion: no-preference) {
