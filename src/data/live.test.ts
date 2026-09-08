@@ -49,6 +49,12 @@ describe('liveData image alts', () => {
 
 describe('liveData posters', () => {
   const POSTERS: Record<string, { src: string; alt: string; artist?: { name: string; url?: string } }[]> = {
+    'jejum-45': [
+      {
+        src: '/images/live/jejum-45-poster-001.jpg',
+        alt: 'Jejum #45 poster — Colectivo Casa Amarela at Fábrica da Criatividade, Castelo Branco, 19–20 September 2026, with Guilherme Rodrigues, Zé Maria Carreira, Gweynn, Jerome Faria, Living Room DJs, Peak Bleak and Soria',
+      },
+    ],
     'aragao-funchal': [
       {
         src: '/images/live/aragao-funchal-poster-001.jpg',

@@ -5,10 +5,26 @@ export const liveEvents: LiveEvent[] = [
     id: 'jejum-45',
     title: 'Jejum #45',
     date: '2026-09-19',
+    endDate: '2026-09-20',
     venue: { name: 'Fábrica da Criatividade', url: 'https://www.cm-castelobranco.pt/visitante/fabrica-da-criatividade/', city: 'Castelo Branco', country: 'Portugal' },
     setup: { kind: 'solo' },
     bill: [
+      { text: 'Guilherme Rodrigues' },
+      { text: 'Zé Maria Carreira' },
+      { text: 'Gweynn' },
+      { text: 'Living Room DJs' },
       { text: 'Peak Bleak' },
+      { text: 'Soria' },
+    ],
+    credit: {
+      en: 'Presented by <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+      pt: 'Apresentado pelo <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+    },
+    posters: [
+      {
+        src: '/images/live/jejum-45-poster-001.jpg',
+        alt: { en: 'Jejum #45 poster — Colectivo Casa Amarela at Fábrica da Criatividade, Castelo Branco, 19–20 September 2026, with Guilherme Rodrigues, Zé Maria Carreira, Gweynn, Jerome Faria, Living Room DJs, Peak Bleak and Soria', pt: 'Cartaz do Jejum #45 — Colectivo Casa Amarela na Fábrica da Criatividade, Castelo Branco, 19–20 de setembro de 2026, com Guilherme Rodrigues, Zé Maria Carreira, Gweynn, Jerome Faria, Living Room DJs, Peak Bleak e Soria' },
+      },
     ],
   },
   {
@@ -81,6 +97,10 @@ export const liveEvents: LiveEvent[] = [
       { text: 'TiaAvô', url: 'https://casaamarela.bandcamp.com/album/tiaav' },
       { text: 'Rebolation All-Stars' },
     ],
+    credit: {
+      en: 'Presented by <a href="https://outra.pt/">OUT.RA</a> and <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+      pt: 'Apresentado pela <a href="https://outra.pt/">OUT.RA</a> e pelo <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+    },
     imageAlt: { en: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025', pt: 'NOx a actuar no Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025' },
     images: [
       {
@@ -145,6 +165,10 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Ai Feith', url: 'https://aifeith.bandcamp.com/' },
       { text: 'W.T.V.R' },
     ],
+    credit: {
+      en: 'Presented by <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+      pt: 'Apresentado pelo <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+    },
     imageAlt: { en: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025', pt: 'Jerome Faria a actuar no Fim de Emissão #45, Desterro, Lisboa, 2025' },
     images: [
       {
@@ -191,6 +215,10 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Moss Kissing', url: 'https://mosskissingmusic.bandcamp.com/' },
       { text: 'Rui Wentacid', suffix: '(DJ set)' },
     ],
+    credit: {
+      en: 'Presented by <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+      pt: 'Apresentado pelo <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+    },
   },
   {
     id: 'cca-no-desterro',
@@ -203,6 +231,10 @@ export const liveEvents: LiveEvent[] = [
       { text: 'DJ Privilégio', url: 'https://soundcloud.com/djprivilegio' },
       { text: "Gallo'84", url: 'https://casaamarela.bandcamp.com/album/shimano' },
     ],
+    credit: {
+      en: 'Presented by <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+      pt: 'Apresentado pelo <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+    },
     imageAlt: { en: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024', pt: 'NOx a actuar em CCA no Desterro, Desterro, Lisboa, 2024' },
     images: [
       {
@@ -333,6 +365,10 @@ export const liveEvents: LiveEvent[] = [
     date: '2022-03-05',
     venue: { name: 'Rua das Gaivotas 6', url: 'https://ruadasgaivotas6.pt/', city: 'Lisbon', country: 'Portugal' },
     setup: { kind: 'solo' },
+    credit: {
+      en: 'Presented by <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+      pt: 'Apresentado pelo <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+    },
     imageAlt: { en: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022', pt: 'Jerome Faria a actuar no Jejum #11, Rua das Gaivotas 6, Lisboa, 2022' },
     images: [
       {
@@ -422,9 +458,9 @@ export const liveEvents: LiveEvent[] = [
       ],
       { text: 'Whalt Thisney', url: 'https://walthisney.bandcamp.com/' },
     ],
-    note: {
-      en: 'Organised by <a href="https://linktr.ee/narizentupido">Nariz Entupido</a> with <a href="https://thisco.bandcamp.com/">THISCO</a> and SPH.',
-      pt: 'Organizado pela <a href="https://linktr.ee/narizentupido">Nariz Entupido</a> com a <a href="https://thisco.bandcamp.com/">THISCO</a> e a SPH.',
+    credit: {
+      en: 'Presented by <a href="https://linktr.ee/narizentupido">Nariz Entupido</a> with <a href="https://thisco.bandcamp.com/">THISCO</a> and SPH.',
+      pt: 'Apresentado pela <a href="https://linktr.ee/narizentupido">Nariz Entupido</a> com a <a href="https://thisco.bandcamp.com/">THISCO</a> e a SPH.',
     },
     imageAlt: { en: 'Jerome Faria and CAVERNANCIA performing at SMUP, Parede, 2021', pt: 'Jerome Faria e CAVERNANCIA a actuar na SMUP, Parede, 2021' },
     images: [
@@ -584,6 +620,10 @@ export const liveEvents: LiveEvent[] = [
       en: 'Festival about creativity, technology and science.',
       pt: 'Festival sobre criatividade, tecnologia e ciência.',
     },
+    credit: {
+      en: 'Presented by <a href="https://www.urbanistas.pt">Urbanistas</a>.',
+      pt: 'Apresentado pelos <a href="https://www.urbanistas.pt">Urbanistas</a>.',
+    },
   },
   {
     id: 'caligari-live-3',
@@ -658,6 +698,10 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Nadja', url: 'https://nadja.bandcamp.com/' },
       { text: 'Aki Onda', url: 'https://akionda.net/' },
     ],
+    credit: {
+      en: 'Presented by <a href="https://www.apca-madeira.org/">APCA</a> and <a href="https://www.digitalinberlin.de/">Digital in Berlin</a>.',
+      pt: 'Apresentado pela <a href="https://www.apca-madeira.org/">APCA</a> e pela <a href="https://www.digitalinberlin.de/">Digital in Berlin</a>.',
+    },
     imageAlt: { en: 'Jerome Faria and Taylor Deupree performing at MADEIRADIG, Casa das Mudas, Calheta, 2011', pt: 'Jerome Faria e Taylor Deupree a actuar no MADEIRADIG, Casa das Mudas, Calheta, 2011' },
     images: [
       {
@@ -726,6 +770,10 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Paul Farrington', url: 'https://www.paul-farrington-design.com/' },
       { text: 'André Gonçalves', url: 'https://www.andregoncalves.info/' },
     ],
+    credit: {
+      en: 'Presented by <a href="https://www.porto.ucp.pt/">Universidade Católica do Porto</a>.',
+      pt: 'Apresentado pela <a href="https://www.porto.ucp.pt/">Universidade Católica do Porto</a>.',
+    },
     imageAlt: { en: 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010', pt: 'Jerome Faria a actuar no Olhares de Outono, Passos Manuel, Porto, 2010' },
     images: [
       {
@@ -774,6 +822,10 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Gigantiq', url: 'https://gigantiq.bandcamp.com/' },
       { text: 'Jade', url: 'http://www.jade-enterprises.at/' },
     ],
+    credit: {
+      en: 'Presented by <a href="https://www.apca-madeira.org/">APCA</a> and <a href="https://www.digitalinberlin.de/">Digital in Berlin</a>.',
+      pt: 'Apresentado pela <a href="https://www.apca-madeira.org/">APCA</a> e pela <a href="https://www.digitalinberlin.de/">Digital in Berlin</a>.',
+    },
     imageAlt: { en: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, Casa das Mudas, Calheta, 2009', pt: 'Jerome Faria e Hugo Olim a actuar no MADEIRADIG, Casa das Mudas, Calheta, 2009' },
     images: [
       {
@@ -819,6 +871,7 @@ export const liveEvents: LiveEvent[] = [
   {
     id: 'eme-olhares-2009',
     title: 'EME.LL / Olhares de Outono',
+    titleUrl: 'https://www.vitorjoaquim.pt/vj.concerts_2009_21.22%20November.htm',
     date: '2009-11-21',
     venue: { name: 'Mosteiro São Bento da Vitória', url: 'https://www.tnsj.pt/en/edificios/mosteiro-de-sao-bento-da-vitoria/', city: 'Porto', country: 'Portugal' },
     setup: {
@@ -843,6 +896,10 @@ export const liveEvents: LiveEvent[] = [
         { text: 'Laetitia Morais', url: 'https://laetitiamorais.com/' },
         { text: 'Hugo Olim', url: 'https://vimeo.com/hugoolim' },
       ],
+    },
+    credit: {
+      en: 'Presented by <a href="https://www.porto.ucp.pt/">Universidade Católica do Porto</a>.',
+      pt: 'Apresentado pela <a href="https://www.porto.ucp.pt/">Universidade Católica do Porto</a>.',
     },
     imageAlt: { en: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009', pt: 'Encontro de laptops Resampling White Noise no EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009' },
     images: [
@@ -888,6 +945,7 @@ export const liveEvents: LiveEvent[] = [
   {
     id: 'eme-2008',
     title: 'EME',
+    titleUrl: 'https://www.emefestival.org/EME_web_press.html',
     date: '2008-10-01',
     venue: { name: 'Teatro Ibérico', url: 'https://teatroiberico.org/', city: 'Lisbon', country: 'Portugal' },
     setup: { kind: 'solo' },
@@ -1028,6 +1086,10 @@ export const liveEvents: LiveEvent[] = [
       { text: 'Vladislav Delay', url: 'https://vladislavdelay.bandcamp.com/' },
       { text: 'Ran Slavin', url: 'https://ranslavin.com/' },
     ],
+    credit: {
+      en: 'Presented by <a href="https://www.apca-madeira.org/">APCA</a> and <a href="https://www.digitalinberlin.de/">Digital in Berlin</a>.',
+      pt: 'Apresentado pela <a href="https://www.apca-madeira.org/">APCA</a> e pela <a href="https://www.digitalinberlin.de/">Digital in Berlin</a>.',
+    },
     imageAlt: { en: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007', pt: 'Jerome Faria a actuar no MADEIRADIG, Casa das Mudas, Calheta, 2007' },
     images: [
       {
@@ -1085,6 +1147,10 @@ export const liveEvents: LiveEvent[] = [
       [{ text: 'Phonophani', url: 'https://phonophani.bandcamp.com/' }, { text: 'Marius Watz', url: 'https://mariuswatz.com/' }],
       { text: 'Frank Bretschneider', url: 'https://frankbretschneider.bandcamp.com/' },
     ],
+    credit: {
+      en: 'Presented by <a href="https://www.apca-madeira.org/">APCA</a>.',
+      pt: 'Apresentado pela <a href="https://www.apca-madeira.org/">APCA</a>.',
+    },
   },
   {
     id: 'madeiradig-2005',
@@ -1103,6 +1169,10 @@ export const liveEvents: LiveEvent[] = [
       { text: 'LB^LC', url: 'https://www.discogs.com/artist/385554-LBLC' },
       [{ text: 'Ruinman' }, { text: 'Redo' }],
     ],
+    credit: {
+      en: 'Presented by <a href="https://www.apca-madeira.org/">APCA</a>.',
+      pt: 'Apresentado pela <a href="https://www.apca-madeira.org/">APCA</a>.',
+    },
     imageAlt: { en: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005', pt: 'Jerome Faria e Hugo Olim a actuar no MADEIRADIG, Auditório da RDP, Funchal, 2005' },
     images: [
       {
