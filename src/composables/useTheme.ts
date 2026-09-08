@@ -74,3 +74,7 @@ export const toggleTheme = (): void => {
 export const matchSystemTheme = (): void => {
   setChoice('system');
 };
+
+export const refreshTheme = (): void => {
+  applyToDocument();
+};
