@@ -142,6 +142,12 @@ hr {
     }
   }
 
+  .writing-listen {
+    display: inline-block;
+    margin-bottom: $spacing-4;
+    background: none;
+  }
+
   strong {
     font-weight: $font-weight-semibold;
   }

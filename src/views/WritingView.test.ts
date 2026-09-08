@@ -9,13 +9,14 @@ describe('WritingView', () => {
   it('lists every essay with its title, formatted date, and link', async () => {
     const wrapper = await mountView(WritingView, '/writing');
     const html = wrapper.html();
+    const text = wrapper.text();
 
     for (const essay of essays) {
-      expect(html).toContain(essay.title);
-      expect(html).toContain(essay.tagline);
+      expect(text).toContain(essay.title);
+      expect(text).toContain(essay.tagline);
       expect(html).toContain(`/writing/${essay.slug}`);
     }
 
-    expect(html).toContain('7 September 2026');
+    expect(text).toContain('7 September 2026');
   });
 });
