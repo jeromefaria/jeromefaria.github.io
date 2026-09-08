@@ -1,5 +1,7 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 
+import { isEditable } from '@/utils/keyboardTarget';
+
 export const paletteOpen = ref(false);
 export const helpOpen = ref(false);
 
@@ -17,31 +19,34 @@ export const openKeyboardHelp = (): void => {
   helpOpen.value = true;
 };
 
-const isEditable = (element: EventTarget | null): boolean => {
-  if (!(element instanceof HTMLElement)) return false;
+const isBareKey = (event: KeyboardEvent): boolean =>
+  !event.ctrlKey && !event.metaKey && !event.altKey && !isEditable(document.activeElement);
 
-  const tag = element.tagName;
-  return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || element.isContentEditable;
+const togglePalette = (): void => {
+  if (paletteOpen.value) paletteOpen.value = false;
+  else openCommandPalette();
+};
+
+const toggleHelp = (): void => {
+  if (helpOpen.value) helpOpen.value = false;
+  else openKeyboardHelp();
 };
 
 export const useOverlayHotkeys = (): void => {
   const onKeydown = (event: KeyboardEvent): void => {
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
       event.preventDefault();
-      if (paletteOpen.value) {
-        paletteOpen.value = false;
-      } else {
-        openCommandPalette();
-      }
+      togglePalette();
       return;
     }
-    if (event.key === '?' && !event.ctrlKey && !event.metaKey && !event.altKey && !isEditable(document.activeElement)) {
+    if (event.key === ':' && isBareKey(event)) {
       event.preventDefault();
-      if (helpOpen.value) {
-        helpOpen.value = false;
-      } else {
-        openKeyboardHelp();
-      }
+      togglePalette();
+      return;
+    }
+    if (event.key === '?' && isBareKey(event)) {
+      event.preventDefault();
+      toggleHelp();
       return;
     }
     if (event.key === 'Escape') {

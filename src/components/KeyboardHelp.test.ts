@@ -40,6 +40,16 @@ describe('KeyboardHelp', () => {
     expect(document.body.textContent).toContain('Open the command palette');
   });
 
+  it('groups shortcuts into sections including the audio player', async () => {
+    active = mount(KeyboardHelp, { attachTo: document.body });
+    await openHelp();
+
+    const sections = [...document.querySelectorAll('.keyboard-help__section-title')].map(el => el.textContent?.trim());
+    expect(sections).toEqual(['Command palette', 'Audio player', 'General']);
+    expect(document.body.textContent).toContain('Play / pause');
+    expect(document.body.textContent).toContain('Previous / next track');
+  });
+
   it('closes on an outside click', async () => {
     active = mount(KeyboardHelp, { attachTo: document.body });
     await openHelp();

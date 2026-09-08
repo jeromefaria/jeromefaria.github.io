@@ -37,6 +37,17 @@ describe('useOverlayHotkeys', () => {
     expect(paletteOpen.value).toBe(false);
   });
 
+  it('toggles the palette on ":" (Vim command mode)', () => {
+    active = mountHotkeys();
+
+    dispatch(':');
+    expect(paletteOpen.value).toBe(true);
+    expect(paletteMounted.value).toBe(true);
+
+    dispatch(':');
+    expect(paletteOpen.value).toBe(false);
+  });
+
   it('toggles help on "?" when focus is inert', () => {
     active = mountHotkeys();
 

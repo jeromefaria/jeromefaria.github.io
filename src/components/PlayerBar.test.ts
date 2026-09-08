@@ -41,6 +41,61 @@ describe('PlayerBar', () => {
     expect(wrapper.findAll('.player-seek__time')[1].text()).toBe('1:40');
   });
 
+  it('prefixes a multi-track release with its title', async () => {
+    await player.play(TRACKS, 0, { album: 'Overlapse' });
+    const wrapper = await mounted();
+
+    expect(wrapper.find('.player-bar__meta').text()).toBe('Overlapse');
+    expect(wrapper.find('.player-bar__track').text()).toBe('One');
+  });
+
+  it('prefixes the release title and the track artist together', async () => {
+    const remixTracks = [
+      { key: 'r/1.m4a', title: 'Attack (Prelude)', duration: 100, artist: 'CAVERNANCIA' },
+      { key: 'r/2.m4a', title: 'Release', duration: 200, artist: 'Fábio Fernandes' },
+    ];
+    await player.play(remixTracks, 0, { album: 'Overlapse XIII' });
+    const wrapper = await mounted();
+
+    expect(wrapper.find('.player-bar__meta').text()).toBe('Overlapse XIII · CAVERNANCIA');
+    expect(wrapper.find('.player-bar__track').text()).toBe('Attack (Prelude)');
+  });
+
+  it('shows the current chapter as the track for a chaptered single-file release', async () => {
+    const chapters = [
+      { title: 'Prólogo: Estado Novo', start: 0 },
+      { title: 'Fado: Estados Socialistas', start: 205 },
+    ];
+    await player.play([{ key: 'b/2504.m4a', title: '2504', duration: 1504 }], 0, { album: '2504', chapters });
+    const wrapper = await mounted();
+
+    expect(wrapper.find('.player-bar__meta').text()).toBe('2504');
+    expect(wrapper.find('.player-bar__track').text()).toBe('Prólogo: Estado Novo');
+
+    const element = player.getMediaElement();
+    element.currentTime = 300;
+    element.dispatchEvent(new Event('timeupdate'));
+    await flushPromises();
+
+    expect(wrapper.find('.player-bar__track').text()).toBe('Fado: Estados Socialistas');
+  });
+
+  it('keeps a single-track release bare — no album or artist prefix', async () => {
+    await player.play([{ key: 's/1.m4a', title: 'Depolarized', duration: 100, artist: 'Jerome Faria + Nelson P. Ferreira' }], 0, { album: 'Depolarized' });
+    const wrapper = await mounted();
+
+    expect(wrapper.find('.player-bar__meta').exists()).toBe(false);
+    expect(wrapper.find('.player-bar__title').text()).toBe('Depolarized');
+  });
+
+  it('omits the prefix entirely when no release context is playing', async () => {
+    await player.play(TRACKS);
+    const wrapper = await mounted();
+
+    expect(wrapper.find('.player-bar__meta').exists()).toBe(false);
+    expect(wrapper.find('.player-bar__title').text()).toBe('One');
+  });
+
   it('shows a spinner while busy and hides it once playing', async () => {
     await player.play(TRACKS);
     const wrapper = await mounted();

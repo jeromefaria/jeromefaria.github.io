@@ -142,7 +142,7 @@
 
   &__panel {
     width: 100%;
-    max-width: 26rem;
+    max-width: 30rem;
     padding: $spacing-5;
     background: var(--color-bg);
     border: 1px solid var(--color-border);
@@ -159,6 +159,20 @@
     @include label-style;
   }
 
+  &__section {
+    & + & {
+      margin-top: $spacing-5;
+    }
+  }
+
+  &__section-title {
+    margin: 0 0 $spacing-2;
+    font-size: $font-size-xs;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+  }
+
   &__list {
     margin: 0;
   }
@@ -171,8 +185,9 @@
   }
 
   &__keys {
-    flex: 0 0 8rem;
+    flex: 0 0 10rem;
     display: flex;
+    flex-wrap: wrap;
     gap: $spacing-1;
     margin: 0;
   }

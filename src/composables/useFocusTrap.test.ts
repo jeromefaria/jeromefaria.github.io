@@ -80,4 +80,22 @@ describe('useFocusTrap', () => {
     expect(event.defaultPrevented).toBe(true);
     expect(document.activeElement).toBe(dialog);
   });
+
+  it('excludes focusable elements inside an inert subtree', () => {
+    const { dialog, buttons } = makeDialog(2);
+    const inertSection = document.createElement('div');
+    inertSection.setAttribute('inert', '');
+    const buried = document.createElement('button');
+    inertSection.appendChild(buried);
+    dialog.appendChild(inertSection);
+
+    const { onKeydown } = useFocusTrap(shallowRef(dialog));
+    buttons[1].focus();
+
+    const event = tab();
+    onKeydown(event);
+
+    expect(event.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(buttons[0]);
+  });
 });
