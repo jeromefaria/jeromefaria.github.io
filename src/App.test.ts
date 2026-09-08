@@ -115,4 +115,17 @@ describe('App', () => {
     expect(external.attributes('target')).toBe('_blank');
     expect(external.attributes('rel')).toBe('noopener noreferrer');
   });
+
+  it('clears a stale site-wide inert on resume when no overlay is open', async () => {
+    const { wrapper } = await mountApp();
+    const site = wrapper.get('.site').element as HTMLElement;
+
+    Object.defineProperty(document, 'visibilityState', { value: 'visible', configurable: true });
+    site.inert = true;
+
+    document.dispatchEvent(new Event('visibilitychange'));
+    await nextTick();
+
+    expect(site.inert).toBe(false);
+  });
 });
