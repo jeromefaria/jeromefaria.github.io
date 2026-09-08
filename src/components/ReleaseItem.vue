@@ -9,6 +9,7 @@ import { useLocale } from '@/i18n/useLocale';
 import { useT } from '@/i18n/useT';
 import type { LightboxItem, Release } from '@/types';
 import { hasBandcampId, hasBandcampUrl, hasCoverImage, hasCredits, hasDescription, hasExternalUrl, hasImages, hasTracklist, hasVideos } from '@/types';
+import { essayForRelease } from '@/utils/essayLinks';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 import type { LightboxSource } from '@/utils/lightboxPermalink';
@@ -80,6 +81,13 @@ const localizedTrackHref = (index: number): string => {
   const path = trackHref(index);
   return path ? toLocalePath(path) : path;
 };
+
+const notesHref = computed(() => {
+  if (current.value !== 'en') return undefined;
+
+  const essay = essayForRelease(props.release.id);
+  return essay ? toLocalePath(`/writing/${essay.slug}`) : undefined;
+});
 </script>
 
 <template>
@@ -186,6 +194,7 @@ const localizedTrackHref = (index: number): string => {
         :image-label="t('media.gallery')"
         :source-id="release.id"
         :download-url="hasBandcampUrl(release) ? release.bandcampUrl : undefined"
+        :notes-href="notesHref"
         @open-lightbox="(items, index, source) => emit('open-lightbox', items, index, source)"
       />
     </div>

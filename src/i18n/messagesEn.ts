@@ -52,6 +52,7 @@ export const en = {
     video: 'Video',
     videos: 'Videos',
     download: 'Download',
+    notes: 'Notes',
     view: 'View {label}',
     downloadAria: 'Download this release from Bandcamp (opens in a new tab)',
     photoBy: 'Photo by',

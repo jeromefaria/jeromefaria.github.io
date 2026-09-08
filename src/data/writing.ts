@@ -29,6 +29,13 @@ export const essays: Essay[] = [
     tagline: 'So that history is not forgotten',
     description: 'On the fiftieth anniversary of the Carnation Revolution — memory, place, and the duty of preserving Portugal\'s democracy.',
   },
+  {
+    slug: 'caligari-album',
+    title: 'Music Written & Performed for The Cabinet of Dr. Caligari',
+    date: '2023-07-07',
+    tagline: 'Spirits surround us on every side',
+    description: 'A live score for Robert Wiene\'s 1920 expressionist horror — a 2010 commission shelved, then resurrected for piano and live electronics, premiered at MUDAS in 2013.',
+  },
 ];
 
 export const essayBySlug = (slug: string): Essay | undefined =>
