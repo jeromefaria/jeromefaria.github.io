@@ -1,5 +1,5 @@
 import { worksData } from '@/data/works';
-import { essayBySlug } from '@/data/writing';
+import { essays } from '@/data/writing';
 import type { Release } from '@/types/works';
 import type { Essay } from '@/types/writing';
 
@@ -10,6 +10,10 @@ const releaseById = new Map<string, Release>(
     .map(item => [item.id, item]),
 );
 
-export const essayForRelease = (releaseId: string): Essay | undefined => essayBySlug(releaseId);
+const essayReleaseId = (essay: Essay): string => essay.release ?? essay.slug;
 
-export const releaseForEssay = (slug: string): Release | undefined => releaseById.get(slug);
+export const essayForRelease = (releaseId: string): Essay | undefined =>
+  essays.find(essay => essayReleaseId(essay) === releaseId);
+
+export const releaseForEssay = (essay: Essay | undefined): Release | undefined =>
+  essay ? releaseById.get(essayReleaseId(essay)) : undefined;
