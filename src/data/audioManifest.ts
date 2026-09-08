@@ -43,4 +43,14 @@ export const audioManifest: Record<string, AudioTrack[]> = {
     { key: 'BRQN007/07-costa-norte.m4a', title: 'Costa Norte', duration: 275, artist: 'sol' },
     { key: 'BRQN007/08-release-conclusion.m4a', title: 'Release (Conclusion)', duration: 324, artist: 'W. R. Pyo' },
   ],
+  'depolarized': [
+    { key: 'BRQN003/01-depolarized.m4a', title: 'Depolarized', duration: 1804, artist: 'Jerome Faria + Nelson P. Ferreira' },
+  ],
+  'altar': [
+    { key: 'CCA035/01-a.m4a', title: 'A', duration: 319, artist: 'NOx', artwork: '/images/tracks/altar.jpg' },
+    { key: 'CCA035/02-l.m4a', title: 'L', duration: 331, artist: 'NOx', artwork: '/images/tracks/altar.jpg' },
+    { key: 'CCA035/03-t.m4a', title: 'T', duration: 222, artist: 'NOx', artwork: '/images/tracks/altar.jpg' },
+    { key: 'CCA035/04-a.m4a', title: 'A', duration: 507, artist: 'NOx', artwork: '/images/tracks/altar.jpg' },
+    { key: 'CCA035/05-r.m4a', title: 'R', duration: 625, artist: 'NOx', artwork: '/images/tracks/altar.jpg' },
+  ],
 };

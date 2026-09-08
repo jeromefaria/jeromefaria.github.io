@@ -67,7 +67,7 @@ const chaptered: Release = {
 };
 
 const staticCover: Release = {
-  id: 'depolarized',
+  id: 'static-cover',
   title: 'Depolarized',
   meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'BRØQN' } }], released: '2012' },
   coverImage: '/images/depolarized.jpg',
