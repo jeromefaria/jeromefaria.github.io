@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, nextTick, onMounted } from 'vue';
+import { computed, defineAsyncComponent, nextTick, onMounted, ref } from 'vue';
 import { RouterView } from 'vue-router';
 
 import SiteFooter from '@/components/SiteFooter.vue';
 import SiteHeader from '@/components/SiteHeader.vue';
 import { audioPlayerEnabled, initFeatureFlags } from '@/composables/useFeatureFlags';
 import { helpMounted, helpOpen, paletteMounted, paletteOpen, useOverlayHotkeys } from '@/composables/useOverlays';
+import { usePageLifecycle } from '@/composables/usePageLifecycle';
 import { usePlayer } from '@/composables/usePlayer';
 import { usePlayerHotkeys } from '@/composables/usePlayerHotkeys';
-import { initTheme } from '@/composables/useTheme';
+import { initTheme, refreshTheme } from '@/composables/useTheme';
 import { useT } from '@/i18n/useT';
 
 const CommandPalette = defineAsyncComponent(() => import('@/components/CommandPalette.vue'));
@@ -22,6 +23,21 @@ const overlayActive = computed(() => paletteOpen.value || helpOpen.value || play
 
 useOverlayHotkeys();
 usePlayerHotkeys();
+
+const site = ref<HTMLElement | null>(null);
+
+// eslint-disable-next-line local/no-comments -- genuine gotcha
+// iOS Safari can leave the site-wide `inert` attribute stale after a freeze, killing every button/link (scrolling still works) until reload; re-assert it against the reactive truth on resume.
+const reconcileInert = (): void => {
+  if (site.value) site.value.inert = overlayActive.value;
+};
+
+usePageLifecycle({
+  onResume: () => {
+    refreshTheme();
+    reconcileInert();
+  },
+});
 
 const t = useT();
 
@@ -68,6 +84,7 @@ onMounted(() => {
     class="skip-link"
   >{{ t('common.skipToMain') }}</a>
   <div
+    ref="site"
     class="site"
     :inert="overlayActive"
   >

@@ -89,6 +89,17 @@ describe('useTheme', () => {
     expect(root.getAttribute('data-theme')).toBe('dark');
   });
 
+  it('re-resolves the system theme on refresh after a backgrounded appearance change', async () => {
+    const { initTheme, matchSystemTheme, refreshTheme } = await load(false);
+    initTheme();
+    matchSystemTheme();
+    expect(root.hasAttribute('data-theme')).toBe(false);
+
+    installMatchMedia(true);
+    refreshTheme();
+    expect(root.getAttribute('data-theme')).toBe('dark');
+  });
+
   it('ignores OS changes once an explicit choice is set', async () => {
     const { initTheme, toggleTheme } = await load(false);
     initTheme();
