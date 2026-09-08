@@ -51,6 +51,15 @@ footer {
   color: var(--color-text-muted);
   text-align: center;
 
+  @include respond-to(md) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $header-height-desktop;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
   p {
     margin: 0;
   }
@@ -61,6 +70,11 @@ footer {
   flex-direction: column;
   align-items: center;
   gap: $footer-content-gap;
+
+  @include respond-to(md) {
+    flex-direction: row;
+    gap: $spacing-6;
+  }
 }
 
 .footer__nav {
@@ -71,6 +85,11 @@ footer {
 
   @include respond-to(sm) {
     gap: $spacing-2;
+  }
+
+  @include respond-to(md) {
+    flex-wrap: nowrap;
+    gap: $spacing-5;
   }
 
   a {
@@ -85,6 +104,12 @@ footer {
 
     @include respond-to(sm) {
       padding: $spacing-2 $spacing-3;
+    }
+
+    @include respond-to(md) {
+      padding: 0;
+      min-width: auto;
+      min-height: auto;
     }
   }
 }

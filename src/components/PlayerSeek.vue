@@ -1,18 +1,15 @@
 <script setup lang="ts">
+import { usePlayer } from '@/composables/usePlayer';
 import { formatTime } from '@/utils/formatTime';
 
 defineProps<{
-  currentTime: number;
-  duration: number;
   label: string;
 }>();
 
-const emit = defineEmits<{
-  seek: [value: number];
-}>();
+const { currentTime, duration, seek } = usePlayer();
 
 const onInput = (event: Event): void => {
-  emit('seek', Number((event.target as HTMLInputElement).value));
+  seek(Number((event.target as HTMLInputElement).value));
 };
 </script>
 

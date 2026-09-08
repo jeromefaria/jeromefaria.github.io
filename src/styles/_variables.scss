@@ -187,6 +187,16 @@ $overlay-scrim: rgb(0 0 0 / 50%);
   }
 }
 
+@mixin dim-until-active($reveal: ":focus-within") {
+  opacity: $opacity-20;
+  transition: opacity $transition-base;
+
+  &:hover,
+  &#{$reveal} {
+    opacity: 1;
+  }
+}
+
 @mixin subtle-link-hover {
   text-decoration: none;
   transition: opacity $transition-base;

@@ -33,13 +33,28 @@ let generation = 0;
 let retries = 0;
 let element: HTMLAudioElement | null = null;
 
+export interface PlayChapter {
+  title: string;
+  start: number;
+}
+
 export interface PlayContext {
   album?: string;
   artwork?: string;
+  chapters?: readonly PlayChapter[];
 }
 
 const nowPlaying = ref<PlayContext>({});
 const expanded = ref(false);
+
+const currentChapter = computed(() => {
+  const { chapters } = nowPlaying.value;
+  if (!chapters?.length) return undefined;
+
+  return chapters.reduce((active, chapter) => (chapter.start <= currentTime.value ? chapter : active), chapters[0]);
+});
+
+const displayTitle = computed(() => currentChapter.value?.title ?? currentTrack.value?.title ?? '');
 
 const MEDIA_HANDLERS: [MediaSessionAction, MediaSessionActionHandler][] = [
   ['play', () => void resume()],
@@ -270,6 +285,30 @@ export const seek = (time: number): void => {
   currentTime.value = clamped;
 };
 
+export const stepEntry = (direction: 1 | -1): void => {
+  const { chapters } = nowPlaying.value;
+  if (chapters?.length) {
+    const current = chapters.findIndex(chapter => chapter.start === currentChapter.value?.start);
+    const target = chapters[current + direction];
+    if (target) seek(target.start);
+    return;
+  }
+
+  if (direction === 1) void next();
+  else void previous();
+};
+
+export const goToEdge = (edge: 'first' | 'last'): void => {
+  const { chapters } = nowPlaying.value;
+  if (chapters?.length) {
+    const chapter = edge === 'first' ? chapters[0] : chapters[chapters.length - 1];
+    if (chapter) seek(chapter.start);
+    return;
+  }
+
+  void select(edge === 'first' ? 0 : queue.value.length - 1);
+};
+
 interface PlayerApi {
   status: Readonly<Ref<PlayerStatus>>;
   currentTrack: ComputedRef<AudioTrack | null>;
@@ -282,8 +321,12 @@ interface PlayerApi {
   isPlaying: ComputedRef<boolean>;
   isBusy: ComputedRef<boolean>;
   context: Readonly<Ref<PlayContext>>;
+  currentChapter: ComputedRef<PlayChapter | undefined>;
+  displayTitle: ComputedRef<string>;
   expanded: Readonly<Ref<boolean>>;
   play: typeof play;
+  stepEntry: typeof stepEntry;
+  goToEdge: typeof goToEdge;
   playFrom: typeof playFrom;
   playRelease: typeof playRelease;
   pause: typeof pause;
@@ -310,8 +353,12 @@ export const usePlayer = (): PlayerApi => ({
   isPlaying,
   isBusy,
   context: readonly(nowPlaying),
+  currentChapter,
+  displayTitle,
   expanded: readonly(expanded),
   play,
+  stepEntry,
+  goToEdge,
   playFrom,
   playRelease,
   pause,
