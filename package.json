@@ -77,8 +77,8 @@
     "@typescript-eslint/eslint-plugin": "^8.68.0",
     "@typescript-eslint/parser": "^8.51.0",
     "@vitejs/plugin-vue": "^6.0.2",
-    "@vitest/coverage-v8": "^4.1.11",
-    "@vitest/ui": "^4.0.16",
+    "@vitest/coverage-v8": "^5.0.0",
+    "@vitest/ui": "^5.0.0",
     "@vue/test-utils": "^2.5.0",
     "archiver": "^7.0.1",
     "aws4fetch": "^1.0.20",
@@ -100,7 +100,7 @@
     "vite": "^8.2.2",
     "vite-plugin-image-optimizer": "^2.0.3",
     "vite-ssg": "^28.3.0",
-    "vitest": "^4.0.16",
+    "vitest": "^5.0.0",
     "vue-tsc": "^3.3.11"
   }
 }
