@@ -102,6 +102,7 @@ export const buildEventDescription = (event: LiveEvent, locale: Locale = DEFAULT
   if (event.performedAs) parts.push(phrases.performedAs(event.performedAs));
   if (event.note) parts.push(localize(event.note, locale));
   if (event.bill?.length) parts.push(phrases.alongside(event.bill.map(entry => billEntry(entry, locale)).join(', ')));
+  if (event.credit) parts.push(localize(event.credit, locale));
 
   return parts.join(' ');
 };
