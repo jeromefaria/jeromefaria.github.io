@@ -27,6 +27,7 @@ export const buildDrafts = (rawByPath: Record<string, string>): { drafts: Essay[
       date: meta['date'] ?? '',
       tagline: meta['tagline'] ?? '',
       description: meta['description'] ?? '',
+      ...(meta['release'] ? { release: meta['release'] } : {}),
     };
   }).sort((a, b) => b.date.localeCompare(a.date));
 

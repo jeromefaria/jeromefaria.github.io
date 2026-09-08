@@ -7,6 +7,7 @@ import SiteHeader from '@/components/SiteHeader.vue';
 import { audioPlayerEnabled, initFeatureFlags } from '@/composables/useFeatureFlags';
 import { helpMounted, helpOpen, paletteMounted, paletteOpen, useOverlayHotkeys } from '@/composables/useOverlays';
 import { usePlayer } from '@/composables/usePlayer';
+import { usePlayerHotkeys } from '@/composables/usePlayerHotkeys';
 import { initTheme } from '@/composables/useTheme';
 import { useT } from '@/i18n/useT';
 
@@ -20,6 +21,7 @@ const { expanded: playerExpanded } = usePlayer();
 const overlayActive = computed(() => paletteOpen.value || helpOpen.value || playerExpanded.value);
 
 useOverlayHotkeys();
+usePlayerHotkeys();
 
 const t = useT();
 

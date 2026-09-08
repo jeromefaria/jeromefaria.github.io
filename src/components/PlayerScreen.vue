@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
+import PlayerImmersive from '@/components/PlayerImmersive.vue';
 import PlayerSeek from '@/components/PlayerSeek.vue';
 import TransportControls from '@/components/TransportControls.vue';
 import { useFocusReturn } from '@/composables/useFocusReturn';
@@ -12,17 +13,57 @@ import { useT } from '@/i18n/useT';
 import type { AudioTrack } from '@/types/audio';
 import { toWebp } from '@/utils/responsiveImage';
 
-const { currentTrack, queue, currentTime, duration, context, hasNext, hasPrevious, isPlaying, isBusy, toggle, next, previous, seek, select, collapse } =
-  usePlayer();
+const { currentTrack, queue, context, currentChapter, displayTitle, seek, select, collapse } = usePlayer();
 
-const currentIndex = computed(() => queue.value.findIndex(track => track.key === currentTrack.value?.key));
 const artwork = computed(() => currentTrack.value?.artwork ?? context.value.artwork);
 
 const t = useT();
 
 const trackLabel = (track: AudioTrack): string => (track.artist ? `${track.artist} — ${track.title}` : track.title);
 
+const currentIndex = computed(() => queue.value.findIndex(track => track.key === currentTrack.value?.key));
+
+interface QueueEntry { key: string; label: string; isCurrent: boolean; activate: () => void }
+
+const entries = computed<QueueEntry[]>(() => {
+  if (queue.value.length > 1) {
+    return queue.value.map((track, index) => ({
+      key: track.key,
+      label: trackLabel(track),
+      isCurrent: index === currentIndex.value,
+      activate: () => void select(index),
+    }));
+  }
+
+  return (context.value.chapters ?? []).map(chapter => ({
+    key: String(chapter.start),
+    label: chapter.title,
+    isCurrent: chapter.start === currentChapter.value?.start,
+    activate: () => seek(chapter.start),
+  }));
+});
+
+const entriesLabel = computed(() => t(queue.value.length > 1 ? 'player.queue' : 'player.chapters'));
+
 const dialog = ref<HTMLElement | null>(null);
+const zoomButton = ref<HTMLElement>();
+const immersive = ref(false);
+
+const enterImmersive = (): void => {
+  if (artwork.value) immersive.value = true;
+};
+
+const exitImmersive = (): void => {
+  immersive.value = false;
+};
+
+watch(immersive, async open => {
+  if (open) return;
+
+  await nextTick();
+  zoomButton.value?.focus();
+});
+
 const { onKeydown: trapTab } = useFocusTrap(dialog);
 const { lock, unlock } = useScrollLock();
 const { capture, restore } = useFocusReturn();
@@ -30,6 +71,11 @@ const { handleTouchStart, handleTouchEnd } = useSwipeDismiss(collapse, () => (di
 
 const onKeydown = (event: KeyboardEvent): void => {
   if (event.key === 'Escape') {
+    if (immersive.value) {
+      exitImmersive();
+      return;
+    }
+
     collapse();
     return;
   }
@@ -65,12 +111,16 @@ onBeforeUnmount(() => {
       type="button"
       class="player-screen__collapse"
       :aria-label="t('player.collapse')"
+      :inert="immersive"
       @click="collapse"
     >
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m7 10 5 5 5-5z" /></svg>
     </button>
 
-    <div class="player-screen__art">
+    <div
+      class="player-screen__art"
+      :inert="immersive"
+    >
       <Transition name="player-art">
         <picture
           v-if="artwork"
@@ -86,12 +136,23 @@ onBeforeUnmount(() => {
           >
         </picture>
       </Transition>
+      <button
+        v-if="artwork"
+        ref="zoomButton"
+        type="button"
+        class="player-screen__zoom"
+        :aria-label="t('player.viewArtwork')"
+        @click="enterImmersive"
+      />
     </div>
 
-    <div class="player-screen__panel">
+    <div
+      class="player-screen__panel"
+      :inert="immersive"
+    >
       <div class="player-screen__meta">
         <p class="player-screen__title">
-          {{ currentTrack?.title }}
+          {{ displayTitle }}
         </p>
         <p class="player-screen__artist">
           {{ currentTrack?.artist ?? 'Jerome Faria' }}
@@ -104,45 +165,38 @@ onBeforeUnmount(() => {
         </p>
       </div>
 
-      <PlayerSeek
-        :current-time="currentTime"
-        :duration="duration"
-        :label="t('player.seekGeneric')"
-        @seek="seek"
-      />
+      <PlayerSeek :label="t('player.seekGeneric')" />
 
-      <TransportControls
-        :playing="isPlaying"
-        :busy="isBusy"
-        :has-previous="hasPrevious"
-        :has-next="hasNext"
-        :current-time="currentTime"
-        @previous="previous"
-        @toggle="toggle"
-        @next="next"
-      />
+      <TransportControls />
 
       <ol
-        v-if="queue.length > 1"
+        v-if="entries.length"
         class="player-screen__queue"
-        :aria-label="t('player.queue')"
+        :aria-label="entriesLabel"
       >
         <li
-          v-for="(track, index) in queue"
-          :key="track.key"
+          v-for="(entry, index) in entries"
+          :key="entry.key"
         >
           <button
             type="button"
             class="player-screen__queue-item"
-            :class="{ 'is-current': index === currentIndex }"
-            :aria-current="index === currentIndex ? 'true' : undefined"
-            @click="select(index)"
+            :class="{ 'is-current': entry.isCurrent }"
+            :aria-current="entry.isCurrent ? 'true' : undefined"
+            @click="entry.activate()"
           >
             <span class="player-screen__queue-num">{{ index + 1 }}</span>
-            <span class="player-screen__queue-title">{{ trackLabel(track) }}</span>
+            <span class="player-screen__queue-title">{{ entry.label }}</span>
           </button>
         </li>
       </ol>
     </div>
+
+    <Transition name="player-immersive">
+      <PlayerImmersive
+        v-if="immersive"
+        @exit="exitImmersive"
+      />
+    </Transition>
   </div>
 </template>

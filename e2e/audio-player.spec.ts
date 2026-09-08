@@ -46,7 +46,9 @@ test.describe('Audio player', () => {
 
     const bar = page.locator('.player-bar');
     await expect(bar).toBeVisible();
-    await expect(bar.locator('.player-bar__title')).toHaveText('2504');
+    const title = bar.locator('.player-bar__title');
+    await expect(title).toContainText('2504');
+    await expect(title).toContainText('Prólogo: Estado Novo');
 
     await expect(bar.locator('.player-seek input')).toHaveValue('30');
 

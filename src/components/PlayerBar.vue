@@ -1,15 +1,30 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import IconClose from '@/components/IconClose.vue';
 import PlayerSeek from '@/components/PlayerSeek.vue';
 import TransportControls from '@/components/TransportControls.vue';
 import { usePlayer } from '@/composables/usePlayer';
 import { useT } from '@/i18n/useT';
 
-const { currentTrack, currentTime, duration, error, hasNext, hasPrevious, isPlaying, isBusy, toggle, next, previous, seek, expand, stop } =
-  usePlayer();
+const { currentTrack, context, currentChapter, displayTitle, queue, error, isPlaying, isBusy, expand, stop } = usePlayer();
 
 const t = useT();
+
+const metaLabel = computed(() => {
+  const track = currentTrack.value;
+  if (!track) return '';
+
+  const hasSiblings = queue.value.length > 1 || Boolean(currentChapter.value);
+  if (!hasSiblings) return '';
+
+  const parts: string[] = [];
+  const { album } = context.value;
+  if (album && album !== displayTitle.value) parts.push(album);
+  if (track.artist && track.artist !== displayTitle.value) parts.push(track.artist);
+
+  return parts.join(' · ');
+});
 
 const statusMessage = computed(() => {
   if (error.value) return error.value;
@@ -22,60 +37,51 @@ const statusMessage = computed(() => {
 </script>
 
 <template>
-  <div
-    v-if="currentTrack"
-    class="player-bar"
-    role="region"
-    :aria-label="t('player.label')"
-  >
-    <button
-      type="button"
-      class="player-bar__title"
-      :aria-label="t('player.expand')"
-      @click="expand"
+  <Transition name="player-slide">
+    <div
+      v-if="currentTrack"
+      class="player-bar"
+      role="region"
+      :aria-label="t('player.label')"
     >
-      {{ currentTrack.title }}
-    </button>
+      <button
+        type="button"
+        class="player-bar__title"
+        :aria-label="t('player.expand')"
+        @click="expand"
+      >
+        <span
+          v-if="metaLabel"
+          class="player-bar__meta"
+        >{{ metaLabel }}</span>
+        <span
+          v-if="metaLabel"
+          class="player-bar__sep"
+          aria-hidden="true"
+        >—</span>
+        <span class="player-bar__track">{{ displayTitle }}</span>
+      </button>
 
-    <TransportControls
-      :playing="isPlaying"
-      :busy="isBusy"
-      :has-previous="hasPrevious"
-      :has-next="hasNext"
-      :current-time="currentTime"
-      @previous="previous"
-      @toggle="toggle"
-      @next="next"
-    />
+      <TransportControls />
 
-    <PlayerSeek
-      :current-time="currentTime"
-      :duration="duration"
-      :label="t('player.seek', { title: currentTrack.title })"
-      @seek="seek"
-    />
+      <PlayerSeek :label="t('player.seek', { title: currentTrack.title })" />
 
-    <button
-      type="button"
-      class="player-bar__close"
-      :aria-label="t('player.close')"
-      @click="stop"
-    >
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        d="M6 6l12 12M18 6 6 18"
-      /></svg>
-    </button>
+      <button
+        type="button"
+        class="player-bar__close"
+        :aria-label="t('player.close')"
+        @click="stop"
+      >
+        <IconClose />
+      </button>
 
-    <p
-      class="player-bar__status"
-      role="status"
-      aria-live="polite"
-    >
-      {{ statusMessage }}
-    </p>
-  </div>
+      <p
+        class="player-bar__status"
+        role="status"
+        aria-live="polite"
+      >
+        {{ statusMessage }}
+      </p>
+    </div>
+  </Transition>
 </template>

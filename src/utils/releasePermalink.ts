@@ -22,10 +22,24 @@ export const findRelease = (releaseId: string): Release | null => {
   return null;
 };
 
-export const buildReleaseContext = (release: Release): PlayContext => ({
-  album: release.title,
-  ...(hasCoverImage(release) ? { artwork: release.coverImage } : {}),
-});
+const releaseChapters = (release: Release): PlayContext['chapters'] => {
+  const tracklist = release.tracklist ?? [];
+  const chaptered = getReleaseAudio(release.id).length === 1
+    && tracklist.length > 1
+    && tracklist.every(movement => typeof movement.start === 'number');
+
+  return chaptered ? tracklist.map(({ title, start }) => ({ title, start: start ?? 0 })) : undefined;
+};
+
+export const buildReleaseContext = (release: Release): PlayContext => {
+  const chapters = releaseChapters(release);
+
+  return {
+    album: release.title,
+    ...(hasCoverImage(release) ? { artwork: release.coverImage } : {}),
+    ...(chapters ? { chapters } : {}),
+  };
+};
 
 export const canPlayRelease = (releaseId: string): boolean =>
   audioPlayerEnabled.value && hasPlayableAudio(releaseId);

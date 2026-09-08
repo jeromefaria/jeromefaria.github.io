@@ -17,7 +17,7 @@ const slug = String(route.params['slug']);
 const essay = essayMetaBySlug(slug);
 const markdown = essayBodyBySlug(slug);
 const isDraft = draftSlugs.has(slug);
-const release = releaseForEssay(slug);
+const release = releaseForEssay(essay);
 const listenPath = release ? releasePath(release.id) : undefined;
 const playable = release && audioPlayerEnabled.value && canPlayRelease(release.id) ? release : null;
 
@@ -80,7 +80,7 @@ const bodyHtml = headingClose === -1 ? essayHtml : essayHtml.slice(headingClose 
         :href="listenPath"
         @click="onListen"
       >
-        Listen <span aria-hidden="true">→</span>
+        Listen
       </a>
       <div v-html="bodyHtml" />
     </article>

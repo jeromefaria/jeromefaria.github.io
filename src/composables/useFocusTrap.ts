@@ -4,7 +4,9 @@ const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), input:not([disabled
 
 export const useFocusTrap = (containerRef: Ref<HTMLElement | null>): { onKeydown: (event: KeyboardEvent) => void } => {
   const getFocusable = (): HTMLElement[] =>
-    containerRef.value ? Array.from(containerRef.value.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)) : [];
+    (containerRef.value
+      ? Array.from(containerRef.value.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR))
+      : []).filter(element => !element.closest('[inert]'));
 
   const onKeydown = (event: KeyboardEvent): void => {
     if (event.key !== 'Tab') return;

@@ -10,25 +10,51 @@
   flex-direction: column;
   gap: $spacing-2;
   align-items: center;
+  justify-content: center;
+  min-height: var(--footer-height);
   padding: $spacing-3 $spacing-5;
   color: var(--color-text);
   background-color: var(--color-bg);
   border-top: 1px solid var(--color-border);
 
   &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     align-self: stretch;
+    gap: 0.35em;
+    min-width: 0;
     padding: 0 2.25rem;
     margin: 0;
     overflow: hidden;
     color: inherit;
     font: inherit;
-    font-weight: 500;
-    text-align: center;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     cursor: pointer;
     background: none;
     border: none;
+  }
+
+  &__meta {
+    flex: 0 8 auto;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--color-text-muted);
+  }
+
+  &__sep {
+    flex: 0 0 auto;
+    color: var(--color-text-muted);
+  }
+
+  &__track {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: $font-weight-medium;
   }
 
   &__close {
@@ -76,9 +102,9 @@
     gap: $spacing-4;
 
     &__title {
-      flex: 0 1 24ch;
+      flex: 0 1 36ch;
+      justify-content: flex-start;
       padding: 0;
-      text-align: left;
     }
 
     .player-seek {
@@ -207,9 +233,18 @@
 
   &__time {
     flex: 0 0 auto;
+    min-width: 5ch;
     font-size: 0.85rem;
     color: var(--color-text-muted);
     font-variant-numeric: tabular-nums;
+
+    &:first-child {
+      text-align: right;
+    }
+
+    &:last-child {
+      text-align: left;
+    }
   }
 
   &__slider {
@@ -235,7 +270,9 @@
   .player-slide-enter-active,
   .player-slide-leave-active,
   .player-art-enter-active,
-  .player-art-leave-active {
+  .player-art-leave-active,
+  .player-immersive-enter-active,
+  .player-immersive-leave-active {
     transition: none;
   }
 }
@@ -259,6 +296,24 @@
 .player-art-enter-from,
 .player-art-leave-to {
   opacity: 0;
+}
+
+.player-immersive-enter-active,
+.player-immersive-leave-active {
+  transition: opacity $transition-base;
+
+  .player-screen__immersive-art img {
+    transition: transform $transition-base;
+  }
+}
+
+.player-immersive-enter-from,
+.player-immersive-leave-to {
+  opacity: 0;
+
+  .player-screen__immersive-art img {
+    transform: scale(0.92);
+  }
 }
 
 .player-screen {
@@ -316,6 +371,102 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+  }
+
+  &__zoom {
+    position: absolute;
+    inset: 0;
+    cursor: zoom-in;
+    background: none;
+    border: none;
+
+    &:focus-visible {
+      outline: 2px solid var(--text-overlay);
+      outline-offset: -2px;
+    }
+  }
+
+  &__immersive {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background-color: var(--color-bg);
+    cursor: zoom-out;
+  }
+
+  &__immersive-art {
+    position: absolute;
+    inset: 0;
+    padding: $spacing-4;
+
+    @include respond-to(md) {
+      padding: $spacing-10;
+    }
+
+    picture {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__immersive-bar {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    gap: $spacing-4;
+    align-items: center;
+    padding: $spacing-4 $spacing-6;
+    cursor: default;
+    background: linear-gradient(to top, var(--color-bg), transparent);
+
+    --transport-gap: #{$spacing-2};
+    --transport-button-size: 2.5rem;
+    --transport-icon-size: 1.5rem;
+
+    @include safe-area-padding($bottom: $spacing-4, $left: $spacing-6, $right: $spacing-6);
+    @include dim-until-active(":focus-within");
+
+    .transport-controls {
+      flex: 0 0 auto;
+    }
+
+    .player-seek {
+      flex: 1 1 auto;
+    }
+  }
+
+  &__immersive-close {
+    position: absolute;
+    top: $spacing-4;
+    right: $spacing-4;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: $touch-target-min;
+    height: $touch-target-min;
+    padding: 0;
+    color: var(--color-text);
+    cursor: pointer;
+    background: none;
+    border: none;
+
+    @include dim-until-active(":focus-visible");
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 

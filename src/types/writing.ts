@@ -4,4 +4,5 @@ export interface Essay {
   date: string;
   description: string;
   tagline: string;
+  release?: string;
 }

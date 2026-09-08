@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
+import { useFooterHeight } from '@/composables/useFooterHeight';
 import { navigation, siteConfig } from '@/data/navigation';
 import { i18nEnabled } from '@/i18n/flag';
 import { useLocale } from '@/i18n/useLocale';
@@ -9,10 +11,13 @@ import { useT } from '@/i18n/useT';
 const t = useT();
 const { toLocalePath, switchPath, hasAlternate } = useLocale();
 const currentYear = new Date().getFullYear();
+
+const footerElement = ref<HTMLElement>();
+useFooterHeight(footerElement);
 </script>
 
 <template>
-  <footer>
+  <footer ref="footerElement">
     <div class="container">
       <div class="footer__content">
         <nav

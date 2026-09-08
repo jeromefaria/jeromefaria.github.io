@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
 
+import { essayBySlug } from '@/data/writing';
+import type { Essay } from '@/types/writing';
+
 import { essayForRelease, releaseForEssay } from './essayLinks';
 
 describe('essayLinks', () => {
@@ -13,13 +16,18 @@ describe('essayLinks', () => {
     expect(essayForRelease('does-not-exist')).toBeUndefined();
   });
 
-  it('resolves the release for an essay about one', () => {
-    expect(releaseForEssay('2504')?.id).toBe('2504');
-    expect(releaseForEssay('en-veille')?.id).toBe('en-veille');
+  it('resolves the release for an essay whose slug matches one', () => {
+    expect(releaseForEssay(essayBySlug('2504'))?.id).toBe('2504');
+    expect(releaseForEssay(essayBySlug('en-veille'))?.id).toBe('en-veille');
   });
 
-  it('returns undefined for an essay with no matching release', () => {
-    expect(releaseForEssay('orchestration')).toBeUndefined();
-    expect(releaseForEssay('does-not-exist')).toBeUndefined();
+  it('honours the essay release frontmatter over the slug', () => {
+    const essay: Essay = { slug: 'making-of-overlapse', title: '', date: '', tagline: '', description: '', release: 'overlapse' };
+    expect(releaseForEssay(essay)?.id).toBe('overlapse');
+  });
+
+  it('returns undefined for an essay with no matching release, or no essay', () => {
+    expect(releaseForEssay(essayBySlug('orchestration'))).toBeUndefined();
+    expect(releaseForEssay(undefined)).toBeUndefined();
   });
 });
