@@ -9,12 +9,12 @@ export const liveEvents: LiveEvent[] = [
     venue: { name: 'Fábrica da Criatividade', url: 'https://www.cm-castelobranco.pt/visitante/fabrica-da-criatividade/', city: 'Castelo Branco', country: 'Portugal' },
     setup: { kind: 'solo' },
     bill: [
-      { text: 'Guilherme Rodrigues' },
-      { text: 'Zé Maria Carreira' },
-      { text: 'Gweynn' },
+      { text: 'Guilherme Rodrigues', url: 'https://guilhermerodrigues.bandcamp.com' },
+      { text: 'Zé Maria Carreira', url: 'https://soundcloud.com/z-maria-carreira' },
+      { text: 'Gweynn', url: 'https://soundcloud.com/dystopiandream_cycles' },
       { text: 'Living Room DJs' },
       { text: 'Peak Bleak' },
-      { text: 'Soria' },
+      { text: 'Soria', url: 'https://soriasoriasoria.bandcamp.com' },
     ],
     credit: {
       en: 'Presented by <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
