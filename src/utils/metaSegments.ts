@@ -1,6 +1,12 @@
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { Edition, EngineeringRole, ReleaseMeta } from '@/types/works';
+import { orgUrl } from '@/utils/orgs';
 import { releaseYear } from '@/utils/releaseDate';
+
+const resolveLabel = (link: { text: string; url?: string }): { text: string; url?: string } => {
+  const url = link.url ?? orgUrl(link.text);
+  return url ? { text: link.text, url } : { text: link.text };
+};
 
 export const engineeringRolesLabel = (roles: EngineeringRole[], locale: Locale = DEFAULT_LOCALE): string => {
   const ordered = (['mixing', 'mastering'] as EngineeringRole[]).filter(role => roles.includes(role));
@@ -22,7 +28,7 @@ const text = (value: string): MetaSegment => ({ kind: 'text', text: value });
 
 const editionSegments = (editions: Edition[]): MetaSegment[] =>
   editions.flatMap((edition, index) => {
-    const segments: MetaSegment[] = [{ kind: 'link', link: edition.label }];
+    const segments: MetaSegment[] = [{ kind: 'link', link: resolveLabel(edition.label) }];
 
     if (edition.catalog) {
       segments.push(text(`, ${edition.catalog}`));

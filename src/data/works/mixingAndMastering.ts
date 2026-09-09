@@ -12,7 +12,7 @@ export const mixingAndMastering: WorksSection = {
         kind: 'engineering',
         roles: ['mastering'],
         artist: { name: 'Hugo Calcio' },
-        editions: [{ label: { text: 'Colectivo Casa Amarela', url: 'https://casaamarela.bandcamp.com/' }, catalog: 'CCA#016' }],
+        editions: [{ label: { text: 'Colectivo Casa Amarela' }, catalog: 'CCA#016' }],
         released: '2021',
       },
     },
