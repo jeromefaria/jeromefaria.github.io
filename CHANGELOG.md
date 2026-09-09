@@ -66,7 +66,8 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Build & CI
 
-- **changelog:** Generate CHANGELOG.md with git-cliff and enforce commit convention
+- **changelog:** Authorize the auto-regeneration push with a scoped token ([#398](https://github.com/jeromefaria/jeromefaria.github.io/pull/398))
+- **changelog:** Git-cliff generation, commit-convention enforcement, and auto-regeneration ([#397](https://github.com/jeromefaria/jeromefaria.github.io/pull/397))
 - **deps:** Bump js-yaml in the npm-security group across 1 directory ([#391](https://github.com/jeromefaria/jeromefaria.github.io/pull/391))
 - **deps:** Bump the npm-minor-patch group with 11 updates ([#383](https://github.com/jeromefaria/jeromefaria.github.io/pull/383))
 - **deps-dev:** Upgrade vitest to 5 across root and worker ([#389](https://github.com/jeromefaria/jeromefaria.github.io/pull/389))
