@@ -119,6 +119,7 @@ test.describe('Command palette (⌘K)', () => {
     const [text, panel] = await page.evaluate(palette => {
       const title = document.querySelector(`${palette}__title`);
       const panelElement = document.querySelector(`${palette}__panel`);
+      if (!title || !panelElement) throw new Error(`palette elements not found for ${palette}`);
       return [getComputedStyle(title).color, getComputedStyle(panelElement).backgroundColor];
     }, PALETTE);
 

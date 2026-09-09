@@ -17,8 +17,8 @@ const CORS = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-const stubTurnstile = (page: Page): Promise<void> =>
-  page.addInitScript(() => {
+const stubTurnstile = async (page: Page): Promise<void> => {
+  await page.addInitScript(() => {
     let onToken: ((token: string) => void) | undefined;
     (window as unknown as { turnstile: unknown }).turnstile = {
       render: (_element: HTMLElement, options: { callback: (token: string) => void }) => {
@@ -30,9 +30,10 @@ const stubTurnstile = (page: Page): Promise<void> =>
       remove: () => {},
     };
   });
+};
 
-const mockWorker = (page: Page, status: number): Promise<void> =>
-  page.route(WORKER_URL, route => {
+const mockWorker = async (page: Page, status: number): Promise<void> => {
+  await page.route(WORKER_URL, route => {
     if (route.request().method() === 'OPTIONS') {
       return route.fulfill({ status: 204, headers: CORS });
     }
@@ -44,6 +45,7 @@ const mockWorker = (page: Page, status: number): Promise<void> =>
       body: JSON.stringify({ ok: status === 200 }),
     });
   });
+};
 
 const fillValid = async (page: Page): Promise<void> => {
   await page.locator(INQUIRY).selectOption('booking');
