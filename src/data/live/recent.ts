@@ -159,7 +159,7 @@ export const recentEvents: LiveEvent[] = [
     id: 'fim-de-emissao-45',
     title: 'Fim de Emissão #45',
     date: '2025-01-17',
-    venue: { name: 'Desterro', url: 'https://darc.pt', city: 'Lisbon', country: 'Portugal' },
+    venue: { name: 'Desterro', city: 'Lisbon', country: 'Portugal' },
     setup: { kind: 'solo' },
     bill: [
       { text: 'Ai Feith', url: 'https://aifeith.bandcamp.com/' },
@@ -209,7 +209,7 @@ export const recentEvents: LiveEvent[] = [
     id: 'cca-no-desterro-august',
     title: 'CCA no Desterro',
     date: '2024-08-10',
-    venue: { name: 'Desterro', url: 'https://darc.pt', city: 'Lisbon', country: 'Portugal' },
+    venue: { name: 'Desterro', city: 'Lisbon', country: 'Portugal' },
     setup: { kind: 'solo' },
     bill: [
       { text: 'Moss Kissing', url: 'https://mosskissingmusic.bandcamp.com/' },
@@ -224,7 +224,7 @@ export const recentEvents: LiveEvent[] = [
     id: 'cca-no-desterro',
     title: 'CCA no Desterro',
     date: '2024-05-02',
-    venue: { name: 'Desterro', url: 'https://darc.pt', city: 'Lisbon', country: 'Portugal' },
+    venue: { name: 'Desterro', city: 'Lisbon', country: 'Portugal' },
     setup: { kind: 'project', name: { text: 'NOx' }, members: [{ text: 'Pedro Roque', url: 'https://cavernancia.bandcamp.com/' }] },
     bill: [
       { text: "Copo d'Água", url: 'https://copodagua.bandcamp.com/' },
@@ -311,7 +311,7 @@ export const recentEvents: LiveEvent[] = [
     id: 'amess-teatro-baltazar-dias',
     title: { en: 'Performance with Amess', pt: 'Actuação com Amess' },
     date: '2022-07-02',
-    venue: { name: 'Teatro Municipal Baltazar Dias', url: 'https://www.teatromunicipal.pt/', city: 'Funchal', country: 'Portugal' },
+    venue: { name: 'Teatro Municipal Baltazar Dias', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'band', band: { text: 'Amess' } },
     imageAlt: { en: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022', pt: 'Jerome Faria a actuar com Amess no Teatro Municipal Baltazar Dias, Funchal, 2022' },
     images: [
@@ -496,7 +496,7 @@ export const recentEvents: LiveEvent[] = [
     titleUrl: '/works#aragao',
     date: '2021-09-22',
     endDate: '2021-09-25',
-    venue: { name: 'Teatro Municipal Baltazar Dias', url: 'https://www.teatromunicipal.pt/', city: 'Funchal', country: 'Portugal' },
+    venue: { name: 'Teatro Municipal Baltazar Dias', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'solo' },
     format: { kind: 'theatre' },
     imageAlt: { en: 'Aragão theatre production at Teatro Municipal Baltazar Dias, Funchal, 2021', pt: 'Produção teatral Aragão no Teatro Municipal Baltazar Dias, Funchal, 2021' },
