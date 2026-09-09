@@ -2,6 +2,13 @@
 
 All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch`).
 
+## Unreleased
+
+
+### Docs
+
+- Correct stale coverage numbers and rewrite the content guide ([#399](https://github.com/jeromefaria/jeromefaria.github.io/pull/399))
+
 ## 2026.09.2 — Writing, CV & immersive player — 2026-09-09
 
 
