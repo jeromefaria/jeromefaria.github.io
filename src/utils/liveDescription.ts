@@ -2,6 +2,7 @@ import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { Act, BillEntry, Format, LiveEvent, Setup } from '@/types/live';
 import { safeHref } from '@/utils/html';
+import { personUrl } from '@/utils/people';
 
 interface Phrases {
   solo: string;
@@ -52,7 +53,8 @@ const PHRASES: Record<Locale, Phrases> = {
 // eslint-disable-next-line local/no-comments -- security asymmetry
 // entry.text is trusted author HTML (intentionally unescaped), but entry.url must stay wrapped in safeHref so a javascript:/attribute-breaking url can never render.
 const act = (entry: Act, locale: Locale): string => {
-  const href = entry.url ? safeHref(entry.url) : null;
+  const url = entry.url ?? personUrl(entry.text);
+  const href = url ? safeHref(url) : null;
   const named = href ? `<a href="${href}">${entry.text}</a>` : entry.text;
   return entry.suffix ? `${named} ${localize(entry.suffix, locale)}` : named;
 };

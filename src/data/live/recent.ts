@@ -312,7 +312,7 @@ export const recentEvents: LiveEvent[] = [
     title: { en: 'Performance with Amess', pt: 'Actuação com Amess' },
     date: '2022-07-02',
     venue: { name: 'Teatro Municipal Baltazar Dias', url: 'https://www.teatromunicipal.pt/', city: 'Funchal', country: 'Portugal' },
-    setup: { kind: 'band', band: { text: 'Amess', url: 'https://www.instagram.com/amess.music/' } },
+    setup: { kind: 'band', band: { text: 'Amess' } },
     imageAlt: { en: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022', pt: 'Jerome Faria a actuar com Amess no Teatro Municipal Baltazar Dias, Funchal, 2022' },
     images: [
       {
@@ -334,7 +334,7 @@ export const recentEvents: LiveEvent[] = [
     title: { en: 'Performance with Amess', pt: 'Actuação com Amess' },
     date: '2022-03-18',
     venue: { name: 'Museu Henrique e Francisco Franco', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=3', city: 'Funchal', country: 'Portugal' },
-    setup: { kind: 'band', band: { text: 'Amess', url: 'https://www.instagram.com/amess.music/' } },
+    setup: { kind: 'band', band: { text: 'Amess' } },
     imageAlt: { en: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022', pt: 'Jerome Faria a actuar com Amess no Museu Henrique e Francisco Franco, Funchal, 2022' },
     images: [
       {
@@ -448,7 +448,7 @@ export const recentEvents: LiveEvent[] = [
     bill: [
       { text: 'António Caramelo', url: 'https://www.facebook.com/makearevolutione' },
       { text: 'Ghent', url: 'https://ghentelectronica.bandcamp.com/' },
-      { text: 'Manuel Mota', url: 'https://manuelmota.bandcamp.com/' },
+      { text: 'Manuel Mota' },
       { text: 'Novo Major', suffix: '(DJ)' },
       { text: 'OndaXoque', url: 'https://ondaxoque.bandcamp.com/' },
       { text: 'shhh…', url: 'https://shhh-music.bandcamp.com/' },
@@ -530,6 +530,6 @@ export const recentEvents: LiveEvent[] = [
     title: 'Reviralho',
     date: '2021-08-20',
     venue: { name: 'Cais do Carvão', city: 'Funchal', country: 'Portugal' },
-    setup: { kind: 'band', band: { text: 'Amess', url: 'https://www.instagram.com/amess.music/' } },
+    setup: { kind: 'band', band: { text: 'Amess' } },
   },
 ];

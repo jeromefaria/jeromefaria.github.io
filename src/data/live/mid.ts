@@ -100,7 +100,7 @@ export const midEvents: LiveEvent[] = [
     titleUrl: 'https://www.pontadosol.com/l-concerts',
     date: '2013-10-26',
     venue: { name: 'Estalagem da Ponta do Sol', url: 'https://www.pontadosol.com/', city: 'Ponta do Sol', country: 'Portugal' },
-    setup: { kind: 'duo', with: { text: 'Nuno Filipe', url: 'https://nunoandtheend.bandcamp.com/', suffix: '(piano)' } },
+    setup: { kind: 'duo', with: { text: 'Nuno Filipe', suffix: '(piano)' } },
     format: { kind: 'filmScore', film: { en: "Robert Wiene's 1920 expressionist silent film", pt: 'o filme mudo expressionista de Robert Wiene (1920)' } },
   },
   {
@@ -108,7 +108,7 @@ export const midEvents: LiveEvent[] = [
     title: 'The Cabinet of Dr. Caligari',
     date: '2013-09-13',
     venue: { name: 'Scat Music Club', city: 'Funchal', country: 'Portugal' },
-    setup: { kind: 'duo', with: { text: 'Nuno Filipe', url: 'https://nunoandtheend.bandcamp.com/', suffix: '(piano)' } },
+    setup: { kind: 'duo', with: { text: 'Nuno Filipe', suffix: '(piano)' } },
     format: { kind: 'filmScore', film: { en: "Robert Wiene's 1920 expressionist silent film", pt: 'o filme mudo expressionista de Robert Wiene (1920)' } },
     imageAlt: { en: 'Jerome Faria performing The Cabinet of Dr. Caligari at Scat Music Club, Funchal, 2013', pt: 'Jerome Faria a interpretar The Cabinet of Dr. Caligari no Scat Music Club, Funchal, 2013' },
     images: [
@@ -123,7 +123,7 @@ export const midEvents: LiveEvent[] = [
     title: 'Cidades Electrónicas: The Cabinet of Dr. Caligari',
     date: '2013-05-11',
     venue: { name: 'Casa das Mudas', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1', city: 'Calheta', country: 'Portugal' },
-    setup: { kind: 'duo', with: { text: 'Nuno Filipe', url: 'https://nunoandtheend.bandcamp.com/', suffix: '(piano)' } },
+    setup: { kind: 'duo', with: { text: 'Nuno Filipe', suffix: '(piano)' } },
     format: { kind: 'filmScore', film: { en: "Robert Wiene's 1920 expressionist silent film", pt: 'o filme mudo expressionista de Robert Wiene (1920)' }, premiere: true },
     imageAlt: { en: 'Jerome Faria performing at Cidades Electrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013', pt: 'Jerome Faria a actuar em Cidades Electrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013' },
     images: [
