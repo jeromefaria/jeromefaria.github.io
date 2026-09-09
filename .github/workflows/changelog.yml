@@ -35,21 +35,28 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Regenerate changelog
-        run: npm run changelog
-
-      - name: Commit if changed
+      - name: Regenerate and commit if changed
         run: |
           if [ -z "$PUSH_TOKEN" ]; then
             echo "CHANGELOG_PUSH_TOKEN not set — skipping auto-commit. Add the secret to enable it."
             exit 0
           fi
-          if git diff --quiet -- CHANGELOG.md; then
-            echo "CHANGELOG.md already current — nothing to commit."
-            exit 0
-          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add CHANGELOG.md
-          git commit --no-verify -m "chore(changelog): regenerate CHANGELOG.md [skip ci]"
-          git push
+          for attempt in 1 2 3; do
+            git fetch --quiet --tags origin master
+            git reset --quiet --hard origin/master
+            npm run changelog
+            if git diff --quiet -- CHANGELOG.md; then
+              echo "CHANGELOG.md already current — nothing to commit."
+              exit 0
+            fi
+            git add CHANGELOG.md
+            git commit --no-verify -m "chore(changelog): regenerate CHANGELOG.md [skip ci]"
+            if git push; then
+              exit 0
+            fi
+            echo "Push lost the race on attempt ${attempt}; regenerating against the new master."
+          done
+          echo "Changelog could not be pushed after 3 attempts." >&2
+          exit 1
