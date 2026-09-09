@@ -27,9 +27,6 @@ export const nny: WorksSection = {
           { role: 'artwork', of: '[[Filipe Cruz]]' },
         ],
       },
-      contributors: [
-        { name: 'Filipe Cruz', url: 'https://webuser.scene.org/~ps/' },
-      ],
     },
     {
       id: 'coil',
@@ -84,9 +81,6 @@ export const nny: WorksSection = {
           { role: 'artwork', of: '[[Philip Baljeu]]' },
         ],
       },
-      contributors: [
-        { name: 'Philip Baljeu', url: 'https://www.instagram.com/pbalpbal/' },
-      ],
     },
     {
       id: 'ect',
@@ -144,9 +138,6 @@ export const nny: WorksSection = {
           { role: 'artwork', of: '[[Spiraljoe]]' },
         ],
       },
-      contributors: [
-        { name: 'Spiraljoe', url: 'https://www.deviantart.com/spiraljoe' },
-      ],
     },
   ],
 };

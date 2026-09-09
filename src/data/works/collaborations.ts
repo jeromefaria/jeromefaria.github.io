@@ -35,10 +35,6 @@ export const collaborations: WorksSection = {
           { role: 'photography', of: '[[Pedro Jafuno]], [[Sue-Elie Andrade-Dé]], and Joana Marote' },
         ],
       },
-      contributors: [
-        { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
-        { name: 'Sue-Elie Andrade-Dé', url: 'https://cargocollective.com/sueelieandradede' },
-      ],
     },
     {
       id: 'altar',
@@ -66,9 +62,6 @@ export const collaborations: WorksSection = {
           { role: 'artwork', of: '[[Mafalda Melim]]' },
         ],
       },
-      contributors: [
-        { name: 'Mafalda Melim', url: 'https://www.instagram.com/mafaldappm/' },
-      ],
       videos: [
         {
           url: 'https://www.youtube-nocookie.com/embed/3b3pM8URdVc',
