@@ -11,6 +11,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **people:** Resolve live collaborator links through the registry ([#407](https://github.com/jeromefaria/jeromefaria.github.io/pull/407))
 - **people:** Introduce a collaborator registry and route credit links through it ([#405](https://github.com/jeromefaria/jeromefaria.github.io/pull/405))
 - **live:** Split the events array into era files ([#403](https://github.com/jeromefaria/jeromefaria.github.io/pull/403))
 
