@@ -45,7 +45,7 @@ export const collaborations: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital', 'Cassette'],
-        editions: [{ label: { text: 'Colectivo Casa Amarela', url: 'https://casaamarela.bandcamp.com/' }, catalog: 'CCA#035' }],
+        editions: [{ label: { text: 'Colectivo Casa Amarela' }, catalog: 'CCA#035' }],
         released: '2024',
       },
       tracklist: [
