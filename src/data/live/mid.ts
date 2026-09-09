@@ -90,8 +90,8 @@ export const midEvents: LiveEvent[] = [
       pt: 'Festival sobre criatividade, tecnologia e ciência.',
     },
     credit: {
-      en: 'Presented by <a href="https://www.urbanistas.pt">Urbanistas</a>.',
-      pt: 'Apresentado pelos <a href="https://www.urbanistas.pt">Urbanistas</a>.',
+      en: 'Presented by [[Urbanistas]].',
+      pt: 'Apresentado pelos [[Urbanistas]].',
     },
   },
   {
@@ -139,8 +139,8 @@ export const midEvents: LiveEvent[] = [
     venue: { name: 'Estalagem da Ponta do Sol', url: 'https://www.pontadosol.com/', city: 'Ponta do Sol', country: 'Portugal' },
     setup: { kind: 'ensemble', name: { en: 'Improvisation collective', pt: 'Colectivo de improvisação' } },
     note: {
-      en: 'Electronics, piano (<a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>), percussion (<a href="https://madeirajazzcollective.bandcamp.com/">Jorge Maggiore</a>) and visuals (Filipe Ferraz).',
-      pt: 'Electrónica, piano (<a href="https://nunoandtheend.bandcamp.com/">Nuno Filipe</a>), percussão (<a href="https://madeirajazzcollective.bandcamp.com/">Jorge Maggiore</a>) e visuais (Filipe Ferraz).',
+      en: 'Electronics, piano ([[Nuno Filipe]]), percussion ([[Jorge Maggiore]]) and visuals (Filipe Ferraz).',
+      pt: 'Electrónica, piano ([[Nuno Filipe]]), percussão ([[Jorge Maggiore]]) e visuais (Filipe Ferraz).',
     },
     videos: [
       {

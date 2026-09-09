@@ -17,8 +17,8 @@ export const recentEvents: LiveEvent[] = [
       { text: 'Soria', url: 'https://soriasoriasoria.bandcamp.com' },
     ],
     credit: {
-      en: 'Presented by <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
-      pt: 'Apresentado pelo <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+      en: 'Presented by [[Colectivo Casa Amarela]].',
+      pt: 'Apresentado pelo [[Colectivo Casa Amarela]].',
     },
     posters: [
       {
@@ -98,8 +98,8 @@ export const recentEvents: LiveEvent[] = [
       { text: 'Rebolation All-Stars' },
     ],
     credit: {
-      en: 'Presented by <a href="https://outra.pt/">OUT.RA</a> and <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
-      pt: 'Apresentado pela <a href="https://outra.pt/">OUT.RA</a> e pelo <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+      en: 'Presented by [[OUT.RA]] and [[Colectivo Casa Amarela]].',
+      pt: 'Apresentado pela [[OUT.RA]] e pelo [[Colectivo Casa Amarela]].',
     },
     imageAlt: { en: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025', pt: 'NOx a actuar no Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025' },
     images: [
@@ -166,8 +166,8 @@ export const recentEvents: LiveEvent[] = [
       { text: 'W.T.V.R' },
     ],
     credit: {
-      en: 'Presented by <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
-      pt: 'Apresentado pelo <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+      en: 'Presented by [[Colectivo Casa Amarela]].',
+      pt: 'Apresentado pelo [[Colectivo Casa Amarela]].',
     },
     imageAlt: { en: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025', pt: 'Jerome Faria a actuar no Fim de Emissão #45, Desterro, Lisboa, 2025' },
     images: [
@@ -216,8 +216,8 @@ export const recentEvents: LiveEvent[] = [
       { text: 'Rui Wentacid', suffix: '(DJ set)' },
     ],
     credit: {
-      en: 'Presented by <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
-      pt: 'Apresentado pelo <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+      en: 'Presented by [[Colectivo Casa Amarela]].',
+      pt: 'Apresentado pelo [[Colectivo Casa Amarela]].',
     },
   },
   {
@@ -232,8 +232,8 @@ export const recentEvents: LiveEvent[] = [
       { text: "Gallo'84", url: 'https://casaamarela.bandcamp.com/album/shimano' },
     ],
     credit: {
-      en: 'Presented by <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
-      pt: 'Apresentado pelo <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+      en: 'Presented by [[Colectivo Casa Amarela]].',
+      pt: 'Apresentado pelo [[Colectivo Casa Amarela]].',
     },
     imageAlt: { en: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024', pt: 'NOx a actuar em CCA no Desterro, Desterro, Lisboa, 2024' },
     images: [
@@ -366,8 +366,8 @@ export const recentEvents: LiveEvent[] = [
     venue: { name: 'Rua das Gaivotas 6', url: 'https://ruadasgaivotas6.pt/', city: 'Lisbon', country: 'Portugal' },
     setup: { kind: 'solo' },
     credit: {
-      en: 'Presented by <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
-      pt: 'Apresentado pelo <a href="https://casaamarela.bandcamp.com">Colectivo Casa Amarela</a>.',
+      en: 'Presented by [[Colectivo Casa Amarela]].',
+      pt: 'Apresentado pelo [[Colectivo Casa Amarela]].',
     },
     imageAlt: { en: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022', pt: 'Jerome Faria a actuar no Jejum #11, Rua das Gaivotas 6, Lisboa, 2022' },
     images: [
@@ -459,8 +459,8 @@ export const recentEvents: LiveEvent[] = [
       { text: 'Whalt Thisney', url: 'https://walthisney.bandcamp.com/' },
     ],
     credit: {
-      en: 'Presented by <a href="https://linktr.ee/narizentupido">Nariz Entupido</a> with <a href="https://thisco.bandcamp.com/">THISCO</a> and SPH.',
-      pt: 'Apresentado pela <a href="https://linktr.ee/narizentupido">Nariz Entupido</a> com a <a href="https://thisco.bandcamp.com/">THISCO</a> e a SPH.',
+      en: 'Presented by [[Nariz Entupido]] with [[THISCO]] and SPH.',
+      pt: 'Apresentado pela [[Nariz Entupido]] com a [[THISCO]] e a SPH.',
     },
     imageAlt: { en: 'Jerome Faria and CAVERNANCIA performing at SMUP, Parede, 2021', pt: 'Jerome Faria e CAVERNANCIA a actuar na SMUP, Parede, 2021' },
     images: [
