@@ -1,8 +1,24 @@
 import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
-import type { LiveEvent } from '@/types/live';
-import type { SchemaItemList, SchemaMusicAlbum, SchemaMusicEvent } from '@/types/schema';
+import type { Act, LiveEvent, Setup } from '@/types/live';
+import type { SchemaItemList, SchemaMusicAlbum, SchemaMusicEvent, SchemaPerson } from '@/types/schema';
 import type { Track } from '@/types/works';
+import { personSameAs } from '@/utils/people';
+
+const collectCollaborators = (setup: Setup): Act[] => {
+  switch (setup.kind) {
+    case 'duo': return [setup.with];
+    case 'band': return [setup.band];
+    case 'project': return [setup.name, ...(setup.members ?? [])];
+    case 'ensemble': return setup.members ?? [];
+    default: return [];
+  }
+};
+
+const toPerformer = (act: Act): SchemaPerson => {
+  const sameAs = personSameAs(act.text, act.url);
+  return { '@type': 'Person', name: act.text, ...(sameAs && { sameAs }) };
+};
 
 interface ReleaseForSchema {
   title: string;
@@ -34,11 +50,15 @@ export const createMusicEventSchema = (
       addressCountry: event.venue.country,
     },
   },
-  performer: {
-    '@type': 'Person',
-    name: performerName,
-  },
+  performer: buildPerformers(event, performerName),
 });
+
+const buildPerformers = (event: LiveEvent, performerName: string): SchemaPerson | SchemaPerson[] => {
+  const lead: SchemaPerson = { '@type': 'Person', name: performerName };
+  const collaborators = collectCollaborators(event.setup);
+
+  return collaborators.length === 0 ? lead : [lead, ...collaborators.map(toPerformer)];
+};
 
 export const createItemListSchema = (
   items: SchemaMusicEvent[],

@@ -1,8 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
 import type { LiveEvent } from '@/types/live';
+import type { SchemaPerson } from '@/types/schema';
 
 import { createItemListSchema, createMusicAlbumSchema, createMusicEventSchema } from './schemaHelpers';
+
+const performerNames = (performer: SchemaPerson | SchemaPerson[]): string[] =>
+  (Array.isArray(performer) ? performer : [performer]).map(entry => entry.name);
 
 const baseEvent: LiveEvent = {
   id: 'madeiradig-2011',
@@ -10,7 +14,7 @@ const baseEvent: LiveEvent = {
   titleUrl: 'https://digitalinberlin.eu/',
   date: '2011-12-02',
   venue: { name: 'Casa das Mudas', url: 'https://example.com', city: 'Calheta', country: 'Portugal' },
-  performance: { kind: 'solo' },
+  setup: { kind: 'solo' },
 };
 
 describe('createMusicEventSchema', () => {
@@ -52,9 +56,58 @@ describe('createMusicEventSchema', () => {
     expect(schema.endDate).toBeUndefined();
   });
 
-  it('sets the performer name', () => {
+  it('sets a single performer for a solo event', () => {
     const schema = createMusicEventSchema(baseEvent, 'Jerome Faria');
     expect(schema.performer).toEqual({ '@type': 'Person', name: 'Jerome Faria' });
+  });
+
+  it('lists a duo partner as a second performer, with an inline url as sameAs', () => {
+    const schema = createMusicEventSchema(
+      { ...baseEvent, setup: { kind: 'duo', with: { text: 'A Guest', url: 'https://guest.test/' } } },
+      'Jerome Faria',
+    );
+    expect(schema.performer).toEqual([
+      { '@type': 'Person', name: 'Jerome Faria' },
+      { '@type': 'Person', name: 'A Guest', sameAs: ['https://guest.test/'] },
+    ]);
+  });
+
+  it('resolves a collaborator sameAs from the people registry', () => {
+    const schema = createMusicEventSchema(
+      { ...baseEvent, setup: { kind: 'duo', with: { text: 'Taylor Deupree' } } },
+      'Jerome Faria',
+    );
+    expect(schema.performer).toEqual([
+      { '@type': 'Person', name: 'Jerome Faria' },
+      { '@type': 'Person', name: 'Taylor Deupree', sameAs: ['https://www.12k.com/artist/deupree-taylor/'] },
+    ]);
+  });
+
+  it('omits sameAs for a collaborator with no known link', () => {
+    const schema = createMusicEventSchema(
+      { ...baseEvent, setup: { kind: 'band', band: { text: 'Unknown Band' } } },
+      'Jerome Faria',
+    );
+    expect(schema.performer).toEqual([
+      { '@type': 'Person', name: 'Jerome Faria' },
+      { '@type': 'Person', name: 'Unknown Band' },
+    ]);
+  });
+
+  it('collects project name and members as performers', () => {
+    const schema = createMusicEventSchema(
+      { ...baseEvent, setup: { kind: 'project', name: { text: 'NOx' }, members: [{ text: 'Member One' }] } },
+      'Jerome Faria',
+    );
+    expect(performerNames(schema.performer)).toEqual(['Jerome Faria', 'NOx', 'Member One']);
+  });
+
+  it('collects ensemble members as performers', () => {
+    const schema = createMusicEventSchema(
+      { ...baseEvent, setup: { kind: 'ensemble', name: 'An Ensemble', members: [{ text: 'Player' }] } },
+      'Jerome Faria',
+    );
+    expect(performerNames(schema.performer)).toEqual(['Jerome Faria', 'Player']);
   });
 
   it('resolves a Localized title to the requested locale', () => {
