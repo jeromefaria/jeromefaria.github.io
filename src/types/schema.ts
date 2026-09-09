@@ -6,6 +6,7 @@ export interface SchemaOrganization {
 export interface SchemaPerson {
   '@type': 'Person';
   name: string;
+  sameAs?: string[];
 }
 
 export interface SchemaPostalAddress {
@@ -27,7 +28,7 @@ export interface SchemaMusicEvent {
   startDate: string;
   endDate?: string;
   location: SchemaPlace;
-  performer: SchemaPerson;
+  performer: SchemaPerson | SchemaPerson[];
 }
 
 export interface SchemaItemListElement {
