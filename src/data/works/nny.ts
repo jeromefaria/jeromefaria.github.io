@@ -37,7 +37,7 @@ export const nny: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital'],
-        editions: [{ label: { text: 'MiMi Records', url: 'https://mimirecords.bandcamp.com/' }, catalog: 'MI056' }],
+        editions: [{ label: { text: 'MiMi Records' }, catalog: 'MI056' }],
         released: '2006-06-06',
       },
       tracklist: [
@@ -61,7 +61,7 @@ export const nny: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital'],
-        editions: [{ label: { text: 'MiMi Records', url: 'https://mimirecords.bandcamp.com/' }, catalog: 'MI031' }],
+        editions: [{ label: { text: 'MiMi Records' }, catalog: 'MI031' }],
         released: '2005-01-05',
       },
       tracklist: [
@@ -121,7 +121,7 @@ export const nny: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital'],
-        editions: [{ label: { text: 'Enough Records', url: 'https://enoughrecords.scene.org/' }, catalog: 'ENRMP040' }],
+        editions: [{ label: { text: 'Enough Records' }, catalog: 'ENRMP040' }],
         released: '2004-07-04',
       },
       tracklist: [
