@@ -2,7 +2,11 @@ import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { Act, BillEntry, Format, LiveEvent, Setup } from '@/types/live';
 import { safeHref } from '@/utils/html';
+import { orgUrl } from '@/utils/orgs';
 import { personUrl } from '@/utils/people';
+import { resolveMarkers } from '@/utils/renderCredits';
+
+export const linkEntities = (html: string): string => resolveMarkers(html, name => personUrl(name) ?? orgUrl(name));
 
 interface Phrases {
   solo: string;
@@ -106,5 +110,5 @@ export const buildEventDescription = (event: LiveEvent, locale: Locale = DEFAULT
   if (event.bill?.length) parts.push(phrases.alongside(event.bill.map(entry => billEntry(entry, locale)).join(', ')));
   if (event.credit) parts.push(localize(event.credit, locale));
 
-  return parts.join(' ');
+  return linkEntities(parts.join(' '));
 };
