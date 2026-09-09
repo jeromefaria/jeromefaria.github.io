@@ -288,11 +288,18 @@ describe('EventItem', () => {
       expect(venue.text()).toContain('Lisbon, Portugal');
     });
 
-    it('renders an unlinked venue name when there is no url', () => {
-      const wrapper = mountEvent(festivalEvent);
+    it('renders an unlinked venue name when there is no url and none is registered', () => {
+      const wrapper = mountEvent({ ...plainEvent, venue: { name: 'A Small Room', city: 'Nowhere', country: 'Portugal' } });
       const venue = wrapper.get('.event-venue');
       expect(venue.find('a').exists()).toBe(false);
-      expect(venue.text()).toBe('Casa das Mudas, Calheta, Portugal');
+      expect(venue.text()).toBe('A Small Room, Nowhere, Portugal');
+    });
+
+    it('links a registered venue even when the event carries no inline url', () => {
+      const wrapper = mountEvent({ ...plainEvent, venue: { name: 'Casa das Mudas', city: 'Calheta', country: 'Portugal' } });
+      const link = wrapper.get('.event-venue a');
+      expect(link.attributes('href')).toBe('https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1');
+      expect(link.text()).toContain('Casa das Mudas');
     });
 
     it('renders a country-only (TBC) venue as plain text', () => {

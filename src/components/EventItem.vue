@@ -12,6 +12,7 @@ import { formatEventDateRange } from '@/utils/formatters';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 import type { LightboxSource } from '@/utils/lightboxPermalink';
 import { buildEventDescription } from '@/utils/liveDescription';
+import { venueUrl } from '@/utils/venues';
 
 import ExternalLink from './ExternalLink.vue';
 import IconArrow from './IconArrow.vue';
@@ -43,6 +44,8 @@ const venueLocation = computed(() =>
     .join(', '));
 
 const venueSeparator = computed(() => (props.event.venue.name && venueLocation.value ? ', ' : ''));
+
+const venueHref = computed(() => props.event.venue.url ?? (props.event.venue.name ? venueUrl(props.event.venue.name) : undefined));
 
 const imageLightboxItems = computed<LightboxItem[]>(() =>
   props.event.images?.map(image =>
@@ -94,8 +97,8 @@ useLightboxDeepLink(
           class="event-date"
         >{{ formattedDate }} · </span>
         <span class="event-venue"><ExternalLink
-          v-if="event.venue.name && event.venue.url"
-          :href="event.venue.url"
+          v-if="event.venue.name && venueHref"
+          :href="venueHref"
         >{{ event.venue.name }}</ExternalLink><template v-else-if="event.venue.name">{{ event.venue.name }}</template>{{ venueSeparator }}{{ venueLocation }}</span>
       </p>
       <p
