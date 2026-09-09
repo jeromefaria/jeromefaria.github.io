@@ -11,6 +11,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **orgs:** Fold record labels into the org registry ([#411](https://github.com/jeromefaria/jeromefaria.github.io/pull/411))
 - **venues:** Resolve recurring venue links through a registry ([#410](https://github.com/jeromefaria/jeromefaria.github.io/pull/410))
 - **orgs:** Route Live promoter/org links through a registry ([#409](https://github.com/jeromefaria/jeromefaria.github.io/pull/409))
 - **people:** Resolve photographer credits through the registry ([#408](https://github.com/jeromefaria/jeromefaria.github.io/pull/408))
