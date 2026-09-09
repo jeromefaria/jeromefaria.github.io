@@ -76,7 +76,16 @@ The catalogue plays in-page — a built-in player, not a third-party embed. Pres
 - **Chaptered single files** — a continuous piece presented as movements (e.g. *2504*, one 25:04 file) seeks to any movement's exact offset; the current movement's title surfaces in the player bar and highlights in the now-playing view as the playhead crosses it.
 - **OS integration** — the **Media Session API** wires the lock screen and media keys with title, artist, album, and artwork, plus play / pause / next / previous / seek handlers.
 - **Expand, immerse & dismiss** — tap the bar for a full now-playing view (artwork, seek, chapter/queue list); tap the cover there to zoom into an immersive, controls-dimmed artwork view. A close control stops playback and clears the bar.
-- **Keyboard control** — fully operable from the keyboard, with regular and Vi-style bindings: `j`/`k` (or arrows) step tracks and chapters, `h`/`l` seek, `Space` toggles play, `gg`/`G` jump to first and last; `:` opens the command palette, and `?` brings up a sectioned shortcuts help.
+- **Keyboard control** — the player is fully operable from the keyboard, with regular and Vi-style bindings (below); `?` opens a sectioned shortcuts cheat-sheet.
+
+| Key | Action |
+| --- | --- |
+| `Space` | Play / pause |
+| `j` `k` · `↓` `↑` | Next / previous track (or chapter) |
+| `h` `l` · `←` `→` | Seek ∓5s |
+| `H` `L` · `⇧←` `⇧→` | Seek ∓10s |
+| `0` `$` | Jump to start / end |
+| `gg` `G` | First / last track (or chapter) |
 
 **Under the hood**
 
@@ -89,7 +98,7 @@ The catalogue plays in-page — a built-in player, not a third-party embed. Pres
 
 ## Command palette
 
-A hidden command palette — no on-screen affordance, summoned with **⌘K** (macOS) or **Ctrl+K**. It searches, navigates, and acts across the whole site from the keyboard; press **?** anywhere (outside a text field) for the shortcuts cheat-sheet.
+A hidden command palette — no on-screen affordance, summoned with **⌘K** (macOS), **Ctrl+K**, or a Vim-style **`:`**. It searches, navigates, and acts across the whole site from the keyboard; press **?** anywhere (outside a text field) for the shortcuts cheat-sheet.
 
 **What it does**
 
@@ -102,6 +111,7 @@ An empty query surfaces recents (persisted in `localStorage`) followed by curate
 | Key | Action |
 | --- | --- |
 | `⌘K` / `Ctrl+K` | Open / close |
+| `:` | Open (Vim `:` command-mode) |
 | `↑` `↓` · `Ctrl+P` `Ctrl+N` · `Ctrl+K` `Ctrl+J` | Move selection (arrows, Emacs, or Vim / fzf) |
 | `Ctrl+U` / `Ctrl+D` | Jump half a page |
 | `↵` | Open the selected command |
