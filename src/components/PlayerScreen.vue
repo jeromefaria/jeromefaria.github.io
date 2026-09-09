@@ -13,7 +13,7 @@ import { useT } from '@/i18n/useT';
 import type { AudioTrack } from '@/types/audio';
 import { toWebp } from '@/utils/responsiveImage';
 
-const { currentTrack, queue, context, currentChapter, displayTitle, seek, select, collapse } = usePlayer();
+const { currentTrack, queue, context, currentChapter, displayTitle, immersive, seek, select, collapse, enterImmersive, exitImmersive } = usePlayer();
 
 const artwork = computed(() => currentTrack.value?.artwork ?? context.value.artwork);
 
@@ -47,15 +47,6 @@ const entriesLabel = computed(() => t(queue.value.length > 1 ? 'player.queue' : 
 
 const dialog = ref<HTMLElement | null>(null);
 const zoomButton = ref<HTMLElement>();
-const immersive = ref(false);
-
-const enterImmersive = (): void => {
-  if (artwork.value) immersive.value = true;
-};
-
-const exitImmersive = (): void => {
-  immersive.value = false;
-};
 
 watch(immersive, async open => {
   if (open) return;
