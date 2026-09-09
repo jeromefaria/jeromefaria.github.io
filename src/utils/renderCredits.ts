@@ -86,6 +86,14 @@ const compose = (credits: StructuredCredits, locale: Locale): string => {
 const toSource = (credits: Credits, locale: Locale): string =>
   (isStructuredCredits(credits) ? compose(credits, locale) : credits);
 
+export const resolveMarkers = (text: string, resolveUrl: (name: string) => string | undefined): string =>
+  text.replace(MARKER, (_match, name: string) => {
+    const url = resolveUrl(name);
+    const href = url ? safeHref(url) : null;
+    const safeName = escapeHtml(name);
+    return href ? `<a href="${href}">${safeName}</a>` : safeName;
+  });
+
 export const renderCredits = (credits: Credits, contributors: Credit[] = [], locale: Locale = DEFAULT_LOCALE): string => {
   const linked = new Map<string, string>();
 
@@ -93,12 +101,7 @@ export const renderCredits = (credits: Credits, contributors: Credit[] = [], loc
     if (contributor.url) linked.set(contributor.name, contributor.url);
   }
 
-  return toSource(credits, locale).replace(MARKER, (_match, name: string) => {
-    const url = linked.get(name) ?? personUrl(name);
-    const href = url ? safeHref(url) : null;
-    const safeName = escapeHtml(name);
-    return href ? `<a href="${href}">${safeName}</a>` : safeName;
-  });
+  return resolveMarkers(toSource(credits, locale), name => linked.get(name) ?? personUrl(name));
 };
 
 export const plainCredits = (credits: Credits, locale: Locale = DEFAULT_LOCALE): string =>

@@ -18,8 +18,8 @@ export const earlyEvents: LiveEvent[] = [
       { text: 'Aki Onda', url: 'https://akionda.net/' },
     ],
     credit: {
-      en: 'Presented by <a href="https://www.apca-madeira.org/">APCA</a> and <a href="https://www.digitalinberlin.de/">Digital in Berlin</a>.',
-      pt: 'Apresentado pela <a href="https://www.apca-madeira.org/">APCA</a> e pela <a href="https://www.digitalinberlin.de/">Digital in Berlin</a>.',
+      en: 'Presented by [[APCA]] and [[Digital in Berlin]].',
+      pt: 'Apresentado pela [[APCA]] e pela [[Digital in Berlin]].',
     },
     imageAlt: { en: 'Jerome Faria and Taylor Deupree performing at MADEIRADIG, Casa das Mudas, Calheta, 2011', pt: 'Jerome Faria e Taylor Deupree a actuar no MADEIRADIG, Casa das Mudas, Calheta, 2011' },
     images: [
@@ -90,8 +90,8 @@ export const earlyEvents: LiveEvent[] = [
       { text: 'André Gonçalves' },
     ],
     credit: {
-      en: 'Presented by <a href="https://www.porto.ucp.pt/">Universidade Católica do Porto</a>.',
-      pt: 'Apresentado pela <a href="https://www.porto.ucp.pt/">Universidade Católica do Porto</a>.',
+      en: 'Presented by [[Universidade Católica do Porto]].',
+      pt: 'Apresentado pela [[Universidade Católica do Porto]].',
     },
     imageAlt: { en: 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010', pt: 'Jerome Faria a actuar no Olhares de Outono, Passos Manuel, Porto, 2010' },
     images: [
@@ -142,8 +142,8 @@ export const earlyEvents: LiveEvent[] = [
       { text: 'Jade', url: 'http://www.jade-enterprises.at/' },
     ],
     credit: {
-      en: 'Presented by <a href="https://www.apca-madeira.org/">APCA</a> and <a href="https://www.digitalinberlin.de/">Digital in Berlin</a>.',
-      pt: 'Apresentado pela <a href="https://www.apca-madeira.org/">APCA</a> e pela <a href="https://www.digitalinberlin.de/">Digital in Berlin</a>.',
+      en: 'Presented by [[APCA]] and [[Digital in Berlin]].',
+      pt: 'Apresentado pela [[APCA]] e pela [[Digital in Berlin]].',
     },
     imageAlt: { en: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, Casa das Mudas, Calheta, 2009', pt: 'Jerome Faria e Hugo Olim a actuar no MADEIRADIG, Casa das Mudas, Calheta, 2009' },
     images: [
@@ -217,8 +217,8 @@ export const earlyEvents: LiveEvent[] = [
       ],
     },
     credit: {
-      en: 'Presented by <a href="https://www.porto.ucp.pt/">Universidade Católica do Porto</a>.',
-      pt: 'Apresentado pela <a href="https://www.porto.ucp.pt/">Universidade Católica do Porto</a>.',
+      en: 'Presented by [[Universidade Católica do Porto]].',
+      pt: 'Apresentado pela [[Universidade Católica do Porto]].',
     },
     imageAlt: { en: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009', pt: 'Encontro de laptops Resampling White Noise no EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009' },
     images: [
@@ -368,7 +368,7 @@ export const earlyEvents: LiveEvent[] = [
     setup: { kind: 'solo' },
     bill: [
       { text: 'Svarte Greiner', url: 'https://svartegreiner.bandcamp.com/' },
-      { text: 'Pygar (<a href="https://vimeo.com/hugoolim">Hugo Olim</a> & <a href="https://opcabpol.bandcamp.com/">João Ricardo</a>)' },
+      { text: 'Pygar ([[Hugo Olim]] & [[João Ricardo]])' },
       { text: 'e:4c' },
       { text: 'CKZ' },
       { text: 'DeciBeats' },
@@ -406,8 +406,8 @@ export const earlyEvents: LiveEvent[] = [
       { text: 'Ran Slavin', url: 'https://ranslavin.com/' },
     ],
     credit: {
-      en: 'Presented by <a href="https://www.apca-madeira.org/">APCA</a> and <a href="https://www.digitalinberlin.de/">Digital in Berlin</a>.',
-      pt: 'Apresentado pela <a href="https://www.apca-madeira.org/">APCA</a> e pela <a href="https://www.digitalinberlin.de/">Digital in Berlin</a>.',
+      en: 'Presented by [[APCA]] and [[Digital in Berlin]].',
+      pt: 'Apresentado pela [[APCA]] e pela [[Digital in Berlin]].',
     },
     imageAlt: { en: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007', pt: 'Jerome Faria a actuar no MADEIRADIG, Casa das Mudas, Calheta, 2007' },
     images: [
@@ -467,8 +467,8 @@ export const earlyEvents: LiveEvent[] = [
       { text: 'Frank Bretschneider' },
     ],
     credit: {
-      en: 'Presented by <a href="https://www.apca-madeira.org/">APCA</a>.',
-      pt: 'Apresentado pela <a href="https://www.apca-madeira.org/">APCA</a>.',
+      en: 'Presented by [[APCA]].',
+      pt: 'Apresentado pela [[APCA]].',
     },
   },
   {
@@ -489,8 +489,8 @@ export const earlyEvents: LiveEvent[] = [
       [{ text: 'Ruinman' }, { text: 'Redo' }],
     ],
     credit: {
-      en: 'Presented by <a href="https://www.apca-madeira.org/">APCA</a>.',
-      pt: 'Apresentado pela <a href="https://www.apca-madeira.org/">APCA</a>.',
+      en: 'Presented by [[APCA]].',
+      pt: 'Apresentado pela [[APCA]].',
     },
     imageAlt: { en: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005', pt: 'Jerome Faria e Hugo Olim a actuar no MADEIRADIG, Auditório da RDP, Funchal, 2005' },
     images: [
