@@ -15,6 +15,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Build & CI
 
+- **changelog:** Make the auto-regeneration push race-proof ([#404](https://github.com/jeromefaria/jeromefaria.github.io/pull/404))
 - Add CodeQL scanning and a security policy ([#401](https://github.com/jeromefaria/jeromefaria.github.io/pull/401))
 - Align worker TypeScript, single-source coverage thresholds, add verify + editorconfig ([#400](https://github.com/jeromefaria/jeromefaria.github.io/pull/400))
 
