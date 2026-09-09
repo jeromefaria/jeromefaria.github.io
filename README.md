@@ -10,9 +10,10 @@
 ## What this demonstrates
 
 - **Modern Vue 3 + strict TypeScript.** Composition API with `<script setup>`, a focused composable layer (accordion + hash routing, image loading, page head/schema, the audio player), and content modelled as typed data with discriminated unions.
-- **A from-scratch audio player.** A singleton state machine over one `HTMLAudioElement` — cover-as-play, per-track and *chaptered* (a single file presented as timed movements) playback, a docked bar that expands to a now-playing view, **Media Session** lock-screen integration (metadata, artwork, media-key handlers), a generation-token guard against the classic media race, and best-effort autoplay that degrades to *cued-and-paused* when the browser blocks it. Audio is AAC streamed from **Cloudflare R2** over HTTP range requests.
+- **A from-scratch audio player.** A singleton state machine over one `HTMLAudioElement` — cover-as-play, per-track and *chaptered* (a single file presented as timed movements) playback, a docked bar that expands to a now-playing view and an immersive artwork mode, full keyboard control (regular + Vi-style bindings), **Media Session** lock-screen integration (metadata, artwork, media-key handlers), a generation-token guard against the classic media race, and best-effort autoplay that degrades to *cued-and-paused* when the browser blocks it. Audio is AAC streamed from **Cloudflare R2** over HTTP range requests.
 - **Shareable, rich-preview deep-links.** Every release is pre-rendered at `/works/:id` with album-specific Open Graph (`music.album`, cover art, canonical) and *plays on open*; `?track=` / `?t=` refine the starting point, and release and track titles are right-click-copyable permalinks.
 - **Accessibility as a first-class concern.** WCAG 2.1 AA gated by `axe-core` in CI — plus keyboard and focus management (focus-trapped lightbox, skip link, hash-routed accordion), `prefers-reduced-motion`, per-link "opens in a new tab" cues, and a light/dark theme that keeps its contrast ratios.
+- **Robustness on the invisible edges.** Page-lifecycle handling (`visibilitychange` / bfcache) that re-syncs the theme on resume and recovers the SPA from an `out-in` route transition iOS Safari can wedge by dropping `transitionend` — the unglamorous correctness work that keeps a days-old tab from silently breaking, root-caused on-device rather than shrugged off.
 - **Performance engineering.** SSG pre-render + hydrate, Lighthouse budgets (desktop + mobile) enforced in CI, responsive `<picture>`/WebP srcsets with intrinsic dimensions, subsetted self-hosted fonts, and a zero-CLS first paint verified across every route.
 - **Testing rigor.** ~99% coverage behind a **ratcheting floor**, cross-browser E2E on three engines (Chromium, Firefox, WebKit), and per-route **visual-regression** snapshots.
 - **Component & styling architecture.** Single-responsibility components, reusable composables, and SCSS design tokens driving a themable, BEM-structured stylesheet.
@@ -72,9 +73,10 @@ The catalogue plays in-page — a built-in player, not a third-party embed. Pres
 **What it does**
 
 - **Play from anywhere** — the cover art is the play/pause control, individual tracks play from the listing, and a release opened by permalink plays on arrival.
-- **Chaptered single files** — a continuous piece presented as movements (e.g. *2504*, one 25:04 file) seeks to any movement's exact offset; the current movement highlights as the playhead crosses it.
+- **Chaptered single files** — a continuous piece presented as movements (e.g. *2504*, one 25:04 file) seeks to any movement's exact offset; the current movement's title surfaces in the player bar and highlights in the now-playing view as the playhead crosses it.
 - **OS integration** — the **Media Session API** wires the lock screen and media keys with title, artist, album, and artwork, plus play / pause / next / previous / seek handlers.
-- **Expand & dismiss** — tap the bar for a full now-playing view (large artwork, seek, queue); a close control stops playback and clears the bar.
+- **Expand, immerse & dismiss** — tap the bar for a full now-playing view (artwork, seek, chapter/queue list); tap the cover there to zoom into an immersive, controls-dimmed artwork view. A close control stops playback and clears the bar.
+- **Keyboard control** — fully operable from the keyboard, with regular and Vi-style bindings: `j`/`k` (or arrows) step tracks and chapters, `h`/`l` seek, `Space` toggles play, `gg`/`G` jump to first and last; `:` opens the command palette, and `?` brings up a sectioned shortcuts help.
 
 **Under the hood**
 
@@ -351,7 +353,7 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 ### Worker
 - Type checking and unit tests for the Cloudflare Worker (`worker/`)
 
-**Quality gate:** the pull-request pipeline is green only when Quality Checks, Build, Lighthouse, E2E, Visual Regression, and Worker all pass. `master` is branch-protected: Quality Checks, Build, E2E (all three engines), Visual Regression, and Worker are **required status checks** that must pass before a PR can merge.
+**Quality gate:** the pull-request pipeline is green only when Quality Checks, Build, Lighthouse, E2E, Visual Regression, and Worker all pass. `master` is branch-protected: Quality Checks, Build, Lighthouse, E2E (all three engines), Visual Regression, Worker, and Codecov patch coverage are **required status checks** that must pass before a PR can merge.
 
 ## Deployment
 
