@@ -83,6 +83,17 @@ describe('createMusicEventSchema', () => {
     ]);
   });
 
+  it('unions the context url with a registry link for a multi-facet person', () => {
+    const schema = createMusicEventSchema(
+      { ...baseEvent, setup: { kind: 'duo', with: { text: 'Taylor Deupree', url: 'https://12k.com/' } } },
+      'Jerome Faria',
+    );
+    expect(schema.performer).toEqual([
+      { '@type': 'Person', name: 'Jerome Faria' },
+      { '@type': 'Person', name: 'Taylor Deupree', sameAs: ['https://12k.com/', 'https://www.12k.com/artist/deupree-taylor/'] },
+    ]);
+  });
+
   it('omits sameAs for a collaborator with no known link', () => {
     const schema = createMusicEventSchema(
       { ...baseEvent, setup: { kind: 'band', band: { text: 'Unknown Band' } } },

@@ -5,6 +5,7 @@ import { useFocusTrap } from '@/composables/useFocusTrap';
 import { useT } from '@/i18n/useT';
 import type { LightboxItem } from '@/types';
 import { isLightboxImage, isLightboxVideo } from '@/types';
+import { creditUrl } from '@/utils/people';
 import { responsiveSrcset, toWebp } from '@/utils/responsiveImage';
 
 import ExternalLink from './ExternalLink.vue';
@@ -37,9 +38,9 @@ const credit = computed(() => {
   const item = props.currentItem;
   if (item && isLightboxImage(item) && item.credit) {
     const prefix = item.credit.role === 'photo' ? t('media.photoBy') : t('media.posterBy');
-    return { prefix, name: item.credit.name, url: item.credit.url };
+    return { prefix, name: item.credit.name, url: creditUrl(item.credit) };
   }
-  if (item && isLightboxVideo(item) && item.author) return { prefix: t('media.videoBy'), ...item.author };
+  if (item && isLightboxVideo(item) && item.author) return { prefix: t('media.videoBy'), name: item.author.name, url: creditUrl(item.author) };
   return null;
 });
 

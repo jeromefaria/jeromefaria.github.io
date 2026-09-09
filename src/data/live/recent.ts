@@ -61,27 +61,27 @@ export const recentEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/festival-multiplo-2026-001.jpg',
-        photographer: { name: 'Nuno Martins', url: 'https://www.nmartins.com/' },
+        photographer: { name: 'Nuno Martins' },
       },
       {
         src: '/images/live/festival-multiplo-2026-002.jpg',
-        photographer: { name: 'Nuno Martins', url: 'https://www.nmartins.com/' },
+        photographer: { name: 'Nuno Martins' },
       },
       {
         src: '/images/live/festival-multiplo-2026-003.jpg',
-        photographer: { name: 'Nuno Martins', url: 'https://www.nmartins.com/' },
+        photographer: { name: 'Nuno Martins' },
       },
       {
         src: '/images/live/festival-multiplo-2026-004.jpg',
-        photographer: { name: 'Nuno Martins', url: 'https://www.nmartins.com/' },
+        photographer: { name: 'Nuno Martins' },
       },
       {
         src: '/images/live/festival-multiplo-2026-005.jpg',
-        photographer: { name: 'Nuno Martins', url: 'https://www.nmartins.com/' },
+        photographer: { name: 'Nuno Martins' },
       },
       {
         src: '/images/live/festival-multiplo-2026-006.jpg',
-        photographer: { name: 'Nuno Martins', url: 'https://www.nmartins.com/' },
+        photographer: { name: 'Nuno Martins' },
       },
     ],
   },
@@ -105,47 +105,47 @@ export const recentEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/showcase-casa-amarela-001.jpg',
-        photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+        photographer: { name: 'Ricardo Almeida' },
       },
       {
         src: '/images/live/showcase-casa-amarela-002.jpg',
-        photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+        photographer: { name: 'Ricardo Almeida' },
       },
       {
         src: '/images/live/showcase-casa-amarela-003.jpg',
-        photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+        photographer: { name: 'Ricardo Almeida' },
       },
       {
         src: '/images/live/showcase-casa-amarela-004.jpg',
-        photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+        photographer: { name: 'Ricardo Almeida' },
       },
       {
         src: '/images/live/showcase-casa-amarela-005.jpg',
-        photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+        photographer: { name: 'Ricardo Almeida' },
       },
       {
         src: '/images/live/showcase-casa-amarela-006.jpg',
-        photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+        photographer: { name: 'Ricardo Almeida' },
       },
       {
         src: '/images/live/showcase-casa-amarela-007.jpg',
-        photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+        photographer: { name: 'Ricardo Almeida' },
       },
       {
         src: '/images/live/showcase-casa-amarela-008.jpg',
-        photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+        photographer: { name: 'Ricardo Almeida' },
       },
       {
         src: '/images/live/showcase-casa-amarela-010.jpg',
-        photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+        photographer: { name: 'Ricardo Almeida' },
       },
       {
         src: '/images/live/showcase-casa-amarela-011.jpg',
-        photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+        photographer: { name: 'Ricardo Almeida' },
       },
       {
         src: '/images/live/showcase-casa-amarela-012.jpg',
-        photographer: { name: 'Ricardo Almeida', url: 'https://www.instagram.com/ricardojosealmeida/' },
+        photographer: { name: 'Ricardo Almeida' },
       },
     ],
     posters: [
@@ -173,35 +173,35 @@ export const recentEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/fim-de-emissao-45-001.jpg',
-        photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+        photographer: { name: 'Pedro Roque' },
       },
       {
         src: '/images/live/fim-de-emissao-45-002.jpg',
-        photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+        photographer: { name: 'Pedro Roque' },
       },
       {
         src: '/images/live/fim-de-emissao-45-003.jpg',
-        photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+        photographer: { name: 'Pedro Roque' },
       },
       {
         src: '/images/live/fim-de-emissao-45-004.jpg',
-        photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+        photographer: { name: 'Pedro Roque' },
       },
       {
         src: '/images/live/fim-de-emissao-45-005.jpg',
-        photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+        photographer: { name: 'Pedro Roque' },
       },
       {
         src: '/images/live/fim-de-emissao-45-006.jpg',
-        photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+        photographer: { name: 'Pedro Roque' },
       },
       {
         src: '/images/live/fim-de-emissao-45-007.jpg',
-        photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+        photographer: { name: 'Pedro Roque' },
       },
       {
         src: '/images/live/fim-de-emissao-45-008.jpg',
-        photographer: { name: 'Pedro Roque', url: 'https://eyesofmadness-photography.blogspot.com/' },
+        photographer: { name: 'Pedro Roque' },
       },
     ],
   },
@@ -239,63 +239,63 @@ export const recentEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/cca-no-desterro-001.jpg',
-        photographer: { name: 'Daniela Jácome', url: 'https://www.instagram.com/danielajacomeph/' },
+        photographer: { name: 'Daniela Jácome' },
       },
       {
         src: '/images/live/cca-no-desterro-002.jpg',
-        photographer: { name: 'Daniela Jácome', url: 'https://www.instagram.com/danielajacomeph/' },
+        photographer: { name: 'Daniela Jácome' },
       },
       {
         src: '/images/live/cca-no-desterro-003.jpg',
-        photographer: { name: 'Daniela Jácome', url: 'https://www.instagram.com/danielajacomeph/' },
+        photographer: { name: 'Daniela Jácome' },
       },
       {
         src: '/images/live/cca-no-desterro-004.jpg',
-        photographer: { name: 'Daniela Jácome', url: 'https://www.instagram.com/danielajacomeph/' },
+        photographer: { name: 'Daniela Jácome' },
       },
       {
         src: '/images/live/cca-no-desterro-005.jpg',
-        photographer: { name: 'Daniela Jácome', url: 'https://www.instagram.com/danielajacomeph/' },
+        photographer: { name: 'Daniela Jácome' },
       },
       {
         src: '/images/live/cca-no-desterro-006.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/cca-no-desterro-007.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/cca-no-desterro-008.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/cca-no-desterro-009.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/cca-no-desterro-010.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/cca-no-desterro-011.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/cca-no-desterro-012.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/cca-no-desterro-013.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/cca-no-desterro-014.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/cca-no-desterro-015.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
     ],
     videos: [
@@ -317,15 +317,15 @@ export const recentEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/amess-teatro-baltazar-dias-001.jpg',
-        photographer: { name: 'Óscar Silva', url: 'https://www.instagram.com/oscar_silva95/' },
+        photographer: { name: 'Óscar Silva' },
       },
       {
         src: '/images/live/amess-teatro-baltazar-dias-002.jpg',
-        photographer: { name: 'Óscar Silva', url: 'https://www.instagram.com/oscar_silva95/' },
+        photographer: { name: 'Óscar Silva' },
       },
       {
         src: '/images/live/amess-teatro-baltazar-dias-003.jpg',
-        photographer: { name: 'Óscar Silva', url: 'https://www.instagram.com/oscar_silva95/' },
+        photographer: { name: 'Óscar Silva' },
       },
     ],
   },
@@ -339,23 +339,23 @@ export const recentEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/amess-museu-franco-001.jpg',
-        photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+        photographer: { name: 'Miguel Apolinário' },
       },
       {
         src: '/images/live/amess-museu-franco-002.jpg',
-        photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+        photographer: { name: 'Miguel Apolinário' },
       },
       {
         src: '/images/live/amess-museu-franco-003.jpg',
-        photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+        photographer: { name: 'Miguel Apolinário' },
       },
       {
         src: '/images/live/amess-museu-franco-004.jpg',
-        photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+        photographer: { name: 'Miguel Apolinário' },
       },
       {
         src: '/images/live/amess-museu-franco-005.jpg',
-        photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+        photographer: { name: 'Miguel Apolinário' },
       },
     ],
   },
@@ -373,59 +373,59 @@ export const recentEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/jejum-11-001.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/jejum-11-002.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/jejum-11-003.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/jejum-11-004.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/jejum-11-005.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/jejum-11-006.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/jejum-11-007.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/jejum-11-008.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/jejum-11-009.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/jejum-11-010.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/jejum-11-011.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/jejum-11-013.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/jejum-11-014.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/jejum-11-015.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
     ],
   },
@@ -466,19 +466,19 @@ export const recentEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/nariz-entupido-001.jpg',
-        photographer: { name: 'Ricardo Nogueira', url: 'https://www.instagram.com/nogueirafoto/' },
+        photographer: { name: 'Ricardo Nogueira' },
       },
       {
         src: '/images/live/nariz-entupido-002.jpg',
-        photographer: { name: 'Ricardo Nogueira', url: 'https://www.instagram.com/nogueirafoto/' },
+        photographer: { name: 'Ricardo Nogueira' },
       },
       {
         src: '/images/live/nariz-entupido-003.jpg',
-        photographer: { name: 'Ricardo Nogueira', url: 'https://www.instagram.com/nogueirafoto/' },
+        photographer: { name: 'Ricardo Nogueira' },
       },
       {
         src: '/images/live/nariz-entupido-004.jpg',
-        photographer: { name: 'Ricardo Nogueira', url: 'https://www.instagram.com/nogueirafoto/' },
+        photographer: { name: 'Ricardo Nogueira' },
       },
     ],
     posters: [

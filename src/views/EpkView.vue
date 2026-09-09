@@ -12,12 +12,18 @@ import { useLocalized } from '@/i18n/localized';
 import { useT } from '@/i18n/useT';
 import { epkPdfHref, epkRiderHref, epkZipHref, photoDownloadHref, resolveEpkContent } from '@/utils/epk';
 import { externalizeLinks } from '@/utils/externalizeLinks';
+import { creditUrl } from '@/utils/people';
 
 const head = { ...pageMeta.epk, noIndex: true };
 
 const t = useT();
 const { localize, current, toLocalePath } = useLocalized();
 const epk = computed(() => resolveEpkContent(epkManifest, current.value));
+
+const epkPhotos = computed(() => epk.value.photos.map(photo => ({
+  photo,
+  photographerUrl: photo.photographer ? creditUrl(photo.photographer) : undefined,
+})));
 </script>
 
 <template>
@@ -76,7 +82,7 @@ const epk = computed(() => resolveEpkContent(epkManifest, current.value));
       </h2>
       <div class="epk__photos">
         <figure
-          v-for="(photo, index) in epk.photos"
+          v-for="({ photo, photographerUrl }, index) in epkPhotos"
           :key="photo.src"
           class="epk__photo"
         >
@@ -88,8 +94,8 @@ const epk = computed(() => resolveEpkContent(epkManifest, current.value));
             <template v-if="photo.photographer">
               {{ t('epk.photo') }}:
               <ExternalLink
-                v-if="photo.photographer.url"
-                :href="photo.photographer.url"
+                v-if="photographerUrl"
+                :href="photographerUrl"
               >
                 {{ photo.photographer.name }}
               </ExternalLink>

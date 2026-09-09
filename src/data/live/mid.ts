@@ -16,43 +16,43 @@ export const midEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/heineken-series-001.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/heineken-series-002.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/heineken-series-003.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/heineken-series-004.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/heineken-series-005.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/heineken-series-006.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/heineken-series-007.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/heineken-series-008.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/heineken-series-009.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
       {
         src: '/images/live/heineken-series-010.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
     ],
   },
@@ -114,7 +114,7 @@ export const midEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/caligari-live-2-001.jpg',
-        photographer: { name: 'Pedro Jafuno', url: 'https://www.instagram.com/jafuno/' },
+        photographer: { name: 'Pedro Jafuno' },
       },
     ],
   },
