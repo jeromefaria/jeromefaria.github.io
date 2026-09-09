@@ -89,7 +89,7 @@ The catalogue plays in-page — a built-in player, not a third-party embed. Pres
 
 ## Command palette
 
-A hidden command palette — no on-screen affordance, summoned with **⌘K** (macOS) or **Ctrl+K**. It searches, navigates, and acts across the whole site from the keyboard; press **?** anywhere (outside a text field) for the shortcuts cheat-sheet.
+A hidden command palette — no on-screen affordance, summoned with **⌘K** (macOS), **Ctrl+K**, or a Vim-style **`:`**. It searches, navigates, and acts across the whole site from the keyboard; press **?** anywhere (outside a text field) for the shortcuts cheat-sheet.
 
 **What it does**
 
@@ -102,6 +102,7 @@ An empty query surfaces recents (persisted in `localStorage`) followed by curate
 | Key | Action |
 | --- | --- |
 | `⌘K` / `Ctrl+K` | Open / close |
+| `:` | Open (Vim `:` command-mode) |
 | `↑` `↓` · `Ctrl+P` `Ctrl+N` · `Ctrl+K` `Ctrl+J` | Move selection (arrows, Emacs, or Vim / fzf) |
 | `Ctrl+U` / `Ctrl+D` | Jump half a page |
 | `↵` | Open the selected command |
