@@ -5,6 +5,7 @@ import { RouterView } from 'vue-router';
 import SiteFooter from '@/components/SiteFooter.vue';
 import SiteHeader from '@/components/SiteHeader.vue';
 import { audioPlayerEnabled, initFeatureFlags } from '@/composables/useFeatureFlags';
+import { useKonamiCode } from '@/composables/useKonamiCode';
 import { helpMounted, helpOpen, paletteMounted, paletteOpen, useOverlayHotkeys } from '@/composables/useOverlays';
 import { usePageLifecycle } from '@/composables/usePageLifecycle';
 import { usePlayer } from '@/composables/usePlayer';
@@ -24,6 +25,7 @@ const overlayActive = computed(() => paletteOpen.value || helpOpen.value || play
 
 useOverlayHotkeys();
 usePlayerHotkeys();
+useKonamiCode();
 
 usePageLifecycle({ onResume: refreshTheme });
 
