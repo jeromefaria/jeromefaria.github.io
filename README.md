@@ -311,6 +311,7 @@ cd worker && npm run type-check && npm test
 ### Git hooks
 
 Husky enforces a subset of these automatically, so a broken commit never leaves the machine:
+- **commit-msg** runs `commitlint` — rejects any message that breaks the [Conventional Commits](https://www.conventionalcommits.org/) convention. The allowed types add one beyond the standard set: `content` (site copy, data, and events, kept distinct from code `feat`s). This is what lets the changelog generate itself — see below.
 - **pre-commit** runs `lint-staged` — ESLint + stylelint `--fix` on staged files only.
 - **pre-push** runs the type-check.
 
@@ -364,6 +365,26 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 - Type checking and unit tests for the Cloudflare Worker (`worker/`)
 
 **Quality gate:** the pull-request pipeline is green only when Quality Checks, Build, Lighthouse, E2E, Visual Regression, and Worker all pass. `master` is branch-protected: Quality Checks, Build, Lighthouse, E2E (all three engines), Visual Regression, Worker, and Codecov patch coverage are **required status checks** that must pass before a PR can merge.
+
+## Changelog
+
+[`CHANGELOG.md`](CHANGELOG.md) is generated from the git history with [git-cliff](https://git-cliff.org/), grouped by Conventional-Commit type. It reaches back to the Vue 3 rewrite — the site's Jekyll past is deliberately out of scope.
+
+**It regenerates itself.** A workflow (`changelog.yml`) runs on every push to `master`, regenerates the file, and commits it back (with `[skip ci]`, so it never loops). The `commit-msg` hook (see [Git hooks](#git-hooks)) keeps every message parseable, so the generator always has clean input — the changelog stays current and honest with no hand-editing. `npm run changelog` regenerates it locally if you want to preview.
+
+Version boundaries are **milestone tags** (`YYYY.0M.patch` CalVer), each an annotated tag whose message names the milestone — e.g. `2026.09.0 — EN/PT internationalization`. Because the site deploys continuously, these mark capability landings, not release events. Everything since the last tag lives under **Unreleased** until the next milestone is cut.
+
+### Cutting a milestone
+
+A milestone is a **capability a visitor or reviewer would notice landing** (i18n went live, the player became public, the CV shipped) — a coherent theme, not "a month elapsed." Name it for the capability; cut it when the theme is complete, and let unrelated follow-up accumulate under Unreleased toward the next one.
+
+From an up-to-date `master`, one command does the whole mechanical part — tag, push, regenerate, commit, push:
+
+```bash
+npm run release -- 2026.09.2 "Writing, CV & immersive player"
+```
+
+You supply only the version and name; the script refuses to run off `master`, on a dirty tree, behind origin, or on a duplicate tag. (`workflow_dispatch` on `changelog.yml` is a no-code fallback for regenerating from the Actions tab.)
 
 ## Deployment
 
