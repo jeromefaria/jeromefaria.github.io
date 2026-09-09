@@ -16,12 +16,15 @@ jobs:
   regenerate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      PUSH_TOKEN: ${{ secrets.CHANGELOG_PUSH_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
           fetch-tags: true
+          token: ${{ secrets.CHANGELOG_PUSH_TOKEN || github.token }}
 
       - name: Setup Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
@@ -37,6 +40,10 @@ jobs:
 
       - name: Commit if changed
         run: |
+          if [ -z "$PUSH_TOKEN" ]; then
+            echo "CHANGELOG_PUSH_TOKEN not set — skipping auto-commit. Add the secret to enable it."
+            exit 0
+          fi
           if git diff --quiet -- CHANGELOG.md; then
             echo "CHANGELOG.md already current — nothing to commit."
             exit 0

@@ -372,6 +372,8 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 
 **It regenerates itself.** A workflow (`changelog.yml`) runs on every push to `master`, regenerates the file, and commits it back (with `[skip ci]`, so it never loops). The `commit-msg` hook (see [Git hooks](#git-hooks)) keeps every message parseable, so the generator always has clean input — the changelog stays current and honest with no hand-editing. `npm run changelog` regenerates it locally if you want to preview.
 
+The commit-back needs a `CHANGELOG_PUSH_TOKEN` secret — a fine-grained PAT with `Contents: write` — because `master` requires signed commits and passing status checks, which only a repo-admin actor may bypass. Without the secret the workflow is a green no-op; add it and the next push activates the auto-commit.
+
 Version boundaries are **milestone tags** (`YYYY.0M.patch` CalVer), each an annotated tag whose message names the milestone — e.g. `2026.09.0 — EN/PT internationalization`. Because the site deploys continuously, these mark capability landings, not release events. Everything since the last tag lives under **Unreleased** until the next milestone is cut.
 
 ### Cutting a milestone
