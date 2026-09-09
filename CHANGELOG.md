@@ -2,7 +2,7 @@
 
 All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch`).
 
-## Unreleased
+## 2026.09.2 — Writing, CV & immersive player — 2026-09-09
 
 
 ### Features
