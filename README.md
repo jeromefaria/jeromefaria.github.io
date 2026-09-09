@@ -152,6 +152,8 @@ e2e/             Playwright specs (navigation, accordion, contact, lightbox, com
 public/          Static assets
 ```
 
+Editing site content? See [`docs/CONTENT_MANAGEMENT.md`](docs/CONTENT_MANAGEMENT.md) — where each kind of content lives and the conventions for adding it.
+
 ## Tech Stack
 
 - **Frontend:** Vue 3 (Composition API, `<script setup>`), TypeScript (strict mode)
@@ -175,8 +177,14 @@ npm install
 # Start dev server
 npm run dev
 
+# Start dev server with the EN/PT layer on (previews /pt without touching .env)
+npm run dev:i18n
+
 # Build for production
 npm run build
+
+# Build with the EN/PT layer on
+npm run build:i18n
 
 # Preview production build
 npm run preview
@@ -189,7 +197,7 @@ npm run lint
 npm run lint:fix
 ```
 
-No environment setup is required to run locally — audio falls back to same-origin assets and the site builds English-only by default. To stream audio from Cloudflare R2 or preview the Portuguese locale, copy `.env.example` to `.env` and set the optional `VITE_` variables it documents.
+No environment setup is required to run locally — audio falls back to same-origin assets and the site builds English-only by default. To preview the Portuguese locale, use `npm run dev:i18n` (or `build:i18n`) — no `.env` needed. To stream audio from Cloudflare R2, copy `.env.example` to `.env` and set the optional `VITE_` variables it documents.
 
 ## Testing
 
@@ -206,7 +214,7 @@ npm run test:ui
 npm run test:coverage
 ```
 
-**Coverage** instruments the whole `src` tree (`all: true`), not just the files a test imports. The logic layer is ~100% covered; component and view tests assert behaviour (accordion hash-opening, link processing, focus trapping, image fallbacks) rather than render counts, with UI paths also covered by E2E. A **ratcheting floor** (`scripts/check-coverage.js`) holds the current ~99% lines / 98% statements / 97% functions / 92% branches and only moves up.
+**Coverage** instruments the whole `src` tree (`all: true`), not just the files a test imports. The logic layer is ~100% covered; component and view tests assert behaviour (accordion hash-opening, link processing, focus trapping, image fallbacks) rather than render counts, with UI paths also covered by E2E. A **ratcheting floor** (`scripts/check-coverage.js`) holds the current 99% lines / 97% statements / 96% functions / 91% branches and only moves up.
 
 ### E2E Tests
 
@@ -295,7 +303,8 @@ npm run lint
 npm run test:coverage
 node scripts/check-coverage.js
 
-# 2. Build (check-anchors validates internal hash anchors + [[credit]] markers; then generates sitemap.xml)
+# 2. Build (check-anchors validates internal hash anchors + [[credit]] markers;
+#    check-epk-photos verifies the EPK photo assets; then generates sitemap.xml)
 npm run build
 
 # 3. Performance Audit
