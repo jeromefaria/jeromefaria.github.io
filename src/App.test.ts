@@ -116,16 +116,19 @@ describe('App', () => {
     expect(external.attributes('rel')).toBe('noopener noreferrer');
   });
 
-  it('clears a stale site-wide inert on resume when no overlay is open', async () => {
+  it('remounts the router view on resume when a page transition is stuck', async () => {
     const { wrapper } = await mountApp();
-    const site = wrapper.get('.site').element as HTMLElement;
+    const before = wrapper.find('main a[href="https://external.example.com"]').element;
 
+    const stuck = document.createElement('div');
+    stuck.className = 'page-leave-active';
+    document.body.appendChild(stuck);
     Object.defineProperty(document, 'visibilityState', { value: 'visible', configurable: true });
-    site.inert = true;
-
     document.dispatchEvent(new Event('visibilitychange'));
-    await nextTick();
+    await settle();
 
-    expect(site.inert).toBe(false);
+    const after = wrapper.find('main a[href="https://external.example.com"]').element;
+    expect(after).not.toBe(before);
+    stuck.remove();
   });
 });
