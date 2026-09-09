@@ -5,6 +5,14 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 ## Unreleased
 
 
+### Refactors
+
+- **live:** Split the events array into era files ([#403](https://github.com/jeromefaria/jeromefaria.github.io/pull/403))
+
+### Tests
+
+- Extend a11y coverage to dynamic routes and gate e2e type-checking ([#402](https://github.com/jeromefaria/jeromefaria.github.io/pull/402))
+
 ### Build & CI
 
 - Add CodeQL scanning and a security policy ([#401](https://github.com/jeromefaria/jeromefaria.github.io/pull/401))
