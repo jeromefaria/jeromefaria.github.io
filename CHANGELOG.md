@@ -11,6 +11,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **orgs:** Route Live promoter/org links through a registry ([#409](https://github.com/jeromefaria/jeromefaria.github.io/pull/409))
 - **people:** Resolve photographer credits through the registry ([#408](https://github.com/jeromefaria/jeromefaria.github.io/pull/408))
 - **people:** Resolve live collaborator links through the registry ([#407](https://github.com/jeromefaria/jeromefaria.github.io/pull/407))
 - **people:** Introduce a collaborator registry and route credit links through it ([#405](https://github.com/jeromefaria/jeromefaria.github.io/pull/405))
