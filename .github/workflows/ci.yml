@@ -37,6 +37,9 @@ jobs:
       - name: Type check
         run: npm run type-check
 
+      - name: Type check E2E specs
+        run: npx tsc -p e2e/tsconfig.json --noEmit
+
       - name: Lint
         run: npm run lint
 

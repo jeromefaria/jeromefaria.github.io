@@ -4,7 +4,7 @@ import { checkA11y, gotoHydrated, MIN_TOUCH_TARGET_SIZE } from './helpers';
 
 const MAIN_CONTENT_SELECTOR = '#main-content';
 const SKIP_LINK_SELECTOR = 'a[href="#main-content"]';
-const PAGES = ['/', '/works', '/live', '/press', '/about', '/contact', '/privacy'] as const;
+const PAGES = ['/', '/works', '/live', '/press', '/about', '/contact', '/privacy', '/works/2504', '/writing/orchestration'] as const;
 const LANDMARK_SELECTORS = ['header', 'main', 'footer'] as const;
 
 test.describe('Accessibility', () => {
@@ -91,14 +91,14 @@ test.describe('Accessibility', () => {
 
   test.describe('Semantic HTML', () => {
     test('should have proper heading hierarchy', async ({ page }) => {
-      await page.goto('/');
+      await gotoHydrated(page, '/');
 
       await expect(page.locator('h1')).toHaveCount(1);
       expect(await page.locator('h1, h2, h3, h4, h5, h6').count()).toBeGreaterThan(0);
     });
 
     test('should have landmark regions', async ({ page }) => {
-      await page.goto('/');
+      await gotoHydrated(page, '/');
 
       for (const selector of LANDMARK_SELECTORS) {
         await expect(page.locator(selector)).toBeVisible();
@@ -106,7 +106,7 @@ test.describe('Accessibility', () => {
     });
 
     test('should have proper form labels', async ({ page }) => {
-      await page.goto('/contact');
+      await gotoHydrated(page, '/contact');
       await expect(page.locator('form')).toBeAttached();
 
       const inputs = page.locator('input:not([type="submit"]):not([type="hidden"]):not([aria-hidden="true"]), textarea');
