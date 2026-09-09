@@ -4,7 +4,7 @@ import { creditsGolden } from '@/data/__fixtures__/credits.golden';
 import { plainCreditsGolden } from '@/data/__fixtures__/plainCredits.golden';
 import { worksData } from '@/data/works';
 
-import { plainCredits, renderCredits } from './renderCredits';
+import { creditNames, plainCredits, renderCredits } from './renderCredits';
 
 const creditedReleases = Object.values(worksData)
   .flatMap(section => section.items)
@@ -70,5 +70,30 @@ describe('renderCredits', () => {
     const credits = renderCredits('Art by [[<script>]].', [{ name: '<script>', url: 'https://x.test/' }]);
 
     expect(credits).toBe('Art by <a href="https://x.test/">&lt;script&gt;</a>.');
+  });
+
+  it('resolves a marker via the people registry when no local contributor is given', () => {
+    const credits = renderCredits('Text by [[Rui Zink]].');
+
+    expect(credits).toBe('Text by <a href="https://pt.wikipedia.org/wiki/Rui_Zink">Rui Zink</a>.');
+  });
+
+  it('prefers a local contributor url over the registry', () => {
+    const credits = renderCredits('Text by [[Rui Zink]].', [{ name: 'Rui Zink', url: 'https://override.test/' }]);
+
+    expect(credits).toContain('href="https://override.test/"');
+  });
+});
+
+describe('creditNames', () => {
+  it('extracts marker names from structured credits', () => {
+    const names = creditNames({ style: 'by', clauses: [{ role: 'music', of: '[[Rui Zink]] and a plain name' }] });
+
+    expect(names).toEqual(['Rui Zink']);
+  });
+
+  it('returns an empty array for undefined or marker-free credits', () => {
+    expect(creditNames(undefined)).toEqual([]);
+    expect(creditNames('Just prose, no markers.')).toEqual([]);
   });
 });

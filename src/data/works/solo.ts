@@ -27,9 +27,6 @@ export const solo: WorksSection = {
           { role: 'photography', of: 'NASA, ESA, CSA, STScI' },
         ],
       },
-      contributors: [
-        { name: 'Aires', url: 'https://aires.bandcamp.com/' },
-      ],
     },
     {
       id: 'en-veille',

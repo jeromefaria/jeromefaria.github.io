@@ -4,6 +4,7 @@ import type { CreditClause, CreditRole, Credits, StructuredCredits } from '@/typ
 import { isStructuredCredits } from '@/types/credits';
 import type { Credit } from '@/types/media';
 import { escapeHtml, safeHref } from '@/utils/html';
+import { personUrl } from '@/utils/people';
 
 const MARKER = /\[\[([^\]]+)\]\]/g;
 
@@ -93,7 +94,7 @@ export const renderCredits = (credits: Credits, contributors: Credit[] = [], loc
   }
 
   return toSource(credits, locale).replace(MARKER, (_match, name: string) => {
-    const url = linked.get(name);
+    const url = linked.get(name) ?? personUrl(name);
     const href = url ? safeHref(url) : null;
     const safeName = escapeHtml(name);
     return href ? `<a href="${href}">${safeName}</a>` : safeName;
@@ -102,3 +103,14 @@ export const renderCredits = (credits: Credits, contributors: Credit[] = [], loc
 
 export const plainCredits = (credits: Credits, locale: Locale = DEFAULT_LOCALE): string =>
   toSource(credits, locale).replace(MARKER, '$1');
+
+export const creditNames = (credits: Credits | undefined, locale: Locale = DEFAULT_LOCALE): string[] => {
+  if (!credits) return [];
+
+  const names: string[] = [];
+  for (const match of toSource(credits, locale).matchAll(MARKER)) {
+    if (match[1]) names.push(match[1]);
+  }
+
+  return names;
+};

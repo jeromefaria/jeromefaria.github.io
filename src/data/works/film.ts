@@ -28,10 +28,6 @@ export const film: WorksSection = {
           { role: 'musicAndLiveInterpretation', of: 'Jerome Faria' },
         ],
       },
-      contributors: [
-        { name: 'Rui Zink', url: 'https://pt.wikipedia.org/wiki/Rui_Zink' },
-        { name: 'José Manuel Castanheira', url: 'https://pt.wikipedia.org/wiki/Jos%C3%A9_Manuel_Castanheira' },
-      ],
       videos: [
         {
           url: 'https://www.youtube-nocookie.com/embed/6LpRJBS7pzg',
@@ -68,15 +64,6 @@ export const film: WorksSection = {
           { role: 'shot', of: '[[Jardim Botânico do Porto]]', connector: 'at' },
         ],
       },
-      contributors: [
-        { name: 'Diogo Castro', url: 'https://www.instagram.com/diogocastrofilm/' },
-        { name: 'Duarte Ferreira', url: 'https://www.linkedin.com/in/dvarte/' },
-        { name: 'Pedro Anacleto', url: 'https://www.instagram.com/ochocobogordo/' },
-        { name: 'Susana Chiocca', url: 'https://chiocca.wixsite.com/susanachiocca' },
-        { name: 'João Pamplona', url: 'https://agenteanorte.com/en/atores-exclusivos/joao-pamplona/' },
-        { name: 'Susana Madeira', url: 'https://agenteanorte.com/en/atores-exclusivos/susana-madeira/' },
-        { name: 'Jardim Botânico do Porto', url: 'https://mhnc.up.pt/pt/jardim-botanico-da-universidade-do-porto/' },
-      ],
     },
     {
       id: 'caligari',
@@ -98,9 +85,6 @@ export const film: WorksSection = {
           { role: 'performed', of: 'Jerome Faria and [[Nuno Filipe]]' },
         ],
       },
-      contributors: [
-        { name: 'Nuno Filipe', url: 'https://nunoandtheend.bandcamp.com/' },
-      ],
     },
     {
       id: 'hyphema',
@@ -132,10 +116,6 @@ export const film: WorksSection = {
           { role: 'artwork', of: '[[Frederico Cunha]]' },
         ],
       },
-      contributors: [
-        { name: 'Victor Martins', url: 'https://pixelnerve.com/' },
-        { name: 'Frederico Cunha', url: 'https://fredericodiz.wixsite.com' },
-      ],
     },
   ],
 };
