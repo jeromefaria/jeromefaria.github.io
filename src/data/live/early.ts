@@ -67,11 +67,11 @@ export const earlyEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/migractions-2011-001.jpg',
-        photographer: { name: 'Sue-Elie Andrade-Dé', url: 'https://cargocollective.com/sueelieandradede' },
+        photographer: { name: 'Sue-Elie Andrade-Dé' },
       },
       {
         src: '/images/live/migractions-2011-002.jpg',
-        photographer: { name: 'Sue-Elie Andrade-Dé', url: 'https://cargocollective.com/sueelieandradede' },
+        photographer: { name: 'Sue-Elie Andrade-Dé' },
       },
     ],
   },
@@ -149,27 +149,27 @@ export const earlyEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/madeiradig-2009-001.jpg',
-        photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+        photographer: { name: 'Miguel Apolinário' },
       },
       {
         src: '/images/live/madeiradig-2009-002.jpg',
-        photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+        photographer: { name: 'Miguel Apolinário' },
       },
       {
         src: '/images/live/madeiradig-2009-003.jpg',
-        photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+        photographer: { name: 'Miguel Apolinário' },
       },
       {
         src: '/images/live/madeiradig-2009-004.jpg',
-        photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+        photographer: { name: 'Miguel Apolinário' },
       },
       {
         src: '/images/live/madeiradig-2009-005.jpg',
-        photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+        photographer: { name: 'Miguel Apolinário' },
       },
       {
         src: '/images/live/madeiradig-2009-006.jpg',
-        photographer: { name: 'Miguel Apolinário', url: 'https://www.instagram.com/miguel_apolinario777/' },
+        photographer: { name: 'Miguel Apolinário' },
       },
     ],
     videos: [
@@ -413,43 +413,43 @@ export const earlyEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/madeiradig-2007-001.jpg',
-        photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
+        photographer: { name: 'Marta León' },
       },
       {
         src: '/images/live/madeiradig-2007-002.jpg',
-        photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
+        photographer: { name: 'Marta León' },
       },
       {
         src: '/images/live/madeiradig-2007-003.jpg',
-        photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
+        photographer: { name: 'Marta León' },
       },
       {
         src: '/images/live/madeiradig-2007-004.jpg',
-        photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
+        photographer: { name: 'Marta León' },
       },
       {
         src: '/images/live/madeiradig-2007-005.jpg',
-        photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
+        photographer: { name: 'Marta León' },
       },
       {
         src: '/images/live/madeiradig-2007-006.jpg',
-        photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
+        photographer: { name: 'Marta León' },
       },
       {
         src: '/images/live/madeiradig-2007-007.jpg',
-        photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
+        photographer: { name: 'Marta León' },
       },
       {
         src: '/images/live/madeiradig-2007-008.jpg',
-        photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
+        photographer: { name: 'Marta León' },
       },
       {
         src: '/images/live/madeiradig-2007-009.jpg',
-        photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
+        photographer: { name: 'Marta León' },
       },
       {
         src: '/images/live/madeiradig-2007-010.jpg',
-        photographer: { name: 'Marta León', url: 'https://leonmarta.wordpress.com/' },
+        photographer: { name: 'Marta León' },
       },
     ],
   },
