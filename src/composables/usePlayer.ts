@@ -46,6 +46,7 @@ export interface PlayContext {
 
 const nowPlaying = ref<PlayContext>({});
 const expanded = ref(false);
+const immersive = ref(false);
 
 const currentChapter = computed(() => {
   const { chapters } = nowPlaying.value;
@@ -211,7 +212,9 @@ export const select = async (targetIndex: number): Promise<void> => {
 };
 
 export const expand = (): void => { expanded.value = true; };
-export const collapse = (): void => { expanded.value = false; };
+export const collapse = (): void => { expanded.value = false; immersive.value = false; };
+export const enterImmersive = (): void => { expanded.value = true; immersive.value = true; };
+export const exitImmersive = (): void => { immersive.value = false; };
 
 export const stop = (): void => {
   generation += 1;
@@ -229,6 +232,7 @@ export const stop = (): void => {
   error.value = null;
   status.value = 'idle';
   expanded.value = false;
+  immersive.value = false;
 };
 
 export const playRelease = (releaseId: string, context?: PlayContext): Promise<void> =>
@@ -324,6 +328,7 @@ interface PlayerApi {
   currentChapter: ComputedRef<PlayChapter | undefined>;
   displayTitle: ComputedRef<string>;
   expanded: Readonly<Ref<boolean>>;
+  immersive: Readonly<Ref<boolean>>;
   play: typeof play;
   stepEntry: typeof stepEntry;
   goToEdge: typeof goToEdge;
@@ -338,6 +343,8 @@ interface PlayerApi {
   select: typeof select;
   expand: typeof expand;
   collapse: typeof collapse;
+  enterImmersive: typeof enterImmersive;
+  exitImmersive: typeof exitImmersive;
   stop: typeof stop;
 }
 
@@ -356,6 +363,7 @@ export const usePlayer = (): PlayerApi => ({
   currentChapter,
   displayTitle,
   expanded: readonly(expanded),
+  immersive: readonly(immersive),
   play,
   stepEntry,
   goToEdge,
@@ -370,6 +378,8 @@ export const usePlayer = (): PlayerApi => ({
   select,
   expand,
   collapse,
+  enterImmersive,
+  exitImmersive,
   stop,
 });
 
