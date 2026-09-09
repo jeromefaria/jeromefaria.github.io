@@ -12,6 +12,7 @@
     "build:i18n": "VITE_I18N=true npm run build",
     "build": "vue-tsc --noEmit && node scripts/check-anchors.js && node scripts/check-epk-photos.mjs && vite-ssg build && node scripts/generate-sitemap.mjs",
     "preview": "vite preview",
+    "verify": "npm run type-check && npm run lint && npm run test:coverage && node scripts/check-coverage.js && npm run build",
     "lint": "eslint . && stylelint \"src/styles/**/*.scss\" && node scripts/check-custom-properties.mjs && node scripts/check-html-comments.mjs",
     "lint:fix": "eslint . --fix && stylelint \"src/styles/**/*.scss\" --fix",
     "lint:css": "stylelint \"src/styles/**/*.scss\"",

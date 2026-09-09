@@ -3,6 +3,8 @@ import { fileURLToPath } from 'node:url';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vitest/config';
 
+import { COVERAGE_THRESHOLDS } from './scripts/coverage-thresholds.js';
+
 export default defineConfig({
   plugins: [vue()],
   test: {
@@ -34,6 +36,7 @@ export default defineConfig({
         'src/main.ts',
         'src/test-support/**',
       ],
+      thresholds: COVERAGE_THRESHOLDS,
     },
   },
   resolve: {
