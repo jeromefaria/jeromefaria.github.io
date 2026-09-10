@@ -396,8 +396,11 @@
   }
 
   &__immersive-art {
+    --immersive-slider-offset: calc(#{$spacing-4 + $spacing-5} + env(safe-area-inset-bottom, 0px));
+
     position: absolute;
     inset: 0;
+    bottom: var(--immersive-slider-offset);
     padding: $spacing-4;
 
     @include respond-to(md) {
