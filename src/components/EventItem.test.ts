@@ -17,12 +17,6 @@ const mountEvent = (event: LiveEvent) =>
     global: { plugins: [router], stubs: { RouterLink: RouterLinkStub } },
   });
 
-const mountColumn = (event: LiveEvent) =>
-  mount(EventItem, {
-    props: { event, variant: 'column' as const },
-    global: { plugins: [router], stubs: { RouterLink: RouterLinkStub } },
-  });
-
 const plainEvent: LiveEvent = {
   id: 'fim-de-emissao-45',
   title: 'Fim de Emissão #45',
@@ -332,7 +326,7 @@ describe('EventItem', () => {
     });
   });
 
-  describe('thumbnail (column variant)', () => {
+  describe('thumbnail', () => {
     const withImages: LiveEvent = {
       ...plainEvent,
       imageAlt: 'A live photo',
@@ -343,12 +337,8 @@ describe('EventItem', () => {
       ],
     };
 
-    it('renders no thumbnail in the default (links) variant', () => {
-      expect(mountEvent(withImages).find('.event-thumb').exists()).toBe(false);
-    });
-
     it('renders the cover image as the hero, with its framing style applied', () => {
-      const img = mountColumn(withImages).get('.event-thumb img');
+      const img = mountEvent(withImages).get('.event-thumb img');
       const style = img.attributes('style') ?? '';
 
       expect(img.attributes('src')).toBe('/images/live/a-002.jpg');
@@ -358,14 +348,14 @@ describe('EventItem', () => {
     });
 
     it('defaults the hero to the first image when none is flagged as cover', () => {
-      const wrapper = mountColumn({ ...plainEvent, imageAlt: 'x', images: [{ src: '/images/live/b-001.jpg' }, { src: '/images/live/b-002.jpg' }] });
+      const wrapper = mountEvent({ ...plainEvent, imageAlt: 'x', images: [{ src: '/images/live/b-001.jpg' }, { src: '/images/live/b-002.jpg' }] });
 
       expect(wrapper.get('.event-thumb img').attributes('src')).toBe('/images/live/b-001.jpg');
       expect(wrapper.get('.event-thumb img').attributes('style')).toBeUndefined();
     });
 
     it('opens the lightbox at the first gallery image, not the hero', async () => {
-      const wrapper = mountColumn(withImages);
+      const wrapper = mountEvent(withImages);
       await wrapper.get('.event-thumb').trigger('click');
       const payload = wrapper.emitted('open-lightbox')?.[0];
 
@@ -375,21 +365,21 @@ describe('EventItem', () => {
     });
 
     it('shows the image count only when the event has more than one image', () => {
-      expect(mountColumn(withImages).get('.event-thumb-count').text()).toBe('3');
-      const single = mountColumn({ ...plainEvent, posters: [{ src: '/images/live/p-001.jpg', alt: 'Poster' }] });
+      expect(mountEvent(withImages).get('.event-thumb-count').text()).toBe('3');
+      const single = mountEvent({ ...plainEvent, posters: [{ src: '/images/live/p-001.jpg', alt: 'Poster' }] });
       expect(single.find('.event-thumb-count').exists()).toBe(false);
     });
 
     it('uses a poster as the hero and emits the poster kind when there are no images', async () => {
-      const wrapper = mountColumn({ ...plainEvent, posters: [{ src: '/images/live/p-001.jpg', alt: 'Poster', cover: true }] });
+      const wrapper = mountEvent({ ...plainEvent, posters: [{ src: '/images/live/p-001.jpg', alt: 'Poster', cover: true }] });
 
       expect(wrapper.get('.event-thumb img').attributes('src')).toBe('/images/live/p-001.jpg');
       await wrapper.get('.event-thumb').trigger('click');
       expect(wrapper.emitted('open-lightbox')?.[0]?.[2]).toEqual({ id: 'fim-de-emissao-45', kind: 'poster' });
     });
 
-    it('falls back to a text-only row when the event has no media', () => {
-      const wrapper = mountColumn(plainEvent);
+    it('renders a text-only row when the event has no media', () => {
+      const wrapper = mountEvent(plainEvent);
 
       expect(wrapper.find('.event-thumb').exists()).toBe(false);
       expect(wrapper.get('article').classes()).toContain('event--text-only');

@@ -20,12 +20,9 @@ import ExternalLink from './ExternalLink.vue';
 import IconArrow from './IconArrow.vue';
 import MediaLinks from './MediaLinks.vue';
 
-const props = withDefaults(defineProps<{
+const props = defineProps<{
   event: LiveEvent;
-  variant?: 'links' | 'column';
-}>(), {
-  variant: 'links',
-});
+}>();
 
 const emit = defineEmits<{
   'update-hash': [id: string];
@@ -80,7 +77,7 @@ const heroImage = computed(() => previewImages.value[heroIndex.value]);
 
 const thumbStyle = computed(() => getImageStyles(heroSources.value[heroIndex.value]?.thumb));
 
-const showThumb = computed(() => props.variant === 'column' && previewImages.value.length > 0);
+const showThumb = computed(() => previewImages.value.length > 0);
 
 const eventClass = computed(() => (showThumb.value ? 'event event--column' : 'event event--text-only'));
 

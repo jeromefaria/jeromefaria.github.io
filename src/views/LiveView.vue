@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-
 import AccordionPage from '@/components/AccordionPage.vue';
 import EventItem from '@/components/EventItem.vue';
 import { liveYears, sortedLiveData } from '@/data/live';
@@ -10,10 +7,6 @@ import { useLocalized } from '@/i18n/localized';
 import { createLiveEventsSchema } from '@/utils/liveSchema';
 
 const { localize, current } = useLocalized();
-
-const route = useRoute();
-
-const previewVariant = computed<'links' | 'column'>(() => ('media' in route.query ? 'column' : 'links'));
 </script>
 
 <template>
@@ -28,7 +21,6 @@ const previewVariant = computed<'links' | 'column'>(() => ('media' in route.quer
     <template #item="{ item, openLightbox, updateHash }">
       <EventItem
         :event="item"
-        :variant="previewVariant"
         @update-hash="updateHash"
         @open-lightbox="openLightbox"
       />
