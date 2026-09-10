@@ -9,6 +9,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - **seo:** Emit event collaborators as schema.org performers with sameAs ([#406](https://github.com/jeromefaria/jeromefaria.github.io/pull/406))
 
+### Content
+
+- Link 8 researched entities across the registry ([#414](https://github.com/jeromefaria/jeromefaria.github.io/pull/414))
+
 ### Refactors
 
 - **registry:** Register recurring link-less entities by name ([#413](https://github.com/jeromefaria/jeromefaria.github.io/pull/413))
