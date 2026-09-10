@@ -2,7 +2,7 @@
 
 All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch`).
 
-## Unreleased
+## 2026.09.3 — Entity registry, Live archive & press kit — 2026-09-10
 
 
 ### Features
