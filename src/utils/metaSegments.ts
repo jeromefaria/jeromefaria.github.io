@@ -51,7 +51,7 @@ const commissionSegments = (meta: Extract<ReleaseMeta, { kind: 'commission' }>, 
 
     case 'DVD': {
       const catalog = meta.publisher.catalog ? `, ${meta.publisher.catalog}` : '';
-      return [text('DVD — '), { kind: 'link', link: meta.publisher.label }, text(`${catalog}, ${year}`)];
+      return [text('DVD — '), { kind: 'link', link: resolveLabel(meta.publisher.label) }, text(`${catalog}, ${year}`)];
     }
 
     case 'Live Score':
