@@ -1,6 +1,7 @@
 import { people } from '@/data/people';
 import type { Credit } from '@/types/media';
 import type { Person } from '@/types/people';
+import { orgUrl } from '@/utils/orgs';
 
 const byName = new Map<string, Person>();
 
@@ -8,7 +9,7 @@ for (const person of Object.values(people)) byName.set(person.name, person);
 
 export const personUrl = (name: string): string | undefined => byName.get(name)?.url;
 
-export const creditUrl = (credit: Credit): string | undefined => credit.url ?? personUrl(credit.name);
+export const creditUrl = (credit: Credit): string | undefined => credit.url ?? personUrl(credit.name) ?? orgUrl(credit.name);
 
 export const personSameAs = (name: string, contextUrl?: string): string[] | undefined => {
   const person = byName.get(name);
