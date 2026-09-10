@@ -9,15 +9,22 @@
 
   .event--column {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: $spacing-5;
-    align-items: start;
+    grid-template-columns: 1fr;
+    gap: $spacing-4;
+
+    @include respond-to(sm) {
+      grid-template-columns: 1fr auto;
+      gap: $spacing-5;
+      align-items: start;
+    }
   }
 
   .event-thumb {
     position: relative;
+    order: -1;
     margin: 0;
-    width: 128px;
+    width: 100%;
+    max-width: 240px;
     aspect-ratio: 1 / 1;
     overflow: hidden;
     cursor: pointer;
@@ -36,7 +43,9 @@
     }
 
     @include respond-to(sm) {
+      order: 1;
       width: 160px;
+      max-width: none;
     }
   }
 

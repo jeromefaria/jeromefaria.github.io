@@ -13,7 +13,7 @@ const { localize, current } = useLocalized();
 
 const route = useRoute();
 
-const previewVariant = computed<'links' | 'column'>(() => (route.query['preview'] === 'column' ? 'column' : 'links'));
+const previewVariant = computed<'links' | 'column'>(() => ('media' in route.query ? 'column' : 'links'));
 </script>
 
 <template>

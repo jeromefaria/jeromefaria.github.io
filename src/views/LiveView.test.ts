@@ -51,8 +51,8 @@ describe('LiveView', () => {
     expect(wrapper.findComponent(EventItem).props('variant')).toBe('links');
   });
 
-  it('switches events to the column variant when ?preview=column is set', async () => {
-    const wrapper = await mountView(LiveView, '/live?preview=column');
+  it('switches events to the column variant when the ?media flag is present', async () => {
+    const wrapper = await mountView(LiveView, '/live?media');
     expect(wrapper.findComponent(EventItem).props('variant')).toBe('column');
   });
 
