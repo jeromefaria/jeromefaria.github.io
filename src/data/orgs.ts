@@ -9,6 +9,7 @@ export const orgs: OrgRegistry = {
   'nariz-entupido': { name: 'Nariz Entupido', url: 'https://linktr.ee/narizentupido' },
   'out-ra': { name: 'OUT.RA', url: 'https://outra.pt/' },
   'thisco': { name: 'THISCO', url: 'https://thisco.bandcamp.com/' },
+  'translocal': { name: 'TRANSLOCAL Culturas Contemporâneas Locais e Urbanas', url: 'https://www.youtube.com/@translocalculturascontempo3938' },
   'universidade-catolica-do-porto': { name: 'Universidade Católica do Porto', url: 'https://www.porto.ucp.pt/' },
   'urbanistas': { name: 'Urbanistas', url: 'https://www.urbanistas.pt' },
 };

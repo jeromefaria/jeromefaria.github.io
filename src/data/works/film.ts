@@ -33,7 +33,7 @@ export const film: WorksSection = {
           url: 'https://www.youtube-nocookie.com/embed/6LpRJBS7pzg',
           platform: 'youtube',
           title: { en: 'Aragão at Teatro Municipal Baltazar Dias, Funchal, 2021', pt: 'Aragão no Teatro Municipal Baltazar Dias, Funchal, 2021' },
-          author: { name: 'TRANSLOCAL Culturas Contemporâneas Locais e Urbanas', url: 'https://www.youtube.com/@translocalculturascontempo3938' },
+          author: { name: 'TRANSLOCAL Culturas Contemporâneas Locais e Urbanas' },
         },
       ],
     },
