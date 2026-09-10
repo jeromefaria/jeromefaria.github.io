@@ -513,7 +513,7 @@ export const recentEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/aragao-funchal-002.jpg',
-        thumb: { position: 'center 38%' },
+        thumb: { position: 'center 59%' },
       },
       {
         src: '/images/live/aragao-funchal-001.jpg',
