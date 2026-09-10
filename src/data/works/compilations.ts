@@ -75,7 +75,7 @@ export const compilations: WorksSection = {
       title: 'Sand Dune',
       meta: {
         kind: 'compilation',
-        compilation: { text: 'Baconism' },
+        compilation: { text: 'Baconism', url: 'https://soundcloud.com/edition-niko' },
         mediums: ['CD', 'MP3'],
         editions: [{ label: { text: 'NIkO' }, catalog: 'NIKO005' }],
         released: '2008-12-25',
@@ -88,7 +88,7 @@ export const compilations: WorksSection = {
         kind: 'compilation',
         compilation: { text: 'Thisagree & Shadow', url: 'https://thisco.bandcamp.com/album/thisagree-shadow' },
         mediums: ['CD'],
-        editions: [{ label: { text: 'Thisco' }, catalog: 'THISK.43' }],
+        editions: [{ label: { text: 'THISCO' }, catalog: 'THISK.43' }],
         released: '2007-02-02',
       },
     },

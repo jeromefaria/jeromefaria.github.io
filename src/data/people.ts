@@ -66,6 +66,7 @@ export const people: PeopleRegistry = {
   'ricardo-nogueira': { name: 'Ricardo Nogueira', url: 'https://www.instagram.com/nogueirafoto/' },
   'rui-zink': { name: 'Rui Zink', url: 'https://pt.wikipedia.org/wiki/Rui_Zink' },
   'scott-arford': { name: 'Scott Arford', url: 'https://7hz.org/' },
+  'sebastien-roux': { name: 'Sébastien Roux', url: 'https://www.sebastienroux.net/' },
   'spiraljoe': { name: 'Spiraljoe', url: 'https://www.deviantart.com/spiraljoe' },
   'sue-elie-andrade-de': { name: 'Sue-Elie Andrade-Dé', url: 'https://cargocollective.com/sueelieandradede' },
   'susana-chiocca': { name: 'Susana Chiocca', url: 'https://chiocca.wixsite.com/susanachiocca' },
