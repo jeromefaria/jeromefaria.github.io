@@ -124,6 +124,8 @@ const vueRules = {
     template: 160,
     style: 200,
   }],
+  'vue/component-api-style': ['error', ['script-setup']],
+  'vue/no-ref-object-reactivity-loss': 'error',
 };
 
 const typeAwareRules = {
