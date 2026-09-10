@@ -11,6 +11,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **registry:** Register recurring link-less entities by name ([#413](https://github.com/jeromefaria/jeromefaria.github.io/pull/413))
 - **orgs:** Resolve org video authors through the registry ([#412](https://github.com/jeromefaria/jeromefaria.github.io/pull/412))
 - **orgs:** Fold record labels into the org registry ([#411](https://github.com/jeromefaria/jeromefaria.github.io/pull/411))
 - **venues:** Resolve recurring venue links through a registry ([#410](https://github.com/jeromefaria/jeromefaria.github.io/pull/410))
