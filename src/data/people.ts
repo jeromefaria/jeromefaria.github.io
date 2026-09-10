@@ -35,6 +35,7 @@ export const people: PeopleRegistry = {
   'kim-cascone': { name: 'Kim Cascone', url: 'https://kimcascone.bandcamp.com/' },
   'laetitia-morais': { name: 'Laetitia Morais', url: 'https://laetitiamorais.com/' },
   'lia': { name: 'Lia', url: 'https://liaworks.com/' },
+  'louie-de-bettencourt': { name: 'Louie de Bettencourt' },
   'lovid': { name: 'LoVid', url: 'https://lovid.org/' },
   'mafalda-melim': { name: 'Mafalda Melim', url: 'https://www.instagram.com/mafaldappm/' },
   'manuel-mota': { name: 'Manuel Mota', url: 'https://manuelmota.bandcamp.com/' },
@@ -73,6 +74,7 @@ export const people: PeopleRegistry = {
   'the-beautiful-schizophonic': { name: 'The Beautiful Schizophonic', url: 'https://cronica.bandcamp.com/album/musicamorosa' },
   'the-sight-below': { name: 'The Sight Below', url: 'https://thesightbelow.bandcamp.com/' },
   'tina-frank': { name: 'Tina Frank', url: 'https://www.tinafrank.net/' },
+  'valentina-araujo': { name: 'Valentina Araújo' },
   'victor-martins': { name: 'Victor Martins', url: 'https://pixelnerve.com/' },
   'vitor-joaquim': { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
 };
