@@ -7,8 +7,10 @@ import { localize } from '@/i18n/localized';
 import { useLocale } from '@/i18n/useLocale';
 import { useT } from '@/i18n/useT';
 import type { LightboxItem, LiveEvent } from '@/types';
+import type { LightboxImage } from '@/types/lightbox';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { formatEventDateRange } from '@/utils/formatters';
+import { getImageStyles } from '@/utils/imageStyles';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 import type { LightboxSource } from '@/utils/lightboxPermalink';
 import { buildEventDescription } from '@/utils/liveDescription';
@@ -57,6 +59,39 @@ const videoLightboxItems = computed<LightboxItem[]>(() =>
 const t = useT();
 const imageLabel = computed(() => t(imageLightboxItems.value.length === 1 ? 'media.photo' : 'media.photos'));
 
+const previewKind = computed<'photo' | 'poster'>(() => (imageLightboxItems.value.length ? 'photo' : 'poster'));
+
+const previewImages = computed<LightboxImage[]>(() => {
+  const set = imageLightboxItems.value.length ? imageLightboxItems.value : posterLightboxItems.value;
+  return set.filter((item): item is LightboxImage => item.type === 'image');
+});
+
+const heroSources = computed(() => (props.event.images?.length ? props.event.images : props.event.posters ?? []));
+
+const heroIndex = computed(() => {
+  const index = heroSources.value.findIndex(source => source.cover);
+  return index >= 0 ? index : 0;
+});
+
+const heroImage = computed(() => previewImages.value[heroIndex.value]);
+
+const thumbStyle = computed(() => getImageStyles(heroSources.value[heroIndex.value]?.thumb));
+
+const showThumb = computed(() => previewImages.value.length > 0);
+
+const eventClass = computed(() => (showThumb.value ? 'event event--column' : 'event event--text-only'));
+
+const openPreview = () =>
+  emit('open-lightbox', previewImages.value, 0, { id: props.event.id, kind: previewKind.value });
+
+const mediaLinksProps = computed(() => ({
+  images: imageLightboxItems.value,
+  posters: posterLightboxItems.value,
+  videos: videoLightboxItems.value,
+  imageLabel: imageLabel.value,
+  sourceId: props.event.id,
+}));
+
 useLightboxDeepLink(
   props.event.id,
   { photo: imageLightboxItems, poster: posterLightboxItems, video: videoLightboxItems },
@@ -67,7 +102,7 @@ useLightboxDeepLink(
 <template>
   <article
     :id="event.id"
-    class="event event--text-only"
+    :class="eventClass"
   >
     <div class="event-details">
       <p>
@@ -106,13 +141,32 @@ useLightboxDeepLink(
         v-html="externalizeLinks(buildEventDescription(event, current))"
       />
       <MediaLinks
-        :images="imageLightboxItems"
-        :posters="posterLightboxItems"
-        :videos="videoLightboxItems"
-        :image-label="imageLabel"
-        :source-id="event.id"
+        v-if="!showThumb"
+        v-bind="mediaLinksProps"
         @open-lightbox="(items, index, source) => emit('open-lightbox', items, index, source)"
       />
     </div>
+    <template v-if="showThumb">
+      <figure
+        class="event-thumb"
+        @click="openPreview"
+      >
+        <img
+          :src="heroImage?.src"
+          :alt="heroImage?.alt"
+          :style="thumbStyle"
+          loading="lazy"
+        >
+        <span
+          v-if="previewImages.length > 1"
+          class="event-thumb-count"
+          aria-hidden="true"
+        >{{ previewImages.length }}</span>
+      </figure>
+      <MediaLinks
+        v-bind="mediaLinksProps"
+        @open-lightbox="(items, index, source) => emit('open-lightbox', items, index, source)"
+      />
+    </template>
   </article>
 </template>
