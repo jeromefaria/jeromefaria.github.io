@@ -1,7 +1,6 @@
 import { orgs } from '@/data/orgs';
+import { createNameLookup } from '@/utils/registry';
 
-const byName = new Map<string, string>();
+const findOrg = createNameLookup(orgs);
 
-for (const org of Object.values(orgs)) if (org.url) byName.set(org.name, org.url);
-
-export const orgUrl = (name: string): string | undefined => byName.get(name);
+export const orgUrl = (name: string): string | undefined => findOrg(name)?.url;

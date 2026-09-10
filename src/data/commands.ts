@@ -111,16 +111,27 @@ const eventPeople = (event: LiveEvent, locale: Locale): string[] => {
 
 const releaseCommands = (locale: Locale): Command[] =>
   Object.values(worksData).flatMap(section =>
-    section.items.filter(release => release.meta.kind !== 'engineering').map((release): Command => ({
-      kind: 'result',
-      id: `works:${release.id}`,
-      title: release.title,
-      subtitle: localize(section.title, locale),
-      keywords: words([localize(section.title, locale), releaseYearString(release.meta.released), ...metaText(release.meta), ...(release.tracklist ?? []).map(track => track.title), ...(release.images ?? []).map(image => image.photographer?.name ?? ''), ...creditNames(release.credits, locale)].join(' ')),
-      text: words([localize(release.description ?? '', locale), plainCredits(release.credits ?? '', locale)].join(' ')),
-      group: 'Works',
-      to: `/works#${release.id}`,
-    })),
+    section.items.filter(release => release.meta.kind !== 'engineering').map((release): Command => {
+      const keywordSources = [
+        localize(section.title, locale),
+        releaseYearString(release.meta.released),
+        ...metaText(release.meta),
+        ...(release.tracklist ?? []).map(track => track.title),
+        ...(release.images ?? []).map(image => image.photographer?.name ?? ''),
+        ...creditNames(release.credits, locale),
+      ];
+
+      return {
+        kind: 'result',
+        id: `works:${release.id}`,
+        title: release.title,
+        subtitle: localize(section.title, locale),
+        keywords: words(keywordSources.join(' ')),
+        text: words([localize(release.description ?? '', locale), plainCredits(release.credits ?? '', locale)].join(' ')),
+        group: 'Works',
+        to: `/works#${release.id}`,
+      };
+    }),
   );
 
 const liveCommands = (locale: Locale): Command[] =>

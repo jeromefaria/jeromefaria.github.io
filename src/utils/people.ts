@@ -1,20 +1,19 @@
 import { people } from '@/data/people';
 import type { Credit } from '@/types/media';
-import type { Person } from '@/types/people';
 import { orgUrl } from '@/utils/orgs';
+import { createNameLookup } from '@/utils/registry';
 
-const byName = new Map<string, Person>();
+const findPerson = createNameLookup(people);
 
-for (const person of Object.values(people)) byName.set(person.name, person);
+export const personUrl = (name: string): string | undefined => findPerson(name)?.url;
 
-export const personUrl = (name: string): string | undefined => byName.get(name)?.url;
-
-export const creditUrl = (credit: Credit): string | undefined => credit.url ?? personUrl(credit.name) ?? orgUrl(credit.name);
+export const creditUrl = (credit: Credit): string | undefined =>
+  credit.url ?? personUrl(credit.name) ?? orgUrl(credit.name);
 
 export const personSameAs = (name: string, contextUrl?: string): string[] | undefined => {
-  const person = byName.get(name);
+  const person = findPerson(name);
   const registryLinks = person?.sameAs ?? (person?.url ? [person.url] : []);
-  const links = [...new Set([contextUrl, ...registryLinks].filter((link): link is string => Boolean(link)))];
+  const links = [contextUrl, ...registryLinks].filter((link): link is string => Boolean(link));
 
-  return links.length > 0 ? links : undefined;
+  return links.length > 0 ? [...new Set(links)] : undefined;
 };
