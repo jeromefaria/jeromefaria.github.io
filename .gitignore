@@ -79,3 +79,6 @@ audio-dist/
 
 # Writing drafts — private until published (Model A: git mv _drafts/<slug>.md to publish)
 content/writing/_drafts/
+
+# Local HTTPS dev certs (mkcert)
+.certs/
