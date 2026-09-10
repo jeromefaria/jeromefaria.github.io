@@ -10,21 +10,40 @@
   .event--column {
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "details"
+      "thumb"
+      "links";
     gap: $spacing-4;
 
     @include respond-to(sm) {
       grid-template-columns: 1fr auto;
-      gap: $spacing-5;
+      grid-template-areas:
+        "details thumb"
+        "links   thumb";
+      gap: $spacing-3 $spacing-5;
       align-items: start;
+    }
+
+    .event-details {
+      grid-area: details;
+    }
+
+    .event-thumb {
+      grid-area: thumb;
+    }
+
+    .media-links {
+      grid-area: links;
+      margin: 0;
     }
   }
 
   .event-thumb {
     position: relative;
-    order: -1;
+    align-self: start;
     margin: 0;
     width: 100%;
-    max-width: 240px;
     aspect-ratio: 1 / 1;
     overflow: hidden;
     cursor: pointer;
@@ -43,9 +62,7 @@
     }
 
     @include respond-to(sm) {
-      order: 1;
       width: 160px;
-      max-width: none;
     }
   }
 

@@ -87,6 +87,14 @@ const eventClass = computed(() => (showThumb.value ? 'event event--column' : 'ev
 const openPreview = () =>
   emit('open-lightbox', previewImages.value, 0, { id: props.event.id, kind: previewKind.value });
 
+const mediaLinksProps = computed(() => ({
+  images: imageLightboxItems.value,
+  posters: posterLightboxItems.value,
+  videos: videoLightboxItems.value,
+  imageLabel: imageLabel.value,
+  sourceId: props.event.id,
+}));
+
 useLightboxDeepLink(
   props.event.id,
   { photo: imageLightboxItems, poster: posterLightboxItems, video: videoLightboxItems },
@@ -136,30 +144,32 @@ useLightboxDeepLink(
         v-html="externalizeLinks(buildEventDescription(event, current))"
       />
       <MediaLinks
-        :images="imageLightboxItems"
-        :posters="posterLightboxItems"
-        :videos="videoLightboxItems"
-        :image-label="imageLabel"
-        :source-id="event.id"
+        v-if="!showThumb"
+        v-bind="mediaLinksProps"
         @open-lightbox="(items, index, source) => emit('open-lightbox', items, index, source)"
       />
     </div>
-    <figure
-      v-if="showThumb"
-      class="event-thumb"
-      @click="openPreview"
-    >
-      <img
-        :src="heroImage?.src"
-        :alt="heroImage?.alt"
-        :style="thumbStyle"
-        loading="lazy"
+    <template v-if="showThumb">
+      <figure
+        class="event-thumb"
+        @click="openPreview"
       >
-      <span
-        v-if="previewImages.length > 1"
-        class="event-thumb-count"
-        aria-hidden="true"
-      >{{ previewImages.length }}</span>
-    </figure>
+        <img
+          :src="heroImage?.src"
+          :alt="heroImage?.alt"
+          :style="thumbStyle"
+          loading="lazy"
+        >
+        <span
+          v-if="previewImages.length > 1"
+          class="event-thumb-count"
+          aria-hidden="true"
+        >{{ previewImages.length }}</span>
+      </figure>
+      <MediaLinks
+        v-bind="mediaLinksProps"
+        @open-lightbox="(items, index, source) => emit('open-lightbox', items, index, source)"
+      />
+    </template>
   </article>
 </template>
