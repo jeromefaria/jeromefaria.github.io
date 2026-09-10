@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **epk:** Shared-stages roster + restructured press kit ([#418](https://github.com/jeromefaria/jeromefaria.github.io/pull/418))
 - **seo:** Emit event collaborators as schema.org performers with sameAs ([#406](https://github.com/jeromefaria/jeromefaria.github.io/pull/406))
 
 ### Content
