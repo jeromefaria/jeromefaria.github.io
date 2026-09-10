@@ -15,6 +15,7 @@ export default defineComponent({
   props: {
     meta: { type: Object as PropType<ReleaseMeta>, required: true },
   },
+  // eslint-disable-next-line vue/component-api-style -- render function: buildMetaSegments emits inline mixed content (text / <em> / <a>) that a <script setup> template can't express without wrapper elements
   setup(props) {
     const { current } = useLocale();
 
