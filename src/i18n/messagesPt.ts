@@ -29,6 +29,7 @@ export const pt: MessageSchema = {
     photo: 'Foto',
     selectedPerformances: 'Actuações seleccionadas',
     selectedWorks: 'Obras seleccionadas',
+    sharedStages: 'Partilhou palco com',
     press: 'Imprensa seleccionada',
   },
   common: {

@@ -26,7 +26,32 @@ describe('EpkView', () => {
     const wrapper = await mountView(EpkView);
     const headings = wrapper.findAll('.epk__heading').map(heading => heading.text());
 
-    expect(headings).toEqual(['Short bio', 'Download', 'Biography', 'Photography', 'Selected performances', 'Selected works', 'Selected press']);
+    expect(headings).toEqual(['Short bio', 'Biography', 'Selected press', 'Selected performances', 'Selected works', 'Shared stages with', 'Photography', 'Download']);
+  });
+
+  it('renders a linked roster entry for each shared-stage act', async () => {
+    const wrapper = await mountView(EpkView);
+    const roster = wrapper.find('.epk__roster');
+    const items = roster.findAll('.epk__roster-item');
+
+    expect(items).toHaveLength(epk.sharedStages.length);
+
+    const hrefs = roster.findAll('a.epk__link').map(link => link.attributes('href'));
+    expect(hrefs).toEqual(epk.sharedStages.map(act => act.url));
+  });
+
+  it('renders a shared-stage act without a link when it has no url', async () => {
+    vi.mocked(resolveEpkContent).mockReturnValueOnce({
+      ...epk,
+      sharedStages: [{ name: 'Unlinked Act' }],
+    });
+
+    const wrapper = await mountView(EpkView);
+    const items = wrapper.findAll('.epk__roster-item');
+
+    expect(items).toHaveLength(1);
+    expect(items[0].find('a').exists()).toBe(false);
+    expect(items[0].text()).toContain('Unlinked Act');
   });
 
   it('lists a row for each resolved live and work highlight', async () => {

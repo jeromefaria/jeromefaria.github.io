@@ -27,6 +27,7 @@ export const en = {
     photo: 'Photo',
     selectedPerformances: 'Selected performances',
     selectedWorks: 'Selected works',
+    sharedStages: 'Shared stages with',
     press: 'Selected press',
   },
   common: {
