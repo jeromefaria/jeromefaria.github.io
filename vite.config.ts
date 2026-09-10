@@ -1,3 +1,4 @@
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath, URL } from 'node:url';
 
 import vue from '@vitejs/plugin-vue';
@@ -12,7 +13,15 @@ const releasePaths = Object.values(worksData).flatMap(section =>
 
 const writingPaths = essays.map(essay => `/writing/${essay.slug}`);
 
+const devCert = fileURLToPath(new URL('./.certs/dev-cert.pem', import.meta.url));
+const devKey = fileURLToPath(new URL('./.certs/dev-key.pem', import.meta.url));
+
+const httpsCerts = existsSync(devCert) && existsSync(devKey)
+  ? { key: readFileSync(devKey), cert: readFileSync(devCert) }
+  : undefined;
+
 export default defineConfig({
+  server: { host: true, https: httpsCerts },
   plugins: [
     vue(),
     ViteImageOptimizer({
