@@ -46,6 +46,16 @@ describe('LiveView', () => {
     expect(wrapper.findAllComponents(EventItem)).toHaveLength(totalEvents);
   });
 
+  it('renders events in the text-only links variant by default', async () => {
+    const wrapper = await mountView(LiveView, '/live');
+    expect(wrapper.findComponent(EventItem).props('variant')).toBe('links');
+  });
+
+  it('switches events to the column variant when ?preview=column is set', async () => {
+    const wrapper = await mountView(LiveView, '/live?preview=column');
+    expect(wrapper.findComponent(EventItem).props('variant')).toBe('column');
+  });
+
   it('opens only the most recent year by default', async () => {
     const wrapper = await mountView(LiveView, '/live');
     expect(expandedYears(wrapper)).toEqual([liveYears[0]]);
