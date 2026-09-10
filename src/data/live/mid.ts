@@ -36,6 +36,7 @@ export const midEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/heineken-series-006.jpg',
+        cover: true,
         photographer: { name: 'Pedro Jafuno' },
       },
       {

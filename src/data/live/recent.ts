@@ -69,6 +69,7 @@ export const recentEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/festival-multiplo-2026-003.jpg',
+        cover: true,
         photographer: { name: 'Nuno Martins' },
       },
       {
@@ -109,6 +110,7 @@ export const recentEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/showcase-casa-amarela-002.jpg',
+        cover: true,
         photographer: { name: 'Ricardo Almeida' },
       },
       {
@@ -189,6 +191,8 @@ export const recentEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/fim-de-emissao-45-005.jpg',
+        cover: true,
+        thumb: { position: 'center 85%' },
         photographer: { name: 'Pedro Roque' },
       },
       {
@@ -295,6 +299,7 @@ export const recentEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/cca-no-desterro-015.jpg',
+        cover: true,
         photographer: { name: 'Pedro Jafuno' },
       },
     ],
@@ -321,6 +326,7 @@ export const recentEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/amess-teatro-baltazar-dias-002.jpg',
+        cover: true,
         photographer: { name: 'Óscar Silva' },
       },
       {
@@ -347,6 +353,7 @@ export const recentEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/amess-museu-franco-003.jpg',
+        cover: true,
         photographer: { name: 'Miguel Apolinário' },
       },
       {
@@ -421,6 +428,7 @@ export const recentEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/jejum-11-014.jpg',
+        cover: true,
         photographer: { name: 'Pedro Jafuno' },
       },
       {
@@ -474,6 +482,8 @@ export const recentEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/nariz-entupido-003.jpg',
+        cover: true,
+        thumb: { scale: 1.2 },
         photographer: { name: 'Ricardo Nogueira' },
       },
       {
@@ -501,6 +511,10 @@ export const recentEvents: LiveEvent[] = [
     format: { kind: 'theatre' },
     imageAlt: { en: 'Aragão theatre production at Teatro Municipal Baltazar Dias, Funchal, 2021', pt: 'Produção teatral Aragão no Teatro Municipal Baltazar Dias, Funchal, 2021' },
     images: [
+      {
+        src: '/images/live/aragao-funchal-002.jpg',
+        thumb: { position: 'center 38%' },
+      },
       {
         src: '/images/live/aragao-funchal-001.jpg',
         photographer: { name: 'Mário André Pereira' },
