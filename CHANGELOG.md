@@ -13,6 +13,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - Link 8 researched entities across the registry ([#414](https://github.com/jeromefaria/jeromefaria.github.io/pull/414))
 
+### Fixes
+
+- **player:** Balance the immersive artwork's gap to the transport slider ([#417](https://github.com/jeromefaria/jeromefaria.github.io/pull/417))
+
 ### Refactors
 
 - Share one name-lookup across the entity registries ([#415](https://github.com/jeromefaria/jeromefaria.github.io/pull/415))
