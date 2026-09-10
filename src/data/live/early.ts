@@ -41,6 +41,8 @@ export const earlyEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/madeiradig-2011-005.jpg',
+        cover: true,
+        thumb: { position: '38% center', scale: 1.15, rotate: 1 },
         photographer: { name: 'Valentina Araújo' },
       },
       {
@@ -68,6 +70,7 @@ export const earlyEvents: LiveEvent[] = [
       {
         src: '/images/live/migractions-2011-001.jpg',
         photographer: { name: 'Sue-Elie Andrade-Dé' },
+        thumb: { scale: 1.5 },
       },
       {
         src: '/images/live/migractions-2011-002.jpg',
@@ -121,6 +124,7 @@ export const earlyEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/olhares-de-outono-2010-007.jpg',
+        cover: true,
         photographer: { name: 'Olhares de Outono' },
       },
     ],
@@ -153,6 +157,8 @@ export const earlyEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/madeiradig-2009-002.jpg',
+        cover: true,
+        thumb: { position: '15% center' },
         photographer: { name: 'Miguel Apolinário' },
       },
       {
@@ -232,6 +238,7 @@ export const earlyEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/eme-olhares-2009-003.jpg',
+        cover: true,
         photographer: { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
       },
       {
@@ -297,6 +304,7 @@ export const earlyEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/eme-2008-003.jpg',
+        cover: true,
         photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
       },
       {
@@ -356,6 +364,7 @@ export const earlyEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/storung-2008-003.jpg',
+        cover: true,
         photographer: { name: 'Störung Festival', url: 'https://storung.com/' },
       },
     ],
@@ -383,6 +392,7 @@ export const earlyEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/stfu-porto-002.jpg',
+        cover: true,
         photographer: { name: 'STFU Porto' },
       },
       {
@@ -449,6 +459,7 @@ export const earlyEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/madeiradig-2007-010.jpg',
+        cover: true,
         photographer: { name: 'Marta León' },
       },
     ],

@@ -2,9 +2,17 @@ import type { Localizable, Localized } from '@/i18n/localized';
 
 import type { Credit, Video } from './media';
 
+export interface ThumbFraming {
+  position?: string;
+  scale?: number;
+  rotate?: number;
+}
+
 export interface LiveImage {
   src: string;
   photographer?: Credit;
+  cover?: boolean;
+  thumb?: ThumbFraming;
 }
 
 export interface Act {
@@ -31,6 +39,8 @@ export interface Poster {
   src: string;
   alt: Localizable<string>;
   artist?: Credit;
+  cover?: boolean;
+  thumb?: ThumbFraming;
 }
 
 export interface EventVenue {

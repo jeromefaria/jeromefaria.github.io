@@ -7,6 +7,76 @@
     @include scroll-margin-header;
   }
 
+  .event--column {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "details"
+      "thumb"
+      "links";
+    gap: $spacing-4;
+
+    @include respond-to(sm) {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "details thumb"
+        "links   thumb";
+      gap: $spacing-3 $spacing-5;
+      align-items: start;
+    }
+
+    .event-details {
+      grid-area: details;
+    }
+
+    .event-thumb {
+      grid-area: thumb;
+    }
+
+    .media-links {
+      grid-area: links;
+      margin: 0;
+    }
+  }
+
+  .event-thumb {
+    position: relative;
+    align-self: start;
+    margin: 0;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--color-border-subtle);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity $transition-base;
+    }
+
+    &:hover img {
+      opacity: $opacity-90;
+    }
+
+    @include respond-to(sm) {
+      width: 160px;
+    }
+  }
+
+  .event-thumb-count {
+    position: absolute;
+    right: $spacing-1;
+    bottom: $spacing-1;
+    padding: 0 $spacing-1;
+    font-size: 0.7rem;
+    color: #fff;
+    background: rgb(0 0 0 / 60%);
+    border-radius: 2px;
+  }
+
   .event--text-only .event-details {
     p {
       margin-bottom: $spacing-1;

@@ -36,6 +36,7 @@ export const midEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/heineken-series-006.jpg',
+        cover: true,
         photographer: { name: 'Pedro Jafuno' },
       },
       {
@@ -114,6 +115,7 @@ export const midEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/caligari-live-2-001.jpg',
+        thumb: { position: '65% center' },
         photographer: { name: 'Pedro Jafuno' },
       },
     ],

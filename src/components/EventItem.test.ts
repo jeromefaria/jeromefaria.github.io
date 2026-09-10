@@ -325,4 +325,64 @@ describe('EventItem', () => {
       expect(wrapper.get('.event-venue').text()).toContain('Lisboa, Portugal');
     });
   });
+
+  describe('thumbnail', () => {
+    const withImages: LiveEvent = {
+      ...plainEvent,
+      imageAlt: 'A live photo',
+      images: [
+        { src: '/images/live/a-001.jpg' },
+        { src: '/images/live/a-002.jpg', cover: true, thumb: { position: 'center 85%', scale: 1.2, rotate: 1 } },
+        { src: '/images/live/a-003.jpg' },
+      ],
+    };
+
+    it('renders the cover image as the hero, with its framing style applied', () => {
+      const img = mountEvent(withImages).get('.event-thumb img');
+      const style = img.attributes('style') ?? '';
+
+      expect(img.attributes('src')).toBe('/images/live/a-002.jpg');
+      expect(style).toContain('object-position: center 85%');
+      expect(style).toContain('scale(1.2)');
+      expect(style).toContain('rotate(1deg)');
+    });
+
+    it('defaults the hero to the first image when none is flagged as cover', () => {
+      const wrapper = mountEvent({ ...plainEvent, imageAlt: 'x', images: [{ src: '/images/live/b-001.jpg' }, { src: '/images/live/b-002.jpg' }] });
+
+      expect(wrapper.get('.event-thumb img').attributes('src')).toBe('/images/live/b-001.jpg');
+      expect(wrapper.get('.event-thumb img').attributes('style')).toBeUndefined();
+    });
+
+    it('opens the lightbox at the first gallery image, not the hero', async () => {
+      const wrapper = mountEvent(withImages);
+      await wrapper.get('.event-thumb').trigger('click');
+      const payload = wrapper.emitted('open-lightbox')?.[0];
+
+      expect(payload?.[1]).toBe(0);
+      expect((payload?.[0] as Array<{ src: string }>)[0].src).toBe('/images/live/a-001.jpg');
+      expect(payload?.[2]).toEqual({ id: 'fim-de-emissao-45', kind: 'photo' });
+    });
+
+    it('shows the image count only when the event has more than one image', () => {
+      expect(mountEvent(withImages).get('.event-thumb-count').text()).toBe('3');
+      const single = mountEvent({ ...plainEvent, posters: [{ src: '/images/live/p-001.jpg', alt: 'Poster' }] });
+      expect(single.find('.event-thumb-count').exists()).toBe(false);
+    });
+
+    it('uses a poster as the hero and emits the poster kind when there are no images', async () => {
+      const wrapper = mountEvent({ ...plainEvent, posters: [{ src: '/images/live/p-001.jpg', alt: 'Poster', cover: true }] });
+
+      expect(wrapper.get('.event-thumb img').attributes('src')).toBe('/images/live/p-001.jpg');
+      await wrapper.get('.event-thumb').trigger('click');
+      expect(wrapper.emitted('open-lightbox')?.[0]?.[2]).toEqual({ id: 'fim-de-emissao-45', kind: 'poster' });
+    });
+
+    it('renders a text-only row when the event has no media', () => {
+      const wrapper = mountEvent(plainEvent);
+
+      expect(wrapper.find('.event-thumb').exists()).toBe(false);
+      expect(wrapper.get('article').classes()).toContain('event--text-only');
+    });
+  });
 });
