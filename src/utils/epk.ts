@@ -5,7 +5,7 @@ import { worksData } from '@/data/works';
 import { localizePlace } from '@/i18n/exonyms';
 import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
-import type { EpkContent, EpkLiveHighlight, EpkManifest, EpkPhoto, EpkWorkHighlight } from '@/types/epk';
+import type { EpkContent, EpkLiveHighlight, EpkManifest, EpkPhoto, EpkWorkHighlight, EpkWorkRef } from '@/types/epk';
 import type { EventVenue, LiveEvent } from '@/types/live';
 import type { Release } from '@/types/works';
 import { releaseYear } from '@/utils/releaseDate';
@@ -63,10 +63,13 @@ export const toLiveHighlight = (event: LiveEvent, locale: Locale = DEFAULT_LOCAL
   location: eventLocation(event.venue, locale),
 });
 
-export const toWorkHighlight = (release: Release): EpkWorkHighlight => ({
+const normalizeWorkRef = (ref: EpkWorkRef): { id: string; title?: string } =>
+  typeof ref === 'string' ? { id: ref } : ref;
+
+export const toWorkHighlight = (release: Release, title = release.title): EpkWorkHighlight => ({
   id: release.id,
   year: releaseYear(release.meta.released),
-  title: release.title,
+  title,
 });
 
 export const resolveEpkContent = (manifest: EpkManifest, locale: Locale = DEFAULT_LOCALE): EpkContent => {
@@ -82,8 +85,10 @@ export const resolveEpkContent = (manifest: EpkManifest, locale: Locale = DEFAUL
       .sort((a, b) => b.date.localeCompare(a.date))
       .map(event => toLiveHighlight(event, locale)),
     workHighlights: manifest.highlightWorkIds
-      .map(id => findById(works, id))
-      .sort((a, b) => releaseYear(b.meta.released) - releaseYear(a.meta.released))
-      .map(toWorkHighlight),
+      .map(normalizeWorkRef)
+      .map(ref => ({ release: findById(works, ref.id), title: ref.title }))
+      .sort((a, b) => releaseYear(b.release.meta.released) - releaseYear(a.release.meta.released))
+      .map(({ release, title }) => toWorkHighlight(release, title)),
+    sharedStages: manifest.sharedStages,
   };
 };

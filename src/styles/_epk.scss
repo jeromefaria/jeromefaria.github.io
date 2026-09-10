@@ -37,6 +37,23 @@
   }
 }
 
+.epk__roster {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: $line-height-relaxed;
+}
+
+.epk__roster-item {
+  &:not(:last-child)::after {
+    content: "·";
+    margin: 0 $spacing-3;
+    color: var(--color-text-muted);
+  }
+}
+
 .epk__year {
   flex-shrink: 0;
   width: 3rem;

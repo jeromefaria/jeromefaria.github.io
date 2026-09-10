@@ -11,13 +11,21 @@ export interface EpkPhoto {
 
 export type BioVariant = 'short' | 'press';
 
+export interface SharedStage {
+  name: string;
+  url?: string;
+}
+
+export type EpkWorkRef = string | { id: string; title: string };
+
 export interface EpkManifest {
   photos: EpkPhoto[];
   shortBio: BioVariant;
   longBio: BioVariant;
   pressQuoteIds: string[];
   highlightLiveIds: string[];
-  highlightWorkIds: string[];
+  highlightWorkIds: EpkWorkRef[];
+  sharedStages: SharedStage[];
 }
 
 export interface EpkLiveHighlight {
@@ -40,4 +48,5 @@ export interface EpkContent {
   quotes: PressQuote[];
   liveHighlights: EpkLiveHighlight[];
   workHighlights: EpkWorkHighlight[];
+  sharedStages: SharedStage[];
 }

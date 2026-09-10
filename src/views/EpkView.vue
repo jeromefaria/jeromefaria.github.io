@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { RouterLink } from 'vue-router';
 
+import EpkRoster from '@/components/EpkRoster.vue';
 import ExternalLink from '@/components/ExternalLink.vue';
 import PressQuote from '@/components/PressQuote.vue';
 import ResponsivePicture from '@/components/ResponsivePicture.vue';
@@ -43,31 +44,6 @@ const epkPhotos = computed(() => epk.value.photos.map(photo => ({
 
     <section class="epk__section">
       <h2 class="epk__heading">
-        {{ t('epk.download') }}
-      </h2>
-      <p class="media-links">
-        <a
-          class="link-discrete"
-          :href="epkZipHref(current)"
-          download
-        >{{ t('epk.fullKit') }}</a>
-        <span> | </span>
-        <a
-          class="link-discrete"
-          :href="epkPdfHref(current)"
-          download
-        >{{ t('epk.oneSheet') }}</a>
-        <span> | </span>
-        <a
-          class="link-discrete"
-          :href="epkRiderHref(current)"
-          download
-        >{{ t('epk.rider') }}</a>
-      </p>
-    </section>
-
-    <section class="epk__section">
-      <h2 class="epk__heading">
         {{ t('epk.biography') }}
       </h2>
       <div
@@ -78,41 +54,16 @@ const epkPhotos = computed(() => epk.value.photos.map(photo => ({
 
     <section class="epk__section">
       <h2 class="epk__heading">
-        {{ t('epk.photography') }}
+        {{ t('epk.press') }}
       </h2>
-      <div class="epk__photos">
-        <figure
-          v-for="({ photo, photographerUrl }, index) in epkPhotos"
-          :key="photo.src"
-          class="epk__photo"
-        >
-          <ResponsivePicture
-            :src="photo.src"
-            :alt="localize(photo.alt)"
-          />
-          <figcaption>
-            <template v-if="photo.photographer">
-              {{ t('epk.photo') }}:
-              <ExternalLink
-                v-if="photographerUrl"
-                :href="photographerUrl"
-              >
-                {{ photo.photographer.name }}
-              </ExternalLink>
-              <template v-else>
-                {{ photo.photographer.name }}
-              </template>
-              ·
-            </template>
-            <a
-              :href="photoDownloadHref(photo, index)"
-              download
-            >
-              {{ t('epk.download') }}
-            </a>
-          </figcaption>
-        </figure>
-      </div>
+      <PressQuote
+        v-for="quote in epk.quotes"
+        :key="quote.id"
+        class="epk__quote"
+        :quote="quote.quote"
+        :source="quote.source"
+        :url="quote.url"
+      />
     </section>
 
     <section class="epk__section">
@@ -159,16 +110,73 @@ const epkPhotos = computed(() => epk.value.photos.map(photo => ({
 
     <section class="epk__section">
       <h2 class="epk__heading">
-        {{ t('epk.press') }}
+        {{ t('epk.sharedStages') }}
       </h2>
-      <PressQuote
-        v-for="quote in epk.quotes"
-        :key="quote.id"
-        class="epk__quote"
-        :quote="quote.quote"
-        :source="quote.source"
-        :url="quote.url"
-      />
+      <EpkRoster :acts="epk.sharedStages" />
+    </section>
+
+    <section class="epk__section">
+      <h2 class="epk__heading">
+        {{ t('epk.photography') }}
+      </h2>
+      <div class="epk__photos">
+        <figure
+          v-for="({ photo, photographerUrl }, index) in epkPhotos"
+          :key="photo.src"
+          class="epk__photo"
+        >
+          <ResponsivePicture
+            :src="photo.src"
+            :alt="localize(photo.alt)"
+          />
+          <figcaption>
+            <template v-if="photo.photographer">
+              {{ t('epk.photo') }}:
+              <ExternalLink
+                v-if="photographerUrl"
+                :href="photographerUrl"
+              >
+                {{ photo.photographer.name }}
+              </ExternalLink>
+              <template v-else>
+                {{ photo.photographer.name }}
+              </template>
+              ·
+            </template>
+            <a
+              :href="photoDownloadHref(photo, index)"
+              download
+            >
+              {{ t('epk.download') }}
+            </a>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="epk__section">
+      <h2 class="epk__heading">
+        {{ t('epk.download') }}
+      </h2>
+      <p class="media-links">
+        <a
+          class="link-discrete"
+          :href="epkZipHref(current)"
+          download
+        >{{ t('epk.fullKit') }}</a>
+        <span> | </span>
+        <a
+          class="link-discrete"
+          :href="epkPdfHref(current)"
+          download
+        >{{ t('epk.oneSheet') }}</a>
+        <span> | </span>
+        <a
+          class="link-discrete"
+          :href="epkRiderHref(current)"
+          download
+        >{{ t('epk.rider') }}</a>
+      </p>
     </section>
   </StaticPage>
 </template>

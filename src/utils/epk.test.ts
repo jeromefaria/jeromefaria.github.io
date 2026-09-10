@@ -71,6 +71,16 @@ describe('toWorkHighlight', () => {
 
     expect(toWorkHighlight(release)).toEqual({ id: '2504', year: 2024, title: '2504' });
   });
+
+  it('applies a display-title override while keeping the release id', () => {
+    const release: Release = {
+      id: '2504',
+      title: '2504',
+      meta: { kind: 'music', mediums: ['Digital'], editions: [{ label: { text: 'self-released' } }], released: '2024' },
+    };
+
+    expect(toWorkHighlight(release, 'Short Title')).toEqual({ id: '2504', year: 2024, title: 'Short Title' });
+  });
 });
 
 describe('resolveEpkContent', () => {
@@ -83,6 +93,18 @@ describe('resolveEpkContent', () => {
     expect(content.quotes).toHaveLength(epkManifest.pressQuoteIds.length);
     expect(content.liveHighlights).toHaveLength(epkManifest.highlightLiveIds.length);
     expect(content.workHighlights).toHaveLength(epkManifest.highlightWorkIds.length);
+    expect(content.sharedStages).toEqual(epkManifest.sharedStages);
+  });
+
+  it('honours a per-work display-title override without changing its deep-link id', () => {
+    const content = resolveEpkContent({
+      ...epkManifest,
+      highlightWorkIds: [{ id: 'caligari-album', title: 'The Cabinet of Dr. Caligari' }],
+    });
+
+    expect(content.workHighlights).toEqual([
+      expect.objectContaining({ id: 'caligari-album', title: 'The Cabinet of Dr. Caligari' }),
+    ]);
   });
 
   it('resolves the Portuguese bios when the pt locale is requested', () => {
