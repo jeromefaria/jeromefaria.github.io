@@ -7,9 +7,7 @@ const { resolveEpkContent, photoDownloadFilename, epkKitFile, epkRiderFile, loca
 const { techRider } = await loadSrc('data/techRider.ts');
 const { localize } = await loadSrc('i18n/localized.ts');
 const { SUPPORTED_LOCALES, localePath, messages } = await loadSrc('i18n/messages.ts');
-const { siteConfig, social } = await loadSrc('data/navigation.ts');
-
-const bandcamp = social.find(item => item.name === 'bandcamp');
+const { siteConfig } = await loadSrc('data/navigation.ts');
 
 export { epkKitFile, epkRiderFile, localePath, localeSuffix, localize, photoDownloadFilename, root, siteConfig, techRider };
 
@@ -20,11 +18,6 @@ export const outDir = join(root, 'public/epk');
 export const photosDir = join(outDir, 'photos');
 export const mastersDir = join(root, 'assets-source/press');
 export const siteUrl = siteConfig.url.replace(/\/$/, '');
-export const contact = {
-  email: siteConfig.author.email,
-  website: siteConfig.url,
-  bandcamp: bandcamp?.url,
-};
 
 const pdfOnlyChrome = {
   en: {
@@ -49,6 +42,7 @@ export const pdfChrome = Object.fromEntries(
   locales.map(locale => [locale, {
     selectedPerformances: messages[locale].epk.selectedPerformances,
     selectedWorks: messages[locale].epk.selectedWorks,
+    sharedStages: messages[locale].epk.sharedStages,
     press: messages[locale].epk.press,
     creditsPhotography: `${messages[locale].epk.photography}:`,
     ...pdfOnlyChrome[locale],
