@@ -62,6 +62,16 @@ describe('CommandPalette', () => {
     expect(input.getAttribute('aria-expanded')).toBe('true');
   });
 
+  it('closes when the close button is clicked', async () => {
+    active = await mountPalette();
+    await openPalette();
+
+    document.querySelector<HTMLElement>('.command-palette__close')?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    await nextTick();
+
+    expect(palette()).toBeNull();
+  });
+
   it('shows curated navigation with a group header and an active option when empty', async () => {
     active = await mountPalette();
     await openPalette();
