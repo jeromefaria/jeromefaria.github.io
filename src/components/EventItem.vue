@@ -3,10 +3,10 @@ import { computed } from 'vue';
 
 import { useLightboxDeepLink } from '@/composables/useLightboxDeepLink';
 import { localizePlace } from '@/i18n/exonyms';
-import { localize } from '@/i18n/localized';
+import { type Localizable, localize } from '@/i18n/localized';
 import { useLocale } from '@/i18n/useLocale';
 import { useT } from '@/i18n/useT';
-import type { LightboxItem, LiveEvent } from '@/types';
+import type { LightboxItem, LiveEvent, LiveImage, Poster } from '@/types';
 import type { LightboxImage } from '@/types/lightbox';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { formatEventDateRange } from '@/utils/formatters';
@@ -66,18 +66,25 @@ const previewImages = computed<LightboxImage[]>(() => {
   return set.filter((item): item is LightboxImage => item.type === 'image');
 });
 
-const heroSources = computed(() => (props.event.images?.length ? props.event.images : props.event.posters ?? []));
-
-const heroIndex = computed(() => {
-  const index = heroSources.value.findIndex(source => source.cover);
-  return index >= 0 ? index : 0;
+const toHeroThumb = (source: LiveImage | Poster, alt: Localizable<string>) => ({
+  src: source.src,
+  alt: localize(alt, current.value),
+  style: getImageStyles(source.thumb),
 });
 
-const heroImage = computed(() => previewImages.value[heroIndex.value]);
+const heroThumb = computed(() => {
+  const { images, posters, imageAlt } = props.event;
 
-const thumbStyle = computed(() => getImageStyles(heroSources.value[heroIndex.value]?.thumb));
+  const image = images?.find(item => item.cover) ?? images?.[0];
+  if (image) return toHeroThumb(image, imageAlt ?? '');
 
-const showThumb = computed(() => previewImages.value.length > 0);
+  const poster = posters?.find(item => item.cover) ?? posters?.[0];
+  if (poster) return toHeroThumb(poster, poster.alt);
+
+  return undefined;
+});
+
+const showThumb = computed(() => Boolean(heroThumb.value));
 
 const eventClass = computed(() => (showThumb.value ? 'event event--column' : 'event event--text-only'));
 
@@ -152,9 +159,9 @@ useLightboxDeepLink(
         @click="openPreview"
       >
         <img
-          :src="heroImage?.src"
-          :alt="heroImage?.alt"
-          :style="thumbStyle"
+          :src="heroThumb?.src"
+          :alt="heroThumb?.alt"
+          :style="heroThumb?.style"
           loading="lazy"
         >
         <span
