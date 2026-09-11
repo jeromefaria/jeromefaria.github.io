@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **palette:** Group context, more-results hint, guiding empty state ([#440](https://github.com/jeromefaria/jeromefaria.github.io/pull/440))
 - **palette:** Add a touch-reachable close button ([#439](https://github.com/jeromefaria/jeromefaria.github.io/pull/439))
 - **palette:** Announce the true match count and no-results state ([#438](https://github.com/jeromefaria/jeromefaria.github.io/pull/438))
 - **palette:** De-dupe releases and scope results by group ([#437](https://github.com/jeromefaria/jeromefaria.github.io/pull/437))
