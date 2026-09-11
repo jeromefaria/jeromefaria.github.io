@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { LiveEvent } from '@/types';
 
-import { findLiveEvent, liveEventHead } from './liveEventPermalink';
+import { findLiveEvent, liveEventHead, liveEventPath } from './liveEventPermalink';
 
 describe('liveEventPermalink', () => {
   describe('findLiveEvent', () => {
@@ -13,6 +13,12 @@ describe('liveEventPermalink', () => {
 
     it('returns null for an unknown id', () => {
       expect(findLiveEvent('no-such-event')).toBeNull();
+    });
+  });
+
+  describe('liveEventPath', () => {
+    it('builds the shareable /live/:eventId path', () => {
+      expect(liveEventPath('showcase-casa-amarela')).toBe('/live/showcase-casa-amarela');
     });
   });
 

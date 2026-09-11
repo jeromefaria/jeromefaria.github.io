@@ -14,6 +14,7 @@ import { getImageStyles } from '@/utils/imageStyles';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 import type { LightboxSource } from '@/utils/lightboxPermalink';
 import { buildEventDescription } from '@/utils/liveDescription';
+import { liveEventPath } from '@/utils/liveEventPermalink';
 import { venueUrl } from '@/utils/venues';
 
 import ExternalLink from './ExternalLink.vue';
@@ -117,7 +118,7 @@ useLightboxDeepLink(
         <strong>
           <a
             class="event-title-link"
-            :href="`#${event.id}`"
+            :href="toLocalePath(liveEventPath(event.id))"
             @click.prevent="emit('update-hash', event.id)"
           >{{ title }}</a>
           <ExternalLink
