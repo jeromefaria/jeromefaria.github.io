@@ -9,7 +9,7 @@ import { localize } from '@/i18n/localized';
 import type { Locale } from '@/i18n/messages';
 import type { TranslateFn } from '@/i18n/useT';
 import type { ActionCommand, Command } from '@/types/command';
-import type { LiveEvent } from '@/types/live';
+import type { Format, LiveEvent, Setup } from '@/types/live';
 import type { CommissionMeta, Edition, Release, ReleaseMeta } from '@/types/works';
 import { cvPdfHref } from '@/utils/cv';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
@@ -135,13 +135,40 @@ const releaseCommands = (locale: Locale): Command[] =>
     }),
   );
 
+const SETUP_KEYWORDS: Record<Locale, Record<Setup['kind'], string>> = {
+  en: { solo: 'solo', duo: 'duo', project: 'project', band: 'band', ensemble: 'ensemble' },
+  pt: { solo: 'solo', duo: 'duo dueto', project: 'projecto', band: 'banda', ensemble: 'ensemble colectivo' },
+};
+
+const FORMAT_KEYWORDS: Record<Locale, Record<Format['kind'], string>> = {
+  en: { theatre: 'theatre theater', talk: 'talk lecture', filmScore: 'film score soundtrack silent film' },
+  pt: { theatre: 'teatro', talk: 'conversa palestra', filmScore: 'banda sonora cinema filme' },
+};
+
+const eventFormatKeywords = (event: LiveEvent, locale: Locale): string[] => {
+  if (!event.format) return [];
+
+  const terms = [FORMAT_KEYWORDS[locale][event.format.kind]];
+  if (event.format.kind === 'filmScore') terms.push(localize(event.format.film, locale));
+
+  return terms;
+};
+
 const liveCommands = (locale: Locale): Command[] =>
   liveEvents.map((event): Command => ({
     kind: 'result',
     id: `live:${event.id}`,
     title: localize(event.title, locale),
     subtitle: venuePrimaryLabel(event.venue, locale),
-    keywords: words([event.venue.name ?? '', event.venue.city ?? '', event.venue.country, event.date.slice(0, 4), ...eventPeople(event, locale)].join(' ')),
+    keywords: words([
+      event.venue.name ?? '',
+      event.venue.city ?? '',
+      event.venue.country,
+      event.date.slice(0, 4),
+      SETUP_KEYWORDS[locale][event.setup.kind],
+      ...eventFormatKeywords(event, locale),
+      ...eventPeople(event, locale),
+    ].join(' ')),
     text: words(localize(event.note ?? '', locale)),
     group: 'Live',
     to: `/live#${event.id}`,
