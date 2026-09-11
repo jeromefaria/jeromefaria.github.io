@@ -47,31 +47,33 @@ watch(activeIndex, async () => {
           aria-modal="true"
           :aria-label="t('palette.ariaLabel')"
         >
-          <input
-            ref="inputRef"
-            v-model="query"
-            class="command-palette__input"
-            type="text"
-            role="combobox"
-            aria-autocomplete="list"
-            :aria-expanded="results.length > 0"
-            :aria-controls="results.length ? 'command-palette-listbox' : undefined"
-            :aria-activedescendant="results.length ? optionId(activeIndex) : undefined"
-            :aria-label="t('palette.searchLabel')"
-            :placeholder="`${t('palette.searchLabel')}…`"
-            autocomplete="off"
-            spellcheck="false"
-            @keydown="handleKeydown"
-          >
-          <button
-            type="button"
-            class="command-palette__close"
-            :aria-label="t('palette.close')"
-            tabindex="-1"
-            @click="close"
-          >
-            <IconClose />
-          </button>
+          <div class="command-palette__search">
+            <input
+              ref="inputRef"
+              v-model="query"
+              class="command-palette__input"
+              type="text"
+              role="combobox"
+              aria-autocomplete="list"
+              :aria-expanded="results.length > 0"
+              :aria-controls="results.length ? 'command-palette-listbox' : undefined"
+              :aria-activedescendant="results.length ? optionId(activeIndex) : undefined"
+              :aria-label="t('palette.searchLabel')"
+              :placeholder="`${t('palette.searchLabel')}…`"
+              autocomplete="off"
+              spellcheck="false"
+              @keydown="handleKeydown"
+            >
+            <button
+              type="button"
+              class="command-palette__close"
+              :aria-label="t('palette.close')"
+              tabindex="-1"
+              @click="close"
+            >
+              <IconClose />
+            </button>
+          </div>
 
           <ul
             v-if="results.length"

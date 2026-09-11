@@ -32,7 +32,6 @@
   overflow-y: auto;
 
   &__panel {
-    position: relative;
     width: 100%;
     max-width: 34rem;
     background: var(--color-bg);
@@ -41,17 +40,24 @@
     overflow: hidden;
   }
 
+  &__search {
+    position: relative;
+  }
+
   &__close {
+    display: none;
     position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
+    inset: 0 0 0 auto;
     align-items: center;
-    padding: $spacing-4 $spacing-5;
+    padding: 0 $spacing-5;
     color: var(--color-text-muted);
     background: none;
     border: none;
     cursor: pointer;
+
+    @media (pointer: coarse) {
+      display: flex;
+    }
 
     &:hover {
       color: var(--color-text);
@@ -72,10 +78,14 @@
     @include form-input-base;
 
     margin: 0;
-    padding: $spacing-4 $spacing-12 $spacing-4 $spacing-5;
+    padding: $spacing-4 $spacing-5;
     border: none;
     border-bottom: 1px solid var(--color-border-subtle);
     border-radius: 0;
+
+    @media (pointer: coarse) {
+      padding-right: $spacing-12;
+    }
 
     // stylelint-disable-next-line local/no-comments -- keyboard focus uses an inset outline (not box-shadow): survives forced-colors mode and isn't clipped by the panel's overflow; divider stays constant so nothing flickers on fade
     &:hover,
