@@ -13,6 +13,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **views:** Extract renderMarkdown util + createBlogPostingSchema ([#429](https://github.com/jeromefaria/jeromefaria.github.io/pull/429))
 - **player:** Extract shared helpers; delete dead playRelease; localize seek ([#428](https://github.com/jeromefaria/jeromefaria.github.io/pull/428))
 - **scripts:** Shared playwright-render module + enforce eslint on scripts ([#427](https://github.com/jeromefaria/jeromefaria.github.io/pull/427))
 - **ui:** Extract MaybeLink for the link-or-plain-text pattern ([#422](https://github.com/jeromefaria/jeromefaria.github.io/pull/422))
