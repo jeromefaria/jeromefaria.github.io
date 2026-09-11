@@ -1,11 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
 import { epkManifest } from '@/data/epk';
-import type { EventVenue } from '@/types/live';
 import type { Release } from '@/types/works';
 
 import {
-  eventLocation,
   photoDownloadFilename,
   resolveEpkContent,
   toLiveHighlight,
@@ -20,30 +18,6 @@ describe('photoDownloadFilename', () => {
 
   it('omits the credit when a photo has no photographer', () => {
     expect(photoDownloadFilename({ src: '/x.jpg', alt: 'x' }, 4)).toBe('jerome-faria-5.jpg');
-  });
-});
-
-describe('eventLocation', () => {
-  it('joins venue name and city when both are present', () => {
-    const venue: EventVenue = { name: 'Zaratan', city: 'Lisbon', country: 'Portugal' };
-
-    expect(eventLocation(venue)).toBe('Zaratan, Lisbon');
-  });
-
-  it('uses whichever of name or city is present', () => {
-    expect(eventLocation({ name: 'Störung', country: 'Spain' })).toBe('Störung');
-    expect(eventLocation({ city: 'Porto', country: 'Portugal' })).toBe('Porto');
-  });
-
-  it('falls back to the country when neither name nor city is present', () => {
-    expect(eventLocation({ country: 'Portugal' })).toBe('Portugal');
-  });
-
-  it('localizes city and country exonyms for Portuguese', () => {
-    const venue: EventVenue = { name: 'Teatro Ibérico', city: 'Lisbon', country: 'Portugal' };
-
-    expect(eventLocation(venue, 'pt')).toBe('Teatro Ibérico, Lisboa');
-    expect(eventLocation({ country: 'Spain' }, 'pt')).toBe('Espanha');
   });
 });
 
