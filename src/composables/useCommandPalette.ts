@@ -142,7 +142,8 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     const command = results.value[index];
     if (!command) return;
 
-    if (!(command.kind === 'action' && command.transient)) remember(command.id);
+    const isTransientAction = command.kind === 'action' && command.transient;
+    if (!isTransientAction) remember(command.id);
     close();
 
     if (command.kind === 'action') {
@@ -178,10 +179,13 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
   };
 
   const handleKeydown = (event: KeyboardEvent): void => {
-    const action = keyActions[event.ctrlKey ? `ctrl+${event.key}` : event.key] ?? keyActions[event.key];
+    const action = event.ctrlKey ? (keyActions[`ctrl+${event.key}`] ?? keyActions[event.key]) : keyActions[event.key];
     if (!action) return;
 
+    // eslint-disable-next-line local/no-comments -- non-obvious cross-layer gotcha
+    // stopPropagation keeps handled chords (notably Ctrl+K = move-up) from bubbling to the global ⌘/Ctrl+K window toggle, which would otherwise close the palette.
     event.preventDefault();
+    event.stopPropagation();
     action(event);
   };
 
