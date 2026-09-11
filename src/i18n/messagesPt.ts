@@ -80,6 +80,7 @@ export const pt: MessageSchema = {
     pauseTitle: 'Pausar {title}',
     seek: 'Navegar em {title}',
     seekGeneric: 'Navegar',
+    seekPosition: '{current} de {total}',
     loading: 'A carregar leitor',
     loadingShort: 'A carregar...',
     statusPlaying: 'A reproduzir: {title}',

@@ -78,6 +78,7 @@ export const en = {
     pauseTitle: 'Pause {title}',
     seek: 'Seek within {title}',
     seekGeneric: 'Seek',
+    seekPosition: '{current} of {total}',
     loading: 'Loading player',
     loadingShort: 'Loading...',
     statusPlaying: 'Playing: {title}',

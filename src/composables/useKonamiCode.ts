@@ -1,7 +1,6 @@
-import { onBeforeUnmount, onMounted } from 'vue';
-
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import { usePlayer } from '@/composables/usePlayer';
+import { useWindowKeydown } from '@/composables/useWindowKeydown';
 import { getReleaseAudio } from '@/data/audio';
 import { pickRandomTrack, type TrackRef } from '@/utils/randomTrack';
 import { buildReleaseContext, findRelease } from '@/utils/releasePermalink';
@@ -42,6 +41,5 @@ export const useKonamiCode = (): void => {
     progress = key === SEQUENCE[0] ? 1 : 0;
   };
 
-  onMounted(() => window.addEventListener('keydown', onKeydown));
-  onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
+  useWindowKeydown(onKeydown);
 };

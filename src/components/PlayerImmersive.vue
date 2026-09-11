@@ -1,20 +1,16 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import IconClose from '@/components/IconClose.vue';
+import PlayerArtwork from '@/components/PlayerArtwork.vue';
 import PlayerSeek from '@/components/PlayerSeek.vue';
 import TransportControls from '@/components/TransportControls.vue';
-import { usePlayer } from '@/composables/usePlayer';
 import { useT } from '@/i18n/useT';
-import { toWebp } from '@/utils/responsiveImage';
-
-const { currentTrack, context } = usePlayer();
 
 const emit = defineEmits<{ exit: [] }>();
 
 const t = useT();
 
-const artwork = computed(() => currentTrack.value?.artwork ?? context.value.artwork);
 const closeButton = ref<HTMLElement>();
 
 onMounted(() => closeButton.value?.focus());
@@ -28,21 +24,7 @@ onMounted(() => closeButton.value?.focus());
     @touchend.stop
   >
     <div class="player-screen__immersive-art">
-      <Transition name="player-art">
-        <picture
-          v-if="artwork"
-          :key="artwork"
-        >
-          <source
-            :srcset="toWebp(artwork)"
-            type="image/webp"
-          >
-          <img
-            :src="artwork"
-            alt=""
-          >
-        </picture>
-      </Transition>
+      <PlayerArtwork />
     </div>
 
     <div

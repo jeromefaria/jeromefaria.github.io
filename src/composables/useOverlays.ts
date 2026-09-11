@@ -1,5 +1,6 @@
-import { onMounted, onUnmounted, ref } from 'vue';
+import { ref } from 'vue';
 
+import { useWindowKeydown } from '@/composables/useWindowKeydown';
 import { isEditable } from '@/utils/keyboardTarget';
 
 export const paletteOpen = ref(false);
@@ -55,6 +56,5 @@ export const useOverlayHotkeys = (): void => {
     }
   };
 
-  onMounted(() => window.addEventListener('keydown', onKeydown));
-  onUnmounted(() => window.removeEventListener('keydown', onKeydown));
+  useWindowKeydown(onKeydown);
 };
