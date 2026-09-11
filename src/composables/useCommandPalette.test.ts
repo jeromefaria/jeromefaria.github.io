@@ -90,6 +90,18 @@ describe('useCommandPalette', () => {
     expect(api.results.value[0]?.title).toBe('Privacy');
   });
 
+  it('collapses a release to a single row instead of flooding with its play and link variants', async () => {
+    audioPlayerEnabled.value = true;
+    const { api, wrapper } = await mountPalette();
+    active = wrapper;
+
+    api.query.value = 'overlapse';
+    await nextTick();
+
+    const overlapseRows = api.results.value.filter(command => command.entity === 'overlapse');
+    expect(overlapseRows).toHaveLength(1);
+  });
+
   it('wraps the active index at both ends', async () => {
     const { api, wrapper } = await mountPalette();
     active = wrapper;

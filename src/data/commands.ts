@@ -8,7 +8,7 @@ import { allReleases, worksData } from '@/data/works';
 import { localize } from '@/i18n/localized';
 import type { Locale } from '@/i18n/messages';
 import type { TranslateFn } from '@/i18n/useT';
-import type { ActionCommand, Command } from '@/types/command';
+import type { ActionCommand, Command, CommandGroup } from '@/types/command';
 import type { EventKind, Format, LiveEvent, Poster, Setup } from '@/types/live';
 import type { Video } from '@/types/media';
 import type { CommissionMeta, Edition, Release, ReleaseMeta } from '@/types/works';
@@ -139,6 +139,7 @@ const releaseCommands = (locale: Locale): Command[] =>
       return {
         kind: 'result',
         id: `works:${release.id}`,
+        entity: release.id,
         title: release.title,
         subtitle: localize(section.title, locale),
         keywords: words(keywordSources.join(' ')),
@@ -218,6 +219,7 @@ const releaseLinkCommands = (t: TranslateFn, platform: string, keyword: string, 
     return [{
       kind: 'action',
       id: `act:${keyword}:${release.id}`,
+      entity: release.id,
       title: t('palette.openOnPlatform', { title: release.title, platform }),
       keywords: [release.title, keyword, ...words(t('palette.kw.releaseLink'))],
       group: 'Actions',
@@ -310,6 +312,7 @@ export const playReleaseCommands = (t: TranslateFn): Command[] => {
     .map((release): Command => ({
       kind: 'action',
       id: `play:release:${release.id}`,
+      entity: release.id,
       title: t('palette.playRelease', { title: release.title }),
       keywords: [release.title, ...words(t('palette.kw.playRelease'))],
       group: 'Actions',
@@ -318,12 +321,29 @@ export const playReleaseCommands = (t: TranslateFn): Command[] => {
     }));
 };
 
-export const buildCommands = (t: TranslateFn, locale: Locale): Command[] => [
-  ...routeCommands(t),
-  ...writingCommands(t),
-  ...sectionCommands(t, locale),
-  ...releaseCommands(locale),
-  ...liveCommands(locale),
-  ...pressCommands(t, locale),
-  ...actionCommands(t),
-];
+const scopeKeywords = (group: CommandGroup, t: TranslateFn): string[] => {
+  switch (group) {
+    case 'Works':
+      return words(t('palette.kw.works'));
+    case 'Live':
+      return words(t('palette.kw.live'));
+    case 'Press':
+      return words(t('palette.kw.press'));
+    default:
+      return [];
+  }
+};
+
+const withScopeKeywords = (commands: Command[], t: TranslateFn): Command[] =>
+  commands.map(command => ({ ...command, keywords: [...(command.keywords ?? []), ...scopeKeywords(command.group, t)] }));
+
+export const buildCommands = (t: TranslateFn, locale: Locale): Command[] =>
+  withScopeKeywords([
+    ...routeCommands(t),
+    ...writingCommands(t),
+    ...sectionCommands(t, locale),
+    ...releaseCommands(locale),
+    ...liveCommands(locale),
+    ...pressCommands(t, locale),
+    ...actionCommands(t),
+  ], t);
