@@ -5,6 +5,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 ## Unreleased
 
 
+### Features
+
+- **live:** Shareable /live/:eventId permalinks with per-event head + schema ([#423](https://github.com/jeromefaria/jeromefaria.github.io/pull/423))
+
 ### Refactors
 
 - **ui:** Extract MaybeLink for the link-or-plain-text pattern ([#422](https://github.com/jeromefaria/jeromefaria.github.io/pull/422))
