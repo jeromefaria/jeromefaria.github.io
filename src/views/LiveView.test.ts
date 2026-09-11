@@ -57,6 +57,18 @@ describe('LiveView', () => {
     expect(expandedYears(wrapper)).toEqual(['2025']);
   });
 
+  it('opens the year that owns an event id from the /live/:eventId route', async () => {
+    const wrapper = await mountView(LiveView, '/live/showcase-casa-amarela');
+    await nextTick();
+    expect(expandedYears(wrapper)).toEqual(['2025']);
+  });
+
+  it('falls back to the most recent year for an unknown event id', async () => {
+    const wrapper = await mountView(LiveView, '/live/no-such-event');
+    await nextTick();
+    expect(expandedYears(wrapper)).toEqual([liveYears[0]]);
+  });
+
   it('switches the open year when another year trigger is activated', async () => {
     const wrapper = await mountView(LiveView, '/live');
     const secondYear = liveYears[1];
