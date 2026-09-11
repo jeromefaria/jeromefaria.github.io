@@ -5,8 +5,25 @@ import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
 
 import { createLiveEventsSchema } from './liveSchema';
-import { createContactPageSchema, createPersonSchema } from './pageSchemas';
+import { createBlogPostingSchema, createContactPageSchema, createPersonSchema } from './pageSchemas';
 import { createWorksPageSchema } from './worksSchema';
+
+describe('createBlogPostingSchema', () => {
+  it('builds a BlogPosting from an essay and its canonical URL', () => {
+    const essay = { slug: 'x', title: 'My Essay', date: '2025-01-02', description: 'About things', tagline: 'A tagline' };
+    const canonicalUrl = 'https://jeromefaria.com/writing/x';
+    const schema = createBlogPostingSchema(essay, canonicalUrl);
+
+    expect(schema['@context']).toBe('https://schema.org');
+    expect(schema['@type']).toBe('BlogPosting');
+    expect(schema.headline).toBe('My Essay');
+    expect(schema.datePublished).toBe('2025-01-02');
+    expect(schema.url).toBe(canonicalUrl);
+    expect(schema.mainEntityOfPage).toBe(canonicalUrl);
+    expect(schema.author.name).toBe(siteConfig.author.name);
+    expect(schema.publisher['@type']).toBe('Person');
+  });
+});
 
 describe('createPersonSchema', () => {
   it('builds a Person from the site config and social links', () => {
