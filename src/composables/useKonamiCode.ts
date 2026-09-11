@@ -7,24 +7,32 @@ import { buildReleaseContext, findRelease } from '@/utils/releasePermalink';
 
 const SEQUENCE = ['arrowup', 'arrowup', 'arrowdown', 'arrowdown', 'arrowleft', 'arrowright', 'arrowleft', 'arrowright', 'b', 'a'];
 
-export const useKonamiCode = (): void => {
+const stripVariationSelectors = (value: string): string => value.replace(/[\uFE0E\uFE0F]/g, '');
+
+const KONAMI_EMOJI = stripVariationSelectors('⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️🅱️🅰️');
+
+export const isKonamiEmojiSequence = (value: string): boolean =>
+  stripVariationSelectors(value).trim() === KONAMI_EMOJI;
+
+let lastPick: TrackRef | undefined;
+
+export const triggerKonamiSurprise = (): void => {
+  if (!audioPlayerEnabled.value) return;
+
+  const pick = pickRandomTrack(lastPick);
+  if (!pick) return;
+
+  const release = findRelease(pick.releaseId);
+  if (!release) return;
+
+  lastPick = pick;
   const player = usePlayer();
+  void player.play(getReleaseAudio(pick.releaseId), pick.trackIndex, buildReleaseContext(release));
+  player.enterImmersive();
+};
+
+export const useKonamiCode = (): void => {
   let progress = 0;
-  let last: TrackRef | undefined;
-
-  const surprise = (): void => {
-    if (!audioPlayerEnabled.value) return;
-
-    const pick = pickRandomTrack(last);
-    if (!pick) return;
-
-    const release = findRelease(pick.releaseId);
-    if (!release) return;
-
-    last = pick;
-    void player.play(getReleaseAudio(pick.releaseId), pick.trackIndex, buildReleaseContext(release));
-    player.enterImmersive();
-  };
 
   const onKeydown = (event: KeyboardEvent): void => {
     const key = event.key.toLowerCase();
@@ -33,7 +41,7 @@ export const useKonamiCode = (): void => {
       progress += 1;
       if (progress === SEQUENCE.length) {
         progress = 0;
-        surprise();
+        triggerKonamiSurprise();
       }
       return;
     }
