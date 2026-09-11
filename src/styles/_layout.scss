@@ -20,18 +20,18 @@ main {
 }
 
 main:has(.home) {
-  padding: 0;
   display: flex;
   flex-direction: column;
+  padding: 0;
 
   // stylelint-disable-next-line local/no-comments -- the child margin:0 resets base .container-wide auto-centering; auto cross-margins would disable flex stretch and collapse the column to zero width
   .container-wide {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     max-width: none;
     padding: 0;
     margin: 0;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
   }
 }
 
@@ -41,15 +41,14 @@ body:has(.home) {
 
 footer {
   padding: $footer-padding-y $spacing-5;
-
-  @include safe-area-padding($bottom: $footer-padding-y, $left: $spacing-5, $right: $spacing-5);
-
-  border-top: 1px solid var(--color-border);
   font-size: $font-size-xs;
-  text-transform: uppercase;
-  letter-spacing: $letter-spacing-wider;
   color: var(--color-text-muted);
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wider;
+  border-top: 1px solid var(--color-border);
+
+  @include safe-area-padding($bottom: $footer-padding-y, $left: $spacing-5, $right: $spacing-5);
 
   @include respond-to(md) {
     display: flex;
@@ -68,8 +67,8 @@ footer {
 .footer__content {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: $footer-content-gap;
+  align-items: center;
 
   @include respond-to(md) {
     flex-direction: row;
@@ -80,8 +79,8 @@ footer {
 .footer__nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: $spacing-1;
+  justify-content: center;
 
   @include respond-to(sm) {
     gap: $spacing-2;
@@ -95,21 +94,21 @@ footer {
   a {
     @include hover-text;
 
-    padding: $spacing-2 $spacing-1;
-    min-height: $touch-target-min;
-    min-width: $touch-target-min;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: $touch-target-min;
+    min-height: $touch-target-min;
+    padding: $spacing-2 $spacing-1;
 
     @include respond-to(sm) {
       padding: $spacing-2 $spacing-3;
     }
 
     @include respond-to(md) {
-      padding: 0;
       min-width: auto;
       min-height: auto;
+      padding: 0;
     }
   }
 }
@@ -125,9 +124,9 @@ footer {
 
 .page-loading {
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: $spacing-2;
+  align-items: center;
+  justify-content: center;
   min-height: 200px;
   padding: $spacing-12;
 }
