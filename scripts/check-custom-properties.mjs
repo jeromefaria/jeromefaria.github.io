@@ -10,7 +10,7 @@ const SCANNED_EXTENSIONS = new Set(['.scss', '.vue', '.css']);
 const DEFINITION_PATTERN = /--([a-z0-9-]+)\s*:/g;
 const REFERENCE_PATTERN = /var\(\s*--([a-z0-9-]+)/g;
 
-const collectSourceFiles = (directory) =>
+const collectSourceFiles = directory =>
   readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
     const path = join(directory, entry.name);
     if (entry.isDirectory()) return collectSourceFiles(path);

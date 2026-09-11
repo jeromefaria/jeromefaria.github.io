@@ -19,7 +19,7 @@ for (const [index, photo] of photos.entries()) {
     .toFile(outPath);
 
   if (photo.photographer) {
-    const name = photo.photographer.name;
+    const { name } = photo.photographer;
     await exiftool.write(outPath, {
       'EXIF:Artist': name,
       'XMP:Creator': name,
