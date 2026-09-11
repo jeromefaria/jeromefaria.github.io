@@ -13,6 +13,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **venue:** Shared venueFormat module + fix palette PT localization ([#430](https://github.com/jeromefaria/jeromefaria.github.io/pull/430))
 - **views:** Extract renderMarkdown util + createBlogPostingSchema ([#429](https://github.com/jeromefaria/jeromefaria.github.io/pull/429))
 - **player:** Extract shared helpers; delete dead playRelease; localize seek ([#428](https://github.com/jeromefaria/jeromefaria.github.io/pull/428))
 - **scripts:** Shared playwright-render module + enforce eslint on scripts ([#427](https://github.com/jeromefaria/jeromefaria.github.io/pull/427))
