@@ -121,6 +121,23 @@ describe('buildCommands', () => {
     expect(seriesWithVideo?.keywords).toEqual(expect.arrayContaining(['série', 'vídeo']));
   });
 
+  it('tags release commands with their entity and scopes results by group', () => {
+    const worksResult = commands.find(command => command.id === 'works:overlapse');
+    expect(worksResult?.entity).toBe('overlapse');
+    expect(worksResult?.keywords).toEqual(expect.arrayContaining(['albums']));
+
+    const bandcamp = commands.find(command => command.id === 'act:bandcamp:overlapse');
+    expect(bandcamp?.entity).toBe('overlapse');
+
+    const gig = commands.find(command => command.id === 'live:madeiradig-2011');
+    expect(gig?.keywords).toEqual(expect.arrayContaining(['concerts']));
+  });
+
+  it('never surfaces engineering-credit releases as commands', () => {
+    expect(commands.every(command => !command.id.includes('engineering-'))).toBe(true);
+    expect(commands.every(command => !command.entity?.includes('engineering-'))).toBe(true);
+  });
+
   it('includes download, copy-email, and social actions', () => {
     const actionIds = commands.filter(command => command.kind === 'action').map(command => command.id);
 
@@ -279,5 +296,11 @@ describe('playReleaseCommands', () => {
 
     if (command?.kind === 'action') await command.run();
     expect(currentTrack.value?.key).toBe('BRQN006/01-2504.m4a');
+  });
+
+  it('tags each play command with its release entity', () => {
+    audioPlayerEnabled.value = true;
+    const command = playReleaseCommands(t).find(entry => entry.id === 'play:release:2504');
+    expect(command?.entity).toBe('2504');
   });
 });

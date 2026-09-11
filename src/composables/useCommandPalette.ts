@@ -35,6 +35,17 @@ const saveRecents = (ids: string[]): void => {
   }
 };
 
+const dedupeByEntity = (ranked: Command[]): Command[] => {
+  const seen = new Set<string>();
+  return ranked.filter(command => {
+    if (!command.entity) return true;
+    if (seen.has(command.entity)) return false;
+
+    seen.add(command.entity);
+    return true;
+  });
+};
+
 interface UseCommandPaletteReturn {
   isOpen: Ref<boolean>;
   query: Ref<string>;
@@ -94,7 +105,7 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
 
     const recentsTail = recentCommands.value.length ? [clearRecentsCommand.value] : [];
     const searchable = [...commands.value, ...audioCommands.value, ...recentsTail];
-    return fuzzyRank(query.value, searchable).slice(0, MAX_RESULTS);
+    return dedupeByEntity(fuzzyRank(query.value, searchable)).slice(0, MAX_RESULTS);
   });
 
   watch(results, () => {

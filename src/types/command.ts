@@ -7,6 +7,7 @@ interface CommandBase {
   keywords?: string[];
   text?: string[];
   group: CommandGroup;
+  entity?: string;
 }
 
 export interface NavigateCommand extends CommandBase {
