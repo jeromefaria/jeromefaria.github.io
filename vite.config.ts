@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue';
 import { defineConfig, loadEnv } from 'vite';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
+import { liveEvents } from './src/data/live.ts';
 import { worksData } from './src/data/works.ts';
 import { essays } from './src/data/writing.ts';
 
@@ -12,6 +13,8 @@ const releasePaths = Object.values(worksData).flatMap(section =>
   section.items.filter(item => item.meta.kind !== 'engineering').map(item => `/works/${item.id}`));
 
 const writingPaths = essays.map(essay => `/writing/${essay.slug}`);
+
+const liveEventPaths = liveEvents.map(event => `/live/${event.id}`);
 
 const devCert = fileURLToPath(new URL('./.certs/dev-cert.pem', import.meta.url));
 const devKey = fileURLToPath(new URL('./.certs/dev-key.pem', import.meta.url));
@@ -83,7 +86,10 @@ export default defineConfig({
       const releases = i18nEnabled
         ? [...releasePaths, ...releasePaths.map(path => `/pt${path}`)]
         : releasePaths;
-      return [...paths.filter(path => !path.includes(':')), ...releases, ...writingPaths];
+      const liveEventRoutes = i18nEnabled
+        ? [...liveEventPaths, ...liveEventPaths.map(path => `/pt${path}`)]
+        : liveEventPaths;
+      return [...paths.filter(path => !path.includes(':')), ...releases, ...writingPaths, ...liveEventRoutes];
     },
   },
 });

@@ -1,9 +1,22 @@
 import { liveYears, sortedLiveData } from '@/data/live';
 import { siteConfig } from '@/data/navigation';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
-import type { SchemaItemList } from '@/types/schema';
+import type { LiveEvent } from '@/types';
+import type { SchemaItemList, SchemaMusicEvent } from '@/types/schema';
 
 import { createItemListSchema, createMusicEventSchema } from './schemaHelpers';
+
+type SchemaLiveEvent = SchemaMusicEvent & { '@context': string; mainEntityOfPage: string };
+
+export const createLiveEventSchema = (
+  event: LiveEvent,
+  locale: Locale,
+  canonicalUrl: string,
+): SchemaLiveEvent => ({
+  '@context': 'https://schema.org',
+  ...createMusicEventSchema(event, siteConfig.author.name, event.date, locale),
+  mainEntityOfPage: canonicalUrl,
+});
 
 export const createLiveEventsSchema = (locale: Locale = DEFAULT_LOCALE): SchemaItemList => {
   const events = liveYears.flatMap(year => {

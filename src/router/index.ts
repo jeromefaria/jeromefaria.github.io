@@ -29,6 +29,11 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/LiveView.vue'),
   },
   {
+    path: '/live/:eventId',
+    name: 'live-event',
+    component: () => import('@/views/LiveView.vue'),
+  },
+  {
     path: '/press',
     name: 'press',
     component: () => import('@/views/PressView.vue'),

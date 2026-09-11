@@ -12,6 +12,7 @@ describe('router routes', () => {
       '/works',
       '/works/:releaseId',
       '/live',
+      '/live/:eventId',
       '/press',
       '/contact',
       '/epk',

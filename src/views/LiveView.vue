@@ -1,12 +1,34 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
 import AccordionPage from '@/components/AccordionPage.vue';
 import EventItem from '@/components/EventItem.vue';
 import { liveYears, sortedLiveData } from '@/data/live';
+import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
 import { useLocalized } from '@/i18n/localized';
-import { createLiveEventsSchema } from '@/utils/liveSchema';
+import { findLiveEvent, liveEventHead } from '@/utils/liveEventPermalink';
+import { createLiveEventSchema, createLiveEventsSchema } from '@/utils/liveSchema';
 
+const route = useRoute();
 const { localize, current } = useLocalized();
+
+const eventId = computed(() => (typeof route.params['eventId'] === 'string' ? route.params['eventId'] : ''));
+
+const focusEvent = computed(() => (eventId.value ? findLiveEvent(eventId.value) : null));
+
+const head = computed(() => {
+  if (focusEvent.value) {
+    const canonicalUrl = `${siteConfig.url}${route.path}`;
+    return {
+      ...liveEventHead(focusEvent.value, current.value),
+      schema: createLiveEventSchema(focusEvent.value, current.value, canonicalUrl),
+    };
+  }
+
+  return { ...pageMeta.live, schema: createLiveEventsSchema(current.value) };
+});
 </script>
 
 <template>
@@ -16,7 +38,8 @@ const { localize, current } = useLocalized();
     :sections="liveYears"
     :section-data="sortedLiveData"
     :initial-section="liveYears[0] ?? ''"
-    :head="{ ...pageMeta.live, schema: createLiveEventsSchema(current) }"
+    :focus-id="eventId"
+    :head="head"
   >
     <template #item="{ item, openLightbox, updateHash }">
       <EventItem
