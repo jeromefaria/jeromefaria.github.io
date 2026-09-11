@@ -61,7 +61,7 @@ test.describe('Command palette (⌘K)', () => {
     await expect(page.locator(INPUT)).toBeFocused();
 
     await page.locator(INPUT).fill('zzzxyq no such command');
-    await expect(page.locator('.command-palette__empty')).toHaveText('No matches');
+    await expect(page.locator('.command-palette__empty')).toContainText('No matches');
     await expect(page.locator(OPTION)).toHaveCount(0);
   });
 

@@ -105,9 +105,9 @@ watch(activeIndex, async () => {
                   :class="{ 'command-palette__match': segment.match }"
                 >{{ segment.text }}</span></span>
                 <span
-                  v-if="command.subtitle"
+                  v-if="command.subtitle || !showHeaders"
                   class="command-palette__subtitle"
-                >{{ command.subtitle }}</span>
+                >{{ command.subtitle ?? t(`palette.groups.${command.group}`) }}</span>
               </li>
             </template>
           </ul>
@@ -116,6 +116,12 @@ watch(activeIndex, async () => {
             class="command-palette__empty"
           >
             {{ t('palette.empty') }}
+          </p>
+          <p
+            v-if="matchCount > results.length"
+            class="command-palette__more"
+          >
+            {{ t('palette.more', { count: String(matchCount - results.length) }) }}
           </p>
 
           <div

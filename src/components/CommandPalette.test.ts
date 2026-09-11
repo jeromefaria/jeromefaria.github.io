@@ -123,6 +123,33 @@ describe('CommandPalette', () => {
     expect(input.getAttribute('aria-controls')).toBeNull();
   });
 
+  it('labels a contextless row with its group while searching', async () => {
+    active = await mountPalette();
+    await openPalette();
+
+    const input = requireInput();
+    input.value = 'home';
+    input.dispatchEvent(new Event('input'));
+    await nextTick();
+
+    const subtitle = document.querySelector('.command-palette__option .command-palette__subtitle');
+    expect(subtitle?.textContent).toBe('Navigate');
+  });
+
+  it('shows a more-results footer when matches exceed the visible cap', async () => {
+    active = await mountPalette();
+    await openPalette();
+
+    const input = requireInput();
+    input.value = 'concerts';
+    input.dispatchEvent(new Event('input'));
+    await nextTick();
+
+    const more = document.querySelector('.command-palette__more');
+    expect(more).not.toBeNull();
+    expect(more?.textContent).toContain('more');
+  });
+
   it('moves the active option with ArrowDown', async () => {
     active = await mountPalette();
     await openPalette();
