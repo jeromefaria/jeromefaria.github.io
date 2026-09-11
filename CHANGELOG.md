@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **palette:** Add a touch-reachable close button ([#439](https://github.com/jeromefaria/jeromefaria.github.io/pull/439))
 - **palette:** Announce the true match count and no-results state ([#438](https://github.com/jeromefaria/jeromefaria.github.io/pull/438))
 - **palette:** De-dupe releases and scope results by group ([#437](https://github.com/jeromefaria/jeromefaria.github.io/pull/437))
 - **palette:** Index media type for search ([#435](https://github.com/jeromefaria/jeromefaria.github.io/pull/435))
