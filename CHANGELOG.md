@@ -25,6 +25,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 - **ui:** Extract MaybeLink for the link-or-plain-text pattern ([#422](https://github.com/jeromefaria/jeromefaria.github.io/pull/422))
 - **live:** Model the event thumbnail hero as a single source object ([#421](https://github.com/jeromefaria/jeromefaria.github.io/pull/421))
 
+### Build & CI
+
+- **deps:** Bump sharp ([#425](https://github.com/jeromefaria/jeromefaria.github.io/pull/425))
+
 ## 2026.09.3 — Entity registry, Live archive & press kit — 2026-09-10
 
 
