@@ -111,6 +111,16 @@ describe('buildCommands', () => {
     expect(worksVideo?.keywords).toEqual(expect.arrayContaining(['video', 'watch']));
   });
 
+  it('localizes live facet keywords to Portuguese', () => {
+    const portuguese = buildCommands(createTranslate('pt'), 'pt');
+
+    const theatre = portuguese.find(command => command.id === 'live:aragao-funchal');
+    expect(theatre?.keywords).toEqual(expect.arrayContaining(['teatro']));
+
+    const seriesWithVideo = portuguese.find(command => command.id === 'live:cine-qua-non');
+    expect(seriesWithVideo?.keywords).toEqual(expect.arrayContaining(['série', 'vídeo']));
+  });
+
   it('includes download, copy-email, and social actions', () => {
     const actionIds = commands.filter(command => command.kind === 'action').map(command => command.id);
 
