@@ -39,6 +39,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - **deps:** Bump sharp ([#425](https://github.com/jeromefaria/jeromefaria.github.io/pull/425))
 
+### Chores
+
+- **styles:** Enforce recess property order via stylelint-order ([#443](https://github.com/jeromefaria/jeromefaria.github.io/pull/443))
+
 ## 2026.09.3 — Entity registry, Live archive & press kit — 2026-09-10
 
 
