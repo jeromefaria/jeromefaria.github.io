@@ -1,21 +1,21 @@
 @use "variables" as *;
 
 .home {
+  display: flex;
   // stylelint-disable-next-line local/no-comments -- ancestor 100dvh (not 100vh) + overflow:hidden keep footer/lang-switcher on-screen on mobile; toolbar can't scroll away to change the viewport
   flex: 1;
-  display: flex;
   flex-direction: column;
 
   .hero {
+    position: relative;
     flex: 1;
-    margin: 0;
-    padding: 0;
     width: 100%;
     min-height: 50vh;
-    position: relative;
-    background-size: cover;
-    background-position: center bottom;
+    padding: 0;
+    margin: 0;
     background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
 
     @media (min-aspect-ratio: 3 / 2) {
       background-size: 100% auto;

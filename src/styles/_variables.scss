@@ -102,14 +102,13 @@ $overlay-scrim: rgb(0 0 0 / 50%);
 @mixin label-style {
   font-size: $font-size-xs;
   font-weight: $font-weight-medium;
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: $letter-spacing-wider;
-  color: var(--color-text-muted);
 }
 
 @mixin form-input-base {
   width: 100%;
-  border: 1px solid var(--color-border);
   font-family: $font-sans;
 
   // stylelint-disable-next-line local/no-comments -- 16px (1rem) keeps iOS Safari from auto-zooming the focused control; smaller triggers zoom
@@ -117,6 +116,7 @@ $overlay-scrim: rgb(0 0 0 / 50%);
   line-height: $line-height-base;
   color: var(--color-text);
   background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
   transition: border-color $transition-base, background-color $transition-base;
 
   &::placeholder {
@@ -152,22 +152,22 @@ $overlay-scrim: rgb(0 0 0 / 50%);
 
 @mixin kbd-key {
   padding: 0 $spacing-1;
+  font-family: inherit;
   border: 1px solid var(--color-border);
   border-radius: 2px;
-  font-family: inherit;
 }
 
 @mixin play-triangle($color: var(--text-overlay)) {
+  border-color: transparent transparent transparent $color;
   border-style: solid;
   border-width: 10px 0 10px 16px;
-  border-color: transparent transparent transparent $color;
 }
 
 @mixin play-triangle-centered($color: var(--text-overlay)) {
-  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
+  content: '';
   transform: translate(-40%, -50%);
 
   @include play-triangle($color);

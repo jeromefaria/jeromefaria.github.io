@@ -1,5 +1,5 @@
 {
-  "extends": ["stylelint-config-standard-scss"],
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-recess-order"],
   "plugins": ["./scripts/stylelint-no-comments.mjs"],
   "rules": {
     "local/no-comments": true,

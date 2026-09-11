@@ -53,17 +53,17 @@ html {
 
 body {
   margin: 0;
+  overflow-x: hidden;
   font-family: $font-sans;
   font-size: $font-size-base;
+  font-feature-settings: "kern" 1, "liga" 1;
   line-height: $line-height-base;
   color: var(--color-text);
   background-color: var(--color-bg);
+  text-rendering: optimizeLegibility;
+  transition: background-color $transition-base, color $transition-base;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  font-feature-settings: "kern" 1, "liga" 1;
-  transition: background-color $transition-base, color $transition-base;
-  overflow-x: hidden;
 }
 
 a {
@@ -77,14 +77,14 @@ a {
 }
 
 img {
+  display: block;
   max-width: 100%;
   height: auto;
-  display: block;
 }
 
 ::selection {
-  background-color: var(--color-text);
   color: var(--color-bg);
+  background-color: var(--color-text);
 }
 
 :focus-visible {
@@ -93,12 +93,12 @@ img {
 }
 
 button {
-  background: none;
-  border: none;
   padding: 0;
-  cursor: pointer;
   font: inherit;
   color: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
 
   &:active {
     opacity: $opacity-70;
@@ -109,9 +109,9 @@ button {
   *,
   *::before,
   *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }

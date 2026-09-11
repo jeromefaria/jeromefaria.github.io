@@ -6,35 +6,35 @@
 }
 
 .not-found {
-  text-align: center;
   padding: $spacing-12 0;
+  text-align: center;
 
   h1 {
-    font-size: $font-size-2xl;
     margin-bottom: $spacing-4;
+    font-size: $font-size-2xl;
   }
 
   > p {
-    color: var(--color-text-secondary);
     margin-bottom: $spacing-8;
+    color: var(--color-text-secondary);
   }
 }
 
 .not-found-nav {
   p {
+    margin-bottom: $spacing-4;
     font-size: $font-size-sm;
     color: var(--color-text-muted);
-    margin-bottom: $spacing-4;
   }
 
   ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: $spacing-4;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
   }
 
   a {
@@ -115,8 +115,8 @@
 }
 
 .writing-index {
-  list-style: none;
   padding: 0;
+  list-style: none;
 
   &__item + &__item {
     margin-top: $spacing-8;
@@ -143,10 +143,10 @@
     margin-left: $spacing-2;
     font-size: $font-size-xs;
     font-weight: 500;
+    vertical-align: middle;
+    color: var(--color-bg);
     text-transform: uppercase;
     letter-spacing: $letter-spacing-wide;
-    color: var(--color-bg);
-    vertical-align: middle;
     background-color: var(--color-text-muted);
     border-radius: 2px;
   }
@@ -159,8 +159,8 @@
 
   &__tagline {
     margin-bottom: $spacing-2;
-    color: var(--color-text-secondary);
     line-height: $line-height-relaxed;
+    color: var(--color-text-secondary);
   }
 
   &__date {

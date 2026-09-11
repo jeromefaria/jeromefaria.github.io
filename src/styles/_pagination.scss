@@ -2,16 +2,16 @@
 
 .pagination {
   display: flex;
-  justify-content: center;
   gap: $spacing-4;
+  justify-content: center;
   margin: $spacing-8 0;
   font-size: $font-size-sm;
 }
 
 .pagination-item {
   padding: $spacing-2 $spacing-4;
-  border: 1px solid var(--color-border);
   color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
 
   &:hover {
     color: var(--color-text);
@@ -20,7 +20,7 @@
 }
 
 .pagination-item--disabled {
-  opacity: $opacity-50;
   pointer-events: none;
+  opacity: $opacity-50;
 }
 

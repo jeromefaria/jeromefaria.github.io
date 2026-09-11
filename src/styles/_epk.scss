@@ -7,8 +7,8 @@
 .epk__heading {
   @include label-style;
 
-  margin-bottom: $spacing-4;
   padding-bottom: $spacing-2;
+  margin-bottom: $spacing-4;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -16,8 +16,8 @@
   display: flex;
   flex-direction: column;
   gap: $spacing-3;
-  margin: 0;
   padding: 0;
+  margin: 0;
   list-style: none;
 }
 
@@ -40,17 +40,17 @@
 .epk__roster {
   display: flex;
   flex-wrap: wrap;
-  margin: 0;
   padding: 0;
-  list-style: none;
+  margin: 0;
   line-height: $line-height-relaxed;
+  list-style: none;
 }
 
 .epk__roster-item {
   &:not(:last-child)::after {
-    content: "·";
     margin: 0 $spacing-3;
     color: var(--color-text-muted);
+    content: "·";
   }
 }
 
@@ -87,10 +87,10 @@
   }
 
   img {
+    display: block;
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    display: block;
   }
 
   figcaption {
