@@ -1,13 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { chromium } from '@playwright/test';
-
 import { loadSrc, root } from './data-loader.mjs';
 import { interFontFaces } from './pdf-fonts.mjs';
+import { CARD_HEIGHT, CARD_WIDTH, renderCard, withBrowser } from './playwright-render.mjs';
 
-const WIDTH = 1200;
-const HEIGHT = 630;
 const LOCALES = ['en', 'pt'];
 const EYEBROW = { en: 'Live', pt: 'Ao vivo' };
 
@@ -68,7 +65,7 @@ const eventMeta = (event, locale) => {
 const cardHtml = (event, hero, isPoster, locale) => `<!doctype html><html><head><meta charset="utf-8"><style>
   ${fontFaces}
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  .card { position: relative; width: ${WIDTH}px; height: ${HEIGHT}px; overflow: hidden; background: #000; font-family: 'Inter', sans-serif; }
+  .card { position: relative; width: ${CARD_WIDTH}px; height: ${CARD_HEIGHT}px; overflow: hidden; background: #000; font-family: 'Inter', sans-serif; }
   .hero { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; ${heroStyle(cardFraming(hero, isPoster))} }
   .scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgb(0 0 0 / 90%) 0%, rgb(0 0 0 / 55%) 30%, rgb(0 0 0 / 0%) 58%); }
   .wordmark { position: absolute; top: 52px; left: 76px; font-size: 24px; font-weight: 600; letter-spacing: -0.01em; color: #fff; text-shadow: 0 1px 12px rgb(0 0 0 / 60%); }
@@ -89,23 +86,24 @@ const cardHtml = (event, hero, isPoster, locale) => `<!doctype html><html><head>
   </div>
 </body></html>`;
 
-const clip = { x: 0, y: 0, width: WIDTH, height: HEIGHT };
-const browser = await chromium.launch();
 let count = 0;
 
-for (const event of liveEvents) {
-  const selection = heroOf(event);
-  if (!selection) continue;
+await withBrowser(async browser => {
+  for (const event of liveEvents) {
+    const selection = heroOf(event);
+    if (!selection) continue;
 
-  const { hero, isPoster } = selection;
-  for (const locale of LOCALES) {
-    const page = await browser.newPage({ viewport: { width: WIDTH, height: HEIGHT }, deviceScaleFactor: 2 });
-    await page.setContent(cardHtml(event, hero, isPoster, locale), { waitUntil: 'networkidle' });
-    await page.screenshot({ path: join(root, `public/og-live-${event.id}-${locale}.jpg`), type: 'jpeg', quality: 82, clip });
-    await page.close();
-    count += 1;
+    const { hero, isPoster } = selection;
+    for (const locale of LOCALES) {
+      await renderCard(browser, {
+        html: cardHtml(event, hero, isPoster, locale),
+        path: join(root, `public/og-live-${event.id}-${locale}.jpg`),
+        type: 'jpeg',
+        quality: 82,
+      });
+      count += 1;
+    }
   }
-}
+});
 
-await browser.close();
 console.log(`Live event social cards → public/og-live-*.jpg (${count})`);

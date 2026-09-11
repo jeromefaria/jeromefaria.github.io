@@ -212,7 +212,14 @@ export default [
   },
   {
     files: ['**/*.mjs', '**/*.js'],
-    plugins: { local: localPlugin },
-    rules: { 'local/no-comments': 'error' },
+    languageOptions: {
+      parser: tsparser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
+    plugins: sharedPlugins,
+    rules: baseRules,
   },
 ];

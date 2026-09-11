@@ -1,12 +1,8 @@
 import { join } from 'node:path';
 
-import { chromium } from '@playwright/test';
-
 import { root } from './data-loader.mjs';
 import { interFontFaces } from './pdf-fonts.mjs';
-
-const WIDTH = 1200;
-const HEIGHT = 630;
+import { CARD_HEIGHT, CARD_WIDTH, renderCard, withBrowser } from './playwright-render.mjs';
 
 const fontFaces = await interFontFaces(root);
 
@@ -14,8 +10,8 @@ const cardHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
   ${fontFaces}
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    width: ${WIDTH}px;
-    height: ${HEIGHT}px;
+    width: ${CARD_WIDTH}px;
+    height: ${CARD_HEIGHT}px;
     background: #000;
     color: #fff;
     font-family: 'Inter', sans-serif;
@@ -42,11 +38,6 @@ const cardHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
   </div>
 </body></html>`;
 
-const browser = await chromium.launch();
-const page = await browser.newPage({ viewport: { width: WIDTH, height: HEIGHT }, deviceScaleFactor: 2 });
-await page.setContent(cardHtml, { waitUntil: 'networkidle' });
-await page.screenshot({ path: join(root, 'public/og-cv.png'), clip: { x: 0, y: 0, width: WIDTH, height: HEIGHT } });
-await page.close();
-await browser.close();
+await withBrowser(browser => renderCard(browser, { html: cardHtml, path: join(root, 'public/og-cv.png') }));
 
 console.log('CV social card → public/og-cv.png');

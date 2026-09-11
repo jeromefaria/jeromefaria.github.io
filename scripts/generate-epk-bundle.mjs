@@ -3,10 +3,9 @@ import { writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 
-import { chromium } from '@playwright/test';
-
-import { contentFor, epkKitFile, localePath, localeSuffix, locales, localize, outDir, pdfChrome, photoDownloadFilename, photosDir, root, siteConfig, siteUrl } from './epk-context.mjs';
+import { contentFor, epkKitFile, localePath, locales, localeSuffix, localize, outDir, pdfChrome, photoDownloadFilename, photosDir, root, siteConfig, siteUrl } from './epk-context.mjs';
 import { baseStyles } from './pdf-styles.mjs';
+import { renderPdf, withBrowser } from './playwright-render.mjs';
 
 const archiver = createRequire(import.meta.url)('archiver');
 
@@ -64,45 +63,44 @@ const bundleHtml = (locale, content) => {
 </body></html>`;
 };
 
-const browser = await chromium.launch();
+await withBrowser(async browser => {
+  for (const locale of locales) {
+    const content = contentFor(locale);
+    const chrome = pdfChrome[locale];
+    const kitName = epkKitFile(locale);
 
-for (const locale of locales) {
-  const content = contentFor(locale);
-  const chrome = pdfChrome[locale];
-  const kitName = epkKitFile(locale);
+    const photoFiles = content.photos.map((photo, index) => {
+      const filename = photoDownloadFilename(photo, index);
+      return { path: join(photosDir, filename), filename, credit: photo.photographer?.name ?? 'Jerome Faria' };
+    });
 
-  const photoFiles = content.photos.map((photo, index) => {
-    const filename = photoDownloadFilename(photo, index);
-    return { path: join(photosDir, filename), filename, credit: photo.photographer?.name ?? 'Jerome Faria' };
-  });
+    const pdfPath = join(outDir, `${kitName}.pdf`);
+    await renderPdf(browser, {
+      html: bundleHtml(locale, content),
+      path: pdfPath,
+      margin: { top: '12mm', bottom: '12mm', left: '14mm', right: '14mm' },
+    });
 
-  const pdfPath = join(outDir, `${kitName}.pdf`);
-  const page = await browser.newPage();
-  await page.setContent(bundleHtml(locale, content), { waitUntil: 'networkidle' });
-  await page.pdf({ path: pdfPath, format: 'A4', printBackground: true, margin: { top: '12mm', bottom: '12mm', left: '14mm', right: '14mm' } });
-  await page.close();
+    const creditsText = `${chrome.creditsTitle}\n\n${chrome.creditsPhotography}\n${photoFiles.map(p => `  ${p.filename} — ${p.credit}`).join('\n')}\n\n${chrome.creditsCopyright(siteConfig.author.name)}\n`;
+    const creditsPath = join(outDir, `CREDITS${localeSuffix(locale)}.txt`);
+    await writeFile(creditsPath, creditsText);
 
-  const creditsText = `${chrome.creditsTitle}\n\n${chrome.creditsPhotography}\n${photoFiles.map(p => `  ${p.filename} — ${p.credit}`).join('\n')}\n\n${chrome.creditsCopyright(siteConfig.author.name)}\n`;
-  const creditsPath = join(outDir, `CREDITS${localeSuffix(locale)}.txt`);
-  await writeFile(creditsPath, creditsText);
+    const zipPath = join(outDir, `${kitName}.zip`);
+    await new Promise((resolvePromise, reject) => {
+      const output = createWriteStream(zipPath);
+      const archive = archiver('zip', { zlib: { level: 9 } });
 
-  const zipPath = join(outDir, `${kitName}.zip`);
-  await new Promise((resolvePromise, reject) => {
-    const output = createWriteStream(zipPath);
-    const archive = archiver('zip', { zlib: { level: 9 } });
+      output.on('close', resolvePromise);
+      archive.on('error', reject);
+      archive.pipe(output);
+      archive.file(pdfPath, { name: `${kitName}/${kitName}.pdf` });
+      archive.file(creditsPath, { name: `${kitName}/CREDITS.txt` });
+      for (const photo of photoFiles) {
+        archive.file(photo.path, { name: `${kitName}/photos/${photo.filename}` });
+      }
+      archive.finalize();
+    });
 
-    output.on('close', resolvePromise);
-    archive.on('error', reject);
-    archive.pipe(output);
-    archive.file(pdfPath, { name: `${kitName}/${kitName}.pdf` });
-    archive.file(creditsPath, { name: `${kitName}/CREDITS.txt` });
-    for (const photo of photoFiles) {
-      archive.file(photo.path, { name: `${kitName}/photos/${photo.filename}` });
-    }
-    archive.finalize();
-  });
-
-  console.log(`EPK bundle (${locale}): PDF + zip → public/epk/`);
-}
-
-await browser.close();
+    console.log(`EPK bundle (${locale}): PDF + zip → public/epk/`);
+  }
+});
