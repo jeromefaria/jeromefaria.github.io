@@ -36,7 +36,7 @@ describe('audio helpers', () => {
     expect(releaseIds.length).toBeGreaterThan(0);
 
     for (const releaseId of releaseIds) {
-      expect(findRelease(releaseId), `audio manifest key "${releaseId}"`).not.toBeNull();
+      expect(findRelease(releaseId), `audio manifest key "${releaseId}"`).toBeDefined();
     }
   });
 });

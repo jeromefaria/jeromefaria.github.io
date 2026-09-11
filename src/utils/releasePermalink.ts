@@ -1,7 +1,7 @@
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import { play, type PlayContext, playFrom } from '@/composables/usePlayer';
 import { getReleaseAudio, hasPlayableAudio } from '@/data/audio';
-import { worksData } from '@/data/works';
+import { releaseById } from '@/data/works';
 import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { Release } from '@/types';
@@ -14,13 +14,7 @@ export interface ReleasePermalinkOptions {
   t?: number;
 }
 
-export const findRelease = (releaseId: string): Release | null => {
-  for (const section of Object.values(worksData)) {
-    const match = section.items.find(item => item.id === releaseId);
-    if (match) return match;
-  }
-  return null;
-};
+export const findRelease = (releaseId: string): Release | undefined => releaseById.get(releaseId);
 
 const releaseChapters = (release: Release): PlayContext['chapters'] => {
   const tracklist = release.tracklist ?? [];

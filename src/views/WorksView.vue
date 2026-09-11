@@ -17,7 +17,7 @@ const { localize, current } = useLocalized();
 
 const releaseId = computed(() => (typeof route.params['releaseId'] === 'string' ? route.params['releaseId'] : ''));
 
-const focusRelease = computed(() => (releaseId.value ? findRelease(releaseId.value) : null));
+const focusRelease = computed(() => (releaseId.value ? findRelease(releaseId.value) : undefined));
 
 const head = computed(() => {
   if (focusRelease.value) {

@@ -1,4 +1,4 @@
-import type { WorksData } from '@/types/works';
+import type { Release, WorksData } from '@/types/works';
 
 // eslint-disable-next-line local/no-comments -- non-obvious gotcha
 // vite.config.ts imports this file in Node, where the '@/' alias is unset, so value imports must stay relative; type-only '@/' imports (line 1) are erased by esbuild and are safe.
@@ -31,3 +31,7 @@ for (const section of Object.values(worksData)) {
 }
 
 export const worksSections: string[] = Object.keys(worksData);
+
+export const allReleases: Release[] = Object.values(worksData).flatMap(section => section.items);
+
+export const releaseById: ReadonlyMap<string, Release> = new Map(allReleases.map(release => [release.id, release]));
