@@ -2,6 +2,13 @@
 
 All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch`).
 
+## Unreleased
+
+
+### Refactors
+
+- **live:** Model the event thumbnail hero as a single source object ([#421](https://github.com/jeromefaria/jeromefaria.github.io/pull/421))
+
 ## 2026.09.3 — Entity registry, Live archive & press kit — 2026-09-10
 
 
