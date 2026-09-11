@@ -10,6 +10,8 @@ import { formatEventDateRange } from './formatters';
 export const findLiveEvent = (eventId: string): LiveEvent | null =>
   liveEvents.find(event => event.id === eventId) ?? null;
 
+export const liveEventPath = (eventId: string): string => `/live/${eventId}`;
+
 interface LiveEventHead {
   title: string;
   description: string;
