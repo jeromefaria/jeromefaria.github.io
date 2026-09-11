@@ -87,6 +87,19 @@ describe('buildCommands', () => {
     expect(filmScore?.keywords).toEqual(expect.arrayContaining(['film', 'score', 'Robert', 'expressionist']));
   });
 
+  it('indexes event type for live search', () => {
+    const festival = commands.find(command => command.id === 'live:madeiradig-2011');
+    expect(festival?.keywords).toEqual(expect.arrayContaining(['festival']));
+
+    const series = commands.find(command => command.id === 'live:cine-qua-non');
+    expect(series?.keywords).toEqual(expect.arrayContaining(['series']));
+
+    const untyped = commands.find(command => command.id === 'live:amess-museu-franco');
+    for (const typeKeyword of ['festival', 'series', 'showcase', 'outdoor']) {
+      expect(untyped?.keywords, typeKeyword).not.toContain(typeKeyword);
+    }
+  });
+
   it('includes download, copy-email, and social actions', () => {
     const actionIds = commands.filter(command => command.kind === 'action').map(command => command.id);
 

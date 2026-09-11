@@ -9,7 +9,7 @@ import { localize } from '@/i18n/localized';
 import type { Locale } from '@/i18n/messages';
 import type { TranslateFn } from '@/i18n/useT';
 import type { ActionCommand, Command } from '@/types/command';
-import type { Format, LiveEvent, Setup } from '@/types/live';
+import type { EventKind, Format, LiveEvent, Setup } from '@/types/live';
 import type { CommissionMeta, Edition, Release, ReleaseMeta } from '@/types/works';
 import { cvPdfHref } from '@/utils/cv';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
@@ -145,6 +145,11 @@ const FORMAT_KEYWORDS: Record<Locale, Record<Format['kind'], string>> = {
   pt: { theatre: 'teatro', talk: 'conversa palestra', filmScore: 'banda sonora cinema filme' },
 };
 
+const EVENT_TYPE_KEYWORDS: Record<Locale, Record<EventKind, string>> = {
+  en: { festival: 'festival', series: 'concert series', showcase: 'showcase', 'open-air': 'open air outdoor' },
+  pt: { festival: 'festival', series: 'série ciclo', showcase: 'showcase mostra', 'open-air': 'ao ar livre' },
+};
+
 const eventFormatKeywords = (event: LiveEvent, locale: Locale): string[] => {
   if (!event.format) return [];
 
@@ -153,6 +158,9 @@ const eventFormatKeywords = (event: LiveEvent, locale: Locale): string[] => {
 
   return terms;
 };
+
+const eventTypeKeywords = (event: LiveEvent, locale: Locale): string[] =>
+  (event.eventType ?? []).map(kind => EVENT_TYPE_KEYWORDS[locale][kind]);
 
 const liveCommands = (locale: Locale): Command[] =>
   liveEvents.map((event): Command => ({
@@ -166,6 +174,7 @@ const liveCommands = (locale: Locale): Command[] =>
       event.venue.country,
       event.date.slice(0, 4),
       SETUP_KEYWORDS[locale][event.setup.kind],
+      ...eventTypeKeywords(event, locale),
       ...eventFormatKeywords(event, locale),
       ...eventPeople(event, locale),
     ].join(' ')),
