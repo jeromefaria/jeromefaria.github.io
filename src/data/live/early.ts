@@ -124,6 +124,7 @@ export const earlyEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/olhares-de-outono-2010-007.jpg',
+        cardThumb: { position: 'center 97%' },
         cover: true,
         photographer: { name: 'Olhares de Outono' },
       },
@@ -157,6 +158,7 @@ export const earlyEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/madeiradig-2009-002.jpg',
+        cardThumb: { scale: 1.35, translateX: '8%' },
         cover: true,
         thumb: { position: '15% center' },
         photographer: { name: 'Miguel Apolinário' },
@@ -264,6 +266,7 @@ export const earlyEvents: LiveEvent[] = [
     posters: [
       {
         src: '/images/live/eme-madeira-2008-poster-001.jpg',
+        cardThumb: { position: 'center 52%' },
         alt: { en: 'EME 08 — Encontros de Música Experimental poster at Centro das Artes Casa das Mudas, Calheta — Hauschka (Germany), The Sight Below (USA), and NNY / Jerome Faria (Portugal), 4 October 2008', pt: 'Cartaz do EME 08 — Encontros de Música Experimental no Centro das Artes Casa das Mudas, Calheta — Hauschka (Alemanha), The Sight Below (E.U.A.) e NNY / Jerome Faria (Portugal), 4 de Outubro de 2008' },
       },
     ],
@@ -304,6 +307,7 @@ export const earlyEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/eme-2008-003.jpg',
+        cardThumb: { position: 'center 97%' },
         cover: true,
         photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
       },

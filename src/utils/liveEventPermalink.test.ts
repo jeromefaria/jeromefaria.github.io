@@ -47,5 +47,26 @@ describe('liveEventPermalink', () => {
 
       expect(liveEventHead(event, 'en').description).toContain('live in Portugal');
     });
+
+    it('points at the per-locale social card for an event with media', () => {
+      const event = findLiveEvent('showcase-casa-amarela');
+      expect(event).not.toBeNull();
+      if (!event) return;
+
+      expect(liveEventHead(event, 'en').image).toBe('/og-live-showcase-casa-amarela-en.jpg');
+      expect(liveEventHead(event, 'pt').image).toBe('/og-live-showcase-casa-amarela-pt.jpg');
+    });
+
+    it('omits the social card for a media-less event (falls back to the default)', () => {
+      const event: LiveEvent = {
+        id: 'text-only',
+        title: 'Untitled',
+        date: '2027-05-01',
+        venue: { name: 'Somewhere', country: 'Portugal' },
+        setup: { kind: 'solo' },
+      };
+
+      expect(liveEventHead(event, 'en').image).toBeUndefined();
+    });
   });
 });

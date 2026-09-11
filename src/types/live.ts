@@ -6,6 +6,7 @@ export interface ThumbFraming {
   position?: string;
   scale?: number;
   rotate?: number;
+  translateX?: string;
 }
 
 export interface LiveImage {
@@ -13,6 +14,7 @@ export interface LiveImage {
   photographer?: Credit;
   cover?: boolean;
   thumb?: ThumbFraming;
+  cardThumb?: ThumbFraming;
 }
 
 export interface Act {
@@ -41,6 +43,7 @@ export interface Poster {
   artist?: Credit;
   cover?: boolean;
   thumb?: ThumbFraming;
+  cardThumb?: ThumbFraming;
 }
 
 export interface EventVenue {

@@ -131,6 +131,7 @@ export const midEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/caligari-cidades-2013-001.jpg',
+        cardThumb: { position: 'center 97%' },
       },
     ],
   },
