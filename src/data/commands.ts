@@ -9,7 +9,8 @@ import { localize } from '@/i18n/localized';
 import type { Locale } from '@/i18n/messages';
 import type { TranslateFn } from '@/i18n/useT';
 import type { ActionCommand, Command } from '@/types/command';
-import type { EventKind, Format, LiveEvent, Setup } from '@/types/live';
+import type { EventKind, Format, LiveEvent, Poster, Setup } from '@/types/live';
+import type { Video } from '@/types/media';
 import type { CommissionMeta, Edition, Release, ReleaseMeta } from '@/types/works';
 import { cvPdfHref } from '@/utils/cv';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
@@ -110,6 +111,18 @@ const eventPeople = (event: LiveEvent, locale: Locale): string[] => {
   return names.filter(Boolean);
 };
 
+const MEDIA_KEYWORDS: Record<Locale, { video: string; poster: string }> = {
+  en: { video: 'video watch', poster: 'poster' },
+  pt: { video: 'vídeo', poster: 'cartaz' },
+};
+
+const mediaKeywords = (item: { videos?: Video[]; posters?: Poster[] }, locale: Locale): string[] => {
+  const terms: string[] = [];
+  if (item.videos?.length) terms.push(MEDIA_KEYWORDS[locale].video);
+  if (item.posters?.length) terms.push(MEDIA_KEYWORDS[locale].poster);
+  return terms;
+};
+
 const releaseCommands = (locale: Locale): Command[] =>
   Object.values(worksData).flatMap(section =>
     section.items.filter(release => release.meta.kind !== 'engineering').map((release): Command => {
@@ -119,6 +132,7 @@ const releaseCommands = (locale: Locale): Command[] =>
         ...metaText(release.meta),
         ...(release.tracklist ?? []).map(track => track.title),
         ...(release.images ?? []).map(image => image.photographer?.name ?? ''),
+        ...mediaKeywords(release, locale),
         ...creditNames(release.credits, locale),
       ];
 
@@ -176,6 +190,7 @@ const liveCommands = (locale: Locale): Command[] =>
       SETUP_KEYWORDS[locale][event.setup.kind],
       ...eventTypeKeywords(event, locale),
       ...eventFormatKeywords(event, locale),
+      ...mediaKeywords(event, locale),
       ...eventPeople(event, locale),
     ].join(' ')),
     text: words(localize(event.note ?? '', locale)),

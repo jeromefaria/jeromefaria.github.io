@@ -100,6 +100,17 @@ describe('buildCommands', () => {
     }
   });
 
+  it('indexes media type for live and works search', () => {
+    const liveVideo = commands.find(command => command.id === 'live:cine-qua-non');
+    expect(liveVideo?.keywords).toEqual(expect.arrayContaining(['video', 'watch']));
+
+    const livePoster = commands.find(command => command.id === 'live:jejum-45');
+    expect(livePoster?.keywords).toEqual(expect.arrayContaining(['poster']));
+
+    const worksVideo = commands.find(command => command.id === 'works:overlapse');
+    expect(worksVideo?.keywords).toEqual(expect.arrayContaining(['video', 'watch']));
+  });
+
   it('includes download, copy-email, and social actions', () => {
     const actionIds = commands.filter(command => command.kind === 'action').map(command => command.id);
 
