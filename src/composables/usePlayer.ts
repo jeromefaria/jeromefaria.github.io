@@ -1,6 +1,6 @@
 import { computed, type ComputedRef, readonly, type Ref, ref } from 'vue';
 
-import { audioUrl, getReleaseAudio } from '@/data/audio';
+import { audioUrl } from '@/data/audio';
 import type { AudioTrack } from '@/types/audio';
 
 export type PlayerStatus = 'idle' | 'loading' | 'buffering' | 'playing' | 'paused' | 'ended' | 'error';
@@ -235,9 +235,6 @@ export const stop = (): void => {
   immersive.value = false;
 };
 
-export const playRelease = (releaseId: string, context?: PlayContext): Promise<void> =>
-  play(getReleaseAudio(releaseId), 0, context);
-
 export const pause = (): void => {
   element?.pause();
 };
@@ -333,7 +330,6 @@ interface PlayerApi {
   stepEntry: typeof stepEntry;
   goToEdge: typeof goToEdge;
   playFrom: typeof playFrom;
-  playRelease: typeof playRelease;
   pause: typeof pause;
   resume: typeof resume;
   toggle: typeof toggle;
@@ -368,7 +364,6 @@ export const usePlayer = (): PlayerApi => ({
   stepEntry,
   goToEdge,
   playFrom,
-  playRelease,
   pause,
   resume,
   toggle,

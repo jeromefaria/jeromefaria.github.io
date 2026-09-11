@@ -4,6 +4,7 @@ import { useT } from '@/i18n/useT';
 
 import IconPause from './IconPause.vue';
 import IconPlay from './IconPlay.vue';
+import IconSpinner from './IconSpinner.vue';
 
 const { currentTime, hasNext, hasPrevious, isPlaying, isBusy, toggle, next, previous } = usePlayer();
 
@@ -29,22 +30,10 @@ const t = useT();
       :aria-busy="isBusy"
       @click="toggle"
     >
-      <svg
+      <IconSpinner
         v-if="isBusy"
         class="transport-controls__spinner"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        focusable="false"
-      ><circle
-        cx="12"
-        cy="12"
-        r="9"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-dasharray="44 20"
-        stroke-linecap="round"
-      /></svg>
+      />
       <IconPause v-else-if="isPlaying" />
       <IconPlay v-else />
     </button>

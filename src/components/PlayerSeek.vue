@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { usePlayer } from '@/composables/usePlayer';
+import { useT } from '@/i18n/useT';
 import { formatTime } from '@/utils/formatTime';
 
 defineProps<{
@@ -7,6 +8,8 @@ defineProps<{
 }>();
 
 const { currentTime, duration, seek } = usePlayer();
+
+const t = useT();
 
 const onInput = (event: Event): void => {
   seek(Number((event.target as HTMLInputElement).value));
@@ -24,7 +27,7 @@ const onInput = (event: Event): void => {
       step="1"
       :value="currentTime"
       :aria-label="label"
-      :aria-valuetext="`${formatTime(currentTime)} of ${formatTime(duration)}`"
+      :aria-valuetext="t('player.seekPosition', { current: formatTime(currentTime), total: formatTime(duration) })"
       @input="onInput"
     >
     <span class="player-seek__time">{{ formatTime(duration) }}</span>

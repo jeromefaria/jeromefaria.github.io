@@ -1,7 +1,6 @@
-import { onMounted, onUnmounted } from 'vue';
-
 import { helpOpen, paletteOpen } from '@/composables/useOverlays';
 import { usePlayer } from '@/composables/usePlayer';
+import { useWindowKeydown } from '@/composables/useWindowKeydown';
 import { isActivatable, isEditable } from '@/utils/keyboardTarget';
 
 const SEEK_SMALL = 5;
@@ -60,6 +59,5 @@ export const usePlayerHotkeys = (): void => {
     event.preventDefault();
   };
 
-  onMounted(() => window.addEventListener('keydown', onKeydown));
-  onUnmounted(() => window.removeEventListener('keydown', onKeydown));
+  useWindowKeydown(onKeydown);
 };
