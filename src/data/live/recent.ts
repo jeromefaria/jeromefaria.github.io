@@ -3,6 +3,7 @@ import type { LiveEvent } from '@/types/live';
 export const recentEvents: LiveEvent[] = [
   {
     id: 'jejum-45',
+    eventType: ['series'],
     title: 'Jejum #45',
     date: '2026-09-19',
     endDate: '2026-09-20',
@@ -29,6 +30,7 @@ export const recentEvents: LiveEvent[] = [
   },
   {
     id: 'festival-multiplo-2026',
+    eventType: ['festival'],
     title: 'Festival Múltiplo',
     titleUrl: 'https://zaratan.pt/en/event/806',
     date: '2026-08-23',
@@ -89,6 +91,7 @@ export const recentEvents: LiveEvent[] = [
   },
   {
     id: 'showcase-casa-amarela',
+    eventType: ['showcase'],
     title: 'Showcase Casa Amarela',
     titleUrl: 'https://outra.pt/evento/showcase-casa-amarela-copo-dagua-nox-tiaavo-rebolation-all-stars-dj-set/',
     date: '2025-06-14',
@@ -160,6 +163,7 @@ export const recentEvents: LiveEvent[] = [
   },
   {
     id: 'fim-de-emissao-45',
+    eventType: ['series'],
     title: 'Fim de Emissão #45',
     date: '2025-01-17',
     venue: { name: 'Desterro', city: 'Lisbon', country: 'Portugal' },
@@ -213,6 +217,7 @@ export const recentEvents: LiveEvent[] = [
   },
   {
     id: 'cca-no-desterro-august',
+    eventType: ['series'],
     title: 'CCA no Desterro',
     date: '2024-08-10',
     venue: { name: 'Desterro', city: 'Lisbon', country: 'Portugal' },
@@ -228,6 +233,7 @@ export const recentEvents: LiveEvent[] = [
   },
   {
     id: 'cca-no-desterro',
+    eventType: ['series'],
     title: 'CCA no Desterro',
     date: '2024-05-02',
     venue: { name: 'Desterro', city: 'Lisbon', country: 'Portugal' },
@@ -371,6 +377,7 @@ export const recentEvents: LiveEvent[] = [
   },
   {
     id: 'jejum-11',
+    eventType: ['series'],
     title: 'Jejum #11',
     date: '2022-03-05',
     venue: { name: 'Rua das Gaivotas 6', url: 'https://ruadasgaivotas6.pt/', city: 'Lisbon', country: 'Portugal' },
@@ -452,6 +459,7 @@ export const recentEvents: LiveEvent[] = [
   },
   {
     id: 'nariz-entupido',
+    eventType: ['showcase'],
     title: '30 anos SPH / 20 anos Thisco',
     date: '2021-10-22',
     venue: { name: 'SMUP', url: 'https://www.smup.pt/', city: 'Parede', country: 'Portugal' },
@@ -546,6 +554,7 @@ export const recentEvents: LiveEvent[] = [
   },
   {
     id: 'reviralho',
+    eventType: ['festival'],
     title: 'Reviralho',
     date: '2021-08-20',
     venue: { name: 'Cais do Carvão', city: 'Funchal', country: 'Portugal' },

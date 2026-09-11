@@ -3,6 +3,7 @@ import type { LiveEvent } from '@/types/live';
 export const midEvents: LiveEvent[] = [
   {
     id: 'heineken-series',
+    eventType: ['series'],
     title: 'Heineken Series',
     date: '2015-09-18',
     venue: { name: 'Musicbox', url: 'https://www.musicboxlisboa.com/', city: 'Lisbon', country: 'Portugal' },
@@ -59,6 +60,7 @@ export const midEvents: LiveEvent[] = [
   },
   {
     id: 'fica-na-cidade',
+    eventType: ['open-air'],
     title: 'Fica na Cidade',
     titleUrl: 'https://www.visitfunchal.pt/pt/todos-os-eventos/280-fica-na-cidade.html',
     date: '2015-06-05',
@@ -77,6 +79,7 @@ export const midEvents: LiveEvent[] = [
   },
   {
     id: 'cognitivopolis',
+    eventType: ['festival'],
     title: 'Cognitivopolis',
     date: '2013-11-15',
     venue: { name: 'Estalagem da Ponta do Sol', city: 'Ponta do Sol', country: 'Portugal' },
@@ -137,13 +140,18 @@ export const midEvents: LiveEvent[] = [
   },
   {
     id: 'cine-qua-non',
+    eventType: ['series'],
     date: '2012-10-27',
     title: 'Cine Qua Non',
-    venue: { name: 'Estalagem da Ponta do Sol', city: 'Ponta do Sol', country: 'Portugal' },
+    venue: { name: 'Estalagem da Ponta do Sol', url: 'https://www.pontadosol.com/', city: 'Ponta do Sol', country: 'Portugal' },
     setup: { kind: 'ensemble', name: { en: 'Improvisation collective', pt: 'Colectivo de improvisação' } },
     note: {
       en: 'Electronics, piano ([[Nuno Filipe]]), percussion ([[Jorge Maggiore]]) and visuals (Filipe Ferraz).',
       pt: 'Electrónica, piano ([[Nuno Filipe]]), percussão ([[Jorge Maggiore]]) e visuais (Filipe Ferraz).',
+    },
+    credit: {
+      en: 'Part of [[Concertos L]].',
+      pt: 'Integrado nos [[Concertos L]].',
     },
     videos: [
       {

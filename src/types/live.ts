@@ -37,6 +37,8 @@ export type Format =
   | { kind: 'talk' }
   | { kind: 'filmScore'; film: Localizable<string>; premiere?: boolean };
 
+export type EventKind = 'festival' | 'series' | 'showcase' | 'open-air';
+
 export interface Poster {
   src: string;
   alt: Localizable<string>;
@@ -63,6 +65,7 @@ export interface LiveEvent {
   venue: EventVenue;
   setup: Setup;
   format?: Format;
+  eventType?: EventKind[];
   performedAs?: string;
   note?: Localized<string>;
   bill?: BillEntry[];

@@ -4,6 +4,7 @@ export const orgs: OrgRegistry = {
   'apca': { name: 'APCA', url: 'https://www.apca-madeira.org/' },
   'br-qn': { name: 'BRØQN' },
   'colectivo-casa-amarela': { name: 'Colectivo Casa Amarela', url: 'https://casaamarela.bandcamp.com' },
+  'concertos-l': { name: 'Concertos L', url: 'https://www.pontadosol.com/l-concerts' },
   'des-cendres-a-la-cave': { name: 'Des Cendres À La Cave', url: 'https://descendresalacave.bandcamp.com/' },
   'digital-in-berlin': { name: 'Digital in Berlin', url: 'https://www.digitalinberlin.de/' },
   'enough-records': { name: 'Enough Records', url: 'https://enoughrecords.scene.org/' },
