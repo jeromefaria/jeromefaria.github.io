@@ -13,6 +13,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **scripts:** Shared playwright-render module + enforce eslint on scripts ([#427](https://github.com/jeromefaria/jeromefaria.github.io/pull/427))
 - **ui:** Extract MaybeLink for the link-or-plain-text pattern ([#422](https://github.com/jeromefaria/jeromefaria.github.io/pull/422))
 - **live:** Model the event thumbnail hero as a single source object ([#421](https://github.com/jeromefaria/jeromefaria.github.io/pull/421))
 
