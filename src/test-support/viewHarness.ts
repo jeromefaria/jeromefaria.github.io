@@ -9,6 +9,7 @@ export const mountView = async (component: Component, path = '/', meta: RouteMet
     history: createMemoryHistory(),
     routes: [
       { path: '/works/:releaseId', component: { template: '<div />' } },
+      { path: '/live/:eventId', component: { template: '<div />' } },
       { path: '/:pathMatch(.*)*', component: { template: '<div />' }, meta },
     ],
   });
