@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { RouterLink } from 'vue-router';
 
 import EpkRoster from '@/components/EpkRoster.vue';
-import ExternalLink from '@/components/ExternalLink.vue';
+import MaybeLink from '@/components/MaybeLink.vue';
 import PressQuote from '@/components/PressQuote.vue';
 import ResponsivePicture from '@/components/ResponsivePicture.vue';
 import StaticPage from '@/components/StaticPage.vue';
@@ -132,15 +132,9 @@ const epkPhotos = computed(() => epk.value.photos.map(photo => ({
           <figcaption>
             <template v-if="photo.photographer">
               {{ t('epk.photo') }}:
-              <ExternalLink
-                v-if="photographerUrl"
-                :href="photographerUrl"
-              >
+              <MaybeLink :href="photographerUrl">
                 {{ photo.photographer.name }}
-              </ExternalLink>
-              <template v-else>
-                {{ photo.photographer.name }}
-              </template>
+              </MaybeLink>
               ·
             </template>
             <a
