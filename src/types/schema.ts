@@ -15,6 +15,26 @@ export interface SchemaPostalAddress {
   addressCountry: string;
 }
 
+interface SchemaAuthoredPerson {
+  '@type': 'Person';
+  name: string;
+  url: string;
+}
+
+export interface SchemaBlogPosting {
+  '@context': string;
+  '@type': 'BlogPosting';
+  headline: string;
+  description: string;
+  datePublished: string;
+  dateModified: string;
+  inLanguage: string;
+  url: string;
+  mainEntityOfPage: string;
+  author: SchemaAuthoredPerson;
+  publisher: SchemaAuthoredPerson;
+}
+
 export interface SchemaPlace {
   '@type': 'Place';
   name: string;

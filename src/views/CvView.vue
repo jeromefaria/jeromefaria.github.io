@@ -1,17 +1,13 @@
 <script setup lang="ts">
-import { marked } from 'marked';
-
 import StaticPage from '@/components/StaticPage.vue';
 import { pageMeta } from '@/data/pageMeta';
 import { cvPdfHref } from '@/utils/cv';
-import { externalizeLinks } from '@/utils/externalizeLinks';
+import { renderMarkdown } from '@/utils/renderMarkdown';
 
 import resumeMarkdown from '../../content/resume.md?raw';
 
-marked.setOptions({ gfm: true, breaks: true });
-
 const head = { ...pageMeta.cv, noIndex: true, image: '/og-cv.png' };
-const resumeHtml = externalizeLinks(marked.parse(resumeMarkdown, { async: false }));
+const resumeHtml = renderMarkdown(resumeMarkdown);
 </script>
 
 <template>
