@@ -76,6 +76,17 @@ describe('buildCommands', () => {
     expect(madeiradig?.keywords).toEqual(expect.arrayContaining(['Taylor', 'Deupree']));
   });
 
+  it('indexes performance setup and format for live search', () => {
+    const solo = commands.find(command => command.id === 'live:jejum-11');
+    expect(solo?.keywords).toEqual(expect.arrayContaining(['solo']));
+
+    const theatre = commands.find(command => command.id === 'live:aragao-funchal');
+    expect(theatre?.keywords).toEqual(expect.arrayContaining(['theatre', 'theater']));
+
+    const filmScore = commands.find(command => command.id === 'live:caligari-live-3');
+    expect(filmScore?.keywords).toEqual(expect.arrayContaining(['film', 'score', 'Robert', 'expressionist']));
+  });
+
   it('includes download, copy-email, and social actions', () => {
     const actionIds = commands.filter(command => command.kind === 'action').map(command => command.id);
 
