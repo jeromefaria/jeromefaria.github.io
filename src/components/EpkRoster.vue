@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ExternalLink from '@/components/ExternalLink.vue';
+import MaybeLink from '@/components/MaybeLink.vue';
 import type { SharedStage } from '@/types/epk';
 
 defineProps<{ acts: SharedStage[] }>();
@@ -12,16 +12,12 @@ defineProps<{ acts: SharedStage[] }>();
       :key="act.name"
       class="epk__roster-item"
     >
-      <ExternalLink
-        v-if="act.url"
+      <MaybeLink
         class="epk__link"
         :href="act.url"
       >
         {{ act.name }}
-      </ExternalLink>
-      <template v-else>
-        {{ act.name }}
-      </template>
+      </MaybeLink>
     </li>
   </ul>
 </template>

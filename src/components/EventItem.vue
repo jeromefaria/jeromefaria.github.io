@@ -18,6 +18,7 @@ import { venueUrl } from '@/utils/venues';
 
 import ExternalLink from './ExternalLink.vue';
 import IconArrow from './IconArrow.vue';
+import MaybeLink from './MaybeLink.vue';
 import MediaLinks from './MediaLinks.vue';
 
 const props = defineProps<{
@@ -138,10 +139,10 @@ useLightboxDeepLink(
           v-if="event.date"
           class="event-date"
         >{{ formattedDate }} · </span>
-        <span class="event-venue"><ExternalLink
-          v-if="event.venue.name && venueHref"
+        <span class="event-venue"><MaybeLink
+          v-if="event.venue.name"
           :href="venueHref"
-        >{{ event.venue.name }}</ExternalLink><template v-else-if="event.venue.name">{{ event.venue.name }}</template>{{ venueSeparator }}{{ venueLocation }}</span>
+        >{{ event.venue.name }}</MaybeLink>{{ venueSeparator }}{{ venueLocation }}</span>
       </p>
       <p
         class="event-description"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ExternalLink from '@/components/ExternalLink.vue';
+import MaybeLink from '@/components/MaybeLink.vue';
 import { type Localized, useLocalized } from '@/i18n/localized';
 
 defineProps<{
@@ -15,11 +15,7 @@ const { localize } = useLocalized();
   <blockquote>
     <p v-html="localize(quote)" />
     <strong>
-      <ExternalLink
-        v-if="url"
-        :href="url"
-      >{{ source }}</ExternalLink>
-      <template v-else>{{ source }}</template>
+      <MaybeLink :href="url">{{ source }}</MaybeLink>
     </strong>
   </blockquote>
 </template>
