@@ -1,7 +1,7 @@
 import { bios } from '@/data/bios';
 import { liveEvents } from '@/data/live';
 import { pressQuotes } from '@/data/press';
-import { worksData } from '@/data/works';
+import { allReleases } from '@/data/works';
 import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { EpkContent, EpkLiveHighlight, EpkManifest, EpkPhoto, EpkWorkHighlight, EpkWorkRef } from '@/types/epk';
@@ -66,8 +66,6 @@ export const toWorkHighlight = (release: Release, title = release.title): EpkWor
 });
 
 export const resolveEpkContent = (manifest: EpkManifest, locale: Locale = DEFAULT_LOCALE): EpkContent => {
-  const works = Object.values(worksData).flatMap(section => section.items);
-
   return {
     photos: manifest.photos,
     shortBio: localize(bios[manifest.shortBio], locale),
@@ -79,7 +77,7 @@ export const resolveEpkContent = (manifest: EpkManifest, locale: Locale = DEFAUL
       .map(event => toLiveHighlight(event, locale)),
     workHighlights: manifest.highlightWorkIds
       .map(normalizeWorkRef)
-      .map(ref => ({ release: findById(works, ref.id), title: ref.title }))
+      .map(ref => ({ release: findById(allReleases, ref.id), title: ref.title }))
       .sort((a, b) => releaseYear(b.release.meta.released) - releaseYear(a.release.meta.released))
       .map(({ release, title }) => toWorkHighlight(release, title)),
     sharedStages: manifest.sharedStages,

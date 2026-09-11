@@ -25,8 +25,8 @@ describe('releasePermalink', () => {
       expect(findRelease('overlapse-xiii')?.id).toBe('overlapse-xiii');
     });
 
-    it('returns null for an unknown id', () => {
-      expect(findRelease('does-not-exist')).toBeNull();
+    it('returns undefined for an unknown id', () => {
+      expect(findRelease('does-not-exist')).toBeUndefined();
     });
   });
 

@@ -2,9 +2,8 @@ import { describe, expect, it } from 'vitest';
 
 import { releaseYear } from '@/utils/releaseDate';
 
-import { worksData } from './works';
+import { allReleases, releaseById, worksData } from './works';
 
-const allReleases = Object.values(worksData).flatMap(section => section.items);
 const KINDS = ['music', 'compilation', 'commission', 'publication', 'engineering'];
 
 describe('worksData', () => {
@@ -14,6 +13,15 @@ describe('worksData', () => {
       expect(release.meta.released, `id="${release.id}" released`).toMatch(/^\d{4}(-\d{2}(-\d{2})?)?$/);
       expect(releaseYear(release.meta.released), `id="${release.id}" year`).toBeGreaterThanOrEqual(1900);
       expect(releaseYear(release.meta.released), `id="${release.id}" year`).toBeLessThan(2100);
+    }
+  });
+
+  it('exposes releaseById as a unique-id lookup over every release', () => {
+    expect(allReleases.length).toBeGreaterThan(0);
+    expect(releaseById.size).toBe(allReleases.length);
+
+    for (const release of allReleases) {
+      expect(releaseById.get(release.id), `id="${release.id}"`).toBe(release);
     }
   });
 
