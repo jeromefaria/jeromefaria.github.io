@@ -13,7 +13,11 @@ export const findLiveEvent = (eventId: string): LiveEvent | null =>
 interface LiveEventHead {
   title: string;
   description: string;
+  image?: string;
 }
+
+const hasEventCard = (event: LiveEvent): boolean =>
+  Boolean(event.images?.length) || Boolean(event.posters?.length);
 
 const eventLocation = (event: LiveEvent, locale: Locale): string => {
   const place = [event.venue.city, event.venue.country]
@@ -35,5 +39,6 @@ export const liveEventHead = (event: LiveEvent, locale: Locale = DEFAULT_LOCALE)
   return {
     title: localize(event.title, locale),
     description: `${lead} · ${date}.`,
+    ...(hasEventCard(event) ? { image: `/og-live-${event.id}-${locale}.jpg` } : {}),
   };
 };

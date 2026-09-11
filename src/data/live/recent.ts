@@ -69,6 +69,7 @@ export const recentEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/festival-multiplo-2026-003.jpg',
+        cardThumb: { position: 'center 97%' },
         cover: true,
         photographer: { name: 'Nuno Martins' },
       },
@@ -191,6 +192,7 @@ export const recentEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/fim-de-emissao-45-005.jpg',
+        cardThumb: { position: 'center 52%' },
         cover: true,
         thumb: { position: 'center 85%' },
         photographer: { name: 'Pedro Roque' },
@@ -353,6 +355,7 @@ export const recentEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/amess-museu-franco-003.jpg',
+        cardThumb: { position: 'center 40%' },
         cover: true,
         photographer: { name: 'Miguel Apolinário' },
       },
@@ -482,6 +485,7 @@ export const recentEvents: LiveEvent[] = [
       },
       {
         src: '/images/live/nariz-entupido-003.jpg',
+        cardThumb: { position: 'center 97%', scale: 1.2 },
         cover: true,
         thumb: { scale: 1.2 },
         photographer: { name: 'Ricardo Nogueira' },
@@ -514,6 +518,7 @@ export const recentEvents: LiveEvent[] = [
       {
         src: '/images/live/aragao-funchal-002.jpg',
         thumb: { position: 'center 59%' },
+        cardThumb: { position: 'center 82%' },
       },
       {
         src: '/images/live/aragao-funchal-001.jpg',
