@@ -116,6 +116,33 @@ describe('useCommandPalette', () => {
     expect(api.activeIndex.value).toBe(0);
   });
 
+  it('stops Ctrl+K bubbling to the global toggle so it moves up instead of closing', async () => {
+    const { api, wrapper } = await mountPalette();
+    active = wrapper;
+    paletteOpen.value = true;
+    await nextTick();
+
+    const event = press('k', { ctrlKey: true });
+    const stopPropagation = vi.spyOn(event, 'stopPropagation');
+    api.handleKeydown(event);
+
+    expect(stopPropagation).toHaveBeenCalled();
+    expect(api.isOpen.value).toBe(true);
+  });
+
+  it('lets an unhandled Cmd+K bubble so the global toggle can close the palette', async () => {
+    const { api, wrapper } = await mountPalette();
+    active = wrapper;
+    paletteOpen.value = true;
+    await nextTick();
+
+    const event = press('k', { metaKey: true });
+    const stopPropagation = vi.spyOn(event, 'stopPropagation');
+    api.handleKeydown(event);
+
+    expect(stopPropagation).not.toHaveBeenCalled();
+  });
+
   it('closes on Escape', async () => {
     const { api, wrapper } = await mountPalette();
     active = wrapper;
