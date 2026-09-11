@@ -3,15 +3,15 @@
 [![CI/CD](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/jeromefaria/jeromefaria.github.io/actions/workflows/deploy.yml)
 [![codecov](https://codecov.io/gh/jeromefaria/jeromefaria.github.io/branch/master/graph/badge.svg)](https://codecov.io/gh/jeromefaria/jeromefaria.github.io)
 
-**My portfolio site as a composer and sound artist — and a public engineering showcase I own end to end.** A production-grade **Vue 3 + TypeScript** frontend ([www.jeromefaria.com](https://www.jeromefaria.com)): discography with a **built-in streaming audio player**, live history, press, and a downloadable press kit — statically generated and hydrated, built to professional standards (strict typing, CI-gated accessibility, performance budgets, unit + cross-browser E2E + visual-regression tests), from a from-scratch audio engine down to the serverless backend behind the contact form.
+**My portfolio site as a composer and sound artist — and a public engineering showcase I own end to end.** A production-grade **Vue 3 + TypeScript** frontend ([www.jeromefaria.com](https://www.jeromefaria.com)): discography with a **built-in streaming audio player**, live history, press, essays, a CV, and a downloadable press kit — statically generated and hydrated, built to professional standards (strict typing, CI-gated accessibility, performance budgets, unit + cross-browser E2E + visual-regression tests), from a from-scratch audio engine down to the serverless backend behind the contact form.
 
 > The sections below lead with *what the project demonstrates* and *why it's built this way*; the run-book follows.
 
 ## What this demonstrates
 
-- **Modern Vue 3 + strict TypeScript.** Composition API with `<script setup>`, a focused composable layer (accordion + hash routing, image loading, page head/schema, the audio player), and content modelled as typed data with discriminated unions.
+- **Modern Vue 3 + strict TypeScript.** Composition API with `<script setup>`, a focused composable layer (accordion + hash routing, image loading, page head/schema, the audio player), and content modelled as typed data with **exhaustive discriminated unions** (model drift becomes a compile error) over a normalized people/organisations entity registry that resolves credits by name.
 - **A from-scratch audio player.** A singleton state machine over one `HTMLAudioElement` — cover-as-play, per-track and *chaptered* (a single file presented as timed movements) playback, a docked bar that expands to a now-playing view and an immersive artwork mode, full keyboard control (regular + Vi-style bindings), **Media Session** lock-screen integration (metadata, artwork, media-key handlers), a generation-token guard against the classic media race, and best-effort autoplay that degrades to *cued-and-paused* when the browser blocks it. Audio is AAC streamed from **Cloudflare R2** over HTTP range requests.
-- **Shareable, rich-preview deep-links.** Every release is pre-rendered at `/works/:id` with album-specific Open Graph (`music.album`, cover art, canonical) and *plays on open*; `?track=` / `?t=` refine the starting point, and release and track titles are right-click-copyable permalinks.
+- **Shareable, rich-preview deep-links.** Every release is pre-rendered at `/works/:id` with album-specific Open Graph (`music.album`, cover art, canonical) and *plays on open*; `?track=` / `?t=` refine the starting point, and release and track titles are right-click-copyable permalinks. Every live event has the same at `/live/:eventId` — a shareable URL that opens the archive at that event, with its own generated social card and `MusicEvent` schema.
 - **Accessibility as a first-class concern.** WCAG 2.1 AA gated by `axe-core` in CI — plus keyboard and focus management (focus-trapped lightbox, skip link, hash-routed accordion), `prefers-reduced-motion`, per-link "opens in a new tab" cues, and a light/dark theme that keeps its contrast ratios.
 - **Robustness on the invisible edges.** Page-lifecycle handling (`visibilitychange` / bfcache) that re-syncs the theme on resume and recovers the SPA from an `out-in` route transition iOS Safari can wedge by dropping `transitionend` — the unglamorous correctness work that keeps a days-old tab from silently breaking, root-caused on-device rather than shrugged off.
 - **Performance engineering.** SSG pre-render + hydrate, Lighthouse budgets (desktop + mobile) enforced in CI, responsive `<picture>`/WebP srcsets with intrinsic dimensions, subsetted self-hosted fonts, and a zero-CLS first paint verified across every route.
@@ -33,7 +33,7 @@ Repository
 
 Build (static)
   data + views  ──▶  Vite-SSG (pre-render + hydrate)   ──▶  GitHub Pages
-                     · every route + one page per release (/works/:id, rich OG)
+                     · every route + a page per release and live event (/works/:id · /live/:eventId, rich OG)
   data          ──▶  Headless-Chromium PDF generation  ──▶  GitHub Pages
 
 Audio (runtime)
@@ -96,9 +96,11 @@ The catalogue plays in-page — a built-in player, not a third-party embed. Pres
 
 **Shareable permalinks.** Every release is pre-rendered at `/works/:id` with its own Open Graph (`music.album`, album art, canonical URL), so a shared link unfurls with the cover and plays on open. `?track=` (1-based) or `?t=` (seconds) pin the starting point — for a chaptered piece, `?t=572` opens straight into a movement — and album/track titles are anchors, so a right-click **Copy Link Address** shares the exact spot with no on-screen share button.
 
+Live events get the same treatment: **`/live/:eventId`** is a shareable URL that opens the Live archive with that event's year expanded and scrolled into view, pre-rendered with its own `MusicEvent` schema and a generated 1200×630 social card (the home-hero image as fallback for events without a thumbnail).
+
 ## Command palette
 
-A hidden command palette — no on-screen affordance, summoned with **⌘K** (macOS), **Ctrl+K**, or a Vim-style **`:`**. It searches, navigates, and acts across the whole site from the keyboard; press **?** anywhere (outside a text field) for the shortcuts cheat-sheet.
+A hidden command palette — no on-screen affordance, summoned with **⌘K** (macOS), **Ctrl+K**, or a Vim-style **`:`** on a keyboard; on touch, reach it from the **⌘K** links in the Privacy/Colophon footers or a **double-tap of the header**. It searches, navigates, and acts across the whole site; press **?** anywhere (outside a text field) for the shortcuts cheat-sheet.
 
 **What it does**
 
@@ -106,7 +108,7 @@ A hidden command palette — no on-screen affordance, summoned with **⌘K** (ma
 - **Jump to content** — any release, live date, or press quote, deep-linked to its entry (the owning accordion opens on arrival).
 - **Actions** — download the press kit (PDF/ZIP) or technical rider, copy the contact email, switch the theme (light / dark / match system), open any social profile or a release on Bandcamp, or bring up the shortcuts help.
 
-An empty query surfaces recents (persisted in `localStorage`) followed by curated navigation; typing fuzzy-ranks the whole command set by title and keywords.
+An empty query surfaces recents (persisted in `localStorage`) followed by curated navigation; typing fuzzy-ranks the whole command set by title and keywords — releases and live events are searchable by year, city, collaborators, performance setup, format, event type, and media (video/poster), and multiple commands for one release collapse to a single result.
 
 | Key | Action |
 | --- | --- |
@@ -119,7 +121,7 @@ An empty query surfaces recents (persisted in `localStorage`) followed by curate
 | `Esc` / `Ctrl+C` | Close |
 | `?` | Show the shortcuts help |
 
-Desktop-only and strictly additive — the site is fully usable without it. Under the hood: a typed command registry (`src/data/commands.ts`) over a discriminated `navigate | result | action` union, a hand-rolled fuzzy ranker (`src/utils/fuzzy.ts`), a full combobox/listbox ARIA contract with a live region, and shared focus-trap + scroll-lock (`useOverlay`). The palette and its help modal are lazy-loaded behind a tiny always-on hotkey layer, so none of that code ships in the main bundle.
+Strictly additive — the site is fully usable without it, keyboard-summoned on desktop and reachable from the footer links or a header double-tap on touch. Under the hood: a typed command registry (`src/data/commands.ts`) over a discriminated `navigate | result | action` union, a hand-rolled fuzzy ranker (`src/utils/fuzzy.ts`), a full combobox/listbox ARIA contract with a live region, and shared focus-trap + scroll-lock (`useOverlay`). The palette and its help modal are lazy-loaded behind a tiny always-on hotkey layer, so none of that code ships in the main bundle.
 
 ## Internationalization (EN/PT)
 
@@ -139,7 +141,7 @@ A complete bilingual architecture — English and Portuguese — built end to en
 src/
   components/    Reusable UI components (incl. the player bar / now-playing view / playable cover)
   composables/   Reusable logic (accordion + hash routing, image loading, page head/schema, the audio player, command palette + overlays)
-  data/          Typed content — works, live events, press, about, audio manifest (no CMS)
+  data/          Typed content — works, live events, press, essays, about, an entity registry (people/orgs), audio manifest (no CMS)
   i18n/          EN/PT messages, locale routing, and the useT translate layer
   router/        Vue Router route table
   styles/        Modular SCSS with design tokens (_variables.scss)
