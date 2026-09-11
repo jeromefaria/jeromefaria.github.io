@@ -159,6 +159,7 @@ export const pt: MessageSchema = {
   palette: {
     ariaLabel: 'Paleta de comandos',
     searchLabel: 'Pesquisar, navegar ou executar um comando',
+    close: 'Fechar',
     empty: 'Sem resultados',
     result: 'resultado',
     results: 'resultados',
