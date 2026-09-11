@@ -10,8 +10,8 @@ const EYEBROW = { en: 'Live', pt: 'Ao vivo' };
 
 const { liveEvents } = await loadSrc('data/live.ts');
 const { localize } = await loadSrc('i18n/localized.ts');
-const { localizePlace } = await loadSrc('i18n/exonyms.ts');
 const { formatEventDateRange } = await loadSrc('utils/formatters.ts');
+const { venueLabel } = await loadSrc('utils/venueFormat.ts');
 const fontFaces = await interFontFaces(root);
 
 const heroOf = event => {
@@ -52,15 +52,8 @@ const escapeHtml = value => value
   .replace(/</g, '&lt;')
   .replace(/>/g, '&gt;');
 
-const eventMeta = (event, locale) => {
-  const place = [event.venue.city, event.venue.country]
-    .filter(Boolean)
-    .map(part => localizePlace(part, locale))
-    .join(', ');
-  const location = [event.venue.name, place].filter(Boolean).join(', ');
-
-  return `${location} · ${formatEventDateRange(event.date, event.endDate, locale)}`;
-};
+const eventMeta = (event, locale) =>
+  `${venueLabel(event.venue, locale)} · ${formatEventDateRange(event.date, event.endDate, locale)}`;
 
 const cardHtml = (event, hero, isPoster, locale) => `<!doctype html><html><head><meta charset="utf-8"><style>
   ${fontFaces}
