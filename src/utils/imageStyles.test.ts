@@ -54,10 +54,24 @@ describe('imageStyles', () => {
       });
     });
 
+    it('should generate translateX transform', () => {
+      const styles = getImageStyles({ translateX: '8%' });
+      expect(styles).toEqual({
+        transform: 'translateX(8%)',
+      });
+    });
+
     it('should combine scale and rotate transforms', () => {
       const styles = getImageStyles({ scale: 1.5, rotate: 30 });
       expect(styles).toEqual({
         transform: 'scale(1.5) rotate(30deg)',
+      });
+    });
+
+    it('should combine scale and translateX transforms', () => {
+      const styles = getImageStyles({ scale: 1.35, translateX: '8%' });
+      expect(styles).toEqual({
+        transform: 'scale(1.35) translateX(8%)',
       });
     });
 

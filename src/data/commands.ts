@@ -18,6 +18,7 @@ import { releaseYearString } from '@/utils/releaseDate';
 import { canPlayRelease, playReleaseAt } from '@/utils/releasePermalink';
 import { creditNames, plainCredits } from '@/utils/renderCredits';
 import { stripHtml } from '@/utils/stripHtml';
+import { venuePrimaryLabel } from '@/utils/venueFormat';
 
 import { pressQuotes } from './press';
 import { essays } from './writing';
@@ -139,7 +140,7 @@ const liveCommands = (locale: Locale): Command[] =>
     kind: 'result',
     id: `live:${event.id}`,
     title: localize(event.title, locale),
-    subtitle: event.venue.name ?? event.venue.city ?? event.venue.country,
+    subtitle: venuePrimaryLabel(event.venue, locale),
     keywords: words([event.venue.name ?? '', event.venue.city ?? '', event.venue.country, event.date.slice(0, 4), ...eventPeople(event, locale)].join(' ')),
     text: words(localize(event.note ?? '', locale)),
     group: 'Live',
