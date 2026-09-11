@@ -3,6 +3,7 @@ import { useT } from '@/i18n/useT';
 
 import IconPause from './IconPause.vue';
 import IconPlay from './IconPlay.vue';
+import IconSpinner from './IconSpinner.vue';
 import ResponsivePicture from './ResponsivePicture.vue';
 
 defineProps<{
@@ -38,22 +39,10 @@ const t = useT();
       :aria-label="t(active ? 'player.pauseTitle' : 'player.playTitle', { title })"
       @click="$emit('toggle')"
     >
-      <svg
+      <IconSpinner
         v-if="busy"
         class="release-cover__spinner"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        focusable="false"
-      ><circle
-        cx="12"
-        cy="12"
-        r="9"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-dasharray="44 20"
-        stroke-linecap="round"
-      /></svg>
+      />
       <IconPause v-else-if="active" />
       <IconPlay v-else />
     </button>

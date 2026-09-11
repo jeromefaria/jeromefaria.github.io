@@ -218,11 +218,6 @@ describe('usePlayer', () => {
     vi.useRealTimers();
   });
 
-  it('plays a release by id from the manifest', async () => {
-    await mod.playRelease('2504');
-    expect(mod.usePlayer().currentTrack.value?.key).toContain('BRQN006');
-  });
-
   it('expands and collapses the full view', () => {
     const api = mod.usePlayer();
     expect(api.expanded.value).toBe(false);

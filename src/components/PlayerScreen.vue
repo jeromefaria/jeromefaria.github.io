@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
+import PlayerArtwork from '@/components/PlayerArtwork.vue';
 import PlayerImmersive from '@/components/PlayerImmersive.vue';
 import PlayerSeek from '@/components/PlayerSeek.vue';
 import TransportControls from '@/components/TransportControls.vue';
@@ -11,7 +12,6 @@ import { useScrollLock } from '@/composables/useScrollLock';
 import { useSwipeDismiss } from '@/composables/useSwipeDismiss';
 import { useT } from '@/i18n/useT';
 import type { AudioTrack } from '@/types/audio';
-import { toWebp } from '@/utils/responsiveImage';
 
 const { currentTrack, queue, context, currentChapter, displayTitle, immersive, seek, select, collapse, enterImmersive, exitImmersive } = usePlayer();
 
@@ -112,21 +112,7 @@ onBeforeUnmount(() => {
       class="player-screen__art"
       :inert="immersive"
     >
-      <Transition name="player-art">
-        <picture
-          v-if="artwork"
-          :key="artwork"
-        >
-          <source
-            :srcset="toWebp(artwork)"
-            type="image/webp"
-          >
-          <img
-            :src="artwork"
-            alt=""
-          >
-        </picture>
-      </Transition>
+      <PlayerArtwork />
       <button
         v-if="artwork"
         ref="zoomButton"
