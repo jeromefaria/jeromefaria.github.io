@@ -4,7 +4,7 @@ import { isActiveStatus, usePlayer } from '@/composables/usePlayer';
 import { matchSystemTheme, toggleTheme } from '@/composables/useTheme';
 import { liveEvents } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
-import { worksData } from '@/data/works';
+import { allReleases, worksData } from '@/data/works';
 import { localize } from '@/i18n/localized';
 import type { Locale } from '@/i18n/messages';
 import type { TranslateFn } from '@/i18n/useT';
@@ -159,10 +159,8 @@ const pressCommands = (t: TranslateFn, locale: Locale): Command[] =>
     to: `/press#${quote.id}`,
   }));
 
-const allReleases = (): Release[] => Object.values(worksData).flatMap(section => section.items);
-
 const releaseLinkCommands = (t: TranslateFn, platform: string, keyword: string, urlOf: (release: Release) => string | undefined): Command[] =>
-  allReleases().flatMap(release => {
+  allReleases.flatMap(release => {
     const url = urlOf(release);
     if (!url) return [];
 
@@ -256,7 +254,7 @@ export const playbackCommands = (t: TranslateFn): Command[] => {
 export const playReleaseCommands = (t: TranslateFn): Command[] => {
   if (!audioPlayerEnabled.value) return [];
 
-  return allReleases()
+  return allReleases
     .filter(release => canPlayRelease(release.id))
     .map((release): Command => ({
       kind: 'action',

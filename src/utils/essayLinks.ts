@@ -1,14 +1,7 @@
-import { worksData } from '@/data/works';
+import { releaseById } from '@/data/works';
 import { essays } from '@/data/writing';
 import type { Release } from '@/types/works';
 import type { Essay } from '@/types/writing';
-
-const releaseById = new Map<string, Release>(
-  Object.values(worksData)
-    .flatMap(section => section.items)
-    .filter(item => item.meta.kind !== 'engineering')
-    .map(item => [item.id, item]),
-);
 
 const essayReleaseId = (essay: Essay): string => essay.release ?? essay.slug;
 
