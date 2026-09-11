@@ -8,15 +8,20 @@ import { matchSegments } from '@/utils/fuzzy';
 
 const t = useT();
 
-const { isOpen, query, activeIndex, results, close, handleKeydown, execute } = useCommandPalette();
+const { isOpen, query, activeIndex, results, matchCount, close, handleKeydown, execute } = useCommandPalette();
 
 const inputRef = ref<HTMLInputElement | null>(null);
 
 useOverlay(isOpen, inputRef);
 
 const showHeaders = computed(() => query.value.trim() === '');
-const announcement = computed(() =>
-  (isOpen.value ? `${results.value.length} ${results.value.length === 1 ? t('palette.result') : t('palette.results')}` : ''));
+const announcement = computed(() => {
+  if (!isOpen.value) return '';
+  if (results.value.length === 0) return t('palette.empty');
+
+  const noun = matchCount.value === 1 ? t('palette.result') : t('palette.results');
+  return `${matchCount.value} ${noun}`;
+});
 
 const optionId = (index: number): string => `command-palette-option-${index}`;
 
@@ -46,6 +51,7 @@ watch(activeIndex, async () => {
             class="command-palette__input"
             type="text"
             role="combobox"
+            aria-autocomplete="list"
             :aria-expanded="results.length > 0"
             :aria-controls="results.length ? 'command-palette-listbox' : undefined"
             :aria-activedescendant="results.length ? optionId(activeIndex) : undefined"
@@ -114,6 +120,7 @@ watch(activeIndex, async () => {
         <div
           class="visually-hidden"
           aria-live="polite"
+          aria-atomic="true"
         >
           {{ announcement }}
         </div>

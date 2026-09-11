@@ -22,6 +22,28 @@ test.describe('Command palette (⌘K)', () => {
     await expect(page.locator(PALETTE)).toHaveCount(0);
   });
 
+  test('restores focus to the previously focused element on close', async ({ page }) => {
+    await gotoHydrated(page, '/');
+    await page.locator('a').first().focus();
+    const trigger = await page.evaluateHandle(() => document.activeElement);
+
+    await page.keyboard.press('Control+k');
+    await expect(page.locator(INPUT)).toBeFocused();
+
+    await page.keyboard.press('Escape');
+    expect(await page.evaluate(element => element === document.activeElement, trigger)).toBe(true);
+  });
+
+  test('closes when the backdrop outside the panel is clicked', async ({ page }) => {
+    await gotoHydrated(page, '/');
+
+    await page.keyboard.press('Control+k');
+    await expect(page.locator(PALETTE)).toBeVisible();
+
+    await page.locator(PALETTE).click({ position: { x: 4, y: 4 } });
+    await expect(page.locator(PALETTE)).toHaveCount(0);
+  });
+
   test('shows an empty state for a query with no matches', async ({ page }) => {
     await gotoHydrated(page, '/');
 
