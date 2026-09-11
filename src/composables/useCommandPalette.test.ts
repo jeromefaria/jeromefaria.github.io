@@ -102,6 +102,17 @@ describe('useCommandPalette', () => {
     expect(overlapseRows).toHaveLength(1);
   });
 
+  it('reports the true match count even when the visible results are capped', async () => {
+    const { api, wrapper } = await mountPalette();
+    active = wrapper;
+
+    api.query.value = 'concerts';
+    await nextTick();
+
+    expect(api.results.value.length).toBeLessThanOrEqual(9);
+    expect(api.matchCount.value).toBeGreaterThan(api.results.value.length);
+  });
+
   it('wraps the active index at both ends', async () => {
     const { api, wrapper } = await mountPalette();
     active = wrapper;

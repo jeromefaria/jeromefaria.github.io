@@ -51,6 +51,7 @@ interface UseCommandPaletteReturn {
   query: Ref<string>;
   activeIndex: Ref<number>;
   results: ComputedRef<Command[]>;
+  matchCount: ComputedRef<number>;
   close: () => void;
   handleKeydown: (event: KeyboardEvent) => void;
   execute: (index?: number, newTab?: boolean) => Promise<void>;
@@ -91,6 +92,12 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     run: () => clearRecents(),
   }));
 
+  const searchMatches = computed<Command[]>(() => {
+    const recentsTail = recentCommands.value.length ? [clearRecentsCommand.value] : [];
+    const searchable = [...commands.value, ...audioCommands.value, ...recentsTail];
+    return dedupeByEntity(fuzzyRank(query.value, searchable));
+  });
+
   const results = computed<Command[]>(() => {
     if (query.value.trim() === '') {
       const recents = recentCommands.value
@@ -103,10 +110,11 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
       return [...transportCommands.value, ...recents, ...clear, ...navigation];
     }
 
-    const recentsTail = recentCommands.value.length ? [clearRecentsCommand.value] : [];
-    const searchable = [...commands.value, ...audioCommands.value, ...recentsTail];
-    return dedupeByEntity(fuzzyRank(query.value, searchable)).slice(0, MAX_RESULTS);
+    return searchMatches.value.slice(0, MAX_RESULTS);
   });
+
+  const matchCount = computed<number>(() =>
+    (query.value.trim() === '' ? results.value.length : searchMatches.value.length));
 
   watch(results, () => {
     activeIndex.value = 0;
@@ -200,5 +208,5 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
     action(event);
   };
 
-  return { isOpen: paletteOpen, query, activeIndex, results, close, handleKeydown, execute };
+  return { isOpen: paletteOpen, query, activeIndex, results, matchCount, close, handleKeydown, execute };
 };
