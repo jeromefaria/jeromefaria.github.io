@@ -67,6 +67,7 @@ public/epk/CREDITS*.txt
 public/jerome-faria-cv.pdf
 public/og-cv.png
 public/og-writing-*.png
+public/og-live-*.jpg
 
 # Local, private notes — planning docs kept alongside the code but never published
 .notes/
