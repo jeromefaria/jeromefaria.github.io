@@ -4,16 +4,16 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--overlay-lightbox);
+  z-index: $z-overlay;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: $z-overlay;
-  cursor: pointer;
+  width: 100%;
+  height: 100%;
   padding: $spacing-4;
   contain: layout style paint;
+  cursor: pointer;
+  background-color: var(--overlay-lightbox);
 
   @include respond-to(md) {
     padding: $spacing-8;
@@ -36,14 +36,14 @@
 
   &__controls {
     position: absolute;
-    left: 0;
     right: 0;
     bottom: 0;
+    left: 0;
     z-index: $z-overlay;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: $spacing-2;
+    align-items: center;
     padding-bottom: calc(#{$spacing-4} + env(safe-area-inset-bottom, 0px));
     pointer-events: none;
 
@@ -53,41 +53,41 @@
   }
 
   &__hints {
-    display: flex;
-    align-items: center;
-    gap: $spacing-2;
-    margin-top: -$spacing-3;
     z-index: $z-overlay;
+    display: flex;
+    gap: $spacing-2;
+    align-items: center;
+    margin-top: -$spacing-3;
     pointer-events: auto;
 
     @include respond-to(md) {
       position: absolute;
       bottom: 1vh;
       left: 50%;
-      transform: translateX(-50%);
       margin-top: 0;
+      transform: translateX(-50%);
     }
   }
 
   &__hint {
-    background: none;
-    border: none;
-    padding: $spacing-1;
-    min-width: $touch-target-min;
-    min-height: $touch-target-min;
-    font-size: $font-size-base;
-    color: var(--text-overlay);
-    opacity: $opacity-50;
-    cursor: pointer;
-    transition: opacity $transition-base, transform $transition-base;
-    line-height: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: $touch-target-min;
+    min-height: $touch-target-min;
+    padding: $spacing-1;
+    font-size: $font-size-base;
+    line-height: 1;
+    color: var(--text-overlay);
+    cursor: pointer;
+    background: none;
+    border: none;
+    opacity: $opacity-50;
+    transition: opacity $transition-base, transform $transition-base;
 
     @include respond-to(md) {
-      font-size: $font-size-lg;
       padding: $spacing-2;
+      font-size: $font-size-lg;
     }
 
     &:hover:not(:disabled) {
@@ -101,8 +101,8 @@
     }
 
     &:disabled {
-      opacity: $opacity-20;
       cursor: default;
+      opacity: $opacity-20;
     }
 
     @media (prefers-reduced-motion: no-preference) {
@@ -127,37 +127,37 @@
   }
 
   &__counter {
+    z-index: $z-overlay;
     margin: 0;
     font-size: $font-size-sm;
-    color: var(--text-overlay-muted);
     font-variant-numeric: tabular-nums;
+    color: var(--text-overlay-muted);
     text-align: center;
-    z-index: $z-overlay;
     pointer-events: none;
 
     @include respond-to(md) {
       position: absolute;
-      bottom: 4vh;
       right: $spacing-8;
-      text-align: right;
+      bottom: 4vh;
       font-size: $font-size-xs;
+      text-align: right;
     }
   }
 
   &__credit {
+    z-index: $z-overlay;
     margin: 0;
     font-size: $font-size-sm;
     color: var(--text-overlay-muted);
     text-align: center;
-    z-index: $z-overlay;
     pointer-events: auto;
 
     @include respond-to(md) {
       position: absolute;
-      bottom: 1vh;
       right: $spacing-8;
-      text-align: right;
+      bottom: 1vh;
       font-size: $font-size-xs;
+      text-align: right;
     }
 
     a {

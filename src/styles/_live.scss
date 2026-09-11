@@ -9,18 +9,18 @@
 
   .event--column {
     display: grid;
-    grid-template-columns: 1fr;
     grid-template-areas:
       "details"
       "thumb"
       "links";
+    grid-template-columns: 1fr;
     gap: $spacing-4;
 
     @include respond-to(sm) {
-      grid-template-columns: 1fr auto;
       grid-template-areas:
         "details thumb"
         "links   thumb";
+      grid-template-columns: 1fr auto;
       gap: $spacing-3 $spacing-5;
       align-items: start;
     }
@@ -42,9 +42,9 @@
   .event-thumb {
     position: relative;
     align-self: start;
-    margin: 0;
     width: 100%;
     aspect-ratio: 1 / 1;
+    margin: 0;
     overflow: hidden;
     cursor: pointer;
     background: var(--color-border-subtle);
@@ -98,11 +98,11 @@
   }
 
   .event-meta {
+    font-size: $font-size-sm;
+    font-style: italic;
+    color: var(--color-text-muted);
     text-transform: none;
     letter-spacing: normal;
-    font-style: italic;
-    font-size: $font-size-sm;
-    color: var(--color-text-muted);
 
     a {
       @include link-underline;
@@ -140,8 +140,8 @@
 
   .event-title-ref {
     margin-left: $spacing-1;
-    color: var(--color-text-muted);
     font-size: 0.85em;
+    color: var(--color-text-muted);
 
     @include subtle-link-hover;
     @include focus-outline-subtle;

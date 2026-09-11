@@ -7,8 +7,8 @@
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip-path: inset(50%);
   border: 0;
+  clip-path: inset(50%);
 }
 
 .skip-link {
@@ -17,11 +17,11 @@
   left: $spacing-4;
   z-index: $z-skip-link;
   padding: $spacing-2 $spacing-4;
-  background: var(--color-bg);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  text-decoration: none;
   font-size: $font-size-sm;
+  color: var(--color-text);
+  text-decoration: none;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
 
   &:focus {
     top: $spacing-4;
@@ -61,17 +61,17 @@
 }
 
 .link-discrete {
-  background: none;
-  border: none;
   padding: 0;
   font-family: inherit;
   font-size: $font-size-xs;
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: $letter-spacing-wide;
-  cursor: pointer;
-  transition: color $transition-base;
   text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color $transition-base;
 
   &:hover,
   &:focus-visible {
