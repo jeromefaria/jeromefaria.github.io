@@ -15,6 +15,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 - **live:** Generated per-event social cards for /live/:eventId ([#424](https://github.com/jeromefaria/jeromefaria.github.io/pull/424))
 - **live:** Shareable /live/:eventId permalinks with per-event head + schema ([#423](https://github.com/jeromefaria/jeromefaria.github.io/pull/423))
 
+### Fixes
+
+- **palette:** Stop Ctrl+K from closing instead of moving up ([#436](https://github.com/jeromefaria/jeromefaria.github.io/pull/436))
+
 ### Refactors
 
 - **works:** Shared allReleases/releaseById accessors ([#431](https://github.com/jeromefaria/jeromefaria.github.io/pull/431))
