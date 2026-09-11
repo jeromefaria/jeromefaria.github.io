@@ -157,6 +157,7 @@ export const en = {
   palette: {
     ariaLabel: 'Command palette',
     searchLabel: 'Search, navigate, or run a command',
+    close: 'Close',
     empty: 'No matches',
     result: 'result',
     results: 'results',

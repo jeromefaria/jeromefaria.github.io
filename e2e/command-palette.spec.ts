@@ -44,6 +44,16 @@ test.describe('Command palette (⌘K)', () => {
     await expect(page.locator(PALETTE)).toHaveCount(0);
   });
 
+  test('closes when the close button is activated', async ({ page }) => {
+    await gotoHydrated(page, '/');
+
+    await page.keyboard.press('Control+k');
+    await expect(page.locator(PALETTE)).toBeVisible();
+
+    await page.locator('.command-palette__close').click();
+    await expect(page.locator(PALETTE)).toHaveCount(0);
+  });
+
   test('shows an empty state for a query with no matches', async ({ page }) => {
     await gotoHydrated(page, '/');
 
