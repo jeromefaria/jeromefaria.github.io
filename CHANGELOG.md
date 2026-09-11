@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **palette:** Index media type for search ([#435](https://github.com/jeromefaria/jeromefaria.github.io/pull/435))
 - **live:** Add an event-type taxonomy, searchable in the palette ([#434](https://github.com/jeromefaria/jeromefaria.github.io/pull/434))
 - **palette:** Trigger the Konami egg from an emoji sequence ([#433](https://github.com/jeromefaria/jeromefaria.github.io/pull/433))
 - **palette:** Index live setup and format for search ([#432](https://github.com/jeromefaria/jeromefaria.github.io/pull/432))
