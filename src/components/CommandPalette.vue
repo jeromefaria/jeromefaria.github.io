@@ -6,6 +6,8 @@ import { useOverlay } from '@/composables/useOverlay';
 import { useT } from '@/i18n/useT';
 import { matchSegments } from '@/utils/fuzzy';
 
+import IconClose from './IconClose.vue';
+
 const t = useT();
 
 const { isOpen, query, activeIndex, results, matchCount, close, handleKeydown, execute } = useCommandPalette();
@@ -61,6 +63,15 @@ watch(activeIndex, async () => {
             spellcheck="false"
             @keydown="handleKeydown"
           >
+          <button
+            type="button"
+            class="command-palette__close"
+            :aria-label="t('palette.close')"
+            tabindex="-1"
+            @click="close"
+          >
+            <IconClose />
+          </button>
 
           <ul
             v-if="results.length"
