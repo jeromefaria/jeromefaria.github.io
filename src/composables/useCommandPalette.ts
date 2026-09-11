@@ -9,6 +9,7 @@ import type { Command } from '@/types/command';
 import { fuzzyRank } from '@/utils/fuzzy';
 import { openInNewTab } from '@/utils/openInNewTab';
 
+import { isKonamiEmojiSequence, triggerKonamiSurprise } from './useKonamiCode';
 import { paletteOpen } from './useOverlays';
 
 const RECENTS_KEY = 'command-palette:recents';
@@ -109,6 +110,14 @@ export const useCommandPalette = (): UseCommandPaletteReturn => {
   const close = (): void => {
     paletteOpen.value = false;
   };
+
+  watch(query, value => {
+    if (!isKonamiEmojiSequence(value)) return;
+
+    query.value = '';
+    close();
+    triggerKonamiSurprise();
+  });
 
   const move = (delta: number): void => {
     const count = results.value.length;
