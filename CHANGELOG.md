@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **palette:** Trigger the Konami egg from an emoji sequence ([#433](https://github.com/jeromefaria/jeromefaria.github.io/pull/433))
 - **palette:** Index live setup and format for search ([#432](https://github.com/jeromefaria/jeromefaria.github.io/pull/432))
 - **live:** Link event titles to their /live/:eventId permalink ([#426](https://github.com/jeromefaria/jeromefaria.github.io/pull/426))
 - **live:** Generated per-event social cards for /live/:eventId ([#424](https://github.com/jeromefaria/jeromefaria.github.io/pull/424))
