@@ -3,6 +3,7 @@ import type { LiveEvent } from '@/types/live';
 export const earlyEvents: LiveEvent[] = [
   {
     id: 'madeiradig-2011',
+    eventType: ['festival'],
     title: 'MADEIRADIG',
     titleUrl: 'https://digitalinberlin.eu/',
     date: '2011-12-02',
@@ -61,6 +62,7 @@ export const earlyEvents: LiveEvent[] = [
   },
   {
     id: 'migractions-2011',
+    eventType: ['festival'],
     title: 'Festival Migractions',
     date: '2011-05-23',
     venue: { name: 'Théâtre de L\'Opprimé', url: 'https://www.theatredelopprime.com/', city: 'Paris', country: 'France' },
@@ -80,6 +82,7 @@ export const earlyEvents: LiveEvent[] = [
   },
   {
     id: 'olhares-de-outono-2010',
+    eventType: ['festival'],
     language: 'pt-PT',
     date: '2010-11-26',
     title: 'Olhares de Outono',
@@ -132,6 +135,7 @@ export const earlyEvents: LiveEvent[] = [
   },
   {
     id: 'madeiradig-2009',
+    eventType: ['festival'],
     date: '2009-12-04',
     title: 'MADEIRADIG',
     titleUrl: 'https://digitalinberlin.eu/',
@@ -197,6 +201,7 @@ export const earlyEvents: LiveEvent[] = [
   },
   {
     id: 'eme-olhares-2009',
+    eventType: ['festival'],
     title: 'EME.LL / Olhares de Outono',
     titleUrl: 'https://www.vitorjoaquim.pt/vj.concerts_2009_21.22%20November.htm',
     date: '2009-11-21',
@@ -255,6 +260,7 @@ export const earlyEvents: LiveEvent[] = [
   },
   {
     id: 'eme-madeira-2008',
+    eventType: ['festival'],
     date: '2008-10-04',
     title: 'EME — Extensão Madeira',
     venue: { name: 'Casa das Mudas', city: 'Calheta', country: 'Portugal' },
@@ -273,6 +279,7 @@ export const earlyEvents: LiveEvent[] = [
   },
   {
     id: 'eme-2008',
+    eventType: ['festival'],
     title: 'EME',
     titleUrl: 'https://www.emefestival.org/EME_web_press.html',
     date: '2008-10-01',
@@ -343,6 +350,7 @@ export const earlyEvents: LiveEvent[] = [
   },
   {
     id: 'storung-2008',
+    eventType: ['festival'],
     date: '2008-09-25',
     title: 'Störung',
     titleUrl: 'https://ra.co/promoters/4519',
@@ -375,6 +383,7 @@ export const earlyEvents: LiveEvent[] = [
   },
   {
     id: 'stfu-porto',
+    eventType: ['series'],
     date: '2007-03-22',
     title: 'STFU Porto',
     venue: { name: 'Fábrica do Som', url: 'https://fabricadesom.org/', city: 'Porto', country: 'Portugal' },
@@ -407,6 +416,7 @@ export const earlyEvents: LiveEvent[] = [
   },
   {
     id: 'madeiradig-2007',
+    eventType: ['festival'],
     date: '2007-12-08',
     title: 'MADEIRADIG',
     titleUrl: 'https://digitalinberlin.eu/',
@@ -470,6 +480,7 @@ export const earlyEvents: LiveEvent[] = [
   },
   {
     id: 'madeiradig-2006',
+    eventType: ['festival'],
     title: 'MADEIRADIG',
     titleUrl: 'https://digitalinberlin.eu/',
     date: '2006-12-07',
@@ -488,6 +499,7 @@ export const earlyEvents: LiveEvent[] = [
   },
   {
     id: 'madeiradig-2005',
+    eventType: ['festival'],
     date: '2005-12-07',
     title: 'MADEIRADIG',
     titleUrl: 'https://digitalinberlin.eu/',
