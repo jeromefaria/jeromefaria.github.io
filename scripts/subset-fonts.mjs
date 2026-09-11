@@ -1,8 +1,8 @@
-import { create } from 'fontkit';
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { create } from 'fontkit';
 import subsetFont from 'subset-font';
 
 import { INTER_WEIGHTS } from './inter-weights.mjs';

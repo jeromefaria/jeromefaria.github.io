@@ -1,9 +1,8 @@
 import { join } from 'node:path';
 
-import { chromium } from '@playwright/test';
-
 import { epkRiderFile, locales, localize, outDir, pdfChrome, root, siteConfig, techRider } from './epk-context.mjs';
 import { baseStyles } from './pdf-styles.mjs';
+import { renderPdf, withBrowser } from './playwright-render.mjs';
 
 const styles = await baseStyles(root);
 
@@ -78,15 +77,14 @@ const riderHtml = locale => {
 </body></html>`;
 };
 
-const browser = await chromium.launch();
-
-for (const locale of locales) {
-  const page = await browser.newPage();
-  await page.setContent(riderHtml(locale), { waitUntil: 'networkidle' });
-  const filename = `${epkRiderFile(locale)}.pdf`;
-  await page.pdf({ path: join(outDir, filename), format: 'A4', printBackground: true, margin: { top: '13mm', bottom: '13mm', left: '16mm', right: '16mm' } });
-  await page.close();
-  console.log(`Tech rider → public/epk/${filename}`);
-}
-
-await browser.close();
+await withBrowser(async browser => {
+  for (const locale of locales) {
+    const filename = `${epkRiderFile(locale)}.pdf`;
+    await renderPdf(browser, {
+      html: riderHtml(locale),
+      path: join(outDir, filename),
+      margin: { top: '13mm', bottom: '13mm', left: '16mm', right: '16mm' },
+    });
+    console.log(`Tech rider → public/epk/${filename}`);
+  }
+});

@@ -1,12 +1,8 @@
 import { join } from 'node:path';
 
-import { chromium } from '@playwright/test';
-
 import { loadSrc, root } from './data-loader.mjs';
 import { interFontFaces } from './pdf-fonts.mjs';
-
-const WIDTH = 1200;
-const HEIGHT = 630;
+import { CARD_HEIGHT, CARD_WIDTH, renderCard, withBrowser } from './playwright-render.mjs';
 
 const { essays } = await loadSrc('data/writing.ts');
 const fontFaces = await interFontFaces(root);
@@ -15,8 +11,8 @@ const cardHtml = essay => `<!doctype html><html><head><meta charset="utf-8"><sty
   ${fontFaces}
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    width: ${WIDTH}px;
-    height: ${HEIGHT}px;
+    width: ${CARD_WIDTH}px;
+    height: ${CARD_HEIGHT}px;
     background: #000;
     color: #fff;
     font-family: 'Inter', sans-serif;
@@ -43,13 +39,10 @@ const cardHtml = essay => `<!doctype html><html><head><meta charset="utf-8"><sty
   </div>
 </body></html>`;
 
-const browser = await chromium.launch();
-for (const essay of essays) {
-  const page = await browser.newPage({ viewport: { width: WIDTH, height: HEIGHT }, deviceScaleFactor: 2 });
-  await page.setContent(cardHtml(essay), { waitUntil: 'networkidle' });
-  await page.screenshot({ path: join(root, `public/og-writing-${essay.slug}.png`), clip: { x: 0, y: 0, width: WIDTH, height: HEIGHT } });
-  await page.close();
-}
-await browser.close();
+await withBrowser(async browser => {
+  for (const essay of essays) {
+    await renderCard(browser, { html: cardHtml(essay), path: join(root, `public/og-writing-${essay.slug}.png`) });
+  }
+});
 
 console.log(`Writing social cards → public/og-writing-*.png (${essays.length})`);

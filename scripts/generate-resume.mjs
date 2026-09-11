@@ -1,11 +1,11 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { chromium } from '@playwright/test';
 import { marked } from 'marked';
 
 import { root } from './data-loader.mjs';
 import { baseStyles } from './pdf-styles.mjs';
+import { renderPdf, withBrowser } from './playwright-render.mjs';
 
 marked.setOptions({ gfm: true, breaks: true });
 
@@ -31,16 +31,10 @@ const resumeHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
   h2 { break-after: avoid; }
 </style></head><body>${body}</body></html>`;
 
-const browser = await chromium.launch();
-const page = await browser.newPage();
-await page.setContent(resumeHtml, { waitUntil: 'networkidle' });
-await page.pdf({
+await withBrowser(browser => renderPdf(browser, {
+  html: resumeHtml,
   path: join(root, 'public/jerome-faria-cv.pdf'),
-  format: 'A4',
-  printBackground: true,
   margin: { top: '14mm', bottom: '14mm', left: '16mm', right: '16mm' },
-});
-await page.close();
-await browser.close();
+}));
 
 console.log('Résumé → public/jerome-faria-cv.pdf');

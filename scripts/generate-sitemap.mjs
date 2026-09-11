@@ -48,11 +48,11 @@ const alternates = base => {
   const en = `${ORIGIN}${base}`;
   const pt = `${ORIGIN}${ptRoute(base)}`;
 
-  return [
+  return `${[
     `    <xhtml:link rel="alternate" hreflang="en" href="${en}" />`,
     `    <xhtml:link rel="alternate" hreflang="pt" href="${pt}" />`,
     `    <xhtml:link rel="alternate" hreflang="x-default" href="${en}" />`,
-  ].join('\n') + '\n';
+  ].join('\n')  }\n`;
 };
 
 const lastmod = new Date().toISOString().slice(0, 10);
