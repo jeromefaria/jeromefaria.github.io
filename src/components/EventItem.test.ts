@@ -67,7 +67,7 @@ describe('EventItem', () => {
       const link = wrapper.get('.event-title-link');
 
       expect(link.text()).toBe('Fim de Emissão #45');
-      expect(link.attributes('href')).toBe('#fim-de-emissao-45');
+      expect(link.attributes('href')).toBe('/live/fim-de-emissao-45');
 
       await link.trigger('click');
       expect(wrapper.emitted('update-hash')?.[0]).toEqual(['fim-de-emissao-45']);
