@@ -25,6 +25,7 @@
   flex-wrap: wrap;
   gap: $spacing-4;
   width: 100%;
+  touch-action: manipulation;
 
   @include respond-to(md) {
     flex-wrap: nowrap;

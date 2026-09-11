@@ -2,6 +2,8 @@
 import { nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
+import { useDoubleTap } from '@/composables/useDoubleTap';
+import { openCommandPalette } from '@/composables/useOverlays';
 import { navigation, siteConfig } from '@/data/navigation';
 import { useLocalized } from '@/i18n/localized';
 import { useT } from '@/i18n/useT';
@@ -14,6 +16,8 @@ const navOpen = ref(false);
 const navClosing = ref(false);
 const navToggle = ref<HTMLButtonElement | null>(null);
 const navMenu = ref<HTMLElement | null>(null);
+
+const openPaletteOnDoubleTap = useDoubleTap(openCommandPalette);
 
 const closeNav = () => {
   navClosing.value = true;
@@ -71,7 +75,10 @@ onBeforeUnmount(() => {
 
 <template>
   <header class="masthead">
-    <div class="masthead-inner">
+    <div
+      class="masthead-inner"
+      @pointerup.self="openPaletteOnDoubleTap"
+    >
       <p class="masthead-title">
         <RouterLink :to="toLocalePath('/')">
           {{ siteConfig.title }}

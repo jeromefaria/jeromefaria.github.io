@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { nextTick } from 'vue';
 import { createMemoryHistory, createRouter } from 'vue-router';
 
+import { paletteOpen } from '@/composables/useOverlays';
 import { navigation, siteConfig } from '@/data/navigation';
 import { messages } from '@/i18n/messages';
 
@@ -33,6 +34,25 @@ describe('SiteHeader', () => {
     const { wrapper } = await mountHeader();
     expect(wrapper.get('.masthead-title').text()).toContain(siteConfig.title);
     expect(wrapper.get('.masthead-tagline').text()).toBe(siteConfig.tagline.en);
+  });
+
+  it('opens the command palette on a double-tap of the header whitespace', async () => {
+    paletteOpen.value = false;
+    const { wrapper } = await mountHeader();
+    const inner = wrapper.get('.masthead-inner').element;
+
+    const touchTap = (): void => {
+      const event = new Event('pointerup', { bubbles: false });
+      Object.defineProperty(event, 'pointerType', { value: 'touch' });
+      inner.dispatchEvent(event);
+    };
+
+    touchTap();
+    touchTap();
+    await nextTick();
+
+    expect(paletteOpen.value).toBe(true);
+    paletteOpen.value = false;
   });
 
   it('renders a link for every nav item', async () => {
