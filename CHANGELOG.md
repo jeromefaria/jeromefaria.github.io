@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **live:** Link event titles to their /live/:eventId permalink ([#426](https://github.com/jeromefaria/jeromefaria.github.io/pull/426))
 - **live:** Generated per-event social cards for /live/:eventId ([#424](https://github.com/jeromefaria/jeromefaria.github.io/pull/424))
 - **live:** Shareable /live/:eventId permalinks with per-event head + schema ([#423](https://github.com/jeromefaria/jeromefaria.github.io/pull/423))
 
