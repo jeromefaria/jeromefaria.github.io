@@ -1,12 +1,20 @@
 import { flushPromises, mount, type VueWrapper } from '@vue/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { defineComponent } from 'vue';
+import { defineComponent, nextTick } from 'vue';
 import { createMemoryHistory, createRouter, type Router } from 'vue-router';
 
 import { useCommandPalette } from './useCommandPalette';
 import { audioPlayerEnabled } from './useFeatureFlags';
+import { triggerKonamiSurprise } from './useKonamiCode';
 import { paletteOpen } from './useOverlays';
 import { play, stop } from './usePlayer';
+
+vi.mock('./useKonamiCode', async importOriginal => ({
+  ...(await importOriginal<typeof import('./useKonamiCode')>()),
+  triggerKonamiSurprise: vi.fn(),
+}));
+
+const KONAMI_EMOJI = String.fromCodePoint(0x2b06, 0x2b06, 0x2b07, 0x2b07, 0x2b05, 0x27a1, 0x2b05, 0x27a1, 0x1f171, 0x1f170);
 
 type Api = ReturnType<typeof useCommandPalette>;
 
@@ -115,6 +123,37 @@ describe('useCommandPalette', () => {
     paletteOpen.value = true;
     api.handleKeydown(press('Escape'));
     expect(api.isOpen.value).toBe(false);
+  });
+
+  it('fires the Konami surprise when the emoji sequence is typed, then clears and closes', async () => {
+    vi.mocked(triggerKonamiSurprise).mockClear();
+    const { api, wrapper } = await mountPalette();
+    active = wrapper;
+    paletteOpen.value = true;
+    await nextTick();
+
+    api.query.value = KONAMI_EMOJI;
+    await nextTick();
+    await flushPromises();
+
+    expect(triggerKonamiSurprise).toHaveBeenCalledTimes(1);
+    expect(api.query.value).toBe('');
+    expect(api.isOpen.value).toBe(false);
+  });
+
+  it('ignores a partial emoji sequence', async () => {
+    vi.mocked(triggerKonamiSurprise).mockClear();
+    const { api, wrapper } = await mountPalette();
+    active = wrapper;
+    paletteOpen.value = true;
+    await nextTick();
+
+    api.query.value = String.fromCodePoint(0x2b06, 0x2b06);
+    await nextTick();
+    await flushPromises();
+
+    expect(triggerKonamiSurprise).not.toHaveBeenCalled();
+    expect(api.isOpen.value).toBe(true);
   });
 
   it('navigates via the router when a navigate command is executed', async () => {
