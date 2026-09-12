@@ -13,6 +13,7 @@
   justify-content: center;
   min-height: var(--footer-height);
   padding: $spacing-3 $spacing-5;
+  padding-bottom: max($spacing-3, env(safe-area-inset-bottom, 0px));
   color: var(--color-text);
   background-color: var(--color-bg);
   border-top: 1px solid var(--color-border);
