@@ -34,6 +34,14 @@
     border: none;
   }
 
+  &__video-error {
+    max-width: 40ch;
+    padding: $spacing-5;
+    color: var(--text-overlay);
+    text-align: center;
+    cursor: default;
+  }
+
   &__controls {
     position: absolute;
     right: 0;
