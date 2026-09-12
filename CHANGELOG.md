@@ -39,6 +39,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - **deps:** Bump sharp ([#425](https://github.com/jeromefaria/jeromefaria.github.io/pull/425))
 
+### Docs
+
+- **readme:** Reflect live permalinks, mobile palette, and the entity model ([#444](https://github.com/jeromefaria/jeromefaria.github.io/pull/444))
+
 ### Chores
 
 - **styles:** Enforce recess property order via stylelint-order ([#443](https://github.com/jeromefaria/jeromefaria.github.io/pull/443))
