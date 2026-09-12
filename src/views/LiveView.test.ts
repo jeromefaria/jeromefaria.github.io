@@ -63,10 +63,11 @@ describe('LiveView', () => {
     expect(expandedYears(wrapper)).toEqual(['2025']);
   });
 
-  it('falls back to the most recent year for an unknown event id', async () => {
+  it('shows the not-found notice for an unknown event id', async () => {
     const wrapper = await mountView(LiveView, '/live/no-such-event');
     await nextTick();
-    expect(expandedYears(wrapper)).toEqual([liveYears[0]]);
+    expect(wrapper.get('h1').text()).toBe('Page Not Found');
+    expect(wrapper.findAllComponents(AccordionSection)).toHaveLength(0);
   });
 
   it('switches the open year when another year trigger is activated', async () => {

@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router';
 
 import AccordionPage from '@/components/AccordionPage.vue';
 import EventItem from '@/components/EventItem.vue';
+import NotFound from '@/components/NotFound.vue';
 import { liveYears, sortedLiveData } from '@/data/live';
 import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
@@ -17,6 +18,8 @@ const { localize, current } = useLocalized();
 const eventId = computed(() => (typeof route.params['eventId'] === 'string' ? route.params['eventId'] : ''));
 
 const focusEvent = computed(() => (eventId.value ? findLiveEvent(eventId.value) : null));
+
+const notFound = computed(() => eventId.value !== '' && !focusEvent.value);
 
 const head = computed(() => {
   if (focusEvent.value) {
@@ -32,7 +35,9 @@ const head = computed(() => {
 </script>
 
 <template>
+  <NotFound v-if="notFound" />
   <AccordionPage
+    v-else
     data-page="live"
     :title="localize(pageMeta.live.title)"
     :sections="liveYears"

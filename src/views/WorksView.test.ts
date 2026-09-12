@@ -109,9 +109,11 @@ describe('WorksView', () => {
     expect(usePlayer().currentTrack.value?.key).toContain('BRQN006');
   });
 
-  it('does not play for an unknown release id', async () => {
-    await mountView(WorksView, '/works/does-not-exist');
+  it('shows the not-found notice and does not play for an unknown release id', async () => {
+    const wrapper = await mountView(WorksView, '/works/does-not-exist');
     await flushPromises();
+    expect(wrapper.get('h1').text()).toBe('Page Not Found');
+    expect(wrapper.findAllComponents(AccordionSection)).toHaveLength(0);
     expect(usePlayer().currentTrack.value).toBeNull();
   });
 
