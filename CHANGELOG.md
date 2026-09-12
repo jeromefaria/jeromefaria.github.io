@@ -22,6 +22,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Fixes
 
+- **lightbox:** Only embed video from allowlisted provider origins ([#450](https://github.com/jeromefaria/jeromefaria.github.io/pull/450))
 - **player:** Clear the home-indicator inset on the mobile player bar ([#446](https://github.com/jeromefaria/jeromefaria.github.io/pull/446))
 - **router:** Show a soft 404 for unknown work and live permalinks ([#447](https://github.com/jeromefaria/jeromefaria.github.io/pull/447))
 - **player, nav:** Recover playback after error; keep query on clearHash ([#445](https://github.com/jeromefaria/jeromefaria.github.io/pull/445))
