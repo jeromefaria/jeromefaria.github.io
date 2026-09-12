@@ -151,9 +151,10 @@ describe('EventItem', () => {
     it('shows a "Photos" control when the event has images', () => {
       const wrapper = mountEvent({
         ...plainEvent,
+        imageAlt: 'A live photo',
         images: [
-          { src: '/images/live/a-001.jpg', alt: 'A' },
-          { src: '/images/live/a-002.jpg', alt: 'B' },
+          { src: '/images/live/a-001.jpg' },
+          { src: '/images/live/a-002.jpg' },
         ],
       });
       const button = wrapper.get('.media-links button');
@@ -218,7 +219,8 @@ describe('EventItem', () => {
     it('pluralises the video control and separates photo and video controls', () => {
       const wrapper = mountEvent({
         ...plainEvent,
-        images: [{ src: '/images/live/a-001.jpg', alt: 'A' }],
+        imageAlt: 'A live photo',
+        images: [{ src: '/images/live/a-001.jpg' }],
         videos: [
           { url: 'https://player.vimeo.com/video/1', title: 'One', platform: 'vimeo' },
           { url: 'https://player.vimeo.com/video/2', title: 'Two', platform: 'vimeo' },
@@ -265,7 +267,8 @@ describe('EventItem', () => {
     it('orders the controls photos, posters, then videos', () => {
       const wrapper = mountEvent({
         ...plainEvent,
-        images: [{ src: '/images/live/a-001.jpg', alt: 'A' }],
+        imageAlt: 'A live photo',
+        images: [{ src: '/images/live/a-001.jpg' }],
         posters: [{ src: '/images/live/a-poster-001.jpg', alt: 'Poster one' }],
         videos: [{ url: 'https://player.vimeo.com/video/1', title: 'One', platform: 'vimeo' }],
       });
