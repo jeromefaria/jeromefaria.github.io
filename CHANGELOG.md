@@ -22,6 +22,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Fixes
 
+- **player:** Clear the home-indicator inset on the mobile player bar ([#446](https://github.com/jeromefaria/jeromefaria.github.io/pull/446))
 - **router:** Show a soft 404 for unknown work and live permalinks ([#447](https://github.com/jeromefaria/jeromefaria.github.io/pull/447))
 - **player, nav:** Recover playback after error; keep query on clearHash ([#445](https://github.com/jeromefaria/jeromefaria.github.io/pull/445))
 - **palette:** Centre the close button and make it touch-only ([#442](https://github.com/jeromefaria/jeromefaria.github.io/pull/442))
@@ -43,6 +44,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Docs
 
+- **readme:** Fix i18n build drift; retire redundant build:i18n script ([#449](https://github.com/jeromefaria/jeromefaria.github.io/pull/449))
 - **readme:** Reflect live permalinks, mobile palette, and the entity model ([#444](https://github.com/jeromefaria/jeromefaria.github.io/pull/444))
 
 ### Chores
