@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router';
 
 import AccordionPage from '@/components/AccordionPage.vue';
 import EngineeringCreditItem from '@/components/EngineeringCreditItem.vue';
+import NotFound from '@/components/NotFound.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
 import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
@@ -18,6 +19,8 @@ const { localize, current } = useLocalized();
 const releaseId = computed(() => (typeof route.params['releaseId'] === 'string' ? route.params['releaseId'] : ''));
 
 const focusRelease = computed(() => (releaseId.value ? findRelease(releaseId.value) : undefined));
+
+const notFound = computed(() => releaseId.value !== '' && !focusRelease.value);
 
 const head = computed(() => {
   if (focusRelease.value) {
@@ -43,7 +46,9 @@ watch(() => [releaseId.value, route.query['track'], route.query['t']], playFromR
 </script>
 
 <template>
+  <NotFound v-if="notFound" />
   <AccordionPage
+    v-else
     data-page="works"
     :title="localize(pageMeta.works.title)"
     :sections="worksSections"
