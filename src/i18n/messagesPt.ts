@@ -54,6 +54,7 @@ export const pt: MessageSchema = {
     posters: 'Cartazes',
     video: 'Vídeo',
     videos: 'Vídeos',
+    videoUnavailable: 'Não é possível mostrar este vídeo.',
     download: 'Descarregar',
     notes: 'Notas',
     view: 'Ver {label}',

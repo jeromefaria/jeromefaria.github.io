@@ -7,7 +7,7 @@ import type { LightboxItem } from '@/types';
 import LightboxOverlay from './LightboxOverlay.vue';
 
 const image: LightboxItem = { type: 'image', src: '/image.jpg', alt: 'Test image' };
-const video: LightboxItem = { type: 'video', url: 'https://player.example.com/v/1', title: 'A performance', platform: 'vimeo' };
+const video: LightboxItem = { type: 'video', url: 'https://player.vimeo.com/video/1', title: 'A performance', platform: 'vimeo' };
 
 const mountOverlay = (props: Record<string, unknown> = {}) =>
   mount(LightboxOverlay, {
@@ -200,10 +200,21 @@ describe('LightboxOverlay', () => {
       const wrapper = mountOverlay({ currentItem: video });
       const iframe = wrapper.get('iframe.lightbox__video');
 
-      expect(iframe.attributes('src')).toBe('https://player.example.com/v/1');
+      expect(iframe.attributes('src')).toBe('https://player.vimeo.com/video/1');
       expect(iframe.attributes('title')).toBe('A performance');
       expect(wrapper.get('.lightbox').attributes('aria-label')).toBe('Video viewer');
       expect(wrapper.find('picture').exists()).toBe(false);
+
+      wrapper.unmount();
+    });
+
+    it('refuses to embed a video from an unlisted origin, showing a fallback instead', () => {
+      const wrapper = mountOverlay({
+        currentItem: { type: 'video', url: 'https://player.example.com/v/1', title: 'A performance', platform: 'vimeo' },
+      });
+
+      expect(wrapper.find('iframe.lightbox__video').exists()).toBe(false);
+      expect(wrapper.get('.lightbox__video-error').text()).toBe('This video cannot be displayed.');
 
       wrapper.unmount();
     });

@@ -52,6 +52,7 @@ export const en = {
     posters: 'Posters',
     video: 'Video',
     videos: 'Videos',
+    videoUnavailable: 'This video cannot be displayed.',
     download: 'Download',
     notes: 'Notes',
     view: 'View {label}',

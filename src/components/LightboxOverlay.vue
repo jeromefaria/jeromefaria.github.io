@@ -5,6 +5,7 @@ import { useFocusTrap } from '@/composables/useFocusTrap';
 import { useT } from '@/i18n/useT';
 import type { LightboxItem } from '@/types';
 import { isLightboxImage, isLightboxVideo } from '@/types';
+import { isAllowedEmbedUrl } from '@/utils/embedUrl';
 import { creditUrl } from '@/utils/people';
 import { responsiveSrcset, toWebp } from '@/utils/responsiveImage';
 
@@ -101,7 +102,7 @@ onMounted(async () => {
       @touchend="handleTouchEnd"
     >
       <iframe
-        v-if="isVideo && currentItem && isLightboxVideo(currentItem)"
+        v-if="isVideo && currentItem && isLightboxVideo(currentItem) && isAllowedEmbedUrl(currentItem.url)"
         :src="currentItem.url"
         class="lightbox__video"
         :title="currentItem.title || t('media.video')"
@@ -111,6 +112,14 @@ onMounted(async () => {
         allowfullscreen
         @click.stop
       />
+
+      <p
+        v-else-if="isVideo"
+        class="lightbox__video-error"
+        @click.stop
+      >
+        {{ t('media.videoUnavailable') }}
+      </p>
 
       <picture
         v-else-if="isImage && currentItem && isLightboxImage(currentItem)"
