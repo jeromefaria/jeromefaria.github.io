@@ -3,7 +3,7 @@ export const updateHash = (id: string): void => {
 };
 
 export const clearHash = (): void => {
-  window.history.replaceState(null, '', window.location.pathname);
+  window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
 };
 
 export const findSectionContainingId = (

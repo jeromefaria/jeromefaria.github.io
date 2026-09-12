@@ -241,6 +241,11 @@ export const pause = (): void => {
 
 export const resume = async (): Promise<void> => {
   if (!currentTrack.value) return;
+
+  if (status.value === 'error') {
+    await load();
+    return;
+  }
   await start(generation);
 };
 
