@@ -55,7 +55,7 @@ export interface EventVenue {
   country: string;
 }
 
-export interface LiveEvent {
+interface LiveEventBase {
   id: string;
   title: Localizable<string>;
   titleUrl?: string;
@@ -70,11 +70,15 @@ export interface LiveEvent {
   note?: Localized<string>;
   bill?: BillEntry[];
   credit?: Localized<string>;
-  imageAlt?: Localizable<string>;
-  images?: LiveImage[];
   posters?: Poster[];
   videos?: Video[];
 }
+
+type EventImages =
+  | { images?: never; imageAlt?: never }
+  | { images: LiveImage[]; imageAlt: Localizable<string> };
+
+export type LiveEvent = LiveEventBase & EventImages;
 
 export interface LiveYearSection {
   title: string;
