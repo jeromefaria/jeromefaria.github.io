@@ -30,12 +30,13 @@ describe('clearHash', () => {
     vi.restoreAllMocks();
   });
 
-  it('replaces the URL with the bare pathname', () => {
+  it('drops the hash while preserving the path and query string', () => {
+    window.history.replaceState(null, '', '/works/2504?t=572#movement');
     const replaceState = vi.spyOn(window.history, 'replaceState').mockImplementation(() => undefined);
 
     clearHash();
 
-    expect(replaceState).toHaveBeenCalledWith(null, '', window.location.pathname);
+    expect(replaceState).toHaveBeenCalledWith(null, '', '/works/2504?t=572');
   });
 });
 

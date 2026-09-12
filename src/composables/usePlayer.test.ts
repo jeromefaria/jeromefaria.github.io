@@ -159,6 +159,26 @@ describe('usePlayer', () => {
     vi.useRealTimers();
   });
 
+  it('recovers from an error state when the user resumes', async () => {
+    vi.useFakeTimers();
+    await mod.play(TRACKS);
+    const api = mod.usePlayer();
+    const element = mod.getMediaElement();
+
+    fire(element, 'error');
+    await vi.advanceTimersByTimeAsync(600);
+    fire(element, 'error');
+    await vi.advanceTimersByTimeAsync(1200);
+    fire(element, 'error');
+    expect(api.status.value).toBe('error');
+    vi.useRealTimers();
+
+    await mod.resume();
+
+    expect(api.status.value).not.toBe('error');
+    expect(api.error.value).toBeNull();
+  });
+
   it('ignores a superseded track whose load fails late', async () => {
     let rejectFirst: (reason: unknown) => void = () => {};
     playMock
