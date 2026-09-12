@@ -22,6 +22,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Fixes
 
+- **player, nav:** Recover playback after error; keep query on clearHash ([#445](https://github.com/jeromefaria/jeromefaria.github.io/pull/445))
 - **palette:** Centre the close button and make it touch-only ([#442](https://github.com/jeromefaria/jeromefaria.github.io/pull/442))
 - **palette:** Stop Ctrl+K from closing instead of moving up ([#436](https://github.com/jeromefaria/jeromefaria.github.io/pull/436))
 
