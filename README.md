@@ -160,7 +160,7 @@ Editing site content? See [`docs/CONTENT_MANAGEMENT.md`](docs/CONTENT_MANAGEMENT
 
 - **Frontend:** Vue 3 (Composition API, `<script setup>`), TypeScript (strict mode)
 - **Build:** Vite with SSG (Static Site Generation) + hydration — every route plus a shareable page per release
-- **i18n:** vue-i18n behind a lightweight `useT` layer; EN/PT, routed under `/pt`, flag-gated (`VITE_I18N`) and tree-shaken from the default build
+- **i18n:** vue-i18n behind a lightweight `useT` layer; EN/PT, routed under `/pt`, flag-gated (`VITE_I18N`) — the production build ships both languages, while an English-only build tree-shakes the whole path out
 - **Audio:** `HTMLAudioElement` state machine + Media Session API; AAC (`.m4a`) hosted on Cloudflare R2, streamed over HTTP range requests
 - **Backend:** Cloudflare Worker (`wrangler`) — server-side Turnstile verification, Resend email relay
 - **Styling:** SCSS with BEM and design tokens, lint-enforced with stylelint (BEM selector pattern)
@@ -182,11 +182,8 @@ npm run dev
 # Start dev server with the EN/PT layer on (previews /pt without touching .env)
 npm run dev:i18n
 
-# Build for production
+# Build for production (ships both languages via .env.production)
 npm run build
-
-# Build with the EN/PT layer on
-npm run build:i18n
 
 # Preview production build
 npm run preview
@@ -199,7 +196,7 @@ npm run lint
 npm run lint:fix
 ```
 
-No environment setup is required to run locally — audio falls back to same-origin assets and the site builds English-only by default. To preview the Portuguese locale, use `npm run dev:i18n` (or `build:i18n`) — no `.env` needed. To stream audio from Cloudflare R2, copy `.env.example` to `.env` and set the optional `VITE_` variables it documents.
+No environment setup is required to run locally — audio falls back to same-origin assets, and the dev server runs English-only by default (preview the Portuguese locale with `npm run dev:i18n`, no `.env` needed). The production build ships both languages via `.env.production`. To stream audio from Cloudflare R2, copy `.env.example` to `.env` and set the optional `VITE_` variables it documents.
 
 ## Testing
 
