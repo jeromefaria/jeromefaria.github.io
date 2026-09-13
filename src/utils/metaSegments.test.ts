@@ -24,11 +24,22 @@ describe('buildMetaSegments', () => {
     expect(asText({
       kind: 'compilation',
       compilation: { text: 'Comp', url: 'https://c' },
-      collaborators: ['Structura'],
+      collaborators: ['structura'],
       mediums: ['MP3'],
       editions: [{ label: { text: 'Label' }, catalog: 'L1' }],
       released: '2007',
     })).toBe('with Structura in Comp — MP3, Label, L1, 2007');
+  });
+
+  it('renders a collaborator that has no registry url as plain text', () => {
+    expect(asText({
+      kind: 'compilation',
+      compilation: { text: 'Comp' },
+      collaborators: ['mario-andre-pereira'],
+      mediums: ['CD'],
+      editions: [{ label: { text: 'Label' } }],
+      released: '2008',
+    })).toBe('with Mário André Pereira in Comp — CD, Label, 2008');
   });
 
   it('renders a compilation without collaborators', () => {
@@ -89,7 +100,7 @@ describe('buildMetaSegments', () => {
     expect(asText({
       kind: 'compilation',
       compilation: { text: 'Comp' },
-      collaborators: ['Structura'],
+      collaborators: ['structura'],
       mediums: ['MP3'],
       editions: [{ label: { text: 'Label' } }],
       released: '2007',

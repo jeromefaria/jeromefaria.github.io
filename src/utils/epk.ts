@@ -7,6 +7,7 @@ import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { EpkContent, EpkLiveHighlight, EpkManifest, EpkPhoto, EpkWorkHighlight, EpkWorkRef } from '@/types/epk';
 import type { LiveEvent } from '@/types/live';
 import type { Release } from '@/types/works';
+import { resolveCredit } from '@/utils/people';
 import { releaseYear } from '@/utils/releaseDate';
 import { venueCompactLabel } from '@/utils/venueFormat';
 
@@ -29,7 +30,7 @@ const slugify = (value: string): string =>
     .replace(/^-+|-+$/g, '');
 
 export const photoDownloadFilename = (photo: EpkPhoto, index: number): string => {
-  const credit = photo.photographer ? `-by-${slugify(photo.photographer.name)}` : '';
+  const credit = photo.photographer ? `-by-${slugify(resolveCredit(photo.photographer).name)}` : '';
 
   return `jerome-faria-${index + 1}${credit}.jpg`;
 };

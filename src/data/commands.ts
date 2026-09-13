@@ -15,6 +15,7 @@ import type { CommissionMeta, Edition, Release, ReleaseMeta } from '@/types/work
 import { cvPdfHref } from '@/utils/cv';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
 import { openInNewTab } from '@/utils/openInNewTab';
+import { resolveCredit } from '@/utils/people';
 import { releaseYearString } from '@/utils/releaseDate';
 import { canPlayRelease, playReleaseAt } from '@/utils/releasePermalink';
 import { creditNames, plainCredits } from '@/utils/renderCredits';
@@ -105,7 +106,7 @@ const eventPeople = (event: LiveEvent, locale: Locale): string[] => {
   if (setup.kind === 'ensemble') names.push(localize(setup.name, locale), ...(setup.members ?? []).map(member => member.text));
 
   names.push(...(event.bill ?? []).flatMap(entry => (Array.isArray(entry) ? entry.map(member => member.text) : [entry.text])));
-  names.push(...(event.images ?? []).map(image => image.photographer?.name ?? ''));
+  names.push(...(event.images ?? []).map(image => (image.photographer ? resolveCredit(image.photographer).name : '')));
   names.push(...(event.posters ?? []).map(poster => poster.artist?.name ?? ''));
 
   return names.filter(Boolean);
@@ -131,7 +132,7 @@ const releaseCommands = (locale: Locale): Command[] =>
         releaseYearString(release.meta.released),
         ...metaText(release.meta),
         ...(release.tracklist ?? []).map(track => track.title),
-        ...(release.images ?? []).map(image => image.photographer?.name ?? ''),
+        ...(release.images ?? []).map(image => (image.photographer ? resolveCredit(image.photographer).name : '')),
         ...mediaKeywords(release, locale),
         ...creditNames(release.credits, locale),
       ];

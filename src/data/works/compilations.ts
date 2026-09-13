@@ -109,7 +109,7 @@ export const compilations: WorksSection = {
       meta: {
         kind: 'compilation',
         compilation: { text: 'SOUNDResearch', url: 'https://archive.org/details/enrcmp05_-_sound_research' },
-        collaborators: ['Structura'],
+        collaborators: ['structura'],
         mediums: ['CD', 'MP3'],
         editions: [{ label: { text: 'Enough Records' }, catalog: 'ENRCMP05' }],
         released: '2007-03-26',

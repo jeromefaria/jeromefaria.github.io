@@ -1,12 +1,12 @@
 import type { Localizable } from '@/i18n/localized';
 
-import type { Credit } from './media';
+import type { CreditRef } from './media';
 import type { PressQuote } from './press';
 
 export interface EpkPhoto {
   src: string;
   alt: Localizable<string>;
-  photographer?: Credit;
+  photographer?: CreditRef;
 }
 
 export type BioVariant = 'short' | 'press';

@@ -2,14 +2,14 @@ import type { Localizable, Localized } from '@/i18n/localized';
 
 import type { MetaLink } from './common';
 import type { Credits } from './credits';
-import type { Credit, Video } from './media';
+import type { Credit, CreditRef, Video } from './media';
 
 export type { MetaLink };
 
 export interface Image {
   src: string;
   alt: Localizable<string>;
-  photographer?: Credit;
+  photographer?: CreditRef;
 }
 
 export interface Track {
@@ -40,7 +40,7 @@ export interface MusicMeta {
 export interface CompilationMeta {
   kind: 'compilation';
   compilation: MetaLink;
-  collaborators?: string[];
+  collaborators?: CreditRef[];
   mediums: Medium[];
   editions: Edition[];
   released: string;
