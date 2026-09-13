@@ -91,10 +91,7 @@ export const midEvents: LiveEvent[] = [
       en: 'Festival about creativity, technology and science.',
       pt: 'Festival sobre criatividade, tecnologia e ciência.',
     },
-    credit: {
-      en: 'Presented by [[Urbanistas]].',
-      pt: 'Apresentado pelos [[Urbanistas]].',
-    },
+    presentedBy: ['urbanistas'],
   },
   {
     id: 'caligari-live-3',
