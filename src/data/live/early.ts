@@ -18,10 +18,7 @@ export const earlyEvents: LiveEvent[] = [
       { text: 'Nadja', url: 'https://nadja.bandcamp.com/' },
       { text: 'Aki Onda', url: 'https://akionda.net/' },
     ],
-    credit: {
-      en: 'Presented by [[APCA]] and [[Digital in Berlin]].',
-      pt: 'Apresentado pela [[APCA]] e pela [[Digital in Berlin]].',
-    },
+    presentedBy: ['apca', 'digital-in-berlin'],
     images: [
       {
         src: '/images/live/madeiradig-2011-001.jpg',
@@ -93,10 +90,7 @@ export const earlyEvents: LiveEvent[] = [
       { text: 'Paul Farrington', url: 'https://www.paul-farrington-design.com/' },
       { text: 'André Gonçalves' },
     ],
-    credit: {
-      en: 'Presented by [[Universidade Católica do Porto]].',
-      pt: 'Apresentado pela [[Universidade Católica do Porto]].',
-    },
+    presentedBy: ['universidade-catolica-do-porto'],
     images: [
       {
         src: '/images/live/olhares-de-outono-2010-001.jpg',
@@ -147,10 +141,7 @@ export const earlyEvents: LiveEvent[] = [
       { text: 'Gigantiq', url: 'https://gigantiq.bandcamp.com/' },
       { text: 'Jade', url: 'http://www.jade-enterprises.at/' },
     ],
-    credit: {
-      en: 'Presented by [[APCA]] and [[Digital in Berlin]].',
-      pt: 'Apresentado pela [[APCA]] e pela [[Digital in Berlin]].',
-    },
+    presentedBy: ['apca', 'digital-in-berlin'],
     images: [
       {
         src: '/images/live/madeiradig-2009-001.jpg',
@@ -232,10 +223,7 @@ export const earlyEvents: LiveEvent[] = [
         { text: 'Hugo Olim' },
       ],
     },
-    credit: {
-      en: 'Presented by [[Universidade Católica do Porto]].',
-      pt: 'Apresentado pela [[Universidade Católica do Porto]].',
-    },
+    presentedBy: ['universidade-catolica-do-porto'],
     images: [
       {
         src: '/images/live/eme-olhares-2009-001.jpg',
@@ -428,10 +416,7 @@ export const earlyEvents: LiveEvent[] = [
       { text: 'Vladislav Delay', url: 'https://vladislavdelay.bandcamp.com/' },
       { text: 'Ran Slavin', url: 'https://ranslavin.com/' },
     ],
-    credit: {
-      en: 'Presented by [[APCA]] and [[Digital in Berlin]].',
-      pt: 'Apresentado pela [[APCA]] e pela [[Digital in Berlin]].',
-    },
+    presentedBy: ['apca', 'digital-in-berlin'],
     images: [
       {
         src: '/images/live/madeiradig-2007-001.jpg',
@@ -490,10 +475,7 @@ export const earlyEvents: LiveEvent[] = [
       [{ text: 'Phonophani', url: 'https://phonophani.bandcamp.com/' }, { text: 'Marius Watz', url: 'https://mariuswatz.com/' }],
       { text: 'Frank Bretschneider' },
     ],
-    credit: {
-      en: 'Presented by [[APCA]].',
-      pt: 'Apresentado pela [[APCA]].',
-    },
+    presentedBy: ['apca'],
   },
   {
     id: 'madeiradig-2005',
@@ -513,10 +495,7 @@ export const earlyEvents: LiveEvent[] = [
       { text: 'LB^LC', url: 'https://www.discogs.com/artist/385554-LBLC' },
       [{ text: 'Ruinman' }, { text: 'Redo' }],
     ],
-    credit: {
-      en: 'Presented by [[APCA]].',
-      pt: 'Apresentado pela [[APCA]].',
-    },
+    presentedBy: ['apca'],
     images: [
       {
         src: '/images/live/madeiradig-2005-001.jpg',

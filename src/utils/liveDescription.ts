@@ -1,6 +1,9 @@
+import { orgs } from '@/data/orgs';
 import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
+import { ptContract, type PtGrammar } from '@/i18n/ptGrammar';
 import type { Act, BillEntry, Format, LiveEvent, Setup } from '@/types/live';
+import type { Organization } from '@/types/orgs';
 import { safeHref } from '@/utils/html';
 import { orgUrl } from '@/utils/orgs';
 import { personUrl } from '@/utils/people';
@@ -21,6 +24,9 @@ interface Phrases {
   filmScoreWith: (act: string) => string;
   performedAs: (name: string) => string;
   alongside: (acts: string) => string;
+  presentedBy: (presenters: string) => string;
+  presenter: (marker: string, grammar?: PtGrammar) => string;
+  presenterConjunction: string;
 }
 
 const PHRASES: Record<Locale, Phrases> = {
@@ -37,6 +43,9 @@ const PHRASES: Record<Locale, Phrases> = {
     filmScoreWith: withAct => `, with ${withAct}`,
     performedAs: name => `Performed as ${name}.`,
     alongside: acts => `Alongside ${acts}.`,
+    presentedBy: presenters => `Presented by ${presenters}.`,
+    presenter: marker => marker,
+    presenterConjunction: ' and ',
   },
   pt: {
     solo: 'Actuação a solo.',
@@ -51,6 +60,9 @@ const PHRASES: Record<Locale, Phrases> = {
     filmScoreWith: withAct => `, com ${withAct}`,
     performedAs: name => `Como ${name}.`,
     alongside: acts => `Ao lado de ${acts}.`,
+    presentedBy: presenters => `Apresentado ${presenters}.`,
+    presenter: (marker, grammar) => `${ptContract('por', grammar)} ${marker}`,
+    presenterConjunction: ' e ',
   },
 };
 
@@ -101,6 +113,16 @@ const primary = (setup: Setup, phrases: Phrases, locale: Locale, format?: Format
   }
 };
 
+const presentedByClause = (keys: string[], phrases: Phrases): string => {
+  const presenters = keys
+    .map(key => orgs[key])
+    .filter((org): org is Organization => Boolean(org))
+    .map(org => phrases.presenter(`[[${org.name}]]`, org.pt))
+    .join(phrases.presenterConjunction);
+
+  return phrases.presentedBy(presenters);
+};
+
 export const buildEventDescription = (event: LiveEvent, locale: Locale = DEFAULT_LOCALE): string => {
   const phrases = PHRASES[locale];
   const parts = [primary(event.setup, phrases, locale, event.format)];
@@ -108,6 +130,7 @@ export const buildEventDescription = (event: LiveEvent, locale: Locale = DEFAULT
   if (event.performedAs) parts.push(phrases.performedAs(event.performedAs));
   if (event.note) parts.push(localize(event.note, locale));
   if (event.bill?.length) parts.push(phrases.alongside(event.bill.map(entry => billEntry(entry, locale)).join(', ')));
+  if (event.presentedBy?.length) parts.push(presentedByClause(event.presentedBy, phrases));
   if (event.credit) parts.push(localize(event.credit, locale));
 
   return linkEntities(parts.join(' '));
