@@ -13,7 +13,6 @@ export const midEvents: LiveEvent[] = [
       { text: 'Mr. Herbert Quain', url: 'https://zigurartists.bandcamp.com/album/forgetting-is-a-liability' },
       { text: 'Cruz', url: 'https://www.viberate.com/artist/cruz-767/' },
     ],
-    imageAlt: { en: 'Jerome Faria performing at Heineken Series, Musicbox, Lisbon, 2015', pt: 'Jerome Faria a actuar na Heineken Series, Musicbox, Lisboa, 2015' },
     images: [
       {
         src: '/images/live/heineken-series-001.jpg',
@@ -69,7 +68,6 @@ export const midEvents: LiveEvent[] = [
     bill: [
       { text: 'Tren Go! Sound System', url: 'https://trengosoundsystem.bandcamp.com/' },
     ],
-    imageAlt: { en: 'Jerome Faria performing at Fica na Cidade, Praça de Colombo, Funchal, 2015', pt: 'Jerome Faria a actuar no Fica na Cidade, Praça de Colombo, Funchal, 2015' },
     images: [
       {
         src: '/images/live/fica-na-cidade-001.jpg',
@@ -109,12 +107,18 @@ export const midEvents: LiveEvent[] = [
   },
   {
     id: 'caligari-live-2',
+    altLocation: {
+      subject: {
+        en: 'Jerome Faria performing The Cabinet of Dr. Caligari',
+        pt: 'Jerome Faria a interpretar The Cabinet of Dr. Caligari',
+      },
+      onVenue: true,
+    },
     title: 'The Cabinet of Dr. Caligari',
     date: '2013-09-13',
     venue: { name: 'Scat Music Club', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Nuno Filipe', suffix: '(piano)' } },
     format: { kind: 'filmScore', film: { en: "Robert Wiene's 1920 expressionist silent film", pt: 'o filme mudo expressionista de Robert Wiene (1920)' } },
-    imageAlt: { en: 'Jerome Faria performing The Cabinet of Dr. Caligari at Scat Music Club, Funchal, 2013', pt: 'Jerome Faria a interpretar The Cabinet of Dr. Caligari no Scat Music Club, Funchal, 2013' },
     images: [
       {
         src: '/images/live/caligari-live-2-001.jpg',
@@ -130,7 +134,6 @@ export const midEvents: LiveEvent[] = [
     venue: { name: 'Casa das Mudas', city: 'Calheta', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Nuno Filipe', suffix: '(piano)' } },
     format: { kind: 'filmScore', film: { en: "Robert Wiene's 1920 expressionist silent film", pt: 'o filme mudo expressionista de Robert Wiene (1920)' }, premiere: true },
-    imageAlt: { en: 'Jerome Faria performing at Cidades Electrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013', pt: 'Jerome Faria a actuar em Cidades Electrónicas: The Cabinet of Dr. Caligari, Casa das Mudas, Calheta, 2013' },
     images: [
       {
         src: '/images/live/caligari-cidades-2013-001.jpg',

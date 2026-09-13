@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { createMemoryHistory, createRouter } from 'vue-router';
 
 import type { LiveEvent } from '@/types';
+import { liveEventImageAlt } from '@/utils/liveEventImageAlt';
 
 import EventItem from './EventItem.vue';
 
@@ -151,7 +152,6 @@ describe('EventItem', () => {
     it('shows a "Photos" control when the event has images', () => {
       const wrapper = mountEvent({
         ...plainEvent,
-        imageAlt: 'A live photo',
         images: [
           { src: '/images/live/a-001.jpg' },
           { src: '/images/live/a-002.jpg' },
@@ -163,35 +163,33 @@ describe('EventItem', () => {
     });
 
     it('emits open-lightbox with the converted images (photo-role credit) on click', async () => {
-      const wrapper = mountEvent({
+      const event: LiveEvent = {
         ...plainEvent,
-        imageAlt: 'A live photo',
         images: [{ src: '/images/live/a-001.jpg', photographer: { name: 'Someone' } }],
-      });
+      };
+      const wrapper = mountEvent(event);
 
       await wrapper.get('.media-links button').trigger('click');
       const payload = wrapper.emitted('open-lightbox')?.[0];
 
       expect(payload?.[1]).toBe(0);
       expect(payload?.[0]).toEqual([
-        { type: 'image', src: '/images/live/a-001.jpg', alt: 'A live photo', credit: { role: 'photo', name: 'Someone' } },
+        { type: 'image', src: '/images/live/a-001.jpg', alt: liveEventImageAlt(event, 'en'), credit: { role: 'photo', name: 'Someone' } },
       ]);
     });
 
-    it('applies the event imageAlt to every photo', async () => {
-      const wrapper = mountEvent({
+    it('applies one derived alt to every photo', async () => {
+      const event: LiveEvent = {
         ...plainEvent,
-        imageAlt: 'Event-level description',
         images: [{ src: '/images/live/a-001.jpg' }, { src: '/images/live/a-002.jpg' }],
-      });
+      };
+      const wrapper = mountEvent(event);
 
       await wrapper.get('.media-links button').trigger('click');
       const payload = wrapper.emitted('open-lightbox')?.[0];
+      const expected = liveEventImageAlt(event, 'en');
 
-      expect((payload?.[0] as Array<{ alt: string }>).map(item => item.alt)).toEqual([
-        'Event-level description',
-        'Event-level description',
-      ]);
+      expect((payload?.[0] as Array<{ alt: string }>).map(item => item.alt)).toEqual([expected, expected]);
     });
 
     it('renders no media control when the event has neither images nor videos', () => {
@@ -219,7 +217,6 @@ describe('EventItem', () => {
     it('pluralises the video control and separates photo and video controls', () => {
       const wrapper = mountEvent({
         ...plainEvent,
-        imageAlt: 'A live photo',
         images: [{ src: '/images/live/a-001.jpg' }],
         videos: [
           { url: 'https://player.vimeo.com/video/1', title: 'One', platform: 'vimeo' },
@@ -267,7 +264,6 @@ describe('EventItem', () => {
     it('orders the controls photos, posters, then videos', () => {
       const wrapper = mountEvent({
         ...plainEvent,
-        imageAlt: 'A live photo',
         images: [{ src: '/images/live/a-001.jpg' }],
         posters: [{ src: '/images/live/a-poster-001.jpg', alt: 'Poster one' }],
         videos: [{ url: 'https://player.vimeo.com/video/1', title: 'One', platform: 'vimeo' }],
@@ -332,7 +328,6 @@ describe('EventItem', () => {
   describe('thumbnail', () => {
     const withImages: LiveEvent = {
       ...plainEvent,
-      imageAlt: 'A live photo',
       images: [
         { src: '/images/live/a-001.jpg' },
         { src: '/images/live/a-002.jpg', cover: true, thumb: { position: 'center 85%', scale: 1.2, rotate: 1 } },
@@ -351,7 +346,7 @@ describe('EventItem', () => {
     });
 
     it('defaults the hero to the first image when none is flagged as cover', () => {
-      const wrapper = mountEvent({ ...plainEvent, imageAlt: 'x', images: [{ src: '/images/live/b-001.jpg' }, { src: '/images/live/b-002.jpg' }] });
+      const wrapper = mountEvent({ ...plainEvent, images: [{ src: '/images/live/b-001.jpg' }, { src: '/images/live/b-002.jpg' }] });
 
       expect(wrapper.get('.event-thumb img').attributes('src')).toBe('/images/live/b-001.jpg');
       expect(wrapper.get('.event-thumb img').attributes('style')).toBeUndefined();

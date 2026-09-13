@@ -59,7 +59,6 @@ export const recentEvents: LiveEvent[] = [
         alt: { en: 'Festival Múltiplo 2026 poster for 23 August at Zaratan, Lisbon — Jerome Faria, Formidolor, Joana de Sá, Double Double', pt: 'Cartaz do Festival Múltiplo 2026 para 23 de Agosto no Zaratan, Lisboa — Jerome Faria, Formidolor, Joana de Sá, Double Double' },
       },
     ],
-    imageAlt: { en: 'Jerome Faria performing at Festival Múltiplo, Zaratan, Lisbon, 2026', pt: 'Jerome Faria a actuar no Festival Múltiplo, Zaratan, Lisboa, 2026' },
     images: [
       {
         src: '/images/live/festival-multiplo-2026-001.jpg',
@@ -106,7 +105,6 @@ export const recentEvents: LiveEvent[] = [
       en: 'Presented by [[OUT.RA]] and [[Colectivo Casa Amarela]].',
       pt: 'Apresentado pela [[OUT.RA]] e pelo [[Colectivo Casa Amarela]].',
     },
-    imageAlt: { en: 'NOx performing at Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025', pt: 'NOx a actuar no Showcase Casa Amarela, Cooperativa Mula, Barreiro, 2025' },
     images: [
       {
         src: '/images/live/showcase-casa-amarela-001.jpg',
@@ -176,7 +174,6 @@ export const recentEvents: LiveEvent[] = [
       en: 'Presented by [[Colectivo Casa Amarela]].',
       pt: 'Apresentado pelo [[Colectivo Casa Amarela]].',
     },
-    imageAlt: { en: 'Jerome Faria performing at Fim de Emissão #45, Desterro, Lisbon, 2025', pt: 'Jerome Faria a actuar no Fim de Emissão #45, Desterro, Lisboa, 2025' },
     images: [
       {
         src: '/images/live/fim-de-emissao-45-001.jpg',
@@ -247,7 +244,6 @@ export const recentEvents: LiveEvent[] = [
       en: 'Presented by [[Colectivo Casa Amarela]].',
       pt: 'Apresentado pelo [[Colectivo Casa Amarela]].',
     },
-    imageAlt: { en: 'NOx performing at CCA no Desterro, Desterro, Lisbon, 2024', pt: 'NOx a actuar em CCA no Desterro, Desterro, Lisboa, 2024' },
     images: [
       {
         src: '/images/live/cca-no-desterro-001.jpg',
@@ -326,7 +322,6 @@ export const recentEvents: LiveEvent[] = [
     date: '2022-07-02',
     venue: { name: 'Teatro Municipal Baltazar Dias', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'band', band: { text: 'Amess' } },
-    imageAlt: { en: 'Jerome Faria performing with Amess at Teatro Municipal Baltazar Dias, Funchal, 2022', pt: 'Jerome Faria a actuar com Amess no Teatro Municipal Baltazar Dias, Funchal, 2022' },
     images: [
       {
         src: '/images/live/amess-teatro-baltazar-dias-001.jpg',
@@ -349,7 +344,6 @@ export const recentEvents: LiveEvent[] = [
     date: '2022-03-18',
     venue: { name: 'Museu Henrique e Francisco Franco', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=3', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'band', band: { text: 'Amess' } },
-    imageAlt: { en: 'Jerome Faria performing with Amess at Museu Henrique e Francisco Franco, Funchal, 2022', pt: 'Jerome Faria a actuar com Amess no Museu Henrique e Francisco Franco, Funchal, 2022' },
     images: [
       {
         src: '/images/live/amess-museu-franco-001.jpg',
@@ -386,7 +380,6 @@ export const recentEvents: LiveEvent[] = [
       en: 'Presented by [[Colectivo Casa Amarela]].',
       pt: 'Apresentado pelo [[Colectivo Casa Amarela]].',
     },
-    imageAlt: { en: 'Jerome Faria performing at Jejum #11, Rua das Gaivotas 6, Lisbon, 2022', pt: 'Jerome Faria a actuar no Jejum #11, Rua das Gaivotas 6, Lisboa, 2022' },
     images: [
       {
         src: '/images/live/jejum-11-001.jpg',
@@ -459,6 +452,7 @@ export const recentEvents: LiveEvent[] = [
   },
   {
     id: 'nariz-entupido',
+    altLocation: { onVenue: true },
     eventType: ['showcase'],
     title: '30 anos SPH / 20 anos Thisco',
     date: '2021-10-22',
@@ -481,7 +475,6 @@ export const recentEvents: LiveEvent[] = [
       en: 'Presented by [[Nariz Entupido]] with [[THISCO]] and SPH.',
       pt: 'Apresentado pela [[Nariz Entupido]] com a [[THISCO]] e a SPH.',
     },
-    imageAlt: { en: 'Jerome Faria and CAVERNANCIA performing at SMUP, Parede, 2021', pt: 'Jerome Faria e CAVERNANCIA a actuar na SMUP, Parede, 2021' },
     images: [
       {
         src: '/images/live/nariz-entupido-001.jpg',
@@ -513,6 +506,7 @@ export const recentEvents: LiveEvent[] = [
   },
   {
     id: 'aragao-funchal',
+    altLocation: { label: 'Aragão' },
     language: 'pt-PT',
     title: 'ARAGÃO',
     titleUrl: '/works#aragao',
@@ -521,7 +515,6 @@ export const recentEvents: LiveEvent[] = [
     venue: { name: 'Teatro Municipal Baltazar Dias', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'solo' },
     format: { kind: 'theatre' },
-    imageAlt: { en: 'Aragão theatre production at Teatro Municipal Baltazar Dias, Funchal, 2021', pt: 'Produção teatral Aragão no Teatro Municipal Baltazar Dias, Funchal, 2021' },
     images: [
       {
         src: '/images/live/aragao-funchal-002.jpg',

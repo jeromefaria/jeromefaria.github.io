@@ -13,6 +13,7 @@ import { getImageStyles } from '@/utils/imageStyles';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
 import type { LightboxSource } from '@/utils/lightboxPermalink';
 import { buildEventDescription } from '@/utils/liveDescription';
+import { liveEventImageAlt } from '@/utils/liveEventImageAlt';
 import { liveEventPath } from '@/utils/liveEventPermalink';
 import { venuePlace } from '@/utils/venueFormat';
 import { venueUrl } from '@/utils/venues';
@@ -47,9 +48,11 @@ const venueSeparator = computed(() => (props.event.venue.name && venueLocation.v
 
 const venueHref = computed(() => props.event.venue.url ?? (props.event.venue.name ? venueUrl(props.event.venue.name) : undefined));
 
+const altText = computed(() => liveEventImageAlt(props.event, current.value));
+
 const imageLightboxItems = computed<LightboxItem[]>(() =>
   props.event.images?.map(image =>
-    toLightboxImage({ ...image, alt: props.event.imageAlt ?? '' }, current.value)) ?? []);
+    toLightboxImage({ ...image, alt: altText.value }, current.value)) ?? []);
 const posterLightboxItems = computed<LightboxItem[]>(() =>
   props.event.posters?.map(poster => toLightboxImage(poster, current.value)) ?? []);
 const videoLightboxItems = computed<LightboxItem[]>(() =>
@@ -71,10 +74,10 @@ const toHeroThumb = (source: LiveImage | Poster, alt: Localizable<string>) => ({
 });
 
 const heroThumb = computed(() => {
-  const { images, posters, imageAlt } = props.event;
+  const { images, posters } = props.event;
 
   const image = images?.find(item => item.cover) ?? images?.[0];
-  if (image) return toHeroThumb(image, imageAlt ?? '');
+  if (image) return toHeroThumb(image, altText.value);
 
   const poster = posters?.find(item => item.cover) ?? posters?.[0];
   if (poster) return toHeroThumb(poster, poster.alt);

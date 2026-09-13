@@ -22,7 +22,6 @@ export const earlyEvents: LiveEvent[] = [
       en: 'Presented by [[APCA]] and [[Digital in Berlin]].',
       pt: 'Apresentado pela [[APCA]] e pela [[Digital in Berlin]].',
     },
-    imageAlt: { en: 'Jerome Faria and Taylor Deupree performing at MADEIRADIG, Casa das Mudas, Calheta, 2011', pt: 'Jerome Faria e Taylor Deupree a actuar no MADEIRADIG, Casa das Mudas, Calheta, 2011' },
     images: [
       {
         src: '/images/live/madeiradig-2011-001.jpg',
@@ -67,7 +66,6 @@ export const earlyEvents: LiveEvent[] = [
     date: '2011-05-23',
     venue: { name: 'Théâtre de L\'Opprimé', url: 'https://www.theatredelopprime.com/', city: 'Paris', country: 'France' },
     setup: { kind: 'duo', with: { text: 'Hugo Olim', suffix: { en: '(visuals)', pt: '(visuais)' } } },
-    imageAlt: { en: 'Jerome Faria and Hugo Olim performing at Festival Migractions, Théâtre de L\'Opprimé, Paris, 2011', pt: 'Jerome Faria e Hugo Olim a actuar no Festival Migractions, Théâtre de L\'Opprimé, Paris, 2011' },
     images: [
       {
         src: '/images/live/migractions-2011-001.jpg',
@@ -99,7 +97,6 @@ export const earlyEvents: LiveEvent[] = [
       en: 'Presented by [[Universidade Católica do Porto]].',
       pt: 'Apresentado pela [[Universidade Católica do Porto]].',
     },
-    imageAlt: { en: 'Jerome Faria performing at Olhares de Outono, Passos Manuel, Porto, 2010', pt: 'Jerome Faria a actuar no Olhares de Outono, Passos Manuel, Porto, 2010' },
     images: [
       {
         src: '/images/live/olhares-de-outono-2010-001.jpg',
@@ -154,7 +151,6 @@ export const earlyEvents: LiveEvent[] = [
       en: 'Presented by [[APCA]] and [[Digital in Berlin]].',
       pt: 'Apresentado pela [[APCA]] e pela [[Digital in Berlin]].',
     },
-    imageAlt: { en: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, Casa das Mudas, Calheta, 2009', pt: 'Jerome Faria e Hugo Olim a actuar no MADEIRADIG, Casa das Mudas, Calheta, 2009' },
     images: [
       {
         src: '/images/live/madeiradig-2009-001.jpg',
@@ -201,6 +197,13 @@ export const earlyEvents: LiveEvent[] = [
   },
   {
     id: 'eme-olhares-2009',
+    altLocation: {
+      subject: {
+        en: 'Resampling White Noise laptop meeting',
+        pt: 'Encontro de laptops Resampling White Noise',
+      },
+      grammar: { gender: 'm' },
+    },
     eventType: ['festival'],
     title: 'EME.LL / Olhares de Outono',
     titleUrl: 'https://www.vitorjoaquim.pt/vj.concerts_2009_21.22%20November.htm',
@@ -233,7 +236,6 @@ export const earlyEvents: LiveEvent[] = [
       en: 'Presented by [[Universidade Católica do Porto]].',
       pt: 'Apresentado pela [[Universidade Católica do Porto]].',
     },
-    imageAlt: { en: 'Resampling White Noise laptop meeting at EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009', pt: 'Encontro de laptops Resampling White Noise no EME.LL / Olhares de Outono, Mosteiro São Bento da Vitória, Porto, 2009' },
     images: [
       {
         src: '/images/live/eme-olhares-2009-001.jpg',
@@ -302,7 +304,6 @@ export const earlyEvents: LiveEvent[] = [
       { text: 'Safe & Sound' },
       { text: 'The Beautiful Schizophonic' },
     ],
-    imageAlt: { en: 'Jerome Faria performing at EME Festival, Teatro Ibérico, Lisbon, 2008', pt: 'Jerome Faria a actuar no EME Festival, Teatro Ibérico, Lisboa, 2008' },
     images: [
       {
         src: '/images/live/eme-2008-001.jpg',
@@ -364,7 +365,6 @@ export const earlyEvents: LiveEvent[] = [
       { text: 'Sébastien Roux' },
       { text: 'Tonne', url: 'https://www.paul-farrington-design.com/' },
     ],
-    imageAlt: { en: 'Jerome Faria performing at Störung Festival, La Farinera del Clot, Barcelona, 2008', pt: 'Jerome Faria a actuar no Störung Festival, La Farinera del Clot, Barcelona, 2008' },
     images: [
       {
         src: '/images/live/storung-2008-001.jpg',
@@ -397,7 +397,6 @@ export const earlyEvents: LiveEvent[] = [
       { text: 'Aenedra', url: 'https://freemusicarchive.org/music/Aenedra/' },
       { text: 'Unknown Forces Of Everyday Life' },
     ],
-    imageAlt: { en: 'Jerome Faria performing at STFU Porto, Fábrica do Som, Porto, 2007', pt: 'Jerome Faria a actuar no STFU Porto, Fábrica do Som, Porto, 2007' },
     images: [
       {
         src: '/images/live/stfu-porto-001.jpg',
@@ -433,7 +432,6 @@ export const earlyEvents: LiveEvent[] = [
       en: 'Presented by [[APCA]] and [[Digital in Berlin]].',
       pt: 'Apresentado pela [[APCA]] e pela [[Digital in Berlin]].',
     },
-    imageAlt: { en: 'Jerome Faria performing at MADEIRADIG, Casa das Mudas, Calheta, 2007', pt: 'Jerome Faria a actuar no MADEIRADIG, Casa das Mudas, Calheta, 2007' },
     images: [
       {
         src: '/images/live/madeiradig-2007-001.jpg',
@@ -519,7 +517,6 @@ export const earlyEvents: LiveEvent[] = [
       en: 'Presented by [[APCA]].',
       pt: 'Apresentado pela [[APCA]].',
     },
-    imageAlt: { en: 'Jerome Faria and Hugo Olim performing at MADEIRADIG, RDP Auditorium, Funchal, 2005', pt: 'Jerome Faria e Hugo Olim a actuar no MADEIRADIG, Auditório da RDP, Funchal, 2005' },
     images: [
       {
         src: '/images/live/madeiradig-2005-001.jpg',
