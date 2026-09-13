@@ -5,6 +5,7 @@ const DIST = 'dist';
 const ORIGIN = 'https://jeromefaria.com';
 
 const EXCLUDE = new Set(['/404', '/epk', '/cv']);
+const EXCLUDE_PREFIXES = ['/archive'];
 
 const htmlFiles = [];
 const walk = dir => {
@@ -37,7 +38,10 @@ const priority = base => {
 walk(DIST);
 
 const routes = [...new Set(htmlFiles.map(toRoute))]
-  .filter(route => !EXCLUDE.has(stripLocale(route)))
+  .filter(route => {
+    const base = stripLocale(route);
+    return !EXCLUDE.has(base) && !EXCLUDE_PREFIXES.some(prefix => base === prefix || base.startsWith(`${prefix}/`));
+  })
   .sort((a, b) => (a === '/' ? -1 : b === '/' ? 1 : a.localeCompare(b)));
 
 const routeSet = new Set(routes);

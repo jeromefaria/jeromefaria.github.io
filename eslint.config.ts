@@ -145,6 +145,8 @@ export default [
       'playwright-report/**',
       'test-results/**',
       '**/*-snapshots/**',
+      'public/archive/**',
+      '.notes/**',
     ],
   },
   ...pluginVue.configs['flat/recommended'],
