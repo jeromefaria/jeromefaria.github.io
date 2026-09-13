@@ -16,44 +16,44 @@ export const midEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/heineken-series-001.jpg',
-        photographer: { name: 'Pedro Jafuno' },
+        photographer: 'pedro-jafuno',
       },
       {
         src: '/images/live/heineken-series-002.jpg',
-        photographer: { name: 'Pedro Jafuno' },
+        photographer: 'pedro-jafuno',
       },
       {
         src: '/images/live/heineken-series-003.jpg',
-        photographer: { name: 'Pedro Jafuno' },
+        photographer: 'pedro-jafuno',
       },
       {
         src: '/images/live/heineken-series-004.jpg',
-        photographer: { name: 'Pedro Jafuno' },
+        photographer: 'pedro-jafuno',
       },
       {
         src: '/images/live/heineken-series-005.jpg',
-        photographer: { name: 'Pedro Jafuno' },
+        photographer: 'pedro-jafuno',
       },
       {
         src: '/images/live/heineken-series-006.jpg',
         cover: true,
-        photographer: { name: 'Pedro Jafuno' },
+        photographer: 'pedro-jafuno',
       },
       {
         src: '/images/live/heineken-series-007.jpg',
-        photographer: { name: 'Pedro Jafuno' },
+        photographer: 'pedro-jafuno',
       },
       {
         src: '/images/live/heineken-series-008.jpg',
-        photographer: { name: 'Pedro Jafuno' },
+        photographer: 'pedro-jafuno',
       },
       {
         src: '/images/live/heineken-series-009.jpg',
-        photographer: { name: 'Pedro Jafuno' },
+        photographer: 'pedro-jafuno',
       },
       {
         src: '/images/live/heineken-series-010.jpg',
-        photographer: { name: 'Pedro Jafuno' },
+        photographer: 'pedro-jafuno',
       },
     ],
   },
@@ -71,7 +71,7 @@ export const midEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/fica-na-cidade-001.jpg',
-        photographer: { name: 'Fica na Cidade' },
+        photographer: 'fica-na-cidade',
       },
     ],
   },
@@ -120,7 +120,7 @@ export const midEvents: LiveEvent[] = [
       {
         src: '/images/live/caligari-live-2-001.jpg',
         thumb: { position: '65% center' },
-        photographer: { name: 'Pedro Jafuno' },
+        photographer: 'pedro-jafuno',
       },
     ],
   },

@@ -1,6 +1,6 @@
 import type { Localizable, Localized } from '@/i18n/localized';
 
-import type { Credit } from './media';
+import type { CreditRef } from './media';
 
 export interface AboutImage {
   src: string;
@@ -8,7 +8,7 @@ export interface AboutImage {
   position?: string;
   scale?: number;
   rotate?: number;
-  photographer?: Credit;
+  photographer?: CreditRef;
 }
 
 export interface AboutTextSection {

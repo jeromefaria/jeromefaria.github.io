@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { epkManifest } from '@/data/epk';
 import { mountView } from '@/test-support/viewHarness';
 import { resolveEpkContent } from '@/utils/epk';
+import { resolveCredit } from '@/utils/people';
 import { responsiveSrcset } from '@/utils/responsiveImage';
 
 import EpkView from './EpkView.vue';
@@ -109,7 +110,7 @@ describe('EpkView', () => {
 
     expect(captions).toHaveLength(epk.photos.filter(photo => photo.photographer).length);
 
-    const withUrl = epk.photos.find(photo => photo.photographer?.url);
+    const withUrl = epk.photos.find(photo => photo.photographer && resolveCredit(photo.photographer).url);
     if (withUrl) {
       expect(wrapper.find('.epk__photo figcaption a[target="_blank"]').exists()).toBe(true);
     }
@@ -120,7 +121,7 @@ describe('EpkView', () => {
       ...epk,
       photos: [
         { src: '/uncredited.jpg', alt: 'uncredited' },
-        { src: '/unlinked.jpg', alt: 'unlinked', photographer: { name: 'No Link' } },
+        { src: '/unlinked.jpg', alt: 'unlinked', photographer: 'valentina-araujo' },
       ],
     });
     vi.mocked(responsiveSrcset).mockImplementation(src => (src === '/uncredited.jpg' ? '/uncredited-320.webp 320w' : null));
@@ -134,6 +135,6 @@ describe('EpkView', () => {
     expect(captions[0].find('a[download]').exists()).toBe(true);
 
     expect(captions[1].find('a[target="_blank"]').exists()).toBe(false);
-    expect(captions[1].text()).toContain('No Link');
+    expect(captions[1].text()).toContain('Valentina Araújo');
   });
 });

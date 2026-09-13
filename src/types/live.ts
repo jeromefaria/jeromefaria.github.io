@@ -1,7 +1,7 @@
 import type { Localizable, Localized } from '@/i18n/localized';
 import type { PtGrammar } from '@/i18n/ptGrammar';
 
-import type { Credit, Video } from './media';
+import type { Credit, CreditRef, Video } from './media';
 
 export interface ThumbFraming {
   position?: string;
@@ -12,7 +12,7 @@ export interface ThumbFraming {
 
 export interface LiveImage {
   src: string;
-  photographer?: Credit;
+  photographer?: CreditRef;
   cover?: boolean;
   thumb?: ThumbFraming;
   cardThumb?: ThumbFraming;

@@ -12,7 +12,7 @@ import {
 
 describe('photoDownloadFilename', () => {
   it('encodes the 1-based index and the accent-folded photographer credit', () => {
-    expect(photoDownloadFilename({ src: '/x.jpg', alt: 'x', photographer: { name: 'Valentina Araújo' } }, 0))
+    expect(photoDownloadFilename({ src: '/x.jpg', alt: 'x', photographer: 'valentina-araujo' }, 0))
       .toBe('jerome-faria-1-by-valentina-araujo.jpg');
   });
 
