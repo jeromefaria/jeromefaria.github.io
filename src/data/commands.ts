@@ -260,6 +260,16 @@ const actionCommands = (t: TranslateFn): Command[] => {
     run: () => { void navigator.clipboard?.writeText(siteConfig.author.email); },
   };
 
+  const archive: Command = {
+    kind: 'action',
+    id: 'act:archive',
+    title: t('palette.archive'),
+    keywords: words(t('palette.kw.archive')),
+    group: 'Actions',
+    external: true,
+    run: () => openInNewTab('/archive/'),
+  };
+
   const socials: Command[] = social.map((link): Command => ({
     kind: 'action',
     id: `act:social:${link.name}`,
@@ -273,7 +283,7 @@ const actionCommands = (t: TranslateFn): Command[] => {
   const bandcamp = releaseLinkCommands(t, 'Bandcamp', 'bandcamp', release => release.bandcampUrl);
   const soundcloud = releaseLinkCommands(t, 'SoundCloud', 'soundcloud', release => release.soundcloudUrl);
 
-  return [...downloads, help, ...appearance, contact, ...socials, ...bandcamp, ...soundcloud];
+  return [...downloads, help, ...appearance, contact, archive, ...socials, ...bandcamp, ...soundcloud];
 };
 
 export const playbackCommands = (t: TranslateFn): Command[] => {

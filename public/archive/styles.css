@@ -1,0 +1,87 @@
+.dot-bottom {
+	border-bottom: 1px dotted #999;
+}
+p {
+	margin: 0px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #999;
+}
+h1 {
+	margin: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #1D3333;
+}
+a {
+	color: #3C6666;
+	text-decoration: none;
+}
+a:hover {
+	color: #3C6666;
+	text-decoration: underline;
+}
+.bottom-dot {
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #999;
+}
+img {
+	margin: 0px;
+}
+.text {
+	margin: 0px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #999;
+}
+h2 {
+	margin: 0px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #CCC;
+	font-weight: bold;
+}
+h2 a:link {
+	font-size: 9px;
+	color: #CCC;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-weight: normal;
+}
+h2 a:visited {
+	color: #CCC;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-weight: normal;
+}
+h2 a:hover {
+	color: #3C6666;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-weight: normal;
+}
+body {
+	margin-left: 50px;
+	margin-top: 50px;
+}
+.style1 {color: #9F9F9F}
+h3 {
+	margin: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #CCC;
+	font-weight: bold;
+}
+.sel {
+	color: #000;
+}
+h3 a:link {
+	margin: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #CCC;
+	font-weight: normal;
+}

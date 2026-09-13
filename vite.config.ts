@@ -27,8 +27,17 @@ export default defineConfig({
   server: { host: true, https: httpsCerts },
   plugins: [
     vue(),
+    {
+      name: 'archive-directory-index',
+      configureServer(server) {
+        server.middlewares.use((req, _res, next) => {
+          if (req.url === '/archive' || req.url === '/archive/') req.url = '/archive/index.html';
+          next();
+        });
+      },
+    },
     ViteImageOptimizer({
-      exclude: /epk[/\\]photos|images[/\\]responsive|images[/\\]hyphema\.webp/,
+      exclude: /epk[/\\]photos|images[/\\]responsive|images[/\\]hyphema\.webp|archive[/\\]/,
       jpg: {
         quality: 65,
       },

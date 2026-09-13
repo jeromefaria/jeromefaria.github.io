@@ -6,7 +6,7 @@ const sourceHtmlFiles = () => {
   const files = existsSync('index.html') ? ['index.html'] : [];
   if (existsSync('public')) {
     for (const entry of readdirSync('public', { recursive: true })) {
-      if (typeof entry === 'string' && entry.endsWith('.html')) {
+      if (typeof entry === 'string' && entry.endsWith('.html') && !entry.startsWith('archive/')) {
         files.push(`public/${entry}`);
       }
     }

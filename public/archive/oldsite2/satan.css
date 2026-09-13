@@ -1,0 +1,168 @@
+.bg {
+	background-color: #94A4A4;
+}
+.sigur {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #666666;
+}
+.nav {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #666666;
+}
+.navtop {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #999999;
+}
+.text {
+	font-family: Skia, Tahoma;
+	font-size: 12px;
+	color: #000000;
+}
+.icelandic {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #999999;
+}
+.trans {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #BEBEBE;
+}
+.greybold {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #333333;
+}
+
+a:link,a:visited {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:hover{
+  text-decoration: underline;
+  color: #999999; }
+  
+a:active {
+  text-decoration: underline;
+  color: #FFFFFF; }
+
+
+h1 {
+    clear: none;
+    color: #000000;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: bold;
+    margin: 0 0 6px 0;
+    padding: 0;
+    text-align: justify;
+    text-decoration: none;
+    text-indent: 0em;
+}
+
+h2 {
+    clear: all;
+    color: #000000;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    margin: 0;
+    padding: 8px 0 12px 0;
+    text-align: left;
+    text-indent: 0em;
+}
+
+h3 {
+    clear: all;
+    color: #000000;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: bold;
+    margin: 10px 0 2px 0;
+    padding: 0;
+    text-align: left;
+    text-indent: 0em;
+}
+
+h4 {
+	color: #333333;
+	text-decoration: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: italic;
+	font-weight: normal;
+	margin-top: 13px;
+	margin-right: 0px;
+	margin-bottom: 2px;
+	margin-left: 0px;
+}
+
+h5 {
+    clear: all;
+    color: #666666;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    margin: 10px 0 2px 0;
+    padding: 0;
+    text-align: left;
+    text-indent: 0em;
+}
+.icelandic {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #BEBEBE;
+}
+.trans {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #BEBEBE;
+}
+.big {
+	font-family: "Trebuchet MS", Verdana, Arial, Helvetica;
+	font-size: 15px;
+	font-weight: bold;
+	color: #333333;
+}
+
+
+a.gig {
+    text-decoration: none;
+}
+
+a.gig:visited {
+    text-decoration: none;
+}
+
+a.gig:hover {
+    background: #ffffff;
+    color: #4040a0;
+}
+
+em {
+	font-style: italic;
+}
+.greybold {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #333333;
+}
+input {
+ 	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: #FFFFFF;
+	color: color: #666666;
+	font-size: 11px;
+	border: 1px solid #000000;
+}
+.imgblackborder { border: 1px solid #000000; }
