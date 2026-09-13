@@ -1,0 +1,1 @@
+numverts=8&x1=45&y1=45&z1=45&x2=-45&y2=45&z2=45&x3=-45&y3=-45&z3=45&x4=45&y4=-45&z4=45&x5=45&y5=45&z5=-45&x6=-45&y6=45&z6=-45&x7=-45&y7=-45&z7=-45&x8=45&y8=-45&z8=-45&numedges=12&from1=1&to1=2&from2=2&to2=3&from3=3&to3=4&from4=4&to4=1&from5=5&to5=6&from6=6&to6=7&from7=7&to7=8&from8=8&to8=5&from9=4&to9=8&from10=1&to10=5&from11=2&to11=6&from12=3&to12=7
