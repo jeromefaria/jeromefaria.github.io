@@ -78,6 +78,7 @@ export interface LiveEvent {
   performedAs?: string;
   note?: Localized<string>;
   bill?: BillEntry[];
+  presentedBy?: string[];
   credit?: Localized<string>;
   images?: LiveImage[];
   posters?: Poster[];

@@ -17,10 +17,7 @@ export const recentEvents: LiveEvent[] = [
       { text: 'Peak Bleak' },
       { text: 'Soria', url: 'https://soriasoriasoria.bandcamp.com' },
     ],
-    credit: {
-      en: 'Presented by [[Colectivo Casa Amarela]].',
-      pt: 'Apresentado pelo [[Colectivo Casa Amarela]].',
-    },
+    presentedBy: ['colectivo-casa-amarela'],
     posters: [
       {
         src: '/images/live/jejum-45-poster-001.jpg',
@@ -101,10 +98,7 @@ export const recentEvents: LiveEvent[] = [
       { text: 'TiaAvô', url: 'https://casaamarela.bandcamp.com/album/tiaav' },
       { text: 'Rebolation All-Stars' },
     ],
-    credit: {
-      en: 'Presented by [[OUT.RA]] and [[Colectivo Casa Amarela]].',
-      pt: 'Apresentado pela [[OUT.RA]] e pelo [[Colectivo Casa Amarela]].',
-    },
+    presentedBy: ['out-ra', 'colectivo-casa-amarela'],
     images: [
       {
         src: '/images/live/showcase-casa-amarela-001.jpg',
@@ -170,10 +164,7 @@ export const recentEvents: LiveEvent[] = [
       { text: 'Ai Feith', url: 'https://aifeith.bandcamp.com/' },
       { text: 'W.T.V.R' },
     ],
-    credit: {
-      en: 'Presented by [[Colectivo Casa Amarela]].',
-      pt: 'Apresentado pelo [[Colectivo Casa Amarela]].',
-    },
+    presentedBy: ['colectivo-casa-amarela'],
     images: [
       {
         src: '/images/live/fim-de-emissao-45-001.jpg',
@@ -223,10 +214,7 @@ export const recentEvents: LiveEvent[] = [
       { text: 'Moss Kissing', url: 'https://mosskissingmusic.bandcamp.com/' },
       { text: 'Rui Wentacid', suffix: '(DJ set)' },
     ],
-    credit: {
-      en: 'Presented by [[Colectivo Casa Amarela]].',
-      pt: 'Apresentado pelo [[Colectivo Casa Amarela]].',
-    },
+    presentedBy: ['colectivo-casa-amarela'],
   },
   {
     id: 'cca-no-desterro',
@@ -240,10 +228,7 @@ export const recentEvents: LiveEvent[] = [
       { text: 'DJ Privilégio', url: 'https://soundcloud.com/djprivilegio' },
       { text: "Gallo'84", url: 'https://casaamarela.bandcamp.com/album/shimano' },
     ],
-    credit: {
-      en: 'Presented by [[Colectivo Casa Amarela]].',
-      pt: 'Apresentado pelo [[Colectivo Casa Amarela]].',
-    },
+    presentedBy: ['colectivo-casa-amarela'],
     images: [
       {
         src: '/images/live/cca-no-desterro-001.jpg',
@@ -376,10 +361,7 @@ export const recentEvents: LiveEvent[] = [
     date: '2022-03-05',
     venue: { name: 'Rua das Gaivotas 6', url: 'https://ruadasgaivotas6.pt/', city: 'Lisbon', country: 'Portugal' },
     setup: { kind: 'solo' },
-    credit: {
-      en: 'Presented by [[Colectivo Casa Amarela]].',
-      pt: 'Apresentado pelo [[Colectivo Casa Amarela]].',
-    },
+    presentedBy: ['colectivo-casa-amarela'],
     images: [
       {
         src: '/images/live/jejum-11-001.jpg',
