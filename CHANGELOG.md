@@ -23,6 +23,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Fixes
 
+- **palette:** Time the double-tap with performance.now() for iOS resume ([#456](https://github.com/jeromefaria/jeromefaria.github.io/pull/456))
 - **lightbox:** Only embed video from allowlisted provider origins ([#450](https://github.com/jeromefaria/jeromefaria.github.io/pull/450))
 - **player:** Clear the home-indicator inset on the mobile player bar ([#446](https://github.com/jeromefaria/jeromefaria.github.io/pull/446))
 - **router:** Show a soft 404 for unknown work and live permalinks ([#447](https://github.com/jeromefaria/jeromefaria.github.io/pull/447))
