@@ -5,32 +5,32 @@ export const epkManifest: EpkManifest = {
     {
       src: '/images/press-portrait-1.jpg',
       alt: { en: 'Portrait of Jerome Faria', pt: 'Retrato de Jerome Faria' },
-      photographer: { name: 'Pedro Jafuno' },
+      photographer: 'pedro-jafuno',
     },
     {
       src: '/images/press-portrait-2.jpg',
       alt: { en: 'Portrait of Jerome Faria', pt: 'Retrato de Jerome Faria' },
-      photographer: { name: 'Pedro Jafuno' },
+      photographer: 'pedro-jafuno',
     },
     {
       src: '/images/press-portrait-3.jpg',
       alt: { en: 'Portrait of Jerome Faria', pt: 'Retrato de Jerome Faria' },
-      photographer: { name: 'Pedro Jafuno' },
+      photographer: 'pedro-jafuno',
     },
     {
       src: '/images/press-live-2.jpg',
       alt: { en: 'Jerome Faria performing live', pt: 'Jerome Faria em concerto' },
-      photographer: { name: 'Ricardo Almeida' },
+      photographer: 'ricardo-almeida',
     },
     {
       src: '/images/press-live-3.jpg',
       alt: { en: 'Jerome Faria performing live', pt: 'Jerome Faria em concerto' },
-      photographer: { name: 'Pedro Roque' },
+      photographer: 'pedro-roque',
     },
     {
       src: '/images/press-live-1.jpg',
       alt: { en: 'Jerome Faria performing live', pt: 'Jerome Faria em concerto' },
-      photographer: { name: 'Nuno Martins' },
+      photographer: 'nuno-martins',
     },
   ],
   shortBio: 'short',

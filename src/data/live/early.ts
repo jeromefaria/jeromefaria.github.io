@@ -22,29 +22,29 @@ export const earlyEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/madeiradig-2011-001.jpg',
-        photographer: { name: 'Valentina Araújo' },
+        photographer: 'valentina-araujo',
       },
       {
         src: '/images/live/madeiradig-2011-002.jpg',
-        photographer: { name: 'Valentina Araújo' },
+        photographer: 'valentina-araujo',
       },
       {
         src: '/images/live/madeiradig-2011-003.jpg',
-        photographer: { name: 'Valentina Araújo' },
+        photographer: 'valentina-araujo',
       },
       {
         src: '/images/live/madeiradig-2011-004.jpg',
-        photographer: { name: 'Valentina Araújo' },
+        photographer: 'valentina-araujo',
       },
       {
         src: '/images/live/madeiradig-2011-005.jpg',
         cover: true,
         thumb: { position: '38% center', scale: 1.15, rotate: 1 },
-        photographer: { name: 'Valentina Araújo' },
+        photographer: 'valentina-araujo',
       },
       {
         src: '/images/live/madeiradig-2011-006.jpg',
-        photographer: { name: 'Valentina Araújo' },
+        photographer: 'valentina-araujo',
       },
     ],
     videos: [
@@ -66,12 +66,12 @@ export const earlyEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/migractions-2011-001.jpg',
-        photographer: { name: 'Sue-Elie Andrade-Dé' },
+        photographer: 'sue-elie-andrade-de',
         thumb: { scale: 1.5 },
       },
       {
         src: '/images/live/migractions-2011-002.jpg',
-        photographer: { name: 'Sue-Elie Andrade-Dé' },
+        photographer: 'sue-elie-andrade-de',
       },
     ],
   },
@@ -94,33 +94,33 @@ export const earlyEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/olhares-de-outono-2010-001.jpg',
-        photographer: { name: 'Olhares de Outono' },
+        photographer: 'olhares-de-outono',
       },
       {
         src: '/images/live/olhares-de-outono-2010-002.jpg',
-        photographer: { name: 'Olhares de Outono' },
+        photographer: 'olhares-de-outono',
       },
       {
         src: '/images/live/olhares-de-outono-2010-003.jpg',
-        photographer: { name: 'Olhares de Outono' },
+        photographer: 'olhares-de-outono',
       },
       {
         src: '/images/live/olhares-de-outono-2010-004.jpg',
-        photographer: { name: 'Olhares de Outono' },
+        photographer: 'olhares-de-outono',
       },
       {
         src: '/images/live/olhares-de-outono-2010-005.jpg',
-        photographer: { name: 'Olhares de Outono' },
+        photographer: 'olhares-de-outono',
       },
       {
         src: '/images/live/olhares-de-outono-2010-006.jpg',
-        photographer: { name: 'Olhares de Outono' },
+        photographer: 'olhares-de-outono',
       },
       {
         src: '/images/live/olhares-de-outono-2010-007.jpg',
         cardThumb: { position: 'center 97%' },
         cover: true,
-        photographer: { name: 'Olhares de Outono' },
+        photographer: 'olhares-de-outono',
       },
     ],
   },
@@ -145,30 +145,30 @@ export const earlyEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/madeiradig-2009-001.jpg',
-        photographer: { name: 'Miguel Apolinário' },
+        photographer: 'miguel-apolinario',
       },
       {
         src: '/images/live/madeiradig-2009-002.jpg',
         cardThumb: { scale: 1.35, translateX: '8%' },
         cover: true,
         thumb: { position: '15% center' },
-        photographer: { name: 'Miguel Apolinário' },
+        photographer: 'miguel-apolinario',
       },
       {
         src: '/images/live/madeiradig-2009-003.jpg',
-        photographer: { name: 'Miguel Apolinário' },
+        photographer: 'miguel-apolinario',
       },
       {
         src: '/images/live/madeiradig-2009-004.jpg',
-        photographer: { name: 'Miguel Apolinário' },
+        photographer: 'miguel-apolinario',
       },
       {
         src: '/images/live/madeiradig-2009-005.jpg',
-        photographer: { name: 'Miguel Apolinário' },
+        photographer: 'miguel-apolinario',
       },
       {
         src: '/images/live/madeiradig-2009-006.jpg',
-        photographer: { name: 'Miguel Apolinário' },
+        photographer: 'miguel-apolinario',
       },
     ],
     videos: [
@@ -227,24 +227,24 @@ export const earlyEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/eme-olhares-2009-001.jpg',
-        photographer: { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
+        photographer: 'vitor-joaquim',
       },
       {
         src: '/images/live/eme-olhares-2009-002.jpg',
-        photographer: { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
+        photographer: 'vitor-joaquim',
       },
       {
         src: '/images/live/eme-olhares-2009-003.jpg',
         cover: true,
-        photographer: { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
+        photographer: 'vitor-joaquim',
       },
       {
         src: '/images/live/eme-olhares-2009-004.jpg',
-        photographer: { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
+        photographer: 'vitor-joaquim',
       },
       {
         src: '/images/live/eme-olhares-2009-005.jpg',
-        photographer: { name: 'Vítor Joaquim', url: 'https://www.vitorjoaquim.pt/' },
+        photographer: 'vitor-joaquim',
       },
     ],
   },
@@ -295,37 +295,37 @@ export const earlyEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/eme-2008-001.jpg',
-        photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
+        photographer: 'eme',
       },
       {
         src: '/images/live/eme-2008-002.jpg',
-        photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
+        photographer: 'eme',
       },
       {
         src: '/images/live/eme-2008-003.jpg',
         cardThumb: { position: 'center 97%' },
         cover: true,
-        photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
+        photographer: 'eme',
       },
       {
         src: '/images/live/eme-2008-004.jpg',
-        photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
+        photographer: 'eme',
       },
       {
         src: '/images/live/eme-2008-005.jpg',
-        photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
+        photographer: 'eme',
       },
       {
         src: '/images/live/eme-2008-006.jpg',
-        photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
+        photographer: 'eme',
       },
       {
         src: '/images/live/eme-2008-007.jpg',
-        photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
+        photographer: 'eme',
       },
       {
         src: '/images/live/eme-2008-008.jpg',
-        photographer: { name: 'EME Festival', url: 'https://www.emefestival.org/' },
+        photographer: 'eme',
       },
     ],
     videos: [
@@ -356,16 +356,16 @@ export const earlyEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/storung-2008-001.jpg',
-        photographer: { name: 'Störung Festival', url: 'https://storung.com/' },
+        photographer: 'storung',
       },
       {
         src: '/images/live/storung-2008-002.jpg',
-        photographer: { name: 'Störung Festival', url: 'https://storung.com/' },
+        photographer: 'storung',
       },
       {
         src: '/images/live/storung-2008-003.jpg',
         cover: true,
-        photographer: { name: 'Störung Festival', url: 'https://storung.com/' },
+        photographer: 'storung',
       },
     ],
   },
@@ -388,16 +388,16 @@ export const earlyEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/stfu-porto-001.jpg',
-        photographer: { name: 'STFU Porto' },
+        photographer: 'stfu-porto',
       },
       {
         src: '/images/live/stfu-porto-002.jpg',
         cover: true,
-        photographer: { name: 'STFU Porto' },
+        photographer: 'stfu-porto',
       },
       {
         src: '/images/live/stfu-porto-003.jpg',
-        photographer: { name: 'STFU Porto' },
+        photographer: 'stfu-porto',
       },
     ],
   },
@@ -420,44 +420,44 @@ export const earlyEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/madeiradig-2007-001.jpg',
-        photographer: { name: 'Marta León' },
+        photographer: 'marta-leon',
       },
       {
         src: '/images/live/madeiradig-2007-002.jpg',
-        photographer: { name: 'Marta León' },
+        photographer: 'marta-leon',
       },
       {
         src: '/images/live/madeiradig-2007-003.jpg',
-        photographer: { name: 'Marta León' },
+        photographer: 'marta-leon',
       },
       {
         src: '/images/live/madeiradig-2007-004.jpg',
-        photographer: { name: 'Marta León' },
+        photographer: 'marta-leon',
       },
       {
         src: '/images/live/madeiradig-2007-005.jpg',
-        photographer: { name: 'Marta León' },
+        photographer: 'marta-leon',
       },
       {
         src: '/images/live/madeiradig-2007-006.jpg',
-        photographer: { name: 'Marta León' },
+        photographer: 'marta-leon',
       },
       {
         src: '/images/live/madeiradig-2007-007.jpg',
-        photographer: { name: 'Marta León' },
+        photographer: 'marta-leon',
       },
       {
         src: '/images/live/madeiradig-2007-008.jpg',
-        photographer: { name: 'Marta León' },
+        photographer: 'marta-leon',
       },
       {
         src: '/images/live/madeiradig-2007-009.jpg',
-        photographer: { name: 'Marta León' },
+        photographer: 'marta-leon',
       },
       {
         src: '/images/live/madeiradig-2007-010.jpg',
         cover: true,
-        photographer: { name: 'Marta León' },
+        photographer: 'marta-leon',
       },
     ],
   },
@@ -499,43 +499,43 @@ export const earlyEvents: LiveEvent[] = [
     images: [
       {
         src: '/images/live/madeiradig-2005-001.jpg',
-        photographer: { name: 'Louie de Bettencourt' },
+        photographer: 'louie-de-bettencourt',
       },
       {
         src: '/images/live/madeiradig-2005-002.jpg',
-        photographer: { name: 'Louie de Bettencourt' },
+        photographer: 'louie-de-bettencourt',
       },
       {
         src: '/images/live/madeiradig-2005-003.jpg',
-        photographer: { name: 'Louie de Bettencourt' },
+        photographer: 'louie-de-bettencourt',
       },
       {
         src: '/images/live/madeiradig-2005-004.jpg',
-        photographer: { name: 'Louie de Bettencourt' },
+        photographer: 'louie-de-bettencourt',
       },
       {
         src: '/images/live/madeiradig-2005-005.jpg',
-        photographer: { name: 'Louie de Bettencourt' },
+        photographer: 'louie-de-bettencourt',
       },
       {
         src: '/images/live/madeiradig-2005-006.jpg',
-        photographer: { name: 'Louie de Bettencourt' },
+        photographer: 'louie-de-bettencourt',
       },
       {
         src: '/images/live/madeiradig-2005-007.jpg',
-        photographer: { name: 'Louie de Bettencourt' },
+        photographer: 'louie-de-bettencourt',
       },
       {
         src: '/images/live/madeiradig-2005-008.jpg',
-        photographer: { name: 'Louie de Bettencourt' },
+        photographer: 'louie-de-bettencourt',
       },
       {
         src: '/images/live/madeiradig-2005-009.jpg',
-        photographer: { name: 'Louie de Bettencourt' },
+        photographer: 'louie-de-bettencourt',
       },
       {
         src: '/images/live/madeiradig-2005-010.jpg',
-        photographer: { name: 'Louie de Bettencourt' },
+        photographer: 'louie-de-bettencourt',
       },
     ],
   },

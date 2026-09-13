@@ -5,6 +5,8 @@ export interface Credit {
   url?: string;
 }
 
+export type CreditRef = string;
+
 export interface Video {
   url: string;
   title: Localizable<string>;

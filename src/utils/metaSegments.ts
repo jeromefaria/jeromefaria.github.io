@@ -1,6 +1,8 @@
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
+import type { CreditRef } from '@/types/media';
 import type { Edition, EngineeringRole, ReleaseMeta } from '@/types/works';
 import { orgUrl } from '@/utils/orgs';
+import { resolveCredit } from '@/utils/people';
 import { releaseYear } from '@/utils/releaseDate';
 
 const resolveLabel = (link: { text: string; url?: string }): { text: string; url?: string } => {
@@ -41,6 +43,19 @@ const editionSegments = (editions: Edition[]): MetaSegment[] =>
     return segments;
   });
 
+const collaboratorSegments = (collaborators: CreditRef[] | undefined, isEn: boolean): MetaSegment[] => {
+  if (!collaborators?.length) return [text(isEn ? 'in ' : 'em ')];
+
+  const links = collaborators.flatMap((ref, index): MetaSegment[] => {
+    const { name, url } = resolveCredit(ref);
+    const link: MetaSegment = { kind: 'link', link: url ? { text: name, url } : { text: name } };
+
+    return index < collaborators.length - 1 ? [link, text(', ')] : [link];
+  });
+
+  return [text(isEn ? 'with ' : 'com '), ...links, text(isEn ? ' in ' : ' em ')];
+};
+
 const commissionSegments = (meta: Extract<ReleaseMeta, { kind: 'commission' }>, isEn: boolean, year: number): MetaSegment[] => {
   switch (meta.work) {
     case 'Film':
@@ -71,18 +86,14 @@ export const buildMetaSegments = (meta: ReleaseMeta, locale: Locale = DEFAULT_LO
         text(`, ${year}`),
       ];
 
-    case 'compilation': {
-      const lead = isEn
-        ? (meta.collaborators ? `with ${meta.collaborators.join(', ')} in ` : 'in ')
-        : (meta.collaborators ? `com ${meta.collaborators.join(', ')} em ` : 'em ');
+    case 'compilation':
       return [
-        text(lead),
+        ...collaboratorSegments(meta.collaborators, isEn),
         { kind: 'em', link: meta.compilation },
         text(` — ${meta.mediums.join('/')}, `),
         ...editionSegments(meta.editions),
         text(`, ${year}`),
       ];
-    }
 
     case 'commission':
       return commissionSegments(meta, isEn, year);

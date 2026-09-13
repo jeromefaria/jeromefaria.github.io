@@ -165,7 +165,7 @@ describe('EventItem', () => {
     it('emits open-lightbox with the converted images (photo-role credit) on click', async () => {
       const event: LiveEvent = {
         ...plainEvent,
-        images: [{ src: '/images/live/a-001.jpg', photographer: { name: 'Someone' } }],
+        images: [{ src: '/images/live/a-001.jpg', photographer: 'valentina-araujo' }],
       };
       const wrapper = mountEvent(event);
 
@@ -174,7 +174,7 @@ describe('EventItem', () => {
 
       expect(payload?.[1]).toBe(0);
       expect(payload?.[0]).toEqual([
-        { type: 'image', src: '/images/live/a-001.jpg', alt: liveEventImageAlt(event, 'en'), credit: { role: 'photo', name: 'Someone' } },
+        { type: 'image', src: '/images/live/a-001.jpg', alt: liveEventImageAlt(event, 'en'), credit: { role: 'photo', name: 'Valentina Araújo' } },
       ]);
     });
 

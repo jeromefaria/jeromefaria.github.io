@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { toLightboxImage, toLightboxVideo } from './lightboxAdapters';
+import { resolveCredit } from './people';
 
 describe('toLightboxImage', () => {
   it('maps required fields and omits absent optionals', () => {
@@ -8,11 +9,9 @@ describe('toLightboxImage', () => {
   });
 
   it('tags a photographer as a photo-role credit', () => {
-    const photographer = { name: 'Jane', url: 'https://example.com/jane' };
-
     expect(
-      toLightboxImage({ src: '/a.jpg', alt: 'A', photographer }),
-    ).toEqual({ type: 'image', src: '/a.jpg', alt: 'A', credit: { role: 'photo', ...photographer } });
+      toLightboxImage({ src: '/a.jpg', alt: 'A', photographer: 'pedro-jafuno' }),
+    ).toEqual({ type: 'image', src: '/a.jpg', alt: 'A', credit: { role: 'photo', ...resolveCredit('pedro-jafuno') } });
   });
 
   it('tags an artist as a poster-role credit', () => {
