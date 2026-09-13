@@ -1,4 +1,5 @@
 import type { Localizable, Localized } from '@/i18n/localized';
+import type { PtGrammar } from '@/i18n/ptGrammar';
 
 import type { Credit, Video } from './media';
 
@@ -37,6 +38,13 @@ export type Format =
   | { kind: 'talk' }
   | { kind: 'filmScore'; film: Localizable<string>; premiere?: boolean };
 
+export interface LiveAltLocation {
+  subject?: Localizable<string>;
+  label?: Localizable<string>;
+  grammar?: PtGrammar;
+  onVenue?: boolean;
+}
+
 export type EventKind = 'festival' | 'series' | 'showcase' | 'open-air';
 
 export interface Poster {
@@ -55,7 +63,7 @@ export interface EventVenue {
   country: string;
 }
 
-interface LiveEventBase {
+export interface LiveEvent {
   id: string;
   title: Localizable<string>;
   titleUrl?: string;
@@ -65,20 +73,16 @@ interface LiveEventBase {
   venue: EventVenue;
   setup: Setup;
   format?: Format;
+  altLocation?: LiveAltLocation;
   eventType?: EventKind[];
   performedAs?: string;
   note?: Localized<string>;
   bill?: BillEntry[];
   credit?: Localized<string>;
+  images?: LiveImage[];
   posters?: Poster[];
   videos?: Video[];
 }
-
-type EventImages =
-  | { images?: never; imageAlt?: never }
-  | { images: LiveImage[]; imageAlt: Localizable<string> };
-
-export type LiveEvent = LiveEventBase & EventImages;
 
 export interface LiveYearSection {
   title: string;
