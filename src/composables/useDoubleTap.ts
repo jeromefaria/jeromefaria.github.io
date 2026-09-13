@@ -6,12 +6,13 @@ export const useDoubleTap = (onDoubleTap: () => void, withinMs = DOUBLE_TAP_MS):
   return (event: PointerEvent) => {
     if (event.pointerType !== 'touch') return;
 
-    if (event.timeStamp - lastTap < withinMs) {
+    const now = performance.now();
+    if (now - lastTap < withinMs) {
       lastTap = -Infinity;
       onDoubleTap();
       return;
     }
 
-    lastTap = event.timeStamp;
+    lastTap = now;
   };
 };
