@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **live:** Derive presented-by credits from structured data ([#453](https://github.com/jeromefaria/jeromefaria.github.io/pull/453))
 - **palette:** Open the palette on a header-whitespace double-tap (touch) ([#441](https://github.com/jeromefaria/jeromefaria.github.io/pull/441))
 - **palette:** Group context, more-results hint, guiding empty state ([#440](https://github.com/jeromefaria/jeromefaria.github.io/pull/440))
 - **palette:** Add a touch-reachable close button ([#439](https://github.com/jeromefaria/jeromefaria.github.io/pull/439))
