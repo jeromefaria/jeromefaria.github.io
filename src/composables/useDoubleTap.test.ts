@@ -1,36 +1,46 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { useDoubleTap } from './useDoubleTap';
 
-const tap = (pointerType: string, timeStamp: number): PointerEvent =>
-  ({ pointerType, timeStamp }) as PointerEvent;
+const touch = (): PointerEvent => ({ pointerType: 'touch' }) as PointerEvent;
+const pointer = (pointerType: string): PointerEvent => ({ pointerType }) as PointerEvent;
+
+const clockAt = (...times: number[]): void => {
+  const spy = vi.spyOn(performance, 'now');
+  times.forEach(time => spy.mockReturnValueOnce(time));
+};
+
+afterEach(() => vi.restoreAllMocks());
 
 describe('useDoubleTap', () => {
   it('fires when two touch taps land within the window', () => {
+    clockAt(1000, 1200);
     const onDoubleTap = vi.fn();
     const handler = useDoubleTap(onDoubleTap);
 
-    handler(tap('touch', 1000));
-    handler(tap('touch', 1200));
+    handler(touch());
+    handler(touch());
 
     expect(onDoubleTap).toHaveBeenCalledTimes(1);
   });
 
   it('does not fire on a single tap', () => {
+    clockAt(1000);
     const onDoubleTap = vi.fn();
     const handler = useDoubleTap(onDoubleTap);
 
-    handler(tap('touch', 1000));
+    handler(touch());
 
     expect(onDoubleTap).not.toHaveBeenCalled();
   });
 
   it('does not fire when the taps are too far apart', () => {
+    clockAt(1000, 1500);
     const onDoubleTap = vi.fn();
     const handler = useDoubleTap(onDoubleTap);
 
-    handler(tap('touch', 1000));
-    handler(tap('touch', 1500));
+    handler(touch());
+    handler(touch());
 
     expect(onDoubleTap).not.toHaveBeenCalled();
   });
@@ -39,19 +49,20 @@ describe('useDoubleTap', () => {
     const onDoubleTap = vi.fn();
     const handler = useDoubleTap(onDoubleTap);
 
-    handler(tap('mouse', 1000));
-    handler(tap('mouse', 1100));
+    handler(pointer('mouse'));
+    handler(pointer('mouse'));
 
     expect(onDoubleTap).not.toHaveBeenCalled();
   });
 
   it('resets after firing so a third tap starts a fresh pair', () => {
+    clockAt(1000, 1100, 1200);
     const onDoubleTap = vi.fn();
     const handler = useDoubleTap(onDoubleTap);
 
-    handler(tap('touch', 1000));
-    handler(tap('touch', 1100));
-    handler(tap('touch', 1200));
+    handler(touch());
+    handler(touch());
+    handler(touch());
 
     expect(onDoubleTap).toHaveBeenCalledTimes(1);
   });
