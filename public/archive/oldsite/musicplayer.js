@@ -1,1 +1,0 @@
-// JavaScript Documentfunction openJukebox(release){	top.consoleRef = window.open('musicplayer/index.html','','scrollbars=no,menubar=no,height=210,width=430,resizable=yes,toolbar=no,location=no,status=no');	setTimeout('top.consoleRef.topFrame.change_release(\'' + release + '\')', 1000);	}
