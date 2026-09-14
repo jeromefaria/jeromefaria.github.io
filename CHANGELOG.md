@@ -25,6 +25,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Fixes
 
+- **live:** Unlink the Living Room credit on Jejum #45 ([#460](https://github.com/jeromefaria/jeromefaria.github.io/pull/460))
 - **palette:** Time the double-tap with performance.now() for iOS resume ([#456](https://github.com/jeromefaria/jeromefaria.github.io/pull/456))
 - **lightbox:** Only embed video from allowlisted provider origins ([#450](https://github.com/jeromefaria/jeromefaria.github.io/pull/450))
 - **player:** Clear the home-indicator inset on the mobile player bar ([#446](https://github.com/jeromefaria/jeromefaria.github.io/pull/446))
