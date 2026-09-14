@@ -59,6 +59,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Chores
 
+- **archive:** Refresh the Flash disclaimer after removing the assets ([#458](https://github.com/jeromefaria/jeromefaria.github.io/pull/458))
 - **archive:** Strip dead-Flash tooling from the NNY web archive ([#457](https://github.com/jeromefaria/jeromefaria.github.io/pull/457))
 - **styles:** Enforce recess property order via stylelint-order ([#443](https://github.com/jeromefaria/jeromefaria.github.io/pull/443))
 
