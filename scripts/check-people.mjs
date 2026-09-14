@@ -3,6 +3,7 @@ import { join } from 'node:path';
 
 const DATA_DIR = 'src/data';
 const REGISTRY = 'src/data/people.ts';
+const ORG_REGISTRY = 'src/data/orgs.ts';
 
 const dataFiles = [];
 const walk = dir => {
@@ -15,7 +16,9 @@ const walk = dir => {
 walk(DATA_DIR);
 
 const resolvable = new Set();
-for (const match of readFileSync(REGISTRY, 'utf8').matchAll(/name:\s*'([^']+)'/g)) resolvable.add(match[1]);
+for (const registry of [REGISTRY, ORG_REGISTRY]) {
+  for (const match of readFileSync(registry, 'utf8').matchAll(/name:\s*'([^']+)'/g)) resolvable.add(match[1]);
+}
 for (const file of dataFiles) {
   for (const match of readFileSync(file, 'utf8').matchAll(/\{\s*name:\s*'([^']+)',\s*url:\s*'[^']+'\s*\}/g)) resolvable.add(match[1]);
 }
@@ -31,10 +34,10 @@ for (const file of dataFiles) {
 }
 
 if (unresolved.length > 0) {
-  console.error(`\n❌ ${unresolved.length} credit marker(s) resolve to no person (they would render unlinked):`);
+  console.error(`\n❌ ${unresolved.length} credit marker(s) resolve to no person or organization (they would render unlinked):`);
   unresolved.forEach(entry => console.error(`  - ${entry}`));
-  console.error('\nAdd the person to src/data/people.ts (or a co-located contributor override).\n');
+  console.error('\nAdd the person to src/data/people.ts, the organization to src/data/orgs.ts, or a co-located contributor override.\n');
   process.exit(1);
 }
 
-console.log(`✓ People: every [[credit]] marker resolves (${resolvable.size} known people).`);
+console.log(`✓ Credits: every [[marker]] resolves (${resolvable.size} known people and organizations).`);
