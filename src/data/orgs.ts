@@ -16,7 +16,7 @@ export const orgs: OrgRegistry = {
   'heineken-series': { name: 'Heineken Series', pt: { gender: 'f' } },
   'indie-rock-mag': { name: 'Indie Rock Mag', url: 'https://www.indierockmag.com/' },
   'jejum': { name: 'Jejum', pt: { gender: 'm' } },
-  'living-room': { name: 'Living Room', url: 'https://www.instagram.com/living___room', pt: { gender: 'm' } },
+  'living-room': { name: 'Living Room', pt: { gender: 'm' } },
   'madeira-dig': { name: 'Madeira Dig', url: 'https://digitalinberlin.eu/', pt: { gender: 'm' } },
   'migractions': { name: 'Festival Migractions', pt: { gender: 'm' } },
   'mimi-records': { name: 'MiMi Records', url: 'https://mimirecords.bandcamp.com/' },
