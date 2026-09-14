@@ -4,7 +4,7 @@ export const recentEvents: LiveEvent[] = [
   {
     id: 'jejum-45',
     eventType: ['series'],
-    title: 'Jejum #45',
+    title: 'Jejum #45 — Sleeping Night',
     date: '2026-09-19',
     endDate: '2026-09-20',
     venue: { name: 'Fábrica da Criatividade', url: 'https://www.cm-castelobranco.pt/visitante/fabrica-da-criatividade/', city: 'Castelo Branco', country: 'Portugal' },
@@ -18,6 +18,10 @@ export const recentEvents: LiveEvent[] = [
       { text: 'Soria', url: 'https://soriasoriasoria.bandcamp.com' },
     ],
     presentedBy: ['colectivo-casa-amarela'],
+    credit: {
+      en: 'In collaboration with [[Living Room]], part of the MICROTOPIAS programme by [[Terceira Pessoa]].',
+      pt: 'Em colaboração com [[Living Room]], integrado no programa MICROTOPIAS da [[Terceira Pessoa]].',
+    },
     posters: [
       {
         src: '/images/live/jejum-45-poster-001.jpg',
