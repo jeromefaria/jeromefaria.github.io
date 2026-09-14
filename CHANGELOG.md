@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **live:** Add Sleeping Night context to Jejum #45 ([#459](https://github.com/jeromefaria/jeromefaria.github.io/pull/459))
 - **archive:** Publish the NNY 2004-2010 web archive at /archive ([#455](https://github.com/jeromefaria/jeromefaria.github.io/pull/455))
 - **live:** Derive presented-by credits from structured data ([#453](https://github.com/jeromefaria/jeromefaria.github.io/pull/453))
 - **palette:** Open the palette on a header-whitespace double-tap (touch) ([#441](https://github.com/jeromefaria/jeromefaria.github.io/pull/441))
