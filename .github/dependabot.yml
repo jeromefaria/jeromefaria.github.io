@@ -23,6 +23,13 @@ updates:
         applies-to: security-updates
         patterns:
           - "*"
+    ignore:
+      # TypeScript stays on 5.x: the root type-checks with vue-tsc, which wraps
+      # the TS compiler API and isn't ready for the TS 7 native (Go) compiler
+      # (the root bump was closed in #71). The worker is held to the same major
+      # below so the repo crosses to 7 together, once vue-tsc supports it.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "npm"
     directory: "/worker"
@@ -41,6 +48,12 @@ updates:
         applies-to: security-updates
         patterns:
           - "*"
+    ignore:
+      # Keep the worker's TypeScript on the root's major (5.x). It floated to 7
+      # once (#234) and was deliberately re-pinned (#400) because a diverged
+      # /worker npm ci pulled a native compiler the root never uses.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
