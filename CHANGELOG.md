@@ -52,6 +52,8 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Build & CI
 
+- **deps-dev:** Bump exiftool-vendored from 37.2.0 to 38.0.1 ([#463](https://github.com/jeromefaria/jeromefaria.github.io/pull/463))
+- **deps:** Bump the github-actions group with 2 updates ([#464](https://github.com/jeromefaria/jeromefaria.github.io/pull/464))
 - **deps:** Bump sharp ([#425](https://github.com/jeromefaria/jeromefaria.github.io/pull/425))
 
 ### Docs
