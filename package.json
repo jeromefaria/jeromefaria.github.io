@@ -90,7 +90,7 @@
     "eslint": "^10.10.0",
     "eslint-plugin-simple-import-sort": "^14.0.0",
     "eslint-plugin-vue": "^10.6.2",
-    "exiftool-vendored": "^37.2.0",
+    "exiftool-vendored": "^38.0.1",
     "fontkit": "^2.0.4",
     "git-cliff": "^2.13.1",
     "happy-dom": "^20.14.0",
