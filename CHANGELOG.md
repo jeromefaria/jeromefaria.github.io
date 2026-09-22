@@ -52,6 +52,9 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Build & CI
 
+- **deps-dev:** Bump the worker-minor-patch group ([#466](https://github.com/jeromefaria/jeromefaria.github.io/pull/466))
+- **deps:** Bump the npm-minor-patch group with 11 updates ([#467](https://github.com/jeromefaria/jeromefaria.github.io/pull/467))
+- **deps:** Bump the github-actions group with 3 updates ([#468](https://github.com/jeromefaria/jeromefaria.github.io/pull/468))
 - **deps:** Bump the npm-minor-patch group across 1 directory with 9 updates ([#462](https://github.com/jeromefaria/jeromefaria.github.io/pull/462))
 - **deps-dev:** Bump exiftool-vendored from 37.2.0 to 38.0.1 ([#463](https://github.com/jeromefaria/jeromefaria.github.io/pull/463))
 - **deps:** Bump the github-actions group with 2 updates ([#464](https://github.com/jeromefaria/jeromefaria.github.io/pull/464))
