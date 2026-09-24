@@ -38,10 +38,10 @@
   }
 
   &__field {
-    margin-bottom: $spacing-6;
+    margin-bottom: $spacing-3;
 
     &:last-of-type {
-      margin-bottom: $spacing-8;
+      margin-bottom: $spacing-6;
     }
   }
 
@@ -54,6 +54,7 @@
 
   &__error {
     display: block;
+    min-height: 1.5em;
     margin-top: $spacing-2;
     font-size: $font-size-xs;
     color: var(--color-error);
@@ -200,11 +201,8 @@
     }
   }
 
-  &__turnstile:not(:empty) {
-    margin-bottom: $spacing-6;
-  }
-
   &__submit-error {
+    min-height: 1.5em;
     margin-bottom: $spacing-4;
     font-size: $font-size-sm;
     color: var(--color-error);
