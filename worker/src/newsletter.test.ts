@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import worker, { type Env } from './index';
+import { isValidEmail } from './shared';
 
 interface SubscriberRecord {
   email: string;
@@ -107,6 +108,29 @@ const resendResult = (ok: boolean): Response => ({ ok, text: async () => 'error 
 
 const sentBody = (fetchMock: ReturnType<typeof vi.spyOn>): Record<string, string> =>
   JSON.parse((fetchMock.mock.calls[1] as [string, RequestInit])[1].body as string);
+
+describe('isValidEmail', () => {
+  it.each([
+    'reader@example.com',
+    'a@b.co',
+    'first.last@sub.domain.org',
+  ])('accepts %s', email => {
+    expect(isValidEmail(email)).toBe(true);
+  });
+
+  it.each([
+    ['whitespace', 'Support <evil@x.co>'],
+    ['a control character', 'a\u0001@b.co'],
+    ['no at sign', 'nodomain.co'],
+    ['a leading at sign', '@b.co'],
+    ['two at signs', 'a@b@c.co'],
+    ['no dot in domain', 'a@bco'],
+    ['a dot right after the at sign', 'a@.co'],
+    ['a trailing dot', 'a@b.'],
+  ])('rejects %s', (_label, email) => {
+    expect(isValidEmail(email)).toBe(false);
+  });
+});
 
 describe('newsletter — subscribe', () => {
   let fetchMock: ReturnType<typeof vi.spyOn>;

@@ -16,10 +16,22 @@ export interface Env {
 
 export const MAX_BODY_BYTES = 64 * 1024;
 
-// eslint-disable-next-line local/no-comments -- security: DoS-cap + header-injection constraint
-// The length caps are the real DoS guard; this pattern also rejects the whitespace/angle-brackets used for reply-to header spoofing.
-export const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export const CONTROL_CHARS = /[\u0000-\u001f\u007f]/;
+
+const WHITESPACE_OR_CONTROL = /[\s\u0000-\u001f\u007f]/;
+
+// eslint-disable-next-line local/no-comments -- security: linear validation avoids the polynomial-ReDoS of a backtracking email regex
+// Structural checks (indexOf/lastIndexOf) run in linear time; they also reject the whitespace/angle-brackets used for reply-to header spoofing.
+export const isValidEmail = (email: string): boolean => {
+  if (WHITESPACE_OR_CONTROL.test(email)) return false;
+
+  const at = email.indexOf('@');
+  if (at < 1) return false;
+  if (email.indexOf('@', at + 1) !== -1) return false;
+
+  const lastDot = email.lastIndexOf('.');
+  return lastDot > at + 1 && lastDot < email.length - 1;
+};
 
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 const RESEND_SEND_URL = 'https://api.resend.com/emails';

@@ -1,8 +1,7 @@
 import {
-  CONTROL_CHARS,
-  EMAIL_PATTERN,
   type Env,
   guardPost,
+  isValidEmail,
   jsonResponse,
   redirectResponse,
   type ResendMessage,
@@ -33,7 +32,7 @@ const normalizeEmail = (email: string): string => email.trim().toLowerCase();
 const subscribeValidationError = (payload: SubscribePayload): string | null => {
   if (typeof payload.token !== 'string' || payload.token.trim() === '') return 'Missing required field: token';
   if (typeof payload.email !== 'string' || payload.email.trim() === '') return 'Missing required field: email';
-  if (CONTROL_CHARS.test(payload.email) || !EMAIL_PATTERN.test(payload.email)) return 'Invalid field: email';
+  if (!isValidEmail(payload.email)) return 'Invalid field: email';
   if (payload.email.length > MAX_EMAIL_LENGTH) return 'Field too long: email';
   return null;
 };

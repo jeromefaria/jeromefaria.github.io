@@ -1,9 +1,9 @@
 import {
   CONTROL_CHARS,
-  EMAIL_PATTERN,
   type Env,
   escapeHtml,
   guardPost,
+  isValidEmail,
   jsonResponse,
   sendResendEmail,
   verifyTurnstile,
@@ -56,7 +56,7 @@ const hasValidFields = (fields: unknown): fields is ContactField[] | undefined =
 // name/inquiry are free-text but land in the email subject/reply-to, so control chars (CR/LF) must stay rejected to prevent header injection.
 const firstInvalidKey = (payload: ContactPayload): string | null => {
   if (CONTROL_CHARS.test(payload.name)) return 'name';
-  if (CONTROL_CHARS.test(payload.email) || !EMAIL_PATTERN.test(payload.email)) return 'email';
+  if (!isValidEmail(payload.email)) return 'email';
   if (CONTROL_CHARS.test(payload.inquiry)) return 'inquiry';
   return null;
 };
