@@ -12,6 +12,7 @@ export const en = {
   footer: {
     privacy: 'Privacy',
     colophon: 'Colophon',
+    newsletter: 'Newsletter',
   },
   privacy: {
     lastUpdated: 'Last updated {date}.',
@@ -153,6 +154,26 @@ export const en = {
       tracksFormat: { label: 'Tracks & format', placeholder: 'e.g. 8 tracks, digital + vinyl' },
       masteringTimeline: { label: 'Timeline', placeholder: 'e.g. masters needed by June' },
       generalSubject: { label: 'Subject', placeholder: 'What is this about?' },
+    },
+  },
+  newsletter: {
+    intro: 'New releases, live dates, and occasional writing, by email.',
+    email: 'Email',
+    requiredError: 'Email is required',
+    submit: 'Subscribe',
+    sending: 'Subscribing...',
+    turnstileNotice: 'Protected by Cloudflare Turnstile',
+    verifyError: 'Could not verify you are human. Please try again.',
+    submitError: 'Something went wrong. Please try again.',
+    success: {
+      title: 'Please confirm your subscription',
+      text: 'Please check your inbox for the confirmation link.',
+    },
+    status: {
+      confirmed: 'You\'re subscribed. Thank you.',
+      confirmInvalid: 'That confirmation link is invalid or has expired. Try subscribing again below.',
+      unsubscribed: 'You\'ve been unsubscribed. No more emails will be sent.',
+      unsubscribeInvalid: 'That unsubscribe link is invalid or has already been used.',
     },
   },
   palette: {
