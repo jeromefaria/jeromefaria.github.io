@@ -12,6 +12,7 @@ const { liveEvents } = await loadSrc('data/live.ts');
 const { localize } = await loadSrc('i18n/localized.ts');
 const { formatEventDateRange } = await loadSrc('utils/formatters.ts');
 const { venueLabel } = await loadSrc('utils/venueFormat.ts');
+const { cardColor: C, tracking: T, weight: W } = await loadSrc('design/tokens.ts');
 const fontFaces = await interFontFaces(root);
 
 const heroOf = event => {
@@ -58,14 +59,14 @@ const eventMeta = (event, locale) =>
 const cardHtml = (event, hero, isPoster, locale) => `<!doctype html><html><head><meta charset="utf-8"><style>
   ${fontFaces}
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  .card { position: relative; width: ${CARD_WIDTH}px; height: ${CARD_HEIGHT}px; overflow: hidden; background: #000; font-family: 'Inter', sans-serif; }
+  .card { position: relative; width: ${CARD_WIDTH}px; height: ${CARD_HEIGHT}px; overflow: hidden; background: ${C.bg}; font-family: 'Inter', sans-serif; }
   .hero { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; ${heroStyle(cardFraming(hero, isPoster))} }
   .scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgb(0 0 0 / 90%) 0%, rgb(0 0 0 / 55%) 30%, rgb(0 0 0 / 0%) 58%); }
-  .wordmark { position: absolute; top: 52px; left: 76px; font-size: 24px; font-weight: 600; letter-spacing: -0.01em; color: #fff; text-shadow: 0 1px 12px rgb(0 0 0 / 60%); }
-  .content { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 76px; color: #fff; }
-  .eyebrow { text-transform: uppercase; letter-spacing: 0.28em; font-size: 20px; font-weight: 600; color: #e5e5e5; }
-  .title { font-size: 60px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.04; margin-top: 16px; max-width: 18ch; text-wrap: balance; }
-  .meta { font-size: 29px; font-weight: 500; color: #d4d4d4; margin-top: 18px; }
+  .wordmark { position: absolute; top: 52px; left: 76px; font-size: 24px; font-weight: ${W.semibold}; letter-spacing: ${T.tight}; color: ${C.text}; text-shadow: 0 1px 12px rgb(0 0 0 / 60%); }
+  .content { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 76px; color: ${C.text}; }
+  .eyebrow { text-transform: uppercase; letter-spacing: ${T.display}; font-size: 20px; font-weight: ${W.semibold}; color: ${C.mutedOnImage}; }
+  .title { font-size: 60px; font-weight: ${W.semibold}; letter-spacing: ${T.tighter}; line-height: 1.04; margin-top: 16px; max-width: 18ch; text-wrap: balance; }
+  .meta { font-size: 29px; font-weight: ${W.medium}; color: ${C.secondaryOnImage}; margin-top: 18px; }
 </style></head><body>
   <div class="card">
     <img class="hero" src="${heroDataUri(hero.src)}" alt="">
