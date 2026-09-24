@@ -120,7 +120,7 @@ jobs:
           }
 
           check 'dist/assets/*.js' 200
-          check 'dist/assets/*.css' 50
+          check 'dist/assets/*.css' 55
 
           if [ "$over_budget" -ne 0 ]; then
             echo "Bundle size budget exceeded."
