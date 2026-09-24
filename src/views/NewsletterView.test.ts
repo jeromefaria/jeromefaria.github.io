@@ -88,7 +88,7 @@ describe('NewsletterView', () => {
   it('confirms a subscription from the confirmed=1 redirect and hides the form', async () => {
     const wrapper = await mountView(NewsletterView, '/newsletter?confirmed=1');
 
-    expect(wrapper.get('.newsletter__status').text()).toContain("You're subscribed");
+    expect(wrapper.get('.contact-success').text()).toContain("You're subscribed");
     expect(wrapper.find('form').exists()).toBe(false);
   });
 
@@ -98,14 +98,14 @@ describe('NewsletterView', () => {
     const intro = wrapper.get('.newsletter__intro');
     expect(intro.classes()).toContain('newsletter__intro--error');
     expect(intro.text()).toContain('invalid');
-    expect(wrapper.find('.newsletter__status').exists()).toBe(false);
+    expect(wrapper.find('.contact-success').exists()).toBe(false);
     expect(wrapper.find('form').exists()).toBe(true);
   });
 
   it('confirms an unsubscribe from the unsubscribed=1 redirect and hides the form', async () => {
     const wrapper = await mountView(NewsletterView, '/newsletter?unsubscribed=1');
 
-    expect(wrapper.get('.newsletter__status').text()).toContain('unsubscribed');
+    expect(wrapper.get('.contact-success').text()).toContain('unsubscribed');
     expect(wrapper.find('form').exists()).toBe(false);
   });
 

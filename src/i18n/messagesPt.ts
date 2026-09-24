@@ -172,9 +172,9 @@ export const pt: MessageSchema = {
       text: 'Por favor, verifique a sua caixa de entrada para a ligação de confirmação.',
     },
     status: {
-      confirmed: 'Subscrição confirmada. Obrigado.',
+      confirmed: { title: 'Subscrição confirmada.', text: 'Obrigado.' },
       confirmInvalid: 'A ligação de confirmação é inválida ou expirou. Tente subscrever novamente abaixo.',
-      unsubscribed: 'A sua subscrição foi cancelada. Não serão enviados mais emails.',
+      unsubscribed: { title: 'A sua subscrição foi cancelada.', text: 'Não serão enviados mais emails.' },
       unsubscribeInvalid: 'A ligação de cancelamento é inválida ou já foi utilizada.',
     },
   },

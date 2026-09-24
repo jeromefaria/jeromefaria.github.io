@@ -170,9 +170,9 @@ export const en = {
       text: 'Please check your inbox for the confirmation link.',
     },
     status: {
-      confirmed: 'You\'re subscribed. Thank you.',
+      confirmed: { title: 'You\'re subscribed.', text: 'Thank you.' },
       confirmInvalid: 'That confirmation link is invalid or has expired. Try subscribing again below.',
-      unsubscribed: 'You\'ve been unsubscribed. No more emails will be sent.',
+      unsubscribed: { title: 'You\'ve been unsubscribed.', text: 'No more emails will be sent.' },
       unsubscribeInvalid: 'That unsubscribe link is invalid or has already been used.',
     },
   },

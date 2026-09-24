@@ -11,12 +11,3 @@
     color: var(--color-error);
   }
 }
-
-.newsletter__status {
-  max-width: $max-width;
-  margin: 0 auto $spacing-6;
-  font-size: $font-size-base;
-  line-height: $line-height-relaxed;
-  color: var(--color-text);
-  text-align: center;
-}

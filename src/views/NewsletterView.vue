@@ -21,9 +21,10 @@ const { execute } = useTurnstile(newsletterContent.turnstileSiteKey, turnstileCo
 const { email, botField, isSubmitting, showSuccess, errorMessage, invalid, error, handleBlur, handleInput, handleSubmit } =
   useNewsletterForm(newsletterContent.action, execute);
 
-const finalNotice = computed<string | null>(() => {
-  if (route.query['confirmed'] === '1') return t('newsletter.status.confirmed');
-  if (route.query['unsubscribed'] === '1') return t('newsletter.status.unsubscribed');
+const terminalMessage = computed<{ title: string; text: string } | null>(() => {
+  if (showSuccess.value) return { title: t('newsletter.success.title'), text: t('newsletter.success.text') };
+  if (route.query['confirmed'] === '1') return { title: t('newsletter.status.confirmed.title'), text: t('newsletter.status.confirmed.text') };
+  if (route.query['unsubscribed'] === '1') return { title: t('newsletter.status.unsubscribed.title'), text: t('newsletter.status.unsubscribed.text') };
   return null;
 });
 
@@ -32,8 +33,6 @@ const blurbError = computed<string | null>(() => {
   if (route.query['unsubscribed'] === '0') return t('newsletter.status.unsubscribeInvalid');
   return null;
 });
-
-const hideForm = computed(() => showSuccess.value || finalNotice.value !== null);
 
 const onSubmit = async (event: Event): Promise<void> => {
   const submitted = await handleSubmit(event);
@@ -49,24 +48,16 @@ const onSubmit = async (event: Event): Promise<void> => {
     :head="pageMeta.newsletter"
     data-page="newsletter"
   >
-    <p
-      v-if="finalNotice"
-      class="newsletter__status"
-      role="alert"
-    >
-      {{ finalNotice }}
-    </p>
-
     <div
-      v-if="showSuccess"
+      v-if="terminalMessage"
       class="contact-success"
       role="alert"
     >
-      <h2>{{ t('newsletter.success.title') }}</h2>
-      <p>{{ t('newsletter.success.text') }}</p>
+      <h2>{{ terminalMessage.title }}</h2>
+      <p>{{ terminalMessage.text }}</p>
     </div>
 
-    <template v-if="!hideForm">
+    <template v-else>
       <p
         :class="['newsletter__intro', { 'newsletter__intro--error': blurbError }]"
         :role="blurbError ? 'alert' : undefined"
