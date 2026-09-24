@@ -36,6 +36,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **design:** Single token source of truth for the generators ([#470](https://github.com/jeromefaria/jeromefaria.github.io/pull/470))
 - **credits:** Reference photographers and collaborators by registry key ([#454](https://github.com/jeromefaria/jeromefaria.github.io/pull/454))
 - **types:** Couple live imageAlt to its images ([#448](https://github.com/jeromefaria/jeromefaria.github.io/pull/448))
 - **works:** Shared allReleases/releaseById accessors ([#431](https://github.com/jeromefaria/jeromefaria.github.io/pull/431))
