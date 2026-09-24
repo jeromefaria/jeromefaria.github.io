@@ -86,9 +86,9 @@ describe('useNewsletterForm', () => {
   it('blocks submission of an empty email and marks it touched', async () => {
     const vm = mountForm();
 
-    const submitted = await vm.handleSubmit(submitEvent());
+    const proceeded = await vm.handleSubmit(submitEvent());
 
-    expect(submitted).toBe(false);
+    expect(proceeded).toBe(false);
     expect(vm.touched).toBe(true);
     expect(fetchSpy).not.toHaveBeenCalled();
   });
@@ -99,10 +99,10 @@ describe('useNewsletterForm', () => {
     vm.email = '  Reader@Example.com  ';
     vm.botField = '';
 
-    const submitted = await vm.handleSubmit(submitEvent());
+    const proceeded = await vm.handleSubmit(submitEvent());
     await flushPromises();
 
-    expect(submitted).toBe(true);
+    expect(proceeded).toBe(true);
     expect(fetchSpy).toHaveBeenCalledWith(TEST_URL, expect.objectContaining({ method: 'POST' }));
     const body = sentBody(fetchSpy);
     expect(body).toEqual({ token: 'turnstile-token', email: 'Reader@Example.com', botField: '' });
@@ -148,9 +148,9 @@ describe('useNewsletterForm', () => {
     vm.email = 'reader@example.com';
     vm.isSubmitting = true;
 
-    const submitted = await vm.handleSubmit(submitEvent());
+    const proceeded = await vm.handleSubmit(submitEvent());
 
-    expect(submitted).toBe(false);
+    expect(proceeded).toBe(false);
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 });

@@ -35,8 +35,8 @@ const blurbError = computed<string | null>(() => {
 });
 
 const onSubmit = async (event: Event): Promise<void> => {
-  const submitted = await handleSubmit(event);
-  if (!submitted) {
+  const proceeded = await handleSubmit(event);
+  if (!proceeded) {
     await nextTick();
     document.getElementById('newsletter-email')?.focus();
   }
