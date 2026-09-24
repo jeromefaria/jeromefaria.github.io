@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { type Component, defineComponent, nextTick, reactive } from 'vue';
 
 import { useAccordion } from './useAccordion';
@@ -61,6 +61,7 @@ describe('useAccordion', () => {
   let getElementByIdSpy: ReturnType<typeof vi.spyOn<Document, 'getElementById'>>;
 
   beforeEach(() => {
+    vi.useFakeTimers();
     mockRoute.hash = '';
 
     replaceStateSpy = vi.spyOn(window.history, 'replaceState');
@@ -78,6 +79,11 @@ describe('useAccordion', () => {
     });
 
     vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    vi.clearAllTimers();
+    vi.useRealTimers();
   });
 
   it('should initialize with the initial section', () => {
@@ -183,7 +189,6 @@ describe('useAccordion', () => {
   });
 
   it('should scroll to element with correct timing', async () => {
-    vi.useFakeTimers();
     mockRoute.hash = `#section-${VALID_SECTIONS[1]}`;
 
     mount(createTestComponent());
@@ -192,12 +197,9 @@ describe('useAccordion', () => {
     await vi.advanceTimersByTimeAsync(ACCORDION_ANIMATION_TIMING);
 
     expect(getElementByIdSpy).toHaveBeenCalledWith(`trigger-${VALID_SECTIONS[1]}`);
-
-    vi.useRealTimers();
   });
 
   it('should scroll smoothly when reduced motion is not preferred', async () => {
-    vi.useFakeTimers();
     const scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
     vi.spyOn(window, 'matchMedia').mockReturnValue({ matches: false } as MediaQueryList);
     mockRoute.hash = `#section-${VALID_SECTIONS[1]}`;
@@ -207,12 +209,9 @@ describe('useAccordion', () => {
     await vi.advanceTimersByTimeAsync(ACCORDION_ANIMATION_TIMING);
 
     expect(scrollToSpy).toHaveBeenCalledWith(expect.objectContaining({ behavior: 'smooth' }));
-
-    vi.useRealTimers();
   });
 
   it('should jump without animation when reduced motion is preferred', async () => {
-    vi.useFakeTimers();
     const scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
     vi.spyOn(window, 'matchMedia').mockReturnValue({ matches: true } as MediaQueryList);
     mockRoute.hash = `#section-${VALID_SECTIONS[1]}`;
@@ -222,12 +221,9 @@ describe('useAccordion', () => {
     await vi.advanceTimersByTimeAsync(ACCORDION_ANIMATION_TIMING);
 
     expect(scrollToSpy).toHaveBeenCalledWith(expect.objectContaining({ behavior: 'auto' }));
-
-    vi.useRealTimers();
   });
 
   it('should scroll to the nested item id when a hash resolves via its parent section', async () => {
-    vi.useFakeTimers();
     const itemId = 'nested-item-1';
     const findSectionForId = (id: string): string | null => (id === itemId ? VALID_SECTIONS[1] : null);
     mockRoute.hash = `#${itemId}`;
@@ -237,8 +233,6 @@ describe('useAccordion', () => {
     await vi.advanceTimersByTimeAsync(ACCORDION_ANIMATION_TIMING);
 
     expect(getElementByIdSpy).toHaveBeenCalledWith(itemId);
-
-    vi.useRealTimers();
   });
 
   it('should handle empty hash', async () => {
