@@ -5,6 +5,7 @@ import { interFontFaces } from './pdf-fonts.mjs';
 import { CARD_HEIGHT, CARD_WIDTH, renderCard, withBrowser } from './playwright-render.mjs';
 
 const { essays } = await loadSrc('data/writing.ts');
+const { cardColor: C, tracking: T, weight: W } = await loadSrc('design/tokens.ts');
 const fontFaces = await interFontFaces(root);
 
 const cardHtml = essay => `<!doctype html><html><head><meta charset="utf-8"><style>
@@ -13,20 +14,20 @@ const cardHtml = essay => `<!doctype html><html><head><meta charset="utf-8"><sty
   body {
     width: ${CARD_WIDTH}px;
     height: ${CARD_HEIGHT}px;
-    background: #000;
-    color: #fff;
+    background: ${C.bg};
+    color: ${C.text};
     font-family: 'Inter', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 76px 88px;
   }
-  .eyebrow { text-transform: uppercase; letter-spacing: 0.28em; font-size: 20px; font-weight: 600; color: #a3a3a3; }
-  .title { font-size: 92px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; margin-top: 26px; }
-  .subtitle { font-size: 40px; font-weight: 500; color: #a3a3a3; margin-top: 22px; }
-  .footer { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid #2a2a2a; padding-top: 26px; }
-  .footer span { font-size: 24px; color: #a3a3a3; }
-  .footer .url { color: #fff; font-weight: 500; }
+  .eyebrow { text-transform: uppercase; letter-spacing: ${T.display}; font-size: 20px; font-weight: ${W.semibold}; color: ${C.muted}; }
+  .title { font-size: 92px; font-weight: ${W.semibold}; letter-spacing: ${T.tighter}; line-height: 1; margin-top: 26px; }
+  .subtitle { font-size: 40px; font-weight: ${W.medium}; color: ${C.muted}; margin-top: 22px; }
+  .footer { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid ${C.divider}; padding-top: 26px; }
+  .footer span { font-size: 24px; color: ${C.muted}; }
+  .footer .url { color: ${C.text}; font-weight: ${W.medium}; }
 </style></head><body>
   <div>
     <p class="eyebrow">Essay</p>
