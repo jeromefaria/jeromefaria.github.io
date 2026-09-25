@@ -102,4 +102,11 @@ export const pageMeta = {
       pt: 'Ensaios de Jerome Faria — sobre música, engenharia e o ofício que as une.',
     },
   },
+  newsletter: {
+    title: { en: 'Newsletter', pt: 'Newsletter' },
+    description: {
+      en: 'New releases, live dates, and occasional writing, by email.',
+      pt: 'Novas edições, datas de concertos e escrita ocasional, por email.',
+    },
+  },
 } satisfies Record<string, PageMeta>;

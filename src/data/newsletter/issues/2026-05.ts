@@ -1,4 +1,4 @@
-import type { NewsletterIssue } from '../types';
+import type { NewsletterIssue } from '../types.ts';
 
 export const issue: NewsletterIssue = {
   id: '2026-05',

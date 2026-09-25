@@ -15,6 +15,7 @@ export interface VideoBlock {
   type: 'video';
   poster: string;
   href: string;
+  embedUrl?: string;
   alt: string;
   caption?: string;
 }
