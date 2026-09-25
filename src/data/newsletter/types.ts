@@ -7,6 +7,7 @@ export interface ImageBlock {
   type: 'image';
   src: string;
   alt: string;
+  label?: string;
   caption?: string;
   href?: string;
 }
@@ -17,6 +18,7 @@ export interface VideoBlock {
   href: string;
   embedUrl?: string;
   alt: string;
+  label?: string;
   caption?: string;
 }
 

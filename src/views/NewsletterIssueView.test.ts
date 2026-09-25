@@ -13,9 +13,9 @@ const FULL: NewsletterIssue = {
   subject: 'Full issue',
   blocks: [
     { type: 'prose', markdown: '# Hello\n\nSome **text**.' },
-    { type: 'image', src: '/images/performance.jpg', alt: 'Linked photo', caption: 'A caption', href: 'https://example.com' },
+    { type: 'image', src: '/images/performance.jpg', alt: 'Linked photo', label: 'Look', caption: 'A caption', href: 'https://example.com' },
     { type: 'image', src: '/images/performance.jpg', alt: 'Plain photo' },
-    { type: 'video', poster: '/images/performance.jpg', href: 'https://youtube.com/watch', embedUrl: 'https://www.youtube-nocookie.com/embed/abc', alt: 'Embeddable video', caption: 'watch it' },
+    { type: 'video', poster: '/images/performance.jpg', href: 'https://youtube.com/watch', embedUrl: 'https://www.youtube-nocookie.com/embed/abc', label: 'Watch', alt: 'Embeddable video', caption: 'watch it' },
     { type: 'video', poster: '/images/performance.jpg', href: 'https://youtube.com/watch', embedUrl: 'https://evil.example/x', alt: 'Blocked embed' },
     { type: 'video', poster: '/images/performance.jpg', href: 'https://youtube.com/watch', alt: 'No embed' },
     { type: 'listen', ref: 'contraplacado', note: 'A listen note' },
@@ -71,6 +71,7 @@ describe('NewsletterIssueView', () => {
     expect(figures.length).toBe(5);
     expect(wrapper.find('.newsletter-issue__figure a[href="https://example.com"]').exists()).toBe(true);
     expect(wrapper.text()).toContain('A caption');
+    expect(figures[0].find('.newsletter-issue__label').text()).toBe('Look');
   });
 
   it('resolves only existing refs into features (unresolved refs are dropped)', async () => {
@@ -87,9 +88,9 @@ describe('NewsletterIssueView', () => {
   it('plays an embeddable video inline on click and links out for the rest', async () => {
     const wrapper = await mountAt('/newsletter/full');
 
-    const play = wrapper.get('.newsletter-issue__play');
-    expect(wrapper.findAll('.newsletter-issue__play')).toHaveLength(1);
-    expect(wrapper.findAll('.newsletter-issue__video a[href="https://youtube.com/watch"]')).toHaveLength(2);
+    const play = wrapper.get('button.newsletter-issue__play');
+    expect(wrapper.findAll('button.newsletter-issue__play')).toHaveLength(1);
+    expect(wrapper.findAll('a.newsletter-issue__play[href="https://youtube.com/watch"]')).toHaveLength(2);
 
     await play.trigger('click');
 

@@ -25,8 +25,8 @@ export interface FeatureBlock {
 
 export type RenderBlock =
   | { kind: 'prose'; html: string }
-  | { kind: 'image'; src: string; alt: string; caption: string | null; href: string | null }
-  | { kind: 'video'; poster: string; alt: string; caption: string | null; href: string; embedUrl: string | null }
+  | { kind: 'image'; src: string; alt: string; label: string | null; caption: string | null; href: string | null }
+  | { kind: 'video'; poster: string; alt: string; label: string | null; caption: string | null; href: string; embedUrl: string | null }
   | FeatureBlock;
 
 const monthYear = (iso: string): string =>
@@ -100,11 +100,11 @@ const writingFeature = (ref: string, note?: string): FeatureBlock | null => {
 const resolveBlock = (block: IssueBlock): RenderBlock | null => {
   if (block.type === 'prose') return { kind: 'prose', html: renderMarkdown(block.markdown) };
   if (block.type === 'image') {
-    return { kind: 'image', src: block.src, alt: block.alt, caption: block.caption ?? null, href: block.href ?? null };
+    return { kind: 'image', src: block.src, alt: block.alt, label: block.label ?? null, caption: block.caption ?? null, href: block.href ?? null };
   }
   if (block.type === 'video') {
     const embedUrl = block.embedUrl && isAllowedEmbedUrl(block.embedUrl) ? block.embedUrl : null;
-    return { kind: 'video', poster: block.poster, alt: block.alt, caption: block.caption ?? null, href: block.href, embedUrl };
+    return { kind: 'video', poster: block.poster, alt: block.alt, label: block.label ?? null, caption: block.caption ?? null, href: block.href, embedUrl };
   }
   if (block.type === 'listen') return listenFeature(block.ref, block.note);
   if (block.type === 'live') return liveFeature(block.ref, block.note);

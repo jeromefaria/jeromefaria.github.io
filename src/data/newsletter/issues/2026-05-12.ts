@@ -1,7 +1,7 @@
 import type { NewsletterIssue } from '../types.ts';
 
 export const issue: NewsletterIssue = {
-  id: '2026-05',
+  id: '2026-05-12',
   date: '2026-05-12',
   subject: 'Contraplacado, and a night in Porto',
   blocks: [
@@ -29,6 +29,7 @@ export const issue: NewsletterIssue = {
       type: 'video',
       poster: '/images/about-2009-madeiradig.jpg',
       href: 'https://www.youtube.com/@jeromefaria',
+      label: 'Watch',
       alt: 'Live performance video',
       caption: 'A video block — a poster that links out to where it plays.',
     },

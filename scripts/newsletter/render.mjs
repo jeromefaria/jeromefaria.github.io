@@ -80,15 +80,16 @@ const proseBlock = block => {
 const imageBlock = (block, opts) => {
   const img = image(block.src, block.alt, opts);
   const linked = block.href ? `<a href="${block.href}" style="text-decoration:none;">${img}</a>` : img;
-  return blockCell(linked + (block.caption ? caption(block.caption) : ''));
+  return blockCell([block.label ? label(block.label) : '', linked, block.caption ? caption(block.caption) : ''].join(''));
 };
 
 const videoBlock = (block, opts) =>
-  blockCell(
-    `<a href="${block.href}" style="text-decoration:none;">${image(block.poster, block.alt, opts)}</a>${
-      block.caption ? caption(block.caption) : ''
-    }${cta('Watch', block.href)}`,
-  );
+  blockCell([
+    block.label ? label(block.label) : '',
+    `<a href="${block.href}" style="text-decoration:none;">${image(block.poster, block.alt, opts)}</a>`,
+    block.caption ? caption(block.caption) : '',
+    cta('Watch', block.href),
+  ].join(''));
 
 const listenBlock = (block, opts) => {
   const release = releaseById.get(block.ref);
