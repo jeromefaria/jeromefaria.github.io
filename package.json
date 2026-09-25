@@ -44,7 +44,8 @@
     "resume:pdf": "node scripts/generate-resume.mjs",
     "og:cv": "node scripts/generate-og-cv.mjs",
     "og:writing": "node scripts/generate-og-writing.mjs",
-    "og:live": "node scripts/generate-og-live.mjs"
+    "og:live": "node scripts/generate-og-live.mjs",
+    "newsletter:preview": "node scripts/newsletter/preview.mjs"
   },
   "lint-staged": {
     "*.{ts,tsx,vue,js,mjs,cjs}": "eslint --fix",
