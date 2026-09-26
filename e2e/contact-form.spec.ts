@@ -1,51 +1,16 @@
 import { expect, type Page, test } from '@playwright/test';
 
+import { mockWorker, stubTurnstile } from './helpers';
+
 const FORM = '.contact-form';
 const INQUIRY = '#inquiry';
 const NAME = '#name';
 const EMAIL = '#email';
 const MESSAGE = '#message';
 const SUBMIT = '.contact-form__submit';
-const WORKER_URL = /workers\.dev/;
 const INVALID_INPUT = /contact-form__input--invalid/;
 const INVALID_TEXTAREA = /contact-form__textarea--invalid/;
 const VALID_SUBMIT = /contact-form__submit--valid/;
-
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-};
-
-const stubTurnstile = async (page: Page): Promise<void> => {
-  await page.addInitScript(() => {
-    let onToken: ((token: string) => void) | undefined;
-    (window as unknown as { turnstile: unknown }).turnstile = {
-      render: (_element: HTMLElement, options: { callback: (token: string) => void }) => {
-        onToken = options.callback;
-        return 'test-widget';
-      },
-      execute: () => onToken?.('test-token'),
-      reset: () => {},
-      remove: () => {},
-    };
-  });
-};
-
-const mockWorker = async (page: Page, status: number): Promise<void> => {
-  await page.route(WORKER_URL, route => {
-    if (route.request().method() === 'OPTIONS') {
-      return route.fulfill({ status: 204, headers: CORS });
-    }
-
-    return route.fulfill({
-      status,
-      headers: CORS,
-      contentType: 'application/json',
-      body: JSON.stringify({ ok: status === 200 }),
-    });
-  });
-};
 
 const fillValid = async (page: Page): Promise<void> => {
   await page.locator(INQUIRY).selectOption('booking');
