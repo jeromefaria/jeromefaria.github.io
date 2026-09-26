@@ -14,18 +14,27 @@ describe('router routes', () => {
       '/live',
       '/live/:eventId',
       '/press',
+      '/epk',
       '/contact',
       '/newsletter',
-      '/epk',
+      '/newsletter/:issue',
       '/privacy',
-      '/copyright',
       '/colophon',
+      '/copyright',
       '/cv',
       '/writing',
       '/writing/:slug',
-      '/newsletter/:issue',
       '/:pathMatch(.*)*',
     ]);
+  });
+
+  it('gives every static page route a palette entry so new pages cannot drift out of the command palette', () => {
+    const staticPages = routes.filter(route => !route.path.includes(':'));
+
+    for (const route of staticPages) {
+      expect(route.meta?.palette, `${route.path} is missing palette meta`).toBeDefined();
+      expect(route.name, `${route.path} is missing a name`).toBeDefined();
+    }
   });
 
   it('names the home and not-found routes', () => {
