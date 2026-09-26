@@ -34,8 +34,10 @@ const routeCommands = (t: TranslateFn): Command[] => [
   { kind: 'navigate', id: 'nav:press', title: t('nav.press'), keywords: words(t('palette.kw.press')), group: 'Navigate', to: '/press' },
   { kind: 'navigate', id: 'nav:about', title: t('nav.about'), keywords: words(t('palette.kw.about')), group: 'Navigate', to: '/about' },
   { kind: 'navigate', id: 'nav:contact', title: t('nav.contact'), keywords: words(t('palette.kw.contact')), group: 'Navigate', to: '/contact' },
+  { kind: 'navigate', id: 'nav:newsletter', title: t('footer.newsletter'), keywords: words(t('palette.kw.newsletter')), group: 'Navigate', to: '/newsletter' },
   { kind: 'navigate', id: 'nav:epk', title: t('palette.pressKit'), keywords: words(t('palette.kw.pressKit')), group: 'Navigate', to: '/epk' },
   { kind: 'navigate', id: 'nav:privacy', title: t('footer.privacy'), keywords: words(t('palette.kw.privacy')), group: 'Navigate', to: '/privacy' },
+  { kind: 'navigate', id: 'nav:copyright', title: t('palette.copyright'), keywords: words(t('palette.kw.copyright')), group: 'Navigate', to: '/copyright' },
   { kind: 'navigate', id: 'nav:colophon', title: t('footer.colophon'), keywords: words(t('palette.kw.colophon')), group: 'Navigate', to: '/colophon' },
   { kind: 'navigate', id: 'nav:cv', title: t('palette.cv'), keywords: words(t('palette.kw.cv')), group: 'Navigate', to: '/cv', englishOnly: true },
 ];

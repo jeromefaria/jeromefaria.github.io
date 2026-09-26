@@ -12,6 +12,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Site content — All rights reserved
 
-The MIT terms above cover the source code only. All site content — photographs, poster and cover artwork, audio and video recordings, and written text — is not covered by the MIT License and may not be reused, redistributed, or adapted without written permission.
+The MIT terms above cover the source code only. All original site content — the writing, music, design, and Jerome Faria's own photographs — is not covered by the MIT License, may not be reused, redistributed, or adapted without written permission, and is copyright © 2004–2026 Jerome Faria.
 
-Content produced by third parties (photographers, artists, festivals, and other collaborators credited in the site data) remains the property of its respective authors. All remaining content is copyright © 2026 Jerome Faria.
+Content produced by others remains the property of its respective authors, as credited throughout the site: performance and event photographs (their photographers), cover and poster artwork (their artists), all embedded video (the uploaders it links to), event posters (the festivals and promoters that produced them), and press quotations (the publications that wrote them).
+
+A small amount of imagery is drawn from the public domain — such as a still from Robert Wiene's _The Cabinet of Dr. Caligari_ (1920) — or used under an open credit line, such as James Webb Space Telescope imagery credited to NASA, ESA, CSA & STScI.
+
+## Typeface
+
+The site sets type in Inter, by Rasmus Andersson, used under the SIL Open Font License 1.1.

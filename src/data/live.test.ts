@@ -11,22 +11,26 @@ describe('liveData posters', () => {
     'jejum-45': [
       {
         src: '/images/live/jejum-45-poster-001.jpg',
+        artist: { name: 'Colectivo Casa Amarela' },
         alt: 'Jejum #45 poster — Colectivo Casa Amarela at Fábrica da Criatividade, Castelo Branco, 19–20 September 2026, with Guilherme Rodrigues, Zé Maria Carreira, Gweynn, Jerome Faria, Living Room DJs, Peak Bleak and Soria',
       },
     ],
     'aragao-funchal': [
       {
         src: '/images/live/aragao-funchal-poster-001.jpg',
+        artist: { name: 'Teatro Municipal Baltazar Dias' },
         alt: 'Aragão poster — Teatro Municipal Baltazar Dias, Funchal, 22–25 September 2021; text by Rui Zink, staged by Sara Gonçalves',
       },
       {
         src: '/images/live/aragao-funchal-poster-002.jpg',
+        artist: { name: 'Teatro Municipal Baltazar Dias' },
         alt: 'Aragão programme spread — synopsis and technical credits, Teatro Municipal Baltazar Dias, Funchal, 2021',
       },
     ],
     'showcase-casa-amarela': [
       {
         src: '/images/live/showcase-casa-amarela-poster-001.jpg',
+        artist: { name: 'Colectivo Casa Amarela' },
         alt: 'Showcase Casa Amarela poster — Cooperativa Mula, Barreiro, 14 June 2025 — NOx, Copo d\'Água, TiaAvô, Rebolation All-Stars DJ set',
       },
     ],
@@ -40,16 +44,19 @@ describe('liveData posters', () => {
     'festival-multiplo-2026': [
       {
         src: '/images/live/festival-multiplo-2026-poster-001.jpg',
+        artist: { name: 'Festival Múltiplo' },
         alt: 'Festival Múltiplo 2026 poster listing the full three-day lineup, Zaratan, Lisbon',
       },
       {
         src: '/images/live/festival-multiplo-2026-poster-002.jpg',
+        artist: { name: 'Festival Múltiplo' },
         alt: 'Festival Múltiplo 2026 poster for 23 August at Zaratan, Lisbon — Jerome Faria, Formidolor, Joana de Sá, Double Double',
       },
     ],
     'eme-madeira-2008': [
       {
         src: '/images/live/eme-madeira-2008-poster-001.jpg',
+        artist: { name: 'EME — Encontros de Música Experimental' },
         alt: 'EME 08 — Encontros de Música Experimental poster at Centro das Artes Casa das Mudas, Calheta — Hauschka (Germany), The Sight Below (USA), and NNY / Jerome Faria (Portugal), 4 October 2008',
       },
     ],

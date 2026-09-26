@@ -25,6 +25,7 @@ export const recentEvents: LiveEvent[] = [
     posters: [
       {
         src: '/images/live/jejum-45-poster-001.jpg',
+        artist: { name: 'Colectivo Casa Amarela' },
         alt: { en: 'Jejum #45 poster — Colectivo Casa Amarela at Fábrica da Criatividade, Castelo Branco, 19–20 September 2026, with Guilherme Rodrigues, Zé Maria Carreira, Gweynn, Jerome Faria, Living Room DJs, Peak Bleak and Soria', pt: 'Cartaz do Jejum #45 — Colectivo Casa Amarela na Fábrica da Criatividade, Castelo Branco, 19–20 de setembro de 2026, com Guilherme Rodrigues, Zé Maria Carreira, Gweynn, Jerome Faria, Living Room DJs, Peak Bleak e Soria' },
       },
     ],
@@ -53,10 +54,12 @@ export const recentEvents: LiveEvent[] = [
     posters: [
       {
         src: '/images/live/festival-multiplo-2026-poster-001.jpg',
+        artist: { name: 'Festival Múltiplo' },
         alt: { en: 'Festival Múltiplo 2026 poster listing the full three-day lineup, Zaratan, Lisbon', pt: 'Cartaz do Festival Múltiplo 2026 com o alinhamento completo dos três dias, Zaratan, Lisboa' },
       },
       {
         src: '/images/live/festival-multiplo-2026-poster-002.jpg',
+        artist: { name: 'Festival Múltiplo' },
         alt: { en: 'Festival Múltiplo 2026 poster for 23 August at Zaratan, Lisbon — Jerome Faria, Formidolor, Joana de Sá, Double Double', pt: 'Cartaz do Festival Múltiplo 2026 para 23 de Agosto no Zaratan, Lisboa — Jerome Faria, Formidolor, Joana de Sá, Double Double' },
       },
     ],
@@ -153,6 +156,7 @@ export const recentEvents: LiveEvent[] = [
     posters: [
       {
         src: '/images/live/showcase-casa-amarela-poster-001.jpg',
+        artist: { name: 'Colectivo Casa Amarela' },
         alt: { en: 'Showcase Casa Amarela poster — Cooperativa Mula, Barreiro, 14 June 2025 — NOx, Copo d\'Água, TiaAvô, Rebolation All-Stars DJ set', pt: 'Cartaz do Showcase Casa Amarela — Cooperativa Mula, Barreiro, 14 de Junho de 2025 — NOx, Copo d\'Água, TiaAvô, DJ set Rebolation All-Stars' },
       },
     ],
@@ -515,10 +519,12 @@ export const recentEvents: LiveEvent[] = [
     posters: [
       {
         src: '/images/live/aragao-funchal-poster-001.jpg',
+        artist: { name: 'Teatro Municipal Baltazar Dias' },
         alt: { en: 'Aragão poster — Teatro Municipal Baltazar Dias, Funchal, 22–25 September 2021; text by Rui Zink, staged by Sara Gonçalves', pt: 'Cartaz de Aragão — Teatro Municipal Baltazar Dias, Funchal, 22–25 de Setembro de 2021; texto de Rui Zink, encenação de Sara Gonçalves' },
       },
       {
         src: '/images/live/aragao-funchal-poster-002.jpg',
+        artist: { name: 'Teatro Municipal Baltazar Dias' },
         alt: { en: 'Aragão programme spread — synopsis and technical credits, Teatro Municipal Baltazar Dias, Funchal, 2021', pt: 'Folha de sala de Aragão — sinopse e ficha técnica, Teatro Municipal Baltazar Dias, Funchal, 2021' },
       },
     ],
