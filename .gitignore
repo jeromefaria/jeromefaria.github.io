@@ -83,3 +83,5 @@ content/writing/_drafts/
 
 # Local HTTPS dev certs (mkcert)
 .certs/
+newsletter-preview-*.html
+newsletter-send-dryrun-*.html

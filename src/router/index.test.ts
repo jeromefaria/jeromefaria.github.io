@@ -22,6 +22,7 @@ describe('router routes', () => {
       '/cv',
       '/writing',
       '/writing/:slug',
+      '/newsletter/:issue',
       '/:pathMatch(.*)*',
     ]);
   });

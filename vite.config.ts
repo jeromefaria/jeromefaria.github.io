@@ -6,6 +6,7 @@ import { defineConfig, loadEnv } from 'vite';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 import { liveEvents } from './src/data/live.ts';
+import { newsletterIssues } from './src/data/newsletter/issues.ts';
 import { worksData } from './src/data/works.ts';
 import { essays } from './src/data/writing.ts';
 
@@ -13,6 +14,8 @@ const releasePaths = Object.values(worksData).flatMap(section =>
   section.items.filter(item => item.meta.kind !== 'engineering').map(item => `/works/${item.id}`));
 
 const writingPaths = essays.map(essay => `/writing/${essay.slug}`);
+
+const newsletterPaths = newsletterIssues.map(issue => `/newsletter/${issue.id}`);
 
 const liveEventPaths = liveEvents.map(event => `/live/${event.id}`);
 
@@ -100,7 +103,7 @@ export default defineConfig({
       const liveEventRoutes = i18nEnabled
         ? [...liveEventPaths, ...liveEventPaths.map(path => `/pt${path}`)]
         : liveEventPaths;
-      return [...paths.filter(path => !path.includes(':')), ...releases, ...writingPaths, ...liveEventRoutes];
+      return [...paths.filter(path => !path.includes(':')), ...releases, ...writingPaths, ...newsletterPaths, ...liveEventRoutes];
     },
   },
 });

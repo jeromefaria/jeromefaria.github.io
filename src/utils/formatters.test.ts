@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { formatEventDate, formatEventDateRange } from './formatters';
+import { formatEventDate, formatEventDateRange, formatLongDate, formatMonthYear } from './formatters';
 
 const withPlainSpaces = (value: string): string => value.replace(/\s/g, ' ');
 
@@ -51,6 +51,24 @@ describe('formatters', () => {
 
     it('spells out both full dates for a run that crosses years', () => {
       expect(withPlainSpaces(formatEventDateRange('2021-12-31', '2022-01-02'))).toBe('31 December 2021 – 2 January 2022');
+    });
+  });
+
+  describe('formatMonthYear', () => {
+    it('formats an ISO date as "Month Year" (en-US, UTC-pinned)', () => {
+      expect(formatMonthYear('2026-01-15')).toBe('January 2026');
+      expect(formatMonthYear('2026-12-31')).toBe('December 2026');
+    });
+
+    it('keeps the intended month regardless of the local timezone', () => {
+      expect(formatMonthYear('2026-01-01')).toBe('January 2026');
+    });
+  });
+
+  describe('formatLongDate', () => {
+    it('formats an ISO date as "Month Day, Year" (en-US, UTC-pinned)', () => {
+      expect(formatLongDate('2026-05-12')).toBe('May 12, 2026');
+      expect(formatLongDate('2026-01-01')).toBe('January 1, 2026');
     });
   });
 

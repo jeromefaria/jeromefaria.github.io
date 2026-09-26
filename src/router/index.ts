@@ -82,6 +82,12 @@ export const routes: RouteRecordRaw[] = [
     meta: { englishOnly: true },
   },
   {
+    path: '/newsletter/:issue',
+    name: 'newsletter-issue',
+    component: () => import('@/views/NewsletterIssueView.vue'),
+    meta: { englishOnly: true },
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import('@/views/NotFoundView.vue'),
