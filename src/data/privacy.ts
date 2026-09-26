@@ -13,8 +13,8 @@ export interface PrivacyContent {
 
 export const privacyContent: PrivacyContent = {
   intro: {
-    en: 'This site is a personal portfolio. It sets no cookies, runs no analytics, and tracks nothing about your visit. The only time it collects anything about you is when you use the contact form. The rest of this page explains, plainly, where your data can go when you interact with the site.',
-    pt: 'Este site é um portefólio pessoal. Não usa cookies, não recolhe estatísticas e não regista nada sobre a sua visita. A única altura em que recolhe alguma informação sobre si é quando utiliza o formulário de contacto. O resto desta página explica, de forma clara, para onde podem ir os seus dados quando interage com o site.',
+    en: 'This site is a personal portfolio. It sets no cookies, runs no analytics, and tracks nothing about your visit. It only collects anything about you when you use the contact form or subscribe to my newsletter. The rest of this page explains, plainly, where your data can go when you interact with the site.',
+    pt: 'Este site é um portefólio pessoal. Não usa cookies, não recolhe estatísticas e não regista nada sobre a sua visita. Só recolhe alguma informação sobre si quando utiliza o formulário de contacto ou subscreve a minha newsletter. O resto desta página explica, de forma clara, para onde podem ir os seus dados quando interage com o site.',
   },
   sections: [
     {
@@ -25,10 +25,17 @@ export const privacyContent: PrivacyContent = {
       },
     },
     {
+      heading: { en: 'Newsletter', pt: 'Newsletter' },
+      body: {
+        en: 'If you subscribe to my newsletter, I keep your email address so I can send it to you. You confirm your subscription by clicking a link in a confirmation email, and that consent is the only basis on which I email you. Your address is stored in a database on <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare</a> and the issues are sent through <a href="https://resend.com">Resend</a>—the same service behind the contact form—both based in the United States, so your address is processed there under their terms. I use it only to send the newsletter, and never share or sell it. Every issue has a one-click unsubscribe link; unsubscribing deletes your address.',
+        pt: 'Se subscrever a minha newsletter, guardo o seu endereço de email para lha poder enviar. Confirma a subscrição ao clicar numa ligação de um email de confirmação, e é esse consentimento a única base sobre a qual lhe envio email. O seu endereço é guardado numa base de dados na <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare</a> e as edições são enviadas através do <a href="https://resend.com">Resend</a> — o mesmo serviço do formulário de contacto —, ambos sediados nos Estados Unidos, pelo que o seu endereço é aí processado ao abrigo das respectivas condições. Uso-o apenas para enviar a newsletter e nunca o partilho nem vendo. Cada edição tem uma ligação de cancelamento de subscrição com um clique; cancelar apaga o seu endereço.',
+      },
+    },
+    {
       heading: { en: 'Spam protection', pt: 'Protecção contra spam' },
       body: {
-        en: 'The contact form is protected by Cloudflare Turnstile, which runs invisibly to confirm you are a person rather than a bot. To do that it may read basic signals from your browser; Cloudflare states it is not used for advertising. Its use is subject to Cloudflare\'s <a href="https://www.cloudflare.com/privacypolicy/">Privacy Policy</a> and <a href="https://www.cloudflare.com/turnstile-privacy-policy/">Turnstile Privacy Addendum</a>.',
-        pt: 'O formulário de contacto é protegido pelo Cloudflare Turnstile, que funciona de forma invisível para confirmar que é uma pessoa e não um bot. Para isso, pode ler sinais básicos do seu navegador; a Cloudflare afirma que não os usa para publicidade. A sua utilização está sujeita à <a href="https://www.cloudflare.com/privacypolicy/">Política de Privacidade</a> e à <a href="https://www.cloudflare.com/turnstile-privacy-policy/">Adenda de Privacidade do Turnstile</a> da Cloudflare.',
+        en: 'The contact form and the newsletter signup are protected by Cloudflare Turnstile, which runs invisibly to confirm you are a person rather than a bot. To do that it may read basic signals from your browser; Cloudflare states it is not used for advertising. Its use is subject to Cloudflare\'s <a href="https://www.cloudflare.com/privacypolicy/">Privacy Policy</a> and <a href="https://www.cloudflare.com/turnstile-privacy-policy/">Turnstile Privacy Addendum</a>.',
+        pt: 'O formulário de contacto e a subscrição da newsletter são protegidos pelo Cloudflare Turnstile, que funciona de forma invisível para confirmar que é uma pessoa e não um bot. Para isso, pode ler sinais básicos do seu navegador; a Cloudflare afirma que não os usa para publicidade. A sua utilização está sujeita à <a href="https://www.cloudflare.com/privacypolicy/">Política de Privacidade</a> e à <a href="https://www.cloudflare.com/turnstile-privacy-policy/">Adenda de Privacidade do Turnstile</a> da Cloudflare.',
       },
     },
     {
@@ -60,5 +67,5 @@ export const privacyContent: PrivacyContent = {
       },
     },
   ],
-  updated: { en: 'August 2026', pt: 'Agosto de 2026' },
+  updated: { en: 'September 2026', pt: 'Setembro de 2026' },
 };

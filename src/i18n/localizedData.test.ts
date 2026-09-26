@@ -60,6 +60,7 @@ const SAME_ACROSS_LOCALES = new Set([
   'worksData.nny.title',
   'worksData.solo.items[1].credits.note',
   'techRider.sections[5].title',
+  'privacyContent.sections[1].heading',
 ]);
 
 describe('localized data', () => {
