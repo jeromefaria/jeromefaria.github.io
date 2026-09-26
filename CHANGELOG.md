@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **live:** Add MigrActions 2011 + Festival Múltiplo 2026 videos ([#479](https://github.com/jeromefaria/jeromefaria.github.io/pull/479))
 - **newsletter:** OG card, honest intro + transparency links ([#477](https://github.com/jeromefaria/jeromefaria.github.io/pull/477))
 - **copyright:** /copyright rights page + attribution cleanup ([#475](https://github.com/jeromefaria/jeromefaria.github.io/pull/475))
 - **newsletter:** Issue sending pipeline + /newsletter/:issue archive ([#473](https://github.com/jeromefaria/jeromefaria.github.io/pull/473))
