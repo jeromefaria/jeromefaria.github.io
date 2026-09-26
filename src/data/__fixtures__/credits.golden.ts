@@ -3,7 +3,7 @@ export const creditsGolden: Record<string, string> = {
   '2504': 'Music by Jerome Faria.',
   'contraplacado': 'Music by Jerome Faria, reinterpreting "Contraplacado" by <a href="https://aires.bandcamp.com/">Aires</a>. Photography by NASA, ESA, CSA, STScI.',
   'en-veille': 'Music by Jerome Faria. Photography by Else Siegel. Pour Éliane Radigue, 1932–2026.',
-  'caligari-album': 'Music by Jerome Faria. Cover image from the film.',
+  'caligari-album': 'Music by Jerome Faria. Cover: a still from the film (Robert Wiene, 1920), in the public domain.',
   'overlapse': 'Music and artwork by Jerome Faria. Photography by Joana Marote.',
   'nny-plus': 'Music by Jerome Faria, Kazuya Mise, and Filipe Cruz. Artwork by <a href="https://webuser.scene.org/~ps/">Filipe Cruz</a>.',
   'coil': 'Music by Jerome Faria. Recorded, mixed, and mastered at Human Error Labs. Artwork by Louie de Bettencourt.',

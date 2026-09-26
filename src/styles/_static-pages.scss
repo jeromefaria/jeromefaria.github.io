@@ -50,7 +50,8 @@
 }
 
 .privacy,
-.colophon {
+.colophon,
+.copyright {
   max-width: $max-width;
   margin: 0 auto;
 
@@ -173,4 +174,8 @@
 .writing-back {
   display: inline-block;
   margin-top: $spacing-4;
+}
+
+.copyright__body + .copyright__body {
+  margin-top: $spacing-6;
 }

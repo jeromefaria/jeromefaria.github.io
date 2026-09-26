@@ -55,9 +55,12 @@ useFooterHeight(footerElement);
               </RouterLink>
             </template>
           </span>
-          <span class="footer__notice">
-            &copy; {{ currentYear }} {{ siteConfig.author.name }}
-          </span>
+          <RouterLink
+            :to="toLocalePath('/copyright')"
+            class="footer__notice"
+          >
+            &copy; 2004–{{ currentYear }} {{ siteConfig.author.name }}
+          </RouterLink>
         </p>
       </div>
     </div>

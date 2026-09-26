@@ -42,12 +42,13 @@ describe('SiteFooter', () => {
     expect(wrapper.find('.social-links').exists()).toBe(false);
   });
 
-  it('shows the current year and author as a plain-text copyright notice', async () => {
+  it('shows the © year range and author, linking to the copyright page', async () => {
     const wrapper = await mountFooter();
     const notice = wrapper.get('.footer__notice');
+    expect(notice.text()).toContain('2004');
     expect(notice.text()).toContain(String(new Date().getFullYear()));
     expect(notice.text()).toContain(siteConfig.author.name);
-    expect(notice.find('a').exists()).toBe(false);
+    expect(notice.attributes('href')).toBe('/copyright');
   });
 
   it('leads the meta links with the newsletter call-to-action', async () => {

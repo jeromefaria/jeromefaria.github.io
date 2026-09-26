@@ -262,6 +262,7 @@ export const earlyEvents: LiveEvent[] = [
     posters: [
       {
         src: '/images/live/eme-madeira-2008-poster-001.jpg',
+        artist: { name: 'EME — Encontros de Música Experimental' },
         cardThumb: { position: 'center 52%' },
         alt: { en: 'EME 08 — Encontros de Música Experimental poster at Centro das Artes Casa das Mudas, Calheta — Hauschka (Germany), The Sight Below (USA), and NNY / Jerome Faria (Portugal), 4 October 2008', pt: 'Cartaz do EME 08 — Encontros de Música Experimental no Centro das Artes Casa das Mudas, Calheta — Hauschka (Alemanha), The Sight Below (E.U.A.) e NNY / Jerome Faria (Portugal), 4 de Outubro de 2008' },
       },
