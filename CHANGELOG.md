@@ -63,6 +63,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Docs
 
+- **privacy:** Cover the newsletter's data processing ([#469](https://github.com/jeromefaria/jeromefaria.github.io/pull/469))
 - **readme:** Fix i18n build drift; retire redundant build:i18n script ([#449](https://github.com/jeromefaria/jeromefaria.github.io/pull/449))
 - **readme:** Reflect live permalinks, mobile palette, and the entity model ([#444](https://github.com/jeromefaria/jeromefaria.github.io/pull/444))
 
