@@ -15,6 +15,10 @@ const PAGES = [
   ['/epk', 'epk'],
   ['/privacy', 'privacy'],
   ['/colophon', 'colophon'],
+  ['/copyright', 'copyright'],
+  ['/cv', 'cv'],
+  ['/writing', 'writing'],
+  ['/does-not-exist', 'not-found'],
 ] as const;
 
 const SNAPSHOT_OPTIONS = { animations: 'disabled', maxDiffPixels: 500 } as const;
