@@ -91,6 +91,14 @@ export const recentEvents: LiveEvent[] = [
         photographer: 'nuno-martins',
       },
     ],
+    videos: [
+      {
+        url: 'https://www.youtube-nocookie.com/embed/WUHfAjV1YCQ',
+        platform: 'youtube',
+        title: { en: 'Jerome Faria at Festival Múltiplo 2026', pt: 'Jerome Faria no Festival Múltiplo 2026' },
+        author: { name: 'Zaratan', url: 'https://www.youtube.com/@zaratan-artecontemporanea' },
+      },
+    ],
   },
   {
     id: 'showcase-casa-amarela',

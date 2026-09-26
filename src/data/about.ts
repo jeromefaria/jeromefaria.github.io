@@ -90,7 +90,7 @@ export const aboutSections: AboutSection[] = [
     images: [
       {
         src: '/images/about-2011-migractions.jpg',
-        alt: { en: 'Jerome Faria performing at Festival Migractions, Paris, 2011', pt: 'Jerome Faria a actuar no Festival Migractions, Paris, 2011' },
+        alt: { en: 'Jerome Faria performing at Festival MigrActions, Paris, 2011', pt: 'Jerome Faria a actuar no Festival MigrActions, Paris, 2011' },
         position: 'center 50%',
         scale: 1.3,
         photographer: 'sue-elie-andrade-de',
