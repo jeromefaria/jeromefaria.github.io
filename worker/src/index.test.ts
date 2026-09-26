@@ -7,7 +7,10 @@ const ENV: Env = {
   RESEND_API_KEY: 'rk_test',
   CONTACT_FROM: 'contact@jeromefaria.com',
   CONTACT_TO: 'jerome.faria@gmail.com',
+  NEWSLETTER_FROM: 'newsletter@jeromefaria.com',
+  SITE_URL: 'https://jeromefaria.com',
   ALLOWED_ORIGINS: 'https://jeromefaria.com,http://localhost:5173',
+  DB: {} as Env['DB'],
 };
 
 const VALID_BODY = {
@@ -304,6 +307,40 @@ describe('contact worker', () => {
     const response = await worker.fetch(ipRequest(), env);
 
     expect(response.status).toBe(200);
+  });
+});
+
+describe('routing', () => {
+  beforeEach(() => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      { ok: true, json: async () => ({ success: true }) } as unknown as Response,
+    );
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  const at = (path: string, method = 'POST'): Request =>
+    new Request(`https://worker.example${path}`, {
+      method,
+      headers: { 'Content-Type': 'application/json', 'Origin': 'https://jeromefaria.com' },
+      body: method === 'POST' ? JSON.stringify(VALID_BODY) : undefined,
+    });
+
+  it('routes /contact to the contact handler', async () => {
+    const response = await worker.fetch(at('/contact'), ENV);
+    expect(response.status).toBe(200);
+  });
+
+  it('treats a trailing slash the same as the bare path', async () => {
+    const response = await worker.fetch(at('/contact/'), ENV);
+    expect(response.status).toBe(200);
+  });
+
+  it('returns 404 for an unknown path', async () => {
+    const response = await worker.fetch(at('/unknown'), ENV);
+    expect(response.status).toBe(404);
   });
 });
 
