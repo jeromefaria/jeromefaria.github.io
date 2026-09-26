@@ -3,9 +3,9 @@ main = "src/index.ts"
 compatibility_date = "2026-08-01"
 
 [vars]
-CONTACT_FROM = "contact@jeromefaria.com"
+CONTACT_FROM = "Jerome Faria <contact@jeromefaria.com>"
 CONTACT_TO = "jerome.faria@gmail.com"
-NEWSLETTER_FROM = "newsletter@jeromefaria.com"
+NEWSLETTER_FROM = "Jerome Faria <newsletter@jeromefaria.com>"
 SITE_URL = "https://jeromefaria.com"
 # Production origins only. Local dev adds http://localhost:5173 via .dev.vars
 # (gitignored) so a Turnstile token minted on localhost can't pass the prod hostname pin.
