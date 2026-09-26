@@ -20,7 +20,7 @@ ALLOWED_ORIGINS = "https://jeromefaria.com"
 [[d1_databases]]
 binding = "DB"
 database_name = "newsletter"
-database_id = "PLACEHOLDER_RUN_WRANGLER_D1_CREATE"
+database_id = "81db08d3-ebf6-4eaf-908b-ec6de0d6e82f"
 
 # Rate limiting — native binding, no external resource to provision.
 # 5 requests per 60s per client IP; the Worker fails open if this is absent.
