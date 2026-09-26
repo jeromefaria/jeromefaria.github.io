@@ -4,7 +4,7 @@ import { releaseById } from '@/data/works';
 import { essayBySlug } from '@/data/writing';
 import { localize } from '@/i18n/localized';
 import { isAllowedEmbedUrl } from '@/utils/embedUrl';
-import { formatEventDateRange } from '@/utils/formatters';
+import { formatEventDateRange, formatMonthYear } from '@/utils/formatters';
 import { renderMarkdown } from '@/utils/renderMarkdown';
 
 export interface MetaField {
@@ -29,9 +29,6 @@ export type RenderBlock =
   | { kind: 'video'; poster: string; alt: string; label: string | null; caption: string | null; href: string; embedUrl: string | null }
   | FeatureBlock;
 
-const monthYear = (iso: string): string =>
-  new Date(iso).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
-
 const listenFeature = (ref: string, note?: string): FeatureBlock | null => {
   const release = releaseById.get(ref);
   if (!release) return null;
@@ -47,7 +44,7 @@ const listenFeature = (ref: string, note?: string): FeatureBlock | null => {
     image: release.coverImage ?? null,
     meta: meta.kind === 'music'
       ? [
-        { label: 'Released', value: monthYear(meta.released) },
+        { label: 'Released', value: formatMonthYear(meta.released) },
         { label: 'Format', value: meta.mediums.join(' / ') },
         { label: 'Label', value: edition?.label.text ?? '' },
         { label: 'Catalog', value: edition?.catalog ?? '' },

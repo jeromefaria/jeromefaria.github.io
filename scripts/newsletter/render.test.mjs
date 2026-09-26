@@ -21,7 +21,13 @@ vi.mock('../data-loader.mjs', () => ({
     if (path === 'data/live.ts') return { liveEvents: [] };
     if (path === 'data/writing.ts') return { essayBySlug: () => undefined };
     if (path === 'i18n/localized.ts') return { localize: value => (typeof value === 'string' ? value : value.en) };
-    if (path === 'utils/formatters.ts') return { formatEventDateRange: () => 'January 2026' };
+    if (path === 'utils/formatters.ts') {
+      return {
+        formatEventDateRange: () => 'January 2026',
+        formatMonthYear: value => new Date(value).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' }),
+        formatLongDate: value => new Date(value).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }),
+      };
+    }
     return {};
   },
 }));

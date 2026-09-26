@@ -5,12 +5,10 @@ import NewsletterBlock from '@/components/NewsletterBlock.vue';
 import StaticPage from '@/components/StaticPage.vue';
 import { siteConfig } from '@/data/navigation';
 import type { NewsletterIssue } from '@/data/newsletter/types';
+import { formatLongDate } from '@/utils/formatters';
 import { resolveIssueBlocks } from '@/utils/newsletterBlocks';
 
 const props = defineProps<{ issue: NewsletterIssue }>();
-
-const longDate = (iso: string): string =>
-  new Date(iso).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
 const head = {
   title: `${props.issue.subject} — ${siteConfig.author.name}`,
@@ -28,7 +26,7 @@ const blocks = computed(() => resolveIssueBlocks(props.issue.blocks));
   >
     <div class="newsletter-issue">
       <p class="newsletter-issue__eyebrow">
-        Newsletter · {{ longDate(issue.date) }}
+        Newsletter · {{ formatLongDate(issue.date) }}
       </p>
 
       <NewsletterBlock

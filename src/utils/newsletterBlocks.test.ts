@@ -44,9 +44,10 @@ vi.mock('@/i18n/localized', () => ({
   localize: (value: string | { en: string }) => (typeof value === 'string' ? value : value.en),
 }));
 
-vi.mock('@/utils/formatters', () => ({
-  formatEventDateRange: () => 'March 2026',
-}));
+vi.mock('@/utils/formatters', async importOriginal => {
+  const actual = await importOriginal<typeof import('@/utils/formatters')>();
+  return { ...actual, formatEventDateRange: () => 'March 2026' };
+});
 
 vi.mock('@/utils/embedUrl', () => ({
   isAllowedEmbedUrl: (url: string) => url.includes('allowed'),

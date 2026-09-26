@@ -10,7 +10,7 @@ const { releaseById } = await loadSrc('data/works.ts');
 const { liveEvents } = await loadSrc('data/live.ts');
 const { essayBySlug } = await loadSrc('data/writing.ts');
 const { localize } = await loadSrc('i18n/localized.ts');
-const { formatEventDateRange } = await loadSrc('utils/formatters.ts');
+const { formatEventDateRange, formatLongDate, formatMonthYear } = await loadSrc('utils/formatters.ts');
 
 const L = color.light;
 const SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif";
@@ -29,12 +29,6 @@ const imageSrc = (path, opts) => {
   if (/^https?:/i.test(path)) return path;
   return opts.embedImages ? dataUri(path) : `${opts.origin}${path}`;
 };
-
-const monthYear = iso =>
-  new Date(iso).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
-
-const longDate = iso =>
-  new Date(iso).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
 const label = text =>
   `<div style="font:600 11px/1 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.muted};padding-bottom:12px;">${escapeHtml(text)}</div>`;
@@ -99,7 +93,7 @@ const listenBlock = (block, opts) => {
   const edition = meta.kind === 'music' ? (meta.editions[0] ?? null) : null;
   const fields = meta.kind === 'music'
     ? [
-      { label: 'Released', value: monthYear(meta.released) },
+      { label: 'Released', value: formatMonthYear(meta.released) },
       { label: 'Format', value: meta.mediums.join(' / ') },
       { label: 'Label', value: edition?.label.text ?? '' },
       { label: 'Catalog', value: edition?.catalog ?? '' },
@@ -180,7 +174,7 @@ const masthead = (issue, viewUrl) => `
       <td align="right" style="font:400 12px/1 ${SANS};letter-spacing:0.05em;text-transform:uppercase;color:${L.muted};">Sound Artist &amp; Composer</td>
     </tr></table>
   </td></tr>
-  <tr><td style="font:400 11px/1 ${SANS};color:${L.muted};padding:10px 0 36px;">${escapeHtml(longDate(issue.date))}</td></tr>`;
+  <tr><td style="font:400 11px/1 ${SANS};color:${L.muted};padding:10px 0 36px;">${escapeHtml(formatLongDate(issue.date))}</td></tr>`;
 
 const footer = (origin, unsubscribeUrl) => `
   <tr><td style="border-top:1px solid ${L.border};padding:24px 0 0;font:400 11px/1.6 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.muted};" align="center">
