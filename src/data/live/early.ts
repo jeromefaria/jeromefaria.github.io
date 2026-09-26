@@ -59,8 +59,9 @@ export const earlyEvents: LiveEvent[] = [
   {
     id: 'migractions-2011',
     eventType: ['festival'],
-    title: 'Festival Migractions',
-    date: '2011-05-23',
+    title: 'Festival MigrActions',
+    titleUrl: 'https://www.migractions.com',
+    date: '2011-05-24',
     venue: { name: 'Théâtre de L\'Opprimé', url: 'https://www.theatredelopprime.com/', city: 'Paris', country: 'France' },
     setup: { kind: 'duo', with: { text: 'Hugo Olim', suffix: { en: '(visuals)', pt: '(visuais)' } } },
     images: [
@@ -72,6 +73,14 @@ export const earlyEvents: LiveEvent[] = [
       {
         src: '/images/live/migractions-2011-002.jpg',
         photographer: 'sue-elie-andrade-de',
+      },
+    ],
+    videos: [
+      {
+        url: 'https://player.vimeo.com/video/24409611',
+        platform: 'vimeo',
+        title: { en: 'Jerome Faria + Hugo Olim at MigrActions Festival', pt: 'Jerome Faria + Hugo Olim no Festival MigrActions' },
+        author: { name: 'Hugo Olim', url: 'https://vimeo.com/hugoolim' },
       },
     ],
   },

@@ -18,7 +18,7 @@ export const orgs: OrgRegistry = {
   'jejum': { name: 'Jejum', pt: { gender: 'm' } },
   'living-room': { name: 'Living Room', pt: { gender: 'm' } },
   'madeira-dig': { name: 'Madeira Dig', url: 'https://digitalinberlin.eu/', pt: { gender: 'm' } },
-  'migractions': { name: 'Festival Migractions', pt: { gender: 'm' } },
+  'migractions': { name: 'Festival MigrActions', pt: { gender: 'm' } },
   'mimi-records': { name: 'MiMi Records', url: 'https://mimirecords.bandcamp.com/' },
   'nariz-entupido': { name: 'Nariz Entupido', url: 'https://linktr.ee/narizentupido' },
   'niko': { name: 'NIkO', url: 'https://soundcloud.com/edition-niko' },
