@@ -72,6 +72,26 @@ describe('CommandPalette', () => {
     expect(palette()).toBeNull();
   });
 
+  it('ignores the ghost click that trails a touch open, so a reopen does not self-dismiss', async () => {
+    active = await mountPalette();
+    await openPalette();
+
+    palette()?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    await nextTick();
+
+    expect(palette()).not.toBeNull();
+  });
+
+  it('closes on a backdrop pointerdown', async () => {
+    active = await mountPalette();
+    await openPalette();
+
+    palette()?.dispatchEvent(new Event('pointerdown', { bubbles: true }));
+    await nextTick();
+
+    expect(palette()).toBeNull();
+  });
+
   it('shows curated navigation with a group header and an active option when empty', async () => {
     active = await mountPalette();
     await openPalette();

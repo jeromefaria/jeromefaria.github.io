@@ -39,7 +39,7 @@ watch(activeIndex, async () => {
       <div
         v-if="isOpen"
         class="command-palette"
-        @click.self="close"
+        @pointerdown.self="close"
       >
         <div
           class="command-palette__panel"
