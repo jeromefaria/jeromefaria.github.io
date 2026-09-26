@@ -34,6 +34,41 @@ describe('NewsletterView', () => {
     expect(notice.get('a').attributes('href')).toBe('/privacy');
   });
 
+  it('renders the transparency line linking to the privacy page and the source repo', async () => {
+    const wrapper = await mountView(NewsletterView, '/newsletter');
+
+    const transparency = wrapper.get('.newsletter__transparency');
+    const links = transparency.findAll('a').map(anchor => anchor.attributes('href'));
+    expect(links).toContain('/privacy');
+    expect(links.some(href => href?.includes('github.com/jeromefaria'))).toBe(true);
+
+    const repo = transparency.get('a[href*="github.com"]');
+    expect(repo.attributes('target')).toBe('_blank');
+    expect(repo.attributes('rel')).toContain('noopener');
+  });
+
+  it('prefixes the transparency privacy link under /pt on a pt route', async () => {
+    const wrapper = await mountView(NewsletterView, '/pt/newsletter', { locale: 'pt' });
+
+    const links = wrapper.get('.newsletter__transparency').findAll('a').map(anchor => anchor.attributes('href'));
+    expect(links).toContain('/pt/privacy');
+  });
+
+  it('routes the transparency privacy link through the router instead of reloading', async () => {
+    const wrapper = await mountView(NewsletterView, '/newsletter');
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true });
+
+    wrapper.get('.newsletter__transparency a[href="/privacy"]').element.dispatchEvent(event);
+
+    expect(event.defaultPrevented).toBe(true);
+  });
+
+  it('hides the transparency line while showing a link error', async () => {
+    const wrapper = await mountView(NewsletterView, '/newsletter?confirmed=0');
+
+    expect(wrapper.find('.newsletter__transparency').exists()).toBe(false);
+  });
+
   it('announces a required error on blur of an empty email', async () => {
     const wrapper = await mountView(NewsletterView, '/newsletter');
 

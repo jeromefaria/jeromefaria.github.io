@@ -157,7 +157,8 @@ export const en = {
     },
   },
   newsletter: {
-    intro: 'New releases, live dates, and occasional writing, by email.',
+    intro: 'I\'d rather reach you directly than through a feed, so I built my own list — no platform, no algorithm, no one mining your inbox. New releases, live dates, and some writing, now and then. Subscribe if that\'s your thing.',
+    transparency: 'You don\'t have to take my word for it — here\'s <a href="/privacy">what I keep</a>, and the <a href="https://github.com/jeromefaria/jeromefaria.github.io">code that runs it</a>.',
     email: 'Email',
     requiredError: 'Email is required',
     submit: 'Subscribe',

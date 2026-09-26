@@ -19,17 +19,17 @@
 - **Component & styling architecture.** Single-responsibility components, reusable composables, and SCSS design tokens driving a themable, BEM-structured stylesheet.
 - **A bilingual layer (EN/PT), now live.** Content typed as `Localized<{ en; pt }>`, every route mirrored under `/pt`, and a lightweight `useT` translate layer backed by vue-i18n. A single build flag (`VITE_I18N`) gates the whole i18n path — vue-i18n included — so an English-only build **tree-shakes it out entirely**; built and tested complete, held through EU-PT review, and now flipped on to ship both languages.
 - **A hidden ⌘K command palette.** Keyboard-summoned search, navigation, and actions across the whole site — a typed command registry, a hand-rolled fuzzy ranker, a full combobox/listbox ARIA contract, and fzf-style keybindings. No visible affordance; it's an easter egg for those who reach for `⌘K` / `Ctrl+K`.
-- **Full-stack when it's warranted.** Even the contact form is a real backend I own — a **Cloudflare Worker** doing server-side Turnstile verification + Resend, not a form-SaaS embed.
+- **Full-stack when it's warranted.** The contact form and the newsletter both run on a **Cloudflare Worker** I own — server-side Turnstile verification and Resend delivery, plus a **D1** database and a double-opt-in subscribe/confirm/unsubscribe flow for the newsletter. No form-SaaS embed, no third-party platform — the list and the pipe are mine.
 
 ## Architecture
 
-Two independent deploy targets from one repository: the **static site** (GitHub Pages) and the **contact Worker** (Cloudflare).
+Two independent deploy targets from one repository: the **static site** (GitHub Pages) and the **Worker** (Cloudflare) behind the contact form and newsletter.
 
 ```text
 Repository
   • Typed content        src/data/*.ts
   • Views + composables  Vue 3 / TS (strict)
-  • Contact Worker       worker/src
+  • Worker               worker/src
 
 Build (static)
   data + views  ──▶  Vite-SSG (pre-render + hydrate)   ──▶  GitHub Pages
@@ -273,9 +273,9 @@ The following are **advisory** (reported as warnings, not gating) because they v
 
 A second **mobile** profile (`.lighthouserc.mobile.json`) runs alongside the desktop one in CI; its Core Web Vitals are advisory so a variable runner never hard-fails on mobile timings, while it still surfaces regressions the desktop profile misses.
 
-### Contact Worker
+### Contact & Newsletter Worker
 
-The Cloudflare Worker backing the contact form lives in [`worker/`](worker/), with its own tests and deploy notes.
+The Cloudflare Worker backing the contact form and the newsletter lives in [`worker/`](worker/), with its own tests and deploy notes. It does server-side Turnstile verification and sends mail through Resend; the newsletter adds a **D1** database and a double-opt-in flow — subscribe, confirm via emailed link, one-click unsubscribe.
 
 ```bash
 cd worker
