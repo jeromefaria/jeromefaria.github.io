@@ -38,8 +38,25 @@ describe('buildCommands', () => {
   it('includes every top-level route as a navigate command', () => {
     const navTitles = commands.filter(command => command.kind === 'navigate').map(command => command.title);
 
-    for (const title of ['Home', 'Works', 'Live', 'Press', 'About', 'Contact', 'Press Kit', 'Privacy', 'Colophon', 'CV']) {
+    for (const title of ['Home', 'About', 'Works', 'Live', 'Press', 'Press Kit', 'Contact', 'Newsletter', 'Privacy', 'Colophon', 'Copyright', 'CV', 'Writing']) {
       expect(navTitles).toContain(title);
+    }
+  });
+
+  it('derives the navigate commands from the palette routes, in route-table order', () => {
+    const paletteTargets = routes.filter(route => route.meta?.palette).map(route => route.path);
+    const navTargets = commands.flatMap(command => (command.kind === 'navigate' ? [command.to] : []));
+
+    expect(navTargets.filter(target => paletteTargets.includes(target))).toEqual(paletteTargets);
+  });
+
+  it('resolves the title and keyword i18n keys declared on every palette route', () => {
+    for (const route of routes) {
+      const palette = route.meta?.palette;
+      if (!palette) continue;
+
+      expect(t(palette.title), `${route.path} title key does not resolve`).not.toBe(palette.title);
+      expect(t(palette.keywords), `${route.path} keyword key does not resolve`).not.toBe(palette.keywords);
     }
   });
 
