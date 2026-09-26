@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **newsletter:** Signup page, footer link, and shared form-card ([#472](https://github.com/jeromefaria/jeromefaria.github.io/pull/472))
 - **worker:** Newsletter subscribe/confirm/unsubscribe backend ([#471](https://github.com/jeromefaria/jeromefaria.github.io/pull/471))
 - **live:** Add Sleeping Night context to Jejum #45 ([#459](https://github.com/jeromefaria/jeromefaria.github.io/pull/459))
 - **archive:** Publish the NNY 2004-2010 web archive at /archive ([#455](https://github.com/jeromefaria/jeromefaria.github.io/pull/455))
