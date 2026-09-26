@@ -28,6 +28,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Fixes
 
+- **worker:** Sender display names (newsletter + contact) ([#474](https://github.com/jeromefaria/jeromefaria.github.io/pull/474))
 - **live:** Unlink the Living Room credit on Jejum #45 ([#460](https://github.com/jeromefaria/jeromefaria.github.io/pull/460))
 - **palette:** Time the double-tap with performance.now() for iOS resume ([#456](https://github.com/jeromefaria/jeromefaria.github.io/pull/456))
 - **lightbox:** Only embed video from allowlisted provider origins ([#450](https://github.com/jeromefaria/jeromefaria.github.io/pull/450))
