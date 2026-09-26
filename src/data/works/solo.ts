@@ -102,7 +102,7 @@ export const solo: WorksSection = {
       credits: {
         style: 'by',
         clauses: [{ role: 'music', of: 'Jerome Faria' }],
-        note: { en: 'Cover image from the film', pt: 'Imagem de capa retirada do filme' },
+        note: { en: 'Cover: a still from the film (Robert Wiene, 1920), in the public domain', pt: 'Capa: um fotograma do filme (Robert Wiene, 1920), de domínio público' },
       },
     },
     {

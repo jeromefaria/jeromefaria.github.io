@@ -4,7 +4,7 @@ export const plainCreditsGolden: Record<string, string> = {
   'altar': 'Music by Pedro Roque and Jerome Faria. Artwork by Mafalda Melim.',
   'aragao': 'Direction: Sara Gonçalves. Text: Rui Zink. Set design: José Manuel Castanheira. Video: Filipe Ferraz. Music and live interpretation: Jerome Faria.',
   'caligari': 'Music by Jerome Faria. Performed by Jerome Faria and Nuno Filipe.',
-  'caligari-album': 'Music by Jerome Faria. Cover image from the film.',
+  'caligari-album': 'Music by Jerome Faria. Cover: a still from the film (Robert Wiene, 1920), in the public domain.',
   'coil': 'Music by Jerome Faria. Recorded, mixed, and mastered at Human Error Labs. Artwork by Louie de Bettencourt.',
   'contraplacado': 'Music by Jerome Faria, reinterpreting "Contraplacado" by Aires. Photography by NASA, ESA, CSA, STScI.',
   'depolarized': 'Music and artwork by Jerome Faria and Nelson P. Ferreira.',
