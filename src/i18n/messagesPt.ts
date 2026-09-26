@@ -159,7 +159,8 @@ export const pt: MessageSchema = {
     },
   },
   newsletter: {
-    intro: 'Novas edições, datas de concertos e escrita ocasional, por email.',
+    intro: 'Prefiro chegar até si directamente, e não através de um feed, por isso montei a minha própria lista — sem plataforma, sem algoritmo, sem ninguém a explorar a sua caixa de entrada. Novas edições, datas de concertos e alguns textos, de vez em quando. Subscreva, se lhe fizer sentido.',
+    transparency: 'Não precisa de acreditar na minha palavra — veja <a href="/privacy">o que guardo</a> e o <a href="https://github.com/jeromefaria/jeromefaria.github.io">código que trata disto</a>.',
     email: 'Email',
     requiredError: 'Email é obrigatório',
     submit: 'Subscrever',

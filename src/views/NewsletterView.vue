@@ -5,15 +5,22 @@ import { RouterLink, useRoute } from 'vue-router';
 import FormField from '@/components/FormField.vue';
 import StaticPage from '@/components/StaticPage.vue';
 import { useNewsletterForm } from '@/composables/useNewsletterForm';
+import { useProseClick } from '@/composables/useProseClick';
 import { useTurnstile } from '@/composables/useTurnstile';
 import { newsletterContent } from '@/data/newsletter';
 import { pageMeta } from '@/data/pageMeta';
 import { useLocalized } from '@/i18n/localized';
+import { localizeInternalLinks } from '@/i18n/messages';
 import { useT } from '@/i18n/useT';
+import { externalizeLinks } from '@/utils/externalizeLinks';
 
 const t = useT();
 const route = useRoute();
-const { toLocalePath } = useLocalized();
+const { toLocalePath, current } = useLocalized();
+
+const head = { ...pageMeta.newsletter, image: '/og-newsletter.png' };
+const onProseClick = useProseClick();
+const transparency = computed(() => externalizeLinks(localizeInternalLinks(t('newsletter.transparency'), current.value)));
 
 const turnstileContainer = ref<HTMLElement | null>(null);
 const { execute } = useTurnstile(newsletterContent.turnstileSiteKey, turnstileContainer);
@@ -45,7 +52,7 @@ const onSubmit = async (event: Event): Promise<void> => {
 
 <template>
   <StaticPage
-    :head="pageMeta.newsletter"
+    :head="head"
     data-page="newsletter"
   >
     <div
@@ -64,6 +71,13 @@ const onSubmit = async (event: Event): Promise<void> => {
       >
         {{ blurbError ?? t('newsletter.intro') }}
       </p>
+
+      <p
+        v-if="!blurbError"
+        class="newsletter__transparency"
+        @click="onProseClick"
+        v-html="transparency"
+      />
 
       <form
         class="contact-form"

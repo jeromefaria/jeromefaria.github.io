@@ -36,7 +36,7 @@
     "epk:photos": "node scripts/generate-epk-photos.mjs",
     "epk:bundle": "node scripts/generate-epk-bundle.mjs",
     "rider:pdf": "node scripts/generate-tech-rider.mjs",
-    "downloads:build": "npm run epk:bundle && npm run rider:pdf && npm run resume:pdf && npm run og:cv && npm run og:writing && npm run og:live",
+    "downloads:build": "npm run epk:bundle && npm run rider:pdf && npm run resume:pdf && npm run og:cv && npm run og:writing && npm run og:live && npm run og:newsletter",
     "epk:kit": "npm run epk:photos && npm run downloads:build",
     "prepare": "husky",
     "changelog": "git-cliff b48e53f..HEAD --output CHANGELOG.md",
@@ -45,6 +45,7 @@
     "og:cv": "node scripts/generate-og-cv.mjs",
     "og:writing": "node scripts/generate-og-writing.mjs",
     "og:live": "node scripts/generate-og-live.mjs",
+    "og:newsletter": "node scripts/generate-og-newsletter.mjs",
     "newsletter:preview": "node scripts/newsletter/preview.mjs",
     "newsletter:send": "node scripts/newsletter/send.mjs"
   },
