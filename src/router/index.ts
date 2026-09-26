@@ -59,6 +59,11 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/PrivacyView.vue'),
   },
   {
+    path: '/copyright',
+    name: 'copyright',
+    component: () => import('@/views/CopyrightView.vue'),
+  },
+  {
     path: '/colophon',
     name: 'colophon',
     component: () => import('@/views/ColophonView.vue'),

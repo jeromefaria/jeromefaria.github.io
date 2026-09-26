@@ -18,6 +18,7 @@ describe('router routes', () => {
       '/newsletter',
       '/epk',
       '/privacy',
+      '/copyright',
       '/colophon',
       '/cv',
       '/writing',

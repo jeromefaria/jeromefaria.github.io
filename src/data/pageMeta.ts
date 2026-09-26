@@ -81,6 +81,13 @@ export const pageMeta = {
       pt: 'Como este site trata o formulário de contacto, a protecção contra spam e os seus dados — sem cookies, sem estatísticas, sem rastreio.',
     },
   },
+  copyright: {
+    title: { en: 'Copyright', pt: 'Direitos de autor' },
+    description: {
+      en: 'Copyright and third-party attribution for the writing, music, images, and video on this site.',
+      pt: 'Direitos de autor e atribuição de terceiros para os textos, a música, as imagens e o vídeo deste site.',
+    },
+  },
   cv: {
     title: { en: 'CV — Jerome Faria', pt: 'CV — Jerome Faria' },
     description: {
