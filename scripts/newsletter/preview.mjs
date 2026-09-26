@@ -10,9 +10,14 @@ const ORIGIN = 'https://jeromefaria.com';
 const WORKER = 'https://contact.jeromefaria.workers.dev';
 
 const args = process.argv.slice(2);
-const id = args.find(argument => !argument.startsWith('--')) ?? '2026-05-12';
+const id = args.find(argument => !argument.startsWith('--'));
 const shouldOpen = args.includes('--open');
 const shouldWatch = args.includes('--watch');
+
+if (!id) {
+  console.error('Usage: npm run newsletter:preview -- <issue-id> [--open --watch]');
+  process.exit(1);
+}
 
 const selfPath = fileURLToPath(import.meta.url);
 

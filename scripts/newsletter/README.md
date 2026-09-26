@@ -17,8 +17,9 @@ store this reads from. This directory is only about writing and sending issues.
 
 ## 1. Anatomy of an issue
 
-Copy the newest issue in `src/data/newsletter/issues/` and edit it. Each issue
-is one file exporting a typed `issue`:
+The `issues/` directory starts empty — the first real issue is the first file.
+Each issue is one file exporting a typed `issue`; create a new one following
+this shape:
 
 ```ts
 // src/data/newsletter/issues/2026-05-12.ts
@@ -34,13 +35,13 @@ export const issue: NewsletterIssue = {
 };
 ```
 
-Then register it in the array in `src/data/newsletter/issues.ts` (newest is
-sorted first automatically):
+Then register it in `src/data/newsletter/issues.ts` — import it and add it to
+the `issues` array (they're sorted newest-first automatically):
 
 ```ts
 import { issue as issue20260512 } from './issues/2026-05-12.ts';
 // …
-export const newsletterIssues = assertUniqueIds([issue20260512, /* …others… */].sort(…));
+const issues: NewsletterIssue[] = [issue20260512 /* , …others… */];
 ```
 
 > **Import extensions.** Files under `src/data/newsletter/` use explicit `.ts`

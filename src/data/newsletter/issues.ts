@@ -1,4 +1,3 @@
-import { issue as issue20260512 } from './issues/2026-05-12.ts';
 import type { NewsletterIssue } from './types.ts';
 
 export const assertUniqueIds = (issues: NewsletterIssue[]): NewsletterIssue[] => {
@@ -12,8 +11,13 @@ export const assertUniqueIds = (issues: NewsletterIssue[]): NewsletterIssue[] =>
   return issues;
 };
 
-export const newsletterIssues: NewsletterIssue[] =
-  assertUniqueIds([issue20260512].sort((a, b) => b.date.localeCompare(a.date)));
+export const byNewestFirst = (a: NewsletterIssue, b: NewsletterIssue): number => b.date.localeCompare(a.date);
 
-export const issueById = (id: string): NewsletterIssue | undefined =>
-  newsletterIssues.find(issue => issue.id === id);
+export const findIssue = (issues: NewsletterIssue[], id: string): NewsletterIssue | undefined =>
+  issues.find(issue => issue.id === id);
+
+const issues: NewsletterIssue[] = [];
+
+export const newsletterIssues: NewsletterIssue[] = assertUniqueIds(issues.sort(byNewestFirst));
+
+export const issueById = (id: string): NewsletterIssue | undefined => findIssue(newsletterIssues, id);

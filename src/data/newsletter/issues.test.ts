@@ -1,22 +1,28 @@
 import { describe, expect, it } from 'vitest';
 
-import { assertUniqueIds, issueById, newsletterIssues } from './issues';
+import { assertUniqueIds, byNewestFirst, findIssue, issueById, newsletterIssues } from './issues';
 import type { NewsletterIssue } from './types';
 
 const issue = (id: string, date: string): NewsletterIssue => ({ id, date, subject: id, blocks: [] });
 
 describe('newsletter issues registry', () => {
-  it('exposes at least one issue, newest first', () => {
-    expect(newsletterIssues.length).toBeGreaterThan(0);
-
-    const dates = newsletterIssues.map(entry => entry.date);
-    expect([...dates].sort((a, b) => b.localeCompare(a))).toEqual(dates);
+  it('starts empty until the first issue is published', () => {
+    expect(newsletterIssues).toEqual([]);
+    expect(issueById('anything')).toBeUndefined();
   });
 
-  it('looks an issue up by id, and returns undefined for an unknown id', () => {
-    const first = newsletterIssues[0];
-    expect(issueById(first.id)).toBe(first);
-    expect(issueById('no-such-issue')).toBeUndefined();
+  it('orders issues newest first', () => {
+    const older = issue('a', '2026-01-01');
+    const newer = issue('b', '2026-03-01');
+
+    expect([older, newer].sort(byNewestFirst)).toEqual([newer, older]);
+  });
+
+  it('finds an issue by id, and returns undefined for an unknown id', () => {
+    const target = issue('a', '2026-01-01');
+
+    expect(findIssue([target, issue('b', '2026-02-01')], 'a')).toBe(target);
+    expect(findIssue([target], 'missing')).toBeUndefined();
   });
 
   it('rejects duplicate issue ids', () => {
@@ -26,6 +32,7 @@ describe('newsletter issues registry', () => {
 
   it('passes distinct issue ids through unchanged', () => {
     const issues = [issue('a', '2026-02-01'), issue('b', '2026-01-01')];
+
     expect(assertUniqueIds(issues)).toBe(issues);
   });
 });
