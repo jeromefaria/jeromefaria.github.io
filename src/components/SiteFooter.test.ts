@@ -42,11 +42,23 @@ describe('SiteFooter', () => {
     expect(wrapper.find('.social-links').exists()).toBe(false);
   });
 
-  it('shows the current year and author in the copyright', async () => {
+  it('shows the current year and author as a plain-text copyright notice', async () => {
     const wrapper = await mountFooter();
-    const copyright = wrapper.get('.footer__copyright');
-    expect(copyright.text()).toContain(String(new Date().getFullYear()));
-    expect(copyright.text()).toContain(siteConfig.author.name);
+    const notice = wrapper.get('.footer__notice');
+    expect(notice.text()).toContain(String(new Date().getFullYear()));
+    expect(notice.text()).toContain(siteConfig.author.name);
+    expect(notice.find('a').exists()).toBe(false);
+  });
+
+  it('leads the meta links with the newsletter call-to-action', async () => {
+    const wrapper = await mountFooter();
+    const linkTexts = wrapper.findAll('.footer__links a').map(link => link.text());
+    expect(linkTexts).toEqual([
+      messages.en.footer.newsletter,
+      messages.en.footer.privacy,
+      messages.en.footer.colophon,
+      messages.en.common.switchLanguage,
+    ]);
   });
 
   it('offers the language switch on a route that has an alternate', async () => {

@@ -41,11 +41,12 @@ describe('FormField', () => {
     expect(error.text()).toBe('Name is required');
   });
 
-  it('omits aria-invalid entirely for an unvalidated field (invalid undefined)', () => {
+  it('reserves an empty, unwired error slot for an unvalidated field (invalid undefined)', () => {
     const field = mountField({});
 
     expect(field.get('input').attributes('aria-invalid')).toBeUndefined();
-    expect(field.find('.contact-form__error').exists()).toBe(false);
+    expect(field.get('input').attributes('aria-describedby')).toBeUndefined();
+    expect(field.get('.contact-form__error').text()).toBe('');
   });
 
   it('emits update:modelValue and input on input, and blur on blur', async () => {

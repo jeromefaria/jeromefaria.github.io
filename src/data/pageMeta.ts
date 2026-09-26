@@ -52,6 +52,13 @@ export const pageMeta = {
       pt: 'Entre em contacto com Jerome Faria — marcação de actuações, encomendas, licenciamento, mistura e masterização, e outros pedidos.',
     },
   },
+  newsletter: {
+    title: { en: 'Newsletter', pt: 'Newsletter' },
+    description: {
+      en: 'Occasional dispatches from Jerome Faria — new releases, live dates, and writing, sent straight from the source, no middleman.',
+      pt: 'Notícias ocasionais de Jerome Faria — novas edições, datas de concertos e escrita, enviadas directamente da fonte, sem intermediários.',
+    },
+  },
   press: {
     title: { en: 'Press', pt: 'Imprensa' },
     description: {

@@ -59,3 +59,39 @@ export const checkA11y = async (page: Page, options: CheckA11yOptions = {}): Pro
   const summary = violations.map(violation => `${violation.id} (${violation.nodes.length})`).join(', ');
   expect(violations, `Accessibility violations: ${summary}`).toEqual([]);
 };
+
+const WORKER_CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
+export const stubTurnstile = async (page: Page): Promise<void> => {
+  await page.addInitScript(() => {
+    let onToken: ((token: string) => void) | undefined;
+    (window as unknown as { turnstile: unknown }).turnstile = {
+      render: (_element: HTMLElement, options: { callback: (token: string) => void }) => {
+        onToken = options.callback;
+        return 'test-widget';
+      },
+      execute: () => onToken?.('test-token'),
+      reset: () => {},
+      remove: () => {},
+    };
+  });
+};
+
+export const mockWorker = async (page: Page, status: number): Promise<void> => {
+  await page.route(/workers\.dev/, route => {
+    if (route.request().method() === 'OPTIONS') {
+      return route.fulfill({ status: 204, headers: WORKER_CORS });
+    }
+
+    return route.fulfill({
+      status,
+      headers: WORKER_CORS,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: status === 200 }),
+    });
+  });
+};
