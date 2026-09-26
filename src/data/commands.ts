@@ -8,6 +8,7 @@ import { allReleases, worksData } from '@/data/works';
 import { localize } from '@/i18n/localized';
 import type { Locale } from '@/i18n/messages';
 import type { TranslateFn } from '@/i18n/useT';
+import { routes } from '@/router';
 import type { ActionCommand, Command, CommandGroup } from '@/types/command';
 import type { EventKind, Format, LiveEvent, Poster, Setup } from '@/types/live';
 import type { Video } from '@/types/media';
@@ -27,24 +28,24 @@ import { essays } from './writing';
 
 const words = (text: string): string[] => stripHtml(text).split(' ').filter(Boolean);
 
-const routeCommands = (t: TranslateFn): Command[] => [
-  { kind: 'navigate', id: 'nav:home', title: t('palette.home'), keywords: words(t('palette.kw.home')), group: 'Navigate', to: '/' },
-  { kind: 'navigate', id: 'nav:works', title: t('nav.works'), keywords: words(t('palette.kw.works')), group: 'Navigate', to: '/works' },
-  { kind: 'navigate', id: 'nav:live', title: t('nav.live'), keywords: words(t('palette.kw.live')), group: 'Navigate', to: '/live' },
-  { kind: 'navigate', id: 'nav:press', title: t('nav.press'), keywords: words(t('palette.kw.press')), group: 'Navigate', to: '/press' },
-  { kind: 'navigate', id: 'nav:about', title: t('nav.about'), keywords: words(t('palette.kw.about')), group: 'Navigate', to: '/about' },
-  { kind: 'navigate', id: 'nav:contact', title: t('nav.contact'), keywords: words(t('palette.kw.contact')), group: 'Navigate', to: '/contact' },
-  { kind: 'navigate', id: 'nav:newsletter', title: t('footer.newsletter'), keywords: words(t('palette.kw.newsletter')), group: 'Navigate', to: '/newsletter' },
-  { kind: 'navigate', id: 'nav:epk', title: t('palette.pressKit'), keywords: words(t('palette.kw.pressKit')), group: 'Navigate', to: '/epk' },
-  { kind: 'navigate', id: 'nav:privacy', title: t('footer.privacy'), keywords: words(t('palette.kw.privacy')), group: 'Navigate', to: '/privacy' },
-  { kind: 'navigate', id: 'nav:copyright', title: t('palette.copyright'), keywords: words(t('palette.kw.copyright')), group: 'Navigate', to: '/copyright' },
-  { kind: 'navigate', id: 'nav:colophon', title: t('footer.colophon'), keywords: words(t('palette.kw.colophon')), group: 'Navigate', to: '/colophon' },
-  { kind: 'navigate', id: 'nav:cv', title: t('palette.cv'), keywords: words(t('palette.kw.cv')), group: 'Navigate', to: '/cv', englishOnly: true },
-];
+const routeCommands = (t: TranslateFn): Command[] =>
+  routes.flatMap((route): Command[] => {
+    const palette = route.meta?.palette;
+    if (!palette) return [];
 
-const writingCommands = (t: TranslateFn): Command[] => [
-  { kind: 'navigate', id: 'nav:writing', title: t('palette.writing'), keywords: words(t('palette.kw.writing')), group: 'Navigate', to: '/writing', englishOnly: true },
-  ...essays.map((essay): Command => ({
+    return [{
+      kind: 'navigate',
+      id: `nav:${String(route.name)}`,
+      title: t(palette.title),
+      keywords: words(t(palette.keywords)),
+      group: 'Navigate',
+      to: route.path,
+      ...(route.meta?.englishOnly ? { englishOnly: true } : {}),
+    }];
+  });
+
+const writingCommands = (t: TranslateFn): Command[] =>
+  essays.map((essay): Command => ({
     kind: 'navigate',
     id: `nav:writing:${essay.slug}`,
     title: essay.title,
@@ -52,8 +53,7 @@ const writingCommands = (t: TranslateFn): Command[] => [
     group: 'Navigate',
     to: `/writing/${essay.slug}`,
     englishOnly: true,
-  })),
-];
+  }));
 
 const sectionCommands = (t: TranslateFn, locale: Locale): Command[] =>
   Object.entries(worksData).map(([key, section]): Command => ({
