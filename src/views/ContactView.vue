@@ -159,7 +159,6 @@ const onSubmit = async (event: Event): Promise<void> => {
       />
 
       <p
-        v-if="errorMessage"
         class="contact-form__submit-error"
         role="alert"
       >

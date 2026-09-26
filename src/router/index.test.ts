@@ -15,6 +15,7 @@ describe('router routes', () => {
       '/live/:eventId',
       '/press',
       '/contact',
+      '/newsletter',
       '/epk',
       '/privacy',
       '/colophon',

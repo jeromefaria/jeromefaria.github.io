@@ -33,26 +33,31 @@ useFooterHeight(footerElement);
           </RouterLink>
         </nav>
         <p class="footer__copyright">
-          &copy; {{ currentYear }} <RouterLink :to="toLocalePath('/contact')">
-            {{ siteConfig.author.name }}
-          </RouterLink>
-          •
-          <RouterLink :to="toLocalePath('/privacy')">
-            {{ t('footer.privacy') }}
-          </RouterLink>
-          •
-          <RouterLink :to="toLocalePath('/colophon')">
-            {{ t('footer.colophon') }}
-          </RouterLink>
-          <template v-if="i18nEnabled && hasAlternate">
-            •
-            <RouterLink
-              :to="switchPath"
-              :aria-label="t('common.switchLanguageLabel')"
-            >
-              {{ t('common.switchLanguage') }}
+          <span class="footer__links">
+            <RouterLink :to="toLocalePath('/newsletter')">
+              {{ t('footer.newsletter') }}
             </RouterLink>
-          </template>
+            •
+            <RouterLink :to="toLocalePath('/privacy')">
+              {{ t('footer.privacy') }}
+            </RouterLink>
+            •
+            <RouterLink :to="toLocalePath('/colophon')">
+              {{ t('footer.colophon') }}
+            </RouterLink>
+            <template v-if="i18nEnabled && hasAlternate">
+              •
+              <RouterLink
+                :to="switchPath"
+                :aria-label="t('common.switchLanguageLabel')"
+              >
+                {{ t('common.switchLanguage') }}
+              </RouterLink>
+            </template>
+          </span>
+          <span class="footer__notice">
+            &copy; {{ currentYear }} {{ siteConfig.author.name }}
+          </span>
         </p>
       </div>
     </div>

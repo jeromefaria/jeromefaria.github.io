@@ -1,0 +1,13 @@
+@use "variables" as *;
+
+.newsletter__intro {
+  max-width: $max-width;
+  margin: 0 auto $spacing-8;
+  font-size: $font-size-base;
+  line-height: $line-height-relaxed;
+  color: var(--color-text-secondary);
+
+  &--error {
+    color: var(--color-error);
+  }
+}

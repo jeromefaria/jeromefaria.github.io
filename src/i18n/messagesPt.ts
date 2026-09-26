@@ -14,6 +14,7 @@ export const pt: MessageSchema = {
   footer: {
     privacy: 'Privacidade',
     colophon: 'Colophon',
+    newsletter: 'Newsletter',
   },
   privacy: {
     lastUpdated: 'Última actualização: {date}.',
@@ -155,6 +156,26 @@ export const pt: MessageSchema = {
       tracksFormat: { label: 'Faixas & formato', placeholder: 'ex.: 8 faixas, digital + vinil' },
       masteringTimeline: { label: 'Prazo', placeholder: 'ex.: masters necessários até Junho' },
       generalSubject: { label: 'Assunto', placeholder: 'De que se trata?' },
+    },
+  },
+  newsletter: {
+    intro: 'Novas edições, datas de concertos e escrita ocasional, por email.',
+    email: 'Email',
+    requiredError: 'Email é obrigatório',
+    submit: 'Subscrever',
+    sending: 'A subscrever...',
+    turnstileNotice: 'Protegido por Cloudflare Turnstile',
+    verifyError: 'Não foi possível confirmar que é humano. Tente novamente.',
+    submitError: 'Ocorreu um erro. Tente novamente.',
+    success: {
+      title: 'Por favor, confirme a subscrição',
+      text: 'Por favor, verifique a sua caixa de entrada para a ligação de confirmação.',
+    },
+    status: {
+      confirmed: { title: 'Subscrição confirmada.', text: 'Obrigado.' },
+      confirmInvalid: 'A ligação de confirmação é inválida ou expirou. Tente subscrever novamente abaixo.',
+      unsubscribed: { title: 'A sua subscrição foi cancelada.', text: 'Não serão enviados mais emails.' },
+      unsubscribeInvalid: 'A ligação de cancelamento é inválida ou já foi utilizada.',
     },
   },
   palette: {

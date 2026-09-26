@@ -106,7 +106,6 @@ const onInput = (event: Event): void => {
     >
 
     <span
-      v-if="invalid"
       :id="`${id}-error`"
       class="contact-form__error"
       role="alert"

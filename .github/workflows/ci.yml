@@ -103,24 +103,30 @@ jobs:
 
       - name: Check bundle size
         run: |
-          echo "📦 Checking bundle sizes (per-file, uncompressed)..."
+          echo "📦 Checking bundle sizes (per-file)..."
           over_budget=0
 
           check() {
-            local pattern="$1" limit_kb="$2"
+            local pattern="$1" limit_kb="$2" mode="${3:-raw}"
             for file in $pattern; do
               [ -f "$file" ] || continue
-              local size_kb=$(( $(wc -c < "$file") / 1024 ))
-              echo "  $(basename "$file"): ${size_kb}KB (budget ${limit_kb}KB)"
+              local bytes
+              if [ "$mode" = "gzip" ]; then
+                bytes=$(gzip -c "$file" | wc -c)
+              else
+                bytes=$(wc -c < "$file")
+              fi
+              local size_kb=$(( bytes / 1024 ))
+              echo "  $(basename "$file"): ${size_kb}KB ${mode} (budget ${limit_kb}KB)"
               if [ "$size_kb" -gt "$limit_kb" ]; then
-                echo "❌ $(basename "$file") exceeds ${limit_kb}KB uncompressed"
+                echo "❌ $(basename "$file") exceeds ${limit_kb}KB ${mode}"
                 over_budget=1
               fi
             done
           }
 
           check 'dist/assets/*.js' 200
-          check 'dist/assets/*.css' 50
+          check 'dist/assets/*.css' 12 gzip
 
           if [ "$over_budget" -ne 0 ]; then
             echo "Bundle size budget exceeded."
