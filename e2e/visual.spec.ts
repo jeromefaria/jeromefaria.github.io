@@ -11,6 +11,7 @@ const PAGES = [
   ['/press', 'press'],
   ['/about', 'about'],
   ['/contact', 'contact'],
+  ['/newsletter', 'newsletter'],
   ['/epk', 'epk'],
   ['/privacy', 'privacy'],
   ['/colophon', 'colophon'],
