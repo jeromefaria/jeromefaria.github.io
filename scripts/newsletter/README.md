@@ -183,7 +183,32 @@ Always `--test` to yourself first, read it in a real client, then `--send`.
 
 ---
 
-## 6. Typical flow
+## 6. Before the first real send — production gate
+
+Green CI proves the browser UX (E2E) and the email-render logic (the
+`render.mjs` snapshot). It does **not** exercise the live worker + D1 + Resend
+path — nothing automated does, and a send is irreversible. So run this once, by
+hand, against the deployed backend before the first `--send` ever goes out:
+
+1. **Deploy** the worker + D1 (see `worker/README.md`); confirm the
+   `RESEND_API_KEY` and `TURNSTILE_SECRET` secrets are set.
+2. **Subscribe for real** at `/newsletter` with an address you control → a
+   confirmation email arrives (live Resend) → click confirm → the worker
+   redirects to `/newsletter?confirmed=1` and the D1 row reads `status = 'active'`.
+3. **Unsubscribe round-trip** — use the email's one-click unsubscribe → the D1
+   row flips to `status = 'unsubscribed'` (tombstone, not deleted). Re-subscribe
+   to restore an active test recipient.
+4. **Test-send** to yourself: `npm run newsletter:send -- <id> --test`. Open it
+   in **Gmail and Apple Mail** and check: images load (absolute URLs), the layout
+   holds, links resolve, and the client's native **Unsubscribe** actually
+   tombstones you in D1.
+5. Only once every step passes: `npm run newsletter:send -- <id> --send`.
+
+This is the release gate. If any step fails, do not send.
+
+---
+
+## 7. Typical flow
 
 1. Write `src/data/newsletter/issues/<date>.ts`; register it in `issues.ts`.
 2. Drop any images into `public/images/newsletter/`.
