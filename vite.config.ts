@@ -25,6 +25,8 @@ const httpsCerts = existsSync(devCert) && existsSync(devKey)
 
 export default defineConfig({
   server: { host: true, https: httpsCerts },
+
+  preview: { https: false },
   plugins: [
     vue(),
     {
