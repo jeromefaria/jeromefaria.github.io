@@ -167,9 +167,23 @@ npm run newsletter:send -- 2026-05-12 --send     # the real send, to every activ
 
 - One personalized email per subscriber, with a per-recipient `List-Unsubscribe`
   + one-click POST header wired to the worker's unsubscribe endpoint (so Gmail /
-  Apple Mail's native "unsubscribe" works). Sent via Resend's batch API.
-- The active list is read from **D1 via wrangler**; a dry run without D1 falls
-  back to a placeholder recipient so you can still inspect the render.
+  Apple Mail's native "unsubscribe" works). Sent via Resend's batch API, 100 per
+  request.
+- The active list is read from **D1 via wrangler**; a dry run without D1 (or with
+  no subscribers) falls back to a placeholder recipient so you can still inspect
+  the render.
+- **Resumable.** Each recipient of a successful batch is recorded in the D1
+  `sends` table (`(issue_id, email)`). A `--send` re-run skips anyone already
+  recorded for *this* issue, so an interrupted send **resumes instead of
+  re-mailing** those already delivered. It's at-least-once, not exactly-once: a
+  batch interrupted between Resend accepting it and the record being written can
+  re-send on the next run — at most one batch's worth. "Nothing to send" means
+  every active subscriber is already recorded.
+- **Rate-limit safe.** Batches are paced under Resend's request limit and each is
+  retried with exponential backoff on `429` / `5xx` (honouring `Retry-After`).
+  The send aborts once retries are exhausted (or if Resend accepts fewer messages
+  than the batch — a loud failure beats a silent drop); everything recorded before
+  the abort is skipped on the next run.
 
 ### Requirements for `--test` / `--send`
 
