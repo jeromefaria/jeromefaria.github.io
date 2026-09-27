@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **newsletter:** Content blocks + email rendering polish ([#482](https://github.com/jeromefaria/jeromefaria.github.io/pull/482))
 - **newsletter:** Make bulk sending resumable and rate-limit safe ([#481](https://github.com/jeromefaria/jeromefaria.github.io/pull/481))
 
 ## 2026.09.4 — Newsletter, web archive & copyrights — 2026-09-26
