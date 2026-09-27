@@ -73,7 +73,7 @@ const metaGrid = fields => {
   return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:16px;">${rows}</table>`;
 };
 
-const blockCell = inner => `<tr><td style="padding:0 0 40px;">${inner}</td></tr>`;
+const blockCell = inner => `<tr><td style="padding:0 0 20px;">${inner}</td></tr>`;
 
 const proseBlock = block => {
   marked.setOptions({ breaks: false });
@@ -202,12 +202,12 @@ const masthead = (issue, opts) => {
   </td></tr>`
     : '';
   const afterBorder = opts.dated === false
-    ? '<tr><td style="font-size:0;line-height:0;padding:0 0 16px;">&nbsp;</td></tr>'
+    ? '<tr><td style="font-size:0;line-height:0;padding:0 0 20px;">&nbsp;</td></tr>'
     : `<tr><td style="font:400 11px/1 ${SANS};color:${L.muted};padding:16px 0 36px;">${escapeHtml(formatLongDate(issue.date))}</td></tr>`;
 
   return `
   ${viewRow}
-  <tr><td style="border-bottom:1px solid ${L.border};padding:0 0 16px;">
+  <tr><td style="border-bottom:1px solid ${L.borderSubtle};padding:0 0 20px;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
       <td style="font:600 12px/1 ${SANS};letter-spacing:0.05em;text-transform:uppercase;color:${L.text};">Jerome Faria</td>
       <td align="right" style="font:400 12px/1 ${SANS};letter-spacing:0.05em;text-transform:uppercase;color:${L.muted};">Sound Artist &amp; Composer</td>
@@ -222,20 +222,20 @@ const footer = opts => {
     : '';
 
   return `
-  <tr><td style="border-top:1px solid ${L.border};padding:24px 0 0;font:400 11px/1.6 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.muted};" align="center">
+  <tr><td style="border-top:1px solid ${L.borderSubtle};padding:24px 0 0;font:400 11px/1.6 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.muted};" align="center">
     <a href="${opts.origin}/copyright" style="color:${L.muted};text-decoration:underline;">&copy; 2004&ndash;${new Date().getFullYear()} Jerome Faria</a>
     &nbsp;&middot;&nbsp; <a href="${opts.origin}/privacy" style="color:${L.muted};text-decoration:underline;">Privacy</a>
     ${unsubscribe}
   </td></tr>`;
 };
 
-const blockDivider = `<tr><td style="border-top:1px solid ${L.borderSubtle};padding:0 0 40px;font-size:0;line-height:0;">&nbsp;</td></tr>`;
+const blockDivider = `<tr><td style="border-top:1px solid ${L.borderSubtle};padding:0 0 20px;font-size:0;line-height:0;">&nbsp;</td></tr>`;
 
 export const renderIssueEmail = (issue, opts) => {
-  const blocks = issue.blocks
-    .map(block => renderBlock(block, opts))
-    .filter(Boolean)
-    .join(blockDivider);
+  const rendered = issue.blocks.map(block => renderBlock(block, opts)).filter(Boolean);
+  const blocks = rendered.length > 1
+    ? rendered.slice(0, -1).join(blockDivider) + rendered.at(-1)
+    : rendered.join('');
 
   const html = `<!doctype html>
 <html lang="en"><head>
