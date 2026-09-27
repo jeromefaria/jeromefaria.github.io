@@ -85,6 +85,8 @@ const videoBlock = (block, opts) =>
     cta('Watch', block.href),
   ].join(''));
 
+const ctaBlock = block => blockCell(`<div style="text-align:center;">${cta(block.label, block.href)}</div>`);
+
 const listenBlock = (block, opts) => {
   const release = releaseById.get(block.ref);
   if (!release) return '';
@@ -161,6 +163,7 @@ const renderBlock = (block, opts) => {
   if (block.type === 'video') return videoBlock(block, opts);
   if (block.type === 'listen') return listenBlock(block, opts);
   if (block.type === 'live') return liveBlock(block, opts);
+  if (block.type === 'cta') return ctaBlock(block);
   return writingBlock(block, opts);
 };
 

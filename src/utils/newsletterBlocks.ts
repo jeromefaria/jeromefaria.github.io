@@ -27,6 +27,7 @@ export type RenderBlock =
   | { kind: 'prose'; html: string }
   | { kind: 'image'; src: string; alt: string; label: string | null; caption: string | null; href: string | null }
   | { kind: 'video'; poster: string; alt: string; label: string | null; caption: string | null; href: string; embedUrl: string | null }
+  | { kind: 'cta'; label: string; href: string }
   | FeatureBlock;
 
 const listenFeature = (ref: string, note?: string): FeatureBlock | null => {
@@ -105,6 +106,7 @@ const resolveBlock = (block: IssueBlock): RenderBlock | null => {
   }
   if (block.type === 'listen') return listenFeature(block.ref, block.note);
   if (block.type === 'live') return liveFeature(block.ref, block.note);
+  if (block.type === 'cta') return { kind: 'cta', label: block.label, href: block.href };
   return writingFeature(block.ref, block.note);
 };
 

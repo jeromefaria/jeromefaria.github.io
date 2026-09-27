@@ -40,13 +40,20 @@ export interface LiveBlock {
   note?: string;
 }
 
+export interface CtaBlock {
+  type: 'cta';
+  label: string;
+  href: string;
+}
+
 export type IssueBlock =
   | ProseBlock
   | ImageBlock
   | VideoBlock
   | WritingBlock
   | ListenBlock
-  | LiveBlock;
+  | LiveBlock
+  | CtaBlock;
 
 export interface NewsletterIssue {
   id: string;

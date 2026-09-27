@@ -8,6 +8,9 @@ import type { RenderBlock } from '@/utils/newsletterBlocks';
 defineProps<{ block: RenderBlock }>();
 
 const playing = ref(false);
+
+const ctaAttrs = (href: string) =>
+  href.startsWith('/') ? { to: href } : { href, target: '_blank', rel: 'noopener noreferrer' };
 </script>
 
 <template>
@@ -101,6 +104,19 @@ const playing = ref(false);
       {{ block.caption }}
     </figcaption>
   </figure>
+
+  <div
+    v-else-if="block.kind === 'cta'"
+    class="newsletter-issue__cta-block"
+  >
+    <component
+      :is="block.href.startsWith('/') ? RouterLink : 'a'"
+      v-bind="ctaAttrs(block.href)"
+      class="newsletter-issue__cta"
+    >
+      {{ block.label }}
+    </component>
+  </div>
 
   <section
     v-else

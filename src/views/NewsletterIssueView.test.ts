@@ -24,6 +24,8 @@ const FULL: NewsletterIssue = {
     { type: 'listen', ref: 'does-not-exist' },
     { type: 'live', ref: 'does-not-exist' },
     { type: 'writing', ref: 'does-not-exist' },
+    { type: 'cta', label: 'Subscribe', href: '/newsletter' },
+    { type: 'cta', label: 'Buy tickets', href: 'https://tickets.example/x' },
   ],
 };
 
@@ -95,6 +97,18 @@ describe('NewsletterIssueView', () => {
     await play.trigger('click');
 
     expect(wrapper.get('.newsletter-issue__embed iframe').attributes('src')).toBe('https://www.youtube-nocookie.com/embed/abc');
+  });
+
+  it('renders a cta block as an internal router link and an external anchor', async () => {
+    const wrapper = await mountAt('/newsletter/full');
+    const blocks = wrapper.findAll('.newsletter-issue__cta-block');
+
+    expect(blocks.length).toBe(2);
+    expect(wrapper.find('.newsletter-issue__cta-block a[href="/newsletter"]').exists()).toBe(true);
+
+    const external = wrapper.get('.newsletter-issue__cta-block a[href="https://tickets.example/x"]');
+    expect(external.attributes('target')).toBe('_blank');
+    expect(external.text()).toBe('Buy tickets');
   });
 
   it('renders NotFound for an unknown issue id', async () => {

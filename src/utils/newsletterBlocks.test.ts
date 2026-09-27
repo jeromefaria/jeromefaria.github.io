@@ -85,6 +85,11 @@ describe('resolveIssueBlocks', () => {
       .toMatchObject({ embedUrl: null });
   });
 
+  it('maps a cta block straight through', () => {
+    expect(resolve({ type: 'cta', label: 'Subscribe', href: '/newsletter' }))
+      .toEqual({ kind: 'cta', label: 'Subscribe', href: '/newsletter' });
+  });
+
   it('builds a full listen feature (cover, all meta fields, note)', () => {
     expect(resolve({ type: 'listen', ref: 'music-full', note: 'Out now.' })).toEqual({
       kind: 'feature',

@@ -43,6 +43,7 @@ const issue = {
     { type: 'image', src: '/images/photo.jpg', alt: 'A photo', label: 'Look', caption: 'A caption' },
     { type: 'video', poster: '/images/poster.jpg', href: 'https://youtu.be/abc', alt: 'A video', label: 'Watch' },
     { type: 'listen', ref: 'contraplacado', note: 'Out now.' },
+    { type: 'cta', label: 'Subscribe', href: 'https://jeromefaria.com/newsletter' },
   ],
 };
 
@@ -68,6 +69,12 @@ describe('renderIssueEmail', () => {
 
     expect(subject).toBe('Test Issue');
     expect(html).toMatchSnapshot();
+  });
+
+  it('renders a standalone cta block as a bordered button link', () => {
+    const { html } = renderIssueEmail(issue, opts);
+    expect(html).toContain('Subscribe');
+    expect(html).toContain('href="https://jeromefaria.com/newsletter"');
   });
 
   it('uses absolute image URLs, never data URIs, when not embedding', () => {

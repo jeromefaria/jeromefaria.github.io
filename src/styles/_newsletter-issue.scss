@@ -176,4 +176,9 @@
       @include focus-ring;
     }
   }
+
+  &__cta-block {
+    margin: $spacing-8 0;
+    text-align: center;
+  }
 }

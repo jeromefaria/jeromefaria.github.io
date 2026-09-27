@@ -103,6 +103,17 @@ YouTube-nocookie / Vimeo *embed* URL), otherwise the poster links out.
 }
 ```
 
+### `cta` — a button link
+
+A standalone call-to-action button, rendered on-brand in both the email and the
+archive. Internal links (starting `/`) route in-app on the archive; external
+links open in a new tab.
+
+```ts
+{ type: 'cta', label: 'Subscribe', href: '/newsletter' }
+{ type: 'cta', label: 'Buy tickets', href: 'https://venue.example/tickets' }
+```
+
 ### `writing` / `listen` / `live` — references to site content
 
 These point at something that **already lives on the site** by its id, and the
