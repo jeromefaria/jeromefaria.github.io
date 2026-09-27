@@ -28,8 +28,8 @@ export interface WritingBlock {
   note?: string;
 }
 
-export interface ListenBlock {
-  type: 'listen';
+export interface WorksBlock {
+  type: 'works';
   ref: string;
   note?: string;
 }
@@ -38,6 +38,13 @@ export interface LiveBlock {
   type: 'live';
   ref: string;
   note?: string;
+}
+
+export interface QuoteBlock {
+  type: 'quote';
+  quote: string;
+  source: string;
+  url?: string;
 }
 
 export interface CtaBlock {
@@ -51,8 +58,9 @@ export type IssueBlock =
   | ImageBlock
   | VideoBlock
   | WritingBlock
-  | ListenBlock
+  | WorksBlock
   | LiveBlock
+  | QuoteBlock
   | CtaBlock;
 
 export interface NewsletterIssue {

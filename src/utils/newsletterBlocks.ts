@@ -1,5 +1,5 @@
 import { liveEvents } from '@/data/live';
-import type { IssueBlock } from '@/data/newsletter/types';
+import type { ImageBlock, IssueBlock, VideoBlock } from '@/data/newsletter/types';
 import { releaseById } from '@/data/works';
 import { essayBySlug } from '@/data/writing';
 import { localize } from '@/i18n/localized';
@@ -27,10 +27,11 @@ export type RenderBlock =
   | { kind: 'prose'; html: string }
   | { kind: 'image'; src: string; alt: string; label: string | null; caption: string | null; href: string | null }
   | { kind: 'video'; poster: string; alt: string; label: string | null; caption: string | null; href: string; embedUrl: string | null }
+  | { kind: 'quote'; quote: string; source: string; url: string | null }
   | { kind: 'cta'; label: string; href: string }
   | FeatureBlock;
 
-const listenFeature = (ref: string, note?: string): FeatureBlock | null => {
+const worksFeature = (ref: string, note?: string): FeatureBlock | null => {
   const release = releaseById.get(ref);
   if (!release) return null;
 
@@ -39,7 +40,7 @@ const listenFeature = (ref: string, note?: string): FeatureBlock | null => {
 
   return {
     kind: 'feature',
-    label: 'Listen',
+    label: 'Works',
     title: release.title,
     url: `/works/${release.id}`,
     image: release.coverImage ?? null,
@@ -52,7 +53,7 @@ const listenFeature = (ref: string, note?: string): FeatureBlock | null => {
       ].filter(field => field.value)
       : [],
     note: note ?? null,
-    cta: 'Listen',
+    cta: 'View',
   };
 };
 
@@ -75,7 +76,7 @@ const liveFeature = (ref: string, note?: string): FeatureBlock | null => {
       { label: 'City', value: event.venue.city ?? '' },
     ].filter(field => field.value),
     note: note ?? null,
-    cta: 'Details',
+    cta: 'View',
   };
 };
 
@@ -91,21 +92,25 @@ const writingFeature = (ref: string, note?: string): FeatureBlock | null => {
     image: null,
     meta: [],
     note: note ?? essay.tagline ?? null,
-    cta: 'Read',
+    cta: 'View',
   };
+};
+
+const resolveImage = (block: ImageBlock): RenderBlock =>
+  ({ kind: 'image', src: block.src, alt: block.alt, label: block.label ?? null, caption: block.caption ?? null, href: block.href ?? null });
+
+const resolveVideo = (block: VideoBlock): RenderBlock => {
+  const embedUrl = block.embedUrl && isAllowedEmbedUrl(block.embedUrl) ? block.embedUrl : null;
+  return { kind: 'video', poster: block.poster, alt: block.alt, label: block.label ?? null, caption: block.caption ?? null, href: block.href, embedUrl };
 };
 
 const resolveBlock = (block: IssueBlock): RenderBlock | null => {
   if (block.type === 'prose') return { kind: 'prose', html: renderMarkdown(block.markdown) };
-  if (block.type === 'image') {
-    return { kind: 'image', src: block.src, alt: block.alt, label: block.label ?? null, caption: block.caption ?? null, href: block.href ?? null };
-  }
-  if (block.type === 'video') {
-    const embedUrl = block.embedUrl && isAllowedEmbedUrl(block.embedUrl) ? block.embedUrl : null;
-    return { kind: 'video', poster: block.poster, alt: block.alt, label: block.label ?? null, caption: block.caption ?? null, href: block.href, embedUrl };
-  }
-  if (block.type === 'listen') return listenFeature(block.ref, block.note);
+  if (block.type === 'image') return resolveImage(block);
+  if (block.type === 'video') return resolveVideo(block);
+  if (block.type === 'works') return worksFeature(block.ref, block.note);
   if (block.type === 'live') return liveFeature(block.ref, block.note);
+  if (block.type === 'quote') return { kind: 'quote', quote: block.quote, source: block.source, url: block.url ?? null };
   if (block.type === 'cta') return { kind: 'cta', label: block.label, href: block.href };
   return writingFeature(block.ref, block.note);
 };

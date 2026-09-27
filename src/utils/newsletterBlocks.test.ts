@@ -90,10 +90,17 @@ describe('resolveIssueBlocks', () => {
       .toEqual({ kind: 'cta', label: 'Subscribe', href: '/newsletter' });
   });
 
-  it('builds a full listen feature (cover, all meta fields, note)', () => {
-    expect(resolve({ type: 'listen', ref: 'music-full', note: 'Out now.' })).toEqual({
+  it('maps a quote block, keeping inline markup and nulling a missing url', () => {
+    expect(resolve({ type: 'quote', quote: 'A <em>fine</em> record.', source: 'The Wire', url: 'https://x' }))
+      .toEqual({ kind: 'quote', quote: 'A <em>fine</em> record.', source: 'The Wire', url: 'https://x' });
+    expect(resolve({ type: 'quote', quote: 'No link here.', source: 'Anon' }))
+      .toEqual({ kind: 'quote', quote: 'No link here.', source: 'Anon', url: null });
+  });
+
+  it('builds a full works feature (cover, all meta fields, note)', () => {
+    expect(resolve({ type: 'works', ref: 'music-full', note: 'Out now.' })).toEqual({
       kind: 'feature',
-      label: 'Listen',
+      label: 'Works',
       title: 'Full Music',
       url: '/works/music-full',
       image: '/cover.jpg',
@@ -104,12 +111,12 @@ describe('resolveIssueBlocks', () => {
         { label: 'Catalog', value: 'CAT001' },
       ],
       note: 'Out now.',
-      cta: 'Listen',
+      cta: 'View',
     });
   });
 
   it('drops empty label/catalog and the cover/note when a music release lacks them', () => {
-    expect(resolve({ type: 'listen', ref: 'music-bare' })).toMatchObject({
+    expect(resolve({ type: 'works', ref: 'music-bare' })).toMatchObject({
       image: null,
       meta: [
         { label: 'Released', value: 'February 2026' },
@@ -120,7 +127,7 @@ describe('resolveIssueBlocks', () => {
   });
 
   it('gives a non-music release an empty meta list', () => {
-    expect(resolve({ type: 'listen', ref: 'not-music' })).toMatchObject({ title: 'Not Music', image: '/book.jpg', meta: [] });
+    expect(resolve({ type: 'works', ref: 'not-music' })).toMatchObject({ title: 'Not Music', image: '/book.jpg', meta: [] });
   });
 
   it('prefers the flagged cover image for a live feature', () => {
@@ -129,7 +136,7 @@ describe('resolveIssueBlocks', () => {
       title: 'Cover Image Show',
       image: '/cover-img.jpg',
       note: 'In town.',
-      cta: 'Details',
+      cta: 'View',
     });
   });
 
@@ -141,13 +148,13 @@ describe('resolveIssueBlocks', () => {
 
   it('uses a writing note when given, else the tagline, else null', () => {
     expect(resolve({ type: 'writing', ref: 'with-tagline', note: 'My note.' })).toMatchObject({ note: 'My note.' });
-    expect(resolve({ type: 'writing', ref: 'with-tagline' })).toMatchObject({ note: 'A tagline', label: 'Writing', cta: 'Read' });
+    expect(resolve({ type: 'writing', ref: 'with-tagline' })).toMatchObject({ note: 'A tagline', label: 'Writing', cta: 'View' });
     expect(resolve({ type: 'writing', ref: 'no-tagline' })).toMatchObject({ note: null });
   });
 
   it('drops references that resolve to nothing', () => {
     const blocks: IssueBlock[] = [
-      { type: 'listen', ref: 'ghost' },
+      { type: 'works', ref: 'ghost' },
       { type: 'live', ref: 'ghost' },
       { type: 'writing', ref: 'ghost' },
       { type: 'prose', markdown: 'kept' },

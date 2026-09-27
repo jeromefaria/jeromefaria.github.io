@@ -4,6 +4,12 @@
   max-width: $max-width;
   margin: 0 auto;
 
+  > * + * {
+    padding-top: $spacing-8;
+    margin-top: $spacing-8;
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
   &__eyebrow {
     margin: 0 0 $spacing-10;
 
@@ -11,11 +17,11 @@
   }
 
   &__prose {
-    margin: 0 0 $spacing-12;
+    margin: 0;
   }
 
   &__figure {
-    margin: 0 0 $spacing-12;
+    margin: 0;
 
     img {
       display: block;
@@ -89,7 +95,7 @@
   }
 
   &__feature {
-    margin: 0 0 $spacing-12;
+    margin: 0;
   }
 
   &__label {
@@ -154,22 +160,32 @@
     color: var(--color-text-secondary);
   }
 
+  &__quote {
+    margin: 0;
+
+    p {
+      font-size: $font-size-lg;
+      line-height: $line-height-relaxed;
+    }
+  }
+
   &__cta {
     display: inline-block;
     min-height: $touch-target-min;
     padding: $spacing-3 $spacing-6;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
-    color: var(--color-text);
+    color: var(--color-bg);
     text-transform: uppercase;
     letter-spacing: $letter-spacing-wide;
     text-decoration: none;
+    background-color: var(--color-text);
     border: 1px solid var(--color-text);
     transition: color $transition-base, background-color $transition-base;
 
     &:hover {
-      color: var(--color-bg);
-      background-color: var(--color-text);
+      color: var(--color-text);
+      background-color: transparent;
     }
 
     &:focus-visible {
@@ -178,7 +194,7 @@
   }
 
   &__cta-block {
-    margin: $spacing-8 0;
+    margin: 0;
     text-align: center;
   }
 }

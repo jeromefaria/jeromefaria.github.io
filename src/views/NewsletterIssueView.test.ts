@@ -18,12 +18,14 @@ const FULL: NewsletterIssue = {
     { type: 'video', poster: '/images/performance.jpg', href: 'https://youtube.com/watch', embedUrl: 'https://www.youtube-nocookie.com/embed/abc', label: 'Watch', alt: 'Embeddable video', caption: 'watch it' },
     { type: 'video', poster: '/images/performance.jpg', href: 'https://youtube.com/watch', embedUrl: 'https://evil.example/x', alt: 'Blocked embed' },
     { type: 'video', poster: '/images/performance.jpg', href: 'https://youtube.com/watch', alt: 'No embed' },
-    { type: 'listen', ref: 'contraplacado', note: 'A listen note' },
+    { type: 'works', ref: 'contraplacado', note: 'A works note' },
     { type: 'live', ref: 'jejum-45' },
     { type: 'writing', ref: 'orchestration' },
-    { type: 'listen', ref: 'does-not-exist' },
+    { type: 'works', ref: 'does-not-exist' },
     { type: 'live', ref: 'does-not-exist' },
     { type: 'writing', ref: 'does-not-exist' },
+    { type: 'quote', quote: 'A <em>fine</em> record.', source: 'The Wire', url: 'https://thewire.co.uk/x' },
+    { type: 'quote', quote: 'No link here.', source: 'Anon' },
     { type: 'cta', label: 'Subscribe', href: '/newsletter' },
     { type: 'cta', label: 'Buy tickets', href: 'https://tickets.example/x' },
   ],
@@ -82,9 +84,20 @@ describe('NewsletterIssueView', () => {
 
     expect(features.length).toBe(3);
     const labels = features.map(feature => feature.get('.newsletter-issue__label').text());
-    expect(labels).toEqual(['Listen', 'Live', 'Writing']);
-    expect(wrapper.text()).toContain('A listen note');
+    expect(labels).toEqual(['Works', 'Live', 'Writing']);
+    expect(wrapper.text()).toContain('A works note');
     expect(wrapper.text()).toContain('BRQN009');
+  });
+
+  it('renders quote blocks with inline markup, linking the source only when a url is given', async () => {
+    const wrapper = await mountAt('/newsletter/full');
+    const quotes = wrapper.findAll('.newsletter-issue__quote');
+
+    expect(quotes.length).toBe(2);
+    expect(quotes[0].get('p').html()).toContain('A <em>fine</em> record.');
+    expect(quotes[0].get('a[href="https://thewire.co.uk/x"]').text()).toContain('The Wire');
+    expect(quotes[1].find('a').exists()).toBe(false);
+    expect(quotes[1].get('strong').text()).toBe('Anon');
   });
 
   it('plays an embeddable video inline on click and links out for the rest', async () => {

@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
+import MaybeLink from '@/components/MaybeLink.vue';
+import NewsletterFeature from '@/components/NewsletterFeature.vue';
 import ResponsivePicture from '@/components/ResponsivePicture.vue';
 import type { RenderBlock } from '@/utils/newsletterBlocks';
 
@@ -105,6 +107,16 @@ const ctaAttrs = (href: string) =>
     </figcaption>
   </figure>
 
+  <blockquote
+    v-else-if="block.kind === 'quote'"
+    class="newsletter-issue__quote"
+  >
+    <p v-html="block.quote" />
+    <strong>
+      <MaybeLink :href="block.url ?? undefined">{{ block.source }}</MaybeLink>
+    </strong>
+  </blockquote>
+
   <div
     v-else-if="block.kind === 'cta'"
     class="newsletter-issue__cta-block"
@@ -118,55 +130,8 @@ const ctaAttrs = (href: string) =>
     </component>
   </div>
 
-  <section
+  <NewsletterFeature
     v-else
-    class="newsletter-issue__feature"
-  >
-    <p class="newsletter-issue__label">
-      {{ block.label }}
-    </p>
-    <h2 class="newsletter-issue__title">
-      <RouterLink :to="block.url">
-        {{ block.title }}
-      </RouterLink>
-    </h2>
-
-    <RouterLink
-      v-if="block.image"
-      :to="block.url"
-      class="newsletter-issue__cover"
-    >
-      <ResponsivePicture
-        :src="block.image"
-        :alt="block.title"
-      />
-    </RouterLink>
-
-    <dl
-      v-if="block.meta.length"
-      class="newsletter-issue__meta"
-    >
-      <div
-        v-for="field in block.meta"
-        :key="field.label"
-      >
-        <dt>{{ field.label }}</dt>
-        <dd>{{ field.value }}</dd>
-      </div>
-    </dl>
-
-    <p
-      v-if="block.note"
-      class="newsletter-issue__note"
-    >
-      {{ block.note }}
-    </p>
-
-    <RouterLink
-      :to="block.url"
-      class="newsletter-issue__cta"
-    >
-      {{ block.cta }}
-    </RouterLink>
-  </section>
+    :block="block"
+  />
 </template>
