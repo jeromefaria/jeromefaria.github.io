@@ -4,7 +4,7 @@ vi.mock('../data-loader.mjs', () => ({
   root: '/fake-root',
   loadSrc: async path => {
     if (path === 'design/tokens.ts') {
-      return { color: { light: { bg: '#faf9f7', text: '#1a1a1a', secondary: '#555555', muted: '#888888', border: '#e0e0e0' } } };
+      return { color: { light: { bg: '#faf9f7', text: '#1a1a1a', secondary: '#555555', muted: '#888888', border: '#e0e0e0', borderSubtle: '#efefef' } } };
     }
     if (path === 'data/works.ts') {
       return {
@@ -20,6 +20,12 @@ vi.mock('../data-loader.mjs', () => ({
     }
     if (path === 'data/live.ts') return { liveEvents: [] };
     if (path === 'data/writing.ts') return { essayBySlug: () => undefined };
+    if (path === 'utils/newsletterCredit.ts') {
+      return {
+        releasePhotoCredit: () => ({ prefix: 'Photo by', html: '<a href="https://example.com/p">A Photographer</a>' }),
+        eventPhotoCredit: () => null,
+      };
+    }
     if (path === 'i18n/localized.ts') return { localize: value => (typeof value === 'string' ? value : value.en) };
     if (path === 'utils/formatters.ts') {
       return {
@@ -42,7 +48,9 @@ const issue = {
     { type: 'prose', markdown: 'Hello **world**.' },
     { type: 'image', src: '/images/photo.jpg', alt: 'A photo', label: 'Look', caption: 'A caption' },
     { type: 'video', poster: '/images/poster.jpg', href: 'https://youtu.be/abc', alt: 'A video', label: 'Watch' },
-    { type: 'listen', ref: 'contraplacado', note: 'Out now.' },
+    { type: 'works', ref: 'contraplacado', note: 'Out now.' },
+    { type: 'quote', quote: 'An almost <em>romantic</em> sound.', source: 'The Quietus', url: 'https://thequietus.com/' },
+    { type: 'cta', label: 'Subscribe', href: 'https://jeromefaria.com/newsletter' },
   ],
 };
 
@@ -70,6 +78,26 @@ describe('renderIssueEmail', () => {
     expect(html).toMatchSnapshot();
   });
 
+  it('renders a standalone cta block as a filled button link', () => {
+    const { html } = renderIssueEmail(issue, opts);
+    expect(html).toContain('Subscribe');
+    expect(html).toContain('href="https://jeromefaria.com/newsletter"');
+  });
+
+  it('renders a quote block, keeping inline markup and linking the source', () => {
+    const { html } = renderIssueEmail(issue, opts);
+
+    expect(html).toContain('An almost <em>romantic</em> sound.');
+    expect(html).toContain('>The Quietus</a>');
+  });
+
+  it('renders a photo credit under the works cover', () => {
+    const { html } = renderIssueEmail(issue, opts);
+
+    expect(html).toContain('Photo by');
+    expect(html).toContain('>A Photographer</a>');
+  });
+
   it('uses absolute image URLs, never data URIs, when not embedding', () => {
     const { html } = renderIssueEmail(issue, opts);
 
@@ -84,7 +112,7 @@ describe('renderIssueEmail', () => {
     expect(html).toContain(opts.unsubscribeUrl);
   });
 
-  it('escapes HTML in the subject and renders the listen feature meta', () => {
+  it('escapes HTML in the subject and renders the works feature meta', () => {
     const { html } = renderIssueEmail({ ...issue, subject: 'A & B <tag>' }, opts);
 
     expect(html).toContain('A &amp; B &lt;tag&gt;');

@@ -2,12 +2,17 @@
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
+import MaybeLink from '@/components/MaybeLink.vue';
+import NewsletterFeature from '@/components/NewsletterFeature.vue';
 import ResponsivePicture from '@/components/ResponsivePicture.vue';
 import type { RenderBlock } from '@/utils/newsletterBlocks';
 
 defineProps<{ block: RenderBlock }>();
 
 const playing = ref(false);
+
+const ctaAttrs = (href: string) =>
+  href.startsWith('/') ? { to: href } : { href, target: '_blank', rel: 'noopener noreferrer' };
 </script>
 
 <template>
@@ -102,55 +107,31 @@ const playing = ref(false);
     </figcaption>
   </figure>
 
-  <section
-    v-else
-    class="newsletter-issue__feature"
+  <blockquote
+    v-else-if="block.kind === 'quote'"
+    class="newsletter-issue__quote"
   >
-    <p class="newsletter-issue__label">
-      {{ block.label }}
-    </p>
-    <h2 class="newsletter-issue__title">
-      <RouterLink :to="block.url">
-        {{ block.title }}
-      </RouterLink>
-    </h2>
+    <p v-html="block.quote" />
+    <strong>
+      <MaybeLink :href="block.url ?? undefined">{{ block.source }}</MaybeLink>
+    </strong>
+  </blockquote>
 
-    <RouterLink
-      v-if="block.image"
-      :to="block.url"
-      class="newsletter-issue__cover"
-    >
-      <ResponsivePicture
-        :src="block.image"
-        :alt="block.title"
-      />
-    </RouterLink>
-
-    <dl
-      v-if="block.meta.length"
-      class="newsletter-issue__meta"
-    >
-      <div
-        v-for="field in block.meta"
-        :key="field.label"
-      >
-        <dt>{{ field.label }}</dt>
-        <dd>{{ field.value }}</dd>
-      </div>
-    </dl>
-
-    <p
-      v-if="block.note"
-      class="newsletter-issue__note"
-    >
-      {{ block.note }}
-    </p>
-
-    <RouterLink
-      :to="block.url"
+  <div
+    v-else-if="block.kind === 'cta'"
+    class="newsletter-issue__cta-block"
+  >
+    <component
+      :is="block.href.startsWith('/') ? RouterLink : 'a'"
+      v-bind="ctaAttrs(block.href)"
       class="newsletter-issue__cta"
     >
-      {{ block.cta }}
-    </RouterLink>
-  </section>
+      {{ block.label }}
+    </component>
+  </div>
+
+  <NewsletterFeature
+    v-else
+    :block="block"
+  />
 </template>

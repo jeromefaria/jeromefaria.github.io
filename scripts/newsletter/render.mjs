@@ -11,6 +11,7 @@ const { liveEvents } = await loadSrc('data/live.ts');
 const { essayBySlug } = await loadSrc('data/writing.ts');
 const { localize } = await loadSrc('i18n/localized.ts');
 const { formatEventDateRange, formatLongDate, formatMonthYear } = await loadSrc('utils/formatters.ts');
+const { eventPhotoCredit, releasePhotoCredit } = await loadSrc('utils/newsletterCredit.ts');
 
 const L = color.light;
 const SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif";
@@ -34,7 +35,7 @@ const label = text =>
   `<div style="font:600 11px/1 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.muted};padding-bottom:12px;">${escapeHtml(text)}</div>`;
 
 const heading = (text, href) =>
-  `<a href="${href}" style="font:500 20px/1.3 ${SANS};letter-spacing:-0.01em;color:${L.text};text-decoration:none;">${escapeHtml(text)}</a>`;
+  `<a href="${href}" style="font:500 18px/1.3 ${SANS};letter-spacing:0.08em;text-transform:uppercase;color:${L.text};text-decoration:none;">${escapeHtml(text)}</a>`;
 
 const paragraph = text =>
   `<div style="font:400 14px/1.7 ${SANS};color:${L.secondary};padding-top:14px;">${escapeHtml(text)}</div>`;
@@ -45,30 +46,44 @@ const image = (webPath, alt, opts) =>
 const caption = text =>
   `<div style="font:400 12px/1.5 ${SANS};color:${L.muted};padding-top:8px;">${escapeHtml(text)}</div>`;
 
-const cta = (text, href) =>
-  `<a href="${href}" style="display:inline-block;font:500 11px/1 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.text};text-decoration:none;border:1px solid ${L.text};padding:10px 20px;margin-top:18px;">${escapeHtml(text)}</a>`;
+const creditLine = credit => {
+  if (!credit) return '';
+
+  const html = credit.html.replaceAll('<a ', `<a target="_blank" rel="noopener noreferrer" style="color:${L.muted};text-decoration:underline;" `);
+  return `<div style="font:400 11px/1.4 ${SANS};color:${L.muted};opacity:0.6;padding-top:8px;text-align:right;">${escapeHtml(credit.prefix)} ${html}</div>`;
+};
+
+const button = (text, href) =>
+  `<a href="${href}" style="display:inline-block;font:500 11px/1 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.bg};text-decoration:none;background-color:${L.text};border:1px solid ${L.text};padding:12px 22px;">${escapeHtml(text)}</a>`;
+
+const cta = (text, href) => `<div style="margin-top:18px;">${button(text, href)}</div>`;
 
 const metaGrid = fields => {
-  const cells = fields
+  const rows = fields
     .filter(field => field.value)
     .map(
       field =>
-        `<td valign="top" style="padding:0 20px 0 0;">
-          <div style="font:600 10px/1 ${SANS};letter-spacing:0.1em;text-transform:uppercase;color:${L.muted};padding-bottom:5px;">${escapeHtml(field.label)}</div>
+        `<tr><td style="padding:0 0 12px;">
+          <div style="font:600 10px/1 ${SANS};letter-spacing:0.1em;text-transform:uppercase;color:${L.muted};padding-bottom:4px;">${escapeHtml(field.label)}</div>
           <div style="font:400 13px/1.4 ${SANS};color:${L.text};">${escapeHtml(field.value)}</div>
-        </td>`,
+        </td></tr>`,
     )
     .join('');
 
-  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:16px;"><tr>${cells}</tr></table>`;
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:16px;">${rows}</table>`;
 };
 
-const blockCell = inner => `<tr><td style="padding:0 0 40px;">${inner}</td></tr>`;
+const blockCell = inner => `<tr><td style="padding:0 0 20px;">${inner}</td></tr>`;
 
 const proseBlock = block => {
   marked.setOptions({ breaks: false });
-  const html = marked.parse(block.markdown);
-  return blockCell(`<div style="font:400 15px/1.7 ${SANS};color:${L.text};">${html}</div>`);
+  const html = marked
+    .parse(block.markdown)
+    .trim()
+    .replace('<p>', '<p style="margin:0;">')
+    .replaceAll('<p>', '<p style="margin:1.25em 0 0;">')
+    .replaceAll('<a ', `<a style="color:${L.text};text-decoration:underline;text-decoration-color:${L.muted};" `);
+  return blockCell(`<div style="margin:-4px 0;font:400 15px/1.7 ${SANS};color:${L.text};">${html}</div>`);
 };
 
 const imageBlock = (block, opts) => {
@@ -82,10 +97,23 @@ const videoBlock = (block, opts) =>
     block.label ? label(block.label) : '',
     `<a href="${block.href}" style="text-decoration:none;">${image(block.poster, block.alt, opts)}</a>`,
     block.caption ? caption(block.caption) : '',
-    cta('Watch', block.href),
+    cta('View', block.href),
   ].join(''));
 
-const listenBlock = (block, opts) => {
+const ctaBlock = block => blockCell(`<div style="text-align:center;">${button(block.label, block.href)}</div>`);
+
+const quoteBlock = block => {
+  const source = block.url
+    ? `<a href="${block.url}" style="color:${L.muted};text-decoration:none;">${escapeHtml(block.source)}</a>`
+    : escapeHtml(block.source);
+
+  return blockCell(
+    `<div style="font:400 16px/1.75 ${SANS};color:${L.text};">${block.quote}</div>` +
+      `<div style="font:500 11px/1.4 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.muted};padding-top:12px;">${source}</div>`,
+  );
+};
+
+const worksBlock = (block, opts) => {
   const release = releaseById.get(block.ref);
   if (!release) return '';
 
@@ -103,26 +131,27 @@ const listenBlock = (block, opts) => {
   const url = `${opts.origin}/works/${release.id}`;
 
   return blockCell(
-    label('Listen') +
+    label('Works') +
       heading(release.title, url) +
-      (release.coverImage ? image(release.coverImage, release.title, opts) : '') +
-      metaGrid(fields) +
+      (release.coverImage
+        ? image(release.coverImage, release.title, opts) + creditLine(releasePhotoCredit(release.credits))
+        : '') +
+      (block.hideMeta ? '' : metaGrid(fields)) +
       (block.note ? paragraph(block.note) : '') +
-      cta('Listen', url),
+      cta('View', url),
   );
 };
 
-const heroSrc = event => {
-  const cover = list => list?.find(item => item.cover) ?? list?.[0];
-  return cover(event.images)?.src ?? cover(event.posters)?.src ?? null;
-};
+const pickCover = list => list?.find(item => item.cover) ?? list?.[0];
 
 const liveBlock = (block, opts) => {
   const event = liveEvents.find(entry => entry.id === block.ref);
   if (!event) return '';
 
   const title = localize(event.title, 'en');
-  const hero = heroSrc(event);
+  const cover = pickCover(event.images);
+  const poster = pickCover(event.posters);
+  const hero = cover?.src ?? poster?.src ?? null;
   const fields = [
     { label: 'Date', value: formatEventDateRange(event.date, event.endDate, 'en') },
     { label: 'Venue', value: event.venue.name ?? '' },
@@ -133,10 +162,10 @@ const liveBlock = (block, opts) => {
   return blockCell(
     label('Live') +
       heading(title, url) +
-      (hero ? image(hero, title, opts) : '') +
-      metaGrid(fields) +
+      (hero ? image(hero, title, opts) + creditLine(eventPhotoCredit(cover, poster)) : '') +
+      (block.hideMeta ? '' : metaGrid(fields)) +
       (block.note ? paragraph(block.note) : '') +
-      cta('Details', url),
+      cta('View', url),
   );
 };
 
@@ -151,7 +180,7 @@ const writingBlock = (block, opts) => {
     label('Writing') +
       heading(essay.title, url) +
       (description ? paragraph(description) : '') +
-      cta('Read', url),
+      cta('View', url),
   );
 };
 
@@ -159,32 +188,54 @@ const renderBlock = (block, opts) => {
   if (block.type === 'prose') return proseBlock(block);
   if (block.type === 'image') return imageBlock(block, opts);
   if (block.type === 'video') return videoBlock(block, opts);
-  if (block.type === 'listen') return listenBlock(block, opts);
+  if (block.type === 'works') return worksBlock(block, opts);
   if (block.type === 'live') return liveBlock(block, opts);
+  if (block.type === 'quote') return quoteBlock(block);
+  if (block.type === 'cta') return ctaBlock(block);
   return writingBlock(block, opts);
 };
 
-const masthead = (issue, viewUrl) => `
-  <tr><td align="right" style="font:400 11px/1 ${SANS};color:${L.muted};padding:0 0 28px;">
-    <a href="${viewUrl}" style="color:${L.muted};text-decoration:underline;">View in browser</a>
-  </td></tr>
-  <tr><td style="border-bottom:1px solid ${L.border};padding:0 0 10px;">
+const masthead = (issue, opts) => {
+  const viewRow = opts.viewUrl
+    ? `<tr><td align="right" style="font:400 11px/1 ${SANS};color:${L.muted};padding:0 0 28px;">
+    <a href="${opts.viewUrl}" style="color:${L.muted};text-decoration:underline;">View in browser</a>
+  </td></tr>`
+    : '';
+  const afterBorder = opts.dated === false
+    ? '<tr><td style="font-size:0;line-height:0;padding:0 0 20px;">&nbsp;</td></tr>'
+    : `<tr><td style="font:400 11px/1 ${SANS};color:${L.muted};padding:16px 0 36px;">${escapeHtml(formatLongDate(issue.date))}</td></tr>`;
+
+  return `
+  ${viewRow}
+  <tr><td style="border-bottom:1px solid ${L.borderSubtle};padding:0 0 20px;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
       <td style="font:600 12px/1 ${SANS};letter-spacing:0.05em;text-transform:uppercase;color:${L.text};">Jerome Faria</td>
       <td align="right" style="font:400 12px/1 ${SANS};letter-spacing:0.05em;text-transform:uppercase;color:${L.muted};">Sound Artist &amp; Composer</td>
     </tr></table>
   </td></tr>
-  <tr><td style="font:400 11px/1 ${SANS};color:${L.muted};padding:10px 0 36px;">${escapeHtml(formatLongDate(issue.date))}</td></tr>`;
+  ${afterBorder}`;
+};
 
-const footer = (origin, unsubscribeUrl) => `
-  <tr><td style="border-top:1px solid ${L.border};padding:24px 0 0;font:400 11px/1.6 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.muted};" align="center">
-    &copy; ${new Date().getFullYear()} Jerome Faria
-    &nbsp;&middot;&nbsp; <a href="${origin}/privacy" style="color:${L.muted};text-decoration:underline;">Privacy</a>
-    &nbsp;&middot;&nbsp; <a href="${unsubscribeUrl}" style="color:${L.muted};text-decoration:underline;">Unsubscribe</a>
+const footer = opts => {
+  const unsubscribe = opts.unsubscribeUrl
+    ? `&nbsp;&middot;&nbsp; <a href="${opts.unsubscribeUrl}" style="color:${L.muted};text-decoration:underline;">Unsubscribe</a>`
+    : '';
+
+  return `
+  <tr><td style="border-top:1px solid ${L.borderSubtle};padding:24px 0 0;font:400 11px/1.6 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.muted};" align="center">
+    <a href="${opts.origin}/copyright" style="color:${L.muted};text-decoration:underline;">&copy; 2004&ndash;${new Date().getFullYear()} Jerome Faria</a>
+    &nbsp;&middot;&nbsp; <a href="${opts.origin}/privacy" style="color:${L.muted};text-decoration:underline;">Privacy</a>
+    ${unsubscribe}
   </td></tr>`;
+};
+
+const blockDivider = `<tr><td style="border-top:1px solid ${L.borderSubtle};padding:0 0 20px;font-size:0;line-height:0;">&nbsp;</td></tr>`;
 
 export const renderIssueEmail = (issue, opts) => {
-  const blocks = issue.blocks.map(block => renderBlock(block, opts)).join('');
+  const rendered = issue.blocks.map(block => renderBlock(block, opts)).filter(Boolean);
+  const blocks = rendered.length > 1
+    ? rendered.slice(0, -1).join(blockDivider) + rendered.at(-1)
+    : rendered.join('');
 
   const html = `<!doctype html>
 <html lang="en"><head>
@@ -197,9 +248,9 @@ export const renderIssueEmail = (issue, opts) => {
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${L.bg}" style="background:${L.bg};">
   <tr><td align="center" style="padding:32px 20px 48px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;">
-      ${masthead(issue, opts.viewUrl)}
+      ${masthead(issue, opts)}
       ${blocks}
-      ${footer(opts.origin, opts.unsubscribeUrl)}
+      ${footer(opts)}
     </table>
   </td></tr>
 </table>

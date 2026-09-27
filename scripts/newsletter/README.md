@@ -87,7 +87,7 @@ is a plain letter.
 
 ### `video` — a poster that plays
 
-Email can't play video, so it shows the poster + a **Watch** button that links
+Email can't play video, so it shows the poster + a **View** button that links
 out. The archive plays it inline when you give an `embedUrl` (a
 YouTube-nocookie / Vimeo *embed* URL), otherwise the poster links out.
 
@@ -103,21 +103,54 @@ YouTube-nocookie / Vimeo *embed* URL), otherwise the poster links out.
 }
 ```
 
-### `writing` / `listen` / `live` — references to site content
+### `quote` — a press clipping or pull-quote
+
+A freeform quote styled like the **Press** page — the quote, then its source
+(linked when you give a `url`). Freeform, so it can carry a press clipping, a
+listener's words, or anything else; the quote may hold inline markup (`<em>`).
+
+```ts
+{
+  type: 'quote',
+  quote: 'An almost <em>romantic</em> sound that recalls Eno.',
+  source: 'The Quietus',
+  url: 'https://thequietus.com/…',   // optional — links the source
+}
+```
+
+### `cta` — a button link
+
+A standalone call-to-action button, rendered on-brand (filled) in both the email
+and the archive. Internal links (starting `/`) route in-app on the archive;
+external links open in a new tab.
+
+```ts
+{ type: 'cta', label: 'Subscribe', href: '/newsletter' }
+{ type: 'cta', label: 'Buy tickets', href: 'https://venue.example/tickets' }
+```
+
+### `writing` / `works` / `live` — references to site content
 
 These point at something that **already lives on the site** by its id, and the
 renderer fills in the title, image, meta, and canonical link. You never retype a
-catalog number or a venue.
+catalog number or a venue. Each carries a generic **View** button through to the
+canonical page.
 
 ```ts
 { type: 'writing', ref: 'orchestration' }                 // ref = essay slug  (src/data/writing.ts)
-{ type: 'listen',  ref: 'contraplacado', note: 'Out now.' } // ref = release id (src/data/works.ts)
+{ type: 'works',   ref: 'contraplacado', note: 'Out now.' } // ref = release id (src/data/works.ts)
 { type: 'live',    ref: 'jejum-45',      note: 'In Porto.' } // ref = event id   (src/data/live.ts)
 ```
 
 - `note` (optional) is your per-issue framing, shown under the auto-filled meta.
-- **Listen** shows Released · Format · Label · Catalog; **Live** shows Date ·
+- **Works** shows Released · Format · Label · Catalog; **Live** shows Date ·
   Venue · City; **Writing** shows the essay tagline (or your `note`).
+- `hideMeta: true` (works / live) drops the auto meta grid — for a leaner,
+  editorial block where the `note` carries the relevant facts instead.
+- **Photo credit** is auto-derived and shown under the image (bottom-right,
+  muted): **works** from the release's `photography` credit; **live** from the
+  cover image's `photographer` (or, if a poster is used, its `artist`). Linked
+  when the person/org resolves to a URL. Nothing to author.
 - **Gotcha:** a `ref` that doesn't match any id is **silently dropped** from the
   issue — no error. Double-check ids against the data files (or just preview and
   look for the missing block).
