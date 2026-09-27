@@ -13,6 +13,7 @@ const args = process.argv.slice(2);
 const id = args.find(argument => !argument.startsWith('--'));
 const shouldOpen = args.includes('--open');
 const shouldWatch = args.includes('--watch');
+const standalone = args.includes('--standalone');
 
 if (!id) {
   console.error('Usage: npm run newsletter:preview -- <issue-id> [--open --watch]');
@@ -26,8 +27,12 @@ const renderOnce = async () => {
   const { html } = renderIssueEmail(issue, {
     origin: ORIGIN,
     embedImages: true,
-    viewUrl: `${ORIGIN}/newsletter/${issue.id}`,
-    unsubscribeUrl: `${WORKER}/newsletter/unsubscribe?token=PREVIEW`,
+    ...(standalone
+      ? { dated: false }
+      : {
+        viewUrl: `${ORIGIN}/newsletter/${issue.id}`,
+        unsubscribeUrl: `${WORKER}/newsletter/unsubscribe?token=PREVIEW`,
+      }),
   });
 
   const out = join(root, `newsletter-preview-${issue.id}.html`);
@@ -46,7 +51,8 @@ if (shouldWatch) {
   const rerender = () => {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      const result = spawnSync(process.execPath, [selfPath, id], { stdio: 'inherit' });
+      const rerenderArgs = [selfPath, id, ...(standalone ? ['--standalone'] : [])];
+      const result = spawnSync(process.execPath, rerenderArgs, { stdio: 'inherit' });
       if (result.status === 0) console.log(`↻ re-rendered ${new Date().toLocaleTimeString()}`);
     }, 150);
   };
