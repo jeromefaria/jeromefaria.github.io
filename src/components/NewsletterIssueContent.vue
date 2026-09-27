@@ -29,11 +29,13 @@ const blocks = computed(() => resolveIssueBlocks(props.issue.blocks));
         Newsletter · {{ formatLongDate(issue.date) }}
       </p>
 
-      <NewsletterBlock
-        v-for="(block, index) in blocks"
-        :key="index"
-        :block="block"
-      />
+      <div class="newsletter-issue__blocks">
+        <NewsletterBlock
+          v-for="(block, index) in blocks"
+          :key="index"
+          :block="block"
+        />
+      </div>
     </div>
   </StaticPage>
 </template>

@@ -4,20 +4,57 @@
   max-width: $max-width;
   margin: 0 auto;
 
-  > * + * {
-    padding-top: $spacing-8;
-    margin-top: $spacing-8;
-    border-top: 1px solid var(--color-border-subtle);
-  }
-
   &__eyebrow {
-    margin: 0 0 $spacing-10;
+    padding-bottom: $spacing-4;
+    margin: 0 0 $spacing-4;
+    border-bottom: 1px solid var(--color-border-subtle);
 
     @include label-style;
   }
 
+  &__blocks {
+    > * {
+      padding: $spacing-10 0;
+    }
+
+    > :first-child {
+      padding-top: 0;
+    }
+
+    > :last-child {
+      padding-bottom: 0;
+    }
+
+    > * + * {
+      border-top: 1px solid var(--color-border-subtle);
+    }
+
+    > * > :first-child {
+      margin-top: 0;
+    }
+
+    > * > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
   &__prose {
     margin: 0;
+
+    p:first-child::before,
+    p:last-child::after {
+      display: block;
+      height: 0;
+      content: "";
+    }
+
+    p:first-child::before {
+      margin-top: calc((1 - #{$line-height-prose}) * 0.5em);
+    }
+
+    p:last-child::after {
+      margin-bottom: calc((1 - #{$line-height-prose}) * 0.5em);
+    }
   }
 
   &__figure {
@@ -139,6 +176,7 @@
     font-size: $font-size-xs;
     color: var(--color-text-muted);
     text-align: right;
+    opacity: 0.6;
 
     a {
       color: inherit;
@@ -191,17 +229,16 @@
     padding: $spacing-3 $spacing-6;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
-    color: var(--color-bg);
+    color: var(--color-text);
     text-transform: uppercase;
     letter-spacing: $letter-spacing-wide;
     text-decoration: none;
-    background-color: var(--color-text);
     border: 1px solid var(--color-text);
     transition: color $transition-base, background-color $transition-base;
 
     &:hover {
-      color: var(--color-text);
-      background-color: transparent;
+      color: var(--color-bg);
+      background-color: var(--color-text);
     }
 
     &:focus-visible {

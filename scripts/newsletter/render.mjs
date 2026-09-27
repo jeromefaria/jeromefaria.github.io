@@ -35,7 +35,7 @@ const label = text =>
   `<div style="font:600 11px/1 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.muted};padding-bottom:12px;">${escapeHtml(text)}</div>`;
 
 const heading = (text, href) =>
-  `<a href="${href}" style="font:500 20px/1.3 ${SANS};letter-spacing:-0.01em;color:${L.text};text-decoration:none;">${escapeHtml(text)}</a>`;
+  `<a href="${href}" style="font:500 18px/1.3 ${SANS};letter-spacing:0.08em;text-transform:uppercase;color:${L.text};text-decoration:none;">${escapeHtml(text)}</a>`;
 
 const paragraph = text =>
   `<div style="font:400 14px/1.7 ${SANS};color:${L.secondary};padding-top:14px;">${escapeHtml(text)}</div>`;
@@ -50,7 +50,7 @@ const creditLine = credit => {
   if (!credit) return '';
 
   const html = credit.html.replaceAll('<a ', `<a target="_blank" rel="noopener noreferrer" style="color:${L.muted};text-decoration:underline;" `);
-  return `<div style="font:400 11px/1.4 ${SANS};color:${L.muted};padding-top:8px;text-align:right;">${escapeHtml(credit.prefix)} ${html}</div>`;
+  return `<div style="font:400 11px/1.4 ${SANS};color:${L.muted};opacity:0.6;padding-top:8px;text-align:right;">${escapeHtml(credit.prefix)} ${html}</div>`;
 };
 
 const button = (text, href) =>
@@ -83,7 +83,7 @@ const proseBlock = block => {
     .replace('<p>', '<p style="margin:0;">')
     .replaceAll('<p>', '<p style="margin:1.25em 0 0;">')
     .replaceAll('<a ', `<a style="color:${L.text};text-decoration:underline;text-decoration-color:${L.muted};" `);
-  return blockCell(`<div style="font:400 15px/1.7 ${SANS};color:${L.text};">${html}</div>`);
+  return blockCell(`<div style="margin:-4px 0;font:400 15px/1.7 ${SANS};color:${L.text};">${html}</div>`);
 };
 
 const imageBlock = (block, opts) => {
