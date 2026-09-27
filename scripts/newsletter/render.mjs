@@ -126,7 +126,7 @@ const worksBlock = (block, opts) => {
     label('Works') +
       heading(release.title, url) +
       (release.coverImage ? image(release.coverImage, release.title, opts) : '') +
-      metaGrid(fields) +
+      (block.hideMeta ? '' : metaGrid(fields)) +
       (block.note ? paragraph(block.note) : '') +
       cta('View', url),
   );
@@ -154,7 +154,7 @@ const liveBlock = (block, opts) => {
     label('Live') +
       heading(title, url) +
       (hero ? image(hero, title, opts) : '') +
-      metaGrid(fields) +
+      (block.hideMeta ? '' : metaGrid(fields)) +
       (block.note ? paragraph(block.note) : '') +
       cta('View', url),
   );

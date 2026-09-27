@@ -31,12 +31,23 @@ export type RenderBlock =
   | { kind: 'cta'; label: string; href: string }
   | FeatureBlock;
 
-const worksFeature = (ref: string, note?: string): FeatureBlock | null => {
+const releaseMeta = (release: NonNullable<ReturnType<typeof releaseById.get>>): MetaField[] => {
+  const { meta } = release;
+  if (meta.kind !== 'music') return [];
+
+  const edition = meta.editions[0] ?? null;
+
+  return [
+    { label: 'Released', value: formatMonthYear(meta.released) },
+    { label: 'Format', value: meta.mediums.join(' / ') },
+    { label: 'Label', value: edition?.label.text ?? '' },
+    { label: 'Catalog', value: edition?.catalog ?? '' },
+  ].filter(field => field.value);
+};
+
+const worksFeature = (ref: string, note?: string, hideMeta?: boolean): FeatureBlock | null => {
   const release = releaseById.get(ref);
   if (!release) return null;
-
-  const { meta } = release;
-  const edition = meta.kind === 'music' ? (meta.editions[0] ?? null) : null;
 
   return {
     kind: 'feature',
@@ -44,20 +55,20 @@ const worksFeature = (ref: string, note?: string): FeatureBlock | null => {
     title: release.title,
     url: `/works/${release.id}`,
     image: release.coverImage ?? null,
-    meta: meta.kind === 'music'
-      ? [
-        { label: 'Released', value: formatMonthYear(meta.released) },
-        { label: 'Format', value: meta.mediums.join(' / ') },
-        { label: 'Label', value: edition?.label.text ?? '' },
-        { label: 'Catalog', value: edition?.catalog ?? '' },
-      ].filter(field => field.value)
-      : [],
+    meta: hideMeta ? [] : releaseMeta(release),
     note: note ?? null,
     cta: 'View',
   };
 };
 
-const liveFeature = (ref: string, note?: string): FeatureBlock | null => {
+const eventMeta = (event: (typeof liveEvents)[number]): MetaField[] =>
+  [
+    { label: 'Date', value: formatEventDateRange(event.date, event.endDate) },
+    { label: 'Venue', value: event.venue.name ?? '' },
+    { label: 'City', value: event.venue.city ?? '' },
+  ].filter(field => field.value);
+
+const liveFeature = (ref: string, note?: string, hideMeta?: boolean): FeatureBlock | null => {
   const event = liveEvents.find(entry => entry.id === ref);
   if (!event) return null;
 
@@ -70,11 +81,7 @@ const liveFeature = (ref: string, note?: string): FeatureBlock | null => {
     title: localize(event.title, 'en'),
     url: `/live/${event.id}`,
     image: cover?.src ?? poster?.src ?? null,
-    meta: [
-      { label: 'Date', value: formatEventDateRange(event.date, event.endDate) },
-      { label: 'Venue', value: event.venue.name ?? '' },
-      { label: 'City', value: event.venue.city ?? '' },
-    ].filter(field => field.value),
+    meta: hideMeta ? [] : eventMeta(event),
     note: note ?? null,
     cta: 'View',
   };
@@ -108,8 +115,8 @@ const resolveBlock = (block: IssueBlock): RenderBlock | null => {
   if (block.type === 'prose') return { kind: 'prose', html: renderMarkdown(block.markdown) };
   if (block.type === 'image') return resolveImage(block);
   if (block.type === 'video') return resolveVideo(block);
-  if (block.type === 'works') return worksFeature(block.ref, block.note);
-  if (block.type === 'live') return liveFeature(block.ref, block.note);
+  if (block.type === 'works') return worksFeature(block.ref, block.note, block.hideMeta);
+  if (block.type === 'live') return liveFeature(block.ref, block.note, block.hideMeta);
   if (block.type === 'quote') return { kind: 'quote', quote: block.quote, source: block.source, url: block.url ?? null };
   if (block.type === 'cta') return { kind: 'cta', label: block.label, href: block.href };
   return writingFeature(block.ref, block.note);

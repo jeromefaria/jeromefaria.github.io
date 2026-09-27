@@ -152,6 +152,11 @@ describe('resolveIssueBlocks', () => {
     expect(resolve({ type: 'writing', ref: 'no-tagline' })).toMatchObject({ note: null });
   });
 
+  it('hides the meta grid when hideMeta is set, on works and live', () => {
+    expect(resolve({ type: 'works', ref: 'music-full', hideMeta: true })).toMatchObject({ label: 'Works', meta: [] });
+    expect(resolve({ type: 'live', ref: 'cover-image', hideMeta: true })).toMatchObject({ label: 'Live', meta: [] });
+  });
+
   it('drops references that resolve to nothing', () => {
     const blocks: IssueBlock[] = [
       { type: 'works', ref: 'ghost' },

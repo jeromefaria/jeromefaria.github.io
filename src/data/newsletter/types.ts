@@ -32,12 +32,14 @@ export interface WorksBlock {
   type: 'works';
   ref: string;
   note?: string;
+  hideMeta?: boolean;
 }
 
 export interface LiveBlock {
   type: 'live';
   ref: string;
   note?: string;
+  hideMeta?: boolean;
 }
 
 export interface QuoteBlock {
