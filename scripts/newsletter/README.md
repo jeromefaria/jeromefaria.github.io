@@ -147,6 +147,10 @@ canonical page.
   Venue · City; **Writing** shows the essay tagline (or your `note`).
 - `hideMeta: true` (works / live) drops the auto meta grid — for a leaner,
   editorial block where the `note` carries the relevant facts instead.
+- **Photo credit** is auto-derived and shown under the image (bottom-right,
+  muted): **works** from the release's `photography` credit; **live** from the
+  cover image's `photographer` (or, if a poster is used, its `artist`). Linked
+  when the person/org resolves to a URL. Nothing to author.
 - **Gotcha:** a `ref` that doesn't match any id is **silently dropped** from the
   issue — no error. Double-check ids against the data files (or just preview and
   look for the missing block).

@@ -28,6 +28,12 @@ defineProps<{ block: FeatureBlock }>();
         :alt="block.title"
       />
     </RouterLink>
+    <p
+      v-if="block.credit"
+      class="newsletter-issue__credit"
+    >
+      {{ block.credit.prefix }} <span v-html="block.credit.html" />
+    </p>
 
     <dl
       v-if="block.meta.length"

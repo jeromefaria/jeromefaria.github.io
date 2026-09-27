@@ -123,10 +123,26 @@
     display: block;
     margin: 0 0 $spacing-5;
 
+    &:has(+ .newsletter-issue__credit) {
+      margin-bottom: $spacing-2;
+    }
+
     img {
       display: block;
       width: 100%;
       height: auto;
+    }
+  }
+
+  &__credit {
+    margin: 0 0 $spacing-5;
+    font-size: $font-size-xs;
+    color: var(--color-text-muted);
+    text-align: right;
+
+    a {
+      color: inherit;
+      text-decoration: underline;
     }
   }
 

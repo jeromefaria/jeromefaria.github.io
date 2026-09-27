@@ -20,6 +20,12 @@ vi.mock('../data-loader.mjs', () => ({
     }
     if (path === 'data/live.ts') return { liveEvents: [] };
     if (path === 'data/writing.ts') return { essayBySlug: () => undefined };
+    if (path === 'utils/newsletterCredit.ts') {
+      return {
+        releasePhotoCredit: () => ({ prefix: 'Photo by', html: '<a href="https://example.com/p">A Photographer</a>' }),
+        eventPhotoCredit: () => null,
+      };
+    }
     if (path === 'i18n/localized.ts') return { localize: value => (typeof value === 'string' ? value : value.en) };
     if (path === 'utils/formatters.ts') {
       return {
@@ -83,6 +89,13 @@ describe('renderIssueEmail', () => {
 
     expect(html).toContain('An almost <em>romantic</em> sound.');
     expect(html).toContain('>The Quietus</a>');
+  });
+
+  it('renders a photo credit under the works cover', () => {
+    const { html } = renderIssueEmail(issue, opts);
+
+    expect(html).toContain('Photo by');
+    expect(html).toContain('>A Photographer</a>');
   });
 
   it('uses absolute image URLs, never data URIs, when not embedding', () => {

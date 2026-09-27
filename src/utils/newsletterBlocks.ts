@@ -5,6 +5,7 @@ import { essayBySlug } from '@/data/writing';
 import { localize } from '@/i18n/localized';
 import { isAllowedEmbedUrl } from '@/utils/embedUrl';
 import { formatEventDateRange, formatMonthYear } from '@/utils/formatters';
+import { eventPhotoCredit, type PhotoCredit, releasePhotoCredit } from '@/utils/newsletterCredit';
 import { renderMarkdown } from '@/utils/renderMarkdown';
 
 export interface MetaField {
@@ -18,6 +19,7 @@ export interface FeatureBlock {
   title: string;
   url: string;
   image: string | null;
+  credit: PhotoCredit | null;
   meta: MetaField[];
   note: string | null;
   cta: string;
@@ -55,6 +57,7 @@ const worksFeature = (ref: string, note?: string, hideMeta?: boolean): FeatureBl
     title: release.title,
     url: `/works/${release.id}`,
     image: release.coverImage ?? null,
+    credit: release.coverImage ? releasePhotoCredit(release.credits) : null,
     meta: hideMeta ? [] : releaseMeta(release),
     note: note ?? null,
     cta: 'View',
@@ -81,6 +84,7 @@ const liveFeature = (ref: string, note?: string, hideMeta?: boolean): FeatureBlo
     title: localize(event.title, 'en'),
     url: `/live/${event.id}`,
     image: cover?.src ?? poster?.src ?? null,
+    credit: eventPhotoCredit(cover, poster),
     meta: hideMeta ? [] : eventMeta(event),
     note: note ?? null,
     cta: 'View',
@@ -97,6 +101,7 @@ const writingFeature = (ref: string, note?: string): FeatureBlock | null => {
     title: essay.title,
     url: `/writing/${essay.slug}`,
     image: null,
+    credit: null,
     meta: [],
     note: note ?? essay.tagline ?? null,
     cta: 'View',

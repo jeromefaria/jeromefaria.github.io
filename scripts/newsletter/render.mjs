@@ -11,6 +11,7 @@ const { liveEvents } = await loadSrc('data/live.ts');
 const { essayBySlug } = await loadSrc('data/writing.ts');
 const { localize } = await loadSrc('i18n/localized.ts');
 const { formatEventDateRange, formatLongDate, formatMonthYear } = await loadSrc('utils/formatters.ts');
+const { eventPhotoCredit, releasePhotoCredit } = await loadSrc('utils/newsletterCredit.ts');
 
 const L = color.light;
 const SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif";
@@ -44,6 +45,13 @@ const image = (webPath, alt, opts) =>
 
 const caption = text =>
   `<div style="font:400 12px/1.5 ${SANS};color:${L.muted};padding-top:8px;">${escapeHtml(text)}</div>`;
+
+const creditLine = credit => {
+  if (!credit) return '';
+
+  const html = credit.html.replaceAll('<a ', `<a target="_blank" rel="noopener noreferrer" style="color:${L.muted};text-decoration:underline;" `);
+  return `<div style="font:400 11px/1.4 ${SANS};color:${L.muted};padding-top:8px;text-align:right;">${escapeHtml(credit.prefix)} ${html}</div>`;
+};
 
 const button = (text, href) =>
   `<a href="${href}" style="display:inline-block;font:500 11px/1 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.bg};text-decoration:none;background-color:${L.text};border:1px solid ${L.text};padding:12px 22px;">${escapeHtml(text)}</a>`;
@@ -125,24 +133,25 @@ const worksBlock = (block, opts) => {
   return blockCell(
     label('Works') +
       heading(release.title, url) +
-      (release.coverImage ? image(release.coverImage, release.title, opts) : '') +
+      (release.coverImage
+        ? image(release.coverImage, release.title, opts) + creditLine(releasePhotoCredit(release.credits))
+        : '') +
       (block.hideMeta ? '' : metaGrid(fields)) +
       (block.note ? paragraph(block.note) : '') +
       cta('View', url),
   );
 };
 
-const heroSrc = event => {
-  const cover = list => list?.find(item => item.cover) ?? list?.[0];
-  return cover(event.images)?.src ?? cover(event.posters)?.src ?? null;
-};
+const pickCover = list => list?.find(item => item.cover) ?? list?.[0];
 
 const liveBlock = (block, opts) => {
   const event = liveEvents.find(entry => entry.id === block.ref);
   if (!event) return '';
 
   const title = localize(event.title, 'en');
-  const hero = heroSrc(event);
+  const cover = pickCover(event.images);
+  const poster = pickCover(event.posters);
+  const hero = cover?.src ?? poster?.src ?? null;
   const fields = [
     { label: 'Date', value: formatEventDateRange(event.date, event.endDate, 'en') },
     { label: 'Venue', value: event.venue.name ?? '' },
@@ -153,7 +162,7 @@ const liveBlock = (block, opts) => {
   return blockCell(
     label('Live') +
       heading(title, url) +
-      (hero ? image(hero, title, opts) : '') +
+      (hero ? image(hero, title, opts) + creditLine(eventPhotoCredit(cover, poster)) : '') +
       (block.hideMeta ? '' : metaGrid(fields)) +
       (block.note ? paragraph(block.note) : '') +
       cta('View', url),

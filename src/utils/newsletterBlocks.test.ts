@@ -104,6 +104,7 @@ describe('resolveIssueBlocks', () => {
       title: 'Full Music',
       url: '/works/music-full',
       image: '/cover.jpg',
+      credit: null,
       meta: [
         { label: 'Released', value: 'January 2026' },
         { label: 'Format', value: 'LP / Digital' },

@@ -89,6 +89,14 @@ describe('NewsletterIssueView', () => {
     expect(wrapper.text()).toContain('BRQN009');
   });
 
+  it('renders a photo credit under an image with credit data', async () => {
+    const wrapper = await mountAt('/newsletter/full');
+    const credit = wrapper.find('.newsletter-issue__credit');
+
+    expect(credit.exists()).toBe(true);
+    expect(credit.text()).toContain('Photo by NASA, ESA, CSA, STScI');
+  });
+
   it('renders quote blocks with inline markup, linking the source only when a url is given', async () => {
     const wrapper = await mountAt('/newsletter/full');
     const quotes = wrapper.findAll('.newsletter-issue__quote');
