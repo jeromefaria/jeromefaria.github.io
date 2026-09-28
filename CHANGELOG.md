@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **newsletter:** Add subscriber add + list CLI tools ([#487](https://github.com/jeromefaria/jeromefaria.github.io/pull/487))
 - **newsletter:** Add local subscriber-count script ([#485](https://github.com/jeromefaria/jeromefaria.github.io/pull/485))
 - **writing:** Publish "The Internet Forgets" ([#483](https://github.com/jeromefaria/jeromefaria.github.io/pull/483))
 - **newsletter:** Content blocks + email rendering polish ([#482](https://github.com/jeromefaria/jeromefaria.github.io/pull/482))
