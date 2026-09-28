@@ -15,6 +15,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Fixes
 
+- **newsletter:** Tighten add-tool email validation ([#489](https://github.com/jeromefaria/jeromefaria.github.io/pull/489))
 - **writing:** Copy-edit "The Internet Forgets" ([#484](https://github.com/jeromefaria/jeromefaria.github.io/pull/484))
 
 ### Refactors
