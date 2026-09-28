@@ -31,7 +31,7 @@ const cardHtml = essay => `<!doctype html><html><head><meta charset="utf-8"><sty
   .footer .url { color: ${C.text}; font-weight: ${W.medium}; }
 </style></head><body>
   <div>
-    <p class="eyebrow">Essay</p>
+    <p class="eyebrow">Writing</p>
     <h1 class="title">${essay.title}</h1>
     <p class="subtitle">${essay.tagline}</p>
     <p class="description">${essay.description}</p>

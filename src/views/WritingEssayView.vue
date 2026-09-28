@@ -39,7 +39,7 @@ const head = essay && markdown
   }
   : {
     title: { en: `Writing — ${siteConfig.author.name}`, pt: `Writing — ${siteConfig.author.name}` },
-    description: { en: 'Essays by Jerome Faria.', pt: 'Essays by Jerome Faria.' },
+    description: { en: 'Writing by Jerome Faria.', pt: 'Writing by Jerome Faria.' },
     noIndex: true,
   };
 
