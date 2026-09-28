@@ -2,6 +2,13 @@ import type { Essay } from '@/types/writing';
 
 export const essays: Essay[] = [
   {
+    slug: 'the-internet-forgets',
+    title: 'The Internet Forgets',
+    date: '2026-09-28',
+    tagline: 'What survives is what someone keeps carrying',
+    description: 'On deleting a following, and reassembling an archive the web had begun to forget.',
+  },
+  {
     slug: 'orchestration',
     title: 'Orchestration',
     date: '2026-09-07',
