@@ -25,6 +25,7 @@ const cardHtml = essay => `<!doctype html><html><head><meta charset="utf-8"><sty
   .eyebrow { text-transform: uppercase; letter-spacing: ${T.display}; font-size: 20px; font-weight: ${W.semibold}; color: ${C.muted}; }
   .title { font-size: 92px; font-weight: ${W.semibold}; letter-spacing: ${T.tighter}; line-height: 1; margin-top: 26px; }
   .subtitle { font-size: 40px; font-weight: ${W.medium}; color: ${C.muted}; margin-top: 22px; }
+  .description { max-width: 88%; margin-top: 40px; font-size: 32px; font-weight: ${W.normal}; line-height: 1.45; color: ${C.muted}; text-wrap: pretty; }
   .footer { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid ${C.divider}; padding-top: 26px; }
   .footer span { font-size: 24px; color: ${C.muted}; }
   .footer .url { color: ${C.text}; font-weight: ${W.medium}; }
@@ -33,6 +34,7 @@ const cardHtml = essay => `<!doctype html><html><head><meta charset="utf-8"><sty
     <p class="eyebrow">Essay</p>
     <h1 class="title">${essay.title}</h1>
     <p class="subtitle">${essay.tagline}</p>
+    <p class="description">${essay.description}</p>
   </div>
   <div class="footer">
     <span>Jerome Faria</span>
