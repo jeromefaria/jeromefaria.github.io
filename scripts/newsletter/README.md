@@ -238,6 +238,23 @@ npm run newsletter:subscribers
 Active / pending / unsubscribed totals plus recent confirmations, read from the
 same D1 store. Needs `wrangler` authenticated (same as `--send`).
 
+For the full roster — every subscriber with status and join/confirm dates:
+
+```sh
+npm run newsletter:list
+```
+
+### Add subscribers directly
+
+```sh
+npm run newsletter:add -- alex@example.com sam@example.com           # dry run
+npm run newsletter:add -- alex@example.com sam@example.com --commit  # write
+```
+
+Inserts addresses as `active`, each with a one-click unsubscribe token; skips any
+already active and refuses any previously unsubscribed. Safe by default —
+`--commit` writes. Needs `wrangler` authenticated.
+
 ---
 
 ## 6. Before the first real send — production gate

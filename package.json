@@ -48,6 +48,8 @@
     "og:newsletter": "node scripts/generate-og-newsletter.mjs",
     "newsletter:preview": "node scripts/newsletter/preview.mjs",
     "newsletter:subscribers": "node scripts/newsletter/subscribers.mjs",
+    "newsletter:list": "node scripts/newsletter/list.mjs",
+    "newsletter:add": "node scripts/newsletter/add.mjs",
     "newsletter:send": "node scripts/newsletter/send.mjs"
   },
   "lint-staged": {
