@@ -9,7 +9,7 @@ const escapeSql = value => String(value).replace(/'/g, "''");
 
 const token = () => randomBytes(32).toString('hex');
 
-const isEmail = value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+const isEmail = value => /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(value);
 
 const run = args =>
   execFileSync('npx', ['wrangler', 'd1', 'execute', 'newsletter', '--remote', ...args], {
