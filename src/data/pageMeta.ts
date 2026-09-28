@@ -105,8 +105,8 @@ export const pageMeta = {
   writing: {
     title: { en: 'Writing', pt: 'Writing' },
     description: {
-      en: 'Essays by Jerome Faria — on music, engineering, and the craft in between.',
-      pt: 'Ensaios de Jerome Faria — sobre música, engenharia e o ofício que as une.',
+      en: 'Writing by Jerome Faria — on music, engineering, and the craft in between.',
+      pt: 'Textos de Jerome Faria — sobre música, engenharia e o ofício que as une.',
     },
   },
 } satisfies Record<string, PageMeta>;
