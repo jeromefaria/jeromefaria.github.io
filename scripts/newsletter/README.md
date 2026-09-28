@@ -13,6 +13,8 @@ store this reads from. This directory is only about writing and sending issues.
 - **Preview** → `npm run newsletter:preview -- <id>`
 - **Send** → `npm run newsletter:send -- <id> [--test | --send]`
 - **Count** subscribers → `npm run newsletter:subscribers`
+- **List** subscribers → `npm run newsletter:list`
+- **Add** subscribers → `npm run newsletter:add -- <email> [--commit]`
 
 ---
 
