@@ -49,7 +49,9 @@
     "newsletter:preview": "node scripts/newsletter/preview.mjs",
     "newsletter:subscribers": "node scripts/newsletter/subscribers.mjs",
     "newsletter:list": "node scripts/newsletter/list.mjs",
+    "newsletter:export": "node scripts/newsletter/export.mjs",
     "newsletter:add": "node scripts/newsletter/add.mjs",
+    "newsletter:remove": "node scripts/newsletter/remove.mjs",
     "newsletter:send": "node scripts/newsletter/send.mjs"
   },
   "lint-staged": {
