@@ -12,6 +12,7 @@ store this reads from. This directory is only about writing and sending issues.
 - **Register** it → `src/data/newsletter/issues.ts`
 - **Preview** → `npm run newsletter:preview -- <id>`
 - **Send** → `npm run newsletter:send -- <id> [--test | --send]`
+- **Count** subscribers → `npm run newsletter:subscribers`
 
 ---
 
@@ -227,6 +228,15 @@ npm run newsletter:send -- 2026-05-12 --send     # the real send, to every activ
 | D1 database `newsletter` | provisioned + `wrangler` authenticated (`cd worker && npx wrangler d1 create newsletter`) |
 
 Always `--test` to yourself first, read it in a real client, then `--send`.
+
+### Subscriber count
+
+```sh
+npm run newsletter:subscribers
+```
+
+Active / pending / unsubscribed totals plus recent confirmations, read from the
+same D1 store. Needs `wrangler` authenticated (same as `--send`).
 
 ---
 
