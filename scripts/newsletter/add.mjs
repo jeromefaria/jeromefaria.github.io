@@ -1,26 +1,9 @@
-import { execFileSync } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
-import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { root } from '../data-loader.mjs';
-
-const escapeSql = value => String(value).replace(/'/g, "''");
+import { d1Exec, d1Query, escapeSql, exitOnD1Error, isEmail } from './d1.mjs';
 
 const token = () => randomBytes(32).toString('hex');
-
-const isEmail = value => /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(value);
-
-const run = args =>
-  execFileSync('npx', ['wrangler', 'd1', 'execute', 'newsletter', '--remote', ...args], {
-    cwd: join(root, 'worker'),
-    encoding: 'utf8',
-    stdio: ['ignore', 'pipe', 'pipe'],
-  });
-
-const d1Exec = command => run(['--command', command]);
-
-const d1Query = command => JSON.parse(run(['--json', '--command', command]))[0].results;
 
 const statusOf = email => d1Query(`SELECT status FROM subscribers WHERE email = '${escapeSql(email)}'`)[0]?.status ?? null;
 
@@ -86,8 +69,6 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   try {
     main();
   } catch (error) {
-    console.error('\n  Could not reach D1 — is wrangler authenticated and the `newsletter` database provisioned?');
-    console.error(`  ${(error.stderr || error.message).toString().trim()}\n`);
-    process.exit(1);
+    exitOnD1Error(error);
   }
 }
