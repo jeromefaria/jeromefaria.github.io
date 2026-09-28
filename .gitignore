@@ -86,6 +86,7 @@ content/writing/_drafts/
 .certs/
 newsletter-preview-*.html
 newsletter-send-dryrun-*.html
+newsletter-subscribers-*.csv
 
 # Private newsletter drafts (curated one-off sends, not public archive issues)
 src/data/newsletter/issues/invitation.ts

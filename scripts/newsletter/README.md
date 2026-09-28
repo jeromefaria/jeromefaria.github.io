@@ -12,9 +12,11 @@ store this reads from. This directory is only about writing and sending issues.
 - **Register** it → `src/data/newsletter/issues.ts`
 - **Preview** → `npm run newsletter:preview -- <id>`
 - **Send** → `npm run newsletter:send -- <id> [--test | --send]`
-- **Count** subscribers → `npm run newsletter:subscribers`
-- **List** subscribers → `npm run newsletter:list`
+- **Count** subscribers → `npm run newsletter:subscribers` (`--json` to pipe)
+- **List** subscribers → `npm run newsletter:list` (`--json` to pipe)
+- **Export** subscribers → `npm run newsletter:export` (CSV backup)
 - **Add** subscribers → `npm run newsletter:add -- <email> [--commit]`
+- **Remove** subscribers → `npm run newsletter:remove -- <email> [--delete] [--commit]`
 
 ---
 
@@ -246,6 +248,16 @@ For the full roster — every subscriber with status and join/confirm dates:
 npm run newsletter:list
 ```
 
+Both take `--json` to print machine-readable output instead of a table — pipe it
+into `jq`, or redirect it (`newsletter:list -- --json > backup.json`).
+
+For a CSV backup (the format other providers import), write it to a gitignored
+file:
+
+```sh
+npm run newsletter:export
+```
+
 ### Add subscribers directly
 
 ```sh
@@ -256,6 +268,19 @@ npm run newsletter:add -- alex@example.com sam@example.com --commit  # write
 Inserts addresses as `active`, each with a one-click unsubscribe token; skips any
 already active and refuses any previously unsubscribed. Safe by default —
 `--commit` writes. Needs `wrangler` authenticated.
+
+### Remove subscribers
+
+```sh
+npm run newsletter:remove -- alex@example.com            # dry run
+npm run newsletter:remove -- alex@example.com --commit   # unsubscribe (tombstone)
+npm run newsletter:remove -- alex@example.com --delete --commit  # erase the row
+```
+
+Default is **unsubscribe** — a tombstone consistent with the public one-click
+flow, which also blocks accidental re-adds via `add`. `--delete` hard-removes the
+row, for a genuine erasure request or undoing a typo. Safe by default; `--commit`
+writes.
 
 ---
 
