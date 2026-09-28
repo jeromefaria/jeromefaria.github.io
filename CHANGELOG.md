@@ -16,6 +16,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - **writing:** Copy-edit "The Internet Forgets" ([#484](https://github.com/jeromefaria/jeromefaria.github.io/pull/484))
 
+### Refactors
+
+- **writing:** Unify section label to "Writing" ([#486](https://github.com/jeromefaria/jeromefaria.github.io/pull/486))
+
 ## 2026.09.4 — Newsletter, web archive & copyrights — 2026-09-26
 
 
