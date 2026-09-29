@@ -19,8 +19,8 @@
 - **Component & styling architecture.** Single-responsibility components, reusable composables, and SCSS design tokens driving a themable, BEM-structured stylesheet.
 - **A bilingual layer (EN/PT), now live.** Content typed as `Localized<{ en; pt }>`, every route mirrored under `/pt`, and a lightweight `useT` translate layer backed by vue-i18n. A single build flag (`VITE_I18N`) gates the whole i18n path — vue-i18n included — so an English-only build **tree-shakes it out entirely**; built and tested complete, held through EU-PT review, and now flipped on to ship both languages.
 - **A hidden ⌘K command palette.** Keyboard-summoned search, navigation, and actions across the whole site — a typed command registry, a hand-rolled fuzzy ranker, a full combobox/listbox ARIA contract, and fzf-style keybindings. No visible affordance; it's an easter egg for those who reach for `⌘K` / `Ctrl+K`.
-- **Full-stack when it's warranted.** The contact form runs on a **Cloudflare Worker** I own — server-side Turnstile verification and Resend delivery, decoupled from the app. No form-SaaS embed.
-- **A self-owned newsletter, not a mailing-list SaaS.** The same Worker backs a newsletter on **Cloudflare D1**: a double-opt-in subscribe/confirm/unsubscribe flow (RFC 8058 one-click), issues authored as typed blocks that render to *both* an inbox email and an on-site archive from one source, and a **resumable, rate-limit-aware** bulk send over Resend's batch API — every delivery ledgered, so an interrupted run resumes instead of re-mailing. A small consent-respecting CLI manages the list (add/remove/export, with a guard that refuses to re-add an unsubscribed address). The store and the pipe are mine, not a platform's.
+- **Full-stack when it's warranted.** The contact form runs on a **Cloudflare Worker** I own — server-side Turnstile verification and Resend delivery, decoupled from the app.
+- **A self-owned newsletter.** The same Worker backs a newsletter on **Cloudflare D1**: a double-opt-in subscribe/confirm/unsubscribe flow (RFC 8058 one-click), issues authored as typed blocks that render to *both* an inbox email and an on-site archive from one source, and a **resumable, rate-limit-aware** bulk send over Resend's batch API — every delivery ledgered, so an interrupted run resumes instead of re-mailing. A small consent-respecting CLI manages the list (add/remove/export, with a guard that refuses to re-add an unsubscribed address). The subscriber store, the send pipeline, and the on-site archive are all mine.
 
 ## Architecture
 
@@ -63,7 +63,7 @@ Newsletter (runtime)
   GitHub Pages serves the contact form and the newsletter signup.
 ```
 
-- **Site:** no CMS, API, or database — static data is pre-rendered to every route (and to a shareable page per release) and hydrated on GitHub Pages.
+- **Site:** typed static data, pre-rendered to every route (and a shareable page per release) and hydrated on GitHub Pages — fully static, nothing to operate at runtime.
 - **Audio:** encoded to AAC ahead of time and served from Cloudflare R2; the player streams it over HTTP range requests, so nothing large ships in the bundle.
 - **Contact:** the frontend posts already-labelled fields to the Worker, which verifies the Turnstile token server-side and relays the message through Resend — decoupled from the app.
 - **Newsletter:** the same Worker runs a Turnstile-gated, double-opt-in flow on **Cloudflare D1** — signup stores a `pending` row, an emailed link confirms it to `active`, and unsubscribe tombstones it (never a hard delete). Issues are sent from a local CLI over Resend's batch API, resumably.
@@ -71,15 +71,15 @@ Newsletter (runtime)
 ## Key decisions & trade-offs
 
 - **SSG, not SPA or SSR.** Pre-rendering gives fast first paint, clean SEO, and free static hosting; hydration restores interactivity. The trade-off — no server runtime for the site — is deliberate, so the one genuinely dynamic need, the contact form, became a small serverless function.
-- **Own the contact backend.** A Cloudflare Worker + Turnstile + Resend keeps spam handling, delivery, and data under my control rather than a form-SaaS embed. (The invisible Turnstile challenge carries a disclosure obligation — hence the `/privacy` page.)
-- **A built-in player, not an embed.** Streaming the catalogue in-page — cover-as-play, lock-screen controls, deep-linkable — makes the *first listen* frictionless: a visitor clicks a release and hears music, no "open this / click there," and the experience stays on-brand rather than handed to a third-party iframe. The cost is real audio engineering (a media state machine, autoplay-policy handling, range-streamed R2 hosting), taken on deliberately.
+- **Own the contact backend.** A Cloudflare Worker + Turnstile + Resend keeps spam handling, delivery, and data under my control. (The invisible Turnstile challenge carries a disclosure obligation — hence the `/privacy` page.)
+- **A built-in audio player.** Streaming the catalogue in-page — cover-as-play, lock-screen controls, deep-linkable — makes the *first listen* frictionless: a visitor clicks a release and hears music, no "open this / click there," and the experience stays on-brand. The cost is real audio engineering (a media state machine, autoplay-policy handling, range-streamed R2 hosting), taken on deliberately.
 - **A coverage *floor* that only ratchets up.** CI enforces a minimum that rises as coverage climbs (`scripts/check-coverage.js`) — regression protection without chasing 100%.
-- **Typed content, no CMS.** The catalog is TypeScript with discriminated unions — a release is `music | compilation | commission | publication | mastering`, a live event has its own shape — versioned in git. The same data renders the site *and* generates the PDF press kit and technical rider that bookers and press ask for.
+- **Typed content in git.** The catalog is TypeScript with discriminated unions — a release is `music | compilation | commission | publication | mastering`, a live event has its own shape — versioned in git. The same data renders the site *and* generates the PDF press kit and technical rider that bookers and press ask for.
 - **Bilingual as opt-in infrastructure.** The EN/PT layer was built and tested complete, but shipping it half-translated would have read worse than not shipping it — so it lived behind an inline build flag that tree-shakes the whole i18n path (vue-i18n included) out of an English-only bundle, which downloads nothing extra. Once the Portuguese copy cleared EU-PT review, going live was a one-line flag flip — not a rebuild-the-plumbing project.
 
 ## Audio player
 
-The catalogue plays in-page — a built-in player, not a third-party embed. Press a release cover (or any track title) and music starts within a click; a docked player bar appears, expands to a full now-playing view, and drives the OS lock screen.
+The catalogue plays in-page through a built-in audio player. Press a release cover (or any track title) and music starts within a click; a docked player bar appears, expands to a full now-playing view, and drives the OS lock screen.
 
 **What it does**
 
@@ -152,7 +152,7 @@ A complete bilingual architecture — English and Portuguese — built end to en
 src/
   components/    Reusable UI components (incl. the player bar / now-playing view / playable cover)
   composables/   Reusable logic (accordion + hash routing, image loading, page head/schema, the audio player, command palette + overlays)
-  data/          Typed content — works, live events, press, essays, about, an entity registry (people/orgs), audio manifest (no CMS)
+  data/          Typed content — works, live events, press, essays, about, an entity registry (people/orgs), audio manifest
   i18n/          EN/PT messages, locale routing, and the useT translate layer
   router/        Vue Router route table
   styles/        Modular SCSS with design tokens (_variables.scss)
