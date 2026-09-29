@@ -26,6 +26,7 @@ vi.mock('../data-loader.mjs', () => ({
         eventPhotoCredit: () => null,
       };
     }
+    if (path === 'utils/newsletterUrl.ts') return import('../../src/utils/newsletterUrl.ts');
     if (path === 'i18n/localized.ts') return { localize: value => (typeof value === 'string' ? value : value.en) };
     if (path === 'utils/formatters.ts') {
       return {
