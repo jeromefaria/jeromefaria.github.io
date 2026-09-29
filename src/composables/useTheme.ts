@@ -1,3 +1,5 @@
+import { readStorage, writeStorage } from '@/utils/storage';
+
 export type ThemeChoice = 'light' | 'dark' | 'system';
 
 const STORAGE_KEY = 'theme';
@@ -29,19 +31,12 @@ const applyToDocument = (): void => {
 };
 
 const readStored = (): ThemeChoice => {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY) as ThemeChoice | null;
-    return stored && CHOICES.includes(stored) ? stored : 'dark';
-  } catch {
-    return 'dark';
-  }
+  const stored = readStorage(STORAGE_KEY) as ThemeChoice;
+  return CHOICES.includes(stored) ? stored : 'dark';
 };
 
 const persist = (value: ThemeChoice): void => {
-  try {
-    localStorage.setItem(STORAGE_KEY, value);
-  } catch {
-  }
+  writeStorage(STORAGE_KEY, value);
 };
 
 const onSystemChange = (): void => {

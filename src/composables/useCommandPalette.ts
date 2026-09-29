@@ -8,6 +8,7 @@ import { useT } from '@/i18n/useT';
 import type { Command } from '@/types/command';
 import { fuzzyRank } from '@/utils/fuzzy';
 import { openInNewTab } from '@/utils/openInNewTab';
+import { readJson, writeJson } from '@/utils/storage';
 
 import { isKonamiEmojiSequence, triggerKonamiSurprise } from './useKonamiCode';
 import { paletteOpen } from './useOverlays';
@@ -20,19 +21,12 @@ const MAX_RESULTS = 9;
 const PAGE = 5;
 
 const loadRecents = (): string[] => {
-  try {
-    const parsed: unknown = JSON.parse(localStorage.getItem(RECENTS_KEY) ?? '[]');
-    return Array.isArray(parsed) ? parsed.filter((entry): entry is string => typeof entry === 'string') : [];
-  } catch {
-    return [];
-  }
+  const parsed = readJson<unknown>(RECENTS_KEY, []);
+  return Array.isArray(parsed) ? parsed.filter((entry): entry is string => typeof entry === 'string') : [];
 };
 
 const saveRecents = (ids: string[]): void => {
-  try {
-    localStorage.setItem(RECENTS_KEY, JSON.stringify(ids));
-  } catch {
-  }
+  writeJson(RECENTS_KEY, ids);
 };
 
 const dedupeByEntity = (ranked: Command[]): Command[] => {
