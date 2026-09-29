@@ -23,6 +23,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - **writing:** Unify section label to "Writing" ([#486](https://github.com/jeromefaria/jeromefaria.github.io/pull/486))
 
+### Build & CI
+
+- **deps-dev:** Bump ip-address ([#491](https://github.com/jeromefaria/jeromefaria.github.io/pull/491))
+
 ### Docs
 
 - **newsletter:** List add + list commands in the quick reference ([#488](https://github.com/jeromefaria/jeromefaria.github.io/pull/488))
