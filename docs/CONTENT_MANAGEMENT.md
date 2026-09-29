@@ -1,6 +1,6 @@
 # Content Management Guide
 
-All site content is typed TypeScript in `src/data/` — no CMS, API, or database. To edit content you edit a data file; the **types are the contract**, so `npm run type-check` tells you exactly what a valid entry looks like. This guide points you to the right file and the conventions; it deliberately does **not** re-list every field (that drifts) — the type in `src/types/` and the existing entries next to yours are the authoritative examples.
+All site content is typed TypeScript in `src/data/`, versioned in git. To edit content you edit a data file; the **types are the contract**, so `npm run type-check` tells you exactly what a valid entry looks like. This guide points you to the right file and the conventions; it deliberately does **not** re-list every field (that drifts) — the type in `src/types/` and the existing entries next to yours are the authoritative examples.
 
 ## Where content lives
 
