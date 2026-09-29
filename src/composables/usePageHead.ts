@@ -8,7 +8,13 @@ import { DEFAULT_LOCALE, type Locale, localeFromMeta, localePath, stripLocale, S
 
 const OG_LOCALE: Record<(typeof SUPPORTED_LOCALES)[number], string> = { en: 'en_GB', pt: 'pt_PT' };
 
-const DEFAULT_IMAGE_META = { width: '2560', height: '1703', type: 'image/jpeg' };
+const DEFAULT_IMAGE_DIMENSIONS = { width: 2560, height: 1703 };
+
+const imageMimeType = (url: string): string => {
+  if (url.endsWith('.png')) return 'image/png';
+  if (url.endsWith('.webp')) return 'image/webp';
+  return 'image/jpeg';
+};
 
 interface HeroPreload {
   href: string;
@@ -23,6 +29,7 @@ interface UsePageHeadOptions {
   noIndex?: boolean;
   preloadImages?: HeroPreload[];
   image?: string;
+  imageDimensions?: { width: number; height: number };
 }
 
 interface ResolvedHead {
@@ -34,7 +41,7 @@ interface ResolvedHead {
   imageUrl: string;
   ogType: string;
   noIndex: boolean;
-  imageIsDefault: boolean;
+  imageDimensions: { width: number; height: number } | null;
   preloadImages: HeroPreload[];
 }
 
@@ -67,11 +74,11 @@ const buildMeta = (head: ResolvedHead): MetaTag[] => {
     { name: 'twitter:image:alt', content: head.fullTitle },
   ];
 
-  if (head.imageIsDefault) {
+  if (head.imageDimensions) {
     meta.push(
-      { property: 'og:image:width', content: DEFAULT_IMAGE_META.width },
-      { property: 'og:image:height', content: DEFAULT_IMAGE_META.height },
-      { property: 'og:image:type', content: DEFAULT_IMAGE_META.type },
+      { property: 'og:image:width', content: String(head.imageDimensions.width) },
+      { property: 'og:image:height', content: String(head.imageDimensions.height) },
+      { property: 'og:image:type', content: imageMimeType(head.imageUrl) },
     );
   }
 
@@ -133,7 +140,7 @@ export const usePageHead = (options: UsePageHeadOptions): void => {
       imageUrl: `${siteConfig.url}${options.image ?? siteConfig.image}`,
       ogType: options.ogType ?? 'website',
       noIndex: options.noIndex ?? false,
-      imageIsDefault: !options.image,
+      imageDimensions: options.image ? (options.imageDimensions ?? null) : DEFAULT_IMAGE_DIMENSIONS,
       preloadImages: options.preloadImages ?? [],
     };
 
