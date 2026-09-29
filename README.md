@@ -330,7 +330,7 @@ cd worker && npm run type-check && npm test
 ### Git hooks
 
 Husky enforces a subset of these automatically, so a broken commit never leaves the machine:
-- **commit-msg** runs `commitlint` — rejects any message that breaks the [Conventional Commits](https://www.conventionalcommits.org/) convention. The allowed types add one beyond the standard set: `content` (site copy, data, and events, kept distinct from code `feat`s). This is what lets the changelog generate itself — see below.
+- **commit-msg** runs `commitlint` — rejects any message that breaks the [Conventional Commits](https://www.conventionalcommits.org/) convention. The allowed types add one beyond the standard set: `content` (site copy, data, and events, kept distinct from code `feat`s). This is what lets the changelog generate itself — see below. It also runs `check-attribution` (see below), rejecting any tool/AI attribution footer at commit time.
 - **pre-commit** runs `lint-staged` — ESLint + stylelint `--fix` on staged files only.
 - **pre-push** runs the type-check.
 
@@ -378,6 +378,9 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 
 ### Worker
 - Type checking and unit tests for the Cloudflare Worker (`worker/`)
+
+### Attribution
+- A `pull_request` guard (`attribution.yml` → `check-attribution.mjs`) that scans the PR's commit messages **and its description** and fails if either carries a tool/AI attribution footer — so every contribution stays attributed to the developer, enforced rather than trusted. Also runs locally in the `commit-msg` hook.
 
 **Quality gate:** the pull-request pipeline is green only when Quality Checks, Build, Lighthouse, E2E, Visual Regression, and Worker all pass. `master` is branch-protected: Quality Checks, Build, Lighthouse, E2E (all three engines), Visual Regression, Worker, and Codecov patch coverage are **required status checks** that must pass before a PR can merge.
 

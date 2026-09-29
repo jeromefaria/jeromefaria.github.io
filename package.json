@@ -18,6 +18,7 @@
     "lint:css:fix": "stylelint \"src/styles/**/*.scss\" --fix",
     "type-check": "vue-tsc --noEmit",
     "check:anchors": "node scripts/check-anchors.js",
+    "check:attribution": "node scripts/check-attribution.mjs --range origin/master..HEAD",
     "check:css-vars": "node scripts/check-custom-properties.mjs",
     "test": "vitest",
     "test:ui": "vitest --ui",
