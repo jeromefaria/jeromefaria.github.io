@@ -3,7 +3,7 @@ import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { CreditClause, CreditRole, Credits, StructuredCredits } from '@/types/credits';
 import { isStructuredCredits } from '@/types/credits';
 import type { Credit } from '@/types/media';
-import { escapeHtml, safeHref } from '@/utils/html';
+import { anchor, escapeHtml } from '@/utils/html';
 import { personUrl } from '@/utils/people';
 
 const MARKER = /\[\[([^\]]+)\]\]/g;
@@ -87,12 +87,7 @@ const toSource = (credits: Credits, locale: Locale): string =>
   (isStructuredCredits(credits) ? compose(credits, locale) : credits);
 
 export const resolveMarkers = (text: string, resolveUrl: (name: string) => string | undefined): string =>
-  text.replace(MARKER, (_match, name: string) => {
-    const url = resolveUrl(name);
-    const href = url ? safeHref(url) : null;
-    const safeName = escapeHtml(name);
-    return href ? `<a href="${href}">${safeName}</a>` : safeName;
-  });
+  text.replace(MARKER, (_match, name: string) => anchor(escapeHtml(name), resolveUrl(name)));
 
 export const renderCredits = (credits: Credits, contributors: Credit[] = [], locale: Locale = DEFAULT_LOCALE): string => {
   const linked = new Map<string, string>();

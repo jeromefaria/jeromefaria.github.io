@@ -1,6 +1,6 @@
 import { type Credits, isStructuredCredits } from '@/types/credits';
 import type { LiveImage, Poster } from '@/types/live';
-import { escapeHtml, safeHref } from '@/utils/html';
+import { anchor, escapeHtml } from '@/utils/html';
 import { orgUrl } from '@/utils/orgs';
 import { creditUrl, personUrl, resolveCredit } from '@/utils/people';
 import { resolveMarkers } from '@/utils/renderCredits';
@@ -10,12 +10,7 @@ export interface PhotoCredit {
   html: string;
 }
 
-const linkedName = (name: string, url: string | undefined): string => {
-  const href = url ? safeHref(url) : null;
-  const safeName = escapeHtml(name);
-
-  return href ? `<a href="${href}">${safeName}</a>` : safeName;
-};
+const linkedName = (name: string, url: string | undefined): string => anchor(escapeHtml(name), url);
 
 export const releasePhotoCredit = (credits: Credits | undefined): PhotoCredit | null => {
   if (!credits || !isStructuredCredits(credits)) return null;

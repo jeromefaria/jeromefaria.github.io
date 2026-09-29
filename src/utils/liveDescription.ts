@@ -4,7 +4,7 @@ import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import { ptContract, type PtGrammar } from '@/i18n/ptGrammar';
 import type { Act, BillEntry, Format, LiveEvent, Setup } from '@/types/live';
 import type { Organization } from '@/types/orgs';
-import { safeHref } from '@/utils/html';
+import { anchor } from '@/utils/html';
 import { orgUrl } from '@/utils/orgs';
 import { personUrl } from '@/utils/people';
 import { resolveMarkers } from '@/utils/renderCredits';
@@ -67,11 +67,9 @@ const PHRASES: Record<Locale, Phrases> = {
 };
 
 // eslint-disable-next-line local/no-comments -- security asymmetry
-// entry.text is trusted author HTML (intentionally unescaped), but entry.url must stay wrapped in safeHref so a javascript:/attribute-breaking url can never render.
+// entry.text is trusted author HTML, so it's passed to anchor() unescaped (unlike the escaped credit names); the url is still safeHref-sanitized inside anchor().
 const act = (entry: Act, locale: Locale): string => {
-  const url = entry.url ?? personUrl(entry.text);
-  const href = url ? safeHref(url) : null;
-  const named = href ? `<a href="${href}">${entry.text}</a>` : entry.text;
+  const named = anchor(entry.text, entry.url ?? personUrl(entry.text));
   return entry.suffix ? `${named} ${localize(entry.suffix, locale)}` : named;
 };
 

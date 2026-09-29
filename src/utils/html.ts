@@ -15,3 +15,8 @@ export const safeHref = (url: string): string | null => {
   const trimmed = url.trim();
   return SAFE_SCHEME.test(trimmed) ? escapeHtml(trimmed) : null;
 };
+
+export const anchor = (inner: string, url?: string): string => {
+  const href = url ? safeHref(url) : null;
+  return href ? `<a href="${href}">${inner}</a>` : inner;
+};
