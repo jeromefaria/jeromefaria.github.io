@@ -7,11 +7,11 @@ import { personSameAs } from '@/utils/people';
 
 const collectCollaborators = (setup: Setup): Act[] => {
   switch (setup.kind) {
+    case 'solo': return [];
     case 'duo': return [setup.with];
     case 'band': return [setup.band];
     case 'project': return [setup.name, ...(setup.members ?? [])];
     case 'ensemble': return setup.members ?? [];
-    default: return [];
   }
 };
 
