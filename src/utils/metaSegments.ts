@@ -1,11 +1,11 @@
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { CreditRef } from '@/types/media';
-import type { Edition, EngineeringRole, ReleaseMeta } from '@/types/works';
+import type { Edition, EngineeringRole, MetaLink, ReleaseMeta } from '@/types/works';
 import { orgUrl } from '@/utils/orgs';
 import { resolveCredit } from '@/utils/people';
 import { releaseYear } from '@/utils/releaseDate';
 
-const resolveLabel = (link: { text: string; url?: string }): { text: string; url?: string } => {
+const resolveLabel = (link: MetaLink): MetaLink => {
   const url = link.url ?? orgUrl(link.text);
   return url ? { text: link.text, url } : { text: link.text };
 };
@@ -23,8 +23,8 @@ export const engineeringRolesLabel = (roles: EngineeringRole[], locale: Locale =
 
 export type MetaSegment =
   | { kind: 'text'; text: string }
-  | { kind: 'link'; link: { text: string; url?: string } }
-  | { kind: 'em'; link: { text: string; url?: string } };
+  | { kind: 'link'; link: MetaLink }
+  | { kind: 'em'; link: MetaLink };
 
 const text = (value: string): MetaSegment => ({ kind: 'text', text: value });
 
