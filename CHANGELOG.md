@@ -21,6 +21,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- Extract shared storage, anchor, OG-card, and EPK-section helpers ([#498](https://github.com/jeromefaria/jeromefaria.github.io/pull/498))
 - **utils:** Restore union exhaustiveness and reuse MetaLink ([#497](https://github.com/jeromefaria/jeromefaria.github.io/pull/497))
 - **writing:** Unify section label to "Writing" ([#486](https://github.com/jeromefaria/jeromefaria.github.io/pull/486))
 
