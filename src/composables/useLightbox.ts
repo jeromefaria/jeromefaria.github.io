@@ -4,8 +4,7 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import type { LightboxItem } from '@/types/lightbox';
 import { baseFragment, type LightboxSource, mediaFragment } from '@/utils/lightboxPermalink';
 
-import { useFocusReturn } from './useFocusReturn';
-import { useScrollLock } from './useScrollLock';
+import { useFocusScopeGuard } from './useFocusScopeGuard';
 
 export interface UseLightboxReturn {
   isOpen: Ref<boolean>;
@@ -33,8 +32,7 @@ export const useLightbox = (): UseLightboxReturn => {
   const currentIndex = ref(0);
   const items = ref<LightboxItem[]>([]);
 
-  const { lock, unlock } = useScrollLock();
-  const { capture, restore } = useFocusReturn();
+  const { enter, leave } = useFocusScopeGuard();
 
   let source: LightboxSource | null = null;
 
@@ -49,13 +47,12 @@ export const useLightbox = (): UseLightboxReturn => {
     const media = itemSource ? mediaFragment(itemSource, index) : null;
     if (isOpen.value && media && currentFragment() === media) return;
 
-    capture();
+    enter();
     source = itemSource ?? null;
     items.value = allItems;
     currentIndex.value = index;
     updateCurrentItem(index);
     isOpen.value = true;
-    lock();
 
     if (!media) return;
 
@@ -73,8 +70,7 @@ export const useLightbox = (): UseLightboxReturn => {
     items.value = [];
     currentIndex.value = 0;
     source = null;
-    unlock();
-    restore();
+    leave();
   };
 
   const closeLightbox = (): void => {

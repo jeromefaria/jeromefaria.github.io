@@ -5,10 +5,9 @@ import PlayerArtwork from '@/components/PlayerArtwork.vue';
 import PlayerImmersive from '@/components/PlayerImmersive.vue';
 import PlayerSeek from '@/components/PlayerSeek.vue';
 import TransportControls from '@/components/TransportControls.vue';
-import { useFocusReturn } from '@/composables/useFocusReturn';
+import { useFocusScopeGuard } from '@/composables/useFocusScopeGuard';
 import { useFocusTrap } from '@/composables/useFocusTrap';
 import { usePlayer } from '@/composables/usePlayer';
-import { useScrollLock } from '@/composables/useScrollLock';
 import { useSwipeDismiss } from '@/composables/useSwipeDismiss';
 import { useT } from '@/i18n/useT';
 import type { AudioTrack } from '@/types/audio';
@@ -56,8 +55,7 @@ watch(immersive, async open => {
 });
 
 const { onKeydown: trapTab } = useFocusTrap(dialog);
-const { lock, unlock } = useScrollLock();
-const { capture, restore } = useFocusReturn();
+const { enter, leave } = useFocusScopeGuard();
 const { handleTouchStart, handleTouchEnd } = useSwipeDismiss(collapse, () => (dialog.value?.scrollTop ?? 0) <= 0);
 
 const onKeydown = (event: KeyboardEvent): void => {
@@ -75,14 +73,12 @@ const onKeydown = (event: KeyboardEvent): void => {
 };
 
 onMounted(() => {
-  capture();
-  lock();
+  enter();
   dialog.value?.focus();
 });
 
 onBeforeUnmount(() => {
-  unlock();
-  restore();
+  leave();
 });
 </script>
 
