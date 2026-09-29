@@ -13,38 +13,6 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 - **writing:** Publish "The Internet Forgets" ([#483](https://github.com/jeromefaria/jeromefaria.github.io/pull/483))
 - **newsletter:** Content blocks + email rendering polish ([#482](https://github.com/jeromefaria/jeromefaria.github.io/pull/482))
 - **newsletter:** Make bulk sending resumable and rate-limit safe ([#481](https://github.com/jeromefaria/jeromefaria.github.io/pull/481))
-
-### Fixes
-
-- **head:** Declare og:image dimensions for custom card images ([#499](https://github.com/jeromefaria/jeromefaria.github.io/pull/499))
-- **newsletter:** Tighten add-tool email validation ([#489](https://github.com/jeromefaria/jeromefaria.github.io/pull/489))
-- **writing:** Copy-edit "The Internet Forgets" ([#484](https://github.com/jeromefaria/jeromefaria.github.io/pull/484))
-
-### Refactors
-
-- **overlays:** Extract useFocusScopeGuard for the capture/lock seam ([#500](https://github.com/jeromefaria/jeromefaria.github.io/pull/500))
-- Extract shared storage, anchor, OG-card, and EPK-section helpers ([#498](https://github.com/jeromefaria/jeromefaria.github.io/pull/498))
-- **utils:** Restore union exhaustiveness and reuse MetaLink ([#497](https://github.com/jeromefaria/jeromefaria.github.io/pull/497))
-- **writing:** Unify section label to "Writing" ([#486](https://github.com/jeromefaria/jeromefaria.github.io/pull/486))
-
-### Build & CI
-
-- **deps:** Bump the npm-minor-patch group across 1 directory with 15 updates ([#494](https://github.com/jeromefaria/jeromefaria.github.io/pull/494))
-- **deps-dev:** Bump the worker-minor-patch group ([#492](https://github.com/jeromefaria/jeromefaria.github.io/pull/492))
-- **deps:** Bump the github-actions group with 2 updates ([#493](https://github.com/jeromefaria/jeromefaria.github.io/pull/493))
-- **deps-dev:** Bump ip-address ([#491](https://github.com/jeromefaria/jeromefaria.github.io/pull/491))
-
-### Docs
-
-- Describe the system on its own terms ([#496](https://github.com/jeromefaria/jeromefaria.github.io/pull/496))
-- Elevate the newsletter, fix drift, tighten the run-book ([#495](https://github.com/jeromefaria/jeromefaria.github.io/pull/495))
-- **newsletter:** List add + list commands in the quick reference ([#488](https://github.com/jeromefaria/jeromefaria.github.io/pull/488))
-
-## 2026.09.4 — Newsletter, web archive & copyrights — 2026-09-26
-
-
-### Features
-
 - **live:** Add MigrActions 2011 + Festival Múltiplo 2026 videos ([#479](https://github.com/jeromefaria/jeromefaria.github.io/pull/479))
 - **newsletter:** OG card, honest intro + transparency links ([#477](https://github.com/jeromefaria/jeromefaria.github.io/pull/477))
 - **copyright:** /copyright rights page + attribution cleanup ([#475](https://github.com/jeromefaria/jeromefaria.github.io/pull/475))
@@ -66,120 +34,9 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 - **live:** Link event titles to their /live/:eventId permalink ([#426](https://github.com/jeromefaria/jeromefaria.github.io/pull/426))
 - **live:** Generated per-event social cards for /live/:eventId ([#424](https://github.com/jeromefaria/jeromefaria.github.io/pull/424))
 - **live:** Shareable /live/:eventId permalinks with per-event head + schema ([#423](https://github.com/jeromefaria/jeromefaria.github.io/pull/423))
-
-### Fixes
-
-- **palette:** Dismiss the backdrop on pointerdown, not the trailing ghost click ([#480](https://github.com/jeromefaria/jeromefaria.github.io/pull/480))
-- **worker:** Sender display names (newsletter + contact) ([#474](https://github.com/jeromefaria/jeromefaria.github.io/pull/474))
-- **live:** Unlink the Living Room credit on Jejum #45 ([#460](https://github.com/jeromefaria/jeromefaria.github.io/pull/460))
-- **palette:** Time the double-tap with performance.now() for iOS resume ([#456](https://github.com/jeromefaria/jeromefaria.github.io/pull/456))
-- **lightbox:** Only embed video from allowlisted provider origins ([#450](https://github.com/jeromefaria/jeromefaria.github.io/pull/450))
-- **player:** Clear the home-indicator inset on the mobile player bar ([#446](https://github.com/jeromefaria/jeromefaria.github.io/pull/446))
-- **router:** Show a soft 404 for unknown work and live permalinks ([#447](https://github.com/jeromefaria/jeromefaria.github.io/pull/447))
-- **player, nav:** Recover playback after error; keep query on clearHash ([#445](https://github.com/jeromefaria/jeromefaria.github.io/pull/445))
-- **palette:** Centre the close button and make it touch-only ([#442](https://github.com/jeromefaria/jeromefaria.github.io/pull/442))
-- **palette:** Stop Ctrl+K from closing instead of moving up ([#436](https://github.com/jeromefaria/jeromefaria.github.io/pull/436))
-
-### Refactors
-
-- **palette:** Derive navigate commands from router routes ([#476](https://github.com/jeromefaria/jeromefaria.github.io/pull/476))
-- **design:** Single token source of truth for the generators ([#470](https://github.com/jeromefaria/jeromefaria.github.io/pull/470))
-- **credits:** Reference photographers and collaborators by registry key ([#454](https://github.com/jeromefaria/jeromefaria.github.io/pull/454))
-- **types:** Couple live imageAlt to its images ([#448](https://github.com/jeromefaria/jeromefaria.github.io/pull/448))
-- **works:** Shared allReleases/releaseById accessors ([#431](https://github.com/jeromefaria/jeromefaria.github.io/pull/431))
-- **venue:** Shared venueFormat module + fix palette PT localization ([#430](https://github.com/jeromefaria/jeromefaria.github.io/pull/430))
-- **views:** Extract renderMarkdown util + createBlogPostingSchema ([#429](https://github.com/jeromefaria/jeromefaria.github.io/pull/429))
-- **player:** Extract shared helpers; delete dead playRelease; localize seek ([#428](https://github.com/jeromefaria/jeromefaria.github.io/pull/428))
-- **scripts:** Shared playwright-render module + enforce eslint on scripts ([#427](https://github.com/jeromefaria/jeromefaria.github.io/pull/427))
-- **ui:** Extract MaybeLink for the link-or-plain-text pattern ([#422](https://github.com/jeromefaria/jeromefaria.github.io/pull/422))
-- **live:** Model the event thumbnail hero as a single source object ([#421](https://github.com/jeromefaria/jeromefaria.github.io/pull/421))
-
-### Tests
-
-- **visual:** Close VR coverage gaps (copyright, cv, writing, 404) ([#478](https://github.com/jeromefaria/jeromefaria.github.io/pull/478))
-- **live:** Cover the ensemble alt branch; require full patch coverage ([#452](https://github.com/jeromefaria/jeromefaria.github.io/pull/452))
-
-### Build & CI
-
-- **deps-dev:** Bump the worker-minor-patch group ([#466](https://github.com/jeromefaria/jeromefaria.github.io/pull/466))
-- **deps:** Bump the npm-minor-patch group with 11 updates ([#467](https://github.com/jeromefaria/jeromefaria.github.io/pull/467))
-- **deps:** Bump the github-actions group with 3 updates ([#468](https://github.com/jeromefaria/jeromefaria.github.io/pull/468))
-- **deps:** Bump the npm-minor-patch group across 1 directory with 9 updates ([#462](https://github.com/jeromefaria/jeromefaria.github.io/pull/462))
-- **deps-dev:** Bump exiftool-vendored from 37.2.0 to 38.0.1 ([#463](https://github.com/jeromefaria/jeromefaria.github.io/pull/463))
-- **deps:** Bump the github-actions group with 2 updates ([#464](https://github.com/jeromefaria/jeromefaria.github.io/pull/464))
-- **deps:** Bump sharp ([#425](https://github.com/jeromefaria/jeromefaria.github.io/pull/425))
-
-### Docs
-
-- **privacy:** Cover the newsletter's data processing ([#469](https://github.com/jeromefaria/jeromefaria.github.io/pull/469))
-- **readme:** Fix i18n build drift; retire redundant build:i18n script ([#449](https://github.com/jeromefaria/jeromefaria.github.io/pull/449))
-- **readme:** Reflect live permalinks, mobile palette, and the entity model ([#444](https://github.com/jeromefaria/jeromefaria.github.io/pull/444))
-
-### Chores
-
-- **deps:** Stop Dependabot re-proposing the TS 7 major bump ([#465](https://github.com/jeromefaria/jeromefaria.github.io/pull/465))
-- **archive:** Refresh the Flash disclaimer after removing the assets ([#458](https://github.com/jeromefaria/jeromefaria.github.io/pull/458))
-- **archive:** Strip dead-Flash tooling from the NNY web archive ([#457](https://github.com/jeromefaria/jeromefaria.github.io/pull/457))
-- **styles:** Enforce recess property order via stylelint-order ([#443](https://github.com/jeromefaria/jeromefaria.github.io/pull/443))
-
-### Other
-
-- Derive live event alt text from entity data (PT gender-aware) ([#451](https://github.com/jeromefaria/jeromefaria.github.io/pull/451))
-
-## 2026.09.3 — Entity registry, Live archive & press kit — 2026-09-10
-
-
-### Features
-
 - **live:** Curated media thumbnails on the Live archive ([#419](https://github.com/jeromefaria/jeromefaria.github.io/pull/419))
 - **epk:** Shared-stages roster + restructured press kit ([#418](https://github.com/jeromefaria/jeromefaria.github.io/pull/418))
 - **seo:** Emit event collaborators as schema.org performers with sameAs ([#406](https://github.com/jeromefaria/jeromefaria.github.io/pull/406))
-
-### Content
-
-- Link 8 researched entities across the registry ([#414](https://github.com/jeromefaria/jeromefaria.github.io/pull/414))
-
-### Fixes
-
-- **player:** Balance the immersive artwork's gap to the transport slider ([#417](https://github.com/jeromefaria/jeromefaria.github.io/pull/417))
-
-### Refactors
-
-- Share one name-lookup across the entity registries ([#415](https://github.com/jeromefaria/jeromefaria.github.io/pull/415))
-- **registry:** Register recurring link-less entities by name ([#413](https://github.com/jeromefaria/jeromefaria.github.io/pull/413))
-- **orgs:** Resolve org video authors through the registry ([#412](https://github.com/jeromefaria/jeromefaria.github.io/pull/412))
-- **orgs:** Fold record labels into the org registry ([#411](https://github.com/jeromefaria/jeromefaria.github.io/pull/411))
-- **venues:** Resolve recurring venue links through a registry ([#410](https://github.com/jeromefaria/jeromefaria.github.io/pull/410))
-- **orgs:** Route Live promoter/org links through a registry ([#409](https://github.com/jeromefaria/jeromefaria.github.io/pull/409))
-- **people:** Resolve photographer credits through the registry ([#408](https://github.com/jeromefaria/jeromefaria.github.io/pull/408))
-- **people:** Resolve live collaborator links through the registry ([#407](https://github.com/jeromefaria/jeromefaria.github.io/pull/407))
-- **people:** Introduce a collaborator registry and route credit links through it ([#405](https://github.com/jeromefaria/jeromefaria.github.io/pull/405))
-- **live:** Split the events array into era files ([#403](https://github.com/jeromefaria/jeromefaria.github.io/pull/403))
-
-### Tests
-
-- Extend a11y coverage to dynamic routes and gate e2e type-checking ([#402](https://github.com/jeromefaria/jeromefaria.github.io/pull/402))
-
-### Build & CI
-
-- **vue:** Enforce script-setup and guard ref reactivity loss ([#416](https://github.com/jeromefaria/jeromefaria.github.io/pull/416))
-- **changelog:** Make the auto-regeneration push race-proof ([#404](https://github.com/jeromefaria/jeromefaria.github.io/pull/404))
-- Add CodeQL scanning and a security policy ([#401](https://github.com/jeromefaria/jeromefaria.github.io/pull/401))
-- Align worker TypeScript, single-source coverage thresholds, add verify + editorconfig ([#400](https://github.com/jeromefaria/jeromefaria.github.io/pull/400))
-
-### Docs
-
-- Correct stale coverage numbers and rewrite the content guide ([#399](https://github.com/jeromefaria/jeromefaria.github.io/pull/399))
-
-### Chores
-
-- **dev:** Expose the dev server on the LAN, with opt-in HTTPS for mobile ([#420](https://github.com/jeromefaria/jeromefaria.github.io/pull/420))
-
-## 2026.09.2 — Writing, CV & immersive player — 2026-09-09
-
-
-### Features
-
 - **player:** Konami code → random track in immersive mode ([#395](https://github.com/jeromefaria/jeromefaria.github.io/pull/395))
 - **app:** Page-lifecycle handling + iOS inert/theme recovery on resume ([#392](https://github.com/jeromefaria/jeromefaria.github.io/pull/392))
 - **player:** Chaptered playback, immersive artwork, keyboard control ([#388](https://github.com/jeromefaria/jeromefaria.github.io/pull/388))
@@ -197,125 +54,6 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 - **cv:** Give /cv its own social card so its link preview is distinct ([#351](https://github.com/jeromefaria/jeromefaria.github.io/pull/351))
 - **cv:** /cv web view + auto-generated PDF from one markdown source ([#349](https://github.com/jeromefaria/jeromefaria.github.io/pull/349))
 - **seo:** Describe each release page with its own structured data ([#343](https://github.com/jeromefaria/jeromefaria.github.io/pull/343))
-
-### Content
-
-- **press:** Add two NNY-era reviews recovered from the archive ([#375](https://github.com/jeromefaria/jeromefaria.github.io/pull/375))
-- **writing:** Restore the in-body links lost on Patreon import ([#374](https://github.com/jeromefaria/jeromefaria.github.io/pull/374))
-- **live:** Fix the Olhares 2010 date and enrich the early MADEIRADIG bills ([#369](https://github.com/jeromefaria/jeromefaria.github.io/pull/369))
-
-### Fixes
-
-- **app:** Recover the router view from a wedged page transition on resume ([#393](https://github.com/jeromefaria/jeromefaria.github.io/pull/393))
-- **build:** Add the .ts extension to the releaseDate import ([#390](https://github.com/jeromefaria/jeromefaria.github.io/pull/390))
-- **lightbox:** Dismiss on any outside click; soften the disabled-arrow cursor ([#378](https://github.com/jeromefaria/jeromefaria.github.io/pull/378))
-- **live:** Restore missing collaborator links across the Live page ([#372](https://github.com/jeromefaria/jeromefaria.github.io/pull/372))
-- **player:** Release the audio element on close so iOS drops the Now Playing card ([#367](https://github.com/jeromefaria/jeromefaria.github.io/pull/367))
-- **player:** Release the Media Session when the player is closed ([#366](https://github.com/jeromefaria/jeromefaria.github.io/pull/366))
-- **a11y:** Only restore the focus ring for keyboard-opened overlays ([#364](https://github.com/jeromefaria/jeromefaria.github.io/pull/364))
-- **player:** Two-column expanded layout on desktop to remove the scrollbar ([#363](https://github.com/jeromefaria/jeromefaria.github.io/pull/363))
-- **writing:** Let the Orchestration essay sit inside the site ([#360](https://github.com/jeromefaria/jeromefaria.github.io/pull/360))
-- **writing:** Widen the writing section to the site's content width ([#359](https://github.com/jeromefaria/jeromefaria.github.io/pull/359))
-- **audio:** Snap 2504 chapters to the beep/vocal onsets ([#355](https://github.com/jeromefaria/jeromefaria.github.io/pull/355))
-- **audio:** Accurate 2504 duration and compressed-aligned chapter times ([#354](https://github.com/jeromefaria/jeromefaria.github.io/pull/354))
-- **i18n:** Hide the footer language switch on English-only routes ([#353](https://github.com/jeromefaria/jeromefaria.github.io/pull/353))
-- **about:** List the Overlapse bio mention year-only, matching the other releases ([#347](https://github.com/jeromefaria/jeromefaria.github.io/pull/347))
-- **a11y:** Identify contact errors on submit + neutralize overlay background ([#342](https://github.com/jeromefaria/jeromefaria.github.io/pull/342))
-- **components:** Give MediaLinks' optional downloadUrl an explicit default ([#340](https://github.com/jeromefaria/jeromefaria.github.io/pull/340))
-
-### Performance
-
-- Align the hero LCP preload, prioritize above-the-fold images ([#344](https://github.com/jeromefaria/jeromefaria.github.io/pull/344))
-
-### Refactors
-
-- Dedupe the release-date readers and the player predicates ([#373](https://github.com/jeromefaria/jeromefaria.github.io/pull/373))
-- Model release dates (derive the displayed year) ([#371](https://github.com/jeromefaria/jeromefaria.github.io/pull/371))
-
-### Tests
-
-- Close the worker + payload coverage loop to 100% branches ([#346](https://github.com/jeromefaria/jeromefaria.github.io/pull/346))
-- Turn soft quality signals into hard gates ([#341](https://github.com/jeromefaria/jeromefaria.github.io/pull/341))
-
-### Build & CI
-
-- **changelog:** Authorize the auto-regeneration push with a scoped token ([#398](https://github.com/jeromefaria/jeromefaria.github.io/pull/398))
-- **changelog:** Git-cliff generation, commit-convention enforcement, and auto-regeneration ([#397](https://github.com/jeromefaria/jeromefaria.github.io/pull/397))
-- **deps:** Bump js-yaml in the npm-security group across 1 directory ([#391](https://github.com/jeromefaria/jeromefaria.github.io/pull/391))
-- **deps:** Bump the npm-minor-patch group with 11 updates ([#383](https://github.com/jeromefaria/jeromefaria.github.io/pull/383))
-- **deps-dev:** Upgrade vitest to 5 across root and worker ([#389](https://github.com/jeromefaria/jeromefaria.github.io/pull/389))
-- **deps-dev:** Bump the worker-minor-patch group ([#380](https://github.com/jeromefaria/jeromefaria.github.io/pull/380))
-
-### Docs
-
-- **readme:** Keyboard shortcuts — palette ':' + audio-player key table ([#396](https://github.com/jeromefaria/jeromefaria.github.io/pull/396))
-- **readme:** Cover the player's immersive view + keyboard control, and platform resilience ([#394](https://github.com/jeromefaria/jeromefaria.github.io/pull/394))
-- **readme:** Close the gaps a clean-room reviewer setup surfaced ([#376](https://github.com/jeromefaria/jeromefaria.github.io/pull/376))
-- First-person README intro + an About section linking the professional context ([#348](https://github.com/jeromefaria/jeromefaria.github.io/pull/348))
-
-### Chores
-
-- Finalise the 19 Sep gig as Jejum #45 ([#365](https://github.com/jeromefaria/jeromefaria.github.io/pull/365))
-- **cv:** Standardise title to 'Frontend Engineer' across the résumé ([#350](https://github.com/jeromefaria/jeromefaria.github.io/pull/350))
-- Close remaining A+ gaps (a11y, SEO, testing, perf) ([#345](https://github.com/jeromefaria/jeromefaria.github.io/pull/345))
-
-## 2026.09.1 — Security, a11y & quality hardening — 2026-09-04
-
-
-### Content
-
-- Link the Hyphema artwork credit and add the Overlapse video ([#316](https://github.com/jeromefaria/jeromefaria.github.io/pull/316))
-
-### Fixes
-
-- **seo/i18n:** Rely on noindex for the EPK; localize the not-found page ([#337](https://github.com/jeromefaria/jeromefaria.github.io/pull/337))
-- **i18n:** Localize live-description suffix + film fields; add PT golden ([#336](https://github.com/jeromefaria/jeromefaria.github.io/pull/336))
-- **routing:** Redirect trailing-slash URLs to their canonical form ([#332](https://github.com/jeromefaria/jeromefaria.github.io/pull/332))
-- **seo:** Make the page head reactive so it tracks the active locale ([#331](https://github.com/jeromefaria/jeromefaria.github.io/pull/331))
-- **worker:** Accept the human inquiry label, not a slug ([#322](https://github.com/jeromefaria/jeromefaria.github.io/pull/322))
-- **security:** Repo/CI/client hardening from the security audit ([#321](https://github.com/jeromefaria/jeromefaria.github.io/pull/321))
-- **worker:** Harden contact endpoint input validation ([#320](https://github.com/jeromefaria/jeromefaria.github.io/pull/320))
-- **a11y:** Address global accessibility audit findings ([#319](https://github.com/jeromefaria/jeromefaria.github.io/pull/319))
-- Fix the three EN leaks on /pt (new-tab cue, EPK cities, live ensemble names) ([#317](https://github.com/jeromefaria/jeromefaria.github.io/pull/317))
-- Fix 2504 chapter times and chaptered-release track state ([#315](https://github.com/jeromefaria/jeromefaria.github.io/pull/315))
-
-### Performance
-
-- **home:** Serve a phone-sized hero variant, desktop unchanged ([#324](https://github.com/jeromefaria/jeromefaria.github.io/pull/324))
-- Home LCP, schema-barrel split, vendor chunk (quick wins) ([#323](https://github.com/jeromefaria/jeromefaria.github.io/pull/323))
-
-### Refactors
-
-- **data:** Split works.ts into per-section files + extract credit derivation ([#338](https://github.com/jeromefaria/jeromefaria.github.io/pull/338))
-- **styles:** Use the $z-overlay token in the lightbox ([#335](https://github.com/jeromefaria/jeromefaria.github.io/pull/335))
-- **i18n:** Split the message catalogs into per-locale files ([#334](https://github.com/jeromefaria/jeromefaria.github.io/pull/334))
-- Post-i18n tidy — Localizable alias, StaticPage shell, Credit unification ([#318](https://github.com/jeromefaria/jeromefaria.github.io/pull/318))
-
-### Tests
-
-- **e2e:** Cover the audio player deep-link permalink and transport ([#330](https://github.com/jeromefaria/jeromefaria.github.io/pull/330))
-- Tighten palette assertions and cover the empty-search state ([#329](https://github.com/jeromefaria/jeromefaria.github.io/pull/329))
-- **e2e:** Cover the EN<->PT language switch round trip ([#328](https://github.com/jeromefaria/jeromefaria.github.io/pull/328))
-- **vr:** Mobile-safari visual coverage for the page snapshots ([#327](https://github.com/jeromefaria/jeromefaria.github.io/pull/327))
-- Contract + consistency guards at the data/worker/router seams ([#326](https://github.com/jeromefaria/jeromefaria.github.io/pull/326))
-
-### Docs
-
-- Refresh the README testing sections for this cycle's coverage ([#333](https://github.com/jeromefaria/jeromefaria.github.io/pull/333))
-
-### Chores
-
-- Enforce a no-comments policy and strip non-documenting comments ([#339](https://github.com/jeromefaria/jeromefaria.github.io/pull/339))
-
-### Other
-
-- Post-go-live fixes: locale permalinks, PT card fallback, 2504 times, cover overlay ([#314](https://github.com/jeromefaria/jeromefaria.github.io/pull/314))
-
-## 2026.09.0 — EN/PT internationalization — 2026-09-02
-
-
-### Features
-
 - Localize the release-meta line for Portuguese ([#307](https://github.com/jeromefaria/jeromefaria.github.io/pull/307))
 - Curate EPK press quotes + rename heading to Selected press ([#300](https://github.com/jeromefaria/jeromefaria.github.io/pull/300))
 - Expand, extend and reorder the Press page quotes ([#294](https://github.com/jeromefaria/jeromefaria.github.io/pull/294))
@@ -335,79 +73,6 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 - Translate release media buttons; rename Purchase to Download ([#268](https://github.com/jeromefaria/jeromefaria.github.io/pull/268))
 - Translate the keyboard-help cheat sheet (chrome) ([#266](https://github.com/jeromefaria/jeromefaria.github.io/pull/266))
 - Add a Colophon page (subtle footer link) ([#256](https://github.com/jeromefaria/jeromefaria.github.io/pull/256))
-
-### Content
-
-- EU-PT readability pass on the tech rider + analogue synthesiser ([#310](https://github.com/jeromefaria/jeromefaria.github.io/pull/310))
-- PT Works 'Scores' section → Composições ([#306](https://github.com/jeromefaria/jeromefaria.github.io/pull/306))
-- Long-bio refinements (actividade, CAVERNANCIA, NOx) ([#303](https://github.com/jeromefaria/jeromefaria.github.io/pull/303))
-- Localize the credits engine and press quotes ([#274](https://github.com/jeromefaria/jeromefaria.github.io/pull/274))
-- Translate the contact form (chrome) ([#267](https://github.com/jeromefaria/jeromefaria.github.io/pull/267))
-- Translate nav/footer + language switcher (chrome phase 1) ([#265](https://github.com/jeromefaria/jeromefaria.github.io/pull/265))
-
-### Fixes
-
-- Translate venue city/country exonyms for Portuguese ([#308](https://github.com/jeromefaria/jeromefaria.github.io/pull/308))
-- Navigate the command palette through the active locale ([#305](https://github.com/jeromefaria/jeromefaria.github.io/pull/305))
-- Point Works Bandcamp links at the real bandcamp.com domain ([#304](https://github.com/jeromefaria/jeromefaria.github.io/pull/304))
-- Two EU-PT copy corrections (verifyError, Adenda) ([#301](https://github.com/jeromefaria/jeromefaria.github.io/pull/301))
-- Fix home page mobile viewport — hero fills, footer + language switch stay in view ([#295](https://github.com/jeromefaria/jeromefaria.github.io/pull/295))
-- Apply EU-PT review-pass corrections ([#288](https://github.com/jeromefaria/jeromefaria.github.io/pull/288))
-- Repair the epk-photos generator ([#287](https://github.com/jeromefaria/jeromefaria.github.io/pull/287))
-- Correct the Nariz Entupido event details ([#285](https://github.com/jeromefaria/jeromefaria.github.io/pull/285))
-- Add the .ts extension to the works import in vite.config ([#264](https://github.com/jeromefaria/jeromefaria.github.io/pull/264))
-- Opt out of browser auto-translation ([#258](https://github.com/jeromefaria/jeromefaria.github.io/pull/258))
-- Fix invisible lightbox controls in dark theme + guard the bug class ([#255](https://github.com/jeromefaria/jeromefaria.github.io/pull/255))
-
-### Performance
-
-- Stop double-optimizing images; raise Hyphema quality ([#309](https://github.com/jeromefaria/jeromefaria.github.io/pull/309))
-
-### Refactors
-
-- Share i18nEnabled across the runtime flag consumers ([#293](https://github.com/jeromefaria/jeromefaria.github.io/pull/293))
-- Make body.ready the sole post-hydration signal ([#292](https://github.com/jeromefaria/jeromefaria.github.io/pull/292))
-- Borderline audit items (useProseClick, PressQuote, shared jiti) ([#291](https://github.com/jeromefaria/jeromefaria.github.io/pull/291))
-- Split _pages.scss into per-page partials ([#290](https://github.com/jeromefaria/jeromefaria.github.io/pull/290))
-- Extract shared play and pause icons ([#289](https://github.com/jeromefaria/jeromefaria.github.io/pull/289))
-- Remove dead code and tighten release type guards ([#286](https://github.com/jeromefaria/jeromefaria.github.io/pull/286))
-- Remove standalone gerunds from the merged PT ([#276](https://github.com/jeromefaria/jeromefaria.github.io/pull/276))
-- Model the NNY alias as a performedAs field on live events ([#261](https://github.com/jeromefaria/jeromefaria.github.io/pull/261))
-- Model Works credits as structured, composable data ([#260](https://github.com/jeromefaria/jeromefaria.github.io/pull/260))
-- Move purchasing into releases; slim footer; complete sameAs ([#257](https://github.com/jeromefaria/jeromefaria.github.io/pull/257))
-
-### Tests
-
-- Close i18n + lightbox coverage gaps ([#298](https://github.com/jeromefaria/jeromefaria.github.io/pull/298))
-- Lock a fidelity harness for the credits normalization ([#259](https://github.com/jeromefaria/jeromefaria.github.io/pull/259))
-
-### Build & CI
-
-- **deps-dev:** Bump the worker-minor-patch group ([#280](https://github.com/jeromefaria/jeromefaria.github.io/pull/280))
-- **deps:** Bump the npm-minor-patch group with 6 updates ([#279](https://github.com/jeromefaria/jeromefaria.github.io/pull/279))
-
-### Docs
-
-- Document the bilingual/i18n architecture in the README ([#299](https://github.com/jeromefaria/jeromefaria.github.io/pull/299))
-
-### Chores
-
-- Go live: enable the EN/PT bilingual layer (VITE_I18N) ([#313](https://github.com/jeromefaria/jeromefaria.github.io/pull/313))
-- Tighten four over-long comments ([#312](https://github.com/jeromefaria/jeromefaria.github.io/pull/312))
-- Add .prettierignore — this repo is ESLint-formatted, not Prettier ([#302](https://github.com/jeromefaria/jeromefaria.github.io/pull/302))
-
-### Other
-
-- PT go-live prep: og:locale + EU-PT copy polish ([#311](https://github.com/jeromefaria/jeromefaria.github.io/pull/311))
-- About + EPK bio: fix ECT attribution, feature EME ([#296](https://github.com/jeromefaria/jeromefaria.github.io/pull/296))
-- Locale routing + /pt SSG dual-tree (behind VITE_I18N) ([#263](https://github.com/jeromefaria/jeromefaria.github.io/pull/263))
-- I18n engine + VITE_I18N flag (vue-i18n, lean) ([#262](https://github.com/jeromefaria/jeromefaria.github.io/pull/262))
-
-## 2026.08.1 — Command palette & audio player — 2026-08-30
-
-
-### Features
-
 - **worker:** Rate-limit the contact endpoint by client IP ([#254](https://github.com/jeromefaria/jeromefaria.github.io/pull/254))
 - Shareable deep links to lightbox photos, posters, and videos ([#250](https://github.com/jeromefaria/jeromefaria.github.io/pull/250))
 - Swipe down to collapse the expanded player on touch devices ([#246](https://github.com/jeromefaria/jeromefaria.github.io/pull/246))
@@ -426,95 +91,6 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 - Add a Clear recents command to the palette ([#201](https://github.com/jeromefaria/jeromefaria.github.io/pull/201))
 - Model release credits as structured contributors ([#200](https://github.com/jeromefaria/jeromefaria.github.io/pull/200))
 - Hidden ⌘K command palette + ? shortcut help ([#199](https://github.com/jeromefaria/jeromefaria.github.io/pull/199))
-
-### Content
-
-- Reconcile MADEIRADIG lineups with the archive; model co-billed pairs ([#253](https://github.com/jeromefaria/jeromefaria.github.io/pull/253))
-- Refresh page meta descriptions (add licensing + mastering; align framing) ([#184](https://github.com/jeromefaria/jeromefaria.github.io/pull/184))
-
-### Fixes
-
-- Label the contact inquiry "Mixing & Mastering" ([#252](https://github.com/jeromefaria/jeromefaria.github.io/pull/252))
-- Harden the contact Worker and credit-link rendering ([#249](https://github.com/jeromefaria/jeromefaria.github.io/pull/249))
-- Close accessibility gaps from the audit ([#248](https://github.com/jeromefaria/jeromefaria.github.io/pull/248))
-- Refcount useScrollLock and make it iOS-safe ([#247](https://github.com/jeromefaria/jeromefaria.github.io/pull/247))
-- Reserve image space with intrinsic dimensions (CLS) ([#228](https://github.com/jeromefaria/jeromefaria.github.io/pull/228))
-- Trap focus, restore it, and lock scroll in the expanded player ([#227](https://github.com/jeromefaria/jeromefaria.github.io/pull/227))
-- Announce seek slider position as time, not raw seconds ([#226](https://github.com/jeromefaria/jeromefaria.github.io/pull/226))
-- Use a plain bullet for the footer separator ([#217](https://github.com/jeromefaria/jeromefaria.github.io/pull/217))
-- Stop collapsed accordion sections leaking document scroll height ([#208](https://github.com/jeromefaria/jeromefaria.github.io/pull/208))
-- Center the player bar's title and controls on mobile ([#207](https://github.com/jeromefaria/jeromefaria.github.io/pull/207))
-- Make the player bar responsive on narrow screens ([#204](https://github.com/jeromefaria/jeromefaria.github.io/pull/204))
-- Honor prefers-reduced-motion for press hash-scroll ([#186](https://github.com/jeromefaria/jeromefaria.github.io/pull/186))
-
-### Performance
-
-- Render-blocking CSS for a zero-CLS first paint ([#240](https://github.com/jeromefaria/jeromefaria.github.io/pull/240))
-
-### Refactors
-
-- Extract TransportControls and PlayerSeek from the player surfaces ([#245](https://github.com/jeromefaria/jeromefaria.github.io/pull/245))
-- Extract useFocusReturn for the overlay focus-restore dance ([#244](https://github.com/jeromefaria/jeromefaria.github.io/pull/244))
-- Name the global z-index layers ([#230](https://github.com/jeromefaria/jeromefaria.github.io/pull/230))
-- Split _components.scss grab-bag into focused partials ([#229](https://github.com/jeromefaria/jeromefaria.github.io/pull/229))
-- Model Works mixing & mastering as generated engineering credits ([#216](https://github.com/jeromefaria/jeromefaria.github.io/pull/216))
-- Extract useReleasePlayback + unify play intent ([#214](https://github.com/jeromefaria/jeromefaria.github.io/pull/214))
-- Type the works artist as Credit, consistent with Poster.artist ([#193](https://github.com/jeromefaria/jeromefaria.github.io/pull/193))
-- Extract ResponsivePicture and unify the image load-in fade ([#192](https://github.com/jeromefaria/jeromefaria.github.io/pull/192))
-- Dedupe build scripts and E2E hydration boilerplate ([#189](https://github.com/jeromefaria/jeromefaria.github.io/pull/189))
-- Extract recurring SCSS mixins ([#188](https://github.com/jeromefaria/jeromefaria.github.io/pull/188))
-- Audit quick wins — dead code, dedup, worker hardening ([#185](https://github.com/jeromefaria/jeromefaria.github.io/pull/185))
-- Remove the italic on EPK press quotes ([#183](https://github.com/jeromefaria/jeromefaria.github.io/pull/183))
-
-### Tests
-
-- De-flake the Firefox lightbox specs ([#238](https://github.com/jeromefaria/jeromefaria.github.io/pull/238))
-- Refresh About visual baselines for the new-tab cue spans ([#191](https://github.com/jeromefaria/jeromefaria.github.io/pull/191))
-
-### Build & CI
-
-- **deps-dev:** Bump typescript from 5.9.3 to 7.0.2 in /worker ([#234](https://github.com/jeromefaria/jeromefaria.github.io/pull/234))
-- **deps-dev:** Bump the npm-minor-patch group across 1 directory with 5 updates ([#235](https://github.com/jeromefaria/jeromefaria.github.io/pull/235))
-- Make visual regression a blocking check ([#223](https://github.com/jeromefaria/jeromefaria.github.io/pull/223))
-
-### Docs
-
-- Refresh README for the enforcement + tooling from the A+ work ([#243](https://github.com/jeromefaria/jeromefaria.github.io/pull/243))
-- Add a styles token reference ([#231](https://github.com/jeromefaria/jeromefaria.github.io/pull/231))
-- Document the audio player and shareable permalinks ([#215](https://github.com/jeromefaria/jeromefaria.github.io/pull/215))
-- Add light domain context to the README ([#198](https://github.com/jeromefaria/jeromefaria.github.io/pull/198))
-- Tighten the README and soften the intro ([#197](https://github.com/jeromefaria/jeromefaria.github.io/pull/197))
-- Use a plain-text architecture diagram instead of Mermaid ([#196](https://github.com/jeromefaria/jeromefaria.github.io/pull/196))
-- Reframe the README as a technical case study ([#195](https://github.com/jeromefaria/jeromefaria.github.io/pull/195))
-- Correct the worker deploy note on secret persistence ([#187](https://github.com/jeromefaria/jeromefaria.github.io/pull/187))
-
-### Style
-
-- Fluid content-rhythm spacing via clamp() ([#232](https://github.com/jeromefaria/jeromefaria.github.io/pull/232))
-- Unify uppercase labels at font-weight 500 ([#194](https://github.com/jeromefaria/jeromefaria.github.io/pull/194))
-
-### Chores
-
-- Single-source Node version + manage worker deps ([#233](https://github.com/jeromefaria/jeromefaria.github.io/pull/233))
-- Add husky pre-commit (lint-staged) + pre-push (type-check) gate ([#224](https://github.com/jeromefaria/jeromefaria.github.io/pull/224))
-- Enforce TS + Vue invariants with lint rules (Wave 1) ([#222](https://github.com/jeromefaria/jeromefaria.github.io/pull/222))
-- Enforce SCSS with stylelint (standard-scss, BEM-aware) ([#221](https://github.com/jeromefaria/jeromefaria.github.io/pull/221))
-
-### Other
-
-- Lightbox deep links v2: browser-history integration ([#251](https://github.com/jeromefaria/jeromefaria.github.io/pull/251))
-- Comment sweep + palette refactor tidy-up from the A+ work ([#242](https://github.com/jeromefaria/jeromefaria.github.io/pull/242))
-- Editorial corrections: bios + credits ([#241](https://github.com/jeromefaria/jeromefaria.github.io/pull/241))
-- Shareable per-release permalinks that play on open ([#213](https://github.com/jeromefaria/jeromefaria.github.io/pull/213))
-- Native player on audio-backed releases; player public by default ([#211](https://github.com/jeromefaria/jeromefaria.github.io/pull/211))
-- Expandable full-screen player with a dismiss control ([#210](https://github.com/jeromefaria/jeromefaria.github.io/pull/210))
-- Use per-link new-tab cues, drop the blanket page notes ([#190](https://github.com/jeromefaria/jeromefaria.github.io/pull/190))
-
-## 2026.08.0 — Press kit & contact — 2026-08-26
-
-
-### Features
-
 - Add a downloadable technical rider ([#174](https://github.com/jeromefaria/jeromefaria.github.io/pull/174))
 - Embed Inter in the EPK one-sheet PDF ([#173](https://github.com/jeromefaria/jeromefaria.github.io/pull/173))
 - Add typed live-event query helpers ([#171](https://github.com/jeromefaria/jeromefaria.github.io/pull/171))
@@ -553,6 +129,19 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Content
 
+- Link 8 researched entities across the registry ([#414](https://github.com/jeromefaria/jeromefaria.github.io/pull/414))
+- **press:** Add two NNY-era reviews recovered from the archive ([#375](https://github.com/jeromefaria/jeromefaria.github.io/pull/375))
+- **writing:** Restore the in-body links lost on Patreon import ([#374](https://github.com/jeromefaria/jeromefaria.github.io/pull/374))
+- **live:** Fix the Olhares 2010 date and enrich the early MADEIRADIG bills ([#369](https://github.com/jeromefaria/jeromefaria.github.io/pull/369))
+- Link the Hyphema artwork credit and add the Overlapse video ([#316](https://github.com/jeromefaria/jeromefaria.github.io/pull/316))
+- EU-PT readability pass on the tech rider + analogue synthesiser ([#310](https://github.com/jeromefaria/jeromefaria.github.io/pull/310))
+- PT Works 'Scores' section → Composições ([#306](https://github.com/jeromefaria/jeromefaria.github.io/pull/306))
+- Long-bio refinements (actividade, CAVERNANCIA, NOx) ([#303](https://github.com/jeromefaria/jeromefaria.github.io/pull/303))
+- Localize the credits engine and press quotes ([#274](https://github.com/jeromefaria/jeromefaria.github.io/pull/274))
+- Translate the contact form (chrome) ([#267](https://github.com/jeromefaria/jeromefaria.github.io/pull/267))
+- Translate nav/footer + language switcher (chrome phase 1) ([#265](https://github.com/jeromefaria/jeromefaria.github.io/pull/265))
+- Reconcile MADEIRADIG lineups with the archive; model co-billed pairs ([#253](https://github.com/jeromefaria/jeromefaria.github.io/pull/253))
+- Refresh page meta descriptions (add licensing + mastering; align framing) ([#184](https://github.com/jeromefaria/jeromefaria.github.io/pull/184))
 - Contact Phase 3: cutover to the Worker + invisible Turnstile ([#182](https://github.com/jeromefaria/jeromefaria.github.io/pull/182))
 - Contact Phase 2: Cloudflare Worker for Turnstile-verified email relay ([#181](https://github.com/jeromefaria/jeromefaria.github.io/pull/181))
 - Adaptive inquiry form with typed routing (Phase 1) ([#178](https://github.com/jeromefaria/jeromefaria.github.io/pull/178))
@@ -564,6 +153,70 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Fixes
 
+- **newsletter:** Sanitize author block hrefs in both render paths ([#501](https://github.com/jeromefaria/jeromefaria.github.io/pull/501))
+- **head:** Declare og:image dimensions for custom card images ([#499](https://github.com/jeromefaria/jeromefaria.github.io/pull/499))
+- **newsletter:** Tighten add-tool email validation ([#489](https://github.com/jeromefaria/jeromefaria.github.io/pull/489))
+- **writing:** Copy-edit "The Internet Forgets" ([#484](https://github.com/jeromefaria/jeromefaria.github.io/pull/484))
+- **palette:** Dismiss the backdrop on pointerdown, not the trailing ghost click ([#480](https://github.com/jeromefaria/jeromefaria.github.io/pull/480))
+- **worker:** Sender display names (newsletter + contact) ([#474](https://github.com/jeromefaria/jeromefaria.github.io/pull/474))
+- **live:** Unlink the Living Room credit on Jejum #45 ([#460](https://github.com/jeromefaria/jeromefaria.github.io/pull/460))
+- **palette:** Time the double-tap with performance.now() for iOS resume ([#456](https://github.com/jeromefaria/jeromefaria.github.io/pull/456))
+- **lightbox:** Only embed video from allowlisted provider origins ([#450](https://github.com/jeromefaria/jeromefaria.github.io/pull/450))
+- **player:** Clear the home-indicator inset on the mobile player bar ([#446](https://github.com/jeromefaria/jeromefaria.github.io/pull/446))
+- **router:** Show a soft 404 for unknown work and live permalinks ([#447](https://github.com/jeromefaria/jeromefaria.github.io/pull/447))
+- **player, nav:** Recover playback after error; keep query on clearHash ([#445](https://github.com/jeromefaria/jeromefaria.github.io/pull/445))
+- **palette:** Centre the close button and make it touch-only ([#442](https://github.com/jeromefaria/jeromefaria.github.io/pull/442))
+- **palette:** Stop Ctrl+K from closing instead of moving up ([#436](https://github.com/jeromefaria/jeromefaria.github.io/pull/436))
+- **player:** Balance the immersive artwork's gap to the transport slider ([#417](https://github.com/jeromefaria/jeromefaria.github.io/pull/417))
+- **app:** Recover the router view from a wedged page transition on resume ([#393](https://github.com/jeromefaria/jeromefaria.github.io/pull/393))
+- **build:** Add the .ts extension to the releaseDate import ([#390](https://github.com/jeromefaria/jeromefaria.github.io/pull/390))
+- **lightbox:** Dismiss on any outside click; soften the disabled-arrow cursor ([#378](https://github.com/jeromefaria/jeromefaria.github.io/pull/378))
+- **live:** Restore missing collaborator links across the Live page ([#372](https://github.com/jeromefaria/jeromefaria.github.io/pull/372))
+- **player:** Release the audio element on close so iOS drops the Now Playing card ([#367](https://github.com/jeromefaria/jeromefaria.github.io/pull/367))
+- **player:** Release the Media Session when the player is closed ([#366](https://github.com/jeromefaria/jeromefaria.github.io/pull/366))
+- **a11y:** Only restore the focus ring for keyboard-opened overlays ([#364](https://github.com/jeromefaria/jeromefaria.github.io/pull/364))
+- **player:** Two-column expanded layout on desktop to remove the scrollbar ([#363](https://github.com/jeromefaria/jeromefaria.github.io/pull/363))
+- **writing:** Let the Orchestration essay sit inside the site ([#360](https://github.com/jeromefaria/jeromefaria.github.io/pull/360))
+- **writing:** Widen the writing section to the site's content width ([#359](https://github.com/jeromefaria/jeromefaria.github.io/pull/359))
+- **audio:** Snap 2504 chapters to the beep/vocal onsets ([#355](https://github.com/jeromefaria/jeromefaria.github.io/pull/355))
+- **audio:** Accurate 2504 duration and compressed-aligned chapter times ([#354](https://github.com/jeromefaria/jeromefaria.github.io/pull/354))
+- **i18n:** Hide the footer language switch on English-only routes ([#353](https://github.com/jeromefaria/jeromefaria.github.io/pull/353))
+- **about:** List the Overlapse bio mention year-only, matching the other releases ([#347](https://github.com/jeromefaria/jeromefaria.github.io/pull/347))
+- **a11y:** Identify contact errors on submit + neutralize overlay background ([#342](https://github.com/jeromefaria/jeromefaria.github.io/pull/342))
+- **components:** Give MediaLinks' optional downloadUrl an explicit default ([#340](https://github.com/jeromefaria/jeromefaria.github.io/pull/340))
+- **seo/i18n:** Rely on noindex for the EPK; localize the not-found page ([#337](https://github.com/jeromefaria/jeromefaria.github.io/pull/337))
+- **i18n:** Localize live-description suffix + film fields; add PT golden ([#336](https://github.com/jeromefaria/jeromefaria.github.io/pull/336))
+- **routing:** Redirect trailing-slash URLs to their canonical form ([#332](https://github.com/jeromefaria/jeromefaria.github.io/pull/332))
+- **seo:** Make the page head reactive so it tracks the active locale ([#331](https://github.com/jeromefaria/jeromefaria.github.io/pull/331))
+- **worker:** Accept the human inquiry label, not a slug ([#322](https://github.com/jeromefaria/jeromefaria.github.io/pull/322))
+- **security:** Repo/CI/client hardening from the security audit ([#321](https://github.com/jeromefaria/jeromefaria.github.io/pull/321))
+- **worker:** Harden contact endpoint input validation ([#320](https://github.com/jeromefaria/jeromefaria.github.io/pull/320))
+- **a11y:** Address global accessibility audit findings ([#319](https://github.com/jeromefaria/jeromefaria.github.io/pull/319))
+- Fix the three EN leaks on /pt (new-tab cue, EPK cities, live ensemble names) ([#317](https://github.com/jeromefaria/jeromefaria.github.io/pull/317))
+- Fix 2504 chapter times and chaptered-release track state ([#315](https://github.com/jeromefaria/jeromefaria.github.io/pull/315))
+- Translate venue city/country exonyms for Portuguese ([#308](https://github.com/jeromefaria/jeromefaria.github.io/pull/308))
+- Navigate the command palette through the active locale ([#305](https://github.com/jeromefaria/jeromefaria.github.io/pull/305))
+- Point Works Bandcamp links at the real bandcamp.com domain ([#304](https://github.com/jeromefaria/jeromefaria.github.io/pull/304))
+- Two EU-PT copy corrections (verifyError, Adenda) ([#301](https://github.com/jeromefaria/jeromefaria.github.io/pull/301))
+- Fix home page mobile viewport — hero fills, footer + language switch stay in view ([#295](https://github.com/jeromefaria/jeromefaria.github.io/pull/295))
+- Apply EU-PT review-pass corrections ([#288](https://github.com/jeromefaria/jeromefaria.github.io/pull/288))
+- Repair the epk-photos generator ([#287](https://github.com/jeromefaria/jeromefaria.github.io/pull/287))
+- Correct the Nariz Entupido event details ([#285](https://github.com/jeromefaria/jeromefaria.github.io/pull/285))
+- Add the .ts extension to the works import in vite.config ([#264](https://github.com/jeromefaria/jeromefaria.github.io/pull/264))
+- Opt out of browser auto-translation ([#258](https://github.com/jeromefaria/jeromefaria.github.io/pull/258))
+- Fix invisible lightbox controls in dark theme + guard the bug class ([#255](https://github.com/jeromefaria/jeromefaria.github.io/pull/255))
+- Label the contact inquiry "Mixing & Mastering" ([#252](https://github.com/jeromefaria/jeromefaria.github.io/pull/252))
+- Harden the contact Worker and credit-link rendering ([#249](https://github.com/jeromefaria/jeromefaria.github.io/pull/249))
+- Close accessibility gaps from the audit ([#248](https://github.com/jeromefaria/jeromefaria.github.io/pull/248))
+- Refcount useScrollLock and make it iOS-safe ([#247](https://github.com/jeromefaria/jeromefaria.github.io/pull/247))
+- Reserve image space with intrinsic dimensions (CLS) ([#228](https://github.com/jeromefaria/jeromefaria.github.io/pull/228))
+- Trap focus, restore it, and lock scroll in the expanded player ([#227](https://github.com/jeromefaria/jeromefaria.github.io/pull/227))
+- Announce seek slider position as time, not raw seconds ([#226](https://github.com/jeromefaria/jeromefaria.github.io/pull/226))
+- Use a plain bullet for the footer separator ([#217](https://github.com/jeromefaria/jeromefaria.github.io/pull/217))
+- Stop collapsed accordion sections leaking document scroll height ([#208](https://github.com/jeromefaria/jeromefaria.github.io/pull/208))
+- Center the player bar's title and controls on mobile ([#207](https://github.com/jeromefaria/jeromefaria.github.io/pull/207))
+- Make the player bar responsive on narrow screens ([#204](https://github.com/jeromefaria/jeromefaria.github.io/pull/204))
+- Honor prefers-reduced-motion for press hash-scroll ([#186](https://github.com/jeromefaria/jeromefaria.github.io/pull/186))
 - Fix the rem baseline (16px root) ([#164](https://github.com/jeromefaria/jeromefaria.github.io/pull/164))
 - Audit fixes — a11y assertions, CSS var, tooling cleanup ([#154](https://github.com/jeromefaria/jeromefaria.github.io/pull/154))
 - Stop tracking Claude Code settings ([#130](https://github.com/jeromefaria/jeromefaria.github.io/pull/130))
@@ -594,6 +247,11 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Performance
 
+- Align the hero LCP preload, prioritize above-the-fold images ([#344](https://github.com/jeromefaria/jeromefaria.github.io/pull/344))
+- **home:** Serve a phone-sized hero variant, desktop unchanged ([#324](https://github.com/jeromefaria/jeromefaria.github.io/pull/324))
+- Home LCP, schema-barrel split, vendor chunk (quick wins) ([#323](https://github.com/jeromefaria/jeromefaria.github.io/pull/323))
+- Stop double-optimizing images; raise Hyphema quality ([#309](https://github.com/jeromefaria/jeromefaria.github.io/pull/309))
+- Render-blocking CSS for a zero-CLS first paint ([#240](https://github.com/jeromefaria/jeromefaria.github.io/pull/240))
 - Subset and self-host Iosevka Aile (3.5MB CDN → 243KB local) ([#103](https://github.com/jeromefaria/jeromefaria.github.io/pull/103))
 - Improve mobile-nav keyboard accessibility ([#81](https://github.com/jeromefaria/jeromefaria.github.io/pull/81))
 - Optimize SSG hydration and First Contentful Paint
@@ -601,6 +259,59 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **overlays:** Extract useFocusScopeGuard for the capture/lock seam ([#500](https://github.com/jeromefaria/jeromefaria.github.io/pull/500))
+- Extract shared storage, anchor, OG-card, and EPK-section helpers ([#498](https://github.com/jeromefaria/jeromefaria.github.io/pull/498))
+- **utils:** Restore union exhaustiveness and reuse MetaLink ([#497](https://github.com/jeromefaria/jeromefaria.github.io/pull/497))
+- **writing:** Unify section label to "Writing" ([#486](https://github.com/jeromefaria/jeromefaria.github.io/pull/486))
+- **palette:** Derive navigate commands from router routes ([#476](https://github.com/jeromefaria/jeromefaria.github.io/pull/476))
+- **design:** Single token source of truth for the generators ([#470](https://github.com/jeromefaria/jeromefaria.github.io/pull/470))
+- **credits:** Reference photographers and collaborators by registry key ([#454](https://github.com/jeromefaria/jeromefaria.github.io/pull/454))
+- **types:** Couple live imageAlt to its images ([#448](https://github.com/jeromefaria/jeromefaria.github.io/pull/448))
+- **works:** Shared allReleases/releaseById accessors ([#431](https://github.com/jeromefaria/jeromefaria.github.io/pull/431))
+- **venue:** Shared venueFormat module + fix palette PT localization ([#430](https://github.com/jeromefaria/jeromefaria.github.io/pull/430))
+- **views:** Extract renderMarkdown util + createBlogPostingSchema ([#429](https://github.com/jeromefaria/jeromefaria.github.io/pull/429))
+- **player:** Extract shared helpers; delete dead playRelease; localize seek ([#428](https://github.com/jeromefaria/jeromefaria.github.io/pull/428))
+- **scripts:** Shared playwright-render module + enforce eslint on scripts ([#427](https://github.com/jeromefaria/jeromefaria.github.io/pull/427))
+- **ui:** Extract MaybeLink for the link-or-plain-text pattern ([#422](https://github.com/jeromefaria/jeromefaria.github.io/pull/422))
+- **live:** Model the event thumbnail hero as a single source object ([#421](https://github.com/jeromefaria/jeromefaria.github.io/pull/421))
+- Share one name-lookup across the entity registries ([#415](https://github.com/jeromefaria/jeromefaria.github.io/pull/415))
+- **registry:** Register recurring link-less entities by name ([#413](https://github.com/jeromefaria/jeromefaria.github.io/pull/413))
+- **orgs:** Resolve org video authors through the registry ([#412](https://github.com/jeromefaria/jeromefaria.github.io/pull/412))
+- **orgs:** Fold record labels into the org registry ([#411](https://github.com/jeromefaria/jeromefaria.github.io/pull/411))
+- **venues:** Resolve recurring venue links through a registry ([#410](https://github.com/jeromefaria/jeromefaria.github.io/pull/410))
+- **orgs:** Route Live promoter/org links through a registry ([#409](https://github.com/jeromefaria/jeromefaria.github.io/pull/409))
+- **people:** Resolve photographer credits through the registry ([#408](https://github.com/jeromefaria/jeromefaria.github.io/pull/408))
+- **people:** Resolve live collaborator links through the registry ([#407](https://github.com/jeromefaria/jeromefaria.github.io/pull/407))
+- **people:** Introduce a collaborator registry and route credit links through it ([#405](https://github.com/jeromefaria/jeromefaria.github.io/pull/405))
+- **live:** Split the events array into era files ([#403](https://github.com/jeromefaria/jeromefaria.github.io/pull/403))
+- Dedupe the release-date readers and the player predicates ([#373](https://github.com/jeromefaria/jeromefaria.github.io/pull/373))
+- Model release dates (derive the displayed year) ([#371](https://github.com/jeromefaria/jeromefaria.github.io/pull/371))
+- **data:** Split works.ts into per-section files + extract credit derivation ([#338](https://github.com/jeromefaria/jeromefaria.github.io/pull/338))
+- **styles:** Use the $z-overlay token in the lightbox ([#335](https://github.com/jeromefaria/jeromefaria.github.io/pull/335))
+- **i18n:** Split the message catalogs into per-locale files ([#334](https://github.com/jeromefaria/jeromefaria.github.io/pull/334))
+- Post-i18n tidy — Localizable alias, StaticPage shell, Credit unification ([#318](https://github.com/jeromefaria/jeromefaria.github.io/pull/318))
+- Share i18nEnabled across the runtime flag consumers ([#293](https://github.com/jeromefaria/jeromefaria.github.io/pull/293))
+- Make body.ready the sole post-hydration signal ([#292](https://github.com/jeromefaria/jeromefaria.github.io/pull/292))
+- Borderline audit items (useProseClick, PressQuote, shared jiti) ([#291](https://github.com/jeromefaria/jeromefaria.github.io/pull/291))
+- Split _pages.scss into per-page partials ([#290](https://github.com/jeromefaria/jeromefaria.github.io/pull/290))
+- Extract shared play and pause icons ([#289](https://github.com/jeromefaria/jeromefaria.github.io/pull/289))
+- Remove dead code and tighten release type guards ([#286](https://github.com/jeromefaria/jeromefaria.github.io/pull/286))
+- Remove standalone gerunds from the merged PT ([#276](https://github.com/jeromefaria/jeromefaria.github.io/pull/276))
+- Model the NNY alias as a performedAs field on live events ([#261](https://github.com/jeromefaria/jeromefaria.github.io/pull/261))
+- Model Works credits as structured, composable data ([#260](https://github.com/jeromefaria/jeromefaria.github.io/pull/260))
+- Move purchasing into releases; slim footer; complete sameAs ([#257](https://github.com/jeromefaria/jeromefaria.github.io/pull/257))
+- Extract TransportControls and PlayerSeek from the player surfaces ([#245](https://github.com/jeromefaria/jeromefaria.github.io/pull/245))
+- Extract useFocusReturn for the overlay focus-restore dance ([#244](https://github.com/jeromefaria/jeromefaria.github.io/pull/244))
+- Name the global z-index layers ([#230](https://github.com/jeromefaria/jeromefaria.github.io/pull/230))
+- Split _components.scss grab-bag into focused partials ([#229](https://github.com/jeromefaria/jeromefaria.github.io/pull/229))
+- Model Works mixing & mastering as generated engineering credits ([#216](https://github.com/jeromefaria/jeromefaria.github.io/pull/216))
+- Extract useReleasePlayback + unify play intent ([#214](https://github.com/jeromefaria/jeromefaria.github.io/pull/214))
+- Type the works artist as Credit, consistent with Poster.artist ([#193](https://github.com/jeromefaria/jeromefaria.github.io/pull/193))
+- Extract ResponsivePicture and unify the image load-in fade ([#192](https://github.com/jeromefaria/jeromefaria.github.io/pull/192))
+- Dedupe build scripts and E2E hydration boilerplate ([#189](https://github.com/jeromefaria/jeromefaria.github.io/pull/189))
+- Extract recurring SCSS mixins ([#188](https://github.com/jeromefaria/jeromefaria.github.io/pull/188))
+- Audit quick wins — dead code, dedup, worker hardening ([#185](https://github.com/jeromefaria/jeromefaria.github.io/pull/185))
+- Remove the italic on EPK press quotes ([#183](https://github.com/jeromefaria/jeromefaria.github.io/pull/183))
 - Tighten the visual-regression tolerance to an absolute budget ([#180](https://github.com/jeromefaria/jeromefaria.github.io/pull/180))
 - Extract bios into a first-class data module ([#175](https://github.com/jeromefaria/jeromefaria.github.io/pull/175))
 - Model live events as setup + format axes ([#170](https://github.com/jeromefaria/jeromefaria.github.io/pull/170))
@@ -655,22 +366,104 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Tests
 
+- **visual:** Close VR coverage gaps (copyright, cv, writing, 404) ([#478](https://github.com/jeromefaria/jeromefaria.github.io/pull/478))
+- **live:** Cover the ensemble alt branch; require full patch coverage ([#452](https://github.com/jeromefaria/jeromefaria.github.io/pull/452))
+- Extend a11y coverage to dynamic routes and gate e2e type-checking ([#402](https://github.com/jeromefaria/jeromefaria.github.io/pull/402))
+- Close the worker + payload coverage loop to 100% branches ([#346](https://github.com/jeromefaria/jeromefaria.github.io/pull/346))
+- Turn soft quality signals into hard gates ([#341](https://github.com/jeromefaria/jeromefaria.github.io/pull/341))
+- **e2e:** Cover the audio player deep-link permalink and transport ([#330](https://github.com/jeromefaria/jeromefaria.github.io/pull/330))
+- Tighten palette assertions and cover the empty-search state ([#329](https://github.com/jeromefaria/jeromefaria.github.io/pull/329))
+- **e2e:** Cover the EN<->PT language switch round trip ([#328](https://github.com/jeromefaria/jeromefaria.github.io/pull/328))
+- **vr:** Mobile-safari visual coverage for the page snapshots ([#327](https://github.com/jeromefaria/jeromefaria.github.io/pull/327))
+- Contract + consistency guards at the data/worker/router seams ([#326](https://github.com/jeromefaria/jeromefaria.github.io/pull/326))
+- Close i18n + lightbox coverage gaps ([#298](https://github.com/jeromefaria/jeromefaria.github.io/pull/298))
+- Lock a fidelity harness for the credits normalization ([#259](https://github.com/jeromefaria/jeromefaria.github.io/pull/259))
+- De-flake the Firefox lightbox specs ([#238](https://github.com/jeromefaria/jeromefaria.github.io/pull/238))
+- Refresh About visual baselines for the new-tab cue spans ([#191](https://github.com/jeromefaria/jeromefaria.github.io/pull/191))
 - Strengthen the lightbox nav tests and retire a spent characterization test ([#159](https://github.com/jeromefaria/jeromefaria.github.io/pull/159))
 - Pin accordion-view wiring before the AccordionListPage extraction ([#146](https://github.com/jeromefaria/jeromefaria.github.io/pull/146))
 - Backfill coverage gaps and ratchet the regression floor ([#133](https://github.com/jeromefaria/jeromefaria.github.io/pull/133))
 
 ### Build & CI
 
+- **deps:** Bump the npm-minor-patch group across 1 directory with 15 updates ([#494](https://github.com/jeromefaria/jeromefaria.github.io/pull/494))
+- **deps-dev:** Bump the worker-minor-patch group ([#492](https://github.com/jeromefaria/jeromefaria.github.io/pull/492))
+- **deps:** Bump the github-actions group with 2 updates ([#493](https://github.com/jeromefaria/jeromefaria.github.io/pull/493))
+- **deps-dev:** Bump ip-address ([#491](https://github.com/jeromefaria/jeromefaria.github.io/pull/491))
+- **deps-dev:** Bump the worker-minor-patch group ([#466](https://github.com/jeromefaria/jeromefaria.github.io/pull/466))
+- **deps:** Bump the npm-minor-patch group with 11 updates ([#467](https://github.com/jeromefaria/jeromefaria.github.io/pull/467))
+- **deps:** Bump the github-actions group with 3 updates ([#468](https://github.com/jeromefaria/jeromefaria.github.io/pull/468))
+- **deps:** Bump the npm-minor-patch group across 1 directory with 9 updates ([#462](https://github.com/jeromefaria/jeromefaria.github.io/pull/462))
+- **deps-dev:** Bump exiftool-vendored from 37.2.0 to 38.0.1 ([#463](https://github.com/jeromefaria/jeromefaria.github.io/pull/463))
+- **deps:** Bump the github-actions group with 2 updates ([#464](https://github.com/jeromefaria/jeromefaria.github.io/pull/464))
+- **deps:** Bump sharp ([#425](https://github.com/jeromefaria/jeromefaria.github.io/pull/425))
+- **vue:** Enforce script-setup and guard ref reactivity loss ([#416](https://github.com/jeromefaria/jeromefaria.github.io/pull/416))
+- **changelog:** Make the auto-regeneration push race-proof ([#404](https://github.com/jeromefaria/jeromefaria.github.io/pull/404))
+- Add CodeQL scanning and a security policy ([#401](https://github.com/jeromefaria/jeromefaria.github.io/pull/401))
+- Align worker TypeScript, single-source coverage thresholds, add verify + editorconfig ([#400](https://github.com/jeromefaria/jeromefaria.github.io/pull/400))
+- **changelog:** Authorize the auto-regeneration push with a scoped token ([#398](https://github.com/jeromefaria/jeromefaria.github.io/pull/398))
+- **changelog:** Git-cliff generation, commit-convention enforcement, and auto-regeneration ([#397](https://github.com/jeromefaria/jeromefaria.github.io/pull/397))
+- **deps:** Bump js-yaml in the npm-security group across 1 directory ([#391](https://github.com/jeromefaria/jeromefaria.github.io/pull/391))
+- **deps:** Bump the npm-minor-patch group with 11 updates ([#383](https://github.com/jeromefaria/jeromefaria.github.io/pull/383))
+- **deps-dev:** Upgrade vitest to 5 across root and worker ([#389](https://github.com/jeromefaria/jeromefaria.github.io/pull/389))
+- **deps-dev:** Bump the worker-minor-patch group ([#380](https://github.com/jeromefaria/jeromefaria.github.io/pull/380))
+- **deps-dev:** Bump the worker-minor-patch group ([#280](https://github.com/jeromefaria/jeromefaria.github.io/pull/280))
+- **deps:** Bump the npm-minor-patch group with 6 updates ([#279](https://github.com/jeromefaria/jeromefaria.github.io/pull/279))
+- **deps-dev:** Bump typescript from 5.9.3 to 7.0.2 in /worker ([#234](https://github.com/jeromefaria/jeromefaria.github.io/pull/234))
+- **deps-dev:** Bump the npm-minor-patch group across 1 directory with 5 updates ([#235](https://github.com/jeromefaria/jeromefaria.github.io/pull/235))
+- Make visual regression a blocking check ([#223](https://github.com/jeromefaria/jeromefaria.github.io/pull/223))
 - Fail the build on a missing EPK photo source ([#177](https://github.com/jeromefaria/jeromefaria.github.io/pull/177))
 - **deps-dev:** Bump the npm-minor-patch group across 1 directory with 10 updates ([#167](https://github.com/jeromefaria/jeromefaria.github.io/pull/167))
 - Generate the EPK bundle at build time instead of committing it ([#172](https://github.com/jeromefaria/jeromefaria.github.io/pull/172))
 
+### Docs
+
+- Describe the system on its own terms ([#496](https://github.com/jeromefaria/jeromefaria.github.io/pull/496))
+- Elevate the newsletter, fix drift, tighten the run-book ([#495](https://github.com/jeromefaria/jeromefaria.github.io/pull/495))
+- **newsletter:** List add + list commands in the quick reference ([#488](https://github.com/jeromefaria/jeromefaria.github.io/pull/488))
+- **privacy:** Cover the newsletter's data processing ([#469](https://github.com/jeromefaria/jeromefaria.github.io/pull/469))
+- **readme:** Fix i18n build drift; retire redundant build:i18n script ([#449](https://github.com/jeromefaria/jeromefaria.github.io/pull/449))
+- **readme:** Reflect live permalinks, mobile palette, and the entity model ([#444](https://github.com/jeromefaria/jeromefaria.github.io/pull/444))
+- Correct stale coverage numbers and rewrite the content guide ([#399](https://github.com/jeromefaria/jeromefaria.github.io/pull/399))
+- **readme:** Keyboard shortcuts — palette ':' + audio-player key table ([#396](https://github.com/jeromefaria/jeromefaria.github.io/pull/396))
+- **readme:** Cover the player's immersive view + keyboard control, and platform resilience ([#394](https://github.com/jeromefaria/jeromefaria.github.io/pull/394))
+- **readme:** Close the gaps a clean-room reviewer setup surfaced ([#376](https://github.com/jeromefaria/jeromefaria.github.io/pull/376))
+- First-person README intro + an About section linking the professional context ([#348](https://github.com/jeromefaria/jeromefaria.github.io/pull/348))
+- Refresh the README testing sections for this cycle's coverage ([#333](https://github.com/jeromefaria/jeromefaria.github.io/pull/333))
+- Document the bilingual/i18n architecture in the README ([#299](https://github.com/jeromefaria/jeromefaria.github.io/pull/299))
+- Refresh README for the enforcement + tooling from the A+ work ([#243](https://github.com/jeromefaria/jeromefaria.github.io/pull/243))
+- Add a styles token reference ([#231](https://github.com/jeromefaria/jeromefaria.github.io/pull/231))
+- Document the audio player and shareable permalinks ([#215](https://github.com/jeromefaria/jeromefaria.github.io/pull/215))
+- Add light domain context to the README ([#198](https://github.com/jeromefaria/jeromefaria.github.io/pull/198))
+- Tighten the README and soften the intro ([#197](https://github.com/jeromefaria/jeromefaria.github.io/pull/197))
+- Use a plain-text architecture diagram instead of Mermaid ([#196](https://github.com/jeromefaria/jeromefaria.github.io/pull/196))
+- Reframe the README as a technical case study ([#195](https://github.com/jeromefaria/jeromefaria.github.io/pull/195))
+- Correct the worker deploy note on secret persistence ([#187](https://github.com/jeromefaria/jeromefaria.github.io/pull/187))
+
 ### Style
 
+- Fluid content-rhythm spacing via clamp() ([#232](https://github.com/jeromefaria/jeromefaria.github.io/pull/232))
+- Unify uppercase labels at font-weight 500 ([#194](https://github.com/jeromefaria/jeromefaria.github.io/pull/194))
 - Format visually-hidden page headings to satisfy the vue lint rule ([#110](https://github.com/jeromefaria/jeromefaria.github.io/pull/110))
 
 ### Chores
 
+- **deps:** Stop Dependabot re-proposing the TS 7 major bump ([#465](https://github.com/jeromefaria/jeromefaria.github.io/pull/465))
+- **archive:** Refresh the Flash disclaimer after removing the assets ([#458](https://github.com/jeromefaria/jeromefaria.github.io/pull/458))
+- **archive:** Strip dead-Flash tooling from the NNY web archive ([#457](https://github.com/jeromefaria/jeromefaria.github.io/pull/457))
+- **styles:** Enforce recess property order via stylelint-order ([#443](https://github.com/jeromefaria/jeromefaria.github.io/pull/443))
+- **dev:** Expose the dev server on the LAN, with opt-in HTTPS for mobile ([#420](https://github.com/jeromefaria/jeromefaria.github.io/pull/420))
+- Finalise the 19 Sep gig as Jejum #45 ([#365](https://github.com/jeromefaria/jeromefaria.github.io/pull/365))
+- **cv:** Standardise title to 'Frontend Engineer' across the résumé ([#350](https://github.com/jeromefaria/jeromefaria.github.io/pull/350))
+- Close remaining A+ gaps (a11y, SEO, testing, perf) ([#345](https://github.com/jeromefaria/jeromefaria.github.io/pull/345))
+- Enforce a no-comments policy and strip non-documenting comments ([#339](https://github.com/jeromefaria/jeromefaria.github.io/pull/339))
+- Go live: enable the EN/PT bilingual layer (VITE_I18N) ([#313](https://github.com/jeromefaria/jeromefaria.github.io/pull/313))
+- Tighten four over-long comments ([#312](https://github.com/jeromefaria/jeromefaria.github.io/pull/312))
+- Add .prettierignore — this repo is ESLint-formatted, not Prettier ([#302](https://github.com/jeromefaria/jeromefaria.github.io/pull/302))
+- Single-source Node version + manage worker deps ([#233](https://github.com/jeromefaria/jeromefaria.github.io/pull/233))
+- Add husky pre-commit (lint-staged) + pre-push (type-check) gate ([#224](https://github.com/jeromefaria/jeromefaria.github.io/pull/224))
+- Enforce TS + Vue invariants with lint rules (Wave 1) ([#222](https://github.com/jeromefaria/jeromefaria.github.io/pull/222))
+- Enforce SCSS with stylelint (standard-scss, BEM-aware) ([#221](https://github.com/jeromefaria/jeromefaria.github.io/pull/221))
 - Correct and reconcile the project license ([#166](https://github.com/jeromefaria/jeromefaria.github.io/pull/166))
 - Global comment sweep ([#163](https://github.com/jeromefaria/jeromefaria.github.io/pull/163))
 - Remove comments that restate the code ([#161](https://github.com/jeromefaria/jeromefaria.github.io/pull/161))
@@ -692,6 +485,19 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Other
 
+- Derive live event alt text from entity data (PT gender-aware) ([#451](https://github.com/jeromefaria/jeromefaria.github.io/pull/451))
+- Post-go-live fixes: locale permalinks, PT card fallback, 2504 times, cover overlay ([#314](https://github.com/jeromefaria/jeromefaria.github.io/pull/314))
+- PT go-live prep: og:locale + EU-PT copy polish ([#311](https://github.com/jeromefaria/jeromefaria.github.io/pull/311))
+- About + EPK bio: fix ECT attribution, feature EME ([#296](https://github.com/jeromefaria/jeromefaria.github.io/pull/296))
+- Locale routing + /pt SSG dual-tree (behind VITE_I18N) ([#263](https://github.com/jeromefaria/jeromefaria.github.io/pull/263))
+- I18n engine + VITE_I18N flag (vue-i18n, lean) ([#262](https://github.com/jeromefaria/jeromefaria.github.io/pull/262))
+- Lightbox deep links v2: browser-history integration ([#251](https://github.com/jeromefaria/jeromefaria.github.io/pull/251))
+- Comment sweep + palette refactor tidy-up from the A+ work ([#242](https://github.com/jeromefaria/jeromefaria.github.io/pull/242))
+- Editorial corrections: bios + credits ([#241](https://github.com/jeromefaria/jeromefaria.github.io/pull/241))
+- Shareable per-release permalinks that play on open ([#213](https://github.com/jeromefaria/jeromefaria.github.io/pull/213))
+- Native player on audio-backed releases; player public by default ([#211](https://github.com/jeromefaria/jeromefaria.github.io/pull/211))
+- Expandable full-screen player with a dismiss control ([#210](https://github.com/jeromefaria/jeromefaria.github.io/pull/210))
+- Use per-link new-tab cues, drop the blanket page notes ([#190](https://github.com/jeromefaria/jeromefaria.github.io/pull/190))
 - Even out the About short-bio divider spacing ([#179](https://github.com/jeromefaria/jeromefaria.github.io/pull/179))
 - Address remaining code-quality findings to reach grade A ([#131](https://github.com/jeromefaria/jeromefaria.github.io/pull/131))
 - Drive contact-form validation from a single field list ([#125](https://github.com/jeromefaria/jeromefaria.github.io/pull/125))
