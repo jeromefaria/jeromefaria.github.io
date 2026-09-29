@@ -253,13 +253,25 @@ describe('usePageHead', () => {
       expect(getMeta(config, 'og:image:height')?.content).toBe('1703');
     });
 
-    it('uses a per-page image override and drops the default dimensions', () => {
+    it('uses a per-page image override, dropping dimensions when none are given', () => {
       const config = mountWithPageHead({ title: 'CV', description: 'desc', image: '/og-cv.png' });
       const expectedImage = `${siteConfig.url}/og-cv.png`;
       expect(getMeta(config, 'og:image')?.content).toBe(expectedImage);
       expect(getMeta(config, 'twitter:image')?.content).toBe(expectedImage);
       expect(getMeta(config, 'og:image:width')).toBeUndefined();
       expect(getMeta(config, 'og:image:height')).toBeUndefined();
+    });
+
+    it('emits a per-page image override with its own dimensions and inferred type', () => {
+      const config = mountWithPageHead({
+        title: 'Essay',
+        description: 'desc',
+        image: '/og-writing-x.png',
+        imageDimensions: { width: 2400, height: 1260 },
+      });
+      expect(getMeta(config, 'og:image:width')?.content).toBe('2400');
+      expect(getMeta(config, 'og:image:height')?.content).toBe('1260');
+      expect(getMeta(config, 'og:image:type')?.content).toBe('image/png');
     });
   });
 

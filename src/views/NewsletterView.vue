@@ -7,6 +7,7 @@ import StaticPage from '@/components/StaticPage.vue';
 import { useNewsletterForm } from '@/composables/useNewsletterForm';
 import { useProseClick } from '@/composables/useProseClick';
 import { useTurnstile } from '@/composables/useTurnstile';
+import { OG_CARD_DIMENSIONS } from '@/data/navigation';
 import { newsletterContent } from '@/data/newsletter';
 import { pageMeta } from '@/data/pageMeta';
 import { useLocalized } from '@/i18n/localized';
@@ -18,7 +19,7 @@ const t = useT();
 const route = useRoute();
 const { toLocalePath, current } = useLocalized();
 
-const head = { ...pageMeta.newsletter, image: '/og-newsletter.png' };
+const head = { ...pageMeta.newsletter, image: '/og-newsletter.png', imageDimensions: OG_CARD_DIMENSIONS };
 const onProseClick = useProseClick();
 const transparency = computed(() => externalizeLinks(localizeInternalLinks(t('newsletter.transparency'), current.value)));
 

@@ -3,7 +3,7 @@ import { useRoute } from 'vue-router';
 
 import StaticPage from '@/components/StaticPage.vue';
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
-import { siteConfig } from '@/data/navigation';
+import { OG_CARD_DIMENSIONS, siteConfig } from '@/data/navigation';
 import { draftSlugs, essayBodyBySlug, essayMetaBySlug } from '@/data/writingContent';
 import { releaseForEssay } from '@/utils/essayLinks';
 import { createBlogPostingSchema } from '@/utils/pageSchemas';
@@ -34,6 +34,7 @@ const head = essay && markdown
     description: { en: essay.description, pt: essay.description },
     ogType: 'article',
     image: `/og-writing-${essay.slug}.png`,
+    imageDimensions: OG_CARD_DIMENSIONS,
     ...(isDraft ? { noIndex: true } : {}),
     schema: createBlogPostingSchema(essay, canonical),
   }

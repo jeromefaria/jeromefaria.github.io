@@ -1,5 +1,5 @@
 import { liveEvents } from '@/data/live';
-import { siteConfig } from '@/data/navigation';
+import { OG_CARD_DIMENSIONS, siteConfig } from '@/data/navigation';
 import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { LiveEvent } from '@/types';
@@ -16,6 +16,7 @@ interface LiveEventHead {
   title: string;
   description: string;
   image?: string;
+  imageDimensions?: { width: number; height: number };
 }
 
 const hasEventCard = (event: LiveEvent): boolean =>
@@ -32,6 +33,6 @@ export const liveEventHead = (event: LiveEvent, locale: Locale = DEFAULT_LOCALE)
   return {
     title: localize(event.title, locale),
     description: `${lead} · ${date}.`,
-    ...(hasEventCard(event) ? { image: `/og-live-${event.id}-${locale}.jpg` } : {}),
+    ...(hasEventCard(event) ? { image: `/og-live-${event.id}-${locale}.jpg`, imageDimensions: OG_CARD_DIMENSIONS } : {}),
   };
 };

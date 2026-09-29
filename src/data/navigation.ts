@@ -19,6 +19,8 @@ export const siteConfig: SiteConfig = {
   },
 };
 
+export const OG_CARD_DIMENSIONS = { width: 2400, height: 1260 };
+
 export const navigation: NavItem[] = [
   { labelKey: 'nav.about', url: '/about' },
   { labelKey: 'nav.works', url: '/works' },
