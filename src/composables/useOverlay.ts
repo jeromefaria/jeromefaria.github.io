@@ -1,25 +1,19 @@
 import type { Ref } from 'vue';
-import { nextTick, onUnmounted, watch } from 'vue';
+import { nextTick, watch } from 'vue';
 
-import { useFocusReturn } from './useFocusReturn';
-import { useScrollLock } from './useScrollLock';
+import { useFocusScopeGuard } from './useFocusScopeGuard';
 
 export const useOverlay = (isOpen: Ref<boolean>, focusTarget: Ref<HTMLElement | null>): void => {
-  const { lock, unlock } = useScrollLock();
-  const { capture, restore } = useFocusReturn();
+  const { enter, leave } = useFocusScopeGuard();
 
   watch(isOpen, async open => {
     if (open) {
-      capture();
-      lock();
+      enter();
       await nextTick();
       focusTarget.value?.focus();
       return;
     }
 
-    unlock();
-    restore();
+    leave();
   }, { immediate: true });
-
-  onUnmounted(unlock);
 };
