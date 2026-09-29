@@ -117,14 +117,16 @@ const resolveVideo = (block: VideoBlock): RenderBlock => {
 };
 
 const resolveBlock = (block: IssueBlock): RenderBlock | null => {
-  if (block.type === 'prose') return { kind: 'prose', html: renderMarkdown(block.markdown) };
-  if (block.type === 'image') return resolveImage(block);
-  if (block.type === 'video') return resolveVideo(block);
-  if (block.type === 'works') return worksFeature(block.ref, block.note, block.hideMeta);
-  if (block.type === 'live') return liveFeature(block.ref, block.note, block.hideMeta);
-  if (block.type === 'quote') return { kind: 'quote', quote: block.quote, source: block.source, url: block.url ?? null };
-  if (block.type === 'cta') return { kind: 'cta', label: block.label, href: block.href };
-  return writingFeature(block.ref, block.note);
+  switch (block.type) {
+    case 'prose': return { kind: 'prose', html: renderMarkdown(block.markdown) };
+    case 'image': return resolveImage(block);
+    case 'video': return resolveVideo(block);
+    case 'works': return worksFeature(block.ref, block.note, block.hideMeta);
+    case 'live': return liveFeature(block.ref, block.note, block.hideMeta);
+    case 'quote': return { kind: 'quote', quote: block.quote, source: block.source, url: block.url ?? null };
+    case 'cta': return { kind: 'cta', label: block.label, href: block.href };
+    case 'writing': return writingFeature(block.ref, block.note);
+  }
 };
 
 export const resolveIssueBlocks = (blocks: IssueBlock[]): RenderBlock[] =>
