@@ -5,8 +5,8 @@ const PATTERNS = [
   /claude\.ai/i,
   /anthropic\.com/i,
   /\bclaude-session\b/i,
-  /co-authored-by:\s*.*\b(?:claude|copilot|codex|anthropic|openai|chatgpt)\b/i,
-  /generated (?:with|by)\b.*\b(?:claude|copilot|chatgpt|gpt-[45]|codex)\b/i,
+  /co-authored-by:\s*\[?(?:claude|copilot|codex|anthropic|openai|chatgpt)\b/i,
+  /generated (?:with|by) \[?(?:claude|copilot|chatgpt|gpt-[45]|codex)\b/i,
   /🤖\s*generated/i,
 ];
 
