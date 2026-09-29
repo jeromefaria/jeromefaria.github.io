@@ -16,6 +16,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Fixes
 
+- **head:** Declare og:image dimensions for custom card images ([#499](https://github.com/jeromefaria/jeromefaria.github.io/pull/499))
 - **newsletter:** Tighten add-tool email validation ([#489](https://github.com/jeromefaria/jeromefaria.github.io/pull/489))
 - **writing:** Copy-edit "The Internet Forgets" ([#484](https://github.com/jeromefaria/jeromefaria.github.io/pull/484))
 
