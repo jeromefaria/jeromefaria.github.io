@@ -19,7 +19,8 @@
 - **Component & styling architecture.** Single-responsibility components, reusable composables, and SCSS design tokens driving a themable, BEM-structured stylesheet.
 - **A bilingual layer (EN/PT), now live.** Content typed as `Localized<{ en; pt }>`, every route mirrored under `/pt`, and a lightweight `useT` translate layer backed by vue-i18n. A single build flag (`VITE_I18N`) gates the whole i18n path — vue-i18n included — so an English-only build **tree-shakes it out entirely**; built and tested complete, held through EU-PT review, and now flipped on to ship both languages.
 - **A hidden ⌘K command palette.** Keyboard-summoned search, navigation, and actions across the whole site — a typed command registry, a hand-rolled fuzzy ranker, a full combobox/listbox ARIA contract, and fzf-style keybindings. No visible affordance; it's an easter egg for those who reach for `⌘K` / `Ctrl+K`.
-- **Full-stack when it's warranted.** The contact form and the newsletter both run on a **Cloudflare Worker** I own — server-side Turnstile verification and Resend delivery, plus a **D1** database and a double-opt-in subscribe/confirm/unsubscribe flow for the newsletter. No form-SaaS embed, no third-party platform — the list and the pipe are mine.
+- **Full-stack when it's warranted.** The contact form runs on a **Cloudflare Worker** I own — server-side Turnstile verification and Resend delivery, decoupled from the app. No form-SaaS embed.
+- **A self-owned newsletter, not a Substack embed.** The same Worker backs a newsletter on **Cloudflare D1**: a double-opt-in subscribe/confirm/unsubscribe flow (RFC 8058 one-click), issues authored as typed blocks that render to *both* an inbox email and an on-site archive from one source, and a **resumable, rate-limit-aware** bulk send over Resend's batch API — every delivery ledgered, so an interrupted run resumes instead of re-mailing. A small consent-respecting CLI manages the list (add/remove/export, with a guard that refuses to re-add an unsubscribed address). The store and the pipe are mine, not a platform's.
 
 ## Architecture
 
@@ -50,12 +51,22 @@ Contact (runtime)
         │
         └──▶  Resend  ──▶  email
 
-  GitHub Pages serves the contact form.
+Newsletter (runtime)
+  Signup form (invisible Turnstile)
+        │  POST
+        ▼
+  Cloudflare Worker  ──▶  Turnstile siteverify
+        │
+        ├──▶  Cloudflare D1   (subscribers: pending ─▶ active · unsubscribe tombstone)
+        └──▶  Resend  ──▶  confirmation + issue email
+
+  GitHub Pages serves the contact form and the newsletter signup.
 ```
 
 - **Site:** no CMS, API, or database — static data is pre-rendered to every route (and to a shareable page per release) and hydrated on GitHub Pages.
 - **Audio:** encoded to AAC ahead of time and served from Cloudflare R2; the player streams it over HTTP range requests, so nothing large ships in the bundle.
 - **Contact:** the frontend posts already-labelled fields to the Worker, which verifies the Turnstile token server-side and relays the message through Resend — decoupled from the app.
+- **Newsletter:** the same Worker runs a Turnstile-gated, double-opt-in flow on **Cloudflare D1** — signup stores a `pending` row, an emailed link confirms it to `active`, and unsubscribe tombstones it (never a hard delete). Issues are sent from a local CLI over Resend's batch API, resumably.
 
 ## Key decisions & trade-offs
 
@@ -150,7 +161,7 @@ src/
   views/         One component per route
 worker/          Cloudflare Worker — Turnstile verification + Resend relay
 scripts/         Build tooling — PDF generation, responsive images, font subsetting, CI checks
-e2e/             Playwright specs (navigation, accordion, contact, lightbox, command palette, audio player, language switch, trailing-slash, not-found, a11y, visual)
+e2e/             Playwright specs — one per behaviour (enumerated under Testing)
 public/          Static assets
 ```
 
@@ -162,7 +173,7 @@ Editing site content? See [`docs/CONTENT_MANAGEMENT.md`](docs/CONTENT_MANAGEMENT
 - **Build:** Vite with SSG (Static Site Generation) + hydration — every route plus a shareable page per release
 - **i18n:** vue-i18n behind a lightweight `useT` layer; EN/PT, routed under `/pt`, flag-gated (`VITE_I18N`) — the production build ships both languages, while an English-only build tree-shakes the whole path out
 - **Audio:** `HTMLAudioElement` state machine + Media Session API; AAC (`.m4a`) hosted on Cloudflare R2, streamed over HTTP range requests
-- **Backend:** Cloudflare Worker (`wrangler`) — server-side Turnstile verification, Resend email relay
+- **Backend:** Cloudflare Worker (`wrangler`) — Turnstile verification + Resend relay for contact, and a Cloudflare **D1**-backed newsletter (double opt-in, resumable batch send)
 - **Styling:** SCSS with BEM and design tokens, lint-enforced with stylelint (BEM selector pattern)
 - **Testing:** Vitest (unit — ~99% coverage across the whole `src` tree), Playwright E2E (Chromium, Firefox, WebKit), `axe-core` accessibility, per-route visual regression
 - **CI/CD:** GitHub Actions — one pipeline reused as the deploy gate
@@ -264,7 +275,7 @@ npm run lighthouse:mobile
 **Performance Budgets** (`.lighthouserc.json`). The **enforced** assertions fail CI:
 - Accessibility ≥ 95 and Best Practices ≥ 90
 - No browser-console errors
-- Script ≤ 250KB and stylesheet ≤ 75KB (transfer), text compression enabled
+- Script ≤ 250KB and stylesheet ≤ 75KB (total transfer), text compression enabled
 
 The following are **advisory** (reported as warnings, not gating) because they vary with the CI runner or with image-rich portfolio content:
 - Performance and SEO category scores
@@ -323,19 +334,15 @@ Husky enforces a subset of these automatically, so a broken commit never leaves 
 - **pre-commit** runs `lint-staged` — ESLint + stylelint `--fix` on staged files only.
 - **pre-push** runs the type-check.
 
-### Quick Pre-Commit Check
+### Before you commit or push
 
-Fast validation before committing (~30 seconds):
+The hooks above cover a subset automatically; to run the checks by hand:
 
 ```bash
+# fast (~30s) — before a commit
 npm run lint && npm run type-check && npm run test
-```
 
-### Pre-Push Check
-
-Ensure CI will pass before pushing:
-
-```bash
+# thorough — before a push (the Quality + Build gate, short of E2E)
 npm run lint:fix && npm run type-check && npm run test:coverage && npm run build
 ```
 
@@ -351,7 +358,7 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 
 ### Build
 - Production bundle build
-- Bundle size budget — **enforced**: fails CI if any JS file exceeds 200KB or CSS 50KB (uncompressed, per file)
+- Bundle size budget — **enforced**: fails CI if any single JS file exceeds 200KB or CSS 50KB, uncompressed — a **per-file** check, distinct from the Lighthouse **total-transfer** budget (250KB / 75KB) above
 - `sitemap.xml` generated from the routes actually pre-rendered (never drifts from the site)
 - Build artifact generation (reused downstream — no rebuild)
 
@@ -363,7 +370,7 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 ### E2E Tests
 - Cross-browser testing across all three engines (Chromium, Firefox, WebKit)
 - Accessibility testing with `@axe-core/playwright`
-- Specs: `accessibility`, `accordion`, `audio-player`, `command-palette`, `contact-form`, `epk`, `home-hero`, `language-switch`, `lightbox`, `navigation`, `not-found`, `trailing-slash`
+- The full E2E suite (enumerated under [Testing](#e2e-tests))
 
 ### Visual Regression
 - Per-route screenshot snapshots across desktop Chromium/Firefox/WebKit plus a mobile Safari viewport, compared against committed Linux baselines
