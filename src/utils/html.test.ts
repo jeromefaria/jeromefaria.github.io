@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { escapeHtml, safeHref } from './html';
+import { anchor, escapeHtml, safeHref } from './html';
 
 describe('escapeHtml', () => {
   it('escapes the five HTML-significant characters', () => {
@@ -25,5 +25,23 @@ describe('safeHref', () => {
 
   it('trims surrounding whitespace before checking the scheme', () => {
     expect(safeHref('  https://example.com  ')).toBe('https://example.com');
+  });
+});
+
+describe('anchor', () => {
+  it('wraps the inner text in a link for a safe url', () => {
+    expect(anchor('Label', 'https://example.com')).toBe('<a href="https://example.com">Label</a>');
+  });
+
+  it('returns the inner text unwrapped when the url is unsafe', () => {
+    expect(anchor('Label', 'javascript:alert(1)')).toBe('Label');
+  });
+
+  it('returns the inner text unwrapped when no url is given', () => {
+    expect(anchor('Label')).toBe('Label');
+  });
+
+  it('does not escape the inner text (caller owns that decision)', () => {
+    expect(anchor('<em>x</em>', 'https://example.com')).toBe('<a href="https://example.com"><em>x</em></a>');
   });
 });

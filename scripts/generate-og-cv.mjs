@@ -1,44 +1,17 @@
 import { join } from 'node:path';
 
-import { loadSrc, root } from './data-loader.mjs';
-import { interFontFaces } from './pdf-fonts.mjs';
-import { CARD_HEIGHT, CARD_WIDTH, renderCard, withBrowser } from './playwright-render.mjs';
+import { root } from './data-loader.mjs';
+import { textCardHtml } from './og-card.mjs';
+import { renderCard, withBrowser } from './playwright-render.mjs';
 
-const { cardColor: C, tracking: T, weight: W } = await loadSrc('design/tokens.ts');
-const fontFaces = await interFontFaces(root);
+const html = textCardHtml({
+  eyebrow: 'Curriculum Vitae',
+  title: 'Jerome Faria',
+  subtitle: 'Senior Frontend Engineer',
+  footerLeft: 'Vue &middot; TypeScript &middot; 15+ years',
+  footerUrl: 'jeromefaria.com/cv',
+});
 
-const cardHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
-  ${fontFaces}
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    width: ${CARD_WIDTH}px;
-    height: ${CARD_HEIGHT}px;
-    background: ${C.bg};
-    color: ${C.text};
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 76px 88px;
-  }
-  .eyebrow { text-transform: uppercase; letter-spacing: ${T.display}; font-size: 20px; font-weight: ${W.semibold}; color: ${C.muted}; }
-  .name { font-size: 92px; font-weight: ${W.semibold}; letter-spacing: ${T.tighter}; line-height: 1; margin-top: 26px; }
-  .role { font-size: 40px; font-weight: ${W.medium}; color: ${C.muted}; margin-top: 22px; }
-  .footer { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid ${C.divider}; padding-top: 26px; }
-  .footer span { font-size: 24px; color: ${C.muted}; }
-  .footer .url { color: ${C.text}; font-weight: ${W.medium}; }
-</style></head><body>
-  <div>
-    <p class="eyebrow">Curriculum Vitae</p>
-    <h1 class="name">Jerome Faria</h1>
-    <p class="role">Senior Frontend Engineer</p>
-  </div>
-  <div class="footer">
-    <span>Vue &middot; TypeScript &middot; 15+ years</span>
-    <span class="url">jeromefaria.com/cv</span>
-  </div>
-</body></html>`;
-
-await withBrowser(browser => renderCard(browser, { html: cardHtml, path: join(root, 'public/og-cv.png') }));
+await withBrowser(browser => renderCard(browser, { html, path: join(root, 'public/og-cv.png') }));
 
 console.log('CV social card → public/og-cv.png');

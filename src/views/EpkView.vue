@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { RouterLink } from 'vue-router';
 
 import EpkRoster from '@/components/EpkRoster.vue';
+import EpkSection from '@/components/EpkSection.vue';
 import MaybeLink from '@/components/MaybeLink.vue';
 import PressQuote from '@/components/PressQuote.vue';
 import ResponsivePicture from '@/components/ResponsivePicture.vue';
@@ -33,30 +34,21 @@ const epkPhotos = computed(() => epk.value.photos.map(photo => {
     :head="head"
     data-page="epk"
   >
-    <section class="epk__section">
-      <h2 class="epk__heading">
-        {{ t('epk.shortBio') }}
-      </h2>
+    <EpkSection :title="t('epk.shortBio')">
       <div
         class="prose"
         v-html="externalizeLinks(epk.shortBio)"
       />
-    </section>
+    </EpkSection>
 
-    <section class="epk__section">
-      <h2 class="epk__heading">
-        {{ t('epk.biography') }}
-      </h2>
+    <EpkSection :title="t('epk.biography')">
       <div
         class="prose"
         v-html="externalizeLinks(epk.longBio)"
       />
-    </section>
+    </EpkSection>
 
-    <section class="epk__section">
-      <h2 class="epk__heading">
-        {{ t('epk.press') }}
-      </h2>
+    <EpkSection :title="t('epk.press')">
       <PressQuote
         v-for="quote in epk.quotes"
         :key="quote.id"
@@ -65,12 +57,9 @@ const epkPhotos = computed(() => epk.value.photos.map(photo => {
         :source="quote.source"
         :url="quote.url"
       />
-    </section>
+    </EpkSection>
 
-    <section class="epk__section">
-      <h2 class="epk__heading">
-        {{ t('epk.selectedPerformances') }}
-      </h2>
+    <EpkSection :title="t('epk.selectedPerformances')">
       <ul class="epk__list">
         <li
           v-for="highlight in epk.liveHighlights"
@@ -86,12 +75,9 @@ const epkPhotos = computed(() => epk.value.photos.map(photo => {
           </span>
         </li>
       </ul>
-    </section>
+    </EpkSection>
 
-    <section class="epk__section">
-      <h2 class="epk__heading">
-        {{ t('epk.selectedWorks') }}
-      </h2>
+    <EpkSection :title="t('epk.selectedWorks')">
       <ul class="epk__list">
         <li
           v-for="work in epk.workHighlights"
@@ -107,19 +93,13 @@ const epkPhotos = computed(() => epk.value.photos.map(photo => {
           </span>
         </li>
       </ul>
-    </section>
+    </EpkSection>
 
-    <section class="epk__section">
-      <h2 class="epk__heading">
-        {{ t('epk.sharedStages') }}
-      </h2>
+    <EpkSection :title="t('epk.sharedStages')">
       <EpkRoster :acts="epk.sharedStages" />
-    </section>
+    </EpkSection>
 
-    <section class="epk__section">
-      <h2 class="epk__heading">
-        {{ t('epk.photography') }}
-      </h2>
+    <EpkSection :title="t('epk.photography')">
       <div class="epk__photos">
         <figure
           v-for="({ photo, photographerName, photographerUrl }, index) in epkPhotos"
@@ -147,12 +127,9 @@ const epkPhotos = computed(() => epk.value.photos.map(photo => {
           </figcaption>
         </figure>
       </div>
-    </section>
+    </EpkSection>
 
-    <section class="epk__section">
-      <h2 class="epk__heading">
-        {{ t('epk.download') }}
-      </h2>
+    <EpkSection :title="t('epk.download')">
       <p class="media-links">
         <a
           class="link-discrete"
@@ -172,6 +149,6 @@ const epkPhotos = computed(() => epk.value.photos.map(photo => {
           download
         >{{ t('epk.rider') }}</a>
       </p>
-    </section>
+    </EpkSection>
   </StaticPage>
 </template>
