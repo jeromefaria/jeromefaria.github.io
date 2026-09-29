@@ -12,12 +12,15 @@ const { essayBySlug } = await loadSrc('data/writing.ts');
 const { localize } = await loadSrc('i18n/localized.ts');
 const { formatEventDateRange, formatLongDate, formatMonthYear } = await loadSrc('utils/formatters.ts');
 const { eventPhotoCredit, releasePhotoCredit } = await loadSrc('utils/newsletterCredit.ts');
+const { safeNewsletterUrl } = await loadSrc('utils/newsletterUrl.ts');
 
 const L = color.light;
 const SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif";
 
 const ENTITIES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' };
 const escapeHtml = value => String(value).replace(/[&<>"]/g, character => ENTITIES[character]);
+
+const hrefValue = url => escapeHtml(safeNewsletterUrl(url) ?? '#');
 
 const MIME = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp' };
 const dataUri = webPath => {
@@ -54,7 +57,7 @@ const creditLine = credit => {
 };
 
 const button = (text, href) =>
-  `<a href="${href}" style="display:inline-block;font:500 11px/1 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.bg};text-decoration:none;background-color:${L.text};border:1px solid ${L.text};padding:12px 22px;">${escapeHtml(text)}</a>`;
+  `<a href="${hrefValue(href)}" style="display:inline-block;font:500 11px/1 ${SANS};letter-spacing:0.12em;text-transform:uppercase;color:${L.bg};text-decoration:none;background-color:${L.text};border:1px solid ${L.text};padding:12px 22px;">${escapeHtml(text)}</a>`;
 
 const cta = (text, href) => `<div style="margin-top:18px;">${button(text, href)}</div>`;
 
@@ -88,14 +91,14 @@ const proseBlock = block => {
 
 const imageBlock = (block, opts) => {
   const img = image(block.src, block.alt, opts);
-  const linked = block.href ? `<a href="${block.href}" style="text-decoration:none;">${img}</a>` : img;
+  const linked = block.href ? `<a href="${hrefValue(block.href)}" style="text-decoration:none;">${img}</a>` : img;
   return blockCell([block.label ? label(block.label) : '', linked, block.caption ? caption(block.caption) : ''].join(''));
 };
 
 const videoBlock = (block, opts) =>
   blockCell([
     block.label ? label(block.label) : '',
-    `<a href="${block.href}" style="text-decoration:none;">${image(block.poster, block.alt, opts)}</a>`,
+    `<a href="${hrefValue(block.href)}" style="text-decoration:none;">${image(block.poster, block.alt, opts)}</a>`,
     block.caption ? caption(block.caption) : '',
     cta('View', block.href),
   ].join(''));
@@ -104,7 +107,7 @@ const ctaBlock = block => blockCell(`<div style="text-align:center;">${button(bl
 
 const quoteBlock = block => {
   const source = block.url
-    ? `<a href="${block.url}" style="color:${L.muted};text-decoration:none;">${escapeHtml(block.source)}</a>`
+    ? `<a href="${hrefValue(block.url)}" style="color:${L.muted};text-decoration:none;">${escapeHtml(block.source)}</a>`
     : escapeHtml(block.source);
 
   return blockCell(

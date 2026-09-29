@@ -6,6 +6,7 @@ import { localize } from '@/i18n/localized';
 import { isAllowedEmbedUrl } from '@/utils/embedUrl';
 import { formatEventDateRange, formatMonthYear } from '@/utils/formatters';
 import { eventPhotoCredit, type PhotoCredit, releasePhotoCredit } from '@/utils/newsletterCredit';
+import { safeNewsletterUrl } from '@/utils/newsletterUrl';
 import { renderMarkdown } from '@/utils/renderMarkdown';
 
 export interface MetaField {
@@ -109,11 +110,11 @@ const writingFeature = (ref: string, note?: string): FeatureBlock | null => {
 };
 
 const resolveImage = (block: ImageBlock): RenderBlock =>
-  ({ kind: 'image', src: block.src, alt: block.alt, label: block.label ?? null, caption: block.caption ?? null, href: block.href ?? null });
+  ({ kind: 'image', src: block.src, alt: block.alt, label: block.label ?? null, caption: block.caption ?? null, href: safeNewsletterUrl(block.href) });
 
 const resolveVideo = (block: VideoBlock): RenderBlock => {
   const embedUrl = block.embedUrl && isAllowedEmbedUrl(block.embedUrl) ? block.embedUrl : null;
-  return { kind: 'video', poster: block.poster, alt: block.alt, label: block.label ?? null, caption: block.caption ?? null, href: block.href, embedUrl };
+  return { kind: 'video', poster: block.poster, alt: block.alt, label: block.label ?? null, caption: block.caption ?? null, href: safeNewsletterUrl(block.href) ?? '#', embedUrl };
 };
 
 const resolveBlock = (block: IssueBlock): RenderBlock | null => {
@@ -123,8 +124,8 @@ const resolveBlock = (block: IssueBlock): RenderBlock | null => {
     case 'video': return resolveVideo(block);
     case 'works': return worksFeature(block.ref, block.note, block.hideMeta);
     case 'live': return liveFeature(block.ref, block.note, block.hideMeta);
-    case 'quote': return { kind: 'quote', quote: block.quote, source: block.source, url: block.url ?? null };
-    case 'cta': return { kind: 'cta', label: block.label, href: block.href };
+    case 'quote': return { kind: 'quote', quote: block.quote, source: block.source, url: safeNewsletterUrl(block.url) };
+    case 'cta': return { kind: 'cta', label: block.label, href: safeNewsletterUrl(block.href) ?? '#' };
     case 'writing': return writingFeature(block.ref, block.note);
   }
 };
