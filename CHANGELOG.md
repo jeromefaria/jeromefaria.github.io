@@ -386,6 +386,8 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Build & CI
 
+- **deps:** Bump the npm-security group across 1 directory with 2 updates ([#504](https://github.com/jeromefaria/jeromefaria.github.io/pull/504))
+- **deps:** Bump undici ([#503](https://github.com/jeromefaria/jeromefaria.github.io/pull/503))
 - Enforce developer-only attribution (commits + PR bodies) ([#502](https://github.com/jeromefaria/jeromefaria.github.io/pull/502))
 - **deps:** Bump the npm-minor-patch group across 1 directory with 15 updates ([#494](https://github.com/jeromefaria/jeromefaria.github.io/pull/494))
 - **deps-dev:** Bump the worker-minor-patch group ([#492](https://github.com/jeromefaria/jeromefaria.github.io/pull/492))
