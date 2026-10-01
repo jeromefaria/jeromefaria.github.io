@@ -457,6 +457,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Chores
 
+- **dev:** Simplify dev scripts for always-on i18n + iOS phone testing ([#512](https://github.com/jeromefaria/jeromefaria.github.io/pull/512))
 - Strip photo serial EXIF and bump brace-expansion (audit batch C) ([#510](https://github.com/jeromefaria/jeromefaria.github.io/pull/510))
 - **deps:** Stop Dependabot re-proposing the TS 7 major bump ([#465](https://github.com/jeromefaria/jeromefaria.github.io/pull/465))
 - **archive:** Refresh the Flash disclaimer after removing the assets ([#458](https://github.com/jeromefaria/jeromefaria.github.io/pull/458))
