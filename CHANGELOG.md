@@ -264,6 +264,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **scripts:** Group scripts into lib/checks/generate/audio subdirs ([#513](https://github.com/jeromefaria/jeromefaria.github.io/pull/513))
 - **overlays:** Extract useFocusScopeGuard for the capture/lock seam ([#500](https://github.com/jeromefaria/jeromefaria.github.io/pull/500))
 - Extract shared storage, anchor, OG-card, and EPK-section helpers ([#498](https://github.com/jeromefaria/jeromefaria.github.io/pull/498))
 - **utils:** Restore union exhaustiveness and reuse MetaLink ([#497](https://github.com/jeromefaria/jeromefaria.github.io/pull/497))
