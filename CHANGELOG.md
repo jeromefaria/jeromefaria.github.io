@@ -422,6 +422,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Docs
 
+- **worker:** Note confirm links are single-use and consent-sticky ([#506](https://github.com/jeromefaria/jeromefaria.github.io/pull/506))
 - Describe the system on its own terms ([#496](https://github.com/jeromefaria/jeromefaria.github.io/pull/496))
 - Elevate the newsletter, fix drift, tighten the run-book ([#495](https://github.com/jeromefaria/jeromefaria.github.io/pull/495))
 - **newsletter:** List add + list commands in the quick reference ([#488](https://github.com/jeromefaria/jeromefaria.github.io/pull/488))
