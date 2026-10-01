@@ -27,7 +27,9 @@ const httpsCerts = existsSync(devCert) && existsSync(devKey)
   : undefined;
 
 export default defineConfig({
-  server: { host: true, https: httpsCerts },
+  // eslint-disable-next-line local/no-comments -- gotcha: iOS can't use the HTTPS dev server
+  // Vite 8 serves https only over HTTP/2, which iOS Safari drops on a local dev server ("network connection was lost"). `npm run dev:http` sets VITE_DEV_HTTP to fall back to plain HTTP for phone testing; `npm run dev` keeps HTTPS for desktop.
+  server: { host: true, https: process.env.VITE_DEV_HTTP ? undefined : httpsCerts },
 
   preview: { https: false },
   plugins: [
