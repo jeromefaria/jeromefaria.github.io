@@ -85,7 +85,7 @@ const exceedsBodyLimit = (request: Request): boolean => {
   return Number.isFinite(declaredLength) && declaredLength > MAX_BODY_BYTES;
 };
 
-const isRateLimited = async (env: Env, clientIp: string | null): Promise<boolean> => {
+export const isRateLimited = async (env: Env, clientIp: string | null): Promise<boolean> => {
   if (!env.RATE_LIMITER || !clientIp) return false;
   const { success } = await env.RATE_LIMITER.limit({ key: clientIp });
   return !success;
@@ -116,7 +116,12 @@ export const guardPost = async (
   }
 
   try {
-    return { ok: true, body: await request.json() };
+    const raw = await request.text();
+    if (new TextEncoder().encode(raw).length > MAX_BODY_BYTES) {
+      return { ok: false, response: jsonResponse({ error: 'Payload too large' }, 413, cors) };
+    }
+
+    return { ok: true, body: JSON.parse(raw) };
   } catch {
     return { ok: false, response: jsonResponse({ error: 'Invalid request body' }, 400, cors) };
   }
@@ -143,8 +148,8 @@ export const verifyTurnstile = async (
   if (result.success !== true) return false;
 
   // eslint-disable-next-line local/no-comments -- security: token hostname-pinning
-  // Pin the token to the site's own hostname so a token minted for another site can't be replayed against this worker.
-  return !result.hostname || allowedHosts.includes(result.hostname);
+  // Pin the token to the site's own hostname so a token minted for another site can't be replayed; fail closed if the field is absent.
+  return allowedHosts.includes(result.hostname ?? '');
 };
 
 export interface ResendMessage {

@@ -34,7 +34,7 @@ const createMockDb = (seed: SubscriberRecord[] = []): { binding: Env['DB']; rows
             ? byColumn('confirm_token')
             : byColumn('unsubscribe_token');
 
-        return match ? { status: match.status } : null;
+        return match ? { status: match.status, created_at: match.created_at } : null;
       },
       run: async () => {
         if (sql.startsWith('INSERT INTO subscribers')) {
@@ -103,7 +103,7 @@ const subscribeRequest = (body: unknown, origin = 'https://jeromefaria.com'): Re
 const VALID_SUBSCRIBE = { token: 'tok', email: 'Reader@Example.com', botField: '' };
 
 const turnstileResult = (success: boolean): Response =>
-  ({ ok: true, json: async () => ({ success }) }) as unknown as Response;
+  ({ ok: true, json: async () => ({ success, hostname: 'jeromefaria.com' }) }) as unknown as Response;
 
 const resendResult = (ok: boolean): Response => ({ ok, text: async () => 'error body' }) as unknown as Response;
 
@@ -240,6 +240,69 @@ describe('newsletter — subscribe', () => {
     expect(rows[0]?.confirm_token).toMatch(/^[0-9a-f]{64}$/);
   });
 
+  it('suppresses a resend for a pending address still within the cooldown', async () => {
+    fetchMock.mockResolvedValueOnce(turnstileResult(true));
+    const recent = new Date(Date.now() - 60 * 1000).toISOString();
+    const { binding, rows } = createMockDb([
+      { email: 'reader@example.com', status: 'pending', confirm_token: 'ct', unsubscribe_token: 'u1', created_at: recent },
+    ]);
+
+    const response = await worker.fetch(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
+
+    expect(response.status).toBe(200);
+    expect(await response.json()).toEqual({ ok: true });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(rows[0]?.confirm_token).toBe('ct');
+  });
+
+  it('resends for a pending address once the cooldown has elapsed', async () => {
+    fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
+    const stale = new Date(Date.now() - 30 * 60 * 1000).toISOString();
+    const { binding, rows } = createMockDb([
+      { email: 'reader@example.com', status: 'pending', confirm_token: 'old', unsubscribe_token: 'u1', created_at: stale },
+    ]);
+
+    const response = await worker.fetch(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
+
+    expect(response.status).toBe(200);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(rows[0]?.confirm_token).not.toBe('old');
+  });
+
+  it('resends for a pending address with no timestamp', async () => {
+    fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
+    const { binding, rows } = createMockDb([
+      { email: 'reader@example.com', status: 'pending', confirm_token: 'old', unsubscribe_token: 'u1', created_at: '' },
+    ]);
+
+    const response = await worker.fetch(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
+
+    expect(response.status).toBe(200);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(rows[0]?.confirm_token).not.toBe('old');
+  });
+
+  it('rejects a body that exceeds the size limit once read', async () => {
+    const { binding } = createMockDb();
+    const oversized = 'x'.repeat(64 * 1024 + 16);
+    const request = new Request('https://worker.example/newsletter/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Origin': 'https://jeromefaria.com' },
+      body: new ReadableStream({
+        start(controller) {
+          controller.enqueue(new TextEncoder().encode(oversized));
+          controller.close();
+        },
+      }),
+      duplex: 'half',
+    } as RequestInit & { duplex: 'half' });
+
+    const response = await worker.fetch(request, baseEnv(binding));
+
+    expect(response.status).toBe(413);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it('returns 502 when the confirmation email fails to send', async () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(false));
     const { binding } = createMockDb();
@@ -296,6 +359,18 @@ describe('newsletter — subscribe', () => {
 describe('newsletter — confirm', () => {
   const confirmRequest = (query: string): Request =>
     new Request(`https://worker.example/newsletter/confirm${query}`);
+
+  it('rate-limits the confirm endpoint when the limiter rejects the IP', async () => {
+    const { binding } = createMockDb();
+    const env: Env = { ...baseEnv(binding), RATE_LIMITER: { limit: async () => ({ success: false }) } };
+    const request = new Request('https://worker.example/newsletter/confirm?token=ct', {
+      headers: { 'CF-Connecting-IP': '203.0.113.5' },
+    });
+
+    const response = await worker.fetch(request, env);
+
+    expect(response.status).toBe(429);
+  });
 
   it('activates a pending subscriber, clears the token, and redirects with confirmed=1', async () => {
     const { binding, rows } = createMockDb([
