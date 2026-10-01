@@ -120,7 +120,7 @@ export const handleSubscribe = async (
       .bind(email, confirmToken, unsubscribeToken, now)
       .run();
 
-    const confirmUrl = `${new URL(request.url).origin}/newsletter/confirm?token=${confirmToken}`;
+    const confirmUrl = `${env.SITE_URL}/newsletter?confirm=${confirmToken}`;
     const sent = await sendResendEmail(confirmationMessage(email, confirmUrl, env), env.RESEND_API_KEY);
     if (!sent) {
       return jsonResponse({ error: 'Could not send confirmation' }, 502, cors);
@@ -133,47 +133,52 @@ export const handleSubscribe = async (
   }
 };
 
-export const handleConfirm = async (request: Request, env: Env): Promise<Response> => {
+export const handleConfirm = async (request: Request, env: Env, cors: Record<string, string>): Promise<Response> => {
   const token = new URL(request.url).searchParams.get('token') ?? '';
-  const done = (confirmed: 0 | 1): Response => redirectResponse(`${env.SITE_URL}/newsletter?confirmed=${confirmed}`);
 
-  if (!token) return done(0);
+  // eslint-disable-next-line local/no-comments -- security: GET must not mutate
+  // A GET never mutates — mail scanners auto-fetch links; it bounces to the site page, which POSTs back on a real visit.
+  if (request.method !== 'POST') {
+    return redirectResponse(`${env.SITE_URL}/newsletter?confirm=${encodeURIComponent(token)}`);
+  }
+
+  const reply = (ok: boolean): Response => jsonResponse({ ok }, 200, cors);
+
+  if (!token) return reply(false);
 
   const row = await env.DB.prepare('SELECT status FROM subscribers WHERE confirm_token = ?1')
     .bind(token)
     .first<SubscriberRow>();
 
-  if (!row) return done(0);
-
-  if (row.status === 'active') return done(1);
-  if (row.status !== 'pending') return done(0);
+  if (!row) return reply(false);
+  if (row.status === 'active') return reply(true);
+  if (row.status !== 'pending') return reply(false);
 
   await env.DB.prepare("UPDATE subscribers SET status = 'active', confirmed_at = ?2, confirm_token = NULL WHERE confirm_token = ?1")
     .bind(token, new Date().toISOString())
     .run();
 
-  return done(1);
+  return reply(true);
 };
 
-export const handleUnsubscribe = async (request: Request, env: Env): Promise<Response> => {
-  const oneClick = request.method === 'POST';
+export const handleUnsubscribe = async (request: Request, env: Env, cors: Record<string, string>): Promise<Response> => {
   const token = new URL(request.url).searchParams.get('token') ?? '';
-  const fail = (): Response =>
-    oneClick
-      ? new Response('Invalid unsubscribe link', { status: 400 })
-      : redirectResponse(`${env.SITE_URL}/newsletter?unsubscribed=0`);
-  const succeed = (): Response =>
-    oneClick
-      ? new Response('Unsubscribed', { status: 200 })
-      : redirectResponse(`${env.SITE_URL}/newsletter?unsubscribed=1`);
 
-  if (!token) return fail();
+  // eslint-disable-next-line local/no-comments -- security: GET must not mutate
+  // A GET never mutates — it bounces to the site page; the RFC 8058 one-click and the site button both POST here.
+  if (request.method !== 'POST') {
+    return redirectResponse(`${env.SITE_URL}/newsletter?unsubscribe=${encodeURIComponent(token)}`);
+  }
+
+  const reply = (ok: boolean): Response => jsonResponse({ ok }, 200, cors);
+
+  if (!token) return reply(false);
 
   const row = await env.DB.prepare('SELECT status FROM subscribers WHERE unsubscribe_token = ?1')
     .bind(token)
     .first<SubscriberRow>();
 
-  if (!row) return fail();
+  if (!row) return reply(false);
 
   if (row.status !== 'unsubscribed') {
     await env.DB.prepare("UPDATE subscribers SET status = 'unsubscribed', unsubscribed_at = ?2 WHERE unsubscribe_token = ?1")
@@ -181,5 +186,5 @@ export const handleUnsubscribe = async (request: Request, env: Env): Promise<Res
       .run();
   }
 
-  return succeed();
+  return reply(true);
 };

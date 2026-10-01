@@ -7,7 +7,6 @@ import { loadSrc, root } from '../data-loader.mjs';
 import { renderIssueEmail } from './render.mjs';
 
 const ORIGIN = 'https://jeromefaria.com';
-const WORKER = 'https://contact.jeromefaria.workers.dev';
 
 const args = process.argv.slice(2);
 const id = args.find(argument => !argument.startsWith('--'));
@@ -31,7 +30,7 @@ const renderOnce = async () => {
       ? { dated: false }
       : {
         viewUrl: `${ORIGIN}/newsletter/${issue.id}`,
-        unsubscribeUrl: `${WORKER}/newsletter/unsubscribe?token=PREVIEW`,
+        unsubscribeUrl: `${ORIGIN}/newsletter?unsubscribe=PREVIEW`,
       }),
   });
 

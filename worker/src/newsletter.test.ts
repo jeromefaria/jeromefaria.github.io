@@ -163,7 +163,7 @@ describe('newsletter — subscribe', () => {
     expect(sent.from).toBe('newsletter@jeromefaria.com');
     expect(sent.to).toBe('reader@example.com');
     expect(sent.reply_to).toBeUndefined();
-    expect(sent.html).toContain('https://worker.example/newsletter/confirm?token=');
+    expect(sent.html).toContain('https://jeromefaria.com/newsletter?confirm=');
   });
 
   it('silently drops a filled honeypot without touching the database or network', async () => {
@@ -357,8 +357,13 @@ describe('newsletter — subscribe', () => {
 });
 
 describe('newsletter — confirm', () => {
-  const confirmRequest = (query: string): Request =>
+  const confirmGet = (query: string): Request =>
     new Request(`https://worker.example/newsletter/confirm${query}`);
+  const confirmPost = (query: string): Request =>
+    new Request(`https://worker.example/newsletter/confirm${query}`, {
+      method: 'POST',
+      headers: { 'Origin': 'https://jeromefaria.com' },
+    });
 
   it('rate-limits the confirm endpoint when the limiter rejects the IP', async () => {
     const { binding } = createMockDb();
@@ -372,65 +377,78 @@ describe('newsletter — confirm', () => {
     expect(response.status).toBe(429);
   });
 
-  it('activates a pending subscriber, clears the token, and redirects with confirmed=1', async () => {
+  it('bounces a GET to the site page without mutating (scanner-prefetch safe)', async () => {
     const { binding, rows } = createMockDb([
       { email: 'reader@example.com', status: 'pending', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't' },
     ]);
 
-    const response = await worker.fetch(confirmRequest('?token=ct'), baseEnv(binding));
+    const response = await worker.fetch(confirmGet('?token=ct'), baseEnv(binding));
 
     expect(response.status).toBe(302);
-    expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?confirmed=1');
+    expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?confirm=ct');
+    expect(rows[0]?.status).toBe('pending');
+  });
+
+  it('activates a pending subscriber on POST, clears the token, and echoes CORS', async () => {
+    const { binding, rows } = createMockDb([
+      { email: 'reader@example.com', status: 'pending', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't' },
+    ]);
+
+    const response = await worker.fetch(confirmPost('?token=ct'), baseEnv(binding));
+
+    expect(response.status).toBe(200);
+    expect(await response.json()).toEqual({ ok: true });
+    expect(response.headers.get('Access-Control-Allow-Origin')).toBe('https://jeromefaria.com');
     expect(rows[0]?.status).toBe('active');
     expect(rows[0]?.confirmed_at).toBeTruthy();
     expect(rows[0]?.confirm_token).toBeNull();
   });
 
-  it('does not reactivate an unsubscribed subscriber via a stale confirm link', async () => {
+  it('does not reactivate an unsubscribed subscriber on POST', async () => {
     const { binding, rows } = createMockDb([
       { email: 'reader@example.com', status: 'unsubscribed', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't', unsubscribed_at: 'earlier' },
     ]);
 
-    const response = await worker.fetch(confirmRequest('?token=ct'), baseEnv(binding));
+    const response = await worker.fetch(confirmPost('?token=ct'), baseEnv(binding));
 
-    expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?confirmed=0');
+    expect(await response.json()).toEqual({ ok: false });
     expect(rows[0]?.status).toBe('unsubscribed');
     expect(rows[0]?.unsubscribed_at).toBe('earlier');
   });
 
-  it('spends the token: a second click after confirming no longer succeeds', async () => {
+  it('spends the token: a second POST after confirming returns ok:false', async () => {
     const { binding } = createMockDb([
       { email: 'reader@example.com', status: 'pending', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't' },
     ]);
 
-    const first = await worker.fetch(confirmRequest('?token=ct'), baseEnv(binding));
-    const second = await worker.fetch(confirmRequest('?token=ct'), baseEnv(binding));
+    const first = await worker.fetch(confirmPost('?token=ct'), baseEnv(binding));
+    const second = await worker.fetch(confirmPost('?token=ct'), baseEnv(binding));
 
-    expect(first.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?confirmed=1');
-    expect(second.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?confirmed=0');
+    expect(await first.json()).toEqual({ ok: true });
+    expect(await second.json()).toEqual({ ok: false });
   });
 
-  it('is idempotent for an already-active token', async () => {
+  it('is idempotent for an already-active token on POST', async () => {
     const { binding, rows } = createMockDb([
       { email: 'reader@example.com', status: 'active', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't', confirmed_at: 'earlier' },
     ]);
 
-    const response = await worker.fetch(confirmRequest('?token=ct'), baseEnv(binding));
+    const response = await worker.fetch(confirmPost('?token=ct'), baseEnv(binding));
 
-    expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?confirmed=1');
+    expect(await response.json()).toEqual({ ok: true });
     expect(rows[0]?.confirmed_at).toBe('earlier');
   });
 
-  it('redirects with confirmed=0 for a missing token', async () => {
+  it('returns ok:false on POST for a missing token', async () => {
     const { binding } = createMockDb();
-    const response = await worker.fetch(confirmRequest(''), baseEnv(binding));
-    expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?confirmed=0');
+    const response = await worker.fetch(confirmPost(''), baseEnv(binding));
+    expect(await response.json()).toEqual({ ok: false });
   });
 
-  it('redirects with confirmed=0 for an unknown token', async () => {
+  it('returns ok:false on POST for an unknown token', async () => {
     const { binding } = createMockDb();
-    const response = await worker.fetch(confirmRequest('?token=nope'), baseEnv(binding));
-    expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?confirmed=0');
+    const response = await worker.fetch(confirmPost('?token=nope'), baseEnv(binding));
+    expect(await response.json()).toEqual({ ok: false });
   });
 });
 
@@ -439,57 +457,56 @@ describe('newsletter — unsubscribe', () => {
     { email: 'reader@example.com', status: 'active', confirm_token: null, unsubscribe_token: 'ut', created_at: 't', confirmed_at: 'c' },
   ];
 
-  const unsubscribeRequest = (query: string, method = 'GET'): Request =>
-    new Request(`https://worker.example/newsletter/unsubscribe${query}`, { method });
+  const unsubGet = (query: string): Request =>
+    new Request(`https://worker.example/newsletter/unsubscribe${query}`);
+  const unsubPost = (query: string): Request =>
+    new Request(`https://worker.example/newsletter/unsubscribe${query}`, {
+      method: 'POST',
+      headers: { 'Origin': 'https://jeromefaria.com' },
+    });
 
-  it('tombstones the subscriber and redirects on a GET link click', async () => {
+  it('bounces a GET to the site page without mutating', async () => {
     const { binding, rows } = createMockDb(seed());
 
-    const response = await worker.fetch(unsubscribeRequest('?token=ut'), baseEnv(binding));
+    const response = await worker.fetch(unsubGet('?token=ut'), baseEnv(binding));
 
     expect(response.status).toBe(302);
-    expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?unsubscribed=1');
+    expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?unsubscribe=ut');
+    expect(rows[0]?.status).toBe('active');
+  });
+
+  it('tombstones the subscriber on POST and echoes CORS', async () => {
+    const { binding, rows } = createMockDb(seed());
+
+    const response = await worker.fetch(unsubPost('?token=ut'), baseEnv(binding));
+
+    expect(response.status).toBe(200);
+    expect(await response.json()).toEqual({ ok: true });
+    expect(response.headers.get('Access-Control-Allow-Origin')).toBe('https://jeromefaria.com');
     expect(rows[0]?.status).toBe('unsubscribed');
     expect(rows[0]?.unsubscribed_at).toBeTruthy();
   });
 
-  it('answers a one-click POST with 200 and no redirect', async () => {
-    const { binding, rows } = createMockDb(seed());
-
-    const response = await worker.fetch(unsubscribeRequest('?token=ut', 'POST'), baseEnv(binding));
-
-    expect(response.status).toBe(200);
-    expect(await response.text()).toBe('Unsubscribed');
-    expect(rows[0]?.status).toBe('unsubscribed');
-  });
-
-  it('is idempotent for an already-unsubscribed token', async () => {
+  it('is idempotent for an already-unsubscribed token on POST', async () => {
     const { binding, rows } = createMockDb([
       { email: 'reader@example.com', status: 'unsubscribed', confirm_token: null, unsubscribe_token: 'ut', created_at: 't', unsubscribed_at: 'earlier' },
     ]);
 
-    const response = await worker.fetch(unsubscribeRequest('?token=ut'), baseEnv(binding));
+    const response = await worker.fetch(unsubPost('?token=ut'), baseEnv(binding));
 
-    expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?unsubscribed=1');
+    expect(await response.json()).toEqual({ ok: true });
     expect(rows[0]?.unsubscribed_at).toBe('earlier');
   });
 
-  it('redirects with unsubscribed=0 for a missing token on GET', async () => {
+  it('returns ok:false on POST for a missing token', async () => {
     const { binding } = createMockDb(seed());
-    const response = await worker.fetch(unsubscribeRequest(''), baseEnv(binding));
-    expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?unsubscribed=0');
+    const response = await worker.fetch(unsubPost(''), baseEnv(binding));
+    expect(await response.json()).toEqual({ ok: false });
   });
 
-  it('returns 400 for a missing token on a one-click POST', async () => {
+  it('returns ok:false on POST for an unknown token', async () => {
     const { binding } = createMockDb(seed());
-    const response = await worker.fetch(unsubscribeRequest('', 'POST'), baseEnv(binding));
-    expect(response.status).toBe(400);
-    expect(await response.text()).toBe('Invalid unsubscribe link');
-  });
-
-  it('returns 400 for an unknown token on a one-click POST', async () => {
-    const { binding } = createMockDb(seed());
-    const response = await worker.fetch(unsubscribeRequest('?token=nope', 'POST'), baseEnv(binding));
-    expect(response.status).toBe(400);
+    const response = await worker.fetch(unsubPost('?token=nope'), baseEnv(binding));
+    expect(await response.json()).toEqual({ ok: false });
   });
 });
