@@ -3,7 +3,7 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { loadSrc, root } from './data-loader.mjs';
+import { loadSrc, root } from '../lib/data-loader.mjs';
 
 const { epkManifest } = await loadSrc('data/epk.ts');
 

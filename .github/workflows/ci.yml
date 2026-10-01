@@ -47,7 +47,7 @@ jobs:
         run: npm run test:coverage
 
       - name: Check coverage thresholds
-        run: node scripts/check-coverage.js
+        run: node scripts/checks/check-coverage.js
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7

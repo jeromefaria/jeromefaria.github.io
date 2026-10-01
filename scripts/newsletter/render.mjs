@@ -3,7 +3,7 @@ import { join } from 'node:path';
 
 import { marked } from 'marked';
 
-import { loadSrc, root } from '../data-loader.mjs';
+import { loadSrc, root } from '../lib/data-loader.mjs';
 
 const { color } = await loadSrc('design/tokens.ts');
 const { releaseById } = await loadSrc('data/works.ts');

@@ -5,7 +5,7 @@ import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const SOURCE_ROOT = join(__dirname, '../src');
+const SOURCE_ROOT = join(__dirname, '../../src');
 const SCANNED_EXTENSIONS = new Set(['.scss', '.vue', '.css']);
 const DEFINITION_PATTERN = /--([a-z0-9-]+)\s*:/g;
 const REFERENCE_PATTERN = /var\(\s*--([a-z0-9-]+)/g;

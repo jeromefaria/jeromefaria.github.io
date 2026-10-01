@@ -4,7 +4,7 @@ import { basename, join } from 'node:path';
 import { exiftool } from 'exiftool-vendored';
 import sharp from 'sharp';
 
-import { mastersDir, photoDownloadFilename, photos, photosDir } from './epk-context.mjs';
+import { mastersDir, photoDownloadFilename, photos, photosDir } from '../lib/epk-context.mjs';
 
 await rm(photosDir, { recursive: true, force: true });
 await mkdir(photosDir, { recursive: true });

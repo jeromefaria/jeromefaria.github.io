@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 
-vi.mock('../data-loader.mjs', () => ({
+vi.mock('../lib/data-loader.mjs', () => ({
   root: '/fake-root',
   loadSrc: async path => {
     if (path === 'design/tokens.ts') {

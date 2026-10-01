@@ -5,9 +5,9 @@ import { fileURLToPath } from 'node:url';
 import { create } from 'fontkit';
 import subsetFont from 'subset-font';
 
-import { INTER_WEIGHTS } from './inter-weights.mjs';
+import { INTER_WEIGHTS } from '../lib/inter-weights.mjs';
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const root = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const FONT_DIR = join(root, 'node_modules/@fontsource/inter/files');
 const OUT_DIR = join(root, 'public/fonts');
 const WEIGHTS = Object.fromEntries(INTER_WEIGHTS.map(weight => [weight, `inter-latin-${weight}-normal.woff2`]));

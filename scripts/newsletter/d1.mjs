@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';
 
-import { root } from '../data-loader.mjs';
+import { root } from '../lib/data-loader.mjs';
 
 const run = args =>
   execFileSync('npx', ['wrangler', 'd1', 'execute', 'newsletter', '--remote', ...args], {

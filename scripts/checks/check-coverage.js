@@ -9,7 +9,7 @@ import { COVERAGE_THRESHOLDS as THRESHOLDS } from './coverage-thresholds.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const COVERAGE_SUMMARY_PATH = join(__dirname, '../coverage/coverage-summary.json');
+const COVERAGE_SUMMARY_PATH = join(__dirname, '../../coverage/coverage-summary.json');
 
 try {
   const coverageData = JSON.parse(readFileSync(COVERAGE_SUMMARY_PATH, 'utf8'));
