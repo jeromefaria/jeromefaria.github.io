@@ -152,4 +152,58 @@ describe('NewsletterView', () => {
     expect(intro.text()).toContain('invalid');
     expect(wrapper.find('form').exists()).toBe(true);
   });
+
+  const jsonResponse = (ok: boolean, body: unknown = { ok }): Response =>
+    ({ ok, status: ok ? 200 : 500, json: async () => body }) as unknown as Response;
+
+  it('shows the unsubscribe prompt with a button and does not auto-submit', async () => {
+    const wrapper = await mountView(NewsletterView, '/newsletter?unsubscribe=ut');
+
+    expect(fetchSpy).not.toHaveBeenCalled();
+    expect(wrapper.get('.newsletter-unsubscribe').text()).toContain('Leave the list');
+    expect(wrapper.get('.newsletter-unsubscribe__button').text()).toContain('Confirm unsubscribe');
+    expect(wrapper.find('form').exists()).toBe(false);
+  });
+
+  it('auto-confirms a confirm token and shows the subscribed card', async () => {
+    fetchSpy.mockResolvedValue(jsonResponse(true));
+    const wrapper = await mountView(NewsletterView, '/newsletter?confirm=ct');
+    await flushPromises();
+
+    expect(fetchSpy).toHaveBeenCalledWith('https://contact.jeromefaria.workers.dev/newsletter/confirm?token=ct', { method: 'POST' });
+    expect(wrapper.get('.contact-success').text()).toContain("You're subscribed");
+    expect(wrapper.find('form').exists()).toBe(false);
+  });
+
+  it('falls back to the signup form with an error when an auto-confirm fails', async () => {
+    fetchSpy.mockResolvedValue(jsonResponse(false));
+    const wrapper = await mountView(NewsletterView, '/newsletter?confirm=ct');
+    await flushPromises();
+
+    const intro = wrapper.get('.newsletter__intro');
+    expect(intro.classes()).toContain('newsletter__intro--error');
+    expect(intro.text()).toContain('invalid');
+    expect(wrapper.find('form').exists()).toBe(true);
+  });
+
+  it('unsubscribes on button click and shows the terminal card', async () => {
+    fetchSpy.mockResolvedValue(jsonResponse(true));
+    const wrapper = await mountView(NewsletterView, '/newsletter?unsubscribe=ut');
+
+    await wrapper.get('.newsletter-unsubscribe__button').trigger('click');
+    await flushPromises();
+
+    expect(fetchSpy).toHaveBeenCalledWith('https://contact.jeromefaria.workers.dev/newsletter/unsubscribe?token=ut', { method: 'POST' });
+    expect(wrapper.get('.contact-success').text()).toContain('unsubscribed');
+  });
+
+  it('shows a terminal card when an unsubscribe is rejected', async () => {
+    fetchSpy.mockResolvedValue(jsonResponse(false));
+    const wrapper = await mountView(NewsletterView, '/newsletter?unsubscribe=ut');
+
+    await wrapper.get('.newsletter-unsubscribe__button').trigger('click');
+    await flushPromises();
+
+    expect(wrapper.get('.contact-success').text()).toContain('invalid');
+  });
 });

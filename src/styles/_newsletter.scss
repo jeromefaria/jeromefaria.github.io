@@ -12,6 +12,45 @@
   }
 }
 
+.newsletter-confirming p {
+  margin: 0;
+  text-wrap: balance;
+}
+
+.newsletter-unsubscribe {
+  &__button {
+    min-height: $touch-target-min;
+    padding: $spacing-3 $spacing-8;
+    margin-top: $spacing-6;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: var(--color-text);
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid var(--color-text);
+    transition: background-color $transition-base, opacity $transition-base;
+
+    &:hover:not(:disabled) {
+      background-color: var(--color-border-subtle);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: $opacity-50;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition-duration: 0.01ms;
+    }
+  }
+}
+
 .newsletter__transparency {
   max-width: $max-width;
   margin: 0 auto $spacing-8;

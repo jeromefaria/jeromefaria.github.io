@@ -178,6 +178,13 @@ export const pt: MessageSchema = {
       unsubscribed: { title: 'A sua subscrição foi cancelada.', text: 'Não serão enviados mais emails.' },
       unsubscribeInvalid: 'A ligação de cancelamento é inválida ou já foi utilizada.',
     },
+    confirming: 'A confirmar a sua subscrição…',
+    unsubscribe: {
+      title: 'Quer deixar a lista?',
+      text: 'Deixa de receber a newsletter. Pode voltar a subscrever quando quiser.',
+      button: 'Confirmar cancelamento',
+      pending: 'A cancelar…',
+    },
   },
   palette: {
     ariaLabel: 'Paleta de comandos',

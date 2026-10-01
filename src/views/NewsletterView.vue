@@ -4,6 +4,7 @@ import { RouterLink, useRoute } from 'vue-router';
 
 import FormField from '@/components/FormField.vue';
 import StaticPage from '@/components/StaticPage.vue';
+import { type NewsletterActionMode, useNewsletterAction } from '@/composables/useNewsletterAction';
 import { useNewsletterForm } from '@/composables/useNewsletterForm';
 import { useProseClick } from '@/composables/useProseClick';
 import { useTurnstile } from '@/composables/useTurnstile';
@@ -23,6 +24,33 @@ const head = { ...pageMeta.newsletter, image: '/og-newsletter.png', imageDimensi
 const onProseClick = useProseClick();
 const transparency = computed(() => externalizeLinks(localizeInternalLinks(t('newsletter.transparency'), current.value)));
 
+const queryToken = (key: string): string => (typeof route.query[key] === 'string' ? (route.query[key] as string) : '');
+const confirmToken = queryToken('confirm');
+const unsubscribeToken = queryToken('unsubscribe');
+const actionMode: NewsletterActionMode | null = confirmToken ? 'confirm' : unsubscribeToken ? 'unsubscribe' : null;
+
+const action = actionMode
+  ? useNewsletterAction(
+    actionMode,
+    actionMode === 'confirm' ? confirmToken : unsubscribeToken,
+    actionMode === 'confirm' ? newsletterContent.confirm : newsletterContent.unsubscribe,
+  )
+  : null;
+
+const actionResult = computed<{ title: string; text: string } | null>(() => {
+  if (action?.state.value !== 'done') return null;
+  if (actionMode === 'confirm') return { title: t('newsletter.status.confirmed.title'), text: t('newsletter.status.confirmed.text') };
+  return { title: t('newsletter.status.unsubscribed.title'), text: t('newsletter.status.unsubscribed.text') };
+});
+
+const actionError = computed<string | null>(() => {
+  if (action?.state.value !== 'invalid') return null;
+  return actionMode === 'confirm' ? t('newsletter.status.confirmInvalid') : t('newsletter.status.unsubscribeInvalid');
+});
+
+const actionInvalid = computed(() => action?.state.value === 'invalid');
+const showActionCard = computed(() => Boolean(actionMode && action) && !(actionInvalid.value && actionMode === 'confirm'));
+
 const turnstileContainer = ref<HTMLElement | null>(null);
 const { execute } = useTurnstile(newsletterContent.turnstileSiteKey, turnstileContainer);
 
@@ -37,6 +65,7 @@ const terminalMessage = computed<{ title: string; text: string } | null>(() => {
 });
 
 const blurbError = computed<string | null>(() => {
+  if (actionMode === 'confirm' && actionInvalid.value) return t('newsletter.status.confirmInvalid');
   if (route.query['confirmed'] === '0') return t('newsletter.status.confirmInvalid');
   if (route.query['unsubscribed'] === '0') return t('newsletter.status.unsubscribeInvalid');
   return null;
@@ -56,14 +85,59 @@ const onSubmit = async (event: Event): Promise<void> => {
     :head="head"
     data-page="newsletter"
   >
-    <div
-      v-if="terminalMessage"
-      class="contact-success"
-      role="alert"
-    >
-      <h2>{{ terminalMessage.title }}</h2>
-      <p>{{ terminalMessage.text }}</p>
-    </div>
+    <template v-if="showActionCard && action">
+      <div
+        v-if="actionResult"
+        class="contact-success"
+        role="alert"
+      >
+        <h2>{{ actionResult.title }}</h2>
+        <p>{{ actionResult.text }}</p>
+      </div>
+
+      <div
+        v-else-if="actionError"
+        class="contact-success newsletter-confirming"
+        role="alert"
+      >
+        <p>{{ actionError }}</p>
+      </div>
+
+      <div
+        v-else-if="actionMode === 'confirm'"
+        class="contact-success newsletter-confirming"
+        role="status"
+      >
+        <p>{{ t('newsletter.confirming') }}</p>
+      </div>
+
+      <div
+        v-else
+        class="contact-success newsletter-unsubscribe"
+        role="status"
+      >
+        <h2>{{ t('newsletter.unsubscribe.title') }}</h2>
+        <p>{{ t('newsletter.unsubscribe.text') }}</p>
+        <button
+          type="button"
+          class="newsletter-unsubscribe__button"
+          :disabled="action.state.value === 'pending'"
+          @click="action.submit()"
+        >
+          {{ action.state.value === 'pending' ? t('newsletter.unsubscribe.pending') : t('newsletter.unsubscribe.button') }}
+        </button>
+      </div>
+    </template>
+
+    <template v-else-if="terminalMessage">
+      <div
+        class="contact-success"
+        role="alert"
+      >
+        <h2>{{ terminalMessage.title }}</h2>
+        <p>{{ terminalMessage.text }}</p>
+      </div>
+    </template>
 
     <template v-else>
       <p

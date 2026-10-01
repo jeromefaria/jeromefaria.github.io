@@ -176,6 +176,13 @@ export const en = {
       unsubscribed: { title: 'You\'ve been unsubscribed.', text: 'No more emails will be sent.' },
       unsubscribeInvalid: 'That unsubscribe link is invalid or has already been used.',
     },
+    confirming: 'Confirming your subscription…',
+    unsubscribe: {
+      title: 'Leave the list?',
+      text: 'You\'ll stop receiving the newsletter. You can resubscribe any time.',
+      button: 'Confirm unsubscribe',
+      pending: 'Unsubscribing…',
+    },
   },
   palette: {
     ariaLabel: 'Command palette',

@@ -18,6 +18,7 @@ const BASE_BACKOFF_MS = 500;
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 export const escapeSql = value => String(value).replace(/'/g, "''");
 const unsubscribeUrl = token => `${WORKER}/newsletter/unsubscribe?token=${token}`;
+const unsubscribePageUrl = token => `${ORIGIN}/newsletter?unsubscribe=${token}`;
 
 const readEnv = key => {
   if (process.env[key]) return process.env[key];
@@ -99,7 +100,7 @@ const buildMessages = (issue, recipients) =>
       origin: ORIGIN,
       embedImages: false,
       viewUrl: `${ORIGIN}/newsletter/${issue.id}`,
-      unsubscribeUrl: unsubscribeUrl(recipient.unsubscribe_token),
+      unsubscribeUrl: unsubscribePageUrl(recipient.unsubscribe_token),
     });
 
     return {

@@ -25,7 +25,7 @@ export default {
         return jsonResponse({ error: 'Too many requests' }, 429, cors);
       }
 
-      return path === '/newsletter/confirm' ? handleConfirm(request, env) : handleUnsubscribe(request, env);
+      return path === '/newsletter/confirm' ? handleConfirm(request, env, cors) : handleUnsubscribe(request, env, cors);
     }
 
     switch (path) {
