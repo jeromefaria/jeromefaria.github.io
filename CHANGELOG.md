@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **newsletter:** Confirm/unsubscribe via site pages (POST-only worker) ([#511](https://github.com/jeromefaria/jeromefaria.github.io/pull/511))
 - **newsletter:** Remove + export commands, --json output, shared d1 helper ([#490](https://github.com/jeromefaria/jeromefaria.github.io/pull/490))
 - **newsletter:** Add subscriber add + list CLI tools ([#487](https://github.com/jeromefaria/jeromefaria.github.io/pull/487))
 - **newsletter:** Add local subscriber-count script ([#485](https://github.com/jeromefaria/jeromefaria.github.io/pull/485))
