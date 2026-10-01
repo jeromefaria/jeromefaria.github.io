@@ -3,7 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { loadSrc, root } from '../data-loader.mjs';
+import { loadSrc, root } from '../lib/data-loader.mjs';
 import { renderIssueEmail } from './render.mjs';
 
 const ORIGIN = 'https://jeromefaria.com';

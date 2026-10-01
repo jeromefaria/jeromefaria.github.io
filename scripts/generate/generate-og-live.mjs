@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { loadSrc, root } from './data-loader.mjs';
-import { interFontFaces } from './pdf-fonts.mjs';
-import { CARD_HEIGHT, CARD_WIDTH, renderCard, withBrowser } from './playwright-render.mjs';
+import { loadSrc, root } from '../lib/data-loader.mjs';
+import { interFontFaces } from '../lib/pdf-fonts.mjs';
+import { CARD_HEIGHT, CARD_WIDTH, renderCard, withBrowser } from '../lib/playwright-render.mjs';
 
 const LOCALES = ['en', 'pt'];
 const EYEBROW = { en: 'Live', pt: 'Ao vivo' };

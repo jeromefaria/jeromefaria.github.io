@@ -3,7 +3,7 @@ import { basename, join } from 'node:path';
 
 import sharp from 'sharp';
 
-import { loadData, root } from './data-loader.mjs';
+import { loadData, root } from '../lib/data-loader.mjs';
 
 const PUBLIC = join(root, 'public');
 const OUT = join(PUBLIC, 'images/responsive');

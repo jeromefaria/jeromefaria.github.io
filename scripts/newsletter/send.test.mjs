@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-vi.mock('../data-loader.mjs', () => ({ root: '/fake-root', loadSrc: async () => ({}) }));
+vi.mock('../lib/data-loader.mjs', () => ({ root: '/fake-root', loadSrc: async () => ({}) }));
 vi.mock('./render.mjs', () => ({ renderIssueEmail: () => ({ html: '' }) }));
 
 import { chunk, escapeSql, recipientsToSend, sendBatchWithRetry } from './send.mjs';

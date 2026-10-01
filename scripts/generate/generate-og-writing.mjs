@@ -1,8 +1,8 @@
 import { join } from 'node:path';
 
-import { loadSrc, root } from './data-loader.mjs';
-import { textCardHtml } from './og-card.mjs';
-import { renderCard, withBrowser } from './playwright-render.mjs';
+import { loadSrc, root } from '../lib/data-loader.mjs';
+import { textCardHtml } from '../lib/og-card.mjs';
+import { renderCard, withBrowser } from '../lib/playwright-render.mjs';
 
 const { essays } = await loadSrc('data/writing.ts');
 

@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 import { AwsClient } from 'aws4fetch';
 
-const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const AUDIO_DIST = join(REPO_ROOT, 'audio-dist');
 const CACHE_CONTROL = 'public, max-age=31536000, immutable';
 
@@ -12,7 +12,7 @@ const { R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET } = pro
 const missing = Object.entries({ R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET })
   .filter(([, value]) => !value).map(([key]) => key);
 if (missing.length) {
-  console.error(`Missing env: ${missing.join(', ')}. Add them to .env and run: node --env-file=.env scripts/upload-audio.mjs [CATALOG...] [--force]`);
+  console.error(`Missing env: ${missing.join(', ')}. Add them to .env and run: node --env-file=.env scripts/audio/upload-audio.mjs [CATALOG...] [--force]`);
   process.exit(1);
 }
 

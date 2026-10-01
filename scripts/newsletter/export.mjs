@@ -2,7 +2,7 @@ import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { root } from '../data-loader.mjs';
+import { root } from '../lib/data-loader.mjs';
 import { d1Query, exitOnD1Error } from './d1.mjs';
 
 const COLUMNS = ['email', 'status', 'created_at', 'confirmed_at', 'unsubscribed_at'];

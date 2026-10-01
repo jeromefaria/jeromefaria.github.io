@@ -3,9 +3,9 @@ import { writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 
-import { contentFor, epkKitFile, localePath, locales, localeSuffix, localize, outDir, pdfChrome, photoDownloadFilename, photosDir, root, siteConfig, siteUrl } from './epk-context.mjs';
-import { baseStyles } from './pdf-styles.mjs';
-import { renderPdf, withBrowser } from './playwright-render.mjs';
+import { contentFor, epkKitFile, localePath, locales, localeSuffix, localize, outDir, pdfChrome, photoDownloadFilename, photosDir, root, siteConfig, siteUrl } from '../lib/epk-context.mjs';
+import { baseStyles } from '../lib/pdf-styles.mjs';
+import { renderPdf, withBrowser } from '../lib/playwright-render.mjs';
 
 const archiver = createRequire(import.meta.url)('archiver');
 

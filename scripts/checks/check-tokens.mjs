@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 
-import { loadSrc } from './data-loader.mjs';
+import { loadSrc } from '../lib/data-loader.mjs';
 
 const { color } = await loadSrc('design/tokens.ts');
 const scss = readFileSync('src/styles/_base.scss', 'utf8');

@@ -1,8 +1,8 @@
 import { join } from 'node:path';
 
-import { epkRiderFile, locales, localize, outDir, pdfChrome, root, siteConfig, techRider } from './epk-context.mjs';
-import { baseStyles } from './pdf-styles.mjs';
-import { renderPdf, withBrowser } from './playwright-render.mjs';
+import { epkRiderFile, locales, localize, outDir, pdfChrome, root, siteConfig, techRider } from '../lib/epk-context.mjs';
+import { baseStyles } from '../lib/pdf-styles.mjs';
+import { renderPdf, withBrowser } from '../lib/playwright-render.mjs';
 
 const styles = await baseStyles(root);
 

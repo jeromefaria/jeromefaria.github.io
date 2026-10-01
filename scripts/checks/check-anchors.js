@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { loadSrc } from './data-loader.mjs';
+import { loadSrc } from '../lib/data-loader.mjs';
 
 const [{ worksData, worksSections }, { sortedLiveData, liveYears }, { pressQuotes }, { aboutSections }] =
   await Promise.all([

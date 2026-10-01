@@ -3,9 +3,9 @@ import { join } from 'node:path';
 
 import { marked } from 'marked';
 
-import { root } from './data-loader.mjs';
-import { baseStyles } from './pdf-styles.mjs';
-import { renderPdf, withBrowser } from './playwright-render.mjs';
+import { root } from '../lib/data-loader.mjs';
+import { baseStyles } from '../lib/pdf-styles.mjs';
+import { renderPdf, withBrowser } from '../lib/playwright-render.mjs';
 
 marked.setOptions({ gfm: true, breaks: true });
 
