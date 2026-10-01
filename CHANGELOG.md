@@ -129,6 +129,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Content
 
+- **writing:** Note the self-owned mailing list in Orchestration ([#507](https://github.com/jeromefaria/jeromefaria.github.io/pull/507))
 - Link 8 researched entities across the registry ([#414](https://github.com/jeromefaria/jeromefaria.github.io/pull/414))
 - **press:** Add two NNY-era reviews recovered from the archive ([#375](https://github.com/jeromefaria/jeromefaria.github.io/pull/375))
 - **writing:** Restore the in-body links lost on Patreon import ([#374](https://github.com/jeromefaria/jeromefaria.github.io/pull/374))
