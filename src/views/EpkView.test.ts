@@ -27,7 +27,7 @@ describe('EpkView', () => {
     const wrapper = await mountView(EpkView);
     const headings = wrapper.findAll('.epk__heading').map(heading => heading.text());
 
-    expect(headings).toEqual(['Short bio', 'Biography', 'Selected press', 'Selected performances', 'Selected works', 'Shared stages with', 'Photography', 'Download']);
+    expect(headings).toEqual(['Download', 'Short bio', 'Biography', 'Selected press', 'Selected performances', 'Selected works', 'Shared stages with', 'Photography']);
   });
 
   it('renders a linked roster entry for each shared-stage act', async () => {
