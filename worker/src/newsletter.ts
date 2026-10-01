@@ -130,11 +130,12 @@ export const handleConfirm = async (request: Request, env: Env): Promise<Respons
 
   if (!row) return done(0);
 
-  if (row.status !== 'active') {
-    await env.DB.prepare("UPDATE subscribers SET status = 'active', confirmed_at = ?2 WHERE confirm_token = ?1")
-      .bind(token, new Date().toISOString())
-      .run();
-  }
+  if (row.status === 'active') return done(1);
+  if (row.status !== 'pending') return done(0);
+
+  await env.DB.prepare("UPDATE subscribers SET status = 'active', confirmed_at = ?2, confirm_token = NULL WHERE confirm_token = ?1")
+    .bind(token, new Date().toISOString())
+    .run();
 
   return done(1);
 };
