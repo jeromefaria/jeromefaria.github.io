@@ -3,7 +3,7 @@ import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { loadSrc, root, srcDir } from './data-loader.mjs';
+import { loadData, loadSrc, root, srcDir } from './data-loader.mjs';
 
 describe('data-loader', () => {
   it('resolves root to the repo root', () => {
@@ -16,13 +16,14 @@ describe('data-loader', () => {
     expect(existsSync(srcDir)).toBe(true);
   });
 
-  it('loadSrc transpiles and imports a real TS module from src', async () => {
-    const mod = await loadSrc('data/navigation.ts');
-    expect(mod.siteConfig.author.name).toBe('Jerome Faria');
+  it('loadSrc transpiles a TS module and resolves its @ alias import', async () => {
+    const mod = await loadSrc('test-support/dataLoaderFixture.ts');
+    expect(mod.fixtureValue).toBe(42);
+    expect(mod.aliasResolved).toBe('resolved-via-alias');
   });
 
-  it('loadSrc resolves the @ alias inside loaded modules', async () => {
-    const mod = await loadSrc('utils/newsletterCredit.ts');
-    expect(typeof mod.releasePhotoCredit).toBe('function');
+  it('loadData imports relative to the repo root', async () => {
+    const mod = await loadData('src/test-support/dataLoaderFixture.ts');
+    expect(mod.fixtureValue).toBe(42);
   });
 });
