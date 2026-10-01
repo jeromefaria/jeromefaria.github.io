@@ -17,9 +17,12 @@ interface SubscribePayload {
 
 interface SubscriberRow {
   status: string;
+  created_at?: string;
 }
 
 const MAX_EMAIL_LENGTH = 254;
+
+const CONFIRMATION_RESEND_COOLDOWN_MS = 10 * 60 * 1000;
 
 const randomToken = (): string => {
   const bytes = new Uint8Array(32);
@@ -28,6 +31,12 @@ const randomToken = (): string => {
 };
 
 const normalizeEmail = (email: string): string => email.trim().toLowerCase();
+
+const withinResendCooldown = (createdAt?: string): boolean => {
+  if (!createdAt) return false;
+
+  return Date.now() - new Date(createdAt).getTime() < CONFIRMATION_RESEND_COOLDOWN_MS;
+};
 
 const subscribeValidationError = (payload: SubscribePayload): string | null => {
   if (typeof payload.token !== 'string' || payload.token.trim() === '') return 'Missing required field: token';
@@ -83,13 +92,19 @@ export const handleSubscribe = async (
     }
 
     const email = normalizeEmail(payload.email);
-    const existing = await env.DB.prepare('SELECT status FROM subscribers WHERE email = ?1')
+    const existing = await env.DB.prepare('SELECT status, created_at FROM subscribers WHERE email = ?1')
       .bind(email)
       .first<SubscriberRow>();
 
     // eslint-disable-next-line local/no-comments -- security: address-enumeration guard
     // Already-active addresses get the same neutral response and no second email, so the endpoint never reveals who is subscribed.
     if (existing?.status === 'active') {
+      return jsonResponse({ ok: true }, 200, cors);
+    }
+
+    // eslint-disable-next-line local/no-comments -- security: confirmation-resend cooldown
+    // A pending address that was emailed within the cooldown gets the same neutral response without a fresh email or a rotated token, so the endpoint can't be used to bomb an inbox or grief an in-flight signup.
+    if (existing?.status === 'pending' && withinResendCooldown(existing.created_at)) {
       return jsonResponse({ ok: true }, 200, cors);
     }
 

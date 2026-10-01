@@ -1,6 +1,6 @@
 import { type ContactPayload, handleContact, validationError } from './contact';
 import { handleConfirm, handleSubscribe, handleUnsubscribe } from './newsletter';
-import { corsHeaders, type Env, jsonResponse, toHostname } from './shared';
+import { corsHeaders, type Env, isRateLimited, jsonResponse, toHostname } from './shared';
 
 export type { ContactPayload, Env };
 export { validationError };
@@ -18,16 +18,22 @@ export default {
       return new Response(null, { status: 204, headers: cors });
     }
 
-    switch (normalizePath(request.url)) {
+    const path = normalizePath(request.url);
+
+    if (path === '/newsletter/confirm' || path === '/newsletter/unsubscribe') {
+      if (await isRateLimited(env, request.headers.get('CF-Connecting-IP'))) {
+        return jsonResponse({ error: 'Too many requests' }, 429, cors);
+      }
+
+      return path === '/newsletter/confirm' ? handleConfirm(request, env) : handleUnsubscribe(request, env);
+    }
+
+    switch (path) {
       case '/':
       case '/contact':
         return handleContact(request, env, cors, allowedHosts, allowedOrigins);
       case '/newsletter/subscribe':
         return handleSubscribe(request, env, cors, allowedHosts, allowedOrigins);
-      case '/newsletter/confirm':
-        return handleConfirm(request, env);
-      case '/newsletter/unsubscribe':
-        return handleUnsubscribe(request, env);
       default:
         return jsonResponse({ error: 'Not found' }, 404, cors);
     }

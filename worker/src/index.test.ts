@@ -31,7 +31,7 @@ const postRequest = (body: unknown, origin = 'https://jeromefaria.com'): Request
   });
 
 const turnstileResult = (success: boolean): Response =>
-  ({ ok: true, json: async () => ({ success }) }) as unknown as Response;
+  ({ ok: true, json: async () => ({ success, hostname: 'jeromefaria.com' }) }) as unknown as Response;
 
 const resendResult = (ok: boolean): Response => ({ ok, text: async () => 'error body' }) as unknown as Response;
 
@@ -181,6 +181,17 @@ describe('contact worker', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
+  it('rejects a Turnstile token whose verification omits the hostname', async () => {
+    fetchMock.mockResolvedValueOnce(
+      { ok: true, json: async () => ({ success: true }) } as unknown as Response,
+    );
+
+    const response = await worker.fetch(postRequest(VALID_BODY), ENV);
+
+    expect(response.status).toBe(403);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   it('ignores a malformed entry in ALLOWED_ORIGINS', async () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
 
@@ -313,7 +324,7 @@ describe('contact worker', () => {
 describe('routing', () => {
   beforeEach(() => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-      { ok: true, json: async () => ({ success: true }) } as unknown as Response,
+      { ok: true, json: async () => ({ success: true, hostname: 'jeromefaria.com' }) } as unknown as Response,
     );
   });
 
