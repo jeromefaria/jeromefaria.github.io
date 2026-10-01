@@ -34,6 +34,28 @@ const epkPhotos = computed(() => epk.value.photos.map(photo => {
     :head="head"
     data-page="epk"
   >
+    <EpkSection :title="t('epk.download')">
+      <p class="media-links">
+        <a
+          class="link-discrete"
+          :href="epkZipHref(current)"
+          download
+        >{{ t('epk.fullKit') }}</a>
+        <span> | </span>
+        <a
+          class="link-discrete"
+          :href="epkPdfHref(current)"
+          download
+        >{{ t('epk.oneSheet') }}</a>
+        <span> | </span>
+        <a
+          class="link-discrete"
+          :href="epkRiderHref(current)"
+          download
+        >{{ t('epk.rider') }}</a>
+      </p>
+    </EpkSection>
+
     <EpkSection :title="t('epk.shortBio')">
       <div
         class="prose"
@@ -127,28 +149,6 @@ const epkPhotos = computed(() => epk.value.photos.map(photo => {
           </figcaption>
         </figure>
       </div>
-    </EpkSection>
-
-    <EpkSection :title="t('epk.download')">
-      <p class="media-links">
-        <a
-          class="link-discrete"
-          :href="epkZipHref(current)"
-          download
-        >{{ t('epk.fullKit') }}</a>
-        <span> | </span>
-        <a
-          class="link-discrete"
-          :href="epkPdfHref(current)"
-          download
-        >{{ t('epk.oneSheet') }}</a>
-        <span> | </span>
-        <a
-          class="link-discrete"
-          :href="epkRiderHref(current)"
-          download
-        >{{ t('epk.rider') }}</a>
-      </p>
     </EpkSection>
   </StaticPage>
 </template>
