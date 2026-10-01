@@ -12,7 +12,7 @@ already-validated fields, which the Worker re-validates and processes.
 |--------|------|---------|
 | `POST` | `/` · `/contact` | Contact relay (Turnstile → Resend email) |
 | `POST` | `/newsletter/subscribe` | Turnstile-gated signup → stores `pending`, sends a confirmation email |
-| `GET` | `/newsletter/confirm?token=…` | Confirms a pending subscriber, redirects to `/newsletter?confirmed=1` |
+| `GET` | `/newsletter/confirm?token=…` | Confirms a pending subscriber (single-use: the token is spent on confirm), redirects to `/newsletter?confirmed=1`; a used, unknown, or non-pending token redirects to `confirmed=0` |
 | `GET`/`POST` | `/newsletter/unsubscribe?token=…` | One-click (RFC 8058) unsubscribe; tombstones the row |
 
 ### Contact request
@@ -45,8 +45,10 @@ Responses: `200 {ok:true}` on success (and on a tripped honeypot, silently),
 Responses: `200 {ok:true}` on success — and identically for an already-active
 address, so the endpoint never discloses who is subscribed — `400` invalid input,
 `403` failed verification, `502` send failure. Confirmation is required before any
-issue can reach the address (double opt-in). Unsubscribe keeps the row with
-`status='unsubscribed'` (a suppression tombstone), never a hard delete.
+issue can reach the address (double opt-in). A confirmation link only activates a
+`pending` row and is spent on use, so it cannot reactivate an unsubscribed address.
+Unsubscribe keeps the row with `status='unsubscribed'` (a suppression tombstone),
+never a hard delete.
 
 ## Configuration
 
