@@ -153,6 +153,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Fixes
 
+- **newsletter:** Confirm only promotes pending signups and spends the token ([#505](https://github.com/jeromefaria/jeromefaria.github.io/pull/505))
 - **newsletter:** Sanitize author block hrefs in both render paths ([#501](https://github.com/jeromefaria/jeromefaria.github.io/pull/501))
 - **head:** Declare og:image dimensions for custom card images ([#499](https://github.com/jeromefaria/jeromefaria.github.io/pull/499))
 - **newsletter:** Tighten add-tool email validation ([#489](https://github.com/jeromefaria/jeromefaria.github.io/pull/489))
