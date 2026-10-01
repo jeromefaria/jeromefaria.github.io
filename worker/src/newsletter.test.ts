@@ -62,6 +62,7 @@ const createMockDb = (seed: SubscriberRecord[] = []): { binding: Env['DB']; rows
           if (found) {
             found.status = 'active';
             found.confirmed_at = args[1] as string;
+            if (sql.includes('confirm_token = NULL')) found.confirm_token = null;
           }
         } else if (sql.includes("SET status = 'unsubscribed'")) {
           const found = rows.find(row => row.unsubscribe_token === args[0]);
@@ -296,7 +297,7 @@ describe('newsletter — confirm', () => {
   const confirmRequest = (query: string): Request =>
     new Request(`https://worker.example/newsletter/confirm${query}`);
 
-  it('activates a pending subscriber and redirects with confirmed=1', async () => {
+  it('activates a pending subscriber, clears the token, and redirects with confirmed=1', async () => {
     const { binding, rows } = createMockDb([
       { email: 'reader@example.com', status: 'pending', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't' },
     ]);
@@ -307,6 +308,31 @@ describe('newsletter — confirm', () => {
     expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?confirmed=1');
     expect(rows[0]?.status).toBe('active');
     expect(rows[0]?.confirmed_at).toBeTruthy();
+    expect(rows[0]?.confirm_token).toBeNull();
+  });
+
+  it('does not reactivate an unsubscribed subscriber via a stale confirm link', async () => {
+    const { binding, rows } = createMockDb([
+      { email: 'reader@example.com', status: 'unsubscribed', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't', unsubscribed_at: 'earlier' },
+    ]);
+
+    const response = await worker.fetch(confirmRequest('?token=ct'), baseEnv(binding));
+
+    expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?confirmed=0');
+    expect(rows[0]?.status).toBe('unsubscribed');
+    expect(rows[0]?.unsubscribed_at).toBe('earlier');
+  });
+
+  it('spends the token: a second click after confirming no longer succeeds', async () => {
+    const { binding } = createMockDb([
+      { email: 'reader@example.com', status: 'pending', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't' },
+    ]);
+
+    const first = await worker.fetch(confirmRequest('?token=ct'), baseEnv(binding));
+    const second = await worker.fetch(confirmRequest('?token=ct'), baseEnv(binding));
+
+    expect(first.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?confirmed=1');
+    expect(second.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?confirmed=0');
   });
 
   it('is idempotent for an already-active token', async () => {
