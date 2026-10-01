@@ -154,6 +154,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Fixes
 
+- **privacy:** Accurate unsubscribe, send-log disclosure, intro scope ([#508](https://github.com/jeromefaria/jeromefaria.github.io/pull/508))
 - **worker:** Harden newsletter abuse-resistance ([#509](https://github.com/jeromefaria/jeromefaria.github.io/pull/509))
 - **newsletter:** Confirm only promotes pending signups and spends the token ([#505](https://github.com/jeromefaria/jeromefaria.github.io/pull/505))
 - **newsletter:** Sanitize author block hrefs in both render paths ([#501](https://github.com/jeromefaria/jeromefaria.github.io/pull/501))
