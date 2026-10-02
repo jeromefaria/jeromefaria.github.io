@@ -14,7 +14,7 @@ export const siteConfig: SiteConfig = {
   image: '/images/performance.jpg',
   author: {
     name: 'Jerome Faria',
-    email: 'jerome.faria@gmail.com',
+    email: 'info@jeromefaria.com',
     bio: 'Composer & Sound Artist',
   },
 };
