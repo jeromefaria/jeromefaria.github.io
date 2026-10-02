@@ -3,7 +3,7 @@
 **Senior Frontend Engineer**
 
 **Location:** Lisbon   
-**Email:** [jerome.faria@gmail.com](mailto:jerome.faria@gmail.com)   
+**Email:** [info@jeromefaria.com](mailto:info@jeromefaria.com)   
 **LinkedIn:** [linkedin.com/in/jeromefaria](https://www.linkedin.com/in/jeromefaria)   
 **GitHub:** [github.com/jeromefaria](https://www.github.com/jeromefaria)    
 **Website:** [jeromefaria.com](https://www.jeromefaria.com)    
