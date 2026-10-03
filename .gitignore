@@ -90,3 +90,6 @@ newsletter-subscribers-*.csv
 
 # Private newsletter drafts (curated one-off sends, not public archive issues)
 src/data/newsletter/issues/invitation.ts
+
+# Newsletter preview served via dev server — never deploy (private invite)
+public/newsletter-preview-*.html

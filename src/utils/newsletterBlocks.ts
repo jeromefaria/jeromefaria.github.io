@@ -7,7 +7,7 @@ import { isAllowedEmbedUrl } from '@/utils/embedUrl';
 import { formatEventDateRange, formatMonthYear } from '@/utils/formatters';
 import { eventPhotoCredit, type PhotoCredit, releasePhotoCredit } from '@/utils/newsletterCredit';
 import { safeNewsletterUrl } from '@/utils/newsletterUrl';
-import { renderMarkdown } from '@/utils/renderMarkdown';
+import { renderMarkdown, renderMarkdownInline } from '@/utils/renderMarkdown';
 
 export interface MetaField {
   label: string;
@@ -48,6 +48,8 @@ const releaseMeta = (release: NonNullable<ReturnType<typeof releaseById.get>>): 
   ].filter(field => field.value);
 };
 
+const noteHtml = (note?: string | null): string | null => (note ? renderMarkdownInline(note) : null);
+
 const worksFeature = (ref: string, note?: string, hideMeta?: boolean): FeatureBlock | null => {
   const release = releaseById.get(ref);
   if (!release) return null;
@@ -60,7 +62,7 @@ const worksFeature = (ref: string, note?: string, hideMeta?: boolean): FeatureBl
     image: release.coverImage ?? null,
     credit: release.coverImage ? releasePhotoCredit(release.credits) : null,
     meta: hideMeta ? [] : releaseMeta(release),
-    note: note ?? null,
+    note: noteHtml(note),
     cta: 'View',
   };
 };
@@ -87,7 +89,7 @@ const liveFeature = (ref: string, note?: string, hideMeta?: boolean): FeatureBlo
     image: cover?.src ?? poster?.src ?? null,
     credit: eventPhotoCredit(cover, poster),
     meta: hideMeta ? [] : eventMeta(event),
-    note: note ?? null,
+    note: noteHtml(note),
     cta: 'View',
   };
 };
@@ -104,7 +106,7 @@ const writingFeature = (ref: string, note?: string): FeatureBlock | null => {
     image: null,
     credit: null,
     meta: [],
-    note: note ?? essay.tagline ?? null,
+    note: noteHtml(note ?? essay.tagline),
     cta: 'View',
   };
 };

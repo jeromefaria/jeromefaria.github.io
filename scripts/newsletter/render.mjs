@@ -40,8 +40,11 @@ const label = text =>
 const heading = (text, href) =>
   `<a href="${href}" style="font:500 18px/1.3 ${SANS};letter-spacing:0.08em;text-transform:uppercase;color:${L.text};text-decoration:none;">${escapeHtml(text)}</a>`;
 
+const noteInline = text =>
+  marked.parseInline(String(text)).replaceAll('<a ', `<a style="color:${L.text};text-decoration:underline;text-decoration-color:${L.muted};" `);
+
 const paragraph = text =>
-  `<div style="font:400 14px/1.7 ${SANS};color:${L.secondary};padding-top:14px;">${escapeHtml(text)}</div>`;
+  `<div style="font:400 14px/1.7 ${SANS};color:${L.secondary};padding-top:14px;">${noteInline(text)}</div>`;
 
 const image = (webPath, alt, opts) =>
   `<img src="${imageSrc(webPath, opts)}" alt="${escapeHtml(alt)}" width="600" style="display:block;width:100%;max-width:600px;height:auto;border:0;margin:16px 0 4px;">`;

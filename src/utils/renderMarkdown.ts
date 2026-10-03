@@ -6,3 +6,6 @@ marked.setOptions({ gfm: true, breaks: true });
 
 export const renderMarkdown = (markdown: string): string =>
   externalizeLinks(marked.parse(markdown, { async: false }));
+
+export const renderMarkdownInline = (markdown: string): string =>
+  externalizeLinks(marked.parseInline(markdown, { async: false }));
