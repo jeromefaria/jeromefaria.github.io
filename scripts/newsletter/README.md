@@ -148,6 +148,8 @@ canonical page.
 ```
 
 - `note` (optional) is your per-issue framing, shown under the auto-filled meta.
+  It renders **inline Markdown**, so you can link a name or term —
+  e.g. `note: 'a track by [Aires](https://aires.bandcamp.com/)'`.
 - **Works** shows Released · Format · Label · Catalog; **Live** shows Date ·
   Venue · City; **Writing** shows the essay tagline (or your `note`).
 - `hideMeta: true` (works / live) drops the auto meta grid — for a leaner,

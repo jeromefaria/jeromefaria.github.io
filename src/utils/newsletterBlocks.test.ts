@@ -55,6 +55,7 @@ vi.mock('@/utils/embedUrl', () => ({
 
 vi.mock('@/utils/renderMarkdown', () => ({
   renderMarkdown: (markdown: string) => `<p>${markdown}</p>`,
+  renderMarkdownInline: (markdown: string) => markdown,
 }));
 
 const { resolveIssueBlocks } = await import('@/utils/newsletterBlocks');

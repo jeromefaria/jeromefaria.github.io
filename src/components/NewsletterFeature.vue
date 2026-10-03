@@ -51,9 +51,8 @@ defineProps<{ block: FeatureBlock }>();
     <p
       v-if="block.note"
       class="newsletter-issue__note"
-    >
-      {{ block.note }}
-    </p>
+      v-html="block.note"
+    />
 
     <RouterLink
       :to="block.url"
