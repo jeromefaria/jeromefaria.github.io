@@ -225,6 +225,28 @@ npm run newsletter:send -- 2026-05-12 --send     # the real send, to every activ
   than the batch — a loud failure beats a silent drop); everything recorded before
   the abort is skipped on the next run.
 
+### Standalone invite to an external list
+
+For a one-off invite to people who **aren't subscribers yet** (e.g. old contacts
+you'd like to bring onto the list), pass `--recipients <file>` — a CSV with an
+`email` column, or a plain file with one address per line:
+
+```sh
+npm run newsletter:send -- invitation --recipients list.csv          # DRY RUN
+npm run newsletter:send -- invitation --recipients list.csv --test   # ONE email, to you
+npm run newsletter:send -- invitation --recipients list.csv --send   # the real send
+```
+
+- **Standalone chrome.** No "View in browser", no "Unsubscribe", no issue date —
+  recipients aren't on a list, so there's nothing to unsubscribe from and no
+  `List-Unsubscribe` header. The issue copy should carry its own framing and a
+  Subscribe CTA through the double opt-in.
+- **Won't double-contact.** Anyone already an active subscriber is dropped
+  (checked against D1), and the `sends` table still de-dupes on `(issue_id, email)`,
+  so a re-run resumes rather than re-mailing.
+- Addresses are lowercased, de-duplicated, and validated — one invalid address
+  aborts before anything is sent.
+
 ### Requirements for `--test` / `--send`
 
 | What | Where |

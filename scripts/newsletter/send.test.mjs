@@ -3,7 +3,8 @@ import { describe, expect, it, vi } from 'vitest';
 vi.mock('../lib/data-loader.mjs', () => ({ root: '/fake-root', loadSrc: async () => ({}) }));
 vi.mock('./render.mjs', () => ({ renderIssueEmail: () => ({ html: '' }) }));
 
-import { chunk, escapeSql, recipientsToSend, sendBatchWithRetry } from './send.mjs';
+import { escapeSql } from './d1.mjs';
+import { chunk, excludeActiveSubscribers, parseRecipientList, recipientsToSend, sendBatchWithRetry } from './send.mjs';
 
 const response = (status, { retryAfter, body, data } = {}) => ({
   ok: status >= 200 && status < 300,
@@ -50,6 +51,32 @@ describe('escapeSql', () => {
 
   it('leaves a quote-free value unchanged', () => {
     expect(escapeSql('2026-05-12')).toBe('2026-05-12');
+  });
+});
+
+describe('parseRecipientList', () => {
+  it('reads the email column of a CSV, lowercasing and de-duplicating', () => {
+    const csv = 'email,name\nA@X.com,Ada\nb@x.com,Bo\nA@x.com,Dup';
+    expect(parseRecipientList(csv)).toEqual([{ email: 'a@x.com' }, { email: 'b@x.com' }]);
+  });
+
+  it('treats a header-less file as one email per line', () => {
+    expect(parseRecipientList('a@x.com\n b@x.com ')).toEqual([{ email: 'a@x.com' }, { email: 'b@x.com' }]);
+  });
+
+  it('throws when an address is invalid', () => {
+    expect(() => parseRecipientList('email\nnot-an-email')).toThrow(/Invalid email/);
+  });
+
+  it('returns nothing for an empty file', () => {
+    expect(parseRecipientList('\n  \n')).toEqual([]);
+  });
+});
+
+describe('excludeActiveSubscribers', () => {
+  it('drops recipients already active (case-insensitive), keeps the rest', () => {
+    const recipients = [{ email: 'a@x.com' }, { email: 'b@x.com' }];
+    expect(excludeActiveSubscribers(recipients, ['A@X.com'])).toEqual([{ email: 'b@x.com' }]);
   });
 });
 
