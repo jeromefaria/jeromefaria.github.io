@@ -1,9 +1,9 @@
-import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { loadSrc, root } from '../lib/data-loader.mjs';
+import { d1Exec, d1Query, escapeSql, isEmail } from './d1.mjs';
 import { renderIssueEmail } from './render.mjs';
 
 const ORIGIN = 'https://jeromefaria.com';
@@ -16,7 +16,6 @@ const MAX_RETRIES = 4;
 const BASE_BACKOFF_MS = 500;
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-export const escapeSql = value => String(value).replace(/'/g, "''");
 const unsubscribeUrl = token => `${WORKER}/newsletter/unsubscribe?token=${token}`;
 const unsubscribePageUrl = token => `${ORIGIN}/newsletter?unsubscribe=${token}`;
 
@@ -30,22 +29,8 @@ const readEnv = key => {
   return null;
 };
 
-const d1 = command =>
-  execFileSync('npx', ['wrangler', 'd1', 'execute', 'newsletter', '--remote', '--command', command], {
-    cwd: join(root, 'worker'),
-    encoding: 'utf8',
-  });
-
-const d1Query = command =>
-  JSON.parse(
-    execFileSync('npx', ['wrangler', 'd1', 'execute', 'newsletter', '--remote', '--json', '--command', command], {
-      cwd: join(root, 'worker'),
-      encoding: 'utf8',
-    }),
-  )[0].results;
-
 const ensureSendsTable = () =>
-  d1('CREATE TABLE IF NOT EXISTS sends (issue_id TEXT NOT NULL, email TEXT NOT NULL, sent_at TEXT NOT NULL, PRIMARY KEY (issue_id, email))');
+  d1Exec('CREATE TABLE IF NOT EXISTS sends (issue_id TEXT NOT NULL, email TEXT NOT NULL, sent_at TEXT NOT NULL, PRIMARY KEY (issue_id, email))');
 
 const fetchActiveSubscribers = () => d1Query("SELECT email, unsubscribe_token FROM subscribers WHERE status = 'active'");
 
@@ -56,7 +41,7 @@ const recordSent = (issueId, recipients) => {
   const values = recipients
     .map(recipient => `('${escapeSql(issueId)}', '${escapeSql(recipient.email)}', '${now}')`)
     .join(', ');
-  d1(`INSERT OR IGNORE INTO sends (issue_id, email, sent_at) VALUES ${values}`);
+  d1Exec(`INSERT OR IGNORE INTO sends (issue_id, email, sent_at) VALUES ${values}`);
 };
 
 export const chunk = (items, size) =>
@@ -65,6 +50,34 @@ export const chunk = (items, size) =>
 export const recipientsToSend = (active, sentEmails) => {
   const sent = new Set(sentEmails);
   return active.filter(recipient => !sent.has(recipient.email));
+};
+
+export const parseRecipientList = text => {
+  const lines = text.split('\n').map(line => line.trim()).filter(Boolean);
+  if (lines.length === 0) return [];
+
+  const header = lines[0].toLowerCase().split(',').map(column => column.trim());
+  const emailColumn = header.indexOf('email');
+  const hasHeader = emailColumn !== -1;
+  const rows = hasHeader ? lines.slice(1) : lines;
+
+  const emails = [...new Set(
+    rows.map(line => (hasHeader ? (line.split(',')[emailColumn] ?? '') : line).trim().toLowerCase()).filter(Boolean),
+  )];
+
+  const invalid = emails.filter(email => !isEmail(email));
+  if (invalid.length > 0) {
+    throw new Error(`Invalid email${invalid.length === 1 ? '' : 's'} in recipient list: ${invalid.join(', ')}`);
+  }
+
+  return emails.map(email => ({ email }));
+};
+
+const loadRecipientsFromFile = path => parseRecipientList(readFileSync(path, 'utf8'));
+
+export const excludeActiveSubscribers = (recipients, activeEmails) => {
+  const active = new Set(activeEmails.map(email => email.toLowerCase()));
+  return recipients.filter(recipient => !active.has(recipient.email));
 };
 
 export const sendBatchWithRetry = async (batch, { apiKey, fetchImpl = fetch, sleepImpl = sleep, maxRetries = MAX_RETRIES }) => {
@@ -94,8 +107,13 @@ export const sendBatchWithRetry = async (batch, { apiKey, fetchImpl = fetch, sle
   }
 };
 
-const buildMessages = (issue, recipients) =>
-  recipients.map(recipient => {
+const buildMessages = (issue, recipients, { standalone = false } = {}) => {
+  if (standalone) {
+    const { html } = renderIssueEmail(issue, { origin: ORIGIN, embedImages: false, dated: false });
+    return recipients.map(recipient => ({ from: FROM, to: [recipient.email], subject: issue.subject, html }));
+  }
+
+  return recipients.map(recipient => {
     const { html } = renderIssueEmail(issue, {
       origin: ORIGIN,
       embedImages: false,
@@ -114,6 +132,7 @@ const buildMessages = (issue, recipients) =>
       },
     };
   });
+};
 
 const recipientsFor = mode => {
   if (mode === 'test') {
@@ -134,13 +153,57 @@ const recipientsFor = mode => {
   }
 };
 
+const resolveAudience = ({ standalone, mode, recipientsFile }) => {
+  if (!(standalone && mode !== 'test')) return recipientsFor(mode);
+
+  const fromFile = loadRecipientsFromFile(recipientsFile);
+  try {
+    return excludeActiveSubscribers(fromFile, fetchActiveSubscribers().map(subscriber => subscriber.email));
+  } catch (error) {
+    if (mode === 'send') throw error;
+    console.warn('⚠  Could not read D1 to exclude active subscribers — proceeding without that check (dry run).');
+    return fromFile;
+  }
+};
+
+const printSummary = ({ issue, mode, standalone, audience, alreadySent, recipients }) => {
+  console.log(`Issue:      ${issue.id} — "${issue.subject}"`);
+  console.log(`Blocks:     ${issue.blocks.length}`);
+  console.log(`Mode:       ${mode}${standalone ? ' (standalone invite)' : ''}`);
+  if (mode === 'send') {
+    console.log(`${standalone ? 'Recipients:' : 'Active:    '} ${audience.length}`);
+    console.log(`Already sent: ${alreadySent.length}`);
+  }
+  console.log(`To send:    ${recipients.length}`);
+};
+
+const deliver = async ({ issue, recipients, standalone, mode }) => {
+  const apiKey = readEnv('RESEND_API_KEY');
+  if (!apiKey) throw new Error('Set RESEND_API_KEY (env or worker/.dev.vars) to send.');
+
+  const batches = chunk(recipients, BATCH_LIMIT);
+  let sentCount = 0;
+
+  for (const [index, batch] of batches.entries()) {
+    await sendBatchWithRetry(buildMessages(issue, batch, { standalone }), { apiKey });
+    if (mode === 'send') recordSent(issue.id, batch);
+    sentCount += batch.length;
+    if (index < batches.length - 1) await sleep(BATCH_INTERVAL_MS);
+  }
+
+  console.log(`\n✓ Sent ${sentCount} email${sentCount === 1 ? '' : 's'} (${mode}).`);
+};
+
 const run = async () => {
   const args = process.argv.slice(2);
   const id = args.find(argument => !argument.startsWith('--'));
   const mode = args.includes('--send') ? 'send' : args.includes('--test') ? 'test' : 'dry-run';
+  const recipientsFlag = args.indexOf('--recipients');
+  const recipientsFile = recipientsFlag === -1 ? null : args[recipientsFlag + 1];
+  const standalone = Boolean(recipientsFile);
 
   if (!id) {
-    console.error('Usage: node scripts/newsletter/send.mjs <issue-id> [--test | --send]');
+    console.error('Usage: node scripts/newsletter/send.mjs <issue-id> [--recipients <file>] [--test | --send]');
     process.exit(1);
   }
 
@@ -148,26 +211,19 @@ const run = async () => {
 
   if (mode === 'send') ensureSendsTable();
 
-  const audience = recipientsFor(mode);
+  const audience = resolveAudience({ standalone, mode, recipientsFile });
   const alreadySent = mode === 'send' ? fetchSentEmails(issue.id) : [];
   const recipients = mode === 'send' ? recipientsToSend(audience, alreadySent) : audience;
 
-  console.log(`Issue:      ${issue.id} — "${issue.subject}"`);
-  console.log(`Blocks:     ${issue.blocks.length}`);
-  console.log(`Mode:       ${mode}`);
-  if (mode === 'send') {
-    console.log(`Active:     ${audience.length}`);
-    console.log(`Already sent: ${alreadySent.length}`);
-  }
-  console.log(`To send:    ${recipients.length}`);
+  printSummary({ issue, mode, standalone, audience, alreadySent, recipients });
 
   if (recipients.length === 0) {
-    console.log('\nNothing to send — every active subscriber already received this issue.');
+    console.log('\nNothing to send — every recipient already received this issue.');
     return;
   }
 
-  const firstMessage = buildMessages(issue, [recipients[0]])[0];
-  console.log(`List-Unsubscribe: ${firstMessage.headers['List-Unsubscribe']}`);
+  const firstMessage = buildMessages(issue, [recipients[0]], { standalone })[0];
+  if (!standalone) console.log(`List-Unsubscribe: ${firstMessage.headers['List-Unsubscribe']}`);
 
   if (mode === 'dry-run') {
     const out = join(root, `newsletter-send-dryrun-${issue.id}.html`);
@@ -176,20 +232,7 @@ const run = async () => {
     return;
   }
 
-  const apiKey = readEnv('RESEND_API_KEY');
-  if (!apiKey) throw new Error('Set RESEND_API_KEY (env or worker/.dev.vars) to send.');
-
-  const batches = chunk(recipients, BATCH_LIMIT);
-  let sentCount = 0;
-
-  for (const [index, batch] of batches.entries()) {
-    await sendBatchWithRetry(buildMessages(issue, batch), { apiKey });
-    if (mode === 'send') recordSent(issue.id, batch);
-    sentCount += batch.length;
-    if (index < batches.length - 1) await sleep(BATCH_INTERVAL_MS);
-  }
-
-  console.log(`\n✓ Sent ${sentCount} email${sentCount === 1 ? '' : 's'} (${mode}).`);
+  await deliver({ issue, recipients, standalone, mode });
 };
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
