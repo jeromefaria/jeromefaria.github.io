@@ -4,7 +4,7 @@ vi.mock('../lib/data-loader.mjs', () => ({ root: '/fake-root', loadSrc: async ()
 vi.mock('./render.mjs', () => ({ renderIssueEmail: () => ({ html: '' }) }));
 
 import { escapeSql } from './d1.mjs';
-import { chunk, excludeActiveSubscribers, parseRecipientList, recipientsToSend, sendBatchWithRetry } from './send.mjs';
+import { buildMessages, chunk, excludeActiveSubscribers, parseRecipientList, recipientsToSend, resolveAudience, sendBatchWithRetry } from './send.mjs';
 
 const response = (status, { retryAfter, body, data } = {}) => ({
   ok: status >= 200 && status < 300,
@@ -142,5 +142,34 @@ describe('sendBatchWithRetry', () => {
     await expect(sendBatchWithRetry(batchOf(1), options)).rejects.toThrow(/422 bad/);
     expect(fetchImpl).toHaveBeenCalledTimes(1);
     expect(options.sleepImpl).not.toHaveBeenCalled();
+  });
+});
+
+describe('buildMessages', () => {
+  const issue = { id: 'inv', subject: 'Hi', blocks: [] };
+
+  it('standalone drops the List-Unsubscribe header, one message per recipient', () => {
+    const messages = buildMessages(issue, [{ email: 'a@x.com' }, { email: 'b@x.com' }], { standalone: true });
+
+    expect(messages).toHaveLength(2);
+    expect(messages[0]).toMatchObject({ to: ['a@x.com'], subject: 'Hi' });
+    expect(messages[0].headers).toBeUndefined();
+  });
+
+  it('a subscriber send carries a per-recipient List-Unsubscribe + one-click header', () => {
+    const messages = buildMessages(issue, [{ email: 'a@x.com', unsubscribe_token: 'tok' }]);
+
+    expect(messages[0].headers['List-Unsubscribe']).toContain('tok');
+    expect(messages[0].headers['List-Unsubscribe-Post']).toBe('List-Unsubscribe=One-Click');
+  });
+});
+
+describe('resolveAudience', () => {
+  it('test mode sends to NEWSLETTER_TEST_EMAIL, ignoring --recipients', () => {
+    process.env.NEWSLETTER_TEST_EMAIL = 'me@x.com';
+    const audience = resolveAudience({ standalone: true, mode: 'test', recipientsFile: 'list.csv' });
+
+    expect(audience).toEqual([{ email: 'me@x.com', unsubscribe_token: 'test-token' }]);
+    delete process.env.NEWSLETTER_TEST_EMAIL;
   });
 });
