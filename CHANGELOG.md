@@ -47,6 +47,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Build & CI
 
+- **changelog:** Group product lines and forbid TOML comments ([#519](https://github.com/jeromefaria/jeromefaria.github.io/pull/519))
 - **deps:** Bump the npm-security group across 1 directory with 2 updates ([#504](https://github.com/jeromefaria/jeromefaria.github.io/pull/504))
 - **deps:** Bump undici ([#503](https://github.com/jeromefaria/jeromefaria.github.io/pull/503))
 - Enforce developer-only attribution (commits + PR bodies) ([#502](https://github.com/jeromefaria/jeromefaria.github.io/pull/502))
