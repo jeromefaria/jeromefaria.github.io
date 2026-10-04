@@ -1,6 +1,6 @@
 export const COVERAGE_THRESHOLDS = {
   lines: 99,
-  statements: 97,
-  functions: 96,
-  branches: 91,
+  statements: 98,
+  functions: 97,
+  branches: 93,
 };

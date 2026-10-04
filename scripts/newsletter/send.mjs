@@ -107,7 +107,7 @@ export const sendBatchWithRetry = async (batch, { apiKey, fetchImpl = fetch, sle
   }
 };
 
-const buildMessages = (issue, recipients, { standalone = false } = {}) => {
+export const buildMessages = (issue, recipients, { standalone = false } = {}) => {
   if (standalone) {
     const { html } = renderIssueEmail(issue, { origin: ORIGIN, embedImages: false, dated: false });
     return recipients.map(recipient => ({ from: FROM, to: [recipient.email], subject: issue.subject, html }));
@@ -153,7 +153,7 @@ const recipientsFor = mode => {
   }
 };
 
-const resolveAudience = ({ standalone, mode, recipientsFile }) => {
+export const resolveAudience = ({ standalone, mode, recipientsFile }) => {
   if (!(standalone && mode !== 'test')) return recipientsFor(mode);
 
   const fromFile = loadRecipientsFromFile(recipientsFile);
