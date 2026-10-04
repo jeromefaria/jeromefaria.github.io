@@ -376,6 +376,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Tests
 
+- **newsletter:** Cover the send pipeline and ratchet coverage floors ([#518](https://github.com/jeromefaria/jeromefaria.github.io/pull/518))
 - **visual:** Close VR coverage gaps (copyright, cv, writing, 404) ([#478](https://github.com/jeromefaria/jeromefaria.github.io/pull/478))
 - **live:** Cover the ensemble alt branch; require full patch coverage ([#452](https://github.com/jeromefaria/jeromefaria.github.io/pull/452))
 - Extend a11y coverage to dynamic routes and gate e2e type-checking ([#402](https://github.com/jeromefaria/jeromefaria.github.io/pull/402))
