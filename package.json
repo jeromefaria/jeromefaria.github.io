@@ -12,7 +12,7 @@
     "build": "vue-tsc --noEmit && node scripts/checks/check-anchors.js && node scripts/checks/check-epk-photos.mjs && vite-ssg build && node scripts/generate/generate-sitemap.mjs",
     "preview": "vite preview",
     "verify": "npm run type-check && npm run lint && npm run test:coverage && node scripts/checks/check-coverage.js && npm run build",
-    "lint": "eslint . && stylelint \"src/styles/**/*.scss\" && node scripts/checks/check-custom-properties.mjs && node scripts/checks/check-html-comments.mjs && node scripts/checks/check-people.mjs && node scripts/checks/check-tokens.mjs",
+    "lint": "eslint . && stylelint \"src/styles/**/*.scss\" && node scripts/checks/check-custom-properties.mjs && node scripts/checks/check-html-comments.mjs && node scripts/checks/check-toml-comments.mjs && node scripts/checks/check-people.mjs && node scripts/checks/check-tokens.mjs",
     "lint:fix": "eslint . --fix && stylelint \"src/styles/**/*.scss\" --fix",
     "lint:css": "stylelint \"src/styles/**/*.scss\"",
     "lint:css:fix": "stylelint \"src/styles/**/*.scss\" --fix",
