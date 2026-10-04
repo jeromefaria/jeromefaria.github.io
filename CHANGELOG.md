@@ -2,7 +2,7 @@
 
 All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch`).
 
-## Unreleased
+## 2026.10.0 — Newsletter sending, the invite & hardening — 2026-10-04
 
 
 ### Newsletter
