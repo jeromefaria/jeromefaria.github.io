@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Fixes
 
+- **archive:** Restore the oldsite header banner ([#521](https://github.com/jeromefaria/jeromefaria.github.io/pull/521))
 - **archive:** Restore recovered Casa das Mudas photos and tidy thumbnail grids ([#520](https://github.com/jeromefaria/jeromefaria.github.io/pull/520))
 
 ## 2026.10.0 — Newsletter sending, the invite & hardening — 2026-10-04
