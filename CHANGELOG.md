@@ -26,6 +26,13 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - Stop happy-dom fetching preload links so coverage runs don't flake ([#528](https://github.com/jeromefaria/jeromefaria.github.io/pull/528))
 
+### Build & CI
+
+- **deps:** Bump the npm-minor-patch group across 1 directory with 14 updates ([#525](https://github.com/jeromefaria/jeromefaria.github.io/pull/525))
+- **deps:** Bump the npm-security group across 1 directory with 3 updates ([#527](https://github.com/jeromefaria/jeromefaria.github.io/pull/527))
+- **deps-dev:** Bump the worker-minor-patch group ([#524](https://github.com/jeromefaria/jeromefaria.github.io/pull/524))
+- **deps-dev:** Bump source-map-js ([#530](https://github.com/jeromefaria/jeromefaria.github.io/pull/530))
+
 ### Chores
 
 - **data:** Add explicit extensions to config-eval imports and enforce it ([#533](https://github.com/jeromefaria/jeromefaria.github.io/pull/533))
