@@ -424,4 +424,124 @@ describe('usePlayer', () => {
     vi.unstubAllGlobals();
     delete (navigator as unknown as { mediaSession?: unknown }).mediaSession;
   });
+
+  it('reflects the status into the Media Session playback state', async () => {
+    Object.assign(navigator, {
+      mediaSession: { metadata: null, playbackState: 'none', setActionHandler: vi.fn(), setPositionState: vi.fn() },
+    });
+    vi.stubGlobal('MediaMetadata', class {
+      constructor(public init: unknown) {}
+    });
+
+    await mod.play(TRACKS);
+    const media = mod.getMediaElement();
+    const session = (navigator as unknown as { mediaSession: { playbackState: string } }).mediaSession;
+
+    fire(media, 'playing');
+    expect(session.playbackState).toBe('playing');
+
+    fire(media, 'waiting');
+    expect(session.playbackState).toBe('playing');
+
+    fire(media, 'pause');
+    expect(session.playbackState).toBe('paused');
+
+    vi.unstubAllGlobals();
+    delete (navigator as unknown as { mediaSession?: unknown }).mediaSession;
+  });
+
+  it('clears the playback state on stop and ignores stale events from the discarded element', async () => {
+    Object.assign(navigator, {
+      mediaSession: { metadata: {}, playbackState: 'none', setActionHandler: vi.fn(), setPositionState: vi.fn() },
+    });
+    vi.stubGlobal('MediaMetadata', class {
+      constructor(public init: unknown) {}
+    });
+
+    await mod.play(TRACKS);
+    const media = mod.getMediaElement();
+    const session = (navigator as unknown as { mediaSession: { playbackState: string } }).mediaSession;
+    fire(media, 'playing');
+    expect(session.playbackState).toBe('playing');
+
+    mod.stop();
+    expect(session.playbackState).toBe('none');
+
+    fire(media, 'pause');
+    expect(session.playbackState).toBe('none');
+
+    vi.unstubAllGlobals();
+    delete (navigator as unknown as { mediaSession?: unknown }).mediaSession;
+  });
+
+  it('reports position to the Media Session on timeupdate, clamped to the manifest duration', async () => {
+    const setPositionState = vi.fn();
+    Object.assign(navigator, {
+      mediaSession: { metadata: null, playbackState: 'none', setActionHandler: vi.fn(), setPositionState },
+    });
+    vi.stubGlobal('MediaMetadata', class {
+      constructor(public init: unknown) {}
+    });
+
+    await mod.play(TRACKS);
+    const media = mod.getMediaElement();
+    Object.defineProperty(media, 'currentTime', { configurable: true, value: 150 });
+
+    fire(media, 'timeupdate');
+
+    expect(setPositionState).toHaveBeenCalledWith(expect.objectContaining({ duration: 100, position: 100 }));
+
+    vi.unstubAllGlobals();
+    delete (navigator as unknown as { mediaSession?: unknown }).mediaSession;
+  });
+
+  it('skips position reporting until a usable duration is known', async () => {
+    const setPositionState = vi.fn();
+    Object.assign(navigator, {
+      mediaSession: { metadata: null, playbackState: 'none', setActionHandler: vi.fn(), setPositionState },
+    });
+    vi.stubGlobal('MediaMetadata', class {
+      constructor(public init: unknown) {}
+    });
+
+    await mod.play([{ key: 'z/1.m4a', title: 'Zero', duration: 0 }]);
+    fire(mod.getMediaElement(), 'timeupdate');
+
+    expect(setPositionState).not.toHaveBeenCalled();
+
+    vi.unstubAllGlobals();
+    delete (navigator as unknown as { mediaSession?: unknown }).mediaSession;
+  });
+
+  it('skips position reporting when the duration is not a finite number', async () => {
+    const setPositionState = vi.fn();
+    Object.assign(navigator, {
+      mediaSession: { metadata: null, playbackState: 'none', setActionHandler: vi.fn(), setPositionState },
+    });
+    vi.stubGlobal('MediaMetadata', class {
+      constructor(public init: unknown) {}
+    });
+
+    await mod.play([{ key: 'n/1.m4a', title: 'NaN', duration: Number.NaN }]);
+    fire(mod.getMediaElement(), 'timeupdate');
+
+    expect(setPositionState).not.toHaveBeenCalled();
+
+    vi.unstubAllGlobals();
+    delete (navigator as unknown as { mediaSession?: unknown }).mediaSession;
+  });
+
+  it('tolerates a Media Session that lacks setPositionState', async () => {
+    Object.assign(navigator, { mediaSession: { metadata: null, playbackState: 'none', setActionHandler: vi.fn() } });
+    vi.stubGlobal('MediaMetadata', class {
+      constructor(public init: unknown) {}
+    });
+
+    await mod.play(TRACKS);
+
+    expect(() => fire(mod.getMediaElement(), 'timeupdate')).not.toThrow();
+
+    vi.unstubAllGlobals();
+    delete (navigator as unknown as { mediaSession?: unknown }).mediaSession;
+  });
 });
