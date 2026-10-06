@@ -5,6 +5,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 ## Unreleased
 
 
+### Audio player
+
+- **player:** Report playback and position state to the Media Session ([#522](https://github.com/jeromefaria/jeromefaria.github.io/pull/522))
+
 ### Fixes
 
 - **archive:** Restore the oldsite header banner ([#521](https://github.com/jeromefaria/jeromefaria.github.io/pull/521))
