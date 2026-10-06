@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { scanImports } from './check-data-imports.mjs';
+import { isExtensionlessRelative, scanImports } from './check-data-imports.mjs';
 
 describe('scanImports', () => {
   it('flags an @-alias value import', () => {
@@ -43,5 +43,23 @@ describe('scanImports', () => {
 
   it('reports the line number from the statement start', () => {
     expect(scanImports("\n\nimport x from './x';")[0].line).toBe(3);
+  });
+});
+
+describe('isExtensionlessRelative', () => {
+  it('flags a relative import with no file extension', () => {
+    expect(isExtensionlessRelative('./live/early')).toBe(true);
+    expect(isExtensionlessRelative('../utils/x')).toBe(true);
+  });
+
+  it('accepts a relative import with a known extension', () => {
+    for (const specifier of ['./live/early.ts', '../utils/x.js', './data.json', './m.mjs', './c.cjs', './v.tsx']) {
+      expect(isExtensionlessRelative(specifier)).toBe(false);
+    }
+  });
+
+  it('ignores non-relative specifiers (handled by the @-alias and bare-package rules)', () => {
+    expect(isExtensionlessRelative('@/utils/x')).toBe(false);
+    expect(isExtensionlessRelative('vue')).toBe(false);
   });
 });

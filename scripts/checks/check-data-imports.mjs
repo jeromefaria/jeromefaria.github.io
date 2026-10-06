@@ -17,6 +17,11 @@ export const scanImports = content =>
     line: content.slice(0, match.index).split('\n').length,
   }));
 
+const RELATIVE_WITH_EXTENSION = /\.(?:mjs|cjs|jsx?|tsx?|json)$/;
+
+export const isExtensionlessRelative = specifier =>
+  specifier.startsWith('.') && !RELATIVE_WITH_EXTENSION.test(specifier);
+
 const resolveModule = (fromFile, specifier) => {
   const base = resolve(dirname(fromFile), specifier);
   return [base, `${base}.ts`, `${base}/index.ts`].find(candidate => existsSync(candidate)) ?? null;
@@ -38,10 +43,11 @@ export const findViolations = (configPath = CONFIG, root = ROOT) => {
     for (const { isTypeOnly, specifier, line } of scanImports(readFileSync(file, 'utf8'))) {
       if (isTypeOnly) continue;
       if (specifier.startsWith('@/')) {
-        violations.push({ file, line, specifier });
+        violations.push({ file, line, specifier, kind: 'alias' });
         continue;
       }
       if (specifier.startsWith('.')) {
+        if (isExtensionlessRelative(specifier)) violations.push({ file, line, specifier, kind: 'extensionless' });
         const resolved = resolveModule(file, specifier);
         if (resolved) queue.push(resolved);
       }
@@ -57,13 +63,23 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   try {
     const { scanned, violations } = findViolations();
     if (violations.length === 0) {
-      console.log(`✓ Data imports: ${scanned} config-eval module(s) scanned, no @-alias value imports.`);
+      console.log(`✓ Data imports: ${scanned} config-eval module(s) scanned, no @-alias or extensionless value imports.`);
       process.exit(0);
     }
 
-    console.error('✖ @-alias value import reachable from a vite.config data entry:');
-    for (const { file, line, specifier } of violations) console.error(`  ${relative(file)}:${line} → '${specifier}'`);
-    console.error("\nvite.config imports these modules in Node at config-eval time, before Vite's @ alias exists, so an @-alias value import breaks `vite-ssg build`. Use a relative path, or `import type` when it is type-only.");
+    const aliasViolations = violations.filter(violation => violation.kind === 'alias');
+    const extensionlessViolations = violations.filter(violation => violation.kind === 'extensionless');
+
+    if (aliasViolations.length > 0) {
+      console.error('✖ @-alias value import reachable from a vite.config data entry:');
+      for (const { file, line, specifier } of aliasViolations) console.error(`  ${relative(file)}:${line} → '${specifier}'`);
+      console.error("\nvite.config imports these modules in Node at config-eval time, before Vite's @ alias exists, so an @-alias value import breaks `vite-ssg build`. Use a relative path, or `import type` when it is type-only.");
+    }
+    if (extensionlessViolations.length > 0) {
+      console.error('✖ Extensionless relative value import reachable from a vite.config data entry:');
+      for (const { file, line, specifier } of extensionlessViolations) console.error(`  ${relative(file)}:${line} → '${specifier}'`);
+      console.error("\nVite's native config loader warns on (and will reject) extensionless relative imports in config-eval modules. Add the explicit file extension (e.g. './live/early.ts').");
+    }
     process.exit(1);
   } catch (error) {
     console.error(`✖ check-data-imports: ${error.message}`);

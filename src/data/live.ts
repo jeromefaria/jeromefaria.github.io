@@ -1,8 +1,8 @@
 import type { LiveData, LiveEvent, LiveYearSection } from '@/types/live';
 
-import { earlyEvents } from './live/early';
-import { midEvents } from './live/mid';
-import { recentEvents } from './live/recent';
+import { earlyEvents } from './live/early.ts';
+import { midEvents } from './live/mid.ts';
+import { recentEvents } from './live/recent.ts';
 
 export const liveEvents: LiveEvent[] = [...recentEvents, ...midEvents, ...earlyEvents];
 
