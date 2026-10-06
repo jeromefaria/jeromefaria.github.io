@@ -275,11 +275,13 @@ describe('usePlayer', () => {
 
   it('releases the Media Session and detaches the source when stopped', async () => {
     const handlers: Record<string, unknown> = {};
+    const setPositionState = vi.fn();
     Object.assign(navigator, {
       mediaSession: {
         metadata: {},
         playbackState: 'playing',
         setActionHandler: vi.fn((action: string, handler: unknown) => { handlers[action] = handler; }),
+        setPositionState,
       },
     });
     vi.stubGlobal('MediaMetadata', class {
@@ -297,6 +299,7 @@ describe('usePlayer', () => {
     expect(session.metadata).toBeNull();
     expect(session.playbackState).toBe('none');
     expect(handlers.play).toBeNull();
+    expect(setPositionState).toHaveBeenLastCalledWith();
     expect(media.getAttribute('src')).toBeNull();
     expect(mod.getMediaElement()).not.toBe(media);
 
