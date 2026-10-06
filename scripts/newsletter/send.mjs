@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -10,7 +11,7 @@ const ORIGIN = 'https://jeromefaria.com';
 const WORKER = 'https://contact.jeromefaria.workers.dev';
 const FROM = 'Jerome Faria <newsletter@jeromefaria.com>';
 const RESEND_BATCH_URL = 'https://api.resend.com/emails/batch';
-const BATCH_LIMIT = 100;
+export const BATCH_LIMIT = 100;
 const BATCH_INTERVAL_MS = 550;
 const MAX_RETRIES = 4;
 const BASE_BACKOFF_MS = 500;
@@ -52,6 +53,13 @@ export const recipientsToSend = (active, sentEmails) => {
   return active.filter(recipient => !sent.has(recipient.email));
 };
 
+export const byEmail = (a, b) => (a.email < b.email ? -1 : a.email > b.email ? 1 : 0);
+
+export const batchIdempotencyKey = (issueId, batch) => {
+  const digest = createHash('sha256').update(batch.map(recipient => recipient.email).sort().join(',')).digest('hex');
+  return `newsletter/${issueId}/${digest}`;
+};
+
 export const parseRecipientList = text => {
   const lines = text.split('\n').map(line => line.trim()).filter(Boolean);
   if (lines.length === 0) return [];
@@ -80,11 +88,14 @@ export const excludeActiveSubscribers = (recipients, activeEmails) => {
   return recipients.filter(recipient => !active.has(recipient.email));
 };
 
-export const sendBatchWithRetry = async (batch, { apiKey, fetchImpl = fetch, sleepImpl = sleep, maxRetries = MAX_RETRIES }) => {
+export const sendBatchWithRetry = async (batch, { apiKey, idempotencyKey, fetchImpl = fetch, sleepImpl = sleep, maxRetries = MAX_RETRIES }) => {
+  const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' };
+  if (idempotencyKey) headers['Idempotency-Key'] = idempotencyKey;
+
   for (let attempt = 0; ; attempt += 1) {
     const response = await fetchImpl(RESEND_BATCH_URL, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify(batch),
     });
     if (response.ok) {
@@ -177,18 +188,21 @@ const printSummary = ({ issue, mode, standalone, audience, alreadySent, recipien
   console.log(`To send:    ${recipients.length}`);
 };
 
-const deliver = async ({ issue, recipients, standalone, mode }) => {
-  const apiKey = readEnv('RESEND_API_KEY');
+export const deliver = async ({ issue, recipients, standalone, mode }, deps = {}) => {
+  const { send = sendBatchWithRetry, record = recordSent, sleepImpl = sleep } = deps;
+  const apiKey = deps.apiKey ?? readEnv('RESEND_API_KEY');
   if (!apiKey) throw new Error('Set RESEND_API_KEY (env or worker/.dev.vars) to send.');
 
-  const batches = chunk(recipients, BATCH_LIMIT);
+  // eslint-disable-next-line local/no-comments -- non-obvious gotcha
+  // A crash between a sent batch and recordSent would re-send it next run; sorting an unchanged audience rebuilds the same batches so each batch's key is reproducible and Resend dedupes within its 24h window. A membership change within that window reshuffles batches and can still double-send.
+  const batches = chunk([...recipients].sort(byEmail), BATCH_LIMIT);
   let sentCount = 0;
 
   for (const [index, batch] of batches.entries()) {
-    await sendBatchWithRetry(buildMessages(issue, batch, { standalone }), { apiKey });
-    if (mode === 'send') recordSent(issue.id, batch);
+    await send(buildMessages(issue, batch, { standalone }), { apiKey, idempotencyKey: batchIdempotencyKey(issue.id, batch) });
+    if (mode === 'send') record(issue.id, batch);
     sentCount += batch.length;
-    if (index < batches.length - 1) await sleep(BATCH_INTERVAL_MS);
+    if (index < batches.length - 1) await sleepImpl(BATCH_INTERVAL_MS);
   }
 
   console.log(`\n✓ Sent ${sentCount} email${sentCount === 1 ? '' : 's'} (${mode}).`);
