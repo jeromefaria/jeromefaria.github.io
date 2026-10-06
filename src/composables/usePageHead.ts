@@ -41,9 +41,13 @@ interface ResolvedHead {
   imageUrl: string;
   ogType: string;
   noIndex: boolean;
+  englishOnly: boolean;
   imageDimensions: { width: number; height: number } | null;
   preloadImages: HeroPreload[];
 }
+
+const hasLocaleAlternates = (head: ResolvedHead): boolean =>
+  i18nEnabled && !head.noIndex && !head.englishOnly;
 
 type MetaTag = { name?: string; property?: string; content: string };
 
@@ -86,7 +90,7 @@ const buildMeta = (head: ResolvedHead): MetaTag[] => {
     meta.push({ name: 'robots', content: 'noindex' });
   }
 
-  if (i18nEnabled && !head.noIndex) {
+  if (hasLocaleAlternates(head)) {
     for (const alternate of SUPPORTED_LOCALES) {
       if (alternate !== head.locale) {
         meta.push({ property: 'og:locale:alternate', content: OG_LOCALE[alternate] });
@@ -100,7 +104,7 @@ const buildMeta = (head: ResolvedHead): MetaTag[] => {
 const buildLinks = (head: ResolvedHead): Record<string, string>[] => {
   const link: Record<string, string>[] = [{ rel: 'canonical', href: head.canonicalUrl }];
 
-  if (i18nEnabled && !head.noIndex) {
+  if (hasLocaleAlternates(head)) {
     const basePath = stripLocale(head.path);
     const hrefFor = (alternate: Locale): string => `${siteConfig.url}${localePath(basePath, alternate)}`;
 
@@ -140,6 +144,7 @@ export const usePageHead = (options: UsePageHeadOptions): void => {
       imageUrl: `${siteConfig.url}${options.image ?? siteConfig.image}`,
       ogType: options.ogType ?? 'website',
       noIndex: options.noIndex ?? false,
+      englishOnly: Boolean(route.meta?.['englishOnly']),
       imageDimensions: options.image ? (options.imageDimensions ?? null) : DEFAULT_IMAGE_DIMENSIONS,
       preloadImages: options.preloadImages ?? [],
     };
