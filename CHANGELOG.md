@@ -26,6 +26,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - Stop happy-dom fetching preload links so coverage runs don't flake ([#528](https://github.com/jeromefaria/jeromefaria.github.io/pull/528))
 
+### Chores
+
+- **data:** Add explicit extensions to config-eval imports and enforce it ([#533](https://github.com/jeromefaria/jeromefaria.github.io/pull/533))
+
 ## 2026.10.0 — Newsletter sending, the invite & hardening — 2026-10-04
 
 
