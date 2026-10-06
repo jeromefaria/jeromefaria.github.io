@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "VITE_I18N=true vite",
     "dev:http": "VITE_I18N=true VITE_DEV_HTTP=true vite",
-    "build": "vue-tsc --noEmit && node scripts/checks/check-anchors.js && node scripts/checks/check-epk-photos.mjs && vite-ssg build && node scripts/generate/generate-sitemap.mjs",
+    "build": "vue-tsc --noEmit && node scripts/checks/check-anchors.js && node scripts/checks/check-epk-photos.mjs && vite-ssg build && node scripts/generate/generate-sitemap.mjs && node scripts/checks/check-hreflang-parity.mjs",
     "preview": "vite preview",
     "verify": "npm run type-check && npm run lint && npm run test:coverage && node scripts/checks/check-coverage.js && npm run build",
     "lint": "eslint . && stylelint \"src/styles/**/*.scss\" && node scripts/checks/check-custom-properties.mjs && node scripts/checks/check-html-comments.mjs && node scripts/checks/check-toml-comments.mjs && node scripts/checks/check-people.mjs && node scripts/checks/check-tokens.mjs && node scripts/checks/check-data-imports.mjs",

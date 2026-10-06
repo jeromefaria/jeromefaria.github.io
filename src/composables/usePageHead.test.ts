@@ -17,7 +17,7 @@ vi.mock('@unhead/vue', () => ({
   }),
 }));
 
-const mockRoute = reactive<{ path: string; meta?: { locale: string } }>({ path: '/test' });
+const mockRoute = reactive<{ path: string; meta?: { locale?: string; englishOnly?: boolean } }>({ path: '/test' });
 
 vi.mock('vue-router', () => ({
   useRoute: () => mockRoute,
@@ -197,6 +197,15 @@ describe('usePageHead', () => {
       const config = mountWithPageHead({ title: 'Press Kit', description: 'desc', noIndex: true });
       expect(alternates(config)).toHaveLength(0);
     });
+
+    it('omits alternates for an englishOnly route so it never advertises a missing pt page', () => {
+      flagState.enabled = true;
+      mockRoute.path = '/writing';
+      mockRoute.meta = { englishOnly: true };
+
+      const config = mountWithPageHead({ title: 'Writing', description: 'desc' });
+      expect(alternates(config)).toHaveLength(0);
+    });
   });
 
   describe('og:locale', () => {
@@ -235,6 +244,13 @@ describe('usePageHead', () => {
     it('omits og:locale:alternate on a noindex page even when i18n is enabled', () => {
       flagState.enabled = true;
       const config = mountWithPageHead({ title: 'Press Kit', description: 'desc', noIndex: true });
+      expect(ogLocales(config).map(m => m.property)).toEqual(['og:locale']);
+    });
+
+    it('omits og:locale:alternate on an englishOnly route even when i18n is enabled', () => {
+      flagState.enabled = true;
+      mockRoute.meta = { englishOnly: true };
+      const config = mountWithPageHead({ title: 'Writing', description: 'desc' });
       expect(ogLocales(config).map(m => m.property)).toEqual(['og:locale']);
     });
   });
