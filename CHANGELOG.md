@@ -5,6 +5,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 ## Unreleased
 
 
+### Newsletter
+
+- **newsletter:** Make batch sends idempotent to prevent re-sends on retry ([#523](https://github.com/jeromefaria/jeromefaria.github.io/pull/523))
+
 ### Audio player
 
 - **player:** Report playback and position state to the Media Session ([#522](https://github.com/jeromefaria/jeromefaria.github.io/pull/522))
