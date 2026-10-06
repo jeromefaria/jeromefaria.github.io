@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const TRACKS = [
   { key: 'x/1.m4a', title: 'One', duration: 100 },
@@ -23,6 +23,10 @@ describe('usePlayer', () => {
     HTMLMediaElement.prototype.pause = vi.fn();
     HTMLMediaElement.prototype.load = vi.fn();
     mod = await import('./usePlayer');
+  });
+
+  afterEach(() => {
+    document.body.replaceChildren();
   });
 
   it('loads and plays the first track, reaching playing on the event', async () => {
@@ -293,6 +297,7 @@ describe('usePlayer', () => {
     const session = (navigator as unknown as { mediaSession: { metadata: unknown; playbackState: string } }).mediaSession;
     expect(session.metadata).not.toBeNull();
     expect(media.getAttribute('src')).not.toBeNull();
+    expect(document.body.contains(media)).toBe(true);
 
     mod.stop();
 
@@ -301,6 +306,7 @@ describe('usePlayer', () => {
     expect(handlers.play).toBeNull();
     expect(setPositionState).toHaveBeenLastCalledWith();
     expect(media.getAttribute('src')).toBeNull();
+    expect(document.body.contains(media)).toBe(false);
     expect(mod.getMediaElement()).not.toBe(media);
 
     vi.unstubAllGlobals();

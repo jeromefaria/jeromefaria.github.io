@@ -174,6 +174,9 @@ const ensureElement = (): HTMLAudioElement => {
   bind('error', () => { scheduleRetry(generation); });
 
   element = media;
+  // eslint-disable-next-line local/no-comments -- non-obvious gotcha
+  // Attach to the DOM so WebKit tracks the element's lifecycle: a detached `new Audio()` never gives iOS a "media removed" signal, so removing it on stop() is what dismisses the lock-screen Now Playing entry.
+  document.body.appendChild(media);
   registerMediaHandlers();
 
   return media;
@@ -266,6 +269,7 @@ export const stop = (): void => {
     element.pause();
     element.removeAttribute('src');
     element.load();
+    element.remove();
     element = null;
   }
   clearMediaSession();
