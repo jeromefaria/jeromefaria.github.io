@@ -1,4 +1,4 @@
-import { computed, type ComputedRef, readonly, type Ref, ref } from 'vue';
+import { computed, type ComputedRef, readonly, type Ref, ref, watch } from 'vue';
 
 import { audioUrl } from '@/data/audio';
 import type { AudioTrack } from '@/types/audio';
@@ -97,6 +97,39 @@ const clearMediaSession = (): void => {
   for (const [action] of MEDIA_HANDLERS) navigator.mediaSession.setActionHandler(action, null);
 };
 
+const PLAYBACK_STATES: Record<PlayerStatus, MediaSessionPlaybackState> = {
+  idle: 'none',
+  loading: 'playing',
+  buffering: 'playing',
+  playing: 'playing',
+  paused: 'paused',
+  ended: 'paused',
+  error: 'none',
+};
+
+const updatePlaybackState = (): void => {
+  if (!('mediaSession' in navigator)) return;
+
+  navigator.mediaSession.playbackState = PLAYBACK_STATES[status.value];
+};
+
+const updatePositionState = (): void => {
+  if (!('mediaSession' in navigator)) return;
+
+  const total = duration.value;
+  if (!Number.isFinite(total) || total <= 0) return;
+
+  // eslint-disable-next-line local/no-comments -- browser-support gotcha
+  // setPositionState is absent on older WebKit even when mediaSession exists, and it throws unless 0 <= position <= duration, so the reported position is clamped to the reported duration.
+  navigator.mediaSession.setPositionState?.({
+    duration: total,
+    position: Math.min(Math.max(currentTime.value, 0), total),
+    playbackRate: element?.playbackRate ?? 1,
+  });
+};
+
+watch(status, updatePlaybackState, { flush: 'sync' });
+
 const scheduleRetry = (gen: number): void => {
   if (retries >= RETRY_LIMIT) {
     status.value = 'error';
@@ -118,17 +151,25 @@ const ensureElement = (): HTMLAudioElement => {
 
   const media = new Audio();
   media.preload = 'metadata';
-  media.addEventListener('playing', () => { status.value = 'playing'; });
-  media.addEventListener('pause', () => { if (status.value !== 'ended') status.value = 'paused'; });
-  media.addEventListener('waiting', () => { status.value = 'buffering'; });
-  media.addEventListener('timeupdate', () => { currentTime.value = media.currentTime; });
-  media.addEventListener('durationchange', () => {
+
+  // eslint-disable-next-line local/no-comments -- non-obvious gotcha
+  // stop() pauses then discards the element without detaching listeners, so a queued event (notably the pause that element.pause() schedules) can fire on the dead element afterwards; ignore anything from an element that is no longer current.
+  const bind = (type: string, handler: () => void): void => {
+    media.addEventListener(type, () => { if (media === element) handler(); });
+  };
+
+  bind('playing', () => { status.value = 'playing'; });
+  bind('pause', () => { if (status.value !== 'ended') status.value = 'paused'; });
+  bind('waiting', () => { status.value = 'buffering'; });
+  bind('timeupdate', () => { currentTime.value = media.currentTime; updatePositionState(); });
+  bind('durationchange', () => {
     // eslint-disable-next-line local/no-comments -- non-obvious gotcha
     // The manifest duration is the canonical master length; a browser's decoded AAC duration lands a fraction under it and floors down a second, so only fall back to it when no authored duration exists.
     if (!duration.value && Number.isFinite(media.duration) && media.duration > 0) duration.value = media.duration;
   });
-  media.addEventListener('ended', () => { void next(); });
-  media.addEventListener('error', () => { scheduleRetry(generation); });
+  bind('ended', () => { void next(); });
+  bind('error', () => { scheduleRetry(generation); });
+
   element = media;
   registerMediaHandlers();
 
@@ -289,6 +330,7 @@ export const seek = (time: number): void => {
   const clamped = Math.min(Math.max(time, 0), duration.value || element.duration || 0);
   element.currentTime = clamped;
   currentTime.value = clamped;
+  updatePositionState();
 };
 
 export const stepEntry = (direction: 1 | -1): void => {
