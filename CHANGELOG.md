@@ -16,6 +16,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Fixes
 
+- **seo:** Stop englishOnly pages advertising a missing pt hreflang ([#529](https://github.com/jeromefaria/jeromefaria.github.io/pull/529))
 - **archive:** Restore the oldsite header banner ([#521](https://github.com/jeromefaria/jeromefaria.github.io/pull/521))
 - **archive:** Restore recovered Casa das Mudas photos and tidy thumbnail grids ([#520](https://github.com/jeromefaria/jeromefaria.github.io/pull/520))
 
