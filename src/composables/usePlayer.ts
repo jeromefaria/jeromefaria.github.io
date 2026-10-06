@@ -93,6 +93,9 @@ const clearMediaSession = (): void => {
   if (!('mediaSession' in navigator)) return;
 
   navigator.mediaSession.metadata = null;
+  // eslint-disable-next-line local/no-comments -- non-obvious gotcha
+  // Clearing the position state is required: without it iOS keeps a phantom Now Playing entry after the element is gone, extrapolating a moving timeline from the last reported position with no audio or artwork.
+  navigator.mediaSession.setPositionState?.();
   navigator.mediaSession.playbackState = 'none';
   for (const [action] of MEDIA_HANDLERS) navigator.mediaSession.setActionHandler(action, null);
 };
