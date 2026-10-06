@@ -1,6 +1,6 @@
 import { expect, type Page, test } from '@playwright/test';
 
-import { mockWorker, stubTurnstile } from './helpers';
+import { gotoHydrated, mockWorker, stubTurnstile } from './helpers';
 
 const FORM = '.contact-form';
 const INQUIRY = '#inquiry';
@@ -22,7 +22,7 @@ const fillValid = async (page: Page): Promise<void> => {
 test.describe('Contact Form', () => {
   test.beforeEach(async ({ page }) => {
     await stubTurnstile(page);
-    await page.goto('/contact');
+    await gotoHydrated(page, '/contact');
     await expect(page.locator(FORM)).toBeVisible();
   });
 
