@@ -14,6 +14,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Audio player
 
+- **player:** Dismiss the iOS Now Playing entry by removing the element on stop ([#535](https://github.com/jeromefaria/jeromefaria.github.io/pull/535))
 - **player:** Clear Media Session position state on stop ([#534](https://github.com/jeromefaria/jeromefaria.github.io/pull/534))
 - **player:** Report playback and position state to the Media Session ([#522](https://github.com/jeromefaria/jeromefaria.github.io/pull/522))
 
