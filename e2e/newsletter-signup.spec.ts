@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { mockWorker, stubTurnstile } from './helpers';
+import { gotoHydrated, mockWorker, stubTurnstile } from './helpers';
 
 const FORM = '.contact-form';
 const EMAIL = '#newsletter-email';
@@ -13,7 +13,7 @@ const VALID_SUBMIT = /contact-form__submit--valid/;
 test.describe('Newsletter Signup', () => {
   test.beforeEach(async ({ page }) => {
     await stubTurnstile(page);
-    await page.goto('/newsletter');
+    await gotoHydrated(page, '/newsletter');
     await expect(page.locator(FORM)).toBeVisible();
   });
 
