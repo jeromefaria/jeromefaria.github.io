@@ -58,4 +58,26 @@ test.describe('Audio player', () => {
     await pause.click();
     await expect(page.getByRole('button', { name: 'Play', exact: true })).toBeVisible();
   });
+
+  test('an immersive permalink opens the release straight into immersive mode', async ({ page }) => {
+    await gotoHydrated(page, '/works/overlapse?i=1');
+
+    await expect(page.locator('.player-screen__immersive')).toBeVisible();
+  });
+
+  test('immersive state is mirrored into the address bar, both ways', async ({ page }) => {
+    await gotoHydrated(page, '/works/overlapse?i=1');
+
+    const immersive = page.locator('.player-screen__immersive');
+    await expect(immersive).toBeVisible();
+    await expect(page).toHaveURL(/\/works\/overlapse\/?\?i=1$/);
+
+    await page.locator('.player-screen__immersive-close').click();
+    await expect(immersive).toBeHidden();
+    await expect(page).toHaveURL(/\/works\/overlapse\/?$/);
+
+    await page.locator('.player-screen__zoom').click();
+    await expect(immersive).toBeVisible();
+    await expect(page).toHaveURL(/\/works\/overlapse\/?\?i=1$/);
+  });
 });
