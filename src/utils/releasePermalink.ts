@@ -1,5 +1,5 @@
 import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
-import { play, type PlayContext, playFrom } from '@/composables/usePlayer';
+import { enterImmersive, play, type PlayContext, playFrom } from '@/composables/usePlayer';
 import { getReleaseAudio, hasPlayableAudio } from '@/data/audio';
 import { releaseById } from '@/data/works';
 import { localize } from '@/i18n/localized';
@@ -12,6 +12,7 @@ import { stripHtml } from './stripHtml';
 export interface ReleasePermalinkOptions {
   track?: number;
   t?: number;
+  immersive?: boolean;
 }
 
 export const findRelease = (releaseId: string): Release | undefined => releaseById.get(releaseId);
@@ -38,7 +39,7 @@ export const buildReleaseContext = (release: Release): PlayContext => {
 export const canPlayRelease = (releaseId: string): boolean =>
   audioPlayerEnabled.value && hasPlayableAudio(releaseId);
 
-export const playReleaseAt = (release: Release, { track, t }: ReleasePermalinkOptions = {}): void => {
+export const playReleaseAt = (release: Release, { track, t, immersive }: ReleasePermalinkOptions = {}): void => {
   const tracks = getReleaseAudio(release.id);
   if (tracks.length === 0) return;
 
@@ -46,13 +47,13 @@ export const playReleaseAt = (release: Release, { track, t }: ReleasePermalinkOp
 
   if (typeof t === 'number' && Number.isFinite(t) && t > 0) {
     void playFrom(tracks, t, context);
-    return;
-  }
-  if (typeof track === 'number' && Number.isFinite(track) && track >= 1 && track <= tracks.length) {
+  } else if (typeof track === 'number' && Number.isFinite(track) && track >= 1 && track <= tracks.length) {
     void play(tracks, track - 1, context);
-    return;
+  } else {
+    void play(tracks, 0, context);
   }
-  void play(tracks, 0, context);
+
+  if (immersive) enterImmersive();
 };
 
 interface ReleaseHead {
@@ -76,11 +77,12 @@ export const releaseHead = (release: Release, locale: Locale = DEFAULT_LOCALE): 
   ...(hasCoverImage(release) ? { image: release.coverImage } : {}),
 });
 
-export const releasePath = (releaseId: string, { track, t }: ReleasePermalinkOptions = {}): string => {
+export const releasePath = (releaseId: string, { track, t, immersive }: ReleasePermalinkOptions = {}): string => {
   const params = new URLSearchParams();
 
   if (t !== undefined) params.set('t', String(t));
   else if (track !== undefined) params.set('track', String(track));
+  if (immersive) params.set('i', '1');
 
   const query = params.toString();
   return `/works/${releaseId}${query ? `?${query}` : ''}`;

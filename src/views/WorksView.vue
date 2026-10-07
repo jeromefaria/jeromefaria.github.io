@@ -38,11 +38,15 @@ const playFromRoute = (): void => {
   const release = focusRelease.value;
   if (!release || !canPlayRelease(release.id)) return;
 
-  playReleaseAt(release, { track: Number(route.query['track']), t: Number(route.query['t']) });
+  playReleaseAt(release, {
+    track: Number(route.query['track']),
+    t: Number(route.query['t']),
+    immersive: route.query['i'] === '1',
+  });
 };
 
 onMounted(playFromRoute);
-watch(() => [releaseId.value, route.query['track'], route.query['t']], playFromRoute);
+watch(() => [releaseId.value, route.query['track'], route.query['t'], route.query['i']], playFromRoute);
 </script>
 
 <template>
