@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Newsletter
 
+- **readme:** Correct drift and surface the custom check-script regime + CodeQL ([#536](https://github.com/jeromefaria/jeromefaria.github.io/pull/536))
 - **e2e:** Wait for hydration before driving the contact and newsletter forms ([#532](https://github.com/jeromefaria/jeromefaria.github.io/pull/532))
 - **lint:** Verify detail routes prerender and englishOnly types get no pt mirror ([#531](https://github.com/jeromefaria/jeromefaria.github.io/pull/531))
 - **lint:** Guard config-eval data modules against @-alias value imports ([#526](https://github.com/jeromefaria/jeromefaria.github.io/pull/526))
