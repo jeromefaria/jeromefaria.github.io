@@ -6,6 +6,7 @@ import AccordionPage from '@/components/AccordionPage.vue';
 import EngineeringCreditItem from '@/components/EngineeringCreditItem.vue';
 import NotFound from '@/components/NotFound.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
+import { useImmersivePermalink } from '@/composables/useImmersivePermalink';
 import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
 import { worksData, worksSections } from '@/data/works';
@@ -45,8 +46,10 @@ const playFromRoute = (): void => {
   });
 };
 
+useImmersivePermalink(releaseId);
+
 onMounted(playFromRoute);
-watch(() => [releaseId.value, route.query['track'], route.query['t'], route.query['i']], playFromRoute);
+watch([releaseId, () => route.query['track'], () => route.query['t']], playFromRoute);
 </script>
 
 <template>
