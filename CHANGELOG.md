@@ -15,6 +15,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Audio player
 
+- **player:** Mirror immersive state into the release URL ([#538](https://github.com/jeromefaria/jeromefaria.github.io/pull/538))
 - **player:** Open a release in immersive mode via ?i=1 ([#537](https://github.com/jeromefaria/jeromefaria.github.io/pull/537))
 - **player:** Dismiss the iOS Now Playing entry by removing the element on stop ([#535](https://github.com/jeromefaria/jeromefaria.github.io/pull/535))
 - **player:** Clear Media Session position state on stop ([#534](https://github.com/jeromefaria/jeromefaria.github.io/pull/534))
