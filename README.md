@@ -73,7 +73,7 @@ Newsletter (runtime)
 - **SSG, not SPA or SSR.** Pre-rendering gives fast first paint, clean SEO, and free static hosting; hydration restores interactivity. The trade-off — no server runtime for the site — is deliberate, so the one genuinely dynamic need, the contact form, became a small serverless function.
 - **Own the contact backend.** A Cloudflare Worker + Turnstile + Resend keeps spam handling, delivery, and data under my control. (The invisible Turnstile challenge carries a disclosure obligation — hence the `/privacy` page.)
 - **A built-in audio player.** Streaming the catalogue in-page — cover-as-play, lock-screen controls, deep-linkable — makes the *first listen* frictionless: a visitor clicks a release and hears music, no "open this / click there," and the experience stays on-brand. The cost is real audio engineering (a media state machine, autoplay-policy handling, range-streamed R2 hosting), taken on deliberately.
-- **A coverage *floor* that only ratchets up.** CI enforces a minimum that rises as coverage climbs (`scripts/check-coverage.js`) — regression protection without chasing 100%.
+- **A coverage *floor* that only ratchets up.** CI enforces a minimum that rises as coverage climbs (`scripts/checks/check-coverage.js`) — regression protection without chasing 100%.
 - **Typed content in git.** The catalog is TypeScript with discriminated unions — a release is `music | compilation | commission | publication | mastering`, a live event has its own shape — versioned in git. The same data renders the site *and* generates the PDF press kit and technical rider that bookers and press ask for.
 - **Bilingual as opt-in infrastructure.** The EN/PT layer was built and tested complete, but shipping it half-translated would have read worse than not shipping it — so it lived behind an inline build flag that tree-shakes the whole i18n path (vue-i18n included) out of an English-only bundle, which downloads nothing extra. Once the Portuguese copy cleared EU-PT review, going live was a one-line flag flip — not a rebuild-the-plumbing project.
 
@@ -160,7 +160,7 @@ src/
   utils/         Formatters, schema builders, adapters
   views/         One component per route
 worker/          Cloudflare Worker — Turnstile verification + Resend relay
-scripts/         Build tooling — PDF generation, responsive images, font subsetting, CI checks
+scripts/         Build tooling — PDF generation, responsive images, font subsetting, newsletter CLI, and the convention-enforcing check scripts (scripts/checks/)
 e2e/             Playwright specs — one per behaviour (enumerated under Testing)
 public/          Static assets
 ```
@@ -187,11 +187,11 @@ Editing site content? See [`docs/CONTENT_MANAGEMENT.md`](docs/CONTENT_MANAGEMENT
 # Install dependencies
 npm install
 
-# Start dev server
+# Start dev server (the EN/PT layer is on — previews /pt without touching .env)
 npm run dev
 
-# Start dev server with the EN/PT layer on (previews /pt without touching .env)
-npm run dev:i18n
+# Same dev server over plain HTTP instead of HTTPS (for iOS Safari testing on the LAN)
+npm run dev:http
 
 # Build for production (ships both languages via .env.production)
 npm run build
@@ -207,7 +207,7 @@ npm run lint
 npm run lint:fix
 ```
 
-No environment setup is required to run locally — audio falls back to same-origin assets, and the dev server runs English-only by default (preview the Portuguese locale with `npm run dev:i18n`, no `.env` needed). The production build ships both languages via `.env.production`. To stream audio from Cloudflare R2, copy `.env.example` to `.env` and set the optional `VITE_` variables it documents.
+No environment setup is required to run locally — audio falls back to same-origin assets, and the dev server runs with the EN/PT layer on by default, so `/pt` previews without any `.env`. (`npm run dev:http` serves the same over plain HTTP for iOS Safari testing on the LAN.) The production build ships both languages via `.env.production`. To stream audio from Cloudflare R2, copy `.env.example` to `.env` and set the optional `VITE_` variables it documents.
 
 ## Testing
 
@@ -224,7 +224,7 @@ npm run test:ui
 npm run test:coverage
 ```
 
-**Coverage** instruments the whole `src` tree (`all: true`), not just the files a test imports. The logic layer is ~100% covered; component and view tests assert behaviour (accordion hash-opening, link processing, focus trapping, image fallbacks) rather than render counts, with UI paths also covered by E2E. A **ratcheting floor** (`scripts/check-coverage.js`) holds the current 99% lines / 97% statements / 96% functions / 91% branches and only moves up.
+**Coverage** instruments the whole `src` tree (`all: true`), not just the files a test imports. The logic layer is ~100% covered; component and view tests assert behaviour (accordion hash-opening, link processing, focus trapping, image fallbacks) rather than render counts, with UI paths also covered by E2E. A **ratcheting floor** (`scripts/checks/check-coverage.js`) holds the current 99% lines / 98% statements / 97% functions / 93% branches and only moves up.
 
 ### E2E Tests
 
@@ -250,7 +250,10 @@ First run only: `npx playwright install` to fetch the browser binaries.
 - Navigation and routing
 - Accordion functionality with hash navigation
 - Command palette (⌘K) search, keybindings, and rendering
-- Form validation and submission
+- Contact form validation and submission
+- Newsletter double-opt-in signup — validation, verified submit, and error states
+- EPK / press-kit page rendering and downloads
+- Home hero rendering and first paint
 - Lightbox open/close and keyboard navigation
 - Audio player deep-link permalinks (`/works/:id?t=`) and transport controls
 - Language switch (EN ↔ PT) round trip and persistence
@@ -276,10 +279,11 @@ npm run lighthouse:mobile
 - Accessibility ≥ 95 and Best Practices ≥ 90
 - No browser-console errors
 - Script ≤ 250KB and stylesheet ≤ 75KB (total transfer), text compression enabled
+- Core Web Vitals on the desktop profile: LCP ≤ 2.5s, CLS ≤ 0.1, TBT ≤ 300ms
 
 The following are **advisory** (reported as warnings, not gating) because they vary with the CI runner or with image-rich portfolio content:
 - Performance and SEO category scores
-- Timing metrics: FCP < 1.5s, LCP < 2.5s, CLS < 0.1, TBT < 300ms, Speed Index < 3s
+- Remaining timing metrics: FCP < 1.5s and Speed Index < 3s (desktop); all Core Web Vitals on the mobile profile
 - Image and total transfer weight
 
 A second **mobile** profile (`.lighthouserc.mobile.json`) runs alongside the desktop one in CI; its Core Web Vitals are advisory so a variable runner never hard-fails on mobile timings, while it still surfaces regressions the desktop profile misses.
@@ -311,10 +315,11 @@ Run all checks in order (matches CI exactly):
 npm run type-check
 npm run lint
 npm run test:coverage
-node scripts/check-coverage.js
+node scripts/checks/check-coverage.js
 
-# 2. Build (check-anchors validates internal hash anchors + [[credit]] markers;
-#    check-epk-photos verifies the EPK photo assets; then generates sitemap.xml)
+# 2. Build (check-anchors validates hash anchors + [[credit]] markers; check-epk-photos
+#    verifies EPK assets; SSG prerender; then generate sitemap.xml and verify it against the
+#    rendered output — check-hreflang-parity + check-prerendered-routes)
 npm run build
 
 # 3. Performance Audit
@@ -346,6 +351,8 @@ npm run lint && npm run type-check && npm run test
 npm run lint:fix && npm run type-check && npm run test:coverage && npm run build
 ```
 
+`npm run verify` runs the same quality-and-build gate in one command — type-check, lint, `test:coverage` + the ratcheting threshold check, and the build.
+
 ## CI/CD Pipeline
 
 The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the deploy gate on `master` (via `workflow_call`) so the checks are defined in exactly one place. Its jobs:
@@ -353,12 +360,13 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 ### Quality Checks
 - TypeScript type checking
 - ESLint (JS/TS) and stylelint (SCSS, BEM-enforced) code quality
+- A suite of bespoke convention guards (`scripts/checks/`, run from `lint` and `build`) — e.g. no undefined `var(--x)`, design-token parity with `_base.scss`, resolvable `[[credit]]` markers, a self-documenting-code policy (no stray comments), and no `@`-alias or extensionless imports in the data modules Vite evaluates at config-eval time; the build adds in-page↔sitemap hreflang parity and complete-route-prerender checks
 - Unit tests with coverage thresholds
 - Coverage reporting to Codecov
 
 ### Build
 - Production bundle build
-- Bundle size budget — **enforced**: fails CI if any single JS file exceeds 200KB or CSS 50KB, uncompressed — a **per-file** check, distinct from the Lighthouse **total-transfer** budget (250KB / 75KB) above
+- Bundle size budget — **enforced**: fails CI if any single JS file exceeds 200KB (uncompressed) or any CSS file exceeds 12KB gzipped — a **per-file** check, distinct from the Lighthouse **total-transfer** budget (250KB / 75KB) above
 - `sitemap.xml` generated from the routes actually pre-rendered (never drifts from the site)
 - Build artifact generation (reused downstream — no rebuild)
 
@@ -378,6 +386,9 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 
 ### Worker
 - Type checking and unit tests for the Cloudflare Worker (`worker/`)
+
+### CodeQL
+- GitHub's CodeQL static security analysis (`codeql.yml`) over the JS/TS sources and the Actions workflows
 
 ### Attribution
 - A `pull_request` guard (`attribution.yml` → `check-attribution.mjs`) that scans the PR's commit messages **and its description** and fails if either carries a tool/AI attribution footer — so every contribution stays attributed to the developer, enforced rather than trusted. Also runs locally in the `commit-msg` hook.
