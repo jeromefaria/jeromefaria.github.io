@@ -62,4 +62,27 @@ describe('afterAccordionAnimation', () => {
 
     expect(callback).toHaveBeenCalledOnce();
   });
+
+  it('cancels a scheduled callback via the returned canceller', async () => {
+    vi.useFakeTimers();
+    const callback = vi.fn();
+
+    const cancel = afterAccordionAnimation(callback);
+    await vi.advanceTimersByTimeAsync(0);
+    cancel();
+    await vi.advanceTimersByTimeAsync(TIMING.ACCORDION_ANIMATION);
+
+    expect(callback).not.toHaveBeenCalled();
+  });
+
+  it('does not schedule the callback when cancelled before it settles', async () => {
+    vi.useFakeTimers();
+    const callback = vi.fn();
+
+    const cancel = afterAccordionAnimation(callback);
+    cancel();
+    await vi.advanceTimersByTimeAsync(TIMING.ACCORDION_ANIMATION);
+
+    expect(callback).not.toHaveBeenCalled();
+  });
 });

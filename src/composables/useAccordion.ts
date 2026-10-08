@@ -1,5 +1,5 @@
 import type { Ref } from 'vue';
-import { onMounted, ref } from 'vue';
+import { onMounted, onScopeDispose, ref } from 'vue';
 
 import { ID_PREFIX } from '@/utils/constants';
 import { baseFragment } from '@/utils/lightboxPermalink';
@@ -27,8 +27,11 @@ export const useAccordion = (
 
   const openSection = ref<string | null>(resolveFocusSection() ?? initialSection);
 
+  let cancelScroll: (() => void) | undefined;
+
   const scrollToHashTarget = (id: string): void => {
-    afterAccordionAnimation(() => {
+    cancelScroll?.();
+    cancelScroll = afterAccordionAnimation(() => {
       const element = document.getElementById(id);
       if (!element) return;
 
@@ -36,6 +39,8 @@ export const useAccordion = (
       scrollToElement(element, { offset, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
     });
   };
+
+  onScopeDispose(() => cancelScroll?.());
 
   const processHash = (hash: string, shouldScroll: boolean): void => {
     if (!hash) return;

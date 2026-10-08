@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { enableAutoUnmount, mount } from '@vue/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { type Component, defineComponent, nextTick, reactive } from 'vue';
 
@@ -57,6 +57,8 @@ function createMockElement(): HTMLElement {
 }
 
 describe('useAccordion', () => {
+  enableAutoUnmount(afterEach);
+
   let replaceStateSpy: ReturnType<typeof vi.spyOn>;
   let getElementByIdSpy: ReturnType<typeof vi.spyOn<Document, 'getElementById'>>;
 
@@ -221,6 +223,35 @@ describe('useAccordion', () => {
     await vi.advanceTimersByTimeAsync(ACCORDION_ANIMATION_TIMING);
 
     expect(scrollToSpy).toHaveBeenCalledWith(expect.objectContaining({ behavior: 'auto' }));
+  });
+
+  it('cancels a pending scroll when the component unmounts', async () => {
+    const scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+    vi.spyOn(window, 'matchMedia').mockReturnValue({ matches: false } as MediaQueryList);
+    mockRoute.hash = `#section-${VALID_SECTIONS[1]}`;
+
+    const wrapper = mount(createTestComponent());
+    await nextTick();
+
+    wrapper.unmount();
+    await vi.advanceTimersByTimeAsync(ACCORDION_ANIMATION_TIMING);
+
+    expect(scrollToSpy).not.toHaveBeenCalled();
+  });
+
+  it('cancels a previous pending scroll when a new hash arrives before it settles', async () => {
+    const scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+    vi.spyOn(window, 'matchMedia').mockReturnValue({ matches: false } as MediaQueryList);
+    mockRoute.hash = `#section-${VALID_SECTIONS[1]}`;
+
+    mount(createTestComponent());
+    await nextTick();
+
+    mockRoute.hash = `#section-${INITIAL_SECTION}`;
+    await nextTick();
+    await vi.advanceTimersByTimeAsync(ACCORDION_ANIMATION_TIMING);
+
+    expect(scrollToSpy).toHaveBeenCalledTimes(1);
   });
 
   it('should scroll to the nested item id when a hash resolves via its parent section', async () => {
