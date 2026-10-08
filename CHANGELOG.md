@@ -13,6 +13,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 - **lint:** Guard config-eval data modules against @-alias value imports ([#526](https://github.com/jeromefaria/jeromefaria.github.io/pull/526))
 - **newsletter:** Make batch sends idempotent to prevent re-sends on retry ([#523](https://github.com/jeromefaria/jeromefaria.github.io/pull/523))
 
+### Live
+
+- **live:** Add Games 2006 (NNY, 2006) ([#541](https://github.com/jeromefaria/jeromefaria.github.io/pull/541))
+
 ### Audio player
 
 - **readme:** Document the immersive share permalink, cover it in e2e ([#539](https://github.com/jeromefaria/jeromefaria.github.io/pull/539))
