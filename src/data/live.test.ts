@@ -94,7 +94,7 @@ describe('liveData year grouping (derived)', () => {
   const YEARS = ['2026', '2025', '2024', '2022', '2021', '2015', '2013', '2012', '2011', '2010', '2009', '2008', '2007', '2006', '2005'];
   const EVENTS_BY_YEAR: Record<string, string[]> = {
     '2005': ['madeiradig-2005'],
-    '2006': ['madeiradig-2006'],
+    '2006': ['madeiradig-2006', 'games-2006'],
     '2007': ['madeiradig-2007', 'stfu-porto'],
     '2008': ['eme-madeira-2008', 'eme-2008', 'storung-2008'],
     '2009': ['madeiradig-2009', 'eme-olhares-2009'],
