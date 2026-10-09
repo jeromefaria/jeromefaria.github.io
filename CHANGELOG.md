@@ -15,6 +15,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Live
 
+- **live:** Correct Migractions venue casing and the Olhares date ([#543](https://github.com/jeromefaria/jeromefaria.github.io/pull/543))
 - **live:** Add Games 2006 (NNY, 2006) ([#541](https://github.com/jeromefaria/jeromefaria.github.io/pull/541))
 
 ### Audio player
