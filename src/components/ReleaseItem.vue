@@ -94,7 +94,7 @@ const notesHref = computed(() => {
   <article
     :id="release.id"
     class="release"
-    :class="{ 'release--text-only': textOnly || coverErrored }"
+    :class="{ 'release--text-only': textOnly || coverErrored, 'release--compact': textOnly }"
   >
     <PlayableCover
       v-if="coverVisible && playable && hasCoverImage(release) && !coverErrored"

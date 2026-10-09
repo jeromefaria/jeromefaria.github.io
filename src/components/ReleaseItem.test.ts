@@ -124,6 +124,7 @@ describe('ReleaseItem', () => {
 
     expect(wrapper.find('a.release-cover').exists()).toBe(false);
     expect(wrapper.get('article').classes()).toContain('release--text-only');
+    expect(wrapper.get('article').classes()).not.toContain('release--compact');
   });
 
   it('marks the cover image as loaded once it fires the load event', async () => {
@@ -184,9 +185,10 @@ describe('ReleaseItem', () => {
     expect(mountRelease(external).find('.media-links a').exists()).toBe(false);
   });
 
-  it('applies the text-only modifier when requested', () => {
+  it('applies the text-only and compact modifiers when requested', () => {
     const wrapper = mountRelease(textOnlyRelease, true);
     expect(wrapper.get('article').classes()).toContain('release--text-only');
+    expect(wrapper.get('article').classes()).toContain('release--compact');
   });
 
   it('turns the cover into the play control for an audio-backed release', async () => {
