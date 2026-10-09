@@ -42,6 +42,8 @@ $footer-content-gap: $spacing-4;
 $nav-max-height: 20rem;
 $release-media-width: 200px;
 $loading-dot-size: 6px;
+$radius-sm: 2px;
+$radius-circle: 50%;
 $z-masthead: 100;
 $z-player: 900;
 $z-player-expanded: 950;
@@ -154,7 +156,7 @@ $overlay-scrim: rgb(0 0 0 / 50%);
   padding: 0 $spacing-1;
   font-family: inherit;
   border: 1px solid var(--color-border);
-  border-radius: 2px;
+  border-radius: $radius-sm;
 }
 
 @mixin play-triangle($color: var(--text-overlay)) {
@@ -173,8 +175,8 @@ $overlay-scrim: rgb(0 0 0 / 50%);
   @include play-triangle($color);
 }
 
-@mixin focus-ring($offset: 2px) {
-  outline: 2px solid var(--color-text);
+@mixin focus-ring($offset: 2px, $color: var(--color-text)) {
+  outline: 2px solid $color;
   outline-offset: $offset;
 }
 
@@ -241,7 +243,7 @@ $overlay-scrim: rgb(0 0 0 / 50%);
   width: $loading-dot-size;
   height: $loading-dot-size;
   background: var(--color-text-muted);
-  border-radius: 50%;
+  border-radius: $radius-circle;
   animation: loading-pulse 1.2s ease-in-out infinite;
 
   &:nth-child(2) {
