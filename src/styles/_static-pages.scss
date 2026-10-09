@@ -149,7 +149,7 @@
     text-transform: uppercase;
     letter-spacing: $letter-spacing-wide;
     background-color: var(--color-text-muted);
-    border-radius: 2px;
+    border-radius: $radius-sm;
   }
 
   &__link:hover &__title-text,

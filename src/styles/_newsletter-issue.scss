@@ -101,7 +101,7 @@
     width: 64px;
     height: 64px;
     background-color: rgb(0 0 0 / 55%);
-    border-radius: 50%;
+    border-radius: $radius-circle;
     transform: translate(-50%, -50%);
 
     &::after {
