@@ -36,6 +36,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **styles:** Drop dead CSS and replace literals with tokens ([#544](https://github.com/jeromefaria/jeromefaria.github.io/pull/544))
 - Unify live-event description typography across layouts ([#540](https://github.com/jeromefaria/jeromefaria.github.io/pull/540))
 
 ### Tests
