@@ -20,6 +20,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Audio player
 
+- **styles:** Correct variant-scope bugs found in the styling audit ([#545](https://github.com/jeromefaria/jeromefaria.github.io/pull/545))
 - **readme:** Document the immersive share permalink, cover it in e2e ([#539](https://github.com/jeromefaria/jeromefaria.github.io/pull/539))
 - **player:** Mirror immersive state into the release URL ([#538](https://github.com/jeromefaria/jeromefaria.github.io/pull/538))
 - **player:** Open a release in immersive mode via ?i=1 ([#537](https://github.com/jeromefaria/jeromefaria.github.io/pull/537))
