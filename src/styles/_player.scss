@@ -216,7 +216,7 @@
     &:disabled {
       color: var(--color-text-muted);
       cursor: default;
-      opacity: 0.5;
+      opacity: $opacity-50;
     }
   }
 
@@ -490,7 +490,7 @@
 
   &__title {
     font-size: $font-size-lg;
-    font-weight: 500;
+    font-weight: $font-weight-medium;
   }
 
   &__artist {
@@ -532,7 +532,7 @@
     }
 
     &.is-current {
-      font-weight: 500;
+      font-weight: $font-weight-medium;
       color: var(--color-text);
     }
   }

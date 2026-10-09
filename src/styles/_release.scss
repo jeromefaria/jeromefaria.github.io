@@ -115,16 +115,6 @@
     background: var(--color-border-subtle);
   }
 
-  .release__spinner {
-    @include absolute-fill;
-
-    display: flex;
-    gap: $spacing-2;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-border-subtle);
-  }
-
   .release-cover {
     position: relative;
     display: block;
