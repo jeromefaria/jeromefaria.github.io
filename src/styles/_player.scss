@@ -437,6 +437,8 @@
     --transport-gap: #{$spacing-2};
     --transport-button-size: 2.5rem;
     --transport-icon-size: 1.5rem;
+    --transport-primary-icon-size: 1.5rem;
+    --player-seek-max-width: none;
 
     @include safe-area-padding($bottom: $spacing-4, $left: $spacing-6, $right: $spacing-6);
     @include dim-until-active(":focus-within");
