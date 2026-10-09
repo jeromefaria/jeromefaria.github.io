@@ -62,7 +62,7 @@ export const earlyEvents: LiveEvent[] = [
     title: 'Festival MigrActions',
     titleUrl: 'https://www.migractions.com',
     date: '2011-05-24',
-    venue: { name: 'Théâtre de L\'Opprimé', url: 'https://www.theatredelopprime.com/', city: 'Paris', country: 'France' },
+    venue: { name: 'Théâtre de l\'Opprimé', url: 'https://www.theatredelopprime.com/', city: 'Paris', country: 'France' },
     setup: { kind: 'duo', with: { text: 'Hugo Olim', suffix: { en: '(visuals)', pt: '(visuais)' } } },
     images: [
       {
@@ -207,7 +207,7 @@ export const earlyEvents: LiveEvent[] = [
     eventType: ['festival'],
     title: 'EME.LL / Olhares de Outono',
     titleUrl: 'https://www.vitorjoaquim.pt/vj.concerts_2009_21.22%20November.htm',
-    date: '2009-11-21',
+    date: '2009-11-22',
     venue: { name: 'Mosteiro São Bento da Vitória', url: 'https://www.tnsj.pt/en/edificios/mosteiro-de-sao-bento-da-vitoria/', city: 'Porto', country: 'Portugal' },
     setup: {
       kind: 'ensemble',
