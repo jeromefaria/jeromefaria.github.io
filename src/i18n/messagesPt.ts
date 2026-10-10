@@ -28,10 +28,10 @@ export const pt: MessageSchema = {
     biography: 'Biografia',
     photography: 'Fotografia',
     photo: 'Foto',
-    selectedPerformances: 'Actuações seleccionadas',
-    selectedWorks: 'Obras seleccionadas',
+    selectedPerformances: 'Actuações destacadas',
+    selectedWorks: 'Obras destacadas',
     sharedStages: 'Partilhou palco com',
-    press: 'Imprensa seleccionada',
+    press: 'Crítica destacada',
   },
   common: {
     switchLanguage: 'EN',

@@ -19,26 +19,26 @@ const bundleHtml = (locale, content) => {
 
   return `<!doctype html><html><head><meta charset="utf-8"><style>
   ${styles}
-  body { font-size: 9.5pt; line-height: 1.44; }
-  header { border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 16px; }
+  body { font-size: 9.5pt; line-height: 1.4; }
+  header { border-bottom: 1px solid #ddd; padding-bottom: 8px; margin-bottom: 10px; }
   .masthead-row { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; margin-top: 4px; }
   .contact { font-size: 9pt; color: #666; }
   .contact a { color: #1a1a1a; text-decoration: none; white-space: nowrap; }
-  h2 { margin: 0 0 7px; }
-  .prose p { margin: 0 0 13px; }
+  h2 { margin: 0 0 5px; }
+  .prose p { margin: 0 0 8px; }
   .prose p:last-child { margin-bottom: 0; }
-  .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; margin-top: 18px; }
+  .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; margin-top: 9px; }
   .grid { display: grid; grid-template-columns: 2rem 1fr; gap: 4px 8px; font-size: 9pt; }
   .grid a { color: #1a1a1a; text-decoration: underline; text-decoration-color: #ccc; text-underline-offset: 2px; }
   .year { color: #999; font-variant-numeric: tabular-nums; }
-  .quotes { margin-top: 13px; }
-  blockquote { margin: 0 0 12px; break-inside: avoid; }
+  .quotes { margin-top: 9px; }
+  blockquote { margin: 0 0 7px; break-inside: avoid; }
   blockquote cite { display: block; font-style: normal; font-size: 8pt; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 3px; }
-  .roster { margin-top: 18px; }
+  .roster { margin-top: 9px; }
   .roster p { margin: 7px 0 0; line-height: 1.6; }
   .roster a { color: #1a1a1a; text-decoration: underline; text-decoration-color: #ccc; text-underline-offset: 2px; }
   .roster .sep { color: #999; margin: 0 5px; }
-  .press { margin-top: 18px; }
+  .press { margin-top: 9px; }
 </style></head><body>
   <header>
     <h1>Jerome Faria</h1>
