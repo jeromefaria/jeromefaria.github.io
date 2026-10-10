@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 
+import { contrastRatio } from '../lib/contrast.mjs';
 import { loadSrc } from '../lib/data-loader.mjs';
 
 const { color } = await loadSrc('design/tokens.ts');
@@ -42,16 +43,42 @@ const compare = (theme, selector, tokens) => {
   return issues;
 };
 
-const issues = [
+const driftIssues = [
   ...compare('light', ':root', color.light),
   ...compare('dark', '[data-theme="dark"]', color.dark),
 ];
 
-if (issues.length > 0) {
+if (driftIssues.length > 0) {
   console.error('\n❌ tokens.ts colours have drifted from src/styles/_base.scss:');
-  issues.forEach(issue => console.error(issue));
+  driftIssues.forEach(issue => console.error(issue));
   console.error('\nReconcile src/design/tokens.ts and src/styles/_base.scss so they match.\n');
   process.exit(1);
 }
 
-console.log(`✓ Tokens: colour palette matches _base.scss (${Object.keys(color.light).length} light + ${Object.keys(color.dark).length} dark).`);
+const TEXT_KEYS = ['text', 'secondary', 'muted', 'link', 'linkHover', 'error'];
+const AA_NORMAL_RATIO = 4.5;
+
+const contrastIssues = (theme, tokens) => {
+  const failures = [];
+  for (const key of TEXT_KEYS) {
+    const ratio = contrastRatio(tokens[key], tokens.bg);
+    if (ratio < AA_NORMAL_RATIO) {
+      failures.push(`  ${theme}.${key} (${tokens[key]} on ${tokens.bg}): ${ratio.toFixed(2)}:1 — needs ≥ ${AA_NORMAL_RATIO}:1`);
+    }
+  }
+  return failures;
+};
+
+const contrastFailures = [
+  ...contrastIssues('light', color.light),
+  ...contrastIssues('dark', color.dark),
+];
+
+if (contrastFailures.length > 0) {
+  console.error('\n❌ text colour tokens fall below WCAG AA contrast against their background:');
+  contrastFailures.forEach(failure => console.error(failure));
+  console.error('\nAdjust the offending colour in src/design/tokens.ts (and src/styles/_base.scss) to meet 4.5:1.\n');
+  process.exit(1);
+}
+
+console.log(`✓ Tokens: palette matches _base.scss (${Object.keys(color.light).length} light + ${Object.keys(color.dark).length} dark); all ${TEXT_KEYS.length} text colours meet AA contrast (≥ ${AA_NORMAL_RATIO}:1) in both themes.`);
