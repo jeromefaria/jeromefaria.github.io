@@ -4,13 +4,11 @@
   --color-bg: #fff;
   --color-text: #000;
   --color-text-secondary: #444;
-  // stylelint-disable-next-line local/no-comments -- guards the AA contrast budget of this exact value
-  --color-text-muted: #767676; // WCAG AA compliant (4.54:1 on white)
+  --color-text-muted: #767676;
   --color-border: #ddd;
   --color-border-subtle: #eee;
   --color-link: #000;
-  // stylelint-disable-next-line local/no-comments -- guards the AA contrast budget of this exact value
-  --color-link-hover: #595959; // WCAG AA compliant (7:1 on white)
+  --color-link-hover: #595959;
   --color-error: #c44;
   --overlay-lightbox: rgb(0 0 0 / 95%);
   --text-overlay: rgb(255 255 255);
@@ -23,13 +21,11 @@
   --color-bg: #000;
   --color-text: #fff;
   --color-text-secondary: #bbb;
-  // stylelint-disable-next-line local/no-comments -- guards the AA contrast budget of this exact value
-  --color-text-muted: #a3a3a3; // WCAG AA compliant (4.58:1 on black)
+  --color-text-muted: #a3a3a3;
   --color-border: #333;
   --color-border-subtle: #222;
   --color-link: #fff;
-  // stylelint-disable-next-line local/no-comments -- guards the AA contrast budget of this exact value
-  --color-link-hover: #a3a3a3; // WCAG AA compliant (4.58:1 on black)
+  --color-link-hover: #a3a3a3;
   --color-error: #e55;
   --overlay-lightbox: rgb(0 0 0 / 98%);
   --text-overlay-muted: rgb(255 255 255 / 55%);
