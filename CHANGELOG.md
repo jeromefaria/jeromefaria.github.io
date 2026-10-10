@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Newsletter
 
+- **styles:** Align unsubscribe button padding with primary CTA ([#547](https://github.com/jeromefaria/jeromefaria.github.io/pull/547))
 - **styles:** Add radius tokens and finish focus-ring adoption ([#546](https://github.com/jeromefaria/jeromefaria.github.io/pull/546))
 - **readme:** Correct drift and surface the custom check-script regime + CodeQL ([#536](https://github.com/jeromefaria/jeromefaria.github.io/pull/536))
 - **e2e:** Wait for hydration before driving the contact and newsletter forms ([#532](https://github.com/jeromefaria/jeromefaria.github.io/pull/532))
