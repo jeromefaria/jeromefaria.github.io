@@ -447,6 +447,13 @@ export const recentEvents: LiveEvent[] = [
     venue: { name: 'Centro Cultural do Cartaxo', url: 'https://www.cm-cartaxo.pt/servicos-municipais/cultura/equipamentos-culturais/item/49-centro-cultural-municipio-do-cartaxo', city: 'Cartaxo', country: 'Portugal' },
     setup: { kind: 'solo' },
     format: { kind: 'theatre' },
+    images: [
+      {
+        src: '/images/live/aragao-cartaxo-001.jpg',
+        thumb: { position: 'center 59%' },
+        cardThumb: { position: 'center 82%' },
+      },
+    ],
   },
   {
     id: 'nariz-entupido',
