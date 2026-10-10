@@ -86,7 +86,7 @@ describe('resolveEpkContent', () => {
     const portuguese = resolveEpkContent(epkManifest, 'pt');
 
     expect(portuguese.shortBio).toContain('artista sonoro português');
-    expect(portuguese.longBio).toContain('percurso de duas décadas');
+    expect(portuguese.longBio).toContain('Revolução dos Cravos');
     expect(portuguese.shortBio).not.toBe(english.shortBio);
     expect(portuguese.longBio).not.toBe(english.longBio);
   });
