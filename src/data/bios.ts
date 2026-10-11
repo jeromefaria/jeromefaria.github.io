@@ -8,8 +8,8 @@ interface Bios {
 
 export const bios: Bios = {
   short: {
-    en: '<p>Jerome Faria (b. 1983) is a Portuguese composer and sound artist. For over two decades his work has ranged between confrontational noise and patient drone — across solo records, film and theatre scores, and improvisation — shaped less by any signature sound than by a consistent way of working.</p>',
-    pt: '<p>Jerome Faria (n. 1983) é um compositor e artista sonoro português. Ao longo de mais de duas décadas, o seu trabalho tem oscilado entre o ruído confrontador e o drone paciente — edições a solo, bandas sonoras para cinema e teatro, improvisação —, moldado mais por um método de trabalho coerente do que por uma sonoridade própria.</p>',
+    en: '<p>Jerome Faria (b. 1983) is a Portuguese composer and sound artist. For over two decades his work has ranged between confrontational noise and patient drone across solo records, film and theatre scores, and live improvisation.</p>',
+    pt: '<p>Jerome Faria (n. 1983) é um compositor e artista sonoro português. Ao longo de mais de duas décadas, o seu trabalho tem oscilado entre o ruído confrontador e o drone paciente, em edições a solo, bandas sonoras para cinema e teatro, e improvisação ao vivo.</p>',
   },
   press: {
     en: `
