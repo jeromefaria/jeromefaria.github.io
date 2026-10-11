@@ -32,6 +32,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Content
 
+- Correct bio commas and the ARAGÃO clause parallelism ([#552](https://github.com/jeromefaria/jeromefaria.github.io/pull/552))
 - Tighten the short bio and name live improvisation ([#551](https://github.com/jeromefaria/jeromefaria.github.io/pull/551))
 - Add a photo to the ARAGÃO (Cartaxo, 2021) live entry ([#550](https://github.com/jeromefaria/jeromefaria.github.io/pull/550))
 - Rewrite the bios and keep the PT press kit one page ([#549](https://github.com/jeromefaria/jeromefaria.github.io/pull/549))
