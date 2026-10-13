@@ -31,7 +31,7 @@ export const aboutSections: AboutSection[] = [
       },
       {
         src: '/images/about-2008-eme.jpg',
-        alt: { en: 'Jerome Faria performing at EME, Teatro Ibérico, Lisbon, 2008', pt: 'Jerome Faria a actuar no EME, Teatro Ibérico, Lisboa, 2008' },
+        alt: { en: 'Jerome Faria performing at EME, Teatro Ibérico, Lisbon, 2008', pt: 'Jerome Faria a actuar nos EME, Teatro Ibérico, Lisboa, 2008' },
         position: 'center center',
         photographer: 'eme',
       },
@@ -71,7 +71,7 @@ export const aboutSections: AboutSection[] = [
     images: [
       {
         src: '/images/about-2009-olhares.jpg',
-        alt: { en: 'Jerome Faria performing at EME.LL Olhares, Porto, 2009', pt: 'Jerome Faria a actuar no EME.LL Olhares, Porto, 2009' },
+        alt: { en: 'Jerome Faria performing at EME.LL Olhares, Porto, 2009', pt: 'Jerome Faria a actuar nos EME.LL Olhares, Porto, 2009' },
         position: '100% center',
         scale: 1.3,
         photographer: 'vitor-joaquim',
