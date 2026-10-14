@@ -34,7 +34,7 @@ const createMockDb = (seed: SubscriberRecord[] = []): { binding: Env['DB']; rows
             ? byColumn('confirm_token')
             : byColumn('unsubscribe_token');
 
-        return match ? { status: match.status, created_at: match.created_at } : null;
+        return match ? { email: match.email, status: match.status, created_at: match.created_at } : null;
       },
       run: async () => {
         if (sql.startsWith('INSERT INTO subscribers')) {
@@ -93,6 +93,19 @@ const baseEnv = (db: Env['DB']): Env => ({
   DB: db,
 });
 
+const scheduledTasks: Promise<unknown>[] = [];
+
+const executionContext = {
+  waitUntil: (task: Promise<unknown>) => {
+    scheduledTasks.push(task);
+  },
+  passThroughOnException: () => {},
+} as unknown as ExecutionContext;
+
+const run = (request: Request, env: Env): Promise<Response> => worker.fetch(request, env, executionContext);
+
+const flushScheduledTasks = (): Promise<unknown> => Promise.allSettled(scheduledTasks.splice(0));
+
 const subscribeRequest = (body: unknown, origin = 'https://jeromefaria.com'): Request =>
   new Request('https://worker.example/newsletter/subscribe', {
     method: 'POST',
@@ -149,7 +162,7 @@ describe('newsletter — subscribe', () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
     const { binding, rows } = createMockDb();
 
-    const response = await worker.fetch(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
+    const response = await run(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
 
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ ok: true });
@@ -169,7 +182,7 @@ describe('newsletter — subscribe', () => {
   it('silently drops a filled honeypot without touching the database or network', async () => {
     const { binding, rows } = createMockDb();
 
-    const response = await worker.fetch(subscribeRequest({ ...VALID_SUBSCRIBE, botField: 'spam' }), baseEnv(binding));
+    const response = await run(subscribeRequest({ ...VALID_SUBSCRIBE, botField: 'spam' }), baseEnv(binding));
 
     expect(response.status).toBe(200);
     expect(fetchMock).not.toHaveBeenCalled();
@@ -178,20 +191,20 @@ describe('newsletter — subscribe', () => {
 
   it('rejects a missing token', async () => {
     const { binding } = createMockDb();
-    const response = await worker.fetch(subscribeRequest({ email: 'a@b.co' }), baseEnv(binding));
+    const response = await run(subscribeRequest({ email: 'a@b.co' }), baseEnv(binding));
     expect(response.status).toBe(400);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it('rejects a missing email', async () => {
     const { binding } = createMockDb();
-    const response = await worker.fetch(subscribeRequest({ token: 'tok' }), baseEnv(binding));
+    const response = await run(subscribeRequest({ token: 'tok' }), baseEnv(binding));
     expect(response.status).toBe(400);
   });
 
   it('rejects a malformed email before verifying', async () => {
     const { binding } = createMockDb();
-    const response = await worker.fetch(subscribeRequest({ ...VALID_SUBSCRIBE, email: 'Support <evil@x>' }), baseEnv(binding));
+    const response = await run(subscribeRequest({ ...VALID_SUBSCRIBE, email: 'Support <evil@x>' }), baseEnv(binding));
     expect(response.status).toBe(400);
     expect(fetchMock).not.toHaveBeenCalled();
   });
@@ -199,7 +212,7 @@ describe('newsletter — subscribe', () => {
   it('rejects an over-long email', async () => {
     const { binding } = createMockDb();
     const email = `${'x'.repeat(250)}@example.com`;
-    const response = await worker.fetch(subscribeRequest({ ...VALID_SUBSCRIBE, email }), baseEnv(binding));
+    const response = await run(subscribeRequest({ ...VALID_SUBSCRIBE, email }), baseEnv(binding));
     expect(response.status).toBe(400);
   });
 
@@ -207,7 +220,7 @@ describe('newsletter — subscribe', () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(false));
     const { binding, rows } = createMockDb();
 
-    const response = await worker.fetch(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
+    const response = await run(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
 
     expect(response.status).toBe(403);
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -220,7 +233,7 @@ describe('newsletter — subscribe', () => {
       { email: 'reader@example.com', status: 'active', confirm_token: null, unsubscribe_token: 'u1', created_at: 't' },
     ]);
 
-    const response = await worker.fetch(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
+    const response = await run(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
 
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ ok: true });
@@ -233,7 +246,7 @@ describe('newsletter — subscribe', () => {
       { email: 'reader@example.com', status: 'unsubscribed', confirm_token: null, unsubscribe_token: 'u1', created_at: 't' },
     ]);
 
-    const response = await worker.fetch(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
+    const response = await run(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
 
     expect(response.status).toBe(200);
     expect(rows[0]?.status).toBe('pending');
@@ -247,7 +260,7 @@ describe('newsletter — subscribe', () => {
       { email: 'reader@example.com', status: 'pending', confirm_token: 'ct', unsubscribe_token: 'u1', created_at: recent },
     ]);
 
-    const response = await worker.fetch(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
+    const response = await run(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
 
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ ok: true });
@@ -262,7 +275,7 @@ describe('newsletter — subscribe', () => {
       { email: 'reader@example.com', status: 'pending', confirm_token: 'old', unsubscribe_token: 'u1', created_at: stale },
     ]);
 
-    const response = await worker.fetch(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
+    const response = await run(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
 
     expect(response.status).toBe(200);
     expect(fetchMock).toHaveBeenCalledTimes(2);
@@ -275,7 +288,7 @@ describe('newsletter — subscribe', () => {
       { email: 'reader@example.com', status: 'pending', confirm_token: 'old', unsubscribe_token: 'u1', created_at: '' },
     ]);
 
-    const response = await worker.fetch(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
+    const response = await run(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
 
     expect(response.status).toBe(200);
     expect(fetchMock).toHaveBeenCalledTimes(2);
@@ -297,7 +310,7 @@ describe('newsletter — subscribe', () => {
       duplex: 'half',
     } as RequestInit & { duplex: 'half' });
 
-    const response = await worker.fetch(request, baseEnv(binding));
+    const response = await run(request, baseEnv(binding));
 
     expect(response.status).toBe(413);
     expect(fetchMock).not.toHaveBeenCalled();
@@ -307,7 +320,7 @@ describe('newsletter — subscribe', () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(false));
     const { binding } = createMockDb();
 
-    const response = await worker.fetch(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
+    const response = await run(subscribeRequest(VALID_SUBSCRIBE), baseEnv(binding));
 
     expect(response.status).toBe(502);
   });
@@ -316,7 +329,7 @@ describe('newsletter — subscribe', () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(true));
     const throwingDb = { prepare: () => ({ bind: () => ({ first: async () => { throw new Error('d1 down'); } }) }) } as unknown as Env['DB'];
 
-    const response = await worker.fetch(subscribeRequest(VALID_SUBSCRIBE), baseEnv(throwingDb));
+    const response = await run(subscribeRequest(VALID_SUBSCRIBE), baseEnv(throwingDb));
 
     expect(response.status).toBe(502);
   });
@@ -328,14 +341,14 @@ describe('newsletter — subscribe', () => {
       headers: { 'Origin': 'https://jeromefaria.com' },
     });
 
-    const response = await worker.fetch(request, baseEnv(binding));
+    const response = await run(request, baseEnv(binding));
 
     expect(response.status).toBe(405);
   });
 
   it('rejects a disallowed origin', async () => {
     const { binding } = createMockDb();
-    const response = await worker.fetch(subscribeRequest(VALID_SUBSCRIBE, 'https://evil.example'), baseEnv(binding));
+    const response = await run(subscribeRequest(VALID_SUBSCRIBE, 'https://evil.example'), baseEnv(binding));
     expect(response.status).toBe(403);
     expect(fetchMock).not.toHaveBeenCalled();
   });
@@ -349,7 +362,7 @@ describe('newsletter — subscribe', () => {
       body: JSON.stringify(VALID_SUBSCRIBE),
     });
 
-    const response = await worker.fetch(request, env);
+    const response = await run(request, env);
 
     expect(response.status).toBe(429);
     expect(fetchMock).not.toHaveBeenCalled();
@@ -365,6 +378,18 @@ describe('newsletter — confirm', () => {
       headers: { 'Origin': 'https://jeromefaria.com' },
     });
 
+  let fetchMock: ReturnType<typeof vi.spyOn>;
+
+  beforeEach(() => {
+    fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue(resendResult(true));
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    scheduledTasks.length = 0;
+    vi.restoreAllMocks();
+  });
+
   it('rate-limits the confirm endpoint when the limiter rejects the IP', async () => {
     const { binding } = createMockDb();
     const env: Env = { ...baseEnv(binding), RATE_LIMITER: { limit: async () => ({ success: false }) } };
@@ -372,7 +397,7 @@ describe('newsletter — confirm', () => {
       headers: { 'CF-Connecting-IP': '203.0.113.5' },
     });
 
-    const response = await worker.fetch(request, env);
+    const response = await run(request, env);
 
     expect(response.status).toBe(429);
   });
@@ -382,7 +407,7 @@ describe('newsletter — confirm', () => {
       { email: 'reader@example.com', status: 'pending', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't' },
     ]);
 
-    const response = await worker.fetch(confirmGet('?token=ct'), baseEnv(binding));
+    const response = await run(confirmGet('?token=ct'), baseEnv(binding));
 
     expect(response.status).toBe(302);
     expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?confirm=ct');
@@ -394,7 +419,7 @@ describe('newsletter — confirm', () => {
       { email: 'reader@example.com', status: 'pending', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't' },
     ]);
 
-    const response = await worker.fetch(confirmPost('?token=ct'), baseEnv(binding));
+    const response = await run(confirmPost('?token=ct'), baseEnv(binding));
 
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ ok: true });
@@ -409,7 +434,7 @@ describe('newsletter — confirm', () => {
       { email: 'reader@example.com', status: 'unsubscribed', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't', unsubscribed_at: 'earlier' },
     ]);
 
-    const response = await worker.fetch(confirmPost('?token=ct'), baseEnv(binding));
+    const response = await run(confirmPost('?token=ct'), baseEnv(binding));
 
     expect(await response.json()).toEqual({ ok: false });
     expect(rows[0]?.status).toBe('unsubscribed');
@@ -421,8 +446,8 @@ describe('newsletter — confirm', () => {
       { email: 'reader@example.com', status: 'pending', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't' },
     ]);
 
-    const first = await worker.fetch(confirmPost('?token=ct'), baseEnv(binding));
-    const second = await worker.fetch(confirmPost('?token=ct'), baseEnv(binding));
+    const first = await run(confirmPost('?token=ct'), baseEnv(binding));
+    const second = await run(confirmPost('?token=ct'), baseEnv(binding));
 
     expect(await first.json()).toEqual({ ok: true });
     expect(await second.json()).toEqual({ ok: false });
@@ -433,7 +458,7 @@ describe('newsletter — confirm', () => {
       { email: 'reader@example.com', status: 'active', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't', confirmed_at: 'earlier' },
     ]);
 
-    const response = await worker.fetch(confirmPost('?token=ct'), baseEnv(binding));
+    const response = await run(confirmPost('?token=ct'), baseEnv(binding));
 
     expect(await response.json()).toEqual({ ok: true });
     expect(rows[0]?.confirmed_at).toBe('earlier');
@@ -441,14 +466,60 @@ describe('newsletter — confirm', () => {
 
   it('returns ok:false on POST for a missing token', async () => {
     const { binding } = createMockDb();
-    const response = await worker.fetch(confirmPost(''), baseEnv(binding));
+    const response = await run(confirmPost(''), baseEnv(binding));
     expect(await response.json()).toEqual({ ok: false });
   });
 
   it('returns ok:false on POST for an unknown token', async () => {
     const { binding } = createMockDb();
-    const response = await worker.fetch(confirmPost('?token=nope'), baseEnv(binding));
+    const response = await run(confirmPost('?token=nope'), baseEnv(binding));
     expect(await response.json()).toEqual({ ok: false });
+  });
+
+  it('notifies the owner, from the contact address, when a subscriber confirms', async () => {
+    const { binding } = createMockDb([
+      { email: 'reader@example.com', status: 'pending', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't' },
+    ]);
+
+    const response = await run(confirmPost('?token=ct'), baseEnv(binding));
+    await flushScheduledTasks();
+
+    expect(await response.json()).toEqual({ ok: true });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    const sent = JSON.parse(init.body as string);
+    expect(url).toBe('https://api.resend.com/emails');
+    expect(sent.from).toBe('contact@jeromefaria.com');
+    expect(sent.to).toBe('jerome.faria@gmail.com');
+    expect(sent.subject).toBe('New newsletter subscriber');
+    expect(sent.text).toContain('reader@example.com');
+  });
+
+  it('does not notify the owner when re-confirming an already-active subscriber', async () => {
+    const { binding } = createMockDb([
+      { email: 'reader@example.com', status: 'active', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't', confirmed_at: 'earlier' },
+    ]);
+
+    await run(confirmPost('?token=ct'), baseEnv(binding));
+    await flushScheduledTasks();
+
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('confirms the subscriber even when the owner notification fails', async () => {
+    fetchMock.mockReset();
+    fetchMock.mockRejectedValue(new Error('resend down'));
+    const { binding, rows } = createMockDb([
+      { email: 'reader@example.com', status: 'pending', confirm_token: 'ct', unsubscribe_token: 'ut', created_at: 't' },
+    ]);
+
+    const response = await run(confirmPost('?token=ct'), baseEnv(binding));
+    await flushScheduledTasks();
+
+    expect(response.status).toBe(200);
+    expect(await response.json()).toEqual({ ok: true });
+    expect(rows[0]?.status).toBe('active');
   });
 });
 
@@ -465,10 +536,22 @@ describe('newsletter — unsubscribe', () => {
       headers: { 'Origin': 'https://jeromefaria.com' },
     });
 
+  let fetchMock: ReturnType<typeof vi.spyOn>;
+
+  beforeEach(() => {
+    fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue(resendResult(true));
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    scheduledTasks.length = 0;
+    vi.restoreAllMocks();
+  });
+
   it('bounces a GET to the site page without mutating', async () => {
     const { binding, rows } = createMockDb(seed());
 
-    const response = await worker.fetch(unsubGet('?token=ut'), baseEnv(binding));
+    const response = await run(unsubGet('?token=ut'), baseEnv(binding));
 
     expect(response.status).toBe(302);
     expect(response.headers.get('Location')).toBe('https://jeromefaria.com/newsletter?unsubscribe=ut');
@@ -478,7 +561,7 @@ describe('newsletter — unsubscribe', () => {
   it('tombstones the subscriber on POST and echoes CORS', async () => {
     const { binding, rows } = createMockDb(seed());
 
-    const response = await worker.fetch(unsubPost('?token=ut'), baseEnv(binding));
+    const response = await run(unsubPost('?token=ut'), baseEnv(binding));
 
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ ok: true });
@@ -492,7 +575,7 @@ describe('newsletter — unsubscribe', () => {
       { email: 'reader@example.com', status: 'unsubscribed', confirm_token: null, unsubscribe_token: 'ut', created_at: 't', unsubscribed_at: 'earlier' },
     ]);
 
-    const response = await worker.fetch(unsubPost('?token=ut'), baseEnv(binding));
+    const response = await run(unsubPost('?token=ut'), baseEnv(binding));
 
     expect(await response.json()).toEqual({ ok: true });
     expect(rows[0]?.unsubscribed_at).toBe('earlier');
@@ -500,13 +583,41 @@ describe('newsletter — unsubscribe', () => {
 
   it('returns ok:false on POST for a missing token', async () => {
     const { binding } = createMockDb(seed());
-    const response = await worker.fetch(unsubPost(''), baseEnv(binding));
+    const response = await run(unsubPost(''), baseEnv(binding));
     expect(await response.json()).toEqual({ ok: false });
   });
 
   it('returns ok:false on POST for an unknown token', async () => {
     const { binding } = createMockDb(seed());
-    const response = await worker.fetch(unsubPost('?token=nope'), baseEnv(binding));
+    const response = await run(unsubPost('?token=nope'), baseEnv(binding));
     expect(await response.json()).toEqual({ ok: false });
+  });
+
+  it('notifies the owner on a genuine unsubscribe', async () => {
+    const { binding } = createMockDb(seed());
+
+    const response = await run(unsubPost('?token=ut'), baseEnv(binding));
+    await flushScheduledTasks();
+
+    expect(await response.json()).toEqual({ ok: true });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    const sent = JSON.parse(init.body as string);
+    expect(url).toBe('https://api.resend.com/emails');
+    expect(sent.to).toBe('jerome.faria@gmail.com');
+    expect(sent.subject).toBe('Newsletter unsubscribe');
+    expect(sent.text).toContain('reader@example.com');
+  });
+
+  it('does not notify the owner on an idempotent re-unsubscribe', async () => {
+    const { binding } = createMockDb([
+      { email: 'reader@example.com', status: 'unsubscribed', confirm_token: null, unsubscribe_token: 'ut', created_at: 't', unsubscribed_at: 'earlier' },
+    ]);
+
+    await run(unsubPost('?token=ut'), baseEnv(binding));
+    await flushScheduledTasks();
+
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

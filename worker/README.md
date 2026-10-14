@@ -12,8 +12,8 @@ already-validated fields, which the Worker re-validates and processes.
 |--------|------|---------|
 | `POST` | `/` · `/contact` | Contact relay (Turnstile → Resend email) |
 | `POST` | `/newsletter/subscribe` | Turnstile-gated signup → stores `pending`, sends a confirmation email |
-| `GET` | `/newsletter/confirm?token=…` | Confirms a pending subscriber (single-use: the token is spent on confirm), redirects to `/newsletter?confirmed=1`; a used, unknown, or non-pending token redirects to `confirmed=0` |
-| `GET`/`POST` | `/newsletter/unsubscribe?token=…` | One-click (RFC 8058) unsubscribe; tombstones the row |
+| `GET` | `/newsletter/confirm?token=…` | Confirms a pending subscriber (single-use: the token is spent on confirm), redirects to `/newsletter?confirmed=1`; a used, unknown, or non-pending token redirects to `confirmed=0`. A genuine activation notifies the owner |
+| `GET`/`POST` | `/newsletter/unsubscribe?token=…` | One-click (RFC 8058) unsubscribe; tombstones the row. A genuine unsubscribe notifies the owner |
 
 ### Contact request
 
@@ -49,6 +49,12 @@ issue can reach the address (double opt-in). A confirmation link only activates 
 `pending` row and is spent on use, so it cannot reactivate an unsubscribed address.
 Unsubscribe keeps the row with `status='unsubscribed'` (a suppression tombstone),
 never a hard delete.
+
+Each genuine state change — a `pending → active` confirmation and a first-time
+unsubscribe — sends a best-effort internal notification to `CONTACT_TO` (the
+contact-form inbox), from `CONTACT_FROM`. It is dispatched via `waitUntil`, so a
+send failure is swallowed and never affects the subscriber's result. Idempotent
+repeats (re-confirming an active row, re-unsubscribing) send nothing.
 
 ## Configuration
 

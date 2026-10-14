@@ -8,7 +8,7 @@ export { validationError };
 const normalizePath = (url: string): string => new URL(url).pathname.replace(/\/+$/, '') || '/';
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const origin = request.headers.get('Origin');
     const allowedOrigins = env.ALLOWED_ORIGINS.split(',').map(entry => entry.trim()).filter(Boolean);
     const allowedHosts = allowedOrigins.map(toHostname).filter(Boolean);
@@ -25,7 +25,9 @@ export default {
         return jsonResponse({ error: 'Too many requests' }, 429, cors);
       }
 
-      return path === '/newsletter/confirm' ? handleConfirm(request, env, cors) : handleUnsubscribe(request, env, cors);
+      return path === '/newsletter/confirm'
+        ? handleConfirm(request, env, cors, ctx)
+        : handleUnsubscribe(request, env, cors, ctx);
     }
 
     switch (path) {
