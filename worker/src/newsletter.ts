@@ -1,5 +1,6 @@
 import {
   type Env,
+  escapeHtml,
   guardPost,
   isValidEmail,
   jsonResponse,
@@ -16,9 +17,12 @@ interface SubscribePayload {
 }
 
 interface SubscriberRow {
+  email: string;
   status: string;
   created_at?: string;
 }
+
+type OwnerNotificationKind = 'subscribed' | 'unsubscribed';
 
 const MAX_EMAIL_LENGTH = 254;
 
@@ -64,6 +68,29 @@ const confirmationMessage = (email: string, confirmUrl: string, env: Env): Resen
   ].join(''),
 });
 
+const ownerNotification = (email: string, kind: OwnerNotificationKind, env: Env): ResendMessage => {
+  const subscribed = kind === 'subscribed';
+  const line = subscribed
+    ? `${email} confirmed their subscription to the newsletter.`
+    : `${email} unsubscribed from the newsletter.`;
+
+  return {
+    from: env.CONTACT_FROM,
+    to: env.CONTACT_TO,
+    subject: subscribed ? 'New newsletter subscriber' : 'Newsletter unsubscribe',
+    text: line,
+    html: `<p>${escapeHtml(line)}</p>`,
+  };
+};
+
+const notifyOwner = async (email: string, kind: OwnerNotificationKind, env: Env): Promise<void> => {
+  try {
+    await sendResendEmail(ownerNotification(email, kind, env), env.RESEND_API_KEY);
+  } catch (error) {
+    console.error('Newsletter owner-notification error:', error);
+  }
+};
+
 export const handleSubscribe = async (
   request: Request,
   env: Env,
@@ -92,7 +119,7 @@ export const handleSubscribe = async (
     }
 
     const email = normalizeEmail(payload.email);
-    const existing = await env.DB.prepare('SELECT status, created_at FROM subscribers WHERE email = ?1')
+    const existing = await env.DB.prepare('SELECT email, status, created_at FROM subscribers WHERE email = ?1')
       .bind(email)
       .first<SubscriberRow>();
 
@@ -133,7 +160,12 @@ export const handleSubscribe = async (
   }
 };
 
-export const handleConfirm = async (request: Request, env: Env, cors: Record<string, string>): Promise<Response> => {
+export const handleConfirm = async (
+  request: Request,
+  env: Env,
+  cors: Record<string, string>,
+  ctx: ExecutionContext,
+): Promise<Response> => {
   const token = new URL(request.url).searchParams.get('token') ?? '';
 
   // eslint-disable-next-line local/no-comments -- security: GET must not mutate
@@ -146,7 +178,7 @@ export const handleConfirm = async (request: Request, env: Env, cors: Record<str
 
   if (!token) return reply(false);
 
-  const row = await env.DB.prepare('SELECT status FROM subscribers WHERE confirm_token = ?1')
+  const row = await env.DB.prepare('SELECT email, status FROM subscribers WHERE confirm_token = ?1')
     .bind(token)
     .first<SubscriberRow>();
 
@@ -158,10 +190,17 @@ export const handleConfirm = async (request: Request, env: Env, cors: Record<str
     .bind(token, new Date().toISOString())
     .run();
 
+  ctx.waitUntil(notifyOwner(row.email, 'subscribed', env));
+
   return reply(true);
 };
 
-export const handleUnsubscribe = async (request: Request, env: Env, cors: Record<string, string>): Promise<Response> => {
+export const handleUnsubscribe = async (
+  request: Request,
+  env: Env,
+  cors: Record<string, string>,
+  ctx: ExecutionContext,
+): Promise<Response> => {
   const token = new URL(request.url).searchParams.get('token') ?? '';
 
   // eslint-disable-next-line local/no-comments -- security: GET must not mutate
@@ -174,7 +213,7 @@ export const handleUnsubscribe = async (request: Request, env: Env, cors: Record
 
   if (!token) return reply(false);
 
-  const row = await env.DB.prepare('SELECT status FROM subscribers WHERE unsubscribe_token = ?1')
+  const row = await env.DB.prepare('SELECT email, status FROM subscribers WHERE unsubscribe_token = ?1')
     .bind(token)
     .first<SubscriberRow>();
 
@@ -184,6 +223,8 @@ export const handleUnsubscribe = async (request: Request, env: Env, cors: Record
     await env.DB.prepare("UPDATE subscribers SET status = 'unsubscribed', unsubscribed_at = ?2 WHERE unsubscribe_token = ?1")
       .bind(token, new Date().toISOString())
       .run();
+
+    ctx.waitUntil(notifyOwner(row.email, 'unsubscribed', env));
   }
 
   return reply(true);

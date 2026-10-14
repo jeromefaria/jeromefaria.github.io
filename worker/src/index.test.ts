@@ -38,6 +38,10 @@ const resendResult = (ok: boolean): Response => ({ ok, text: async () => 'error 
 const sentBody = (fetchMock: ReturnType<typeof vi.spyOn>): Record<string, string> =>
   JSON.parse((fetchMock.mock.calls[1] as [string, RequestInit])[1].body as string);
 
+const executionContext = { waitUntil: () => {}, passThroughOnException: () => {} } as unknown as ExecutionContext;
+
+const run = (request: Request, env: Env): Promise<Response> => worker.fetch(request, env, executionContext);
+
 describe('contact worker', () => {
   let fetchMock: ReturnType<typeof vi.spyOn>;
 
@@ -56,46 +60,46 @@ describe('contact worker', () => {
       headers: { 'Origin': 'https://jeromefaria.com' },
     });
 
-    const response = await worker.fetch(request, ENV);
+    const response = await run(request, ENV);
 
     expect(response.status).toBe(204);
     expect(response.headers.get('Access-Control-Allow-Origin')).toBe('https://jeromefaria.com');
   });
 
   it('rejects a non-POST method', async () => {
-    const response = await worker.fetch(new Request('https://worker.example/'), ENV);
+    const response = await run(new Request('https://worker.example/'), ENV);
     expect(response.status).toBe(405);
   });
 
   it('rejects an invalid JSON body', async () => {
     const request = new Request('https://worker.example/', { method: 'POST', body: '{' });
-    const response = await worker.fetch(request, ENV);
+    const response = await run(request, ENV);
     expect(response.status).toBe(400);
   });
 
   it('silently drops a filled honeypot without calling out', async () => {
-    const response = await worker.fetch(postRequest({ ...VALID_BODY, botField: 'spam' }), ENV);
+    const response = await run(postRequest({ ...VALID_BODY, botField: 'spam' }), ENV);
 
     expect(response.status).toBe(200);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it('rejects a blank required field before verifying', async () => {
-    const response = await worker.fetch(postRequest({ ...VALID_BODY, name: '  ' }), ENV);
+    const response = await run(postRequest({ ...VALID_BODY, name: '  ' }), ENV);
 
     expect(response.status).toBe(400);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it('rejects a request from a disallowed origin before doing anything', async () => {
-    const response = await worker.fetch(postRequest(VALID_BODY, 'https://evil.example'), ENV);
+    const response = await run(postRequest(VALID_BODY, 'https://evil.example'), ENV);
 
     expect(response.status).toBe(403);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it('rejects an over-long message before verifying', async () => {
-    const response = await worker.fetch(postRequest({ ...VALID_BODY, message: 'x'.repeat(5001) }), ENV);
+    const response = await run(postRequest({ ...VALID_BODY, message: 'x'.repeat(5001) }), ENV);
 
     expect(response.status).toBe(400);
     expect(fetchMock).not.toHaveBeenCalled();
@@ -103,14 +107,14 @@ describe('contact worker', () => {
 
   it('rejects too many extra fields', async () => {
     const fields = Array.from({ length: 21 }, (_unused, index) => ({ label: `L${index}`, value: 'v' }));
-    const response = await worker.fetch(postRequest({ ...VALID_BODY, fields }), ENV);
+    const response = await run(postRequest({ ...VALID_BODY, fields }), ENV);
 
     expect(response.status).toBe(400);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it('rejects a malformed (non-array) fields value without crashing', async () => {
-    const response = await worker.fetch(postRequest({ ...VALID_BODY, fields: 1 }), ENV);
+    const response = await run(postRequest({ ...VALID_BODY, fields: 1 }), ENV);
 
     expect(response.status).toBe(400);
     expect(fetchMock).not.toHaveBeenCalled();
@@ -118,21 +122,21 @@ describe('contact worker', () => {
 
   it('rejects an over-long field label', async () => {
     const fields = [{ label: 'L'.repeat(101), value: 'v' }];
-    const response = await worker.fetch(postRequest({ ...VALID_BODY, fields }), ENV);
+    const response = await run(postRequest({ ...VALID_BODY, fields }), ENV);
 
     expect(response.status).toBe(400);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it('rejects an invalid email address (reply-to spoofing) before verifying', async () => {
-    const response = await worker.fetch(postRequest({ ...VALID_BODY, email: 'Support <evil@attacker.example>' }), ENV);
+    const response = await run(postRequest({ ...VALID_BODY, email: 'Support <evil@attacker.example>' }), ENV);
 
     expect(response.status).toBe(400);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it('rejects control characters in a header-bound field', async () => {
-    const response = await worker.fetch(postRequest({ ...VALID_BODY, name: 'Jane\r\nBcc: evil@x' }), ENV);
+    const response = await run(postRequest({ ...VALID_BODY, name: 'Jane\r\nBcc: evil@x' }), ENV);
 
     expect(response.status).toBe(400);
     expect(fetchMock).not.toHaveBeenCalled();
@@ -141,13 +145,13 @@ describe('contact worker', () => {
   it('accepts a free-text inquiry label with spaces and punctuation', async () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
 
-    const response = await worker.fetch(postRequest({ ...VALID_BODY, inquiry: 'Mixing & Mastering' }), ENV);
+    const response = await run(postRequest({ ...VALID_BODY, inquiry: 'Mixing & Mastering' }), ENV);
 
     expect(response.status).toBe(200);
   });
 
   it('rejects control characters in the inquiry label', async () => {
-    const response = await worker.fetch(postRequest({ ...VALID_BODY, inquiry: 'Booking\r\nBcc: evil@x' }), ENV);
+    const response = await run(postRequest({ ...VALID_BODY, inquiry: 'Booking\r\nBcc: evil@x' }), ENV);
 
     expect(response.status).toBe(400);
     expect(fetchMock).not.toHaveBeenCalled();
@@ -164,7 +168,7 @@ describe('contact worker', () => {
       body: JSON.stringify(VALID_BODY),
     });
 
-    const response = await worker.fetch(request, ENV);
+    const response = await run(request, ENV);
 
     expect(response.status).toBe(413);
     expect(fetchMock).not.toHaveBeenCalled();
@@ -175,7 +179,7 @@ describe('contact worker', () => {
       { ok: true, json: async () => ({ success: true, hostname: 'evil.example' }) } as unknown as Response,
     );
 
-    const response = await worker.fetch(postRequest(VALID_BODY), ENV);
+    const response = await run(postRequest(VALID_BODY), ENV);
 
     expect(response.status).toBe(403);
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -186,7 +190,7 @@ describe('contact worker', () => {
       { ok: true, json: async () => ({ success: true }) } as unknown as Response,
     );
 
-    const response = await worker.fetch(postRequest(VALID_BODY), ENV);
+    const response = await run(postRequest(VALID_BODY), ENV);
 
     expect(response.status).toBe(403);
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -196,7 +200,7 @@ describe('contact worker', () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
 
     const env: Env = { ...ENV, ALLOWED_ORIGINS: 'https://jeromefaria.com,://malformed' };
-    const response = await worker.fetch(postRequest(VALID_BODY), env);
+    const response = await run(postRequest(VALID_BODY), env);
 
     expect(response.status).toBe(200);
   });
@@ -208,7 +212,7 @@ describe('contact worker', () => {
       )
       .mockResolvedValueOnce(resendResult(true));
 
-    const response = await worker.fetch(postRequest(VALID_BODY), ENV);
+    const response = await run(postRequest(VALID_BODY), ENV);
 
     expect(response.status).toBe(200);
     expect(fetchMock).toHaveBeenCalledTimes(2);
@@ -218,7 +222,7 @@ describe('contact worker', () => {
     const env: Env = { ...ENV, ALLOWED_ORIGINS: '' };
     const request = new Request('https://worker.example/', { method: 'OPTIONS', headers: { 'Origin': 'https://x.com' } });
 
-    const response = await worker.fetch(request, env);
+    const response = await run(request, env);
 
     expect(response.status).toBe(204);
     expect(response.headers.get('Access-Control-Allow-Origin')).toBe('');
@@ -228,7 +232,7 @@ describe('contact worker', () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
     const { fields: _fields, ...bodyWithoutFields } = VALID_BODY;
 
-    const response = await worker.fetch(postRequest(bodyWithoutFields), ENV);
+    const response = await run(postRequest(bodyWithoutFields), ENV);
 
     expect(response.status).toBe(200);
   });
@@ -236,7 +240,7 @@ describe('contact worker', () => {
   it('rejects a failed Turnstile verification without sending', async () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(false));
 
-    const response = await worker.fetch(postRequest(VALID_BODY), ENV);
+    const response = await run(postRequest(VALID_BODY), ENV);
 
     expect(response.status).toBe(403);
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -245,7 +249,7 @@ describe('contact worker', () => {
   it('verifies, sends via Resend, and returns ok', async () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
 
-    const response = await worker.fetch(postRequest(VALID_BODY), ENV);
+    const response = await run(postRequest(VALID_BODY), ENV);
 
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ ok: true });
@@ -263,7 +267,7 @@ describe('contact worker', () => {
   it('returns 502 when Resend fails', async () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(false));
 
-    const response = await worker.fetch(postRequest(VALID_BODY), ENV);
+    const response = await run(postRequest(VALID_BODY), ENV);
 
     expect(response.status).toBe(502);
   });
@@ -271,7 +275,7 @@ describe('contact worker', () => {
   it('returns a CORS 502 when a downstream request throws', async () => {
     fetchMock.mockRejectedValueOnce(new Error('network error'));
 
-    const response = await worker.fetch(postRequest(VALID_BODY), ENV);
+    const response = await run(postRequest(VALID_BODY), ENV);
 
     expect(response.status).toBe(502);
     expect(response.headers.get('Access-Control-Allow-Origin')).toBe('https://jeromefaria.com');
@@ -280,7 +284,7 @@ describe('contact worker', () => {
   it('escapes HTML in user content', async () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
 
-    await worker.fetch(postRequest({ ...VALID_BODY, message: '<script>alert(1)</script>' }), ENV);
+    await run(postRequest({ ...VALID_BODY, message: '<script>alert(1)</script>' }), ENV);
 
     const sent = sentBody(fetchMock);
     expect(sent.html).toContain('&lt;script&gt;');
@@ -290,7 +294,7 @@ describe('contact worker', () => {
   it('falls back to the primary origin for a disallowed one', async () => {
     fetchMock.mockResolvedValue(turnstileResult(true));
 
-    const response = await worker.fetch(postRequest(VALID_BODY, 'https://evil.example'), ENV);
+    const response = await run(postRequest(VALID_BODY, 'https://evil.example'), ENV);
 
     expect(response.headers.get('Access-Control-Allow-Origin')).toBe('https://jeromefaria.com');
   });
@@ -305,7 +309,7 @@ describe('contact worker', () => {
   it('returns 429 without verifying when the rate limiter denies the IP', async () => {
     const env: Env = { ...ENV, RATE_LIMITER: { limit: async () => ({ success: false }) } };
 
-    const response = await worker.fetch(ipRequest(), env);
+    const response = await run(ipRequest(), env);
 
     expect(response.status).toBe(429);
     expect(fetchMock).not.toHaveBeenCalled();
@@ -315,7 +319,7 @@ describe('contact worker', () => {
     fetchMock.mockResolvedValueOnce(turnstileResult(true)).mockResolvedValueOnce(resendResult(true));
     const env: Env = { ...ENV, RATE_LIMITER: { limit: async () => ({ success: true }) } };
 
-    const response = await worker.fetch(ipRequest(), env);
+    const response = await run(ipRequest(), env);
 
     expect(response.status).toBe(200);
   });
@@ -340,17 +344,17 @@ describe('routing', () => {
     });
 
   it('routes /contact to the contact handler', async () => {
-    const response = await worker.fetch(at('/contact'), ENV);
+    const response = await run(at('/contact'), ENV);
     expect(response.status).toBe(200);
   });
 
   it('treats a trailing slash the same as the bare path', async () => {
-    const response = await worker.fetch(at('/contact/'), ENV);
+    const response = await run(at('/contact/'), ENV);
     expect(response.status).toBe(200);
   });
 
   it('returns 404 for an unknown path', async () => {
-    const response = await worker.fetch(at('/unknown'), ENV);
+    const response = await run(at('/unknown'), ENV);
     expect(response.status).toBe(404);
   });
 });
