@@ -98,8 +98,8 @@ onMounted(async () => {
       tabindex="-1"
       @click="handleClose"
       @keydown="onKeydown"
-      @touchstart="handleTouchStart"
-      @touchend="handleTouchEnd"
+      @touchstart.passive="handleTouchStart"
+      @touchend.passive="handleTouchEnd"
     >
       <iframe
         v-if="isVideo && currentItem && isLightboxVideo(currentItem) && isAllowedEmbedUrl(currentItem.url)"
