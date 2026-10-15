@@ -23,6 +23,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Audio player
 
+- Mark lightbox touch listeners passive for parity with the player ([#559](https://github.com/jeromefaria/jeromefaria.github.io/pull/559))
 - **styles:** Correct variant-scope bugs found in the styling audit ([#545](https://github.com/jeromefaria/jeromefaria.github.io/pull/545))
 - **readme:** Document the immersive share permalink, cover it in e2e ([#539](https://github.com/jeromefaria/jeromefaria.github.io/pull/539))
 - **player:** Mirror immersive state into the release URL ([#538](https://github.com/jeromefaria/jeromefaria.github.io/pull/538))
