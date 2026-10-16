@@ -69,7 +69,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: quality-checks
     timeout-minutes: 15
 
     steps:
@@ -134,11 +133,27 @@ jobs:
           fi
           echo "✅ All bundles within budget."
 
-  lighthouse:
-    name: Lighthouse
+  # Desktop and mobile run as parallel matrix legs rather than back-to-back in
+  # one job, so Lighthouse's wall-clock is one profile's runtime, not both.
+  # Assertions are enforced (no continue-on-error): the deterministic quality
+  # gates (accessibility, best-practices, no console errors, JS/CSS resource
+  # sizes, text compression) block CI. Performance timings and content-driven
+  # image weight are advisory (warn). Mobile (Moto G4 + slow 4G) keeps its CWV
+  # assertions advisory so a variable runner never hard-fails on mobile timings.
+  lighthouse-matrix:
+    name: Lighthouse (${{ matrix.profile }})
     runs-on: ubuntu-latest
     needs: build
     timeout-minutes: 20
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - profile: desktop
+            script: lighthouse
+          - profile: mobile
+            script: lighthouse:mobile
 
     steps:
       - name: Checkout code
@@ -159,20 +174,8 @@ jobs:
           name: dist
           path: dist/
 
-      # Assertions are enforced (no continue-on-error): the deterministic quality
-      # gates (accessibility, best-practices, no console errors, JS/CSS resource
-      # sizes, text compression) block CI. Performance timings and content-driven
-      # image weight are advisory (warn) in .lighthouserc.json.
-      - name: Run Lighthouse CI
-        run: npm run lighthouse
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-
-      # Mobile emulation (Moto G4 + slow 4G). CWV assertions are advisory (warn)
-      # so a variable CI runner never hard-fails on mobile timings; the desktop
-      # run keeps the deterministic gates (a11y, resource sizes, compression).
-      - name: Run Lighthouse CI (mobile)
-        run: npm run lighthouse:mobile
+      - name: Run Lighthouse CI (${{ matrix.profile }})
+        run: npm run ${{ matrix.script }}
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
@@ -180,9 +183,28 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         if: always()
         with:
-          name: lighthouse-reports
+          name: lighthouse-reports-${{ matrix.profile }}
           path: .lighthouseci/
           retention-days: 30
+
+  # Branch protection requires a check named exactly "Lighthouse". The audit now
+  # runs as a parallel desktop/mobile matrix (checks "Lighthouse (desktop)" and
+  # "Lighthouse (mobile)"), so this thin job republishes their aggregate result
+  # under the required name without re-running any audit.
+  lighthouse:
+    name: Lighthouse
+    runs-on: ubuntu-latest
+    needs: lighthouse-matrix
+    if: always()
+
+    steps:
+      - name: Gate on the Lighthouse matrix result
+        run: |
+          if [ "${{ needs.lighthouse-matrix.result }}" != "success" ]; then
+            echo "Lighthouse matrix did not pass (result: ${{ needs.lighthouse-matrix.result }})."
+            exit 1
+          fi
+          echo "Lighthouse matrix passed."
 
   e2e-tests:
     name: E2E Tests
