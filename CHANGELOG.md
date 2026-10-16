@@ -59,6 +59,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Tests
 
+- Auto-unmount components globally to stop post-teardown timer leaks ([#564](https://github.com/jeromefaria/jeromefaria.github.io/pull/564))
 - Cover worksSchema, registry, keyboardTarget, and releaseDate ([#563](https://github.com/jeromefaria/jeromefaria.github.io/pull/563))
 - **tokens:** Enforce WCAG AA text-contrast in the token guard ([#548](https://github.com/jeromefaria/jeromefaria.github.io/pull/548))
 - Stop happy-dom fetching preload links so coverage runs don't flake ([#528](https://github.com/jeromefaria/jeromefaria.github.io/pull/528))
