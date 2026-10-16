@@ -47,6 +47,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 - **archive:** Restore the oldsite header banner ([#521](https://github.com/jeromefaria/jeromefaria.github.io/pull/521))
 - **archive:** Restore recovered Casa das Mudas photos and tidy thumbnail grids ([#520](https://github.com/jeromefaria/jeromefaria.github.io/pull/520))
 
+### Performance
+
+- Render all download assets in a single shared browser ([#560](https://github.com/jeromefaria/jeromefaria.github.io/pull/560))
+
 ### Refactors
 
 - **styles:** Drop dead CSS and replace literals with tokens ([#544](https://github.com/jeromefaria/jeromefaria.github.io/pull/544))
