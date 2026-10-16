@@ -76,6 +76,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 - **deps-dev:** Bump the worker-minor-patch group ([#524](https://github.com/jeromefaria/jeromefaria.github.io/pull/524))
 - **deps-dev:** Bump source-map-js ([#530](https://github.com/jeromefaria/jeromefaria.github.io/pull/530))
 
+### Docs
+
+- Correct the release-kind union in the README (engineering, not mastering) ([#566](https://github.com/jeromefaria/jeromefaria.github.io/pull/566))
+
 ### Chores
 
 - **data:** Add explicit extensions to config-eval imports and enforce it ([#533](https://github.com/jeromefaria/jeromefaria.github.io/pull/533))
