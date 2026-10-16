@@ -1,5 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { argv } from 'node:process';
+import { pathToFileURL } from 'node:url';
 
 import { loadSrc, root } from '../lib/data-loader.mjs';
 import { interFontFaces } from '../lib/pdf-fonts.mjs';
@@ -80,9 +82,9 @@ const cardHtml = (event, hero, isPoster, locale) => `<!doctype html><html><head>
   </div>
 </body></html>`;
 
-let count = 0;
+export const render = async browser => {
+  let count = 0;
 
-await withBrowser(async browser => {
   for (const event of liveEvents) {
     const selection = heroOf(event);
     if (!selection) continue;
@@ -98,6 +100,8 @@ await withBrowser(async browser => {
       count += 1;
     }
   }
-});
 
-console.log(`Live event social cards → public/og-live-*.jpg (${count})`);
+  console.log(`Live event social cards → public/og-live-*.jpg (${count})`);
+};
+
+if (pathToFileURL(argv[1]).href === import.meta.url) await withBrowser(render);

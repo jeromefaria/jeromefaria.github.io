@@ -1,5 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { argv } from 'node:process';
+import { pathToFileURL } from 'node:url';
 
 import { marked } from 'marked';
 
@@ -31,10 +33,13 @@ const resumeHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
   h2 { break-after: avoid; }
 </style></head><body>${body}</body></html>`;
 
-await withBrowser(browser => renderPdf(browser, {
-  html: resumeHtml,
-  path: join(root, 'public/jerome-faria-cv.pdf'),
-  margin: { top: '14mm', bottom: '14mm', left: '16mm', right: '16mm' },
-}));
+export const render = async browser => {
+  await renderPdf(browser, {
+    html: resumeHtml,
+    path: join(root, 'public/jerome-faria-cv.pdf'),
+    margin: { top: '14mm', bottom: '14mm', left: '16mm', right: '16mm' },
+  });
+  console.log('Résumé → public/jerome-faria-cv.pdf');
+};
 
-console.log('Résumé → public/jerome-faria-cv.pdf');
+if (pathToFileURL(argv[1]).href === import.meta.url) await withBrowser(render);

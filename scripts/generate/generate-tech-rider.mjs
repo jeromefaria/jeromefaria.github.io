@@ -1,4 +1,6 @@
 import { join } from 'node:path';
+import { argv } from 'node:process';
+import { pathToFileURL } from 'node:url';
 
 import { epkRiderFile, locales, localize, outDir, pdfChrome, root, siteConfig, techRider } from '../lib/epk-context.mjs';
 import { baseStyles } from '../lib/pdf-styles.mjs';
@@ -77,7 +79,7 @@ const riderHtml = locale => {
 </body></html>`;
 };
 
-await withBrowser(async browser => {
+export const render = async browser => {
   for (const locale of locales) {
     const filename = `${epkRiderFile(locale)}.pdf`;
     await renderPdf(browser, {
@@ -87,4 +89,6 @@ await withBrowser(async browser => {
     });
     console.log(`Tech rider → public/epk/${filename}`);
   }
-});
+};
+
+if (pathToFileURL(argv[1]).href === import.meta.url) await withBrowser(render);

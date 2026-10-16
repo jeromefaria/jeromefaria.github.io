@@ -1,4 +1,6 @@
 import { join } from 'node:path';
+import { argv } from 'node:process';
+import { pathToFileURL } from 'node:url';
 
 import { root } from '../lib/data-loader.mjs';
 import { textCardHtml } from '../lib/og-card.mjs';
@@ -12,6 +14,9 @@ const html = textCardHtml({
   footerUrl: 'jeromefaria.com/cv',
 });
 
-await withBrowser(browser => renderCard(browser, { html, path: join(root, 'public/og-cv.png') }));
+export const render = async browser => {
+  await renderCard(browser, { html, path: join(root, 'public/og-cv.png') });
+  console.log('CV social card → public/og-cv.png');
+};
 
-console.log('CV social card → public/og-cv.png');
+if (pathToFileURL(argv[1]).href === import.meta.url) await withBrowser(render);
