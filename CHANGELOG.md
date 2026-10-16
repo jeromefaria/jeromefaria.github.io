@@ -49,6 +49,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Performance
 
+- Hoist normalization out of the fuzzy-rank loops ([#562](https://github.com/jeromefaria/jeromefaria.github.io/pull/562))
 - Render all download assets in a single shared browser ([#560](https://github.com/jeromefaria/jeromefaria.github.io/pull/560))
 
 ### Refactors
