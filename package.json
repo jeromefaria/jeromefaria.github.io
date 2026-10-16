@@ -75,10 +75,10 @@
     "unhead": "^2.1.13"
   },
   "dependencies": {
-    "marked": "^18.0.14",
-    "vue": "^3.5.43",
-    "vue-i18n": "^11.4.13",
-    "vue-router": "^5.3.1"
+    "marked": "^18.1.1",
+    "vue": "^3.5.44",
+    "vue-i18n": "^11.4.14",
+    "vue-router": "^5.4.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
@@ -86,12 +86,12 @@
     "@commitlint/config-conventional": "^21.2.2",
     "@fontsource/inter": "^5.3.0",
     "@lhci/cli": "^0.15.1",
-    "@playwright/test": "^1.63.0",
-    "@types/node": "^26.6.4",
-    "@typescript-eslint/eslint-plugin": "^8.71.0",
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^26.6.5",
+    "@typescript-eslint/eslint-plugin": "^8.71.2",
     "@typescript-eslint/parser": "^8.51.0",
-    "@vitejs/plugin-vue": "^6.0.9",
-    "@vitest/coverage-v8": "^5.0.3",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "@vitest/coverage-v8": "^5.0.4",
     "@vitest/ui": "^5.0.0",
     "@vue/test-utils": "^2.5.1",
     "archiver": "^7.0.1",
@@ -111,13 +111,13 @@
     "stylelint": "^17.16.0",
     "stylelint-config-recess-order": "^7.8.0",
     "stylelint-config-standard-scss": "^17.0.0",
-    "stylelint-order": "^8.1.1",
+    "stylelint-order": "^8.1.2",
     "subset-font": "^2.9.0",
     "typescript": "^5.9.3",
-    "vite": "^8.3.2",
+    "vite": "^8.3.4",
     "vite-plugin-image-optimizer": "^2.0.3",
     "vite-ssg": "^28.3.0",
     "vitest": "^5.0.0",
-    "vue-tsc": "^3.3.12"
+    "vue-tsc": "^3.3.13"
   }
 }
