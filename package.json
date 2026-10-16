@@ -37,7 +37,7 @@
     "epk:photos": "node scripts/generate/generate-epk-photos.mjs",
     "epk:bundle": "node scripts/generate/generate-epk-bundle.mjs",
     "rider:pdf": "node scripts/generate/generate-tech-rider.mjs",
-    "downloads:build": "npm run epk:bundle && npm run rider:pdf && npm run resume:pdf && npm run og:cv && npm run og:writing && npm run og:live && npm run og:newsletter",
+    "downloads:build": "node scripts/generate/downloads.mjs",
     "epk:kit": "npm run epk:photos && npm run downloads:build",
     "prepare": "husky",
     "changelog": "git-cliff b48e53f..HEAD --output CHANGELOG.md",
