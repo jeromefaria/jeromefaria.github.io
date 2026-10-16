@@ -66,6 +66,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Build & CI
 
+- Parallelize build with checks and split lighthouse desktop/mobile ([#565](https://github.com/jeromefaria/jeromefaria.github.io/pull/565))
 - **deps:** Bump the npm-minor-patch group across 1 directory with 14 updates ([#525](https://github.com/jeromefaria/jeromefaria.github.io/pull/525))
 - **deps:** Bump the npm-security group across 1 directory with 3 updates ([#527](https://github.com/jeromefaria/jeromefaria.github.io/pull/527))
 - **deps-dev:** Bump the worker-minor-patch group ([#524](https://github.com/jeromefaria/jeromefaria.github.io/pull/524))
