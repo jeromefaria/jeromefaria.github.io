@@ -1,4 +1,4 @@
-import { enableAutoUnmount, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { type Component, defineComponent, nextTick, reactive } from 'vue';
 
@@ -57,8 +57,6 @@ function createMockElement(): HTMLElement {
 }
 
 describe('useAccordion', () => {
-  enableAutoUnmount(afterEach);
-
   let replaceStateSpy: ReturnType<typeof vi.spyOn>;
   let getElementByIdSpy: ReturnType<typeof vi.spyOn<Document, 'getElementById'>>;
 

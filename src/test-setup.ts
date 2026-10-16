@@ -1,3 +1,10 @@
+import { enableAutoUnmount } from '@vue/test-utils';
+import { afterEach } from 'vitest';
+
+// eslint-disable-next-line local/no-comments -- non-obvious gotcha
+// Unmount every mounted component after each test so onScopeDispose/onBeforeUnmount cleanup runs; otherwise a real timer left pending (e.g. useAccordion's post-animation scroll) fires after happy-dom tears the window down and throws "document is not defined", flaking the run.
+enableAutoUnmount(afterEach);
+
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: (query: string) => ({
