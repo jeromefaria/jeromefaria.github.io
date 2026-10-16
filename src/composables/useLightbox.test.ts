@@ -1,4 +1,4 @@
-import { enableAutoUnmount, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { type Component, defineComponent } from 'vue';
 
@@ -38,8 +38,6 @@ const mockVideos: LightboxItem[] = [
 ];
 
 describe('useLightbox', () => {
-  enableAutoUnmount(afterEach);
-
   beforeEach(() => {
     document.body.style.overflow = OVERFLOW_DEFAULT;
     vi.clearAllMocks();
