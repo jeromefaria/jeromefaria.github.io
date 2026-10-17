@@ -26,7 +26,7 @@ export const recentEvents: RawLiveEvent[] = [
       {
         src: '/images/live/jejum-45-poster-001.jpg',
         artist: { name: 'Colectivo Casa Amarela' },
-        alt: { en: 'Jejum #45 poster — Colectivo Casa Amarela at Fábrica da Criatividade, Castelo Branco, 19–20 September 2026, with Guilherme Rodrigues, Zé Maria Carreira, Gweynn, Jerome Faria, Living Room DJs, Peak Bleak and Soria', pt: 'Cartaz do Jejum #45 — Colectivo Casa Amarela na Fábrica da Criatividade, Castelo Branco, 19–20 de setembro de 2026, com Guilherme Rodrigues, Zé Maria Carreira, Gweynn, Jerome Faria, Living Room DJs, Peak Bleak e Soria' },
+        alt: { en: 'Jejum #45 poster — Colectivo Casa Amarela at Fábrica da Criatividade, Castelo Branco, 19–20 September 2026, with Guilherme Rodrigues, Zé Maria Carreira, Gweynn, Jerome Faria, Living Room DJs, Peak Bleak and Soria', pt: 'Cartaz do Jejum #45 — Colectivo Casa Amarela na Fábrica da Criatividade, Castelo Branco, 19–20 de Setembro de 2026, com Guilherme Rodrigues, Zé Maria Carreira, Gweynn, Jerome Faria, Living Room DJs, Peak Bleak e Soria' },
       },
     ],
   },

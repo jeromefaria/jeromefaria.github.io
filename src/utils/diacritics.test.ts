@@ -4,7 +4,7 @@ import { foldDiacritics } from './diacritics';
 
 describe('foldDiacritics', () => {
   it('strips Portuguese diacritics and lowercases', () => {
-    expect(foldDiacritics('Água João Ção')).toBe('agua joao cao');
+    expect(foldDiacritics('Água João Ação')).toBe('agua joao acao');
   });
 
   it('folds a range of accented Latin letters', () => {
