@@ -7,6 +7,7 @@ import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { EpkContent, EpkLiveHighlight, EpkManifest, EpkPhoto, EpkWorkHighlight, EpkWorkRef } from '@/types/epk';
 import type { LiveEvent } from '@/types/live';
 import type { Release } from '@/types/works';
+import { foldDiacritics } from '@/utils/diacritics';
 import { resolveCredit } from '@/utils/people';
 import { releaseYear } from '@/utils/releaseDate';
 import { venueCompactLabel } from '@/utils/venueFormat';
@@ -22,10 +23,7 @@ const findById = <T extends { id: string }>(items: T[], id: string): T => {
 };
 
 const slugify = (value: string): string =>
-  value
-    .normalize('NFD')
-    .replace(/\p{Diacritic}/gu, '')
-    .toLowerCase()
+  foldDiacritics(value)
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 

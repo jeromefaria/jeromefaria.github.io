@@ -5,6 +5,7 @@ import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import { ptContract, type PtGrammar } from '@/i18n/ptGrammar';
 import type { EventVenue, LiveAltLocation, LiveEvent } from '@/types/live';
+import { foldDiacritics } from '@/utils/diacritics';
 import { createNameLookup } from '@/utils/registry';
 
 const PERFORMER = 'Jerome Faria';
@@ -37,10 +38,7 @@ const PHRASES: Record<Locale, Phrases> = {
 const findVenue = createNameLookup(venues);
 
 const normalizeName = (value: string): string =>
-  value
-    .normalize('NFD')
-    .replace(/\p{Diacritic}/gu, '')
-    .toLowerCase()
+  foldDiacritics(value)
     .replace(/\s*#\d+\s*$/, '')
     .replace(/[^a-z0-9]/g, '');
 
