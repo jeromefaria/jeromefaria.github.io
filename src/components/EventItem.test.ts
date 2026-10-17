@@ -314,8 +314,8 @@ describe('EventItem', () => {
       expect(venue.text()).toBe('A Small Room, Nowhere, Portugal');
     });
 
-    it('links a registered venue even when the event carries no inline url', () => {
-      const wrapper = mountEvent({ ...plainEvent, venue: { name: 'Casa das Mudas', city: 'Calheta', country: 'Portugal' } });
+    it('links a resolved venue to its url', () => {
+      const wrapper = mountEvent({ ...plainEvent, venue: { name: 'Casa das Mudas', url: 'https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1', city: 'Calheta', country: 'Portugal' } });
       const link = wrapper.get('.event-venue a');
       expect(link.attributes('href')).toBe('https://museus.madeira.gov.pt/DetalhesMuseu?museumId=1');
       expect(link.text()).toContain('Casa das Mudas');

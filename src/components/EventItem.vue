@@ -16,7 +16,6 @@ import { buildEventDescription } from '@/utils/liveDescription';
 import { liveEventImageAlt } from '@/utils/liveEventImageAlt';
 import { liveEventPath } from '@/utils/liveEventPermalink';
 import { venuePlace } from '@/utils/venueFormat';
-import { venueUrl } from '@/utils/venues';
 
 import ExternalLink from './ExternalLink.vue';
 import IconArrow from './IconArrow.vue';
@@ -46,7 +45,7 @@ const venueLocation = computed(() => venuePlace(props.event.venue, current.value
 
 const venueSeparator = computed(() => (props.event.venue.name && venueLocation.value ? ', ' : ''));
 
-const venueHref = computed(() => props.event.venue.url ?? (props.event.venue.name ? venueUrl(props.event.venue.name) : undefined));
+const venueHref = computed(() => props.event.venue.url);
 
 const altText = computed(() => liveEventImageAlt(props.event, current.value));
 

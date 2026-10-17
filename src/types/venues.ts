@@ -9,3 +9,5 @@ export interface Venue {
 }
 
 export type VenueRegistry = Record<string, Venue>;
+
+export type VenueRef = string;
