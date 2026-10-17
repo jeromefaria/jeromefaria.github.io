@@ -1,13 +1,9 @@
 import type { Localized } from '@/i18n/localized';
-
-export interface ColophonSection {
-  heading: Localized<string>;
-  body: Localized<string>;
-}
+import type { ProseSection } from '@/types/prose';
 
 export interface ColophonContent {
   intro: Localized<string>;
-  sections: ColophonSection[];
+  sections: ProseSection[];
   source: Localized<string>;
 }
 

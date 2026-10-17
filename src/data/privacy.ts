@@ -1,13 +1,9 @@
 import type { Localized } from '@/i18n/localized';
-
-export interface PrivacySection {
-  heading: Localized<string>;
-  body: Localized<string>;
-}
+import type { ProseSection } from '@/types/prose';
 
 export interface PrivacyContent {
   intro: Localized<string>;
-  sections: PrivacySection[];
+  sections: ProseSection[];
   updated: Localized<string>;
 }
 
