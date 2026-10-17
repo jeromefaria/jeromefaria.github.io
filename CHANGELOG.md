@@ -11,6 +11,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **lightbox:** Model the open-lightbox payload as a LightboxRequest ([#573](https://github.com/jeromefaria/jeromefaria.github.io/pull/573))
 - **views:** Extract ProseSectionsPage for colophon and privacy ([#571](https://github.com/jeromefaria/jeromefaria.github.io/pull/571))
 - **views:** Extract useAccordionDetailPage for the detail pages ([#570](https://github.com/jeromefaria/jeromefaria.github.io/pull/570))
 - **composables:** Extract a shared form-submit lifecycle helper ([#569](https://github.com/jeromefaria/jeromefaria.github.io/pull/569))
