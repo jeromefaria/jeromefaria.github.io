@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, onMounted, watch } from 'vue';
+import { onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import AccordionPage from '@/components/AccordionPage.vue';
 import EngineeringCreditItem from '@/components/EngineeringCreditItem.vue';
 import NotFound from '@/components/NotFound.vue';
 import ReleaseItem from '@/components/ReleaseItem.vue';
+import { useAccordionDetailPage } from '@/composables/useAccordionDetailPage';
 import { useImmersivePermalink } from '@/composables/useImmersivePermalink';
-import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
 import { worksData, worksSections } from '@/data/works';
 import { useLocalized } from '@/i18n/localized';
@@ -17,22 +17,14 @@ import { createReleaseSchema, createWorksPageSchema } from '@/utils/worksSchema'
 const route = useRoute();
 const { localize, current } = useLocalized();
 
-const releaseId = computed(() => (typeof route.params['releaseId'] === 'string' ? route.params['releaseId'] : ''));
-
-const focusRelease = computed(() => (releaseId.value ? findRelease(releaseId.value) : undefined));
-
-const notFound = computed(() => releaseId.value !== '' && !focusRelease.value);
-
-const head = computed(() => {
-  if (focusRelease.value) {
-    const canonicalUrl = `${siteConfig.url}${route.path}`;
-    return {
-      ...releaseHead(focusRelease.value, current.value),
-      schema: createReleaseSchema(focusRelease.value, current.value, canonicalUrl),
-    };
-  }
-
-  return { ...pageMeta.works, schema: createWorksPageSchema() };
+const { focusId: releaseId, focusEntity: focusRelease, notFound, head } = useAccordionDetailPage({
+  paramName: 'releaseId',
+  find: findRelease,
+  detailHead: (release, canonicalUrl) => ({
+    ...releaseHead(release, current.value),
+    schema: createReleaseSchema(release, current.value, canonicalUrl),
+  }),
+  listHead: () => ({ ...pageMeta.works, schema: createWorksPageSchema() }),
 });
 
 const playFromRoute = (): void => {
