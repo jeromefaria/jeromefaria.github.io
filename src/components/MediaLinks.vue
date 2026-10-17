@@ -3,7 +3,7 @@ import { computed } from 'vue';
 
 import { useT } from '@/i18n/useT';
 import type { LightboxItem } from '@/types';
-import type { LightboxMediaKind, LightboxSource } from '@/utils/lightboxPermalink';
+import type { LightboxMediaKind, LightboxRequest } from '@/utils/lightboxPermalink';
 
 const props = withDefaults(
   defineProps<{
@@ -19,7 +19,7 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{
-  'open-lightbox': [items: LightboxItem[], index: number, source: LightboxSource];
+  'open-lightbox': [request: LightboxRequest];
 }>();
 
 const t = useT();
@@ -69,7 +69,7 @@ const links = computed<MediaLink[]>(() => {
         v-if="link.type === 'lightbox'"
         class="link-discrete"
         :aria-label="t('media.view', { label: link.label.toLowerCase() })"
-        @click="emit('open-lightbox', link.items, 0, { id: sourceId, kind: link.kind })"
+        @click="emit('open-lightbox', { items: link.items, index: 0, source: { id: sourceId, kind: link.kind } })"
       >
         {{ link.label }}
       </button>

@@ -28,7 +28,7 @@ describe('MediaLinks', () => {
     expect(button.text()).toBe('Gallery');
     await button.trigger('click');
 
-    expect(wrapper.emitted('open-lightbox')?.[0]).toEqual([[image], 0, { id: 'ev-1', kind: 'photo' }]);
+    expect(wrapper.emitted('open-lightbox')?.[0]).toEqual([{ items: [image], index: 0, source: { id: 'ev-1', kind: 'photo' } }]);
   });
 
   it('gives each terse label a descriptive "View …" aria-label for assistive tech', () => {
@@ -56,7 +56,7 @@ describe('MediaLinks', () => {
     expect(button.text()).toBe('Posters');
     await button.trigger('click');
 
-    expect(wrapper.emitted('open-lightbox')?.[0]).toEqual([[poster, poster], 0, { id: 'ev-1', kind: 'poster' }]);
+    expect(wrapper.emitted('open-lightbox')?.[0]).toEqual([{ items: [poster, poster], index: 0, source: { id: 'ev-1', kind: 'poster' } }]);
   });
 
   it('orders every control alphabetically by label', () => {

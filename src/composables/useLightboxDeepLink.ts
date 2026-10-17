@@ -2,14 +2,14 @@ import type { Ref } from 'vue';
 import { nextTick, onMounted, onUnmounted } from 'vue';
 
 import type { LightboxItem } from '@/types/lightbox';
-import { type LightboxMediaKind, type LightboxSource, parseMediaFragment } from '@/utils/lightboxPermalink';
+import { type LightboxMediaKind, type LightboxRequest, parseMediaFragment } from '@/utils/lightboxPermalink';
 
 type Galleries = Partial<Record<LightboxMediaKind, Ref<LightboxItem[]>>>;
 
 export const useLightboxDeepLink = (
   entityId: string,
   galleries: Galleries,
-  open: (items: LightboxItem[], index: number, source: LightboxSource) => void,
+  open: (request: LightboxRequest) => void,
 ): void => {
   const controller = new AbortController();
 
@@ -23,7 +23,7 @@ export const useLightboxDeepLink = (
     const items = galleries[parsed.kind]?.value ?? [];
     if (parsed.index >= items.length) return;
 
-    open(items, parsed.index, { id: entityId, kind: parsed.kind });
+    open({ items, index: parsed.index, source: { id: entityId, kind: parsed.kind } });
   };
 
   onMounted(() => {

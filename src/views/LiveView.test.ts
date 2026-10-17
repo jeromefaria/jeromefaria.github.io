@@ -21,7 +21,7 @@ describe('LiveView', () => {
     const wrapper = await mountView(LiveView, '/live');
     expect(wrapper.findComponent(LightboxOverlay).exists()).toBe(false);
 
-    wrapper.findComponent(EventItem).vm.$emit('open-lightbox', [{ type: 'image', src: '/x.jpg', alt: 'x' }], 0);
+    wrapper.findComponent(EventItem).vm.$emit('open-lightbox', { items: [{ type: 'image', src: '/x.jpg', alt: 'x' }], index: 0, source: { id: 'x', kind: 'photo' } });
     await nextTick();
 
     expect(wrapper.findComponent(LightboxOverlay).exists()).toBe(true);

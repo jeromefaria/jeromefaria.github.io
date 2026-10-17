@@ -12,7 +12,7 @@ import { hasBandcampId, hasBandcampUrl, hasCoverImage, hasCredits, hasDescriptio
 import { essayForRelease } from '@/utils/essayLinks';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
-import type { LightboxSource } from '@/utils/lightboxPermalink';
+import type { LightboxRequest } from '@/utils/lightboxPermalink';
 import { releasePath } from '@/utils/releasePermalink';
 import { renderCredits } from '@/utils/renderCredits';
 
@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{
   'update-hash': [id: string];
-  'open-lightbox': [items: LightboxItem[], index: number, source: LightboxSource];
+  'open-lightbox': [request: LightboxRequest];
 }>();
 
 const coverVisible = useAccordionVisibility();
@@ -53,7 +53,7 @@ const videoLightboxItems = computed<LightboxItem[]>(() =>
 useLightboxDeepLink(
   props.release.id,
   { photo: imageLightboxItems, video: videoLightboxItems },
-  (items, index, source) => emit('open-lightbox', items, index, source),
+  request => emit('open-lightbox', request),
 );
 
 const isBandcampLink = computed(() =>
@@ -195,7 +195,7 @@ const notesHref = computed(() => {
         :source-id="release.id"
         :download-url="hasBandcampUrl(release) ? release.bandcampUrl : undefined"
         :notes-href="notesHref"
-        @open-lightbox="(items, index, source) => emit('open-lightbox', items, index, source)"
+        @open-lightbox="emit('open-lightbox', $event)"
       />
     </div>
   </article>
