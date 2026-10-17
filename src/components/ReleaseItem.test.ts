@@ -339,11 +339,11 @@ describe('ReleaseItem', () => {
     const wrapper = mountRelease(publication);
 
     await wrapper.get('.media-links button').trigger('click');
-    const payload = wrapper.emitted('open-lightbox')?.[0];
+    const request = wrapper.emitted('open-lightbox')?.[0]?.[0] as { items: Array<{ src: string }>; index: number };
 
-    expect(payload?.[1]).toBe(0);
-    expect(payload?.[0]).toHaveLength(2);
-    expect((payload?.[0] as Array<{ src: string }>)[0].src).toBe('/images/publications/glitch-spread-01.jpg');
+    expect(request.index).toBe(0);
+    expect(request.items).toHaveLength(2);
+    expect(request.items[0].src).toBe('/images/publications/glitch-spread-01.jpg');
   });
 
   it('emits open-lightbox with converted videos from the video button', async () => {
@@ -366,17 +366,45 @@ describe('ReleaseItem', () => {
     expect(button.text()).toBe('Video');
 
     await button.trigger('click');
-    const payload = wrapper.emitted('open-lightbox')?.[0];
+    const request = wrapper.emitted('open-lightbox')?.[0]?.[0] as { items: Array<Record<string, unknown>>; index: number };
 
-    expect(payload?.[1]).toBe(0);
-    expect(payload?.[0]).toHaveLength(1);
-    expect((payload?.[0] as Array<Record<string, unknown>>)[0]).toMatchObject({
+    expect(request.index).toBe(0);
+    expect(request.items).toHaveLength(1);
+    expect(request.items[0]).toMatchObject({
       type: 'video',
       url: 'https://www.youtube-nocookie.com/embed/3b3pM8URdVc',
       platform: 'youtube',
       title: 'NOx - ALTAR',
       author: { name: 'NOx', url: 'https://www.youtube.com/@noxexposure' },
     });
+  });
+
+  it('opens the lightbox from a matching deep-link hash on mount', async () => {
+    const publication: Release = {
+      id: 'glitch-deeplink',
+      title: 'Glitch',
+      meta: { kind: 'music', mediums: ['Digital'], editions: [], released: '2009' },
+      coverImage: '/images/glitch.jpg',
+      externalUrl: 'https://example.com/glitch',
+      credits: 'Editors.',
+      images: [
+        { src: '/images/publications/glitch-spread-01.jpg', alt: 'Spread 1' },
+        { src: '/images/publications/glitch-spread-02.jpg', alt: 'Spread 2' },
+      ],
+    };
+    window.location.hash = '#glitch-deeplink/photo/2';
+
+    try {
+      const wrapper = mountRelease(publication);
+      await flushPromises();
+
+      const request = wrapper.emitted('open-lightbox')?.[0]?.[0] as { items: unknown[]; index: number; source: unknown };
+      expect(request.index).toBe(1);
+      expect(request.items).toHaveLength(2);
+      expect(request.source).toEqual({ id: 'glitch-deeplink', kind: 'photo' });
+    } finally {
+      window.location.hash = '';
+    }
   });
 
   it('pluralizes the video button and separates it from the gallery link', () => {

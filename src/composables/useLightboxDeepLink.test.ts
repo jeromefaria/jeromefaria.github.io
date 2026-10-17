@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { defineComponent, ref } from 'vue';
 
 import type { LightboxItem } from '@/types/lightbox';
-import type { LightboxSource } from '@/utils/lightboxPermalink';
+import type { LightboxRequest } from '@/utils/lightboxPermalink';
 
 import { useLightboxDeepLink } from './useLightboxDeepLink';
 
@@ -14,7 +14,7 @@ const photos: LightboxItem[] = [
 
 const mountWith = (
   entityId: string,
-  open: (items: LightboxItem[], index: number, source: LightboxSource) => void,
+  open: (request: LightboxRequest) => void,
 ) =>
   mount(defineComponent({
     setup() {
@@ -35,7 +35,7 @@ describe('useLightboxDeepLink', () => {
     mountWith('ev', open);
     await flushPromises();
 
-    expect(open).toHaveBeenCalledWith(photos, 1, { id: 'ev', kind: 'photo' });
+    expect(open).toHaveBeenCalledWith({ items: photos, index: 1, source: { id: 'ev', kind: 'photo' } });
   });
 
   it('ignores a hash that targets a different entity', async () => {
@@ -78,6 +78,6 @@ describe('useLightboxDeepLink', () => {
     window.history.replaceState(null, '', '#ev/photo/2');
     window.dispatchEvent(new PopStateEvent('popstate'));
 
-    expect(open).toHaveBeenCalledWith(photos, 1, { id: 'ev', kind: 'photo' });
+    expect(open).toHaveBeenCalledWith({ items: photos, index: 1, source: { id: 'ev', kind: 'photo' } });
   });
 });

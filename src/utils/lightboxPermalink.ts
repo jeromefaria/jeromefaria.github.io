@@ -1,8 +1,16 @@
+import type { LightboxItem } from '@/types/lightbox';
+
 export type LightboxMediaKind = 'photo' | 'poster' | 'video';
 
 export interface LightboxSource {
   id: string;
   kind: LightboxMediaKind;
+}
+
+export interface LightboxRequest {
+  items: LightboxItem[];
+  index: number;
+  source: LightboxSource;
 }
 
 export interface ParsedMediaFragment extends LightboxSource {

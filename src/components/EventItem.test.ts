@@ -1,4 +1,4 @@
-import { mount, RouterLinkStub } from '@vue/test-utils';
+import { flushPromises, mount, RouterLinkStub } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
 import { createMemoryHistory, createRouter } from 'vue-router';
 
@@ -170,10 +170,10 @@ describe('EventItem', () => {
       const wrapper = mountEvent(event);
 
       await wrapper.get('.media-links button').trigger('click');
-      const payload = wrapper.emitted('open-lightbox')?.[0];
+      const request = wrapper.emitted('open-lightbox')?.[0]?.[0] as { items: unknown[]; index: number };
 
-      expect(payload?.[1]).toBe(0);
-      expect(payload?.[0]).toEqual([
+      expect(request.index).toBe(0);
+      expect(request.items).toEqual([
         { type: 'image', src: '/images/live/a-001.jpg', alt: liveEventImageAlt(event, 'en'), credit: { role: 'photo', name: 'Valentina Araújo' } },
       ]);
     });
@@ -186,10 +186,30 @@ describe('EventItem', () => {
       const wrapper = mountEvent(event);
 
       await wrapper.get('.media-links button').trigger('click');
-      const payload = wrapper.emitted('open-lightbox')?.[0];
+      const request = wrapper.emitted('open-lightbox')?.[0]?.[0] as { items: Array<{ alt: string }> };
       const expected = liveEventImageAlt(event, 'en');
 
-      expect((payload?.[0] as Array<{ alt: string }>).map(item => item.alt)).toEqual([expected, expected]);
+      expect(request.items.map(item => item.alt)).toEqual([expected, expected]);
+    });
+
+    it('opens the lightbox from a matching deep-link hash on mount', async () => {
+      const event: LiveEvent = {
+        ...plainEvent,
+        images: [{ src: '/images/live/a-001.jpg' }, { src: '/images/live/a-002.jpg' }],
+      };
+      window.location.hash = '#fim-de-emissao-45/photo/2';
+
+      try {
+        const wrapper = mountEvent(event);
+        await flushPromises();
+
+        const request = wrapper.emitted('open-lightbox')?.[0]?.[0] as { items: unknown[]; index: number; source: unknown };
+        expect(request.index).toBe(1);
+        expect(request.items).toHaveLength(2);
+        expect(request.source).toEqual({ id: 'fim-de-emissao-45', kind: 'photo' });
+      } finally {
+        window.location.hash = '';
+      }
     });
 
     it('renders no media control when the event has neither images nor videos', () => {
@@ -206,10 +226,10 @@ describe('EventItem', () => {
       expect(button.text()).toBe('Video');
 
       await button.trigger('click');
-      const payload = wrapper.emitted('open-lightbox')?.[0];
+      const request = wrapper.emitted('open-lightbox')?.[0]?.[0] as { items: unknown[]; index: number };
 
-      expect(payload?.[1]).toBe(0);
-      expect(payload?.[0]).toEqual([
+      expect(request.index).toBe(0);
+      expect(request.items).toEqual([
         { type: 'video', url: 'https://player.vimeo.com/video/1', title: 'Live set', platform: 'vimeo', author: { name: 'Hugo Olim', url: 'https://vimeo.com/hugoolim' } },
       ]);
     });
@@ -243,14 +263,14 @@ describe('EventItem', () => {
       expect(button.text()).toBe('Posters');
 
       await button.trigger('click');
-      expect(wrapper.emitted('open-lightbox')?.[0]).toEqual([
-        [
+      expect(wrapper.emitted('open-lightbox')?.[0]).toEqual([{
+        items: [
           { type: 'image', src: '/images/live/a-poster-001.jpg', alt: 'Poster one' },
           { type: 'image', src: '/images/live/a-poster-002.jpg', alt: 'Poster two' },
         ],
-        0,
-        { id: 'fim-de-emissao-45', kind: 'poster' },
-      ]);
+        index: 0,
+        source: { id: 'fim-de-emissao-45', kind: 'poster' },
+      }]);
     });
 
     it('uses the singular poster label for a single poster', () => {
@@ -355,11 +375,11 @@ describe('EventItem', () => {
     it('opens the lightbox at the first gallery image, not the hero', async () => {
       const wrapper = mountEvent(withImages);
       await wrapper.get('.event-thumb').trigger('click');
-      const payload = wrapper.emitted('open-lightbox')?.[0];
+      const request = wrapper.emitted('open-lightbox')?.[0]?.[0] as { items: Array<{ src: string }>; index: number; source: unknown };
 
-      expect(payload?.[1]).toBe(0);
-      expect((payload?.[0] as Array<{ src: string }>)[0].src).toBe('/images/live/a-001.jpg');
-      expect(payload?.[2]).toEqual({ id: 'fim-de-emissao-45', kind: 'photo' });
+      expect(request.index).toBe(0);
+      expect(request.items[0].src).toBe('/images/live/a-001.jpg');
+      expect(request.source).toEqual({ id: 'fim-de-emissao-45', kind: 'photo' });
     });
 
     it('shows the image count only when the event has more than one image', () => {
@@ -373,7 +393,7 @@ describe('EventItem', () => {
 
       expect(wrapper.get('.event-thumb img').attributes('src')).toBe('/images/live/p-001.jpg');
       await wrapper.get('.event-thumb').trigger('click');
-      expect(wrapper.emitted('open-lightbox')?.[0]?.[2]).toEqual({ id: 'fim-de-emissao-45', kind: 'poster' });
+      expect((wrapper.emitted('open-lightbox')?.[0]?.[0] as { source: unknown }).source).toEqual({ id: 'fim-de-emissao-45', kind: 'poster' });
     });
 
     it('renders a text-only row when the event has no media', () => {

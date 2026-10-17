@@ -11,7 +11,7 @@ import { externalizeLinks } from '@/utils/externalizeLinks';
 import { formatEventDateRange } from '@/utils/formatters';
 import { getImageStyles } from '@/utils/imageStyles';
 import { toLightboxImage, toLightboxVideo } from '@/utils/lightboxAdapters';
-import type { LightboxSource } from '@/utils/lightboxPermalink';
+import type { LightboxRequest } from '@/utils/lightboxPermalink';
 import { buildEventDescription } from '@/utils/liveDescription';
 import { liveEventImageAlt } from '@/utils/liveEventImageAlt';
 import { liveEventPath } from '@/utils/liveEventPermalink';
@@ -29,7 +29,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   'update-hash': [id: string];
-  'open-lightbox': [items: LightboxItem[], index: number, source: LightboxSource];
+  'open-lightbox': [request: LightboxRequest];
 }>();
 
 const { current, toLocalePath } = useLocale();
@@ -90,7 +90,7 @@ const showThumb = computed(() => Boolean(heroThumb.value));
 const eventClass = computed(() => (showThumb.value ? 'event event--column' : 'event event--text-only'));
 
 const openPreview = () =>
-  emit('open-lightbox', previewImages.value, 0, { id: props.event.id, kind: previewKind.value });
+  emit('open-lightbox', { items: previewImages.value, index: 0, source: { id: props.event.id, kind: previewKind.value } });
 
 const mediaLinksProps = computed(() => ({
   images: imageLightboxItems.value,
@@ -103,7 +103,7 @@ const mediaLinksProps = computed(() => ({
 useLightboxDeepLink(
   props.event.id,
   { photo: imageLightboxItems, poster: posterLightboxItems, video: videoLightboxItems },
-  (items, index, source) => emit('open-lightbox', items, index, source),
+  request => emit('open-lightbox', request),
 );
 </script>
 
@@ -151,7 +151,7 @@ useLightboxDeepLink(
       <MediaLinks
         v-if="!showThumb"
         v-bind="mediaLinksProps"
-        @open-lightbox="(items, index, source) => emit('open-lightbox', items, index, source)"
+        @open-lightbox="emit('open-lightbox', $event)"
       />
     </div>
     <template v-if="showThumb">
@@ -173,7 +173,7 @@ useLightboxDeepLink(
       </figure>
       <MediaLinks
         v-bind="mediaLinksProps"
-        @open-lightbox="(items, index, source) => emit('open-lightbox', items, index, source)"
+        @open-lightbox="emit('open-lightbox', $event)"
       />
     </template>
   </article>
