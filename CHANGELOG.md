@@ -5,6 +5,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 ## Unreleased
 
 
+### Live
+
+- **live:** Resolve event venues via registry key-refs ([#575](https://github.com/jeromefaria/jeromefaria.github.io/pull/575))
+
 ### Audio player
 
 - **player:** Extract createMediaSession and add displayArtwork ([#572](https://github.com/jeromefaria/jeromefaria.github.io/pull/572))
