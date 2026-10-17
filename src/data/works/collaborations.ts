@@ -15,7 +15,7 @@ export const collaborations: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital', 'Cassette'],
-        editions: [{ label: { text: 'BRØQN' }, catalog: 'BRQN007' }],
+        editions: [{ label: 'br-qn', catalog: 'BRQN007' }],
         released: '2025',
       },
       tracklist: [
@@ -45,7 +45,7 @@ export const collaborations: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital', 'Cassette'],
-        editions: [{ label: { text: 'Colectivo Casa Amarela' }, catalog: 'CCA#035' }],
+        editions: [{ label: 'colectivo-casa-amarela', catalog: 'CCA#035' }],
         released: '2024',
       },
       tracklist: [
@@ -79,7 +79,7 @@ export const collaborations: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital'],
-        editions: [{ label: { text: 'BRØQN' }, catalog: 'BRQN003' }],
+        editions: [{ label: 'br-qn', catalog: 'BRQN003' }],
         released: '2012',
       },
       tracklist: [

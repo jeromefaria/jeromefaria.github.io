@@ -93,7 +93,7 @@ export const film: WorksSection = {
       meta: {
         kind: 'commission',
         work: 'DVD',
-        publisher: { label: { text: 'Pixelnerve' }, catalog: 'PXN001' },
+        publisher: { label: 'pixelnerve', catalog: 'PXN001' },
         released: '2007-12-08',
       },
       description: {

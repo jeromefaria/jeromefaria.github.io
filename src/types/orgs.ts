@@ -9,3 +9,5 @@ export interface Organization {
 }
 
 export type OrgRegistry = Record<string, Organization>;
+
+export type OrgRef = string;

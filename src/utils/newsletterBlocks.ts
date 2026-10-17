@@ -7,6 +7,7 @@ import { isAllowedEmbedUrl } from '@/utils/embedUrl';
 import { formatEventDateRange, formatMonthYear } from '@/utils/formatters';
 import { eventPhotoCredit, type PhotoCredit, releasePhotoCredit } from '@/utils/newsletterCredit';
 import { safeNewsletterUrl } from '@/utils/newsletterUrl';
+import { resolveEditionLabel } from '@/utils/orgs';
 import { renderMarkdown, renderMarkdownInline } from '@/utils/renderMarkdown';
 
 export interface MetaField {
@@ -43,7 +44,7 @@ const releaseMeta = (release: NonNullable<ReturnType<typeof releaseById.get>>): 
   return [
     { label: 'Released', value: formatMonthYear(meta.released) },
     { label: 'Format', value: meta.mediums.join(' / ') },
-    { label: 'Label', value: edition?.label.text ?? '' },
+    { label: 'Label', value: edition ? resolveEditionLabel(edition.label).text : '' },
     { label: 'Catalog', value: edition?.catalog ?? '' },
   ].filter(field => field.value);
 };

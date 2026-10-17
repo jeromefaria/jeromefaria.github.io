@@ -16,6 +16,7 @@ import type { CommissionMeta, Edition, Release, ReleaseMeta } from '@/types/work
 import { cvPdfHref } from '@/utils/cv';
 import { epkPdfHref, epkRiderHref, epkZipHref } from '@/utils/epk';
 import { openInNewTab } from '@/utils/openInNewTab';
+import { resolveEditionLabel } from '@/utils/orgs';
 import { resolveCredit } from '@/utils/people';
 import { releaseYearString } from '@/utils/releaseDate';
 import { canPlayRelease, playReleaseAt } from '@/utils/releasePermalink';
@@ -66,7 +67,7 @@ const sectionCommands = (t: TranslateFn, locale: Locale): Command[] =>
   }));
 
 const editionKeywords = (editions: Edition[]): string[] =>
-  editions.flatMap(edition => [edition.label.text, edition.catalog ?? '']);
+  editions.flatMap(edition => [resolveEditionLabel(edition.label).text, edition.catalog ?? '']);
 
 const commissionKeywords = (meta: CommissionMeta): string[] => {
   switch (meta.work) {
@@ -75,7 +76,7 @@ const commissionKeywords = (meta: CommissionMeta): string[] => {
     case 'Theatre':
       return [meta.venue.text];
     case 'DVD':
-      return [meta.publisher.label.text];
+      return [resolveEditionLabel(meta.publisher.label).text];
     case 'Live Score':
       return [];
   }
