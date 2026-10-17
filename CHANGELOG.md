@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **composables:** Extract a shared form-submit lifecycle helper ([#569](https://github.com/jeromefaria/jeromefaria.github.io/pull/569))
 - **utils:** Extract foldDiacritics shared by the slug builders ([#568](https://github.com/jeromefaria/jeromefaria.github.io/pull/568))
 - **scripts:** Extract shared walkFiles, distRoute, and lineOf helpers ([#567](https://github.com/jeromefaria/jeromefaria.github.io/pull/567))
 
