@@ -1,5 +1,6 @@
-import { computed, type ComputedRef, readonly, type Ref, ref, watch } from 'vue';
+import { computed, type ComputedRef, readonly, type Ref, ref } from 'vue';
 
+import { createMediaSession } from '@/composables/useMediaSession';
 import { audioUrl } from '@/data/audio';
 import type { AudioTrack } from '@/types/audio';
 
@@ -56,82 +57,22 @@ const currentChapter = computed(() => {
 });
 
 const displayTitle = computed(() => currentChapter.value?.title ?? currentTrack.value?.title ?? '');
+const displayArtwork = computed(() => currentTrack.value?.artwork ?? nowPlaying.value.artwork);
 
-const MEDIA_HANDLERS: [MediaSessionAction, MediaSessionActionHandler][] = [
-  ['play', () => void resume()],
-  ['pause', () => pause()],
-  ['nexttrack', () => void next()],
-  ['previoustrack', () => void previous()],
-  ['seekto', event => {
-    if (typeof event.seekTime === 'number') seek(event.seekTime);
-  }],
-];
-
-const registerMediaHandlers = (): void => {
-  if (!('mediaSession' in navigator)) return;
-
-  for (const [action, handler] of MEDIA_HANDLERS) navigator.mediaSession.setActionHandler(action, handler);
-};
-
-const updateMediaMetadata = (track: AudioTrack): void => {
-  if (!('mediaSession' in navigator) || typeof MediaMetadata === 'undefined') return;
-
-  const artworkSrc = track.artwork ?? nowPlaying.value.artwork;
-  const artwork = artworkSrc
-    ? [{ src: new URL(artworkSrc, location.href).href, sizes: '512x512', type: 'image/jpeg' }]
-    : [];
-
-  navigator.mediaSession.metadata = new MediaMetadata({
-    title: track.title,
-    artist: track.artist ?? 'Jerome Faria',
-    album: nowPlaying.value.album ?? '',
-    artwork,
-  });
-};
-
-const clearMediaSession = (): void => {
-  if (!('mediaSession' in navigator)) return;
-
-  navigator.mediaSession.metadata = null;
-  // eslint-disable-next-line local/no-comments -- non-obvious gotcha
-  // Clearing the position state is required: without it iOS keeps a phantom Now Playing entry after the element is gone, extrapolating a moving timeline from the last reported position with no audio or artwork.
-  navigator.mediaSession.setPositionState?.();
-  navigator.mediaSession.playbackState = 'none';
-  for (const [action] of MEDIA_HANDLERS) navigator.mediaSession.setActionHandler(action, null);
-};
-
-const PLAYBACK_STATES: Record<PlayerStatus, MediaSessionPlaybackState> = {
-  idle: 'none',
-  loading: 'playing',
-  buffering: 'playing',
-  playing: 'playing',
-  paused: 'paused',
-  ended: 'paused',
-  error: 'none',
-};
-
-const updatePlaybackState = (): void => {
-  if (!('mediaSession' in navigator)) return;
-
-  navigator.mediaSession.playbackState = PLAYBACK_STATES[status.value];
-};
-
-const updatePositionState = (): void => {
-  if (!('mediaSession' in navigator)) return;
-
-  const total = duration.value;
-  if (!Number.isFinite(total) || total <= 0) return;
-
-  // eslint-disable-next-line local/no-comments -- browser-support gotcha
-  // setPositionState is absent on older WebKit even when mediaSession exists, and it throws unless 0 <= position <= duration, so the reported position is clamped to the reported duration.
-  navigator.mediaSession.setPositionState?.({
-    duration: total,
-    position: Math.min(Math.max(currentTime.value, 0), total),
-    playbackRate: element?.playbackRate ?? 1,
-  });
-};
-
-watch(status, updatePlaybackState, { flush: 'sync' });
+const mediaSession = createMediaSession({
+  status,
+  currentTime,
+  duration,
+  context: nowPlaying,
+  playbackRate: () => element?.playbackRate ?? 1,
+  handlers: {
+    play: () => void resume(),
+    pause: () => pause(),
+    next: () => void next(),
+    previous: () => void previous(),
+    seek: time => seek(time),
+  },
+});
 
 const scheduleRetry = (gen: number): void => {
   if (retries >= RETRY_LIMIT) {
@@ -164,7 +105,7 @@ const ensureElement = (): HTMLAudioElement => {
   bind('playing', () => { status.value = 'playing'; });
   bind('pause', () => { if (status.value !== 'ended') status.value = 'paused'; });
   bind('waiting', () => { status.value = 'buffering'; });
-  bind('timeupdate', () => { currentTime.value = media.currentTime; updatePositionState(); });
+  bind('timeupdate', () => { currentTime.value = media.currentTime; mediaSession.updatePosition(); });
   bind('durationchange', () => {
     // eslint-disable-next-line local/no-comments -- non-obvious gotcha
     // The manifest duration is the canonical master length; a browser's decoded AAC duration lands a fraction under it and floors down a second, so only fall back to it when no authored duration exists.
@@ -177,7 +118,7 @@ const ensureElement = (): HTMLAudioElement => {
   // eslint-disable-next-line local/no-comments -- non-obvious gotcha
   // Attach to the DOM so WebKit tracks the element's lifecycle: a detached `new Audio()` never gives iOS a "media removed" signal, so removing it on stop() is what dismisses the lock-screen Now Playing entry.
   document.body.appendChild(media);
-  registerMediaHandlers();
+  mediaSession.register();
 
   return media;
 };
@@ -210,7 +151,7 @@ const load = async (): Promise<void> => {
 
   const media = ensureElement();
   media.src = audioUrl(track.key);
-  updateMediaMetadata(track);
+  mediaSession.updateMetadata(track);
   await start(gen);
 };
 
@@ -272,7 +213,7 @@ export const stop = (): void => {
     element.remove();
     element = null;
   }
-  clearMediaSession();
+  mediaSession.clear();
   queue.value = [];
   index.value = -1;
   currentTime.value = 0;
@@ -337,7 +278,7 @@ export const seek = (time: number): void => {
   const clamped = Math.min(Math.max(time, 0), duration.value || element.duration || 0);
   element.currentTime = clamped;
   currentTime.value = clamped;
-  updatePositionState();
+  mediaSession.updatePosition();
 };
 
 export const stepEntry = (direction: 1 | -1): void => {
@@ -378,6 +319,7 @@ interface PlayerApi {
   context: Readonly<Ref<PlayContext>>;
   currentChapter: ComputedRef<PlayChapter | undefined>;
   displayTitle: ComputedRef<string>;
+  displayArtwork: ComputedRef<string | undefined>;
   expanded: Readonly<Ref<boolean>>;
   immersive: Readonly<Ref<boolean>>;
   play: typeof play;
@@ -412,6 +354,7 @@ export const usePlayer = (): PlayerApi => ({
   context: readonly(nowPlaying),
   currentChapter,
   displayTitle,
+  displayArtwork,
   expanded: readonly(expanded),
   immersive: readonly(immersive),
   play,
