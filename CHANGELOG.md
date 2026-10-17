@@ -15,6 +15,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Refactors
 
+- **data:** Rename the BRØQN org key to brqn ([#576](https://github.com/jeromefaria/jeromefaria.github.io/pull/576))
 - **works:** Resolve edition labels via org key-refs ([#574](https://github.com/jeromefaria/jeromefaria.github.io/pull/574))
 - **lightbox:** Model the open-lightbox payload as a LightboxRequest ([#573](https://github.com/jeromefaria/jeromefaria.github.io/pull/573))
 - **views:** Extract ProseSectionsPage for colophon and privacy ([#571](https://github.com/jeromefaria/jeromefaria.github.io/pull/571))
