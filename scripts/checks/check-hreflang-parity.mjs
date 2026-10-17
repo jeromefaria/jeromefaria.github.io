@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+
+import { walkFiles } from '../lib/walk.mjs';
 
 const DIST = 'dist';
 const SITEMAP = join(DIST, 'sitemap.xml');
@@ -21,15 +23,7 @@ const canonicalOf = html => {
   return tag ? attr(tag, 'href') : null;
 };
 
-const htmlFiles = [];
-const walk = dir => {
-  for (const entry of readdirSync(dir)) {
-    const full = join(dir, entry);
-    if (statSync(full).isDirectory()) walk(full);
-    else if (entry.endsWith('.html')) htmlFiles.push(full);
-  }
-};
-walk(DIST);
+const htmlFiles = [...walkFiles(DIST)].filter(file => file.endsWith('.html'));
 
 const pageAlternates = new Map();
 for (const file of htmlFiles) {

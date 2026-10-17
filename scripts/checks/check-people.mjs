@@ -1,19 +1,14 @@
-import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { readFileSync } from 'node:fs';
+
+import { walkFiles } from '../lib/walk.mjs';
 
 const DATA_DIR = 'src/data';
 const REGISTRY = 'src/data/people.ts';
 const ORG_REGISTRY = 'src/data/orgs.ts';
 
-const dataFiles = [];
-const walk = dir => {
-  for (const entry of readdirSync(dir)) {
-    const full = join(dir, entry);
-    if (statSync(full).isDirectory()) walk(full);
-    else if (full.endsWith('.ts') && !/\.(test|golden)\.|__fixtures__/.test(full)) dataFiles.push(full);
-  }
-};
-walk(DATA_DIR);
+const dataFiles = [...walkFiles(DATA_DIR)].filter(
+  file => file.endsWith('.ts') && !/\.(test|golden)\.|__fixtures__/.test(file),
+);
 
 const resolvable = new Set();
 for (const registry of [REGISTRY, ORG_REGISTRY]) {

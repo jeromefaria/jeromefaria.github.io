@@ -1,29 +1,13 @@
-import { readdirSync, statSync, writeFileSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+import { distRoute, walkFiles } from '../lib/walk.mjs';
 
 const DIST = 'dist';
 const ORIGIN = 'https://jeromefaria.com';
 
 const EXCLUDE = new Set(['/404', '/epk', '/cv']);
 const EXCLUDE_PREFIXES = ['/archive'];
-
-const htmlFiles = [];
-const walk = dir => {
-  for (const entry of readdirSync(dir)) {
-    const full = join(dir, entry);
-
-    if (statSync(full).isDirectory()) {
-      walk(full);
-    } else if (entry.endsWith('.html')) {
-      htmlFiles.push(full);
-    }
-  }
-};
-
-const toRoute = file =>
-  `/${relative(DIST, file).replace(/\\/g, '/')}`
-    .replace(/\/index\.html$/, '/')
-    .replace(/\.html$/, '');
 
 const stripLocale = route => (route === '/pt' || route.startsWith('/pt/') ? route.slice(3) || '/' : route);
 const ptRoute = base => (base === '/' ? '/pt' : `/pt${base}`);
@@ -35,9 +19,9 @@ const priority = base => {
   return '0.7';
 };
 
-walk(DIST);
+const htmlFiles = [...walkFiles(DIST)].filter(file => file.endsWith('.html'));
 
-const routes = [...new Set(htmlFiles.map(toRoute))]
+const routes = [...new Set(htmlFiles.map(file => distRoute(file, DIST)))]
   .filter(route => {
     const base = stripLocale(route);
     return !EXCLUDE.has(base) && !EXCLUDE_PREFIXES.some(prefix => base === prefix || base.startsWith(`${prefix}/`));

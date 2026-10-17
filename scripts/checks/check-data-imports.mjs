@@ -4,6 +4,8 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { lineOf } from '../lib/text.mjs';
+
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const CONFIG = resolve(ROOT, 'vite.config.ts');
 
@@ -14,7 +16,7 @@ export const scanImports = content =>
   [...content.matchAll(IMPORT_PATTERN)].map(match => ({
     isTypeOnly: Boolean(match[1]),
     specifier: match[2],
-    line: content.slice(0, match.index).split('\n').length,
+    line: lineOf(content, match.index),
   }));
 
 const RELATIVE_WITH_EXTENSION = /\.(?:mjs|cjs|jsx?|tsx?|json)$/;

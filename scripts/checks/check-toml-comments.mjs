@@ -2,6 +2,8 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
+import { lineOf } from '../lib/text.mjs';
+
 const ALLOWED = /^keep:\s*\S/;
 
 const skipDelimited = (text, start, delimiter) => {
@@ -19,8 +21,6 @@ const skipQuoted = (text, start) => {
   }
   return index + 1;
 };
-
-const lineOf = (text, position) => text.slice(0, position).split('\n').length;
 
 export const findTomlComments = text => {
   const comments = [];

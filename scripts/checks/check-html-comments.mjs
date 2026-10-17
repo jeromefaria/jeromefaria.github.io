@@ -1,5 +1,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 
+import { lineOf } from '../lib/text.mjs';
+
 const ALLOWED = /^(keep:\s*\S|!|\[if\s|stylelint-|eslint-|@ts-)/;
 
 const sourceHtmlFiles = () => {
@@ -16,8 +18,6 @@ const sourceHtmlFiles = () => {
 
 const stripStrings = line =>
   line.replace(/'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`/g, '');
-
-const lineOf = (text, index) => text.slice(0, index).split('\n').length;
 
 const collectComments = text => {
   const found = [];
