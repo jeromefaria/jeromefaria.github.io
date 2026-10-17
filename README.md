@@ -360,7 +360,7 @@ The CI pipeline (`ci.yml`) runs on every pull request, and is reused as the depl
 ### Quality Checks
 - TypeScript type checking
 - ESLint (JS/TS) and stylelint (SCSS, BEM-enforced) code quality
-- A suite of bespoke convention guards (`scripts/checks/`, run from `lint` and `build`) — e.g. no undefined `var(--x)`, design-token parity with `_base.scss`, resolvable `[[credit]]` markers, a self-documenting-code policy (no stray comments), and no `@`-alias or extensionless imports in the data modules Vite evaluates at config-eval time; the build adds in-page↔sitemap hreflang parity and complete-route-prerender checks
+- A suite of bespoke convention guards (`scripts/checks/`, run from `lint` and `build`) — e.g. no undefined `var(--x)`, design-token parity with `_base.scss`, resolvable `[[credit]]` markers, registry key-refs (edition labels and live venues) that resolve to a known organisation or venue, a self-documenting-code policy (no stray comments), and no `@`-alias or extensionless imports in the data modules Vite evaluates at config-eval time; the build adds in-page↔sitemap hreflang parity and complete-route-prerender checks
 - Unit tests with coverage thresholds
 - Coverage reporting to Codecov
 
