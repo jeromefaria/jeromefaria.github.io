@@ -24,6 +24,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 - **utils:** Extract foldDiacritics shared by the slug builders ([#568](https://github.com/jeromefaria/jeromefaria.github.io/pull/568))
 - **scripts:** Extract shared walkFiles, distRoute, and lineOf helpers ([#567](https://github.com/jeromefaria/jeromefaria.github.io/pull/567))
 
+### Docs
+
+- Note the registry-ref guard in the README guard list ([#577](https://github.com/jeromefaria/jeromefaria.github.io/pull/577))
+
 ## 2026.10.1 — Shareable immersive player, iOS polish & pipeline hardening — 2026-10-16
 
 
