@@ -2,6 +2,13 @@
 
 All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch`).
 
+## Unreleased
+
+
+### Refactors
+
+- **scripts:** Extract shared walkFiles, distRoute, and lineOf helpers ([#567](https://github.com/jeromefaria/jeromefaria.github.io/pull/567))
+
 ## 2026.10.1 — Shareable immersive player, iOS polish & pipeline hardening — 2026-10-16
 
 
