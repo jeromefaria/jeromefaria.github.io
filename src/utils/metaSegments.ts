@@ -1,14 +1,9 @@
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { CreditRef } from '@/types/media';
 import type { Edition, EngineeringRole, MetaLink, ReleaseMeta } from '@/types/works';
-import { orgUrl } from '@/utils/orgs';
+import { resolveEditionLabel } from '@/utils/orgs';
 import { resolveCredit } from '@/utils/people';
 import { releaseYear } from '@/utils/releaseDate';
-
-const resolveLabel = (link: MetaLink): MetaLink => {
-  const url = link.url ?? orgUrl(link.text);
-  return url ? { text: link.text, url } : { text: link.text };
-};
 
 export const engineeringRolesLabel = (roles: EngineeringRole[], locale: Locale = DEFAULT_LOCALE): string => {
   const ordered = (['mixing', 'mastering'] as EngineeringRole[]).filter(role => roles.includes(role));
@@ -30,7 +25,7 @@ const text = (value: string): MetaSegment => ({ kind: 'text', text: value });
 
 const editionSegments = (editions: Edition[]): MetaSegment[] =>
   editions.flatMap((edition, index) => {
-    const segments: MetaSegment[] = [{ kind: 'link', link: resolveLabel(edition.label) }];
+    const segments: MetaSegment[] = [{ kind: 'link', link: resolveEditionLabel(edition.label) }];
 
     if (edition.catalog) {
       segments.push(text(`, ${edition.catalog}`));
@@ -66,7 +61,7 @@ const commissionSegments = (meta: Extract<ReleaseMeta, { kind: 'commission' }>, 
 
     case 'DVD': {
       const catalog = meta.publisher.catalog ? `, ${meta.publisher.catalog}` : '';
-      return [text('DVD — '), { kind: 'link', link: resolveLabel(meta.publisher.label) }, text(`${catalog}, ${year}`)];
+      return [text('DVD — '), { kind: 'link', link: resolveEditionLabel(meta.publisher.label) }, text(`${catalog}, ${year}`)];
     }
 
     case 'Live Score':

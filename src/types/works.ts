@@ -3,6 +3,7 @@ import type { Localizable, Localized } from '@/i18n/localized';
 import type { MetaLink } from './common';
 import type { Credits } from './credits';
 import type { Credit, CreditRef, Video } from './media';
+import type { OrgRef } from './orgs';
 
 export type { MetaLink };
 
@@ -21,7 +22,7 @@ export interface Track {
 export type Medium = 'Digital' | 'Cassette' | 'MP3' | 'CD' | 'CDr';
 
 export interface Edition {
-  label: MetaLink;
+  label: OrgRef | MetaLink;
   catalog?: string;
 }
 
