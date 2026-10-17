@@ -12,9 +12,7 @@ import { useSwipeDismiss } from '@/composables/useSwipeDismiss';
 import { useT } from '@/i18n/useT';
 import type { AudioTrack } from '@/types/audio';
 
-const { currentTrack, queue, context, currentChapter, displayTitle, immersive, seek, select, collapse, enterImmersive, exitImmersive } = usePlayer();
-
-const artwork = computed(() => currentTrack.value?.artwork ?? context.value.artwork);
+const { currentTrack, queue, context, currentChapter, displayTitle, displayArtwork, immersive, seek, select, collapse, enterImmersive, exitImmersive } = usePlayer();
 
 const t = useT();
 
@@ -110,7 +108,7 @@ onBeforeUnmount(() => {
     >
       <PlayerArtwork />
       <button
-        v-if="artwork"
+        v-if="displayArtwork"
         ref="zoomButton"
         type="button"
         class="player-screen__zoom"
