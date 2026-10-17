@@ -14,7 +14,7 @@ export const solo: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital'],
-        editions: [{ label: 'br-qn', catalog: 'BRQN009' }],
+        editions: [{ label: 'brqn', catalog: 'BRQN009' }],
         released: '2026-05-01',
       },
       tracklist: [
@@ -38,7 +38,7 @@ export const solo: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital'],
-        editions: [{ label: 'br-qn', catalog: 'BRQN008' }],
+        editions: [{ label: 'brqn', catalog: 'BRQN008' }],
         released: '2026-02-25',
       },
       tracklist: [
@@ -64,7 +64,7 @@ export const solo: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital'],
-        editions: [{ label: 'br-qn', catalog: 'BRQN006' }],
+        editions: [{ label: 'brqn', catalog: 'BRQN006' }],
         released: '2024-04-25',
       },
       tracklist: [
@@ -89,7 +89,7 @@ export const solo: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital'],
-        editions: [{ label: 'br-qn', catalog: 'BRQN005' }],
+        editions: [{ label: 'brqn', catalog: 'BRQN005' }],
         released: '2023-07-07',
       },
       tracklist: [
@@ -115,7 +115,7 @@ export const solo: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital'],
-        editions: [{ label: 'br-qn', catalog: 'BRQN002' }, { label: 'enough-records', catalog: 'ENRMP296' }],
+        editions: [{ label: 'brqn', catalog: 'BRQN002' }, { label: 'enough-records', catalog: 'ENRMP296' }],
         released: '2012-04-19',
       },
       tracklist: [
@@ -153,7 +153,7 @@ export const solo: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital'],
-        editions: [{ label: 'br-qn', catalog: 'BRQN001' }],
+        editions: [{ label: 'brqn', catalog: 'BRQN001' }],
         released: '2010-02-02',
       },
       tracklist: [

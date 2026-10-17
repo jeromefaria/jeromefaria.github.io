@@ -24,7 +24,7 @@ export const mixingAndMastering: WorksSection = {
         kind: 'engineering',
         roles: ['mastering'],
         artist: { name: 'Rui P. Andrade', url: 'https://canadian-rifles.bandcamp.com/' },
-        editions: [{ label: 'br-qn', catalog: 'BRQN004' }],
+        editions: [{ label: 'brqn', catalog: 'BRQN004' }],
         released: '2012',
       },
     },

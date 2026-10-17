@@ -5,7 +5,7 @@ import { orgUrl, resolveEditionLabel } from './orgs';
 vi.mock('@/data/orgs', () => ({
   orgs: {
     'enough-records': { name: 'Enough Records', url: 'https://enoughrecords.scene.org/' },
-    'br-qn': { name: 'BRØQN' },
+    'brqn': { name: 'BRØQN' },
   },
 }));
 
@@ -26,7 +26,7 @@ describe('resolveEditionLabel', () => {
   });
 
   it('resolves a urlless org-key ref to name only', () => {
-    expect(resolveEditionLabel('br-qn')).toEqual({ text: 'BRØQN' });
+    expect(resolveEditionLabel('brqn')).toEqual({ text: 'BRØQN' });
   });
 
   it('throws on an unknown org-key ref', () => {

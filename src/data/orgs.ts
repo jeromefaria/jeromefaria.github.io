@@ -2,7 +2,7 @@ import type { OrgRegistry } from '@/types/orgs';
 
 export const orgs: OrgRegistry = {
   'apca': { name: 'APCA', url: 'https://www.apca-madeira.org/', pt: { gender: 'f' } },
-  'br-qn': { name: 'BRØQN' },
+  'brqn': { name: 'BRØQN' },
   'colectivo-casa-amarela': { name: 'Colectivo Casa Amarela', url: 'https://casaamarela.bandcamp.com', pt: { gender: 'm' } },
   'concertos-l': { name: 'Concertos L', url: 'https://www.pontadosol.com/l-concerts' },
   'des-cendres-a-la-cave': { name: 'Des Cendres À La Cave', url: 'https://descendresalacave.bandcamp.com/' },

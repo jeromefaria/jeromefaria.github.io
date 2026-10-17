@@ -15,7 +15,7 @@ export const collaborations: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital', 'Cassette'],
-        editions: [{ label: 'br-qn', catalog: 'BRQN007' }],
+        editions: [{ label: 'brqn', catalog: 'BRQN007' }],
         released: '2025',
       },
       tracklist: [
@@ -79,7 +79,7 @@ export const collaborations: WorksSection = {
       meta: {
         kind: 'music',
         mediums: ['Digital'],
-        editions: [{ label: 'br-qn', catalog: 'BRQN003' }],
+        editions: [{ label: 'brqn', catalog: 'BRQN003' }],
         released: '2012',
       },
       tracklist: [
