@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
-import { readdirSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+import { walkFiles } from '../lib/walk.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SOURCE_ROOT = join(__dirname, '../../src');
@@ -10,17 +12,10 @@ const SCANNED_EXTENSIONS = new Set(['.scss', '.vue', '.css']);
 const DEFINITION_PATTERN = /--([a-z0-9-]+)\s*:/g;
 const REFERENCE_PATTERN = /var\(\s*--([a-z0-9-]+)/g;
 
-const collectSourceFiles = directory =>
-  readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
-    const path = join(directory, entry.name);
-    if (entry.isDirectory()) return collectSourceFiles(path);
-    return SCANNED_EXTENSIONS.has(extname(entry.name)) ? [path] : [];
-  });
-
 const matchAll = (content, pattern) =>
   [...content.matchAll(pattern)].map(match => match[1]);
 
-const files = collectSourceFiles(SOURCE_ROOT);
+const files = [...walkFiles(SOURCE_ROOT)].filter(file => SCANNED_EXTENSIONS.has(extname(file)));
 const defined = new Set();
 const references = new Map();
 

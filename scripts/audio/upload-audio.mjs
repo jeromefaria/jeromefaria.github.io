@@ -4,6 +4,8 @@ import { fileURLToPath } from 'node:url';
 
 import { AwsClient } from 'aws4fetch';
 
+import { walkFiles } from '../lib/walk.mjs';
+
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const AUDIO_DIST = join(REPO_ROOT, 'audio-dist');
 const CACHE_CONTROL = 'public, max-age=31536000, immutable';
@@ -25,11 +27,6 @@ const catalogs = requested.length
   ? requested
   : readdirSync(AUDIO_DIST).filter(name => statSync(join(AUDIO_DIST, name)).isDirectory() && name !== 'proof');
 
-const walk = dir => readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
-  const full = join(dir, entry.name);
-  return entry.isDirectory() ? walk(full) : [full];
-});
-
 const present = async key => (await aws.fetch(`${endpoint}/${key}`, { method: 'HEAD' })).ok;
 
 let uploaded = 0;
@@ -42,7 +39,7 @@ for (const catalog of catalogs) {
     continue;
   }
 
-  for (const file of walk(dir)) {
+  for (const file of walkFiles(dir)) {
     if (!file.endsWith('.m4a')) continue;
 
     const key = relative(AUDIO_DIST, file);

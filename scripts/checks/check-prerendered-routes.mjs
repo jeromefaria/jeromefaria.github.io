@@ -1,25 +1,20 @@
 #!/usr/bin/env node
 
-import { existsSync, readdirSync, statSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 
 import { loadSrc, root } from '../lib/data-loader.mjs';
+import { distRoute, walkFiles } from '../lib/walk.mjs';
 
 const DIST = join(root, 'dist');
 
-const toRoute = file =>
-  `/${relative(DIST, file).replace(/\\/g, '/')}`.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
-
 const emittedRoutes = () => {
   const routes = new Set();
-  const walk = dir => {
-    for (const entry of readdirSync(dir)) {
-      const full = join(dir, entry);
-      if (statSync(full).isDirectory()) walk(full);
-      else if (entry.endsWith('.html')) routes.add(toRoute(full));
-    }
-  };
-  walk(DIST);
+
+  for (const file of walkFiles(DIST)) {
+    if (file.endsWith('.html')) routes.add(distRoute(file, DIST));
+  }
+
   return routes;
 };
 
