@@ -1,13 +1,13 @@
-import type { LiveEvent } from '@/types/live';
+import type { RawLiveEvent } from '@/types/live';
 
-export const earlyEvents: LiveEvent[] = [
+export const earlyEvents: RawLiveEvent[] = [
   {
     id: 'madeiradig-2011',
     eventType: ['festival'],
     title: 'MADEIRADIG',
     titleUrl: 'https://digitalinberlin.eu/',
     date: '2011-12-02',
-    venue: { name: 'Casa das Mudas', city: 'Calheta', country: 'Portugal' },
+    venue: { ref: 'casa-das-mudas', city: 'Calheta', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Taylor Deupree', url: 'https://12k.com/' } },
     bill: [
       { text: 'Tim Hecker', url: 'https://sunblind.net/' },
@@ -139,7 +139,7 @@ export const earlyEvents: LiveEvent[] = [
     date: '2009-12-04',
     title: 'MADEIRADIG',
     titleUrl: 'https://digitalinberlin.eu/',
-    venue: { name: 'Casa das Mudas', city: 'Calheta', country: 'Portugal' },
+    venue: { ref: 'casa-das-mudas', city: 'Calheta', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Hugo Olim', suffix: { en: '(visuals)', pt: '(visuais)' } } },
     bill: [
       { text: 'Alva Noto', url: 'https://www.alvanoto.com/' },
@@ -262,7 +262,7 @@ export const earlyEvents: LiveEvent[] = [
     eventType: ['festival'],
     date: '2008-10-04',
     title: 'EME — Extensão Madeira',
-    venue: { name: 'Casa das Mudas', city: 'Calheta', country: 'Portugal' },
+    venue: { ref: 'casa-das-mudas', city: 'Calheta', country: 'Portugal' },
     setup: { kind: 'solo' },
     bill: [
       { text: 'Hauschka' },
@@ -417,7 +417,7 @@ export const earlyEvents: LiveEvent[] = [
     date: '2007-12-08',
     title: 'MADEIRADIG',
     titleUrl: 'https://digitalinberlin.eu/',
-    venue: { name: 'Casa das Mudas', city: 'Calheta', country: 'Portugal' },
+    venue: { ref: 'casa-das-mudas', city: 'Calheta', country: 'Portugal' },
     setup: { kind: 'solo' },
     performedAs: 'NNY',
     bill: [
@@ -477,7 +477,7 @@ export const earlyEvents: LiveEvent[] = [
     title: 'MADEIRADIG',
     titleUrl: 'https://digitalinberlin.eu/',
     date: '2006-12-07',
-    venue: { name: 'RDP Auditorium', city: 'Funchal', country: 'Portugal' },
+    venue: { ref: 'rdp-auditorium', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'solo' },
     performedAs: 'NNY',
     bill: [
@@ -517,7 +517,7 @@ export const earlyEvents: LiveEvent[] = [
     date: '2005-12-07',
     title: 'MADEIRADIG',
     titleUrl: 'https://digitalinberlin.eu/',
-    venue: { name: 'RDP Auditorium', city: 'Funchal', country: 'Portugal' },
+    venue: { ref: 'rdp-auditorium', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Hugo Olim', suffix: { en: '(visuals)', pt: '(visuais)' } } },
     performedAs: 'NNY',
     bill: [

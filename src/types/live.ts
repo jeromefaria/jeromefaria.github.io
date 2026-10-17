@@ -2,6 +2,7 @@ import type { Localizable, Localized } from '@/i18n/localized';
 import type { PtGrammar } from '@/i18n/ptGrammar';
 
 import type { Credit, CreditRef, Video } from './media';
+import type { VenueRef } from './venues';
 
 export interface ThumbFraming {
   position?: string;
@@ -59,9 +60,19 @@ export interface Poster {
 export interface EventVenue {
   name?: string;
   url?: string;
+  label?: Localizable<string>;
+  pt?: PtGrammar;
   city?: string;
   country: string;
 }
+
+export interface VenueRefInput {
+  ref: VenueRef;
+  city?: string;
+  country: string;
+}
+
+export type VenueInput = EventVenue | VenueRefInput;
 
 export interface LiveEvent {
   id: string;
@@ -84,6 +95,8 @@ export interface LiveEvent {
   posters?: Poster[];
   videos?: Video[];
 }
+
+export type RawLiveEvent = Omit<LiveEvent, 'venue'> & { venue: VenueInput };
 
 export interface LiveYearSection {
   title: string;

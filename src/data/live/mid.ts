@@ -1,6 +1,6 @@
-import type { LiveEvent } from '@/types/live';
+import type { RawLiveEvent } from '@/types/live';
 
-export const midEvents: LiveEvent[] = [
+export const midEvents: RawLiveEvent[] = [
   {
     id: 'heineken-series',
     eventType: ['series'],
@@ -80,7 +80,7 @@ export const midEvents: LiveEvent[] = [
     eventType: ['festival'],
     title: 'Cognitivopolis',
     date: '2013-11-15',
-    venue: { name: 'Estalagem da Ponta do Sol', city: 'Ponta do Sol', country: 'Portugal' },
+    venue: { ref: 'estalagem-da-ponta-do-sol', city: 'Ponta do Sol', country: 'Portugal' },
     setup: { kind: 'solo' },
     bill: [
       { text: 'Massimo Banzi', url: 'https://massimobanzi.com/', suffix: '(Arduino)' },
@@ -98,7 +98,7 @@ export const midEvents: LiveEvent[] = [
     title: 'Concertos L: The Cabinet of Dr. Caligari',
     titleUrl: 'https://www.pontadosol.com/l-concerts',
     date: '2013-10-26',
-    venue: { name: 'Estalagem da Ponta do Sol', city: 'Ponta do Sol', country: 'Portugal' },
+    venue: { ref: 'estalagem-da-ponta-do-sol', city: 'Ponta do Sol', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Nuno Filipe', suffix: '(piano)' } },
     format: { kind: 'filmScore', film: { en: "Robert Wiene's 1920 expressionist silent film", pt: 'o filme mudo expressionista de Robert Wiene (1920)' } },
   },
@@ -113,7 +113,7 @@ export const midEvents: LiveEvent[] = [
     },
     title: 'The Cabinet of Dr. Caligari',
     date: '2013-09-13',
-    venue: { name: 'Scat Music Club', city: 'Funchal', country: 'Portugal' },
+    venue: { ref: 'scat-music-club', city: 'Funchal', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Nuno Filipe', suffix: '(piano)' } },
     format: { kind: 'filmScore', film: { en: "Robert Wiene's 1920 expressionist silent film", pt: 'o filme mudo expressionista de Robert Wiene (1920)' } },
     images: [
@@ -128,7 +128,7 @@ export const midEvents: LiveEvent[] = [
     id: 'caligari-live',
     title: 'Cidades Electrónicas: The Cabinet of Dr. Caligari',
     date: '2013-05-11',
-    venue: { name: 'Casa das Mudas', city: 'Calheta', country: 'Portugal' },
+    venue: { ref: 'casa-das-mudas', city: 'Calheta', country: 'Portugal' },
     setup: { kind: 'duo', with: { text: 'Nuno Filipe', suffix: '(piano)' } },
     format: { kind: 'filmScore', film: { en: "Robert Wiene's 1920 expressionist silent film", pt: 'o filme mudo expressionista de Robert Wiene (1920)' }, premiere: true },
     images: [
@@ -143,7 +143,7 @@ export const midEvents: LiveEvent[] = [
     eventType: ['series'],
     date: '2012-10-27',
     title: 'Cine Qua Non',
-    venue: { name: 'Estalagem da Ponta do Sol', url: 'https://www.pontadosol.com/', city: 'Ponta do Sol', country: 'Portugal' },
+    venue: { ref: 'estalagem-da-ponta-do-sol', city: 'Ponta do Sol', country: 'Portugal' },
     setup: { kind: 'ensemble', name: { en: 'Improvisation collective', pt: 'Colectivo de improvisação' } },
     note: {
       en: 'Electronics, piano ([[Nuno Filipe]]), percussion ([[Jorge Maggiore]]) and visuals (Filipe Ferraz).',

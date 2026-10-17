@@ -1,12 +1,10 @@
 import { orgs } from '@/data/orgs';
-import { venues } from '@/data/venues';
 import { localizePlace } from '@/i18n/exonyms';
 import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import { ptContract, type PtGrammar } from '@/i18n/ptGrammar';
 import type { EventVenue, LiveAltLocation, LiveEvent } from '@/types/live';
 import { foldDiacritics } from '@/utils/diacritics';
-import { createNameLookup } from '@/utils/registry';
 
 const PERFORMER = 'Jerome Faria';
 
@@ -35,8 +33,6 @@ const PHRASES: Record<Locale, Phrases> = {
   },
 };
 
-const findVenue = createNameLookup(venues);
-
 const normalizeName = (value: string): string =>
   foldDiacritics(value)
     .replace(/\s*#\d+\s*$/, '')
@@ -60,11 +56,9 @@ const titleAnchor = (event: LiveEvent, locale: Locale, altLocation?: LiveAltLoca
 };
 
 const venueAnchor = (venue: EventVenue, locale: Locale, altLocation?: LiveAltLocation): Anchor => {
-  const entity = venue.name ? findVenue(venue.name) : undefined;
-
   return {
-    label: localize(entity?.label ?? venue.name ?? '', locale),
-    grammar: altLocation?.grammar ?? entity?.pt,
+    label: localize(venue.label ?? venue.name ?? '', locale),
+    grammar: altLocation?.grammar ?? venue.pt,
   };
 };
 

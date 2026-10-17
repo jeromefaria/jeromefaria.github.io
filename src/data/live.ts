@@ -1,10 +1,13 @@
-import type { LiveData, LiveEvent, LiveYearSection } from '@/types/live';
+import type { LiveData, LiveEvent, LiveYearSection, RawLiveEvent } from '@/types/live';
 
 import { earlyEvents } from './live/early.ts';
 import { midEvents } from './live/mid.ts';
 import { recentEvents } from './live/recent.ts';
+import { resolveEventVenue } from './live/resolveVenue.ts';
 
-export const liveEvents: LiveEvent[] = [...recentEvents, ...midEvents, ...earlyEvents];
+const resolveEvent = (event: RawLiveEvent): LiveEvent => ({ ...event, venue: resolveEventVenue(event.venue) });
+
+export const liveEvents: LiveEvent[] = [...recentEvents, ...midEvents, ...earlyEvents].map(resolveEvent);
 
 const groupEventsByYear = (events: LiveEvent[]): LiveData => {
   const byYear: Record<string, LiveYearSection> = {};
