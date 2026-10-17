@@ -1,6 +1,7 @@
 import type { ComputedRef, Ref } from 'vue';
 import { computed, ref } from 'vue';
 
+import { useFormSubmit } from '@/composables/useFormSubmit';
 import { useT } from '@/i18n/useT';
 
 interface UseNewsletterFormReturn {
@@ -23,11 +24,13 @@ export const useNewsletterForm = (
 ): UseNewsletterFormReturn => {
   const t = useT();
 
+  const { botField, isSubmitting, showSuccess, errorMessage, handleInput, submit } = useFormSubmit({
+    action,
+    requestToken,
+    name: 'Newsletter',
+  });
+
   const email = ref('');
-  const botField = ref('');
-  const isSubmitting = ref(false);
-  const showSuccess = ref(false);
-  const errorMessage = ref('');
   const touched = ref(false);
 
   const isEmpty = computed(() => email.value.trim() === '');
@@ -38,11 +41,6 @@ export const useNewsletterForm = (
     touched.value = true;
   };
 
-  const handleInput = (): void => {
-    showSuccess.value = false;
-    errorMessage.value = '';
-  };
-
   const handleSubmit = async (event: Event): Promise<boolean> => {
     event.preventDefault();
     if (isSubmitting.value) return false;
@@ -50,32 +48,14 @@ export const useNewsletterForm = (
     touched.value = true;
     if (isEmpty.value) return false;
 
-    isSubmitting.value = true;
-    errorMessage.value = '';
-
-    try {
-      const token = await requestToken();
-      const response = await fetch(action, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, email: email.value.trim(), botField: botField.value }),
-      });
-
-      if (response.ok) {
-        showSuccess.value = true;
+    await submit(
+      token => ({ token, email: email.value.trim(), botField: botField.value }),
+      () => {
         email.value = '';
         botField.value = '';
         touched.value = false;
-        return true;
-      }
-
-      errorMessage.value = t(response.status === 403 ? 'newsletter.verifyError' : 'newsletter.submitError');
-    } catch (submissionError) {
-      console.error('Newsletter submission error:', submissionError);
-      errorMessage.value = t('newsletter.submitError');
-    } finally {
-      isSubmitting.value = false;
-    }
+      },
+    );
 
     return true;
   };

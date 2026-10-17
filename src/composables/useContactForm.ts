@@ -1,6 +1,7 @@
 import type { ComputedRef, Ref } from 'vue';
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive } from 'vue';
 
+import { useFormSubmit } from '@/composables/useFormSubmit';
 import { useT } from '@/i18n/useT';
 import type { ContactField, ContactFormConfig, InquiryType } from '@/types/contact';
 import { buildContactPayload } from '@/utils/buildContactPayload';
@@ -65,10 +66,11 @@ export const useContactForm = (
   const formData = reactive<StringMap>(emptyState(''));
   const touched = reactive<FlagMap>(emptyState(false));
 
-  const botField = ref('');
-  const isSubmitting = ref(false);
-  const showSuccess = ref(false);
-  const errorMessage = ref('');
+  const { botField, isSubmitting, showSuccess, errorMessage, handleInput, submit } = useFormSubmit({
+    action: form.action,
+    requestToken,
+    name: 'Contact',
+  });
 
   const selectedType = computed<InquiryType | null>(() =>
     form.inquiryTypes.find(type => type.id === formData[inquiryId]) ?? null);
@@ -99,11 +101,6 @@ export const useContactForm = (
     touched[id] = true;
   };
 
-  const handleInput = (): void => {
-    showSuccess.value = false;
-    errorMessage.value = '';
-  };
-
   const resetForm = (): void => {
     fields.forEach(field => {
       formData[field.id] = '';
@@ -127,31 +124,7 @@ export const useContactForm = (
       return requiredIds.value.find(id => isEmpty(id));
     }
 
-    isSubmitting.value = true;
-    errorMessage.value = '';
-
-    try {
-      const token = await requestToken();
-      const response = await fetch(form.action, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(buildPayload(token)),
-      });
-
-      if (response.ok) {
-        showSuccess.value = true;
-        resetForm();
-        return;
-      }
-
-      errorMessage.value = t(response.status === 403 ? 'contact.verifyError' : 'contact.submitError');
-    } catch (error) {
-      console.error('Contact submission error:', error);
-      errorMessage.value = t('contact.submitError');
-    } finally {
-      isSubmitting.value = false;
-    }
-
+    await submit(buildPayload, resetForm);
     return undefined;
   };
 
