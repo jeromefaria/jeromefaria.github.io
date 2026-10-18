@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Newsletter
 
+- **worker:** Brand the subscription confirmation email ([#579](https://github.com/jeromefaria/jeromefaria.github.io/pull/579))
 - **newsletter:** Send a plain-text alternative alongside the HTML ([#578](https://github.com/jeromefaria/jeromefaria.github.io/pull/578))
 
 ### Live
