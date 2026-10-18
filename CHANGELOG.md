@@ -5,6 +5,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 ## Unreleased
 
 
+### Newsletter
+
+- **newsletter:** Send a plain-text alternative alongside the HTML ([#578](https://github.com/jeromefaria/jeromefaria.github.io/pull/578))
+
 ### Live
 
 - **live:** Resolve event venues via registry key-refs ([#575](https://github.com/jeromefaria/jeromefaria.github.io/pull/575))
