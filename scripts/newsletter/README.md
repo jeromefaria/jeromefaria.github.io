@@ -1,7 +1,8 @@
 # Newsletter — authoring & sending
 
 The self-owned newsletter. An issue is a small typed data file; the same file
-renders to the **email** (table-based HTML, sent via Resend) and to a
+renders to the **email** (multipart: table-based HTML + a plain-text
+alternative, sent via Resend) and to a
 **`/newsletter/:issue` archive page** on the site (the "view in browser" target
 and permanent record).
 
@@ -318,8 +319,9 @@ hand, against the deployed backend before the first `--send` ever goes out:
 1. **Deploy** the worker + D1 (see `worker/README.md`); confirm the
    `RESEND_API_KEY` and `TURNSTILE_SECRET` secrets are set.
 2. **Subscribe for real** at `/newsletter` with an address you control → a
-   confirmation email arrives (live Resend) → click confirm → the worker
-   redirects to `/newsletter?confirmed=1` and the D1 row reads `status = 'active'`.
+   confirmation email arrives (live Resend) → click confirm → the link opens
+   `/newsletter?confirm=…`, the page posts it back to the worker, and the D1 row
+   reads `status = 'active'`.
 3. **Unsubscribe round-trip** — use the email's one-click unsubscribe → the D1
    row flips to `status = 'unsubscribed'` (tombstone, not deleted). Re-subscribe
    to restore an active test recipient.
