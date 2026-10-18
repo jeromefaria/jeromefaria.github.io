@@ -47,3 +47,79 @@ exports[`renderIssueEmail > renders a stable, email-safe HTML document 1`] = `
 </table>
 </body></html>"
 `;
+
+exports[`renderIssueText > renders a stable plain-text alternative covering every block type 1`] = `
+"Jerome Faria — Sound Artist & Composer
+January 1, 2026
+View in browser: https://jeromefaria.com/newsletter/2026-01-01
+
+—
+
+Hello world, see the site (https://jeromefaria.com/a_b).
+
+Second paragraph.
+
+—
+
+LOOK
+[Image: A photo]
+A caption
+https://jeromefaria.com/p
+
+—
+
+WATCH
+[Video: A video]
+A clip
+Watch: https://youtu.be/abc
+
+—
+
+WORKS
+Contraplacado
+Released: January 2026
+Format: LP
+Label: Test Label
+Catalog: TL001
+
+Out now.
+
+https://jeromefaria.com/works/contraplacado
+
+—
+
+LIVE
+A Show
+Date: January 2026
+Venue: Venue
+City: City
+
+Come along.
+
+https://jeromefaria.com/live/show
+
+—
+
+WRITING
+My Essay
+
+A tagline
+
+https://jeromefaria.com/writing/my-essay
+
+—
+
+“An almost romantic sound.”
+— The Quietus https://thequietus.com/
+
+—
+
+Subscribe: https://jeromefaria.com/newsletter
+
+—
+
+© 2004–2026 Jerome Faria
+Privacy: https://jeromefaria.com/privacy
+Unsubscribe: https://contact.jeromefaria.workers.dev/newsletter/unsubscribe?token=TESTTOKEN
+"
+`;

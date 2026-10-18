@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('../lib/data-loader.mjs', () => ({ root: '/fake-root', loadSrc: async () => ({}) }));
-vi.mock('./render.mjs', () => ({ renderIssueEmail: () => ({ html: '' }) }));
+vi.mock('./render.mjs', () => ({ renderIssueEmail: () => ({ html: '<html>' }), renderIssueText: () => 'PLAINTEXT' }));
 
 import { escapeSql } from './d1.mjs';
 import { BATCH_LIMIT, batchIdempotencyKey, buildMessages, byEmail, chunk, deliver, excludeActiveSubscribers, parseRecipientList, recipientsToSend, resolveAudience, sendBatchWithRetry } from './send.mjs';
@@ -207,6 +207,14 @@ describe('buildMessages', () => {
     expect(messages).toHaveLength(2);
     expect(messages[0]).toMatchObject({ to: ['a@x.com'], subject: 'Hi' });
     expect(messages[0].headers).toBeUndefined();
+    expect(messages[0].text).toBe('PLAINTEXT');
+  });
+
+  it('carries both an HTML body and a plain-text alternative', () => {
+    const messages = buildMessages(issue, [{ email: 'a@x.com', unsubscribe_token: 'tok' }]);
+
+    expect(messages[0].html).toBe('<html>');
+    expect(messages[0].text).toBe('PLAINTEXT');
   });
 
   it('a subscriber send carries a per-recipient List-Unsubscribe + one-click header', () => {
