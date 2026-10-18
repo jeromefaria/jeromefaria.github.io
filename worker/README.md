@@ -12,8 +12,8 @@ already-validated fields, which the Worker re-validates and processes.
 |--------|------|---------|
 | `POST` | `/` · `/contact` | Contact relay (Turnstile → Resend email) |
 | `POST` | `/newsletter/subscribe` | Turnstile-gated signup → stores `pending`, sends a confirmation email |
-| `GET` | `/newsletter/confirm?token=…` | Confirms a pending subscriber (single-use: the token is spent on confirm), redirects to `/newsletter?confirmed=1`; a used, unknown, or non-pending token redirects to `confirmed=0`. A genuine activation notifies the owner |
-| `GET`/`POST` | `/newsletter/unsubscribe?token=…` | One-click (RFC 8058) unsubscribe; tombstones the row. A genuine unsubscribe notifies the owner |
+| `GET` · `POST` | `/newsletter/confirm?token=…` | **GET** redirects to the site page (`/newsletter?confirm=…`) and changes nothing — a mail scanner that auto-fetches the link can't confirm anyone; that page then **POSTs** back, activating a `pending` row (single-use: the token is spent on confirm). A used, unknown, or non-pending token is a no-op. A genuine activation notifies the owner |
+| `GET` · `POST` | `/newsletter/unsubscribe?token=…` | **GET** redirects to the site page (`/newsletter?unsubscribe=…`), no mutation. **POST** — the RFC 8058 one-click header and the site button both use it — tombstones the row (`status='unsubscribed'`, never deleted). A genuine unsubscribe notifies the owner |
 
 ### Contact request
 
