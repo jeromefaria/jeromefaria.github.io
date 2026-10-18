@@ -264,3 +264,190 @@ export const renderIssueEmail = (issue, opts) => {
 
   return { subject: issue.subject, html };
 };
+
+const collapse = text =>
+  text
+    .replace(/[ \t]+/g, ' ')
+    .replace(/ *\n */g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
+const inlineToText = tokens =>
+  tokens
+    .map(token => {
+      switch (token.type) {
+        case 'text':
+          return token.tokens ? inlineToText(token.tokens) : token.text;
+        case 'escape':
+        case 'codespan':
+          return token.text;
+        case 'strong':
+        case 'em':
+        case 'del':
+          return inlineToText(token.tokens);
+        case 'br':
+          return '\n';
+        case 'link': {
+          const label = inlineToText(token.tokens);
+          const url = (token.href ?? '').trim();
+          return url && url !== label ? `${label} (${url})` : label;
+        }
+        case 'image':
+          return token.text ? `[Image: ${token.text}]` : '';
+        default:
+          return '';
+      }
+    })
+    .join('');
+
+const blockToText = tokens =>
+  tokens
+    .map(token => {
+      switch (token.type) {
+        case 'paragraph':
+        case 'heading':
+          return inlineToText(token.tokens);
+        case 'text':
+          return token.tokens ? inlineToText(token.tokens) : token.text;
+        case 'blockquote':
+          return blockToText(token.tokens);
+        case 'list':
+          return token.items
+            .map((item, index) => `${token.ordered ? `${(token.start || 1) + index}. ` : '- '}${blockToText(item.tokens)}`)
+            .join('\n');
+        case 'code':
+          return token.text;
+        default:
+          return '';
+      }
+    })
+    .filter(Boolean)
+    .join('\n\n');
+
+const mdToText = source => collapse(blockToText(marked.lexer(String(source))));
+
+const textUrl = url => safeNewsletterUrl(url) ?? '';
+
+const sectionText = (sectionLabel, title, { meta = [], note, url } = {}) => {
+  const head = [sectionLabel.toUpperCase(), title];
+  for (const field of meta) if (field.value) head.push(`${field.label}: ${field.value}`);
+
+  const parts = [head.join('\n')];
+  if (note) parts.push(mdToText(note));
+  if (url) parts.push(url);
+  return parts.join('\n\n');
+};
+
+const proseText = block => mdToText(block.markdown);
+
+const mediaText = (kind, block) => {
+  const lines = [];
+  if (block.label) lines.push(block.label.toUpperCase());
+  lines.push(`[${kind}: ${block.alt}]`);
+  if (block.caption) lines.push(block.caption);
+  return lines;
+};
+
+const imageText = block => {
+  const lines = mediaText('Image', block);
+  const href = textUrl(block.href);
+  if (href) lines.push(href);
+  return lines.join('\n');
+};
+
+const videoText = block => {
+  const lines = mediaText('Video', block);
+  const href = textUrl(block.href);
+  if (href) lines.push(`Watch: ${href}`);
+  return lines.join('\n');
+};
+
+const worksText = (block, opts) => {
+  const release = releaseById.get(block.ref);
+  if (!release) return '';
+
+  const { meta } = release;
+  const edition = meta.kind === 'music' ? (meta.editions[0] ?? null) : null;
+  const fields = meta.kind === 'music'
+    ? [
+      { label: 'Released', value: formatMonthYear(meta.released) },
+      { label: 'Format', value: meta.mediums.join(' / ') },
+      { label: 'Label', value: edition?.label.text ?? '' },
+      { label: 'Catalog', value: edition?.catalog ?? '' },
+    ]
+    : [];
+
+  return sectionText('Works', release.title, {
+    meta: block.hideMeta ? [] : fields,
+    note: block.note,
+    url: `${opts.origin}/works/${release.id}`,
+  });
+};
+
+const liveText = (block, opts) => {
+  const event = liveEvents.find(entry => entry.id === block.ref);
+  if (!event) return '';
+
+  const fields = [
+    { label: 'Date', value: formatEventDateRange(event.date, event.endDate, 'en') },
+    { label: 'Venue', value: event.venue.name ?? '' },
+    { label: 'City', value: event.venue.city ?? '' },
+  ];
+
+  return sectionText('Live', localize(event.title, 'en'), {
+    meta: block.hideMeta ? [] : fields,
+    note: block.note,
+    url: `${opts.origin}/live/${event.id}`,
+  });
+};
+
+const writingText = (block, opts) => {
+  const essay = essayBySlug(block.ref);
+  if (!essay) return '';
+
+  return sectionText('Writing', essay.title, {
+    note: block.note ?? essay.tagline,
+    url: `${opts.origin}/writing/${essay.slug}`,
+  });
+};
+
+const quoteText = block => {
+  const attribution = [block.source, textUrl(block.url)].filter(Boolean).join(' ');
+  const credit = attribution ? `\n— ${attribution}` : '';
+  return `“${mdToText(block.quote)}”${credit}`;
+};
+
+const ctaText = block => `${block.label}: ${textUrl(block.href)}`;
+
+const renderBlockText = (block, opts) => {
+  if (block.type === 'prose') return proseText(block);
+  if (block.type === 'image') return imageText(block);
+  if (block.type === 'video') return videoText(block);
+  if (block.type === 'works') return worksText(block, opts);
+  if (block.type === 'live') return liveText(block, opts);
+  if (block.type === 'quote') return quoteText(block);
+  if (block.type === 'cta') return ctaText(block);
+  return writingText(block, opts);
+};
+
+const mastheadText = (issue, opts) => {
+  const lines = ['Jerome Faria — Sound Artist & Composer'];
+  if (opts.dated !== false) lines.push(formatLongDate(issue.date));
+  if (opts.viewUrl) lines.push(`View in browser: ${opts.viewUrl}`);
+  return lines.join('\n');
+};
+
+const footerText = opts => {
+  const lines = [
+    `© 2004–${new Date().getFullYear()} Jerome Faria`,
+    `Privacy: ${opts.origin}/privacy`,
+  ];
+  if (opts.unsubscribeUrl) lines.push(`Unsubscribe: ${opts.unsubscribeUrl}`);
+  return lines.join('\n');
+};
+
+export const renderIssueText = (issue, opts) => {
+  const blocks = issue.blocks.map(block => renderBlockText(block, opts)).filter(Boolean);
+  const sections = [mastheadText(issue, opts), ...blocks, footerText(opts)].join('\n\n—\n\n');
+  return `${sections}\n`;
+};

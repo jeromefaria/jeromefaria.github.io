@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 import { loadSrc, root } from '../lib/data-loader.mjs';
 import { d1Exec, d1Query, escapeSql, isEmail } from './d1.mjs';
-import { renderIssueEmail } from './render.mjs';
+import { renderIssueEmail, renderIssueText } from './render.mjs';
 
 const ORIGIN = 'https://jeromefaria.com';
 const WORKER = 'https://contact.jeromefaria.workers.dev';
@@ -120,23 +120,28 @@ export const sendBatchWithRetry = async (batch, { apiKey, idempotencyKey, fetchI
 
 export const buildMessages = (issue, recipients, { standalone = false } = {}) => {
   if (standalone) {
-    const { html } = renderIssueEmail(issue, { origin: ORIGIN, embedImages: false, dated: false });
-    return recipients.map(recipient => ({ from: FROM, to: [recipient.email], subject: issue.subject, html }));
+    const opts = { origin: ORIGIN, embedImages: false, dated: false };
+    const { html } = renderIssueEmail(issue, opts);
+    const text = renderIssueText(issue, opts);
+    return recipients.map(recipient => ({ from: FROM, to: [recipient.email], subject: issue.subject, html, text }));
   }
 
   return recipients.map(recipient => {
-    const { html } = renderIssueEmail(issue, {
+    const opts = {
       origin: ORIGIN,
       embedImages: false,
       viewUrl: `${ORIGIN}/newsletter/${issue.id}`,
       unsubscribeUrl: unsubscribePageUrl(recipient.unsubscribe_token),
-    });
+    };
+    const { html } = renderIssueEmail(issue, opts);
+    const text = renderIssueText(issue, opts);
 
     return {
       from: FROM,
       to: [recipient.email],
       subject: issue.subject,
       html,
+      text,
       headers: {
         'List-Unsubscribe': `<${unsubscribeUrl(recipient.unsubscribe_token)}>`,
         'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
@@ -240,9 +245,11 @@ const run = async () => {
   if (!standalone) console.log(`List-Unsubscribe: ${firstMessage.headers['List-Unsubscribe']}`);
 
   if (mode === 'dry-run') {
-    const out = join(root, `newsletter-send-dryrun-${issue.id}.html`);
-    writeFileSync(out, firstMessage.html);
-    console.log(`\nDry run — nothing sent. First rendered message written to:\n  ${out}`);
+    const htmlOut = join(root, `newsletter-send-dryrun-${issue.id}.html`);
+    const textOut = join(root, `newsletter-send-dryrun-${issue.id}.txt`);
+    writeFileSync(htmlOut, firstMessage.html);
+    writeFileSync(textOut, firstMessage.text);
+    console.log(`\nDry run — nothing sent. First rendered message written to:\n  ${htmlOut}\n  ${textOut}`);
     return;
   }
 
