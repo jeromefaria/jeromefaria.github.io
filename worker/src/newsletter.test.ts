@@ -176,7 +176,15 @@ describe('newsletter — subscribe', () => {
     expect(sent.from).toBe('newsletter@jeromefaria.com');
     expect(sent.to).toBe('reader@example.com');
     expect(sent.reply_to).toBeUndefined();
+    expect(sent.subject).toBe('Confirm your subscription');
     expect(sent.html).toContain('https://jeromefaria.com/newsletter?confirm=');
+    expect(sent.html).toContain('Jerome Faria');
+    expect(sent.html).toContain('Confirm subscription');
+    expect(sent.html).toContain('no algorithm, nothing tracking you');
+    expect(sent.html).toContain('https://jeromefaria.com/privacy');
+    expect(sent.text).toContain('Please confirm your email to start receiving it:');
+    expect(sent.text).toContain('no algorithm, nothing tracking you');
+    expect(sent.text).toContain('https://jeromefaria.com/newsletter?confirm=');
   });
 
   it('silently drops a filled honeypot without touching the database or network', async () => {

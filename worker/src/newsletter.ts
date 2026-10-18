@@ -28,6 +28,15 @@ const MAX_EMAIL_LENGTH = 254;
 
 const CONFIRMATION_RESEND_COOLDOWN_MS = 10 * 60 * 1000;
 
+const EMAIL = {
+  sans: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif",
+  paper: '#fff',
+  ink: '#000',
+  muted: '#767676',
+  link: '#444',
+  rule: '#eee',
+} as const;
+
 const randomToken = (): string => {
   const bytes = new Uint8Array(32);
   crypto.getRandomValues(bytes);
@@ -50,22 +59,55 @@ const subscribeValidationError = (payload: SubscribePayload): string | null => {
   return null;
 };
 
+const confirmationText = (confirmUrl: string): string => [
+  'Jerome Faria — Sound Artist & Composer',
+  '',
+  'Thank you for signing up to my newsletter.',
+  '',
+  "The occasional note when there's something new — no algorithm, nothing tracking you.",
+  '',
+  'Please confirm your email to start receiving it:',
+  '',
+  confirmUrl,
+  '',
+  "If you didn't request this, ignore this email — nothing will be sent.",
+].join('\n');
+
+const confirmationHtml = (confirmUrl: string, env: Env): string => `<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light only">
+<title>Confirm your subscription</title>
+</head>
+<body style="margin:0;padding:0;background:${EMAIL.paper};-webkit-text-size-adjust:100%;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${EMAIL.paper}" style="background:${EMAIL.paper};">
+  <tr><td align="center" style="padding:32px 20px 48px;">
+    <table role="presentation" width="480" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:480px;">
+      <tr><td style="border-bottom:1px solid ${EMAIL.rule};padding:0 0 20px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+          <td style="font:600 12px/1 ${EMAIL.sans};letter-spacing:.05em;text-transform:uppercase;color:${EMAIL.ink};">Jerome Faria</td>
+          <td align="right" style="font:400 12px/1 ${EMAIL.sans};letter-spacing:.05em;text-transform:uppercase;color:${EMAIL.muted};">Sound Artist &amp; Composer</td>
+        </tr></table>
+      </td></tr>
+      <tr><td style="padding:34px 0 0;font:500 19px/1.3 ${EMAIL.sans};letter-spacing:-.01em;color:${EMAIL.ink};">Thank you for signing up to my newsletter.</td></tr>
+      <tr><td style="padding:14px 0 0;font:400 15px/1.5 ${EMAIL.sans};color:${EMAIL.ink};">Please confirm your email to start receiving it.</td></tr>
+      <tr><td style="padding:18px 0 0;font:400 13px/1.5 ${EMAIL.sans};color:${EMAIL.muted};">The occasional note when there&rsquo;s something new &mdash; no algorithm, nothing tracking you.</td></tr>
+      <tr><td align="center" style="padding:26px 0 0;text-align:center;"><a href="${confirmUrl}" style="display:inline-block;font:500 11px/1 ${EMAIL.sans};letter-spacing:.12em;text-transform:uppercase;color:${EMAIL.paper};text-decoration:none;background:${EMAIL.ink};border:1px solid ${EMAIL.ink};padding:12px 22px;">Confirm subscription</a></td></tr>
+      <tr><td style="padding:22px 0 0;font:400 11px/1.5 ${EMAIL.sans};color:${EMAIL.muted};">Or paste this link into your browser:<br><a href="${confirmUrl}" style="color:${EMAIL.link};text-decoration:underline;word-break:break-all;">${confirmUrl}</a></td></tr>
+      <tr><td style="padding:10px 0 34px;font:400 11px/1.5 ${EMAIL.sans};color:${EMAIL.muted};">If you didn&rsquo;t request this, ignore this email &mdash; nothing will be sent.</td></tr>
+      <tr><td style="border-top:1px solid ${EMAIL.rule};padding:20px 0 0;font:400 11px/1.6 ${EMAIL.sans};letter-spacing:.08em;text-transform:uppercase;color:${EMAIL.muted};" align="center">&copy; 2004&ndash;${new Date().getFullYear()} Jerome Faria &nbsp;&middot;&nbsp; <a href="${env.SITE_URL}/privacy" style="color:${EMAIL.muted};text-decoration:underline;">Privacy</a></td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>`;
+
 const confirmationMessage = (email: string, confirmUrl: string, env: Env): ResendMessage => ({
   from: env.NEWSLETTER_FROM,
   to: email,
   subject: 'Confirm your subscription',
-  text: [
-    "Confirm your subscription to Jerome Faria's newsletter by opening this link:",
-    '',
-    confirmUrl,
-    '',
-    "If you didn't request this, ignore this email — nothing will be sent.",
-  ].join('\n'),
-  html: [
-    '<p>Confirm your subscription to Jerome Faria&#39;s newsletter:</p>',
-    `<p><a href="${confirmUrl}">Confirm subscription</a></p>`,
-    '<p>If you didn&#39;t request this, ignore this email — nothing will be sent.</p>',
-  ].join(''),
+  text: confirmationText(confirmUrl),
+  html: confirmationHtml(confirmUrl, env),
 });
 
 const ownerNotification = (email: string, kind: OwnerNotificationKind, env: Env): ResendMessage => {
