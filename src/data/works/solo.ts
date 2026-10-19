@@ -11,6 +11,7 @@ export const solo: WorksSection = {
       coverImage: '/images/contraplacado.jpg',
       bandcampUrl: 'https://jeromefaria.bandcamp.com/album/contraplacado',
       soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/contraplacado',
+      discogsUrl: 'https://www.discogs.com/release/38701152-Jerome-Faria-Contraplacado',
       meta: {
         kind: 'music',
         mediums: ['Digital'],
@@ -35,6 +36,7 @@ export const solo: WorksSection = {
       coverImage: '/images/en-veille.jpg',
       bandcampUrl: 'https://jeromefaria.bandcamp.com/album/en-veille',
       soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/en-veille',
+      discogsUrl: 'https://www.discogs.com/release/38701080-Jerome-Faria-En-Veille',
       meta: {
         kind: 'music',
         mediums: ['Digital'],
@@ -60,6 +62,7 @@ export const solo: WorksSection = {
       coverImage: '/images/2504.jpg',
       bandcampUrl: 'https://jeromefaria.bandcamp.com/album/2504',
       soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/april-25',
+      discogsUrl: 'https://www.discogs.com/release/38701044-Jerome-Faria-2504',
       language: 'pt-PT',
       meta: {
         kind: 'music',
@@ -86,6 +89,7 @@ export const solo: WorksSection = {
       coverImage: '/images/caligari.jpg',
       bandcampUrl: 'https://jeromefaria.bandcamp.com/album/music-written-performed-for-the-cabinet-of-dr-caligari',
       soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/music-written-performed-for-the-cabinet-of-dr-caligari',
+      discogsUrl: 'https://www.discogs.com/release/27559509-Jerome-Faria-Music-Written-Performed-for-The-Cabinet-of-Dr-Caligari',
       meta: {
         kind: 'music',
         mediums: ['Digital'],
@@ -112,6 +116,7 @@ export const solo: WorksSection = {
       coverImage: '/images/overlapse.jpg',
       bandcampUrl: 'https://jeromefaria.bandcamp.com/album/overlapse',
       soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/overlapse',
+      discogsUrl: 'https://www.discogs.com/master/2963038-Jerome-Faria-Overlapse',
       meta: {
         kind: 'music',
         mediums: ['Digital'],
@@ -150,6 +155,7 @@ export const solo: WorksSection = {
       coverImage: '/images/1714.jpg',
       bandcampUrl: 'https://jeromefaria.bandcamp.com/album/17-14',
       soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/seventeen-fourteen',
+      discogsUrl: 'https://www.discogs.com/release/38701371-Jerome-Faria-1714',
       meta: {
         kind: 'music',
         mediums: ['Digital'],

@@ -6,6 +6,7 @@ export interface SchemaOrganization {
 export interface SchemaPerson {
   '@type': 'Person';
   name: string;
+  url?: string;
   sameAs?: string[];
 }
 
@@ -73,6 +74,8 @@ export interface SchemaMusicAlbum {
   url: string;
   sameAs?: string[];
   image?: string;
+  description?: string;
+  genre?: string[];
   datePublished: string;
   numTracks?: number;
   byArtist: SchemaPerson;

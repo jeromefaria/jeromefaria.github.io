@@ -11,6 +11,7 @@ export const collaborations: WorksSection = {
       coverImage: '/images/overlapse-xiii.jpg',
       bandcampUrl: 'https://jeromefaria.bandcamp.com/album/overlapse-xiii',
       soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/overlapse-xiii',
+      discogsUrl: 'https://www.discogs.com/release/38701254-Jerome-Faria-Overlapse-XIII',
       engineering: ['mastering'],
       meta: {
         kind: 'music',
@@ -42,6 +43,7 @@ export const collaborations: WorksSection = {
       bandcampId: '2165800616',
       coverImage: '/images/altar.jpg',
       bandcampUrl: 'https://casaamarela.bandcamp.com/album/altar',
+      discogsUrl: 'https://www.discogs.com/release/30607252-NOx-ALTAR',
       meta: {
         kind: 'music',
         mediums: ['Digital', 'Cassette'],

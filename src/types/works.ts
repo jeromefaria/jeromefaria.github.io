@@ -102,6 +102,7 @@ export interface Release {
   bandcampId?: string;
   bandcampUrl?: string;
   soundcloudUrl?: string;
+  discogsUrl?: string;
   externalUrl?: string;
   coverImage?: string;
   tracklist?: Track[];

@@ -56,7 +56,9 @@ describe('createReleaseSchema', () => {
       '@type': 'MusicAlbum',
       name: 'Y',
       datePublished: '2020',
+      url: CANONICAL,
       mainEntityOfPage: CANONICAL,
+      byArtist: { '@type': 'Person', name: siteConfig.author.name, url: siteConfig.url },
     });
   });
 
