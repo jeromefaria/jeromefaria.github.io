@@ -6,7 +6,7 @@ import { audioPlayerEnabled } from '@/composables/useFeatureFlags';
 import { OG_CARD_DIMENSIONS, siteConfig } from '@/data/navigation';
 import { draftSlugs, essayBodyBySlug, essayMetaBySlug } from '@/data/writingContent';
 import { releaseForEssay } from '@/utils/essayLinks';
-import { createBlogPostingSchema } from '@/utils/pageSchemas';
+import { createBlogPostingSchema, createEssayBreadcrumbSchema } from '@/utils/pageSchemas';
 import { canPlayRelease, playReleaseAt, releasePath } from '@/utils/releasePermalink';
 import { renderMarkdown } from '@/utils/renderMarkdown';
 
@@ -36,7 +36,7 @@ const head = essay && markdown
     image: `/og-writing-${essay.slug}.png`,
     imageDimensions: OG_CARD_DIMENSIONS,
     ...(isDraft ? { noIndex: true } : {}),
-    schema: createBlogPostingSchema(essay, canonical),
+    schema: [createBlogPostingSchema(essay, canonical), createEssayBreadcrumbSchema(essay, canonical)],
   }
   : {
     title: { en: `Writing — ${siteConfig.author.name}`, pt: `Writing — ${siteConfig.author.name}` },

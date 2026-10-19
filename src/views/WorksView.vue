@@ -12,7 +12,7 @@ import { pageMeta } from '@/data/pageMeta';
 import { worksData, worksSections } from '@/data/works';
 import { useLocalized } from '@/i18n/localized';
 import { canPlayRelease, findRelease, playReleaseAt, releaseHead } from '@/utils/releasePermalink';
-import { createReleaseSchema, createWorksPageSchema } from '@/utils/worksSchema';
+import { createReleaseBreadcrumbSchema, createReleaseSchema, createWorksPageSchema } from '@/utils/worksSchema';
 
 const route = useRoute();
 const { localize, current } = useLocalized();
@@ -22,7 +22,10 @@ const { focusId: releaseId, focusEntity: focusRelease, notFound, head } = useAcc
   find: findRelease,
   detailHead: (release, canonicalUrl) => ({
     ...releaseHead(release, current.value),
-    schema: createReleaseSchema(release, current.value, canonicalUrl),
+    schema: [
+      createReleaseSchema(release, current.value, canonicalUrl),
+      createReleaseBreadcrumbSchema(release, current.value, canonicalUrl),
+    ],
   }),
   listHead: () => ({ ...pageMeta.works, schema: createWorksPageSchema() }),
 });

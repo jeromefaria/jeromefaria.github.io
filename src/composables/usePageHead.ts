@@ -25,7 +25,7 @@ interface UsePageHeadOptions {
   title: string | Localized<string>;
   description: string | Localized<string>;
   ogType?: string;
-  schema?: object | null;
+  schema?: object | object[] | null;
   noIndex?: boolean;
   preloadImages?: HeroPreload[];
   image?: string;
@@ -157,7 +157,10 @@ export const usePageHead = (options: UsePageHeadOptions): void => {
       ...(options.schema && {
         // eslint-disable-next-line local/no-comments -- security constraint
         // The `<` escape stops a value breaking out of the <script> block; do not remove.
-        script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(options.schema).replace(/</g, '\\u003c') }],
+        script: (Array.isArray(options.schema) ? options.schema : [options.schema]).map(schema => ({
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify(schema).replace(/</g, '\\u003c'),
+        })),
       }),
     };
   });

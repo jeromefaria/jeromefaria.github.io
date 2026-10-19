@@ -1,9 +1,12 @@
 import { liveYears, sortedLiveData } from '@/data/live';
 import { siteConfig } from '@/data/navigation';
+import { localize } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
+import { createTranslate } from '@/i18n/useT';
 import type { LiveEvent } from '@/types';
-import type { SchemaItemList, SchemaMusicEvent } from '@/types/schema';
+import type { SchemaBreadcrumbList, SchemaItemList, SchemaMusicEvent } from '@/types/schema';
 
+import { createBreadcrumbSchema } from './pageSchemas';
 import { createItemListSchema, createMusicEventSchema } from './schemaHelpers';
 
 type SchemaLiveEvent = SchemaMusicEvent & { '@context': string; mainEntityOfPage: string };
@@ -17,6 +20,16 @@ export const createLiveEventSchema = (
   ...createMusicEventSchema(event, siteConfig.author.name, event.date, locale),
   mainEntityOfPage: canonicalUrl,
 });
+
+export const createLiveEventBreadcrumbSchema = (
+  event: LiveEvent,
+  locale: Locale,
+  canonicalUrl: string,
+): SchemaBreadcrumbList =>
+  createBreadcrumbSchema([
+    { name: createTranslate(locale)('nav.live'), url: `${siteConfig.url}/live` },
+    { name: localize(event.title, locale), url: canonicalUrl },
+  ]);
 
 export const createLiveEventsSchema = (locale: Locale = DEFAULT_LOCALE): SchemaItemList => {
   const events = liveYears.flatMap(year => {

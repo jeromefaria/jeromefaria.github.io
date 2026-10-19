@@ -2,10 +2,12 @@ import { siteConfig } from '@/data/navigation';
 import { worksData } from '@/data/works';
 import { localize } from '@/i18n/localized';
 import { BCP47_LOCALE, type Locale } from '@/i18n/messages';
+import { createTranslate } from '@/i18n/useT';
 import { hasBandcampId, hasBandcampUrl, hasCoverImage, type Release } from '@/types';
-import type { SchemaBook, SchemaRelease, SchemaWorksGraph } from '@/types/schema';
+import type { SchemaBook, SchemaBreadcrumbList, SchemaRelease, SchemaWorksGraph } from '@/types/schema';
 import { releaseYearString } from '@/utils/releaseDate';
 
+import { createBreadcrumbSchema } from './pageSchemas';
 import { createMusicAlbumSchema } from './schemaHelpers';
 import { stripHtml } from './stripHtml';
 
@@ -64,6 +66,16 @@ export const createWorksPageSchema = (): SchemaWorksGraph => {
     ],
   };
 };
+
+export const createReleaseBreadcrumbSchema = (
+  release: Release,
+  locale: Locale,
+  canonicalUrl: string,
+): SchemaBreadcrumbList =>
+  createBreadcrumbSchema([
+    { name: createTranslate(locale)('nav.works'), url: `${siteConfig.url}/works` },
+    { name: release.title, url: canonicalUrl },
+  ]);
 
 export const createReleaseSchema = (release: Release, locale: Locale, canonicalUrl: string): SchemaRelease => {
   if (release.meta.kind === 'publication') {

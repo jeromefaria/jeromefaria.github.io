@@ -318,6 +318,25 @@ describe('usePageHead', () => {
       expect(JSON.parse(scripts[0].innerHTML)).toEqual(schema);
     });
 
+    it('emits one JSON-LD script per entry when schema is an array', () => {
+      const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jerome Faria' };
+      const person = { '@context': 'https://schema.org', '@type': 'Person', name: 'Jerome Faria' };
+      const config = mountWithPageHead({ title: 'Home', description: 'desc', schema: [website, person] });
+      const scripts = config.script as Array<{ type: string; innerHTML: string }>;
+      expect(scripts).toHaveLength(2);
+      expect(scripts.every(script => script.type === 'application/ld+json')).toBe(true);
+      expect(JSON.parse(scripts[0].innerHTML)).toEqual(website);
+      expect(JSON.parse(scripts[1].innerHTML)).toEqual(person);
+    });
+
+    it('escapes angle brackets in every emitted script', () => {
+      const schema = { '@context': 'https://schema.org', '@type': 'Person', name: '</script><x>' };
+      const config = mountWithPageHead({ title: 'About', description: 'desc', schema: [schema] });
+      const scripts = config.script as Array<{ type: string; innerHTML: string }>;
+      expect(scripts[0].innerHTML).not.toContain('</script>');
+      expect(scripts[0].innerHTML).toContain('\\u003c');
+    });
+
     it('does not add script tag when schema is null', () => {
       const config = mountWithPageHead({ title: 'About', description: 'desc', schema: null });
       expect(config.script).toBeUndefined();

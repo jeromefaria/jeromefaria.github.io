@@ -15,7 +15,7 @@ export interface SchemaPostalAddress {
   addressCountry: string;
 }
 
-interface SchemaAuthoredPerson {
+export interface SchemaAuthoredPerson {
   '@type': 'Person';
   name: string;
   url: string;
@@ -107,6 +107,29 @@ export type SchemaRelease =
   | (SchemaMusicAlbum & { '@context': 'https://schema.org'; mainEntityOfPage: string })
   | (SchemaBook & { '@context': 'https://schema.org'; mainEntityOfPage: string })
   | SchemaCreativeWork;
+
+export interface SchemaWebSite {
+  '@context': 'https://schema.org';
+  '@type': 'WebSite';
+  name: string;
+  url: string;
+  description: string;
+  inLanguage: string;
+  author: SchemaAuthoredPerson;
+}
+
+export interface SchemaBreadcrumbItem {
+  '@type': 'ListItem';
+  position: number;
+  name: string;
+  item: string;
+}
+
+export interface SchemaBreadcrumbList {
+  '@context': 'https://schema.org';
+  '@type': 'BreadcrumbList';
+  itemListElement: SchemaBreadcrumbItem[];
+}
 
 export interface SchemaProfilePerson {
   '@context': 'https://schema.org';
