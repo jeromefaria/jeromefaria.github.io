@@ -38,9 +38,13 @@ export interface MusicMeta {
   released: string;
 }
 
+export interface CompilationLink extends MetaLink {
+  discogsUrl?: string;
+}
+
 export interface CompilationMeta {
   kind: 'compilation';
-  compilation: MetaLink;
+  compilation: CompilationLink;
   collaborators?: CreditRef[];
   mediums: Medium[];
   editions: Edition[];

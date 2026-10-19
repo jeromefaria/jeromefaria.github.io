@@ -94,6 +94,13 @@ export interface SchemaBook {
   contributor: SchemaPerson;
 }
 
+export interface SchemaPartOfAlbum {
+  '@type': 'MusicAlbum';
+  name: string;
+  url?: string;
+  sameAs?: string[];
+}
+
 export interface SchemaCreativeWork {
   '@context': 'https://schema.org';
   '@type': 'CreativeWork';
@@ -104,6 +111,7 @@ export interface SchemaCreativeWork {
   dateCreated: string;
   image?: string;
   sameAs?: string[];
+  isPartOf?: SchemaPartOfAlbum;
   creator: SchemaPerson;
 }
 

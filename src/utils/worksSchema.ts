@@ -3,8 +3,8 @@ import { worksData } from '@/data/works';
 import { localize } from '@/i18n/localized';
 import { BCP47_LOCALE, type Locale } from '@/i18n/messages';
 import { createTranslate } from '@/i18n/useT';
-import { hasBandcampId, hasBandcampUrl, hasCoverImage, type Release } from '@/types';
-import type { SchemaBook, SchemaBreadcrumbList, SchemaRelease, SchemaWorksGraph } from '@/types/schema';
+import { type CompilationLink, hasBandcampId, hasBandcampUrl, hasCoverImage, type Release } from '@/types';
+import type { SchemaBook, SchemaBreadcrumbList, SchemaPartOfAlbum, SchemaRelease, SchemaWorksGraph } from '@/types/schema';
 import { releaseYearString } from '@/utils/releaseDate';
 
 import { createBreadcrumbSchema } from './pageSchemas';
@@ -77,6 +77,13 @@ export const createReleaseBreadcrumbSchema = (
     { name: release.title, url: canonicalUrl },
   ]);
 
+const compilationPartOf = (compilation: CompilationLink): SchemaPartOfAlbum => ({
+  '@type': 'MusicAlbum',
+  name: compilation.text,
+  ...(compilation.url ? { url: compilation.url } : {}),
+  ...(compilation.discogsUrl ? { sameAs: [compilation.discogsUrl] } : {}),
+});
+
 export const createReleaseSchema = (release: Release, locale: Locale, canonicalUrl: string): SchemaRelease => {
   if (release.meta.kind === 'publication') {
     return { '@context': 'https://schema.org', ...createGlitchBookSchema(), mainEntityOfPage: canonicalUrl };
@@ -95,6 +102,8 @@ export const createReleaseSchema = (release: Release, locale: Locale, canonicalU
 
   const sameAs = [...new Set([release.externalUrl, release.discogsUrl].filter((url): url is string => Boolean(url)))];
 
+  const isPartOf = release.meta.kind === 'compilation' ? compilationPartOf(release.meta.compilation) : undefined;
+
   return {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
@@ -105,6 +114,7 @@ export const createReleaseSchema = (release: Release, locale: Locale, canonicalU
     dateCreated: releaseYearString(release.meta.released),
     ...(hasCoverImage(release) ? { image: `${siteConfig.url}${release.coverImage}` } : {}),
     ...(sameAs.length ? { sameAs } : {}),
+    ...(isPartOf ? { isPartOf } : {}),
     creator: { '@type': 'Person', name: siteConfig.author.name },
   };
 };
