@@ -19,6 +19,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - **player:** Extract createMediaSession and add displayArtwork ([#572](https://github.com/jeromefaria/jeromefaria.github.io/pull/572))
 
+### Features
+
+- **seo:** Structured data + image sitemap ([#581](https://github.com/jeromefaria/jeromefaria.github.io/pull/581))
+
 ### Refactors
 
 - **data:** Rename the BRØQN org key to brqn ([#576](https://github.com/jeromefaria/jeromefaria.github.io/pull/576))
