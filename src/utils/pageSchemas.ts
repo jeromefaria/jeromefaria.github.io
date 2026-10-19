@@ -7,16 +7,22 @@ import type { Essay } from '@/types/writing';
 
 import { stripHtml } from './stripHtml';
 
-export const createPersonSchema = (locale: Locale = DEFAULT_LOCALE): SchemaProfilePerson => ({
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: siteConfig.author.name,
-  url: siteConfig.url,
-  jobTitle: localize(siteConfig.tagline, locale),
-  description: localize(siteConfig.description, locale),
-  image: `${siteConfig.url}${siteConfig.image}`,
-  sameAs: social.map(link => link.url),
-});
+export const createPersonSchema = (locale: Locale = DEFAULT_LOCALE): SchemaProfilePerson => {
+  const { alias, discogsArtistUrl } = siteConfig.author;
+  const sameAs = [...social.map(link => link.url), ...(discogsArtistUrl ? [discogsArtistUrl] : [])];
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: siteConfig.author.name,
+    ...(alias ? { alternateName: alias } : {}),
+    url: siteConfig.url,
+    jobTitle: localize(siteConfig.tagline, locale),
+    description: localize(siteConfig.description, locale),
+    image: `${siteConfig.url}${siteConfig.image}`,
+    sameAs,
+  };
+};
 
 export const createWebSiteSchema = (locale: Locale = DEFAULT_LOCALE): SchemaWebSite => ({
   '@context': 'https://schema.org',
