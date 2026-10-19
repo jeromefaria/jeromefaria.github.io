@@ -2,6 +2,13 @@
 
 All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch`).
 
+## Unreleased
+
+
+### Build & CI
+
+- Render downloads in a parallel job off the critical path ([#586](https://github.com/jeromefaria/jeromefaria.github.io/pull/586))
+
 ## 2026.10.2 — Release entity graph & extraction sweep — 2026-10-19
 
 
