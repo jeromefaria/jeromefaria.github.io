@@ -16,6 +16,8 @@ export const siteConfig: SiteConfig = {
     name: 'Jerome Faria',
     email: 'info@jeromefaria.com',
     bio: 'Composer & Sound Artist',
+    alias: 'NNY',
+    discogsArtistUrl: 'https://www.discogs.com/artist/210662-NNY',
   },
 };
 
