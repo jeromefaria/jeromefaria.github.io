@@ -93,6 +93,8 @@ export const createReleaseSchema = (release: Release, locale: Locale, canonicalU
     return { '@context': 'https://schema.org', ...album, url: canonicalUrl, mainEntityOfPage: canonicalUrl };
   }
 
+  const sameAs = [...new Set([release.externalUrl, release.discogsUrl].filter((url): url is string => Boolean(url)))];
+
   return {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
@@ -102,6 +104,7 @@ export const createReleaseSchema = (release: Release, locale: Locale, canonicalU
     mainEntityOfPage: canonicalUrl,
     dateCreated: releaseYearString(release.meta.released),
     ...(hasCoverImage(release) ? { image: `${siteConfig.url}${release.coverImage}` } : {}),
+    ...(sameAs.length ? { sameAs } : {}),
     creator: { '@type': 'Person', name: siteConfig.author.name },
   };
 };

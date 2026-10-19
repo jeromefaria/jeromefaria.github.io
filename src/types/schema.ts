@@ -103,6 +103,7 @@ export interface SchemaCreativeWork {
   mainEntityOfPage: string;
   dateCreated: string;
   image?: string;
+  sameAs?: string[];
   creator: SchemaPerson;
 }
 
