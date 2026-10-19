@@ -96,6 +96,67 @@ describe('createReleaseSchema', () => {
     expect(schema).not.toHaveProperty('description');
     expect(schema).not.toHaveProperty('image');
     expect(schema).not.toHaveProperty('sameAs');
+    expect(schema).not.toHaveProperty('isPartOf');
+  });
+
+  it('wraps a compilation track in an isPartOf album carrying the compilation Discogs identity', () => {
+    const release = {
+      id: 'comp-x',
+      title: 'My Track',
+      meta: {
+        kind: 'compilation',
+        compilation: { text: 'A Compilation', url: 'https://label.example/comp', discogsUrl: 'https://www.discogs.com/release/1-A-Compilation' },
+        mediums: ['MP3'],
+        editions: [],
+        released: '2010',
+      },
+    } as unknown as Release;
+
+    expect(createReleaseSchema(release, 'en', CANONICAL)).toHaveProperty('isPartOf', {
+      '@type': 'MusicAlbum',
+      name: 'A Compilation',
+      url: 'https://label.example/comp',
+      sameAs: ['https://www.discogs.com/release/1-A-Compilation'],
+    });
+  });
+
+  it('keeps the compilation url but omits its sameAs when there is no Discogs link', () => {
+    const release = {
+      id: 'comp-y',
+      title: 'Another Track',
+      meta: {
+        kind: 'compilation',
+        compilation: { text: 'Bandcamp Only', url: 'https://label.bandcamp.com/album/x' },
+        mediums: ['MP3'],
+        editions: [],
+        released: '2011',
+      },
+    } as unknown as Release;
+
+    expect(createReleaseSchema(release, 'en', CANONICAL)).toHaveProperty('isPartOf', {
+      '@type': 'MusicAlbum',
+      name: 'Bandcamp Only',
+      url: 'https://label.bandcamp.com/album/x',
+    });
+  });
+
+  it('builds a bare isPartOf album when the compilation has neither url nor Discogs link', () => {
+    const release = {
+      id: 'comp-z',
+      title: 'Bare Track',
+      meta: {
+        kind: 'compilation',
+        compilation: { text: 'Untitled Comp' },
+        mediums: ['MP3'],
+        editions: [],
+        released: '2012',
+      },
+    } as unknown as Release;
+
+    expect(createReleaseSchema(release, 'en', CANONICAL)).toHaveProperty('isPartOf', {
+      '@type': 'MusicAlbum',
+      name: 'Untitled Comp',
+    });
   });
 
   it('links a CreativeWork to its external and Discogs identities via sameAs', () => {
