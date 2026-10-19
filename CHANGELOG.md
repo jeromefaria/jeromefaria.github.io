@@ -21,6 +21,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Features
 
+- **seo:** Place compilation tracks in an isPartOf album node ([#585](https://github.com/jeromefaria/jeromefaria.github.io/pull/585))
 - **seo:** Represent the NNY alias on the Person entity ([#584](https://github.com/jeromefaria/jeromefaria.github.io/pull/584))
 - **seo:** Link CreativeWork releases to external identities ([#583](https://github.com/jeromefaria/jeromefaria.github.io/pull/583))
 - **seo:** Enrich MusicAlbum structured data for releases ([#582](https://github.com/jeromefaria/jeromefaria.github.io/pull/582))
