@@ -2,7 +2,7 @@ import { siteConfig, social } from '@/data/navigation';
 import { pressQuotes } from '@/data/press';
 import { localize } from '@/i18n/localized';
 import { BCP47_LOCALE, DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
-import type { SchemaBlogPosting, SchemaContactPage, SchemaProfilePerson, SchemaReviewList } from '@/types/schema';
+import type { SchemaBlogPosting, SchemaBreadcrumbList, SchemaContactPage, SchemaProfilePerson, SchemaReviewList, SchemaWebSite } from '@/types/schema';
 import type { Essay } from '@/types/writing';
 
 import { stripHtml } from './stripHtml';
@@ -17,6 +17,40 @@ export const createPersonSchema = (locale: Locale = DEFAULT_LOCALE): SchemaProfi
   image: `${siteConfig.url}${siteConfig.image}`,
   sameAs: social.map(link => link.url),
 });
+
+export const createWebSiteSchema = (locale: Locale = DEFAULT_LOCALE): SchemaWebSite => ({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteConfig.title,
+  url: siteConfig.url,
+  description: localize(siteConfig.description, locale),
+  inLanguage: BCP47_LOCALE[locale],
+  author: { '@type': 'Person', name: siteConfig.author.name, url: siteConfig.url },
+});
+
+interface BreadcrumbCrumb {
+  name: string;
+  url: string;
+}
+
+const homeCrumb: BreadcrumbCrumb = { name: siteConfig.title, url: siteConfig.url };
+
+export const createBreadcrumbSchema = (trail: BreadcrumbCrumb[]): SchemaBreadcrumbList => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [homeCrumb, ...trail].map((crumb, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: crumb.name,
+    item: crumb.url,
+  })),
+});
+
+export const createEssayBreadcrumbSchema = (essay: Essay, canonicalUrl: string): SchemaBreadcrumbList =>
+  createBreadcrumbSchema([
+    { name: 'Writing', url: `${siteConfig.url}/writing` },
+    { name: essay.title, url: canonicalUrl },
+  ]);
 
 export const createBlogPostingSchema = (essay: Essay, canonicalUrl: string): SchemaBlogPosting => {
   const person = { '@type': 'Person' as const, name: siteConfig.author.name, url: siteConfig.url };

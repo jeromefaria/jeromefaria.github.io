@@ -7,7 +7,7 @@ import { liveYears, sortedLiveData } from '@/data/live';
 import { pageMeta } from '@/data/pageMeta';
 import { useLocalized } from '@/i18n/localized';
 import { findLiveEvent, liveEventHead } from '@/utils/liveEventPermalink';
-import { createLiveEventSchema, createLiveEventsSchema } from '@/utils/liveSchema';
+import { createLiveEventBreadcrumbSchema, createLiveEventSchema, createLiveEventsSchema } from '@/utils/liveSchema';
 
 const { localize, current } = useLocalized();
 
@@ -16,7 +16,10 @@ const { focusId: eventId, notFound, head } = useAccordionDetailPage({
   find: findLiveEvent,
   detailHead: (event, canonicalUrl) => ({
     ...liveEventHead(event, current.value),
-    schema: createLiveEventSchema(event, current.value, canonicalUrl),
+    schema: [
+      createLiveEventSchema(event, current.value, canonicalUrl),
+      createLiveEventBreadcrumbSchema(event, current.value, canonicalUrl),
+    ],
   }),
   listHead: () => ({ ...pageMeta.live, schema: createLiveEventsSchema(current.value) }),
 });

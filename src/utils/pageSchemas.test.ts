@@ -5,7 +5,7 @@ import { siteConfig, social } from '@/data/navigation';
 import { worksData } from '@/data/works';
 
 import { createLiveEventsSchema } from './liveSchema';
-import { createBlogPostingSchema, createContactPageSchema, createPersonSchema } from './pageSchemas';
+import { createBlogPostingSchema, createBreadcrumbSchema, createContactPageSchema, createEssayBreadcrumbSchema, createPersonSchema, createWebSiteSchema } from './pageSchemas';
 import { createWorksPageSchema } from './worksSchema';
 
 describe('createBlogPostingSchema', () => {
@@ -145,5 +145,52 @@ describe('createLiveEventsSchema', () => {
 
     expect(aragao?.item.inLanguage).toBe('pt-PT');
     expect(instrumentalGig?.item.inLanguage).toBeUndefined();
+  });
+});
+
+describe('createWebSiteSchema', () => {
+  it('builds a WebSite from the site config', () => {
+    const schema = createWebSiteSchema();
+
+    expect(schema['@type']).toBe('WebSite');
+    expect(schema.name).toBe(siteConfig.title);
+    expect(schema.url).toBe(siteConfig.url);
+    expect(schema.inLanguage).toBe('en-GB');
+    expect(schema.author.name).toBe(siteConfig.author.name);
+  });
+
+  it('localizes the description and language', () => {
+    const schema = createWebSiteSchema('pt');
+    expect(schema.inLanguage).toBe('pt-PT');
+    expect(schema.description).not.toBe(createWebSiteSchema('en').description);
+    expect(schema.description.length).toBeGreaterThan(0);
+  });
+});
+
+describe('createBreadcrumbSchema', () => {
+  it('prepends the home crumb and numbers positions from one', () => {
+    const schema = createBreadcrumbSchema([
+      { name: 'Works', url: 'https://jeromefaria.com/works' },
+      { name: 'Caligari', url: 'https://jeromefaria.com/works/caligari' },
+    ]);
+
+    expect(schema['@type']).toBe('BreadcrumbList');
+    expect(schema.itemListElement).toHaveLength(3);
+    expect(schema.itemListElement[0]).toMatchObject({ position: 1, name: siteConfig.title, item: siteConfig.url });
+    expect(schema.itemListElement[1]).toMatchObject({ position: 2, name: 'Works' });
+    expect(schema.itemListElement[2]).toMatchObject({ position: 3, name: 'Caligari' });
+  });
+});
+
+describe('createEssayBreadcrumbSchema', () => {
+  it('builds a Home → Writing → essay trail', () => {
+    const essay = { slug: 'x', title: 'My Essay', date: '2025-01-02', description: 'About', tagline: 'T' };
+    const canonicalUrl = 'https://jeromefaria.com/writing/x';
+    const schema = createEssayBreadcrumbSchema(essay, canonicalUrl);
+    const names = schema.itemListElement.map(element => element.name);
+    const items = schema.itemListElement.map(element => element.item);
+
+    expect(names).toEqual([siteConfig.title, 'Writing', 'My Essay']);
+    expect(items).toEqual([siteConfig.url, `${siteConfig.url}/writing`, canonicalUrl]);
   });
 });

@@ -19,7 +19,7 @@ vi.mock('@/data/works', () => ({
   },
 }));
 
-import { createReleaseSchema } from './worksSchema';
+import { createReleaseBreadcrumbSchema, createReleaseSchema } from './worksSchema';
 
 const CANONICAL = 'https://jeromefaria.com/works/x';
 
@@ -93,5 +93,23 @@ describe('createReleaseSchema', () => {
     expect(schema).toMatchObject({ '@type': 'CreativeWork', name: 'W', dateCreated: '2015' });
     expect(schema).not.toHaveProperty('description');
     expect(schema).not.toHaveProperty('image');
+  });
+});
+
+describe('createReleaseBreadcrumbSchema', () => {
+  const release = { id: 'x', title: 'Caligari' } as Release;
+
+  it('builds a Home → Works → release trail with localized section labels', () => {
+    const schema = createReleaseBreadcrumbSchema(release, 'en', CANONICAL);
+    const names = schema.itemListElement.map(element => element.name);
+    const items = schema.itemListElement.map(element => element.item);
+
+    expect(names).toEqual([siteConfig.title, 'Works', 'Caligari']);
+    expect(items).toEqual([siteConfig.url, `${siteConfig.url}/works`, CANONICAL]);
+  });
+
+  it('localizes the Works label in Portuguese', () => {
+    const schema = createReleaseBreadcrumbSchema(release, 'pt', CANONICAL);
+    expect(schema.itemListElement[1]?.name).toBe('Obras');
   });
 });

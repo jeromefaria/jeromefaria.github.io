@@ -3,13 +3,13 @@ import { usePageHead } from '@/composables/usePageHead';
 import { siteConfig } from '@/data/navigation';
 import { pageMeta } from '@/data/pageMeta';
 import { useLocalized } from '@/i18n/localized';
-import { createPersonSchema } from '@/utils/pageSchemas';
+import { createPersonSchema, createWebSiteSchema } from '@/utils/pageSchemas';
 
 const { localize, current } = useLocalized();
 
 usePageHead({
   ...pageMeta.home,
-  schema: createPersonSchema(current.value),
+  schema: [createWebSiteSchema(current.value), createPersonSchema(current.value)],
   preloadImages: [
     { href: '/images/responsive/performance-1280w.webp', media: '(max-width: 640px)' },
     { href: '/images/performance.webp', media: '(min-width: 641px)' },
