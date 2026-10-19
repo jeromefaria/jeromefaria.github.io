@@ -84,12 +84,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright browser
-        run: npx playwright install --with-deps chromium
-
-      - name: Generate downloadable PDFs
-        run: npm run downloads:build
-
       - name: Build production bundle
         run: npm run build
 
@@ -132,6 +126,66 @@ jobs:
             exit 1
           fi
           echo "✅ All bundles within budget."
+
+  # The résumé/tech-rider/EPK PDFs and OG card images are rendered with a
+  # headless browser — slow, and needed by nothing the test gate exercises.
+  # Generating them here, parallel to the build, keeps them off the critical
+  # path (build → Lighthouse); the deploy overlays this job's output onto dist
+  # before publishing. Runs on PRs too, as a build-correctness gate.
+  downloads:
+    name: Downloads
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Cache Playwright browser
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-chromium-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      # Capture exactly what the generators produce by diffing the ignored files
+      # under public/ before and after — self-maintaining, so a new generator
+      # needs no workflow edit, and runner cruft can neither pad nor shrink it.
+      - name: Snapshot pre-existing generated files
+        run: git -c core.quotepath=false status --porcelain --ignored public/ | sed -n 's/^!! //p' | sort > "$RUNNER_TEMP/before.txt"
+
+      - name: Generate downloads
+        run: npm run downloads:build
+
+      - name: Package generated downloads
+        run: |
+          git -c core.quotepath=false status --porcelain --ignored public/ | sed -n 's/^!! //p' | sort > "$RUNNER_TEMP/after.txt"
+          comm -13 "$RUNNER_TEMP/before.txt" "$RUNNER_TEMP/after.txt" | sed 's#^public/##' > "$RUNNER_TEMP/generated.txt"
+          if [ ! -s "$RUNNER_TEMP/generated.txt" ]; then
+            echo "No generated downloads were produced — the generator step is broken."
+            exit 1
+          fi
+          echo "Generated downloads:"
+          cat "$RUNNER_TEMP/generated.txt"
+          tar -czf downloads.tar.gz -C public -T "$RUNNER_TEMP/generated.txt"
+
+      - name: Upload generated downloads
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: downloads
+          path: downloads.tar.gz
+          retention-days: 7
 
   # Desktop and mobile run as parallel matrix legs rather than back-to-back in
   # one job, so Lighthouse's wall-clock is one profile's runtime, not both.
@@ -209,7 +263,7 @@ jobs:
   e2e-tests:
     name: E2E Tests
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, downloads]
     timeout-minutes: 20
 
     strategy:
@@ -230,6 +284,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Cache Playwright browser
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ matrix.project }}-${{ hashFiles('package-lock.json') }}
+
       - name: Install Playwright browser
         run: npx playwright install --with-deps ${{ matrix.project }}
 
@@ -238,6 +298,17 @@ jobs:
         with:
           name: dist
           path: dist/
+
+      # The EPK spec fetches every download the page links to, so the E2E dist
+      # needs the generated assets overlaid exactly as the deploy does.
+      - name: Download generated downloads
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: downloads
+          path: downloads/
+
+      - name: Overlay generated downloads onto dist
+        run: tar -xzf downloads/downloads.tar.gz -C dist
 
       - name: Run Playwright tests
         run: npx playwright test --project=${{ matrix.project }} --grep-invert @visual
@@ -274,6 +345,12 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-all-${{ hashFiles('package-lock.json') }}
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
@@ -329,7 +406,7 @@ jobs:
   summary:
     name: CI Summary
     runs-on: ubuntu-latest
-    needs: [quality-checks, build, lighthouse, e2e-tests, visual-tests, worker]
+    needs: [quality-checks, build, downloads, lighthouse, e2e-tests, visual-tests, worker]
     if: always()
 
     steps:
@@ -341,6 +418,7 @@ jobs:
           echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
           echo "| Quality Checks | ${{ needs.quality-checks.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Build | ${{ needs.build.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Downloads | ${{ needs.downloads.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Lighthouse | ${{ needs.lighthouse.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| E2E Tests | ${{ needs.e2e-tests.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Visual Regression | ${{ needs.visual-tests.result }} |" >> $GITHUB_STEP_SUMMARY
@@ -350,6 +428,7 @@ jobs:
           # (the deploy path) is acceptable — only a real failure blocks.
           if [ "${{ needs.quality-checks.result }}" != "success" ] || \
              [ "${{ needs.build.result }}" != "success" ] || \
+             [ "${{ needs.downloads.result }}" != "success" ] || \
              [ "${{ needs.lighthouse.result }}" != "success" ] || \
              [ "${{ needs.e2e-tests.result }}" != "success" ] || \
              [ "${{ needs.worker.result }}" != "success" ] || \
