@@ -90,6 +90,7 @@ export const film: WorksSection = {
       id: 'hyphema',
       title: 'Hyphema',
       coverImage: '/images/hyphema.jpg',
+      discogsUrl: 'https://www.discogs.com/release/1244206-NNY-Hyphema',
       meta: {
         kind: 'commission',
         work: 'DVD',

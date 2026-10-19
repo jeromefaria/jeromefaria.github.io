@@ -95,6 +95,60 @@ describe('createReleaseSchema', () => {
     expect(schema).toMatchObject({ '@type': 'CreativeWork', name: 'W', dateCreated: '2015' });
     expect(schema).not.toHaveProperty('description');
     expect(schema).not.toHaveProperty('image');
+    expect(schema).not.toHaveProperty('sameAs');
+  });
+
+  it('links a CreativeWork to its external and Discogs identities via sameAs', () => {
+    const release = {
+      id: 'ect',
+      title: 'ECT',
+      externalUrl: 'https://netlabel.example/ect',
+      discogsUrl: 'https://www.discogs.com/release/548251-NNY-ECT',
+      meta: { kind: 'music', mediums: ['Digital'], editions: [], released: '2005' },
+    } as unknown as Release;
+
+    const schema = createReleaseSchema(release, 'en', CANONICAL);
+
+    expect(schema).toHaveProperty('sameAs', [
+      'https://netlabel.example/ect',
+      'https://www.discogs.com/release/548251-NNY-ECT',
+    ]);
+  });
+
+  it('dedupes sameAs when externalUrl and discogsUrl are the same link', () => {
+    const release = {
+      id: 'nny-plus',
+      title: 'NNY++',
+      externalUrl: 'https://www.discogs.com/release/932955-NNY-NNY',
+      discogsUrl: 'https://www.discogs.com/release/932955-NNY-NNY',
+      meta: { kind: 'music', mediums: ['CDr'], editions: [], released: '2007' },
+    } as unknown as Release;
+
+    const schema = createReleaseSchema(release, 'en', CANONICAL);
+
+    expect(schema).toHaveProperty('sameAs', ['https://www.discogs.com/release/932955-NNY-NNY']);
+  });
+
+  it('sets sameAs from externalUrl alone when there is no Discogs link', () => {
+    const release = {
+      id: 'depolarized',
+      title: 'Depolarized',
+      externalUrl: 'https://archive.org/details/depolarized',
+      meta: { kind: 'music', mediums: ['Digital'], editions: [], released: '2014' },
+    } as unknown as Release;
+
+    expect(createReleaseSchema(release, 'en', CANONICAL)).toHaveProperty('sameAs', ['https://archive.org/details/depolarized']);
+  });
+
+  it('sets sameAs from discogsUrl alone when there is no external URL', () => {
+    const release = {
+      id: 'hyphema',
+      title: 'Hyphema',
+      discogsUrl: 'https://www.discogs.com/release/1244206-NNY-Hyphema',
+      meta: { kind: 'commission', work: 'DVD', released: '2007' },
+    } as unknown as Release;
+
+    expect(createReleaseSchema(release, 'en', CANONICAL)).toHaveProperty('sameAs', ['https://www.discogs.com/release/1244206-NNY-Hyphema']);
   });
 });
 

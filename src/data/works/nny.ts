@@ -89,6 +89,7 @@ export const nny: WorksSection = {
       title: 'ECT',
       coverImage: '/images/ect.jpg',
       externalUrl: 'https://www.monocromatica.com/netlabel/releases/tube026.htm',
+      discogsUrl: 'https://www.discogs.com/release/548251-NNY-ECT',
       meta: {
         kind: 'music',
         mediums: ['Digital'],
@@ -120,6 +121,7 @@ export const nny: WorksSection = {
       title: 'OFFEAR.EP',
       coverImage: '/images/offear.jpg',
       externalUrl: 'https://archive.org/details/enrmp040_nny_-_offear_ep',
+      discogsUrl: 'https://www.discogs.com/release/309262-NNY-Offearep',
       meta: {
         kind: 'music',
         mediums: ['Digital'],
