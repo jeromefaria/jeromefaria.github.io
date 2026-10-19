@@ -139,6 +139,7 @@ export interface SchemaProfilePerson {
   '@context': 'https://schema.org';
   '@type': 'Person';
   name: string;
+  alternateName?: string;
   url: string;
   jobTitle: string;
   description: string;

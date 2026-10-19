@@ -10,6 +10,8 @@ export interface SiteConfig {
     name: string;
     email: string;
     bio: string;
+    alias?: string;
+    discogsArtistUrl?: string;
   };
 }
 

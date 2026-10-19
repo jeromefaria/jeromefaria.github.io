@@ -34,7 +34,13 @@ describe('createPersonSchema', () => {
     expect(schema.url).toBe(siteConfig.url);
     expect(schema.jobTitle).toBe(siteConfig.tagline.en);
     expect(schema.image).toBe(`${siteConfig.url}${siteConfig.image}`);
-    expect(schema.sameAs).toEqual(social.map(link => link.url));
+  });
+
+  it('declares the NNY alias and ties its Discogs artist page into sameAs', () => {
+    const schema = createPersonSchema();
+
+    expect(schema.alternateName).toBe(siteConfig.author.alias);
+    expect(schema.sameAs).toEqual([...social.map(link => link.url), siteConfig.author.discogsArtistUrl]);
   });
 
   it('localizes jobTitle and description to the requested locale', () => {
