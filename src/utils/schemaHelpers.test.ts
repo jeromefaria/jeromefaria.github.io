@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import type { LiveEvent } from '@/types/live';
 import type { SchemaPerson } from '@/types/schema';
 
-import { createItemListSchema, createMusicAlbumSchema, createMusicEventSchema } from './schemaHelpers';
+import { createItemListSchema, createMusicAlbumSchema, createMusicEventSchema, MUSIC_GENRES } from './schemaHelpers';
 
 const performerNames = (performer: SchemaPerson | SchemaPerson[]): string[] =>
   (Array.isArray(performer) ? performer : [performer]).map(entry => entry.name);
@@ -159,62 +159,109 @@ describe('createMusicAlbumSchema', () => {
   const artist = 'Jerome Faria';
   const siteUrl = 'https://jeromefaria.com';
 
-  it('builds the core album fields', () => {
+  it('builds the core album fields, pointing url at the on-site page and linking the artist to the site', () => {
     const schema = createMusicAlbumSchema(
-      { title: 'Overlapse', bandcampUrl: 'https://jeromefaria.bandcamp.com/album/overlapse', datePublished: '2012' },
+      { id: 'overlapse', title: 'Overlapse', datePublished: '2012' },
       artist,
       siteUrl,
     );
     expect(schema).toMatchObject({
       '@type': 'MusicAlbum',
       name: 'Overlapse',
-      url: 'https://jeromefaria.bandcamp.com/album/overlapse',
+      url: 'https://jeromefaria.com/works/overlapse',
+      genre: MUSIC_GENRES,
       datePublished: '2012',
-      byArtist: { '@type': 'Person', name: artist },
+      byArtist: { '@type': 'Person', name: artist, url: siteUrl },
     });
   });
 
-  it('defaults url and datePublished to empty strings when missing', () => {
-    const schema = createMusicAlbumSchema({ title: 'Untitled' }, artist, siteUrl);
-    expect(schema.url).toBe('');
+  it('copies the genre list rather than sharing the module constant', () => {
+    const schema = createMusicAlbumSchema({ id: 'x', title: 'X' }, artist, siteUrl);
+    expect(schema.genre).toEqual(MUSIC_GENRES);
+    expect(schema.genre).not.toBe(MUSIC_GENRES);
+  });
+
+  it('derives url from the id and defaults datePublished to an empty string when missing', () => {
+    const schema = createMusicAlbumSchema({ id: 'untitled', title: 'Untitled' }, artist, siteUrl);
+    expect(schema.url).toBe('https://jeromefaria.com/works/untitled');
     expect(schema.datePublished).toBe('');
   });
 
   it('sets inLanguage from the release language, omitting it for instrumental works', () => {
-    expect(createMusicAlbumSchema({ title: '2504', language: 'pt-PT' }, artist, siteUrl).inLanguage).toBe('pt-PT');
-    expect(createMusicAlbumSchema({ title: 'Overlapse' }, artist, siteUrl).inLanguage).toBeUndefined();
+    expect(createMusicAlbumSchema({ id: '2504', title: '2504', language: 'pt-PT' }, artist, siteUrl).inLanguage).toBe('pt-PT');
+    expect(createMusicAlbumSchema({ id: 'overlapse', title: 'Overlapse' }, artist, siteUrl).inLanguage).toBeUndefined();
   });
 
   it('prefixes the cover image with the site URL when present', () => {
-    const schema = createMusicAlbumSchema({ title: 'Overlapse', coverImage: '/images/overlapse.jpg' }, artist, siteUrl);
+    const schema = createMusicAlbumSchema(
+      { id: 'overlapse', title: 'Overlapse', coverImage: '/images/overlapse.jpg' },
+      artist,
+      siteUrl,
+    );
     expect(schema.image).toBe('https://jeromefaria.com/images/overlapse.jpg');
   });
 
   it('omits the image when there is no cover', () => {
-    const schema = createMusicAlbumSchema({ title: 'Overlapse' }, artist, siteUrl);
-    expect(schema.image).toBeUndefined();
+    expect(createMusicAlbumSchema({ id: 'overlapse', title: 'Overlapse' }, artist, siteUrl).image).toBeUndefined();
   });
 
-  it('links the SoundCloud URL as sameAs when present', () => {
+  it('collects Bandcamp, SoundCloud and Discogs into sameAs, in that order', () => {
     const schema = createMusicAlbumSchema(
-      { title: 'Overlapse', soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/overlapse' },
+      {
+        id: 'overlapse',
+        title: 'Overlapse',
+        bandcampUrl: 'https://jeromefaria.bandcamp.com/album/overlapse',
+        soundcloudUrl: 'https://soundcloud.com/jeromefaria/sets/overlapse',
+        discogsUrl: 'https://www.discogs.com/master/2963038-Jerome-Faria-Overlapse',
+      },
       artist,
       siteUrl,
     );
-    expect(schema.sameAs).toEqual(['https://soundcloud.com/jeromefaria/sets/overlapse']);
+    expect(schema.sameAs).toEqual([
+      'https://jeromefaria.bandcamp.com/album/overlapse',
+      'https://soundcloud.com/jeromefaria/sets/overlapse',
+      'https://www.discogs.com/master/2963038-Jerome-Faria-Overlapse',
+    ]);
   });
 
-  it('omits sameAs when there is no SoundCloud URL', () => {
-    expect(createMusicAlbumSchema({ title: 'Overlapse' }, artist, siteUrl).sameAs).toBeUndefined();
+  it('keeps only the external links that are present in sameAs', () => {
+    const schema = createMusicAlbumSchema(
+      { id: 'x', title: 'X', discogsUrl: 'https://www.discogs.com/release/1-X' },
+      artist,
+      siteUrl,
+    );
+    expect(schema.sameAs).toEqual(['https://www.discogs.com/release/1-X']);
+  });
+
+  it('omits sameAs when no external links are present', () => {
+    expect(createMusicAlbumSchema({ id: 'x', title: 'X' }, artist, siteUrl).sameAs).toBeUndefined();
+  });
+
+  it('strips HTML from the description and resolves it to the requested locale', () => {
+    const release = {
+      id: '2504',
+      title: '2504',
+      description: { en: '<p>A <strong>political</strong> suite.</p>', pt: '<p>Uma suite <strong>política</strong>.</p>' },
+    };
+    expect(createMusicAlbumSchema(release, artist, siteUrl, 'en').description).toBe('A political suite.');
+    expect(createMusicAlbumSchema(release, artist, siteUrl, 'pt').description).toBe('Uma suite política.');
+  });
+
+  it('omits the description when the release has none', () => {
+    expect(createMusicAlbumSchema({ id: 'x', title: 'X' }, artist, siteUrl).description).toBeUndefined();
   });
 
   it('sets numTracks from a non-empty tracklist', () => {
-    const schema = createMusicAlbumSchema({ title: 'Overlapse', tracklist: ['A', 'B', 'C'] }, artist, siteUrl);
+    const schema = createMusicAlbumSchema(
+      { id: 'overlapse', title: 'Overlapse', tracklist: [{ title: 'A' }, { title: 'B' }, { title: 'C' }] },
+      artist,
+      siteUrl,
+    );
     expect(schema.numTracks).toBe(3);
   });
 
   it('omits numTracks for an empty or missing tracklist', () => {
-    expect(createMusicAlbumSchema({ title: 'X', tracklist: [] }, artist, siteUrl).numTracks).toBeUndefined();
-    expect(createMusicAlbumSchema({ title: 'X' }, artist, siteUrl).numTracks).toBeUndefined();
+    expect(createMusicAlbumSchema({ id: 'x', title: 'X', tracklist: [] }, artist, siteUrl).numTracks).toBeUndefined();
+    expect(createMusicAlbumSchema({ id: 'x', title: 'X' }, artist, siteUrl).numTracks).toBeUndefined();
   });
 });

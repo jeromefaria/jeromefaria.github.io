@@ -1,9 +1,13 @@
-import { localize } from '@/i18n/localized';
+import { localize, type Localized } from '@/i18n/localized';
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
 import type { Act, LiveEvent, Setup } from '@/types/live';
 import type { SchemaItemList, SchemaMusicAlbum, SchemaMusicEvent, SchemaPerson } from '@/types/schema';
 import type { Track } from '@/types/works';
 import { personSameAs } from '@/utils/people';
+
+import { stripHtml } from './stripHtml';
+
+export const MUSIC_GENRES = ['Electronic', 'Experimental', 'Ambient'] as const;
 
 const collectCollaborators = (setup: Setup): Act[] => {
   switch (setup.kind) {
@@ -21,11 +25,14 @@ const toPerformer = (act: Act): SchemaPerson => {
 };
 
 interface ReleaseForSchema {
+  id: string;
   title: string;
   language?: string;
   bandcampUrl?: string;
   soundcloudUrl?: string;
+  discogsUrl?: string;
   coverImage?: string;
+  description?: Localized<string>;
   datePublished?: string;
   tracklist?: Track[];
 }
@@ -81,15 +88,18 @@ export const createMusicAlbumSchema = (
   release: ReleaseForSchema,
   artistName: string,
   siteUrl: string,
+  locale: Locale = DEFAULT_LOCALE,
 ): SchemaMusicAlbum => {
   const schema: SchemaMusicAlbum = {
     '@type': 'MusicAlbum',
     name: release.title,
-    url: release.bandcampUrl ?? '',
+    url: `${siteUrl}/works/${release.id}`,
+    genre: [...MUSIC_GENRES],
     datePublished: release.datePublished ?? '',
     byArtist: {
       '@type': 'Person',
       name: artistName,
+      url: siteUrl,
     },
   };
 
@@ -97,8 +107,15 @@ export const createMusicAlbumSchema = (
     schema.inLanguage = release.language;
   }
 
-  if (release.soundcloudUrl) {
-    schema.sameAs = [release.soundcloudUrl];
+  const sameAs = [release.bandcampUrl, release.soundcloudUrl, release.discogsUrl]
+    .filter((url): url is string => Boolean(url));
+
+  if (sameAs.length) {
+    schema.sameAs = sameAs;
+  }
+
+  if (release.description) {
+    schema.description = stripHtml(localize(release.description, locale));
   }
 
   if (release.coverImage) {

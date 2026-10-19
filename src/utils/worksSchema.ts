@@ -8,7 +8,7 @@ import type { SchemaBook, SchemaBreadcrumbList, SchemaRelease, SchemaWorksGraph 
 import { releaseYearString } from '@/utils/releaseDate';
 
 import { createBreadcrumbSchema } from './pageSchemas';
-import { createMusicAlbumSchema } from './schemaHelpers';
+import { createMusicAlbumSchema, MUSIC_GENRES } from './schemaHelpers';
 import { stripHtml } from './stripHtml';
 
 const createGlitchBookSchema = (): SchemaBook => {
@@ -59,7 +59,7 @@ export const createWorksPageSchema = (): SchemaWorksGraph => {
         '@type': 'MusicGroup',
         name: siteConfig.author.name,
         url: siteConfig.url,
-        genre: ['Electronic', 'Experimental', 'Ambient'],
+        genre: [...MUSIC_GENRES],
         album: albums,
       },
       createGlitchBookSchema(),
@@ -87,9 +87,10 @@ export const createReleaseSchema = (release: Release, locale: Locale, canonicalU
       { ...release, datePublished: releaseYearString(release.meta.released) },
       siteConfig.author.name,
       siteConfig.url,
+      locale,
     );
 
-    return { '@context': 'https://schema.org', ...album, mainEntityOfPage: canonicalUrl };
+    return { '@context': 'https://schema.org', ...album, url: canonicalUrl, mainEntityOfPage: canonicalUrl };
   }
 
   return {
