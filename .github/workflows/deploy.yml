@@ -26,13 +26,24 @@ jobs:
     needs: checks
     runs-on: ubuntu-latest
     steps:
-      # Reuse the exact dist the E2E gate exercised, repackaged as a Pages
-      # artifact — no rebuild, so what ships is what was tested.
+      # Reuse the exact dist the E2E gate exercised — no rebuild, so what ships
+      # is what was tested — then overlay the downloads (résumé/EPK PDFs, OG
+      # images) rendered in parallel, the same overlay the E2E job applies,
+      # mapped from public/ onto dist root exactly as the build would have.
       - name: Download build artifact
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: dist
           path: dist/
+
+      - name: Download generated downloads
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: downloads
+          path: downloads/
+
+      - name: Overlay generated downloads onto dist
+        run: tar -xzf downloads/downloads.tar.gz -C dist
 
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
