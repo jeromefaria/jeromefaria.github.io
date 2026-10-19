@@ -12,6 +12,11 @@ describe('stripHtml', () => {
     expect(stripHtml('recalls <em>Discreet Music</em>, with static')).toBe('recalls Discreet Music, with static');
   });
 
+  it('strips nested and malformed tags, terminating on the stripped text', () => {
+    expect(stripHtml('<img src=x onerror=alert(1)>')).toBe('');
+    expect(stripHtml('one <a href="#"><em>two</em></a> three')).toBe('one two three');
+  });
+
   it('returns an empty string for undefined input', () => {
     expect(stripHtml()).toBe('');
   });
