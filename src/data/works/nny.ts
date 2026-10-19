@@ -34,6 +34,7 @@ export const nny: WorksSection = {
       bandcampId: '2124016895',
       coverImage: '/images/coil.jpg',
       bandcampUrl: 'https://mimirecords.bandcamp.com/album/coil',
+      discogsUrl: 'https://www.discogs.com/release/702940-NNY-Coil',
       meta: {
         kind: 'music',
         mediums: ['Digital'],
@@ -58,6 +59,7 @@ export const nny: WorksSection = {
       bandcampId: '2169776155',
       coverImage: '/images/readerror.jpg',
       bandcampUrl: 'https://mimirecords.bandcamp.com/album/read-error',
+      discogsUrl: 'https://www.discogs.com/release/393362-NNY-readerror',
       meta: {
         kind: 'music',
         mediums: ['Digital'],
