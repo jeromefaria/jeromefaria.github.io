@@ -2,6 +2,13 @@
 
 All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch`).
 
+## Unreleased
+
+
+### Newsletter
+
+- **privacy:** Disclose owner notification on confirm/unsubscribe ([#594](https://github.com/jeromefaria/jeromefaria.github.io/pull/594))
+
 ## 2026.10.3 — Search Console & accessibility hardening — 2026-10-20
 
 
