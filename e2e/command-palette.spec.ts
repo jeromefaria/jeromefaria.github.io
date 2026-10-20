@@ -1,8 +1,7 @@
 import { expect, test } from '@playwright/test';
 
-import { checkA11y, gotoHydrated } from './helpers';
+import { checkA11y, gotoHydrated, WCAG_TAGS } from './helpers';
 
-const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
 const PALETTE = '.command-palette';
 const INPUT = '.command-palette__input';
 const OPTION = '[role="option"]';

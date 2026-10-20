@@ -1,6 +1,6 @@
 import { expect, type Page, test } from '@playwright/test';
 
-import { gotoHydrated, mockWorker, stubTurnstile } from './helpers';
+import { checkA11y, gotoHydrated, mockWorker, stubTurnstile, WCAG_TAGS } from './helpers';
 
 const FORM = '.contact-form';
 const INQUIRY = '#inquiry';
@@ -143,6 +143,18 @@ test.describe('Contact Form', () => {
         if (!id) continue;
         await expect(page.locator(`label[for="${id}"]`)).toHaveCount(1);
       }
+    });
+
+    test('has no violations with required fields in their invalid state', async ({ page }) => {
+      await page.locator(NAME).focus();
+      await page.locator(NAME).blur();
+      await expect(page.locator(NAME)).toHaveClass(INVALID_INPUT);
+
+      await page.locator(MESSAGE).focus();
+      await page.locator(MESSAGE).blur();
+      await expect(page.locator(MESSAGE)).toHaveClass(INVALID_TEXTAREA);
+
+      await checkA11y(page, { tags: WCAG_TAGS });
     });
   });
 });

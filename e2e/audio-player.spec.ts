@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { gotoHydrated } from './helpers';
+import { checkA11y, gotoHydrated, WCAG_TAGS } from './helpers';
 
 // eslint-disable-next-line local/no-comments -- non-obvious engine/infra constraint
 // Firefox can't decode the AAC/m4a sources and autoplay needs a gesture, so the media element is stubbed.
@@ -79,5 +79,22 @@ test.describe('Audio player', () => {
     await page.locator('.player-screen__zoom').click();
     await expect(immersive).toBeVisible();
     await expect(page).toHaveURL(/\/works\/overlapse\/?\?i=1$/);
+  });
+
+  test.describe('Accessibility', () => {
+    test('has no violations with the player bar playing', async ({ page }) => {
+      await gotoHydrated(page, '/works/2504?t=30');
+      await expect(page.locator('.player-bar')).toBeVisible();
+      await expect(page.getByRole('button', { name: 'Pause', exact: true })).toBeVisible();
+
+      await checkA11y(page, { tags: WCAG_TAGS });
+    });
+
+    test('has no violations in immersive mode', async ({ page }) => {
+      await gotoHydrated(page, '/works/overlapse?i=1');
+      await expect(page.locator('.player-screen__immersive')).toBeVisible();
+
+      await checkA11y(page, { tags: WCAG_TAGS });
+    });
   });
 });

@@ -1,8 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { checkA11y, gotoHydrated } from './helpers';
-
-const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
+import { checkA11y, gotoHydrated, WCAG_TAGS } from './helpers';
 
 test.describe('Press kit (EPK)', () => {
   test('is reachable by direct URL and renders its sections', async ({ page }) => {

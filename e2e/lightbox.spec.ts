@@ -1,6 +1,6 @@
 import { expect, type Page, test } from '@playwright/test';
 
-import { gotoHydrated, waitForHydration } from './helpers';
+import { checkA11y, gotoHydrated, waitForHydration, WCAG_TAGS } from './helpers';
 
 const LIGHTBOX_SELECTOR = '.lightbox';
 const LIGHTBOX_CLOSE_SELECTOR = '.lightbox__hint--close';
@@ -158,6 +158,10 @@ test.describe('Lightbox', () => {
 
     test('lightbox contains focusable elements', async ({ page }) => {
       expect(await page.locator(`${LIGHTBOX_SELECTOR} button`).count()).toBeGreaterThan(0);
+    });
+
+    test('has no violations while open', async ({ page }) => {
+      await checkA11y(page, { tags: WCAG_TAGS });
     });
   });
 
