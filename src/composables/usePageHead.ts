@@ -56,7 +56,7 @@ const preloadImageLink = ({ href, media }: HeroPreload): Record<string, string> 
   as: 'image',
   type: 'image/webp',
   href,
-  ...(media ? { media } : {}),
+  ...(media && { media }),
   fetchpriority: 'high',
 });
 

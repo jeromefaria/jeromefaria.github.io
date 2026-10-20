@@ -184,6 +184,8 @@ describe('createPressPageSchema', () => {
 
   it('strips markup from the quote and localizes it', () => {
     const quietus = pressQuotes.findIndex(quote => quote.id === 'quietus-madeiradig');
+    expect(quietus).toBeGreaterThanOrEqual(0);
+
     const en = createPressPageSchema('en').itemListElement[quietus].item.text;
     const pt = createPressPageSchema('pt').itemListElement[quietus].item.text;
 

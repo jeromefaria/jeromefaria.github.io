@@ -80,7 +80,7 @@ export interface SchemaMusicAlbum {
   sameAs?: string[];
   image?: string;
   description?: string;
-  genre?: string[];
+  genre: string[];
   datePublished: string;
   numTracks?: number;
   byArtist: SchemaPerson;
