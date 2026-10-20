@@ -6,6 +6,8 @@ import { expect, type Locator, type Page } from '@playwright/test';
 export const MOBILE_BREAKPOINT = 768;
 export const MIN_TOUCH_TARGET_SIZE = 44;
 
+export const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
+
 // eslint-disable-next-line local/no-comments -- non-obvious flake guard
 // Awaiting document.fonts.ready on top of hydration stops web-font FOUT from flaking axe colour-contrast checks.
 export const waitForHydration = async (page: Page): Promise<void> => {
