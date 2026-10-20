@@ -5,11 +5,15 @@ import type { Act, LiveEvent, Setup } from '@/types/live';
 import type { Organization } from '@/types/orgs';
 import type { SchemaItemList, SchemaMusicAlbum, SchemaMusicEvent, SchemaOrganization, SchemaPerson } from '@/types/schema';
 import type { Track } from '@/types/works';
+import { buildEventDescription } from '@/utils/liveDescription';
 import { personSameAs } from '@/utils/people';
+import { stripMarkers } from '@/utils/renderCredits';
 
 import { stripHtml } from './stripHtml';
 
 export const MUSIC_GENRES = ['Electronic', 'Experimental', 'Ambient'] as const;
+
+const toPlainText = (value: string): string => stripHtml(stripMarkers(value));
 
 const collectCollaborators = (setup: Setup): Act[] => {
   switch (setup.kind) {
@@ -69,7 +73,7 @@ export const createMusicEventSchema = (
     startDate: event.date || fallbackDate,
     ...(event.endDate && { endDate: event.endDate }),
     eventStatus: 'https://schema.org/EventScheduled',
-    ...(event.note && { description: stripHtml(localize(event.note, locale)) }),
+    description: stripHtml(buildEventDescription(event, locale)),
     ...(image && { image }),
     location: {
       '@type': 'Place',
@@ -126,7 +130,7 @@ export const createMusicAlbumSchema = (
     url: `${siteUrl}/works/${release.id}`,
     ...(sameAs.length > 0 && { sameAs }),
     ...(release.coverImage && { image: `${siteUrl}${release.coverImage}` }),
-    ...(release.description && { description: stripHtml(localize(release.description, locale)) }),
+    ...(release.description && { description: toPlainText(localize(release.description, locale)) }),
     genre: [...MUSIC_GENRES],
     datePublished: release.datePublished ?? '',
     ...(numTracks > 0 && { numTracks }),

@@ -89,6 +89,8 @@ const toSource = (credits: Credits, locale: Locale): string =>
 export const resolveMarkers = (text: string, resolveUrl: (name: string) => string | undefined): string =>
   text.replace(MARKER, (_match, name: string) => anchor(escapeHtml(name), resolveUrl(name)));
 
+export const stripMarkers = (text: string): string => text.replace(MARKER, '$1');
+
 export const renderCredits = (credits: Credits, contributors: Credit[] = [], locale: Locale = DEFAULT_LOCALE): string => {
   const linked = new Map<string, string>();
 
@@ -100,7 +102,7 @@ export const renderCredits = (credits: Credits, contributors: Credit[] = [], loc
 };
 
 export const plainCredits = (credits: Credits, locale: Locale = DEFAULT_LOCALE): string =>
-  toSource(credits, locale).replace(MARKER, '$1');
+  stripMarkers(toSource(credits, locale));
 
 export const creditNames = (credits: Credits | undefined, locale: Locale = DEFAULT_LOCALE): string[] => {
   if (!credits) return [];
