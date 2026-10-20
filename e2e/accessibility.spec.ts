@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { checkA11y, gotoHydrated, MIN_TOUCH_TARGET_SIZE } from './helpers';
+import { checkA11y, gotoHydrated, MIN_TOUCH_TARGET_SIZE, WCAG_TAGS } from './helpers';
 
 const MAIN_CONTENT_SELECTOR = '#main-content';
 const SKIP_LINK_SELECTOR = 'a[href="#main-content"]';
@@ -146,20 +146,20 @@ test.describe('Accessibility', () => {
   test.describe('Color Contrast', () => {
     test('should meet WCAG AA contrast requirements', async ({ page }) => {
       await gotoHydrated(page, '/');
-      await checkA11y(page, { tags: ['wcag2aa'] });
+      await checkA11y(page, { tags: WCAG_TAGS });
     });
 
     test('should be readable in dark mode', async ({ page }) => {
       await page.emulateMedia({ colorScheme: 'dark' });
       await gotoHydrated(page, '/');
-      await checkA11y(page, { tags: ['wcag2aa'] });
+      await checkA11y(page, { tags: WCAG_TAGS });
     });
   });
 
   test.describe('ARIA Attributes', () => {
     test('should have valid ARIA attributes', async ({ page }) => {
       await gotoHydrated(page, '/');
-      await checkA11y(page, { tags: ['wcag2a', 'wcag2aa'] });
+      await checkA11y(page, { tags: WCAG_TAGS });
     });
 
   });

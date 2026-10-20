@@ -50,7 +50,7 @@ const resolveOrganizers = (keys: string[] = []): SchemaOrganization[] =>
   keys
     .map(key => orgs[key])
     .filter((org): org is Organization => Boolean(org))
-    .map(org => ({ '@type': 'Organization' as const, name: org.name, ...(org.url ? { url: org.url } : {}) }));
+    .map(org => ({ '@type': 'Organization' as const, name: org.name, ...(org.url && { url: org.url }) }));
 
 export const createMusicEventSchema = (
   event: LiveEvent,
@@ -115,41 +115,25 @@ export const createMusicAlbumSchema = (
   siteUrl: string,
   locale: Locale = DEFAULT_LOCALE,
 ): SchemaMusicAlbum => {
-  const schema: SchemaMusicAlbum = {
+  const sameAs = [release.bandcampUrl, release.soundcloudUrl, release.discogsUrl]
+    .filter((url): url is string => Boolean(url));
+  const numTracks = release.tracklist?.length ?? 0;
+
+  return {
     '@type': 'MusicAlbum',
     name: release.title,
+    ...(release.language && { inLanguage: release.language }),
     url: `${siteUrl}/works/${release.id}`,
+    ...(sameAs.length > 0 && { sameAs }),
+    ...(release.coverImage && { image: `${siteUrl}${release.coverImage}` }),
+    ...(release.description && { description: stripHtml(localize(release.description, locale)) }),
     genre: [...MUSIC_GENRES],
     datePublished: release.datePublished ?? '',
+    ...(numTracks > 0 && { numTracks }),
     byArtist: {
       '@type': 'Person',
       name: artistName,
       url: siteUrl,
     },
   };
-
-  if (release.language) {
-    schema.inLanguage = release.language;
-  }
-
-  const sameAs = [release.bandcampUrl, release.soundcloudUrl, release.discogsUrl]
-    .filter((url): url is string => Boolean(url));
-
-  if (sameAs.length) {
-    schema.sameAs = sameAs;
-  }
-
-  if (release.description) {
-    schema.description = stripHtml(localize(release.description, locale));
-  }
-
-  if (release.coverImage) {
-    schema.image = `${siteUrl}${release.coverImage}`;
-  }
-
-  if (release.tracklist?.length) {
-    schema.numTracks = release.tracklist.length;
-  }
-
-  return schema;
 };
