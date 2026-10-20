@@ -5,6 +5,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 ## Unreleased
 
 
+### Audio player
+
+- **a11y:** Keep visible label text in switcher and player accessible names ([#588](https://github.com/jeromefaria/jeromefaria.github.io/pull/588))
+
 ### Build & CI
 
 - **deps-dev:** Bump happy-dom from 20.14.5 to 21.0.3 ([#589](https://github.com/jeromefaria/jeromefaria.github.io/pull/589))
