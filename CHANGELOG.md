@@ -2,7 +2,7 @@
 
 All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch`).
 
-## Unreleased
+## 2026.10.3 — Search Console & accessibility hardening — 2026-10-20
 
 
 ### Command palette
