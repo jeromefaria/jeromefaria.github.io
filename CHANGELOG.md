@@ -17,6 +17,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - **seo:** Resolve Search Console structured-data issues ([#592](https://github.com/jeromefaria/jeromefaria.github.io/pull/592))
 
+### Refactors
+
+- **schema:** Tighten consistency surfaced by review ([#593](https://github.com/jeromefaria/jeromefaria.github.io/pull/593))
+
 ### Build & CI
 
 - **deps-dev:** Bump happy-dom from 20.14.5 to 21.0.3 ([#589](https://github.com/jeromefaria/jeromefaria.github.io/pull/589))
