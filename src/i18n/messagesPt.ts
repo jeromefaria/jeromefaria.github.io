@@ -35,7 +35,7 @@ export const pt: MessageSchema = {
   },
   common: {
     switchLanguage: 'EN',
-    switchLanguageLabel: 'Mudar para inglês (EN)',
+    switchLanguageLabel: 'EN — Mudar para inglês',
     newTabCue: '(abre num novo separador)',
     externalSiteAria: 'Site de {name} (abre num novo separador)',
     skipToMain: 'Saltar para o conteúdo principal',
@@ -66,7 +66,7 @@ export const pt: MessageSchema = {
   },
   player: {
     label: 'Leitor de áudio',
-    expand: 'Expandir leitor',
+    expandTitle: '{title} — Expandir leitor',
     collapse: 'Recolher leitor',
     close: 'Fechar leitor',
     nowPlaying: 'A reproduzir',

@@ -26,6 +26,9 @@ const metaLabel = computed(() => {
   return parts.join(' · ');
 });
 
+const expandLabel = computed(() =>
+  metaLabel.value ? `${metaLabel.value} ${displayTitle.value}` : displayTitle.value);
+
 const statusMessage = computed(() => {
   if (error.value) return error.value;
   if (!currentTrack.value) return '';
@@ -47,7 +50,7 @@ const statusMessage = computed(() => {
       <button
         type="button"
         class="player-bar__title"
-        :aria-label="t('player.expand')"
+        :aria-label="t('player.expandTitle', { title: expandLabel })"
         @click="expand"
       >
         <span
