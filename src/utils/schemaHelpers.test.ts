@@ -61,16 +61,22 @@ describe('createMusicEventSchema', () => {
     expect(schema.eventStatus).toBe('https://schema.org/EventScheduled');
   });
 
-  it('describes the event from its note, stripped of markup', () => {
+  it('describes the event from its generated prose, with markup and credit markers resolved', () => {
     const schema = createMusicEventSchema(
-      { ...baseEvent, note: { en: 'A <em>rare</em> solo set.', pt: 'Um set a solo <em>raro</em>.' } },
+      {
+        ...baseEvent,
+        setup: { kind: 'solo' },
+        note: { en: 'A <em>rare</em> set with [[Nuno Filipe]].', pt: 'Um set <em>raro</em> com [[Nuno Filipe]].' },
+      },
       'Jerome Faria', '', 'en',
     );
-    expect(schema.description).toBe('A rare solo set.');
+    expect(schema.description).toBe('Solo performance. A rare set with Nuno Filipe.');
+    expect(schema.description).not.toContain('[[');
+    expect(schema.description).not.toContain('<');
   });
 
-  it('omits the description when the event has no note', () => {
-    expect(createMusicEventSchema(baseEvent, 'Jerome Faria').description).toBeUndefined();
+  it('always carries a description, even with no hand-written note', () => {
+    expect(createMusicEventSchema(baseEvent, 'Jerome Faria').description).toBe('Solo performance.');
   });
 
   it('resolves a cover image to an absolute URL', () => {

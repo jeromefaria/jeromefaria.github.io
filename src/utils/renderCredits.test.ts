@@ -4,7 +4,7 @@ import { creditsGolden } from '@/data/__fixtures__/credits.golden';
 import { plainCreditsGolden } from '@/data/__fixtures__/plainCredits.golden';
 import { worksData } from '@/data/works';
 
-import { creditNames, plainCredits, renderCredits } from './renderCredits';
+import { creditNames, plainCredits, renderCredits, stripMarkers } from './renderCredits';
 
 const creditedReleases = Object.values(worksData)
   .flatMap(section => section.items)
@@ -82,6 +82,14 @@ describe('renderCredits', () => {
     const credits = renderCredits('Text by [[Rui Zink]].', [{ name: 'Rui Zink', url: 'https://override.test/' }]);
 
     expect(credits).toContain('href="https://override.test/"');
+  });
+});
+
+describe('stripMarkers', () => {
+  it('unwraps every marker to its bare name and leaves plain text untouched', () => {
+    expect(stripMarkers('Piano ([[Nuno Filipe]]), percussion ([[Jorge Maggiore]]) and visuals (Filipe Ferraz).'))
+      .toBe('Piano (Nuno Filipe), percussion (Jorge Maggiore) and visuals (Filipe Ferraz).');
+    expect(stripMarkers('No markers here.')).toBe('No markers here.');
   });
 });
 

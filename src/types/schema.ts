@@ -50,7 +50,7 @@ export interface SchemaMusicEvent {
   startDate: string;
   endDate?: string;
   eventStatus: string;
-  description?: string;
+  description: string;
   image?: string;
   location: SchemaPlace;
   organizer?: SchemaOrganization[];
