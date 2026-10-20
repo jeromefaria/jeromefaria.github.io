@@ -1,6 +1,7 @@
 export interface SchemaOrganization {
   '@type': 'Organization';
   name: string;
+  url?: string;
 }
 
 export interface SchemaPerson {
@@ -48,7 +49,11 @@ export interface SchemaMusicEvent {
   inLanguage?: string;
   startDate: string;
   endDate?: string;
+  eventStatus: string;
+  description?: string;
+  image?: string;
   location: SchemaPlace;
+  organizer?: SchemaOrganization[];
   performer: SchemaPerson | SchemaPerson[];
 }
 
@@ -155,26 +160,26 @@ export interface SchemaProfilePerson {
   sameAs: string[];
 }
 
-export interface SchemaReview {
-  '@type': 'Review';
-  reviewBody: string;
+export interface SchemaQuotation {
+  '@type': 'Quotation';
+  text: string;
   author: SchemaOrganization;
-  itemReviewed: SchemaPerson;
-  url?: string;
+  about: SchemaPerson;
+  citation?: string;
 }
 
-export interface SchemaReviewListItem {
+export interface SchemaQuotationListItem {
   '@type': 'ListItem';
   position: number;
-  item: SchemaReview;
+  item: SchemaQuotation;
 }
 
-export interface SchemaReviewList {
+export interface SchemaQuotationList {
   '@context': 'https://schema.org';
   '@type': 'ItemList';
   name: string;
   numberOfItems: number;
-  itemListElement: SchemaReviewListItem[];
+  itemListElement: SchemaQuotationListItem[];
 }
 
 export interface SchemaContactPage {

@@ -2,10 +2,11 @@ import { describe, expect, it } from 'vitest';
 
 import { liveEvents, liveYears } from '@/data/live';
 import { siteConfig, social } from '@/data/navigation';
+import { pressQuotes } from '@/data/press';
 import { worksData } from '@/data/works';
 
 import { createLiveEventsSchema } from './liveSchema';
-import { createBlogPostingSchema, createBreadcrumbSchema, createContactPageSchema, createEssayBreadcrumbSchema, createPersonSchema, createWebSiteSchema } from './pageSchemas';
+import { createBlogPostingSchema, createBreadcrumbSchema, createContactPageSchema, createEssayBreadcrumbSchema, createPersonSchema, createPressPageSchema, createWebSiteSchema } from './pageSchemas';
 import { createWorksPageSchema } from './worksSchema';
 
 describe('createBlogPostingSchema', () => {
@@ -151,6 +152,43 @@ describe('createLiveEventsSchema', () => {
 
     expect(aragao?.item.inLanguage).toBe('pt-PT');
     expect(instrumentalGig?.item.inLanguage).toBeUndefined();
+  });
+});
+
+describe('createPressPageSchema', () => {
+  it('builds a Quotation ItemList over every press quote', () => {
+    const schema = createPressPageSchema();
+
+    expect(schema['@type']).toBe('ItemList');
+    expect(schema.numberOfItems).toBe(pressQuotes.length);
+    expect(schema.itemListElement).toHaveLength(pressQuotes.length);
+    schema.itemListElement.forEach((element, index) => {
+      expect(element.position).toBe(index + 1);
+      expect(element.item['@type']).toBe('Quotation');
+      expect(element.item.text.length).toBeGreaterThan(0);
+      expect(element.item.author).toEqual({ '@type': 'Organization', name: pressQuotes[index].source });
+      expect(element.item.about).toEqual({ '@type': 'Person', name: siteConfig.author.name, url: siteConfig.url });
+    });
+  });
+
+  it('cites the source URL when present and omits the citation otherwise', () => {
+    const schema = createPressPageSchema();
+    const withUrl = pressQuotes.findIndex(quote => quote.url);
+    const withoutUrl = pressQuotes.findIndex(quote => !quote.url);
+
+    expect(withUrl).toBeGreaterThanOrEqual(0);
+    expect(withoutUrl).toBeGreaterThanOrEqual(0);
+    expect(schema.itemListElement[withUrl].item.citation).toBe(pressQuotes[withUrl].url);
+    expect(schema.itemListElement[withoutUrl].item).not.toHaveProperty('citation');
+  });
+
+  it('strips markup from the quote and localizes it', () => {
+    const quietus = pressQuotes.findIndex(quote => quote.id === 'quietus-madeiradig');
+    const en = createPressPageSchema('en').itemListElement[quietus].item.text;
+    const pt = createPressPageSchema('pt').itemListElement[quietus].item.text;
+
+    expect(en).not.toContain('<em>');
+    expect(pt).not.toBe(en);
   });
 });
 
