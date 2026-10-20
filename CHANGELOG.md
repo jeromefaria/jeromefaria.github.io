@@ -10,6 +10,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 - **visual:** Refresh privacy baseline for the newsletter disclosure sentence ([#596](https://github.com/jeromefaria/jeromefaria.github.io/pull/596))
 - **privacy:** Disclose owner notification on confirm/unsubscribe ([#594](https://github.com/jeromefaria/jeromefaria.github.io/pull/594))
 
+### Fixes
+
+- **seo:** Emit a full, clean description on every MusicEvent ([#595](https://github.com/jeromefaria/jeromefaria.github.io/pull/595))
+
 ## 2026.10.3 — Search Console & accessibility hardening — 2026-10-20
 
 
