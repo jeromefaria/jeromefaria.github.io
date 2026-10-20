@@ -33,7 +33,7 @@ export const en = {
   },
   common: {
     switchLanguage: 'PT',
-    switchLanguageLabel: 'Switch to Portuguese (PT)',
+    switchLanguageLabel: 'PT — Switch to Portuguese',
     newTabCue: '(opens in a new tab)',
     externalSiteAria: '{name} website (opens in a new tab)',
     skipToMain: 'Skip to main content',
@@ -64,7 +64,7 @@ export const en = {
   },
   player: {
     label: 'Audio player',
-    expand: 'Expand player',
+    expandTitle: '{title} — Expand player',
     collapse: 'Collapse player',
     close: 'Close player',
     nowPlaying: 'Now playing',
