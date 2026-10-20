@@ -7,6 +7,8 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Build & CI
 
+- **deps-dev:** Bump happy-dom from 20.14.5 to 21.0.3 ([#589](https://github.com/jeromefaria/jeromefaria.github.io/pull/589))
+- **deps-dev:** Bump the worker-minor-patch group ([#587](https://github.com/jeromefaria/jeromefaria.github.io/pull/587))
 - Render downloads in a parallel job off the critical path ([#586](https://github.com/jeromefaria/jeromefaria.github.io/pull/586))
 
 ## 2026.10.2 — Release entity graph & extraction sweep — 2026-10-19
