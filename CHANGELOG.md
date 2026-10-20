@@ -5,6 +5,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 ## Unreleased
 
 
+### Command palette
+
+- **a11y:** Run axe against key interactive states ([#591](https://github.com/jeromefaria/jeromefaria.github.io/pull/591))
+
 ### Audio player
 
 - **a11y:** Keep visible label text in switcher and player accessible names ([#588](https://github.com/jeromefaria/jeromefaria.github.io/pull/588))
