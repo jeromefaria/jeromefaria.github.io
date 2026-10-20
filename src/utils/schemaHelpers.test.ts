@@ -56,6 +56,60 @@ describe('createMusicEventSchema', () => {
     expect(schema.endDate).toBeUndefined();
   });
 
+  it('marks every event as scheduled', () => {
+    const schema = createMusicEventSchema(baseEvent, 'Jerome Faria');
+    expect(schema.eventStatus).toBe('https://schema.org/EventScheduled');
+  });
+
+  it('describes the event from its note, stripped of markup', () => {
+    const schema = createMusicEventSchema(
+      { ...baseEvent, note: { en: 'A <em>rare</em> solo set.', pt: 'Um set a solo <em>raro</em>.' } },
+      'Jerome Faria', '', 'en',
+    );
+    expect(schema.description).toBe('A rare solo set.');
+  });
+
+  it('omits the description when the event has no note', () => {
+    expect(createMusicEventSchema(baseEvent, 'Jerome Faria').description).toBeUndefined();
+  });
+
+  it('resolves a cover image to an absolute URL', () => {
+    const schema = createMusicEventSchema(
+      { ...baseEvent, images: [{ src: '/images/live/a.jpg' }, { src: '/images/live/b.jpg', cover: true }] },
+      'Jerome Faria', '', 'en', 'https://jeromefaria.com',
+    );
+    expect(schema.image).toBe('https://jeromefaria.com/images/live/b.jpg');
+  });
+
+  it('falls back to the first artwork when none is marked cover', () => {
+    const schema = createMusicEventSchema(
+      { ...baseEvent, posters: [{ src: '/images/live/poster.jpg', alt: 'Poster' }] },
+      'Jerome Faria', '', 'en', 'https://jeromefaria.com',
+    );
+    expect(schema.image).toBe('https://jeromefaria.com/images/live/poster.jpg');
+  });
+
+  it('omits the image without a site URL or without artwork', () => {
+    expect(createMusicEventSchema({ ...baseEvent, images: [{ src: '/x.jpg' }] }, 'Jerome Faria').image).toBeUndefined();
+    expect(createMusicEventSchema(baseEvent, 'Jerome Faria', '', 'en', 'https://jeromefaria.com').image).toBeUndefined();
+  });
+
+  it('resolves presenter keys to organizer names and URLs from the registry', () => {
+    const schema = createMusicEventSchema(
+      { ...baseEvent, presentedBy: ['colectivo-casa-amarela', 'festival-multiplo'] },
+      'Jerome Faria',
+    );
+    expect(schema.organizer).toEqual([
+      { '@type': 'Organization', name: 'Colectivo Casa Amarela', url: 'https://casaamarela.bandcamp.com' },
+      { '@type': 'Organization', name: 'Festival Múltiplo' },
+    ]);
+  });
+
+  it('drops unknown presenter keys and omits organizer when none resolve', () => {
+    expect(createMusicEventSchema({ ...baseEvent, presentedBy: ['not-a-real-org'] }, 'Jerome Faria').organizer).toBeUndefined();
+    expect(createMusicEventSchema(baseEvent, 'Jerome Faria').organizer).toBeUndefined();
+  });
+
   it('sets a single performer for a solo event', () => {
     const schema = createMusicEventSchema(baseEvent, 'Jerome Faria');
     expect(schema.performer).toEqual({ '@type': 'Person', name: 'Jerome Faria' });

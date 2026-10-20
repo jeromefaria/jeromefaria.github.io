@@ -17,7 +17,7 @@ export const createLiveEventSchema = (
   canonicalUrl: string,
 ): SchemaLiveEvent => ({
   '@context': 'https://schema.org',
-  ...createMusicEventSchema(event, siteConfig.author.name, event.date, locale),
+  ...createMusicEventSchema(event, siteConfig.author.name, event.date, locale, siteConfig.url),
   mainEntityOfPage: canonicalUrl,
 });
 
@@ -35,7 +35,7 @@ export const createLiveEventsSchema = (locale: Locale = DEFAULT_LOCALE): SchemaI
   const events = liveYears.flatMap(year => {
     const yearData = sortedLiveData[year];
     return (yearData?.items ?? []).map(event =>
-      createMusicEventSchema(event, siteConfig.author.name, `${year}-01-01`, locale));
+      createMusicEventSchema(event, siteConfig.author.name, `${year}-01-01`, locale, siteConfig.url));
   });
 
   const listText = {

@@ -2,7 +2,7 @@ import { siteConfig, social } from '@/data/navigation';
 import { pressQuotes } from '@/data/press';
 import { localize } from '@/i18n/localized';
 import { BCP47_LOCALE, DEFAULT_LOCALE, type Locale } from '@/i18n/messages';
-import type { SchemaBlogPosting, SchemaBreadcrumbList, SchemaContactPage, SchemaProfilePerson, SchemaReviewList, SchemaWebSite } from '@/types/schema';
+import type { SchemaBlogPosting, SchemaBreadcrumbList, SchemaContactPage, SchemaProfilePerson, SchemaQuotationList, SchemaWebSite } from '@/types/schema';
 import type { Essay } from '@/types/writing';
 
 import { stripHtml } from './stripHtml';
@@ -76,7 +76,7 @@ export const createBlogPostingSchema = (essay: Essay, canonicalUrl: string): Sch
   };
 };
 
-export const createPressPageSchema = (locale: Locale = DEFAULT_LOCALE): SchemaReviewList => ({
+export const createPressPageSchema = (locale: Locale = DEFAULT_LOCALE): SchemaQuotationList => ({
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: `Press — ${siteConfig.author.name}`,
@@ -85,11 +85,11 @@ export const createPressPageSchema = (locale: Locale = DEFAULT_LOCALE): SchemaRe
     '@type': 'ListItem',
     position: index + 1,
     item: {
-      '@type': 'Review',
-      reviewBody: stripHtml(localize(quote.quote, locale)),
+      '@type': 'Quotation',
+      text: stripHtml(localize(quote.quote, locale)),
       author: { '@type': 'Organization', name: quote.source },
-      itemReviewed: { '@type': 'Person', name: siteConfig.author.name },
-      ...(quote.url ? { url: quote.url } : {}),
+      about: { '@type': 'Person', name: siteConfig.author.name, url: siteConfig.url },
+      ...(quote.url ? { citation: quote.url } : {}),
     },
   })),
 });
