@@ -5,7 +5,7 @@
 Please report security issues privately — don't open a public issue.
 
 - **Preferred:** GitHub's [private vulnerability reporting](https://github.com/jeromefaria/jeromefaria.github.io/security/advisories/new) ("Report a vulnerability" on the Security tab).
-- **Alternative:** the contact form at [jeromefaria.com/contact](https://www.jeromefaria.com/contact).
+- **Alternative:** the contact form at [jeromefaria.com/contact](https://jeromefaria.com/contact).
 
 I'll acknowledge within a few days and keep you posted as it's addressed.
 
