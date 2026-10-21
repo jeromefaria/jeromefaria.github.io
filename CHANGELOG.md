@@ -15,6 +15,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - **seo:** Emit a full, clean description on every MusicEvent ([#595](https://github.com/jeromefaria/jeromefaria.github.io/pull/595))
 
+### Docs
+
+- Use the apex domain consistently in SECURITY and CV links ([#598](https://github.com/jeromefaria/jeromefaria.github.io/pull/598))
+
 ## 2026.10.3 — Search Console & accessibility hardening — 2026-10-20
 
 
