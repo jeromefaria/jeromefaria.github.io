@@ -7,7 +7,8 @@ All site content is typed TypeScript in `src/data/`, versioned in git. To edit c
 | Content | File(s) |
 |---|---|
 | Discography / works | `src/data/works/*.ts` (`solo`, `nny`, `collaborations`, `film`, `compilations`, `publications`, `mixingAndMastering`), assembled by `src/data/works.ts` |
-| Live events | `src/data/live.ts` |
+| Live events | `src/data/live/*.ts` (`recent`, `mid`, `early`), assembled by `src/data/live.ts` |
+| Credit registries | `src/data/people.ts`, `src/data/orgs.ts`, `src/data/venues.ts` — canonical people, organisations/labels, and venues, referenced elsewhere by key |
 | Press quotes | `src/data/press.ts` |
 | Biographies | `src/data/bios.ts` |
 | Writing / essays | `src/data/writing.ts` + `src/data/writingContent.ts` |
@@ -23,20 +24,20 @@ Each file's shape is defined in `src/types/` (e.g. `types/live.ts`, `types/works
 
 ## Bilingual content (EN/PT)
 
-User-facing strings are modelled as `Localized<{ en; pt }>` (`src/types/i18n.ts`) and resolved at render time. When a field is `Localized`, supply **both** languages:
+User-facing strings are modelled as `Localized<string>` (`src/i18n/localized.ts`) and resolved at render time. When a field is `Localized`, supply **both** languages:
 
 ```typescript
 title: { en: 'English title', pt: 'Título em português' }
 ```
 
-Plain `string` fields (ids, dates, URLs, catalog numbers) are not localized. The type tells you which is which. Preview Portuguese with `npm run dev:i18n` (no `.env` needed). PT copy follows the EU-Portuguese house style — match the tone of the surrounding entries.
+Plain `string` fields (ids, dates, URLs, catalog numbers) are not localized. The type tells you which is which. The dev server runs with i18n enabled, so Portuguese is already live — switch languages in the UI to preview it; no `.env` needed. PT copy follows the EU-Portuguese house style — match the tone of the surrounding entries.
 
 ## Conventions
 
 - **Unique, semantic ids** — `album-name`, not `item-1`. Ids are used for anchors and deep links.
 - **Newest first** — add new entries at the top of their array.
 - **Dates** — `YYYY-MM-DD`.
-- **Credit people via the typed fields** — photographers, performers, and contributors each have a typed shape (`Credit`, `Act`, `CreditClause`); don't inline free-text where a structured credit exists.
+- **Credit people, orgs, and venues by registry key** — canonical entries live in `src/data/people.ts`, `src/data/orgs.ts`, and `src/data/venues.ts`; add a new person, label, or venue there first, then reference it by key (`check-registry-refs` enforces this). Photographers, performers, and contributors each have a typed shape (`Credit`, `Act`, `CreditClause`); don't inline free-text where a structured credit exists.
 - **Links** — external URLs get a new-tab treatment automatically; use the structured link fields rather than raw `<a>` where the type provides one.
 
 ## Images
@@ -52,7 +53,7 @@ Plain `string` fields (ids, dates, URLs, catalog numbers) are not localized. The
 | Hero | 2560×1703 (3:2) |
 | About | ~1920×1280, JPG |
 
-Audio is different: it lives in R2, not the repo — see `scripts/encode-audio.mjs` / `scripts/upload-audio.mjs` and `src/data/audioManifest.ts`.
+Audio is different: it lives in R2, not the repo — see `scripts/audio/encode-audio.mjs` / `scripts/audio/upload-audio.mjs` and `src/data/audioManifest.ts`.
 
 ## Before committing
 
@@ -60,7 +61,7 @@ Audio is different: it lives in R2, not the repo — see `scripts/encode-audio.m
 npm run type-check   # the type is the contract — this catches a malformed entry
 npm run lint
 npm run test         # golden tests pin derived output (e.g. live-event descriptions)
-npm run dev          # eyeball it (add :i18n to check PT)
+npm run dev          # eyeball it (i18n is on — switch to PT in the UI)
 ```
 
 Golden and contract tests will flag if an edit changes derived output unexpectedly — if a golden test fails, confirm the new output is what you intended, then update the snapshot.

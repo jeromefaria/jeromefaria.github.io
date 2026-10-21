@@ -32,7 +32,7 @@ already-validated fields, which the Worker re-validates and processes.
 ```
 
 Responses: `200 {ok:true}` on success (and on a tripped honeypot, silently),
-`400` invalid/missing input, `403` failed verification, `502` send failure.
+`400` invalid/missing input, `403` failed verification, `429` rate-limited, `502` send failure.
 
 ### Subscribe request
 
@@ -44,7 +44,7 @@ Responses: `200 {ok:true}` on success (and on a tripped honeypot, silently),
 
 Responses: `200 {ok:true}` on success — and identically for an already-active
 address, so the endpoint never discloses who is subscribed — `400` invalid input,
-`403` failed verification, `502` send failure. Confirmation is required before any
+`403` failed verification, `429` rate-limited, `502` send failure. Confirmation is required before any
 issue can reach the address (double opt-in). A confirmation link only activates a
 `pending` row and is spent on use, so it cannot reactivate an unsubscribed address.
 Unsubscribe keeps the row with `status='unsubscribed'` (a suppression tombstone),
@@ -59,7 +59,9 @@ repeats (re-confirming an active row, re-unsubscribing) send nothing.
 ## Configuration
 
 `wrangler.toml` holds non-secret vars (`CONTACT_FROM`, `CONTACT_TO`,
-`NEWSLETTER_FROM`, `SITE_URL`, `ALLOWED_ORIGINS`) and the `DB` D1 binding. Two
+`NEWSLETTER_FROM`, `SITE_URL`, `ALLOWED_ORIGINS`), the `DB` D1 binding, and the
+`RATE_LIMITER` binding (native rate limiter, 5 requests/60s per IP, fails open if
+absent). Two
 secrets are set out-of-band and never committed — the newsletter reuses both, so
 nothing new to attach:
 
@@ -69,7 +71,7 @@ nothing new to attach:
 ## D1 setup (one-time)
 
 The newsletter needs a D1 database. Create it once, paste the printed
-`database_id` into `wrangler.toml` (replacing `PLACEHOLDER_RUN_WRANGLER_D1_CREATE`),
+`database_id` into the `database_id` field in `wrangler.toml`,
 then apply the schema to both remote and local:
 
 ```sh

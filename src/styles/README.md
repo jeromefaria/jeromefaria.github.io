@@ -14,10 +14,10 @@ Modular SCSS, all wired through `@use` (no legacy `@import`), enforced by **styl
 | `_type` | typography |
 | `_layout` | footer, containers |
 | `_masthead` | header / nav |
-| `_release` · `_pagination` · `_contact` · `_lightbox` · `_accordion` | one component each (split from the old `_components` grab-bag) |
+| `_release` · `_contact` · `_lightbox` · `_accordion` · `_newsletter` · `_newsletter-issue` | one component each (split from the old `_components` grab-bag) |
 | `_overlays` | command palette, keyboard help, scrims |
 | `_player` | audio player bar + expanded screen |
-| `_pages` | per-page styles (home, about, press, live, privacy, not-found) |
+| `_home` · `_about` · `_press` · `_live` · `_static-pages` | per-page styles (`_static-pages` covers privacy, colophon, not-found) |
 | `_epk` · `_utilities` · `_transitions` | press kit · helpers/skip-link · shared transitions |
 
 ## Colour tokens (custom properties)
@@ -26,7 +26,7 @@ Defined on `:root` (light) and overridden under `[data-theme="dark"]` in `_base.
 
 `--color-bg` · `--color-text` · `--color-text-secondary` · `--color-text-muted` · `--color-border` · `--color-border-subtle` · `--color-link` · `--color-link-hover` · `--color-error` · `--overlay-lightbox` · `--text-overlay-muted` · `--overlay-panel-shadow`
 
-Muted/link-hover values are annotated with their WCAG contrast ratios — keep them AA-compliant on both themes when editing.
+Muted and link-hover values are tuned for WCAG AA contrast — keep them AA-compliant on both themes when editing.
 
 ## Sass tokens (`_variables.scss`)
 
