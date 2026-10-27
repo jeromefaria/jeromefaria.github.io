@@ -12,7 +12,7 @@ import { epkManifest } from '@/data/epk';
 import { pageMeta } from '@/data/pageMeta';
 import { useLocalized } from '@/i18n/localized';
 import { useT } from '@/i18n/useT';
-import { epkPdfHref, epkRiderHref, epkZipHref, photoDownloadHref, resolveEpkContent } from '@/utils/epk';
+import { epkDossierHref, epkPdfHref, epkRiderHref, epkZipHref, photoDownloadHref, resolveEpkContent } from '@/utils/epk';
 import { externalizeLinks } from '@/utils/externalizeLinks';
 import { resolveCredit } from '@/utils/people';
 
@@ -35,25 +35,36 @@ const epkPhotos = computed(() => epk.value.photos.map(photo => {
     data-page="epk"
   >
     <EpkSection :title="t('epk.download')">
-      <p class="media-links">
-        <a
-          class="link-discrete"
-          :href="epkZipHref(current)"
-          download
-        >{{ t('epk.fullKit') }}</a>
-        <span> | </span>
-        <a
-          class="link-discrete"
-          :href="epkPdfHref(current)"
-          download
-        >{{ t('epk.oneSheet') }}</a>
-        <span> | </span>
-        <a
-          class="link-discrete"
-          :href="epkRiderHref(current)"
-          download
-        >{{ t('epk.rider') }}</a>
-      </p>
+      <ul class="epk__downloads">
+        <li class="epk__download">
+          <a
+            class="link-discrete"
+            :href="epkZipHref(current)"
+            download
+          >{{ t('epk.fullKit') }}</a>
+        </li>
+        <li class="epk__download">
+          <a
+            class="link-discrete"
+            :href="epkPdfHref(current)"
+            download
+          >{{ t('epk.oneSheet') }}</a>
+        </li>
+        <li class="epk__download">
+          <a
+            class="link-discrete"
+            :href="epkDossierHref(current)"
+            download
+          >{{ t('epk.dossier') }}</a>
+        </li>
+        <li class="epk__download">
+          <a
+            class="link-discrete"
+            :href="epkRiderHref(current)"
+            download
+          >{{ t('epk.rider') }}</a>
+        </li>
+      </ul>
     </EpkSection>
 
     <EpkSection :title="t('epk.shortBio')">
