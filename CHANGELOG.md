@@ -30,6 +30,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Docs
 
+- Record the composables-over-Pinia state decision in the README ([#607](https://github.com/jeromefaria/jeromefaria.github.io/pull/607))
 - Use the apex domain consistently in SECURITY and CV links ([#598](https://github.com/jeromefaria/jeromefaria.github.io/pull/598))
 
 ## 2026.10.3 — Search Console & accessibility hardening — 2026-10-20
