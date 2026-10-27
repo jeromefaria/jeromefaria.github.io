@@ -157,6 +157,7 @@ jobs:
           key: playwright-${{ runner.os }}-chromium-${{ hashFiles('package-lock.json') }}
 
       - name: Install Playwright browser
+        timeout-minutes: 12
         run: npx playwright install --with-deps chromium
 
       # Capture exactly what the generators produce by diffing the ignored files
@@ -291,6 +292,7 @@ jobs:
           key: playwright-${{ runner.os }}-${{ matrix.project }}-${{ hashFiles('package-lock.json') }}
 
       - name: Install Playwright browser
+        timeout-minutes: 12
         run: npx playwright install --with-deps ${{ matrix.project }}
 
       - name: Download build artifacts
@@ -353,6 +355,7 @@ jobs:
           key: playwright-${{ runner.os }}-all-${{ hashFiles('package-lock.json') }}
 
       - name: Install Playwright browsers
+        timeout-minutes: 12
         run: npx playwright install --with-deps
 
       - name: Download build artifacts
