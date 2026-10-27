@@ -21,6 +21,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Build & CI
 
+- Cap the Playwright browser install with a step-level timeout ([#609](https://github.com/jeromefaria/jeromefaria.github.io/pull/609))
 - **deps:** Bump undici ([#604](https://github.com/jeromefaria/jeromefaria.github.io/pull/604))
 - **deps-dev:** Bump the worker-minor-patch group across 1 directory with 2 updates ([#600](https://github.com/jeromefaria/jeromefaria.github.io/pull/600))
 - **deps:** Bump the github-actions group across 1 directory with 2 updates ([#602](https://github.com/jeromefaria/jeromefaria.github.io/pull/602))
