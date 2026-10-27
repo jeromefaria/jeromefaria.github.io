@@ -3,13 +3,13 @@ import { join } from 'node:path';
 import { loadSrc, root } from './data-loader.mjs';
 
 const { epkManifest } = await loadSrc('data/epk.ts');
-const { resolveEpkContent, photoDownloadFilename, epkKitFile, epkRiderFile, localeSuffix } = await loadSrc('utils/epk.ts');
+const { resolveEpkContent, photoDownloadFilename, epkKitFile, epkRiderFile, epkDossierFile, localeSuffix } = await loadSrc('utils/epk.ts');
 const { techRider } = await loadSrc('data/techRider.ts');
 const { localize } = await loadSrc('i18n/localized.ts');
 const { SUPPORTED_LOCALES, localePath, messages } = await loadSrc('i18n/messages.ts');
 const { siteConfig } = await loadSrc('data/navigation.ts');
 
-export { epkKitFile, epkRiderFile, localePath, localeSuffix, localize, photoDownloadFilename, root, siteConfig, techRider };
+export { epkDossierFile, epkKitFile, epkRiderFile, localePath, localeSuffix, localize, photoDownloadFilename, root, siteConfig, techRider };
 
 export const locales = SUPPORTED_LOCALES;
 export const contentFor = locale => resolveEpkContent(epkManifest, locale);
