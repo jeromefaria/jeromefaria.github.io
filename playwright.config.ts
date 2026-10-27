@@ -8,6 +8,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: isCI,
   retries: isCI ? 2 : 0,
+  globalTimeout: isCI ? 12 * 60 * 1000 : undefined,
   reporter: isCI ? [['github'], ['html', { open: 'never' }]] : [['list']],
 
   use: {
