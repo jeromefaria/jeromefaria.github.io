@@ -21,6 +21,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Build & CI
 
+- **deps:** Bump the github-actions group across 1 directory with 2 updates ([#602](https://github.com/jeromefaria/jeromefaria.github.io/pull/602))
 - **deps:** Bump the npm-minor-patch group across 1 directory with 8 updates ([#606](https://github.com/jeromefaria/jeromefaria.github.io/pull/606))
 - **deps:** Bump the npm-security group across 1 directory with 3 updates ([#605](https://github.com/jeromefaria/jeromefaria.github.io/pull/605))
 - Pin workflow runners to ubuntu-24.04 ([#603](https://github.com/jeromefaria/jeromefaria.github.io/pull/603))
