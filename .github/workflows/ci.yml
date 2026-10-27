@@ -18,7 +18,7 @@ permissions:
 jobs:
   quality-checks:
     name: Quality Checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
 
     steps:
@@ -68,7 +68,7 @@ jobs:
 
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
 
     steps:
@@ -134,7 +134,7 @@ jobs:
   # before publishing. Runs on PRs too, as a build-correctness gate.
   downloads:
     name: Downloads
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
 
     steps:
@@ -196,7 +196,7 @@ jobs:
   # assertions advisory so a variable runner never hard-fails on mobile timings.
   lighthouse-matrix:
     name: Lighthouse (${{ matrix.profile }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: build
     timeout-minutes: 20
 
@@ -247,7 +247,7 @@ jobs:
   # under the required name without re-running any audit.
   lighthouse:
     name: Lighthouse
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: lighthouse-matrix
     if: always()
 
@@ -262,7 +262,7 @@ jobs:
 
   e2e-tests:
     name: E2E Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [build, downloads]
     timeout-minutes: 20
 
@@ -328,7 +328,7 @@ jobs:
   # PR without ever blocking a deploy. Baselines live in e2e/*-snapshots/.
   visual-tests:
     name: Visual Regression
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: build
     if: github.event_name == 'pull_request'
     timeout-minutes: 20
@@ -376,7 +376,7 @@ jobs:
 
   worker:
     name: Worker
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
 
     defaults:
@@ -405,7 +405,7 @@ jobs:
 
   summary:
     name: CI Summary
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [quality-checks, build, downloads, lighthouse, e2e-tests, visual-tests, worker]
     if: always()
 
