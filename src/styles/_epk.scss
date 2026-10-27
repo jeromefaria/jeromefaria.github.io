@@ -12,6 +12,10 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+.epk__section:first-of-type .epk__heading {
+  margin-top: 0;
+}
+
 .epk__list {
   display: flex;
   flex-direction: column;
