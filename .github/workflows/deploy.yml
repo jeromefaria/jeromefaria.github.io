@@ -24,7 +24,7 @@ jobs:
 
   build-pages:
     needs: checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       # Reuse the exact dist the E2E gate exercised — no rebuild, so what ships
       # is what was tested — then overlay the downloads (résumé/EPK PDFs, OG
@@ -57,7 +57,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: build-pages
     steps:
       - name: Deploy to GitHub Pages
