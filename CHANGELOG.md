@@ -15,6 +15,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - Correct the generator path in the audio manifest header ([#599](https://github.com/jeromefaria/jeromefaria.github.io/pull/599))
 
+### Features
+
+- **epk:** Add a biography & timeline dossier download ([#611](https://github.com/jeromefaria/jeromefaria.github.io/pull/611))
+
 ### Fixes
 
 - **seo:** Emit a full, clean description on every MusicEvent ([#595](https://github.com/jeromefaria/jeromefaria.github.io/pull/595))
