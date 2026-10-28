@@ -22,6 +22,7 @@ export const en = {
     download: 'Download',
     fullKit: 'Full press kit (ZIP)',
     oneSheet: 'One-sheet (PDF)',
+    dossier: 'Biography & timeline (PDF)',
     rider: 'Technical rider (PDF)',
     biography: 'Biography',
     photography: 'Photography',

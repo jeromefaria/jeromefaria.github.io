@@ -1,4 +1,5 @@
 import { withBrowser } from '../lib/playwright-render.mjs';
+import { render as renderDossier } from './generate-dossier.mjs';
 import { render as renderEpkBundle } from './generate-epk-bundle.mjs';
 import { render as renderOgCv } from './generate-og-cv.mjs';
 import { render as renderOgLive } from './generate-og-live.mjs';
@@ -10,6 +11,7 @@ import { render as renderTechRider } from './generate-tech-rider.mjs';
 const generators = [
   renderEpkBundle,
   renderTechRider,
+  renderDossier,
   renderResume,
   renderOgCv,
   renderOgWriting,

@@ -24,6 +24,7 @@ export const pt: MessageSchema = {
     download: 'Descarregar',
     fullKit: 'Dossier de imprensa completo (ZIP)',
     oneSheet: 'One-sheet (PDF)',
+    dossier: 'Biografia e cronologia (PDF)',
     rider: 'Rider técnico (PDF)',
     biography: 'Biografia',
     photography: 'Fotografia',

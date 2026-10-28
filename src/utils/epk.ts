@@ -44,9 +44,13 @@ export const localeSuffix = (locale: Locale): string => (locale === DEFAULT_LOCA
 export const epkKitFile = (locale: Locale = DEFAULT_LOCALE): string => `${epkKitBasename}${localeSuffix(locale)}`;
 export const epkRiderFile = (locale: Locale = DEFAULT_LOCALE): string => `${epkRiderBasename}${localeSuffix(locale)}`;
 
+export const epkDossierBasename = 'jerome-faria-biography-timeline';
+export const epkDossierFile = (locale: Locale = DEFAULT_LOCALE): string => `${epkDossierBasename}${localeSuffix(locale)}`;
+
 export const epkZipHref = (locale: Locale = DEFAULT_LOCALE): string => `/epk/${epkKitFile(locale)}.zip`;
 export const epkPdfHref = (locale: Locale = DEFAULT_LOCALE): string => `/epk/${epkKitFile(locale)}.pdf`;
 export const epkRiderHref = (locale: Locale = DEFAULT_LOCALE): string => `/epk/${epkRiderFile(locale)}.pdf`;
+export const epkDossierHref = (locale: Locale = DEFAULT_LOCALE): string => `/epk/${epkDossierFile(locale)}.pdf`;
 
 export const toLiveHighlight = (event: LiveEvent, locale: Locale = DEFAULT_LOCALE): EpkLiveHighlight => ({
   id: event.id,

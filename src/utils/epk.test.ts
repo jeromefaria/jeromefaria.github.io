@@ -4,6 +4,8 @@ import { epkManifest } from '@/data/epk';
 import type { Release } from '@/types/works';
 
 import {
+  epkDossierFile,
+  epkDossierHref,
   photoDownloadFilename,
   resolveEpkContent,
   toLiveHighlight,
@@ -54,6 +56,18 @@ describe('toWorkHighlight', () => {
     };
 
     expect(toWorkHighlight(release, 'Short Title')).toEqual({ id: '2504', year: 2024, title: 'Short Title' });
+  });
+});
+
+describe('epkDossierFile / epkDossierHref', () => {
+  it('builds the default-locale basename and PDF href', () => {
+    expect(epkDossierFile()).toBe('jerome-faria-biography-timeline');
+    expect(epkDossierHref()).toBe('/epk/jerome-faria-biography-timeline.pdf');
+  });
+
+  it('suffixes the non-default locale', () => {
+    expect(epkDossierFile('pt')).toBe('jerome-faria-biography-timeline-pt');
+    expect(epkDossierHref('pt')).toBe('/epk/jerome-faria-biography-timeline-pt.pdf');
   });
 });
 
