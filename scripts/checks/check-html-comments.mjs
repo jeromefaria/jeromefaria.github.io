@@ -1,8 +1,9 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 import { lineOf } from '../lib/text.mjs';
 
-const ALLOWED = /^(keep:\s*\S|!|\[if\s|stylelint-|eslint-|@ts-)/;
+export const ALLOWED = /^(keep:\s*\S|!|\[if\s|stylelint-|eslint-|@ts-)/;
 
 const sourceHtmlFiles = () => {
   const files = existsSync('index.html') ? ['index.html'] : [];
@@ -16,10 +17,10 @@ const sourceHtmlFiles = () => {
   return files;
 };
 
-const stripStrings = line =>
+export const stripStrings = line =>
   line.replace(/'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`/g, '');
 
-const collectComments = text => {
+export const collectComments = text => {
   const found = [];
 
   for (const match of text.matchAll(/<!--([\s\S]*?)-->/g)) {
@@ -51,21 +52,27 @@ const collectComments = text => {
   return found;
 };
 
-const files = sourceHtmlFiles();
-const violations = [];
+const main = () => {
+  const files = sourceHtmlFiles();
+  const violations = [];
 
-for (const file of files) {
-  const text = readFileSync(file, 'utf8');
-  for (const comment of collectComments(text)) {
-    if (ALLOWED.test(comment.body.trim())) continue;
-    violations.push(`${file}:${lineOf(text, comment.index)}  ${comment.body.trim().slice(0, 80)}`);
+  for (const file of files) {
+    const text = readFileSync(file, 'utf8');
+    for (const comment of collectComments(text)) {
+      if (ALLOWED.test(comment.body.trim())) continue;
+      violations.push(`${file}:${lineOf(text, comment.index)}  ${comment.body.trim().slice(0, 80)}`);
+    }
   }
-}
 
-if (violations.length > 0) {
-  console.error('HTML comments must be self-documenting. Justify a genuine exception with `<!-- keep: <reason> -->` (or `/* keep: … */` / `// keep: …` inside inline script/style):\n');
-  console.error(violations.map(entry => `  ${entry}`).join('\n'));
-  process.exit(1);
-}
+  if (violations.length > 0) {
+    console.error('HTML comments must be self-documenting. Justify a genuine exception with `<!-- keep: <reason> -->` (or `/* keep: … */` / `// keep: …` inside inline script/style):\n');
+    console.error(violations.map(entry => `  ${entry}`).join('\n'));
+    process.exit(1);
+  }
 
-console.log(`✓ HTML comments: ${files.length} file(s) scanned, no undocumented comments.`);
+  console.log(`✓ HTML comments: ${files.length} file(s) scanned, no undocumented comments.`);
+};
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
