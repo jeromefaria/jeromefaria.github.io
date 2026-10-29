@@ -7,6 +7,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Newsletter
 
+- **generate:** Cover the OG social-card builders ([#613](https://github.com/jeromefaria/jeromefaria.github.io/pull/613))
 - Sync public docs with current code ([#597](https://github.com/jeromefaria/jeromefaria.github.io/pull/597))
 - **visual:** Refresh privacy baseline for the newsletter disclosure sentence ([#596](https://github.com/jeromefaria/jeromefaria.github.io/pull/596))
 - **privacy:** Disclose owner notification on confirm/unsubscribe ([#594](https://github.com/jeromefaria/jeromefaria.github.io/pull/594))
