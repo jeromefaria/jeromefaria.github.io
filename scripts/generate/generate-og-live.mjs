@@ -15,7 +15,7 @@ const { venueLabel } = await loadSrc('utils/venueFormat.ts');
 const { cardColor: C, tracking: T, weight: W } = await loadSrc('design/tokens.ts');
 const fontFaces = await interFontFaces(root);
 
-const heroOf = event => {
+export const heroOf = event => {
   const images = event.images ?? [];
   if (images.length) return { hero: images.find(image => image.cover) ?? images[0], isPoster: false };
 
@@ -25,7 +25,7 @@ const heroOf = event => {
   return null;
 };
 
-const cardFraming = (hero, isPoster) => hero.cardThumb ?? (isPoster ? { position: 'center top' } : hero.thumb);
+export const cardFraming = (hero, isPoster) => hero.cardThumb ?? (isPoster ? { position: 'center top' } : hero.thumb);
 
 const heroDataUri = src => {
   const extension = src.split('.').pop().toLowerCase();
@@ -33,7 +33,7 @@ const heroDataUri = src => {
   return `data:${mime};base64,${readFileSync(join(root, 'public', src)).toString('base64')}`;
 };
 
-const heroStyle = thumb => {
+export const heroStyle = thumb => {
   if (!thumb) return '';
 
   const declarations = [];
@@ -48,15 +48,15 @@ const heroStyle = thumb => {
   return declarations.join(';');
 };
 
-const escapeHtml = value => value
+export const escapeHtml = value => value
   .replace(/&/g, '&amp;')
   .replace(/</g, '&lt;')
   .replace(/>/g, '&gt;');
 
-const eventMeta = (event, locale) =>
+export const eventMeta = (event, locale) =>
   `${venueLabel(event.venue, locale)} · ${formatEventDateRange(event.date, event.endDate, locale)}`;
 
-const cardHtml = (event, hero, isPoster, locale) => `<!doctype html><html><head><meta charset="utf-8"><style>
+export const cardHtml = (event, hero, isPoster, locale) => `<!doctype html><html><head><meta charset="utf-8"><style>
   ${fontFaces}
   * { margin: 0; padding: 0; box-sizing: border-box; }
   .card { position: relative; width: ${CARD_WIDTH}px; height: ${CARD_HEIGHT}px; overflow: hidden; background: ${C.bg}; font-family: 'Inter', sans-serif; }
