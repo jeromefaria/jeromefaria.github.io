@@ -30,6 +30,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Tests
 
+- **checks:** Cover the hreflang-parity and prerendered-route guards ([#616](https://github.com/jeromefaria/jeromefaria.github.io/pull/616))
 - **checks:** Cover the custom-property and html-comment guards ([#615](https://github.com/jeromefaria/jeromefaria.github.io/pull/615))
 - **checks:** Cover the people, registry-ref and token guards ([#614](https://github.com/jeromefaria/jeromefaria.github.io/pull/614))
 
