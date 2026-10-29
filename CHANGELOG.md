@@ -28,6 +28,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - **generate:** Testable PDF builders + shared run-as-main guard ([#612](https://github.com/jeromefaria/jeromefaria.github.io/pull/612))
 
+### Tests
+
+- **checks:** Cover the people, registry-ref and token guards ([#614](https://github.com/jeromefaria/jeromefaria.github.io/pull/614))
+
 ### Build & CI
 
 - Cap the Playwright browser install with a step-level timeout ([#609](https://github.com/jeromefaria/jeromefaria.github.io/pull/609))
