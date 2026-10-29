@@ -1,14 +1,12 @@
 import { join } from 'node:path';
-import { argv } from 'node:process';
-import { pathToFileURL } from 'node:url';
 
 import { epkRiderFile, locales, localize, outDir, pdfChrome, root, siteConfig, techRider } from '../lib/epk-context.mjs';
 import { baseStyles } from '../lib/pdf-styles.mjs';
-import { renderPdf, withBrowser } from '../lib/playwright-render.mjs';
+import { renderPdf, runAsMain } from '../lib/playwright-render.mjs';
 
 const styles = await baseStyles(root);
 
-const bullet = item =>
+export const bullet = item =>
   typeof item === 'string'
     ? `<div class="item">${item}</div>`
     : `<div class="item"><span class="lbl">${item.label}</span> — ${item.text}</div>`;
@@ -22,12 +20,12 @@ const timingTable = rows => `<table class="timing"><tbody>${rows
   .map(([stage, duration]) => `<tr><td>${stage}</td><td>${duration}</td></tr>`)
   .join('')}</tbody></table>`;
 
-const renderTable = (table, locale, chrome) => {
+export const renderTable = (table, locale, chrome) => {
   const rows = localize(table.rows, locale);
   return table.kind === 'input' ? inputTable(rows, chrome.inputHeaders) : timingTable(rows);
 };
 
-const section = (s, locale, chrome) => `<section>
+export const section = (s, locale, chrome) => `<section>
   <h2>${localize(s.title, locale)}</h2>
   ${s.body ? `<p class="body">${localize(s.body, locale)}</p>` : ''}
   ${s.bullets ? localize(s.bullets, locale).map(bullet).join('') : ''}
@@ -35,7 +33,7 @@ const section = (s, locale, chrome) => `<section>
   ${s.footnote ? `<p class="footnote">${localize(s.footnote, locale)}</p>` : ''}
 </section>`;
 
-const riderHtml = locale => {
+export const riderHtml = locale => {
   const chrome = pdfChrome[locale];
 
   return `<!doctype html><html><head><meta charset="utf-8"><style>
@@ -91,4 +89,4 @@ export const render = async browser => {
   }
 };
 
-if (pathToFileURL(argv[1]).href === import.meta.url) await withBrowser(render);
+await runAsMain(import.meta, render);

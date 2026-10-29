@@ -2,20 +2,18 @@ import { createWriteStream } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
-import { argv } from 'node:process';
-import { pathToFileURL } from 'node:url';
 
 import { contentFor, epkKitFile, localePath, locales, localeSuffix, localize, outDir, pdfChrome, photoDownloadFilename, photosDir, root, siteConfig, siteUrl } from '../lib/epk-context.mjs';
 import { baseStyles } from '../lib/pdf-styles.mjs';
-import { renderPdf, withBrowser } from '../lib/playwright-render.mjs';
+import { renderPdf, runAsMain } from '../lib/playwright-render.mjs';
 
 const archiver = createRequire(import.meta.url)('archiver');
 
 const styles = await baseStyles(root);
 
-const rows = items => items.map(item => `<div class="year">${item.year}</div><div>${item.body}</div>`).join('');
+export const rows = items => items.map(item => `<div class="year">${item.year}</div><div>${item.body}</div>`).join('');
 
-const bundleHtml = (locale, content) => {
+export const bundleHtml = (locale, content) => {
   const chrome = pdfChrome[locale];
   const link = path => `${siteUrl}${localePath(path, locale)}`;
 
@@ -107,4 +105,4 @@ export const render = async browser => {
   }
 };
 
-if (pathToFileURL(argv[1]).href === import.meta.url) await withBrowser(render);
+await runAsMain(import.meta, render);

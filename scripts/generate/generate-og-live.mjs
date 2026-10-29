@@ -1,11 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { argv } from 'node:process';
-import { pathToFileURL } from 'node:url';
 
 import { loadSrc, root } from '../lib/data-loader.mjs';
 import { interFontFaces } from '../lib/pdf-fonts.mjs';
-import { CARD_HEIGHT, CARD_WIDTH, renderCard, withBrowser } from '../lib/playwright-render.mjs';
+import { CARD_HEIGHT, CARD_WIDTH, renderCard, runAsMain } from '../lib/playwright-render.mjs';
 
 const LOCALES = ['en', 'pt'];
 const EYEBROW = { en: 'Live', pt: 'Ao vivo' };
@@ -104,4 +102,4 @@ export const render = async browser => {
   console.log(`Live event social cards → public/og-live-*.jpg (${count})`);
 };
 
-if (pathToFileURL(argv[1]).href === import.meta.url) await withBrowser(render);
+await runAsMain(import.meta, render);
