@@ -23,6 +23,10 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 - **seo:** Emit a full, clean description on every MusicEvent ([#595](https://github.com/jeromefaria/jeromefaria.github.io/pull/595))
 
+### Refactors
+
+- **generate:** Testable PDF builders + shared run-as-main guard ([#612](https://github.com/jeromefaria/jeromefaria.github.io/pull/612))
+
 ### Build & CI
 
 - Cap the Playwright browser install with a step-level timeout ([#609](https://github.com/jeromefaria/jeromefaria.github.io/pull/609))
