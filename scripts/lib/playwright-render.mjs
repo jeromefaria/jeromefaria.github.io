@@ -1,3 +1,6 @@
+import { argv } from 'node:process';
+import { pathToFileURL } from 'node:url';
+
 import { chromium } from '@playwright/test';
 
 export const CARD_WIDTH = 1200;
@@ -10,6 +13,10 @@ export const withBrowser = async run => {
   } finally {
     await browser.close();
   }
+};
+
+export const runAsMain = async (meta, render) => {
+  if (pathToFileURL(argv[1]).href === meta.url) await withBrowser(render);
 };
 
 export const renderCard = async (browser, { html, path, type = 'png', quality }) => {

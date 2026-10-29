@@ -1,11 +1,9 @@
 import { join } from 'node:path';
-import { argv } from 'node:process';
-import { pathToFileURL } from 'node:url';
 
 import { loadSrc } from '../lib/data-loader.mjs';
 import { contentFor, epkDossierFile, locales, localize, outDir, root, siteConfig, siteUrl } from '../lib/epk-context.mjs';
 import { baseStyles } from '../lib/pdf-styles.mjs';
-import { renderPdf, withBrowser } from '../lib/playwright-render.mjs';
+import { renderPdf, runAsMain } from '../lib/playwright-render.mjs';
 
 const { dossierManifest, dossierTimeline, dossierCompilations, dossierEngineering, dossierEntryKinds } = await loadSrc('data/dossier.ts');
 const { bios } = await loadSrc('data/bios.ts');
@@ -42,7 +40,7 @@ for (const locale of locales) {
   }
 }
 
-const groupByYear = entries => {
+export const groupByYear = entries => {
   const groups = new Map();
 
   for (const entry of entries) {
@@ -61,7 +59,7 @@ const featuredQuotes = dossierManifest.featuredPressIds
 const featuredSources = new Set(featuredQuotes.map(quote => quote.source));
 const alsoSources = [...new Set(pressQuotes.map(quote => quote.source))].filter(source => !featuredSources.has(source));
 
-const dossierHtml = locale => {
+export const dossierHtml = locale => {
   const labels = chrome[locale];
 
   const timeline = groupByYear(dossierTimeline)
@@ -139,4 +137,4 @@ export const render = async browser => {
   }
 };
 
-if (pathToFileURL(argv[1]).href === import.meta.url) await withBrowser(render);
+await runAsMain(import.meta, render);

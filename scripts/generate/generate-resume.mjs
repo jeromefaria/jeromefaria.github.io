@@ -1,21 +1,15 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { argv } from 'node:process';
-import { pathToFileURL } from 'node:url';
 
 import { marked } from 'marked';
 
 import { root } from '../lib/data-loader.mjs';
 import { baseStyles } from '../lib/pdf-styles.mjs';
-import { renderPdf, withBrowser } from '../lib/playwright-render.mjs';
+import { renderPdf, runAsMain } from '../lib/playwright-render.mjs';
 
 marked.setOptions({ gfm: true, breaks: true });
 
-const styles = await baseStyles(root);
-const source = readFileSync(join(root, 'content/resume.md'), 'utf8');
-const body = marked.parse(source);
-
-const resumeHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
+export const resumeHtml = (body, styles) => `<!doctype html><html><head><meta charset="utf-8"><style>
   ${styles}
   body { line-height: 1.35; }
   h1 { margin: 0 0 1px; }
@@ -34,12 +28,16 @@ const resumeHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
 </style></head><body>${body}</body></html>`;
 
 export const render = async browser => {
+  const styles = await baseStyles(root);
+  const source = readFileSync(join(root, 'content/resume.md'), 'utf8');
+  const body = marked.parse(source);
+
   await renderPdf(browser, {
-    html: resumeHtml,
+    html: resumeHtml(body, styles),
     path: join(root, 'public/jerome-faria-cv.pdf'),
     margin: { top: '14mm', bottom: '14mm', left: '16mm', right: '16mm' },
   });
   console.log('Résumé → public/jerome-faria-cv.pdf');
 };
 
-if (pathToFileURL(argv[1]).href === import.meta.url) await withBrowser(render);
+await runAsMain(import.meta, render);
