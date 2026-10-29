@@ -1,0 +1,60 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`dossierHtml > renders the English dossier document 1`] = `
+"<!doctype html><html><head><meta charset="utf-8"><style>
+  
+  body { font-size: 9.5pt; line-height: 1.45; }
+  header { border-bottom: 1px solid #ddd; padding-bottom: 8px; margin-bottom: 10px; }
+  .masthead-row { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; margin-top: 4px; }
+  .contact { font-size: 9pt; color: #666; }
+  .contact a { color: #1a1a1a; text-decoration: none; white-space: nowrap; }
+  section { margin-bottom: 14px; }
+  .keep { break-inside: avoid; }
+  h2 { margin: 0 0 6px; }
+  .prose p { margin: 0 0 7px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .timeline { margin-top: 8px; }
+  .group { display: grid; grid-template-columns: 2.6rem 1fr; gap: 10px; margin-bottom: 7px; break-inside: avoid; }
+  .year { color: #999; font-variant-numeric: tabular-nums; }
+  .items { display: flex; flex-direction: column; gap: 3px; }
+  .entry { display: grid; grid-template-columns: 7.5em 1fr; gap: 6px; align-items: baseline; font-size: 9pt; }
+  .tag { font-size: 6.5pt; text-transform: uppercase; letter-spacing: 0.07em; color: #999; white-space: nowrap; }
+  .detail { color: #555; }
+  .grid { display: grid; grid-template-columns: 2.6rem 1fr; gap: 4px 10px; font-size: 9pt; }
+  blockquote { margin: 0 0 8px; break-inside: avoid; }
+  blockquote cite { display: block; font-style: normal; font-size: 8pt; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 3px; }
+  .also { margin-top: 8px; font-size: 8.5pt; color: #666; }
+  .also .label { text-transform: uppercase; letter-spacing: 0.1em; font-size: 7.5pt; color: #999; }
+  .roster p { margin: 6px 0 0; line-height: 1.6; }
+  .roster a { color: #1a1a1a; text-decoration: underline; text-decoration-color: #ccc; text-underline-offset: 2px; }
+  .roster .sep { color: #999; margin: 0 5px; }
+</style></head><body>
+  <header>
+    <h1>Jerome Faria</h1>
+    <div class="masthead-row">
+      <div class="tagline">Sound Artist & Composer</div>
+      <div class="contact"><a href="https://jeromefaria.com">jeromefaria.com</a></div>
+    </div>
+  </header>
+  <section><h2>Biography</h2><div class="prose"><p>English press bio.</p></div></section>
+  <section><h2>Timeline</h2><div class="timeline"><div class="group">
+      <div class="year">2010</div>
+      <div class="items"><div class="entry"><span class="tag">Talk</span><span class="body"><strong>A Talk</strong> — <span class="detail">Porto</span></span></div></div>
+    </div><div class="group">
+      <div class="year">2012</div>
+      <div class="items"><div class="entry"><span class="tag">Workshop</span><span class="body"><strong>A Workshop</strong> — <span class="detail">Funchal workshop</span></span></div><div class="entry"><span class="tag">Installation</span><span class="body"><strong>Flow</strong> — <span class="detail">Software projection</span></span></div></div>
+    </div><div class="group">
+      <div class="year">2024</div>
+      <div class="items"><div class="entry"><span class="tag">Release</span><span class="body"><strong>2504</strong> — <span class="detail">BRØQN</span></span></div></div>
+    </div></div></section>
+  <section class="keep"><h2>Compilation appearances</h2><div class="grid"><div class="year">2007</div><div><strong>Crystal Space</strong> — <span class="detail">on Thisco</span></div></div></section>
+  <section class="keep"><h2>Mastering & engineering</h2><div class="grid"><div class="year">2025</div><div><strong>Overlapse XIII</strong> — <span class="detail">Mastering</span></div></div></section>
+  <section><h2>Selected press</h2>
+    <blockquote>Quote one.<cite>The Quietus</cite></blockquote><blockquote>Quote three.<cite>A Closer Listen</cite></blockquote>
+    <p class="also"><span class="label">Also written about in:</span> BodySpace</p>
+  </section>
+  <section class="roster keep"><h2>Shared stages</h2>
+    <p><a href="https://williambasinski.com">William Basinski</a><span class="sep">·</span>Taylor Deupree</p>
+  </section>
+</body></html>"
+`;

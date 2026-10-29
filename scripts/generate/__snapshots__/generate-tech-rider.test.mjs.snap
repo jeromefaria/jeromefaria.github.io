@@ -1,0 +1,64 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`riderHtml > renders the English technical rider document 1`] = `
+"<!doctype html><html><head><meta charset="utf-8"><style>
+  
+  body { line-height: 1.45; }
+  header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #ddd; padding-bottom: 12px; margin-bottom: 16px; }
+  .tagline { margin-top: 5px; }
+  .updated { text-transform: uppercase; letter-spacing: 0.1em; font-size: 7.5pt; color: #999; text-align: right; white-space: nowrap; }
+  .overview { margin: 0 0 10px; }
+  .summary { margin: 0 0 22px; padding: 12px 16px; background: #f6f6f6; }
+  section { margin-bottom: 22px; break-inside: avoid; }
+  h2 { margin: 0 0 9px; }
+  .body { margin: 0 0 8px; }
+  .item { position: relative; padding-left: 15px; margin-bottom: 6px; }
+  .item::before { content: '•'; position: absolute; left: 2px; color: #bbb; }
+  .item:last-child { margin-bottom: 0; }
+  .lbl { font-weight: 500; }
+  .footnote { font-size: 9pt; color: #666; margin: 8px 0 0; }
+  table.io { width: 100%; border-collapse: collapse; margin-top: 6px; border: 1px solid #ddd; }
+  table.io th { text-align: left; font-size: 7.5pt; text-transform: uppercase; letter-spacing: 0.08em; color: #666; font-weight: 500; padding: 6px 10px; background: #f6f6f6; border-bottom: 1px solid #ddd; }
+  table.io td { padding: 8px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
+  table.io td:first-child { font-weight: 500; white-space: nowrap; }
+  table.io tr:last-child td { border-bottom: none; }
+  table.timing { border-collapse: collapse; margin-top: 4px; }
+  table.timing td { padding: 4px 14px 4px 0; vertical-align: top; }
+  table.timing td:first-child { color: #555; font-weight: 500; white-space: nowrap; }
+  .footer { margin-top: 20px; padding-top: 12px; border-top: 1px solid #ddd; font-size: 9pt; color: #444; }
+  .footer a { color: #1a1a1a; text-decoration: none; }
+</style></head><body>
+  <header>
+    <div>
+      <h1>Jerome Faria</h1>
+      <div class="tagline">Sound Artist & Composer — Technical Rider</div>
+    </div>
+    <div class="updated">Updated March 2026</div>
+  </header>
+  <p class="overview">A compact solo setup.</p>
+  <div class="summary"><div class="item">Stereo DI out.</div><div class="item">Two power sockets.</div></div>
+  <section>
+  <h2>Stage</h2>
+  <p class="body">Body text.</p>
+  <div class="item">A plain bullet</div><div class="item"><span class="lbl">Power</span> — 230V</div>
+  
+  
+</section><section>
+  <h2>Inputs</h2>
+  
+  
+  <table class="io">
+  <thead><tr><th>Input</th><th>Format</th><th>Notes</th></tr></thead>
+  <tbody><tr><td>DI L/R</td><td>Mono</td><td>from mixer</td></tr></tbody>
+</table>
+  
+</section><section>
+  <h2>Timing</h2>
+  
+  
+  <table class="timing"><tbody><tr><td>Soundcheck</td><td>30 min</td></tr></tbody></table>
+  <p class="footnote">Subject to change.</p>
+</section>
+  <div class="footer">Technical questions ahead of a booking — <a href="mailto:booking@example.com">booking@example.com</a></div>
+</body></html>"
+`;
