@@ -75,7 +75,7 @@
     "unhead": "^2.1.13"
   },
   "dependencies": {
-    "marked": "^18.1.1",
+    "marked": "^18.1.2",
     "vue": "^3.5.44",
     "vue-i18n": "^11.4.16",
     "vue-router": "^5.4.0"
@@ -87,8 +87,8 @@
     "@fontsource/inter": "^5.3.0",
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.64.1",
-    "@types/node": "^26.6.5",
-    "@typescript-eslint/eslint-plugin": "^8.72.0",
+    "@types/node": "^26.6.6",
+    "@typescript-eslint/eslint-plugin": "^8.72.1",
     "@typescript-eslint/parser": "^8.51.0",
     "@vitejs/plugin-vue": "^6.0.10",
     "@vitest/coverage-v8": "^5.0.5",
@@ -96,17 +96,17 @@
     "@vue/test-utils": "^2.5.1",
     "archiver": "^7.0.1",
     "aws4fetch": "^1.0.20",
-    "eslint": "^10.13.0",
+    "eslint": "^10.14.0",
     "eslint-plugin-simple-import-sort": "^14.0.0",
-    "eslint-plugin-vue": "^10.11.1",
-    "exiftool-vendored": "^39.0.1",
+    "eslint-plugin-vue": "^10.12.0",
+    "exiftool-vendored": "^39.1.0",
     "fontkit": "^2.0.4",
     "git-cliff": "^2.14.2",
     "happy-dom": "^21.0.4",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
     "lint-staged": "^17.6.0",
-    "sass": "^1.106.1",
+    "sass": "^1.107.1",
     "sharp": "^0.35.5",
     "stylelint": "^17.16.0",
     "stylelint-config-recess-order": "^7.9.0",
@@ -118,6 +118,6 @@
     "vite-plugin-image-optimizer": "^2.0.3",
     "vite-ssg": "^28.3.0",
     "vitest": "^5.0.0",
-    "vue-tsc": "^3.3.13"
+    "vue-tsc": "^3.3.14"
   }
 }
