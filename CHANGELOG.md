@@ -36,6 +36,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Build & CI
 
+- **deps:** Bump the npm-minor-patch group across 1 directory with 9 updates ([#618](https://github.com/jeromefaria/jeromefaria.github.io/pull/618))
 - **deps-dev:** Bump the worker-minor-patch group ([#617](https://github.com/jeromefaria/jeromefaria.github.io/pull/617))
 - **deps:** Bump qs ([#610](https://github.com/jeromefaria/jeromefaria.github.io/pull/610))
 - Cap the Playwright browser install with a step-level timeout ([#609](https://github.com/jeromefaria/jeromefaria.github.io/pull/609))
