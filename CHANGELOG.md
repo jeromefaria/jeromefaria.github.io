@@ -36,6 +36,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Build & CI
 
+- **deps:** Bump the npm-minor-patch group with 13 updates ([#625](https://github.com/jeromefaria/jeromefaria.github.io/pull/625))
 - **deps-dev:** Bump the worker-minor-patch group ([#624](https://github.com/jeromefaria/jeromefaria.github.io/pull/624))
 - **deps:** Bump the npm-minor-patch group with 13 updates ([#622](https://github.com/jeromefaria/jeromefaria.github.io/pull/622))
 - **deps-dev:** Bump the worker-minor-patch group ([#621](https://github.com/jeromefaria/jeromefaria.github.io/pull/621))
