@@ -36,6 +36,7 @@ All notable changes since the Vue 3 rewrite. Versioned by CalVer (`YYYY.0M.patch
 
 ### Build & CI
 
+- **deps:** Adopt stylelint 18, moving the Node floor to 24 ([#628](https://github.com/jeromefaria/jeromefaria.github.io/pull/628))
 - **deps-dev:** Bump fontkit from 2.0.4 to 3.0.0 ([#626](https://github.com/jeromefaria/jeromefaria.github.io/pull/626))
 - **deps:** Bump the npm-minor-patch group with 13 updates ([#625](https://github.com/jeromefaria/jeromefaria.github.io/pull/625))
 - **deps-dev:** Bump the worker-minor-patch group ([#624](https://github.com/jeromefaria/jeromefaria.github.io/pull/624))
