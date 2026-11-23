@@ -4,7 +4,7 @@
   "description": "Jerome Faria - Sound Artist & Composer",
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "scripts": {
     "dev": "VITE_I18N=true vite",
@@ -108,9 +108,9 @@
     "lint-staged": "^17.6.0",
     "sass": "^1.108.2",
     "sharp": "^0.35.5",
-    "stylelint": "^17.16.0",
-    "stylelint-config-recess-order": "^7.10.0",
-    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint": "^18.1.0",
+    "stylelint-config-recess-order": "^7.10.1",
+    "stylelint-config-standard-scss": "^18.0.0",
     "stylelint-order": "^8.1.3",
     "subset-font": "^2.9.0",
     "typescript": "^5.9.3",
