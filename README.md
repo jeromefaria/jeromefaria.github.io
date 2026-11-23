@@ -182,7 +182,7 @@ Editing site content? See [`docs/CONTENT_MANAGEMENT.md`](docs/CONTENT_MANAGEMENT
 
 ## Development
 
-**Prerequisites:** Node.js **≥ 20** — pinned in `.nvmrc` (`nvm use`) and enforced by `package.json` `engines`.
+**Prerequisites:** Node.js **≥ 22** — pinned in `.nvmrc` (`nvm use`, currently 24) and enforced by `package.json` `engines`.
 
 ```bash
 # Install dependencies
